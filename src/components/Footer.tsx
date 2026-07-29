@@ -31,7 +31,7 @@ export default function Footer() {
         {/* Brand Section */}
         <div style={{ flex: '1 1 300px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
-            <img src="/lapd-logo.jpg" alt="LAC Logo" style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover', boxShadow: '0 0 10px rgba(59, 130, 246, 0.3)' }} />
+            <img src="/lapd-logo.png" alt="LAC Logo" style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover', boxShadow: '0 0 10px rgba(59, 130, 246, 0.3)' }} />
             <h2 style={{ 
               margin: 0, 
               fontSize: '2rem', 

@@ -43,7 +43,7 @@ export default function Navigation() {
         <Link href="/" style={{ textDecoration: 'none' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', width: '250px', cursor: 'pointer' }}>
             <div style={{ position: 'relative' }}>
-              <img src="/lapd-logo.jpg" alt="LAC Logo" style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover', position: 'relative', zIndex: 1 }} />
+              <img src="/lapd-logo.png" alt="LAC Logo" style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover', position: 'relative', zIndex: 1 }} />
               <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, borderRadius: '50%', boxShadow: '0 0 15px rgba(59, 130, 246, 0.8)', animation: 'pulse-blip 3s infinite' }}></div>
             </div>
             <h1 style={{ 

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const DEPARTMENTS = [
@@ -118,6 +119,24 @@ export default function ResponsiveSplitScreenLogin() {
       fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
       color: '#ffffff'
     }}>
+      {/* Return Home Button */}
+      <Link href="/" style={{
+        position: 'absolute', top: '1.5rem', left: '1.5rem', zIndex: 50,
+        display: 'flex', alignItems: 'center', gap: '0.5rem',
+        padding: '0.6rem 1rem', borderRadius: '8px',
+        backgroundColor: 'rgba(10, 14, 26, 0.7)', backdropFilter: 'blur(10px)',
+        border: '1px solid rgba(255, 255, 255, 0.1)',
+        color: '#94a3b8', fontSize: '0.85rem', fontWeight: 600,
+        textDecoration: 'none', transition: 'all 0.2s ease',
+        boxShadow: '0 4px 15px rgba(0,0,0,0.3)'
+      }}
+      onMouseOver={e => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)'; e.currentTarget.style.backgroundColor = 'rgba(10, 14, 26, 0.9)'; }}
+      onMouseOut={e => { e.currentTarget.style.color = '#94a3b8'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'; e.currentTarget.style.backgroundColor = 'rgba(10, 14, 26, 0.7)'; }}
+      >
+        <i className="fa-solid fa-arrow-left"></i>
+        Ana Sayfaya Dön
+      </Link>
+
       <style jsx global>{`
         /* Hide scrollbars across login viewport to ensure 100% fit without jumping */
         body, html {
@@ -219,7 +238,7 @@ export default function ResponsiveSplitScreenLogin() {
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
             }}>
-              <img src="/lapd-logo.jpg" alt="LAC" style={{ width: '24px', height: '24px', borderRadius: '50%' }} />
+              <img src="/lapd-logo.png" alt="LAC" style={{ width: '24px', height: '24px', borderRadius: '50%' }} />
             </div>
             <div>
               <span style={{ fontSize: '0.88rem', fontWeight: 800, letterSpacing: '0.08em', color: '#ffffff', fontFamily: "'Oswald', sans-serif" }}>

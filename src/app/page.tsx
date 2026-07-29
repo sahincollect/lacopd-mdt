@@ -404,7 +404,7 @@ export default function Home() {
                   style={{ textAlign: 'center', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '5rem' }}
                 >
                   <img 
-                    src="/lapd-logo.jpg" 
+                    src="/lapd-logo.png" 
                     alt="LAC Seal" 
                     style={{ 
                       width: 140, height: 140, borderRadius: '50%', marginBottom: '2.5rem', 
@@ -588,7 +588,7 @@ export default function Home() {
                           animation: 'spin 6s linear infinite',
                           opacity: 0.6,
                         }} />
-                        <img src="/lapd-logo.jpg" alt="LACO MDT" style={{
+                        <img src="/lapd-logo.png" alt="LACO MDT" style={{
                           width: 80, height: 80, borderRadius: '50%', objectFit: 'cover',
                           position: 'relative', zIndex: 1,
                           border: '3px solid rgba(10,15,35,1)',

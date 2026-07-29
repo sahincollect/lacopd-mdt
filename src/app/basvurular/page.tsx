@@ -96,7 +96,7 @@ export default function BasvurularPage() {
         }}
       >
         <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.75rem", textDecoration: "none" }}>
-          <img src="/lapd-logo.jpg" alt="LAC" style={{ width: "36px", height: "36px", borderRadius: "50%", border: "1px solid rgba(14,165,233,0.4)" }} />
+          <img src="/lapd-logo.png" alt="LAC" style={{ width: "36px", height: "36px", borderRadius: "50%", border: "1px solid rgba(14,165,233,0.4)" }} />
           <span style={{ color: "#f8fafc", fontWeight: 700, fontSize: "1rem", letterSpacing: "0.05em" }}>LAC</span>
         </Link>
         <Link

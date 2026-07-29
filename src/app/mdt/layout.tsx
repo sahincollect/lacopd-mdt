@@ -101,7 +101,7 @@ export default function MDTLayout({
             boxShadow: '0 0 10px rgba(255, 255, 255, 0.1)',
             flexShrink: 0
           }}>
-            <img src="/lapd-logo.jpg" alt="LAC Official Seal" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <img src="/lapd-logo.png" alt="LAC Official Seal" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
           <div>
             <div style={{ fontSize: '1.2rem', fontWeight: 900, color: '#ffffff', letterSpacing: '0.06em', fontFamily: "'Oswald', sans-serif" }}>

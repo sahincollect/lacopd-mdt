@@ -440,7 +440,7 @@ export default function PersonelListesi() {
                           {officer.profileImage ? (
                             <img src={officer.profileImage} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                           ) : (
-                            <img src="/lapd-logo.jpg" alt="LAC Logo" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.3, filter: 'grayscale(100%)' }} />
+                            <img src="/lapd-logo.png" alt="LAC Logo" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.3, filter: 'grayscale(100%)' }} />
                           )}
                         </div>
                         {/* Status Blip */}
