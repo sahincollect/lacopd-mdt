@@ -65,7 +65,7 @@ export default function Hakkimizda() {
       ranks: [
         { title: "Officer III", icon: "fa-shield-halved", desc: "Kıdemli devriye memurları ve saha eğitmenleri." },
         { title: "Officer II", icon: "fa-shield", desc: "Bağımsız devriye atanabilen standart saha memurları." },
-        { title: "Officer I", icon: "fa-user-check", desc: "Saha eğitim sürecindeki (FTO) yeni veya stajyer memurlar." }
+        { title: "Cadet", icon: "fa-user-check", desc: "Saha eğitim sürecindeki (FTO) yeni veya stajyer memurlar." }
       ]
     }
   ];
@@ -171,48 +171,6 @@ export default function Hakkimizda() {
         </motion.div>
       </motion.section>
 
-      {/* ── SOSYAL SORUMLULUK (MEHMETÇİK VAKFI) ── */}
-      <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer} style={{ maxWidth: '1000px', margin: '5rem auto 0', padding: '0 2rem' }}>
-        <motion.div variants={fadeUp} style={{ 
-          backgroundColor: 'white', 
-          border: '1px solid var(--lapd-border)',
-          borderTop: '4px solid #E30A17',
-          padding: '4rem 3rem', 
-          display: 'flex', 
-          flexDirection: 'column', 
-          alignItems: 'center',
-          textAlign: 'center',
-          boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
-        }}>
-          
-          {/* TÜRK BAYRAĞI */}
-          <div style={{ 
-            width: '100px', height: '100px', 
-            borderRadius: '50%', 
-            backgroundColor: '#fef2f2', 
-            border: '3px solid #fca5a5',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', 
-            marginBottom: '2rem',
-            overflow: 'hidden',
-            boxShadow: '0 4px 10px rgba(227, 10, 23, 0.2)'
-          }}>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Turkey.svg" alt="Türk Bayrağı" style={{ width: '150%', height: '150%', objectFit: 'cover' }} />
-          </div>
-
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', lineHeight: 1.2, marginBottom: '1.5rem', letterSpacing: '-0.02em' }}>
-            BİZİM İÇİN <span style={{ color: '#E30A17' }}>VATAN</span>, HER ŞEYDEN ÖNCE GELİR
-          </h2>
-          
-          <p style={{ color: 'var(--lapd-text-dark)', fontSize: '1.1rem', lineHeight: 1.8, maxWidth: '800px', margin: '0 auto 2rem' }}>
-            Los Angeles sokaklarında adaleti sağlarken, kalbimiz her daim anavatanımızla atıyor. Departmanımızda toplanan fonlar ve personellerimizin gönüllü katkılarıyla, <strong>her ay düzenli olarak TSK Mehmetçik Vakfı'na</strong> bağışta bulunmaktan büyük bir onur duyuyoruz.
-          </p>
-
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '1rem', backgroundColor: 'var(--lapd-gray-bg)', padding: '0.8rem 1.5rem', border: '1px solid var(--lapd-border)' }}>
-            <i className="fa-solid fa-hand-holding-heart" style={{ color: '#E30A17', fontSize: '1.2rem' }}></i>
-            <span style={{ color: 'var(--lapd-text-dark)', fontWeight: 600, fontSize: '0.95rem' }}>Şehit ve gazi ailelerimizin daima yanındayız.</span>
-          </div>
-        </motion.div>
-      </motion.section>
 
       {/* ── CTA ── */}
       <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer} style={{ textAlign: 'center', marginTop: '6rem', padding: '0 2rem' }}>
