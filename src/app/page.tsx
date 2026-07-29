@@ -1,8 +1,39 @@
 "use client";
 
+import { useState } from 'react';
 import Link from 'next/link';
 
+const searchIndex = [
+  { title: 'Personel Girişi', keywords: ['giriş', 'login', 'personel', 'admin', 'panel'], path: '/login' },
+  { title: 'Biz Kimiz?', keywords: ['biz kimiz', 'hakkımızda', 'about', 'lapd', 'tarihçe', 'şef', 'vizyon', 'misyon'], path: '/hakkimizda' },
+  { title: 'Galeri', keywords: ['galeri', 'fotoğraflar', 'medya', 'resimler', 'operasyonlar'], path: '/galeri' },
+  { title: 'Haberler', keywords: ['haberler', 'news', 'duyurular', 'son dakika', 'bülten'], path: '/haberler' },
+  { title: 'Kariyer Olanakları', keywords: ['kariyer', 'iş', 'başvuru', 'olanaklar', 'maaş', 'şartlar'], path: '/kariyer' },
+  { title: 'Akademi Başvurusu', keywords: ['akademi', 'başvuru', 'form', 'öğrenci', 'memur', 'polis'], path: '/basvurular/memur' },
+  { title: 'Sivil Biniş (Ride-Along)', keywords: ['sivil biniş', 'ride along', 'ride-along', 'devriye', 'araç'], path: '/basvurular/ride-along' },
+  { title: 'Şikayet Formu', keywords: ['şikayet', 'ihbar', 'rapor', 'suç', 'memur şikayet'], path: '/basvurular/sikayet' },
+  { title: 'Arama Kurtarma', keywords: ['arama kurtarma', 'rescue', 'yardım', 'hava', 'deniz'], path: '/kariyer' }
+];
+
 export default function Home() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<{title: string, path: string}[]>([]);
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    if (query.length > 1) {
+      const lowerQ = query.toLowerCase();
+      const results = searchIndex.filter(item => 
+        item.title.toLowerCase().includes(lowerQ) || 
+        item.keywords.some(k => k.toLowerCase().includes(lowerQ))
+      );
+      setSearchResults(results);
+    } else {
+      setSearchResults([]);
+    }
+  };
+
   return (
     <div style={{ backgroundColor: 'var(--lapd-bg)', color: 'var(--lapd-text-dark)', fontFamily: 'var(--font-inter)' }}>
       
@@ -22,7 +53,7 @@ export default function Home() {
           To Protect and to Serve
         </h1>
 
-        {/* SEARCH BAR (Absolute positioned overflowing into images) */}
+        {/* SEARCH BAR (Dynamic Search component) */}
         <div style={{ 
           position: 'absolute', 
           bottom: '-25px', 
@@ -31,20 +62,48 @@ export default function Home() {
           backgroundColor: 'var(--bg-secondary)', 
           border: '1px solid var(--border-light)',
           display: 'flex', 
-          alignItems: 'center', 
-          padding: '0.8rem 1.2rem',
-          zIndex: 10,
-          boxShadow: '0 4px 6px rgba(0,0,0,0.05)'
+          flexDirection: 'column',
+          zIndex: 100,
+          boxShadow: '0 4px 6px rgba(0,0,0,0.05)',
+          borderRadius: '4px'
         }}>
-          <i className="fa-solid fa-magnifying-glass" style={{ color: 'var(--accent-secondary)', fontSize: '1.2rem', marginRight: '10px' }}></i>
-          <form action="/arama" style={{ width: '100%', display: 'flex' }}>
+          <div style={{ display: 'flex', alignItems: 'center', padding: '0.8rem 1.2rem' }}>
+            <i className="fa-solid fa-magnifying-glass" style={{ color: 'var(--accent-secondary)', fontSize: '1.2rem', marginRight: '10px' }}></i>
             <input 
               type="text" 
-              name="q"
-              placeholder="Ne aramıştınız?" 
+              placeholder="Ne aramıştınız? (Örn: Akademi, Haberler)" 
+              value={searchQuery}
+              onChange={handleSearch}
               style={{ border: 'none', outline: 'none', width: '100%', fontSize: '1rem', color: 'var(--text-primary)', backgroundColor: 'transparent' }} 
             />
-          </form>
+          </div>
+          
+          {searchResults.length > 0 && (
+            <div style={{ 
+              borderTop: '1px solid var(--border-light)',
+              maxHeight: '200px',
+              overflowY: 'auto',
+              backgroundColor: 'var(--bg-secondary)'
+            }}>
+              {searchResults.map((res, i) => (
+                <Link key={i} href={res.path} style={{
+                  display: 'block',
+                  padding: '0.8rem 1.2rem',
+                  color: 'var(--text-primary)',
+                  textDecoration: 'none',
+                  borderBottom: '1px solid var(--border-light)',
+                  fontSize: '0.9rem',
+                  fontWeight: 500,
+                  transition: 'background-color 0.2s'
+                }}
+                onMouseOver={e => e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)'}
+                onMouseOut={e => e.currentTarget.style.backgroundColor = 'transparent'}
+                >
+                  {res.title}
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

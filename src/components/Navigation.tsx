@@ -222,13 +222,6 @@ export default function Navigation() {
             >
               PERSONEL GİRİŞİ
             </Link>
-            
-            <button style={{ 
-              background: 'none', border: 'none', cursor: 'pointer', 
-              color: 'var(--lapd-text-dark)', fontSize: '1.1rem' 
-            }}>
-              <i className="fa-solid fa-magnifying-glass"></i>
-            </button>
           </div>
 
         </div>
