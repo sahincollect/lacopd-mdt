@@ -37,11 +37,7 @@
   to   { transform: translateX(300%); }
 }
 
-/* Ensure conic-gradient, backdrop-filter work cross-browser */
-* {
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
+/* Only apply backface-visibility to animated containers, NOT globally (causes text flicker) */
 
 html {
   font-size: 90%;
