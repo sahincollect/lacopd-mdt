@@ -30,45 +30,42 @@ export default function Hakkimizda() {
       color: "var(--lapd-blue-dark)",
       bg: "white",
       ranks: [
-        { title: "Community Lead", icon: "fa-star", desc: "Topluluğun kurucusu ve nihai karar mercii." }
+        { title: "Sergeant II", icon: "fa-star", desc: "Topluluk Lideri (Community Lead) - Departmanın kurucusu ve nihai karar mercii." }
       ]
     },
     {
-      tier: "YÜKSEK KOMUTA (HIGH COMMAND)",
+      tier: "ÜST DÜZEY YÖNETİM",
       color: "var(--lapd-blue)",
       bg: "#f0f4f8",
       ranks: [
-        { title: "Chief of Police", icon: "fa-star", desc: "Departmanın en yetkili memuru, vizyon ve stratejiyi belirler." },
-        { title: "Assistant Chief", icon: "fa-star-half-stroke", desc: "Şefin sağ kolu, büroların denetiminden sorumludur." },
-        { title: "Deputy Chief", icon: "fa-shield-halved", desc: "Büro yöneticileri ve üst düzey operasyon amirleridir." }
+        { title: "Detective III", icon: "fa-user-shield", desc: "Büro yöneticileri ve üst düzey operasyon amirleri." }
       ]
     },
     {
-      tier: "KOMUTA KADEMESİ (COMMAND STAFF)",
+      tier: "DENETLEYİCİ KADEME",
       color: "var(--lapd-orange)",
       bg: "#fffaf0",
       ranks: [
-        { title: "Commander", icon: "fa-certificate", desc: "Bölge veya büyük grupların yöneticiliğini üstlenir." },
-        { title: "Captain", icon: "fa-medal", desc: "İstasyonların ve belirli departman birimlerinin komutanları." }
+        { title: "Sergeant I", icon: "fa-chevron-up", desc: "Vardiya amirleri ve sahadaki doğrudan denetleyiciler." }
       ]
     },
     {
-      tier: "DENETLEYİCİ KADEME (SUPERVISORY STAFF)",
+      tier: "SORUŞTURMA & UZMAN PERSONEL",
       color: "var(--lapd-text-dark)",
       bg: "#f9fafb",
       ranks: [
-        { title: "Lieutenant", icon: "fa-id-badge", desc: "Vardiya amirleri ve operasyon yöneticileridir." },
-        { title: "Sergeant", icon: "fa-chevron-up", desc: "Sahadaki liderler, personelin doğrudan denetleyicileri." }
+        { title: "Detective II", icon: "fa-magnifying-glass", desc: "Kıdemli dedektifler ve uzman soruşturmacılar." },
+        { title: "Detective I", icon: "fa-user-secret", desc: "Saha soruşturmaları ve sivil operasyon personeli." }
       ]
     },
     {
-      tier: "SAHA PERSONELİ (FIELD STAFF)",
+      tier: "SAHA PERSONELİ (PATROL)",
       color: "var(--lapd-text-muted)",
       bg: "white",
       ranks: [
-        { title: "Detective", icon: "fa-user-secret", desc: "Soruşturma ve sivil saha operasyonları uzmanları." },
-        { title: "Officer", icon: "fa-user-shield", desc: "Sahadaki ilk müdahale ekibi, devriye memurları." },
-        { title: "Cadet", icon: "fa-user", desc: "Akademi sürecindeki aday memurlar." }
+        { title: "Officer III", icon: "fa-shield-halved", desc: "Kıdemli devriye memurları ve saha eğitmenleri." },
+        { title: "Officer II", icon: "fa-shield", desc: "Bağımsız devriye atanabilen standart saha memurları." },
+        { title: "Officer I", icon: "fa-user-check", desc: "Saha eğitim sürecindeki (FTO) yeni veya stajyer memurlar." }
       ]
     }
   ];
