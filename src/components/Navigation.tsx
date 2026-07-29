@@ -183,7 +183,7 @@ export default function Navigation() {
                           transition: 'background-color 0.2s, color 0.2s'
                         }}
                         onMouseOver={e => {
-                          e.currentTarget.style.backgroundColor = 'var(--lapd-gray-bg)';
+                          e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)';
                           e.currentTarget.style.color = 'var(--lapd-orange)';
                         }}
                         onMouseOut={e => {

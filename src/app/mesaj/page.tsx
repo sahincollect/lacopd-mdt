@@ -7,7 +7,7 @@ export default function MessagePage() {
     <div style={{ backgroundColor: 'var(--lapd-bg)', color: 'var(--lapd-text-dark)', fontFamily: 'var(--font-inter)', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       
       {/* ── HEADER BREADCRUMB ── */}
-      <div style={{ backgroundColor: '#F0F4F4', padding: '1rem 2rem', borderBottom: '1px solid var(--lapd-border)' }}>
+      <div style={{ backgroundColor: 'var(--bg-secondary)', padding: '1rem 2rem', borderBottom: '1px solid var(--lapd-border)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', fontSize: '0.85rem', color: 'var(--lapd-text-muted)' }}>
           <Link href="/" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Ana Sayfa</Link> &nbsp;&gt;&nbsp; 
           <span style={{ color: 'var(--lapd-orange)' }}>Community Lead'den Mesaj</span>
@@ -20,9 +20,9 @@ export default function MessagePage() {
         {/* Left Side: Photo & Info */}
         <div style={{ flex: '0 0 350px' }}>
           <img src="/chief.png" alt="Community Lead" style={{ width: '100%', border: '1px solid var(--lapd-border)', boxShadow: '0 10px 20px rgba(0,0,0,0.05)' }} />
-          <div style={{ backgroundColor: 'var(--lapd-blue-dark)', color: 'white', padding: '1.5rem', marginTop: '-5px' }}>
+          <div style={{ backgroundColor: 'var(--accent-primary)', color: 'var(--bg-primary)', padding: '1.5rem', marginTop: '-5px' }}>
             <h3 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 800 }}>Ador Vance</h3>
-            <p style={{ margin: '0.5rem 0 0', fontSize: '0.9rem', color: 'rgba(255,255,255,0.7)' }}>Community Lead, Los Angeles Community</p>
+            <p style={{ margin: '0.5rem 0 0', fontSize: '0.9rem', color: 'var(--bg-primary)', opacity: 0.7 }}>Community Lead, Los Angeles Community</p>
           </div>
           
           <div style={{ border: '1px solid var(--lapd-border)', padding: '1.5rem', marginTop: '2rem' }}>

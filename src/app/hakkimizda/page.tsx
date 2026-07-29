@@ -73,7 +73,7 @@ export default function Hakkimizda() {
     <div style={{ backgroundColor: 'var(--lapd-bg)', color: 'var(--lapd-text-dark)', fontFamily: 'var(--font-inter)', minHeight: '100vh', paddingBottom: '5rem' }}>
       
       {/* ── HEADER BREADCRUMB ── */}
-      <div style={{ backgroundColor: '#F0F4F4', padding: '1rem 2rem', borderBottom: '1px solid var(--lapd-border)' }}>
+      <div style={{ backgroundColor: 'var(--bg-secondary)', padding: '1rem 2rem', borderBottom: '1px solid var(--lapd-border)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', fontSize: '0.85rem', color: 'var(--lapd-text-muted)' }}>
           <Link href="/" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Ana Sayfa</Link> &nbsp;&gt;&nbsp; 
           <span style={{ color: 'var(--lapd-orange)' }}>Biz Kimiz?</span>
@@ -82,7 +82,7 @@ export default function Hakkimizda() {
 
       {/* ── Hero ── */}
       <section style={{ position: 'relative', height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', borderBottom: '1px solid var(--lapd-border)', backgroundImage: 'url("/gallery/saspbenz.png")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
-        <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(255,255,255,0.9)' }} />
+        <div style={{ position: 'absolute', inset: 0, backgroundColor: 'var(--bg-secondary)', opacity: 0.9 }} />
         <div style={{ position: 'relative', zIndex: 1, maxWidth: '900px', padding: '0 2rem' }}>
           <h1 style={{ fontFamily: 'var(--font-inter)', fontSize: '3.5rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', marginBottom: '1.5rem', letterSpacing: '-0.02em' }}>
             BİZ KİMİZ?
@@ -107,7 +107,7 @@ export default function Hakkimizda() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
           {divisions.map(div => (
             <div key={div.id} style={{ 
-              backgroundColor: 'white', border: '1px solid var(--lapd-border)', padding: '2rem', display: 'flex', flexDirection: 'column',
+              backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--lapd-border)', padding: '2rem', display: 'flex', flexDirection: 'column',
               boxShadow: '0 4px 6px rgba(0,0,0,0.02)', transition: 'transform 0.2s, box-shadow 0.2s', cursor: 'default'
             }}
             onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.boxShadow = '0 10px 20px rgba(0,0,0,0.08)'; }}
@@ -127,7 +127,7 @@ export default function Hakkimizda() {
 
       {/* ── Komuta Kademesi Org Chart ── */}
       <section style={{ maxWidth: '1000px', margin: '5rem auto 0', padding: '0 2rem' }}>
-        <div style={{ backgroundColor: 'white', border: '1px solid var(--lapd-border)', padding: '3rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+        <div style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--lapd-border)', padding: '3rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
 
           <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
             <h2 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', lineHeight: 1, marginBottom: '1rem' }}>

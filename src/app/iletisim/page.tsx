@@ -21,7 +21,7 @@ export default function IletisimPage() {
     <div style={{ backgroundColor: 'var(--lapd-bg)', minHeight: '100vh', paddingBottom: '4rem', fontFamily: 'var(--font-inter)' }}>
       
       {/* ── HEADER BREADCRUMB ── */}
-      <div style={{ backgroundColor: '#F0F4F4', padding: '1rem 2rem', borderBottom: '1px solid var(--lapd-border)' }}>
+      <div style={{ backgroundColor: 'var(--bg-secondary)', padding: '1rem 2rem', borderBottom: '1px solid var(--lapd-border)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', fontSize: '0.85rem', color: 'var(--lapd-text-muted)' }}>
           <Link href="/" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Ana Sayfa</Link> &nbsp;&gt;&nbsp; 
           <span style={{ color: 'var(--lapd-orange)' }}>Departman İletişimi</span>
@@ -43,7 +43,7 @@ export default function IletisimPage() {
           
           {/* ── LEFT: CONTACT INFO ── */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-            <div style={{ backgroundColor: 'white', padding: '2rem', border: '1px solid var(--lapd-border)', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}>
+            <div style={{ backgroundColor: 'var(--bg-secondary)', padding: '2rem', border: '1px solid var(--lapd-border)', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '1.5rem' }}>
                 <div style={{ width: '50px', height: '50px', backgroundColor: 'rgba(232, 79, 42, 0.1)', color: 'var(--lapd-orange)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>
                   <i className="fa-solid fa-building-shield"></i>
@@ -60,7 +60,7 @@ export default function IletisimPage() {
               </p>
             </div>
 
-            <div style={{ backgroundColor: 'white', padding: '2rem', border: '1px solid var(--lapd-border)', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}>
+            <div style={{ backgroundColor: 'var(--bg-secondary)', padding: '2rem', border: '1px solid var(--lapd-border)', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}>
                <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '1.5rem' }}>
                 <div style={{ width: '50px', height: '50px', backgroundColor: 'rgba(4, 22, 50, 0.1)', color: 'var(--lapd-blue-dark)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>
                   <i className="fa-solid fa-phone-volume"></i>
@@ -84,12 +84,12 @@ export default function IletisimPage() {
           </div>
 
           {/* ── RIGHT: CONTACT FORM ── */}
-          <div style={{ backgroundColor: 'white', padding: '3rem', border: '1px solid var(--lapd-border)', borderRadius: '8px', boxShadow: '0 10px 25px rgba(0,0,0,0.03)' }}>
+          <div style={{ backgroundColor: 'var(--bg-secondary)', padding: '3rem', border: '1px solid var(--lapd-border)', borderRadius: '8px', boxShadow: '0 10px 25px rgba(0,0,0,0.03)' }}>
             <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', margin: '0 0 0.5rem' }}>Çevrimiçi İletişim Formu</h2>
             <p style={{ fontSize: '0.9rem', color: 'var(--lapd-text-muted)', marginBottom: '2rem' }}>Acil olmayan konulardaki sorularınız veya bilgi talepleriniz için lütfen aşağıdaki formu eksiksiz doldurun. Talepleriniz 48 iş saati içerisinde değerlendirilecektir.</p>
             
             {status === 'success' ? (
-              <div style={{ backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0', color: '#166534', padding: '1.5rem', borderRadius: '8px', textAlign: 'center' }}>
+              <div style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid #bbf7d0', color: '#166534', padding: '1.5rem', borderRadius: '8px', textAlign: 'center' }}>
                 <i className="fa-solid fa-circle-check" style={{ fontSize: '2rem', marginBottom: '1rem' }}></i>
                 <h3 style={{ margin: '0 0 0.5rem', fontWeight: 800 }}>Mesajınız İletildi</h3>
                 <p style={{ margin: 0, fontSize: '0.9rem' }}>İletişim talebiniz departmanımıza başarıyla ulaştı. En kısa sürede tarafınıza dönüş sağlanacaktır.</p>
@@ -110,7 +110,7 @@ export default function IletisimPage() {
 
                 <div>
                   <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: 'var(--lapd-text-dark)', marginBottom: '0.5rem', textTransform: 'uppercase' }}>Konu <span style={{color:'var(--lapd-orange)'}}>*</span></label>
-                  <select required value={formData.subject} onChange={e => setFormData({...formData, subject: e.target.value})} style={{ width: '100%', padding: '0.9rem', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '0.9rem', outline: 'none', backgroundColor: 'white', cursor: 'pointer' }}>
+                  <select required value={formData.subject} onChange={e => setFormData({...formData, subject: e.target.value})} style={{ width: '100%', padding: '0.9rem', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '0.9rem', outline: 'none', backgroundColor: 'var(--bg-secondary)', cursor: 'pointer' }}>
                     <option value="">Lütfen seçiniz</option>
                     <option value="bilgi">Genel Bilgi Talebi</option>
                     <option value="basin">Basın / Medya İletişimi</option>
@@ -126,7 +126,7 @@ export default function IletisimPage() {
 
                 <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '0.5rem' }}>
                   <button type="submit" disabled={status === 'loading'} style={{
-                    padding: '1rem 2rem', backgroundColor: 'var(--lapd-blue-dark)', color: 'white',
+                    padding: '1rem 2rem', backgroundColor: 'var(--lapd-blue-dark)', color: 'var(--bg-primary)',
                     border: 'none', borderRadius: '6px', fontSize: '0.9rem', fontWeight: 800,
                     cursor: status === 'loading' ? 'not-allowed' : 'pointer', transition: 'background-color 0.2s',
                     opacity: status === 'loading' ? 0.7 : 1, display: 'flex', alignItems: 'center', gap: '8px'

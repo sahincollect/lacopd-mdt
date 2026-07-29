@@ -96,7 +96,7 @@ export default function Home() {
       {/* ── QUICKLINKS ── */}
       <section style={{ maxWidth: '1200px', margin: '4rem auto', padding: '0 2rem' }}>
         <h3 style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '1rem' }}>HIZLI BAĞLANTILAR</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', border: '1px solid var(--lapd-border)', backgroundColor: 'white' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', border: '1px solid var(--lapd-border)', backgroundColor: 'var(--bg-secondary)' }}>
           {[
             { icon: 'fa-users', label: 'Biz Kimiz?', href: '/hakkimizda' },
             { icon: 'fa-images', label: 'Galeri', href: '/galeri' },
@@ -108,10 +108,10 @@ export default function Home() {
             <Link href={item.href} key={idx} style={{ 
               display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', 
               padding: '2rem 1rem', borderRight: idx !== 5 ? '1px solid var(--lapd-border)' : 'none',
-              textAlign: 'center', cursor: 'pointer', transition: 'background-color 0.2s', textDecoration: 'none', color: 'inherit'
+              textAlign: 'center', cursor: 'pointer', transition: 'background-color 0.2s', textDecoration: 'none', color: 'var(--text-primary)'
             }}
-            onMouseOver={e => e.currentTarget.style.backgroundColor = 'var(--lapd-gray-bg)'}
-            onMouseOut={e => e.currentTarget.style.backgroundColor = 'white'}
+            onMouseOver={e => e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)'}
+            onMouseOut={e => e.currentTarget.style.backgroundColor = 'transparent'}
             >
               <i className={`fa-solid ${item.icon}`} style={{ fontSize: '1.8rem', color: 'var(--lapd-blue-dark)', marginBottom: '1rem' }}></i>
               <span style={{ fontSize: '0.8rem', fontWeight: 500 }}>{item.label}</span>
