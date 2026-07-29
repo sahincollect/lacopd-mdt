@@ -57,51 +57,7 @@ export default function HaberlerPage() {
   return (
     <div style={{ backgroundColor: 'white', color: '#111', fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif', minHeight: '100vh' }}>
       
-      {/* ── CNN STYLE HEADER ── */}
-      <header style={{ backgroundColor: 'black', padding: '15px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #333' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-          {/* Menu Icon */}
-          <div style={{ color: 'white', fontSize: '1.5rem', cursor: 'pointer' }}>
-            <i className="fa-solid fa-bars"></i>
-          </div>
-          {/* CNN Logo Clone but with text */}
-          <Link href="/" style={{ textDecoration: 'none' }}>
-            <div style={{ 
-              backgroundColor: '#CC0000', 
-              color: 'white', 
-              fontWeight: 900, 
-              fontSize: '2rem', 
-              padding: '0px 10px', 
-              letterSpacing: '-2px',
-              display: 'inline-block',
-              lineHeight: 1.2
-            }}>
-              CNN
-            </div>
-          </Link>
-          <div style={{ color: 'white', fontWeight: 700, fontSize: '1.2rem', marginLeft: '10px' }}>
-            Newsroom
-          </div>
-        </div>
-        
-        <div style={{ display: 'flex', alignItems: 'center', gap: '15px', color: 'white' }}>
-          <div style={{ fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer' }}>Watch Live</div>
-          <div style={{ fontSize: '1.2rem', cursor: 'pointer' }}>
-            <i className="fa-solid fa-magnifying-glass"></i>
-          </div>
-        </div>
-      </header>
 
-      {/* ── CNN STYLE SUB-NAV ── */}
-      <div style={{ backgroundColor: '#f6f6f6', borderBottom: '1px solid #e2e2e2', padding: '10px 20px', display: 'flex', gap: '20px', overflowX: 'auto', whiteSpace: 'nowrap', fontWeight: 700, fontSize: '0.9rem', color: '#333' }}>
-        <span style={{ cursor: 'pointer', color: '#CC0000' }}>World</span>
-        <span style={{ cursor: 'pointer' }}>US Politics</span>
-        <span style={{ cursor: 'pointer' }}>Business</span>
-        <span style={{ cursor: 'pointer' }}>Los Angeles Crime</span>
-        <span style={{ cursor: 'pointer' }}>Community</span>
-        <span style={{ cursor: 'pointer' }}>Traffic</span>
-        <span style={{ cursor: 'pointer' }}>Press Releases</span>
-      </div>
 
       {/* ── BREAKING NEWS BANNER ── */}
       <div style={{ backgroundColor: '#CC0000', color: 'white', padding: '10px 20px', display: 'flex', alignItems: 'center', gap: '15px' }}>
