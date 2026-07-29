@@ -45,17 +45,17 @@ html {
 
 :root {
   /* LIGHT THEME (Corporate / Clean) */
-  --bg-primary: #F9FAFB;
-  --bg-secondary: #FFFFFF;
-  --bg-tertiary: #F3F4F6;
-  --bg-hover-subtle: #E5E7EB;
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f1f5f9;
+  --bg-hover-subtle: #e2e8f0;
   
-  --text-primary: #1F2937;
-  --text-secondary: #4B5563;
-  --text-muted: #6B7280;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
   
-  --border-light: #E5E7EB;
-  --border-strong: #D1D5DB;
+  --border-light: #e2e8f0;
+  --border-strong: #cbd5e1;
 
   --accent-primary: #041632;      /* LAPD Dark Blue */
   --accent-secondary: #E84F2A;    /* LAPD Orange */

@@ -379,7 +379,7 @@ export default function MDTDashboard() {
                   <h3 style={{ fontSize: "0.95rem", fontWeight: 800, margin: "0 0 0.4rem 0", color: "var(--text-primary)" }}>{ann.title}</h3>
                   <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)", lineHeight: 1.5, margin: "0 0 0.8rem 0", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{ann.content}</p>
                   <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", paddingTop: "0.6rem", borderTop: "1px solid rgba(0,0,0,0.05)", fontSize: "0.72rem", color: "var(--text-muted)" }}>
-                    <div style={{ width: "20px", height: "20px", borderRadius: "5px", background: styles.color, color: "#FFF", fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.65rem" }}>
+                    <div style={{ width: "20px", height: "20px", borderRadius: "5px", background: styles.color, color: "var(--text-primary)", fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.65rem" }}>
                       {ann.author?.name?.charAt(0) || "A"}
                     </div>
                     <span style={{ fontWeight: 700, color: "var(--text-primary)" }}>{ann.author?.name || "Yönetim"}</span>

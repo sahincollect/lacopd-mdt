@@ -4,10 +4,10 @@ import { useState, useEffect } from 'react';
 const inputStyle: React.CSSProperties = {
   width: '100%',
   padding: '0.75rem 1rem',
-  backgroundColor: 'rgba(0,0,0,0.3)',
+  backgroundColor: 'var(--bg-secondary)',
   border: '1px solid rgba(255,255,255,0.08)',
   borderRadius: '10px',
-  color: '#fff',
+  color: 'var(--text-primary)',
   fontSize: '0.95rem',
   outline: 'none',
 };
@@ -99,7 +99,7 @@ export default function MazeretlerPage() {
       {/* Başlık */}
       <div style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
         <div>
-          <h1 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#fff', margin: 0 }}>
+          <h1 style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>
             <i className="fa-solid fa-calendar-xmark" style={{ color: '#F59E0B', marginRight: '0.75rem' }}></i>
             Mazeret Yönetimi
           </h1>
@@ -125,7 +125,7 @@ export default function MazeretlerPage() {
         {tab === 'form' ? (
           <div key="form">
             <div style={{ backgroundColor: 'rgba(17, 28, 50, 0.6)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.06)', backdropFilter: 'blur(10px)', padding: '2rem' }}>
-              <h2 style={{ margin: '0 0 1.5rem', fontSize: '1.1rem', fontWeight: 700, color: '#fff' }}>
+              <h2 style={{ margin: '0 0 1.5rem', fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-primary)' }}>
                 Mazeret Talebi Oluştur
               </h2>
               
@@ -216,7 +216,7 @@ export default function MazeretlerPage() {
                     {/* Bilgiler */}
                     <div style={{ flex: 1, minWidth: '200px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.3rem' }}>
-                        <span style={{ fontWeight: 700, color: '#fff', fontSize: '0.95rem' }}>{r.fullName}</span>
+                        <span style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '0.95rem' }}>{r.fullName}</span>
                         <span style={{ backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: '6px', padding: '0.1rem 0.5rem', fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', fontFamily: 'monospace' }}>#{r.badge}</span>
                         <span style={{ marginLeft: 'auto', fontSize: '0.75rem', fontWeight: 700, color: statusColor[r.status], backgroundColor: `${statusColor[r.status]}18`, padding: '0.2rem 0.75rem', borderRadius: '20px', border: `1px solid ${statusColor[r.status]}40` }}>
                           {r.status}

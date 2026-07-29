@@ -12,11 +12,11 @@ const DEFAULT_LINKS = [
   { id: 'dashboard', label: 'Kontrol Paneli', icon: 'fa-border-all', path: '/mdt' },
   { id: 'mesai', label: 'Mesai Sistemi', icon: 'fa-stopwatch', path: '/mdt/mesai' },
   { id: 'kriminal', label: 'Suçlu Kayıt', icon: 'fa-fingerprint', path: '/mdt/kriminal' },
-  { id: 'rapor', label: 'Rapor Portalı', icon: 'fa-file-signature', path: '/rapor-portali', external: true },
+  { id: 'rapor', label: 'Raporlar', icon: 'fa-file-signature', path: '/mdt/raporlar' },
   { id: 'duyurular', label: 'Duyurular', icon: 'fa-tower-broadcast', path: '/mdt/duyurular' },
   { id: 'basvuru', label: 'Birim Başvurusu', icon: 'fa-id-badge', path: '/mdt/basvuru' },
   { id: 'izin', label: 'İzin Talepleri', icon: 'fa-calendar-xmark', path: '/mdt/mazeretler' },
-  { id: 'yonetmelik', label: 'Yönetmelikler', icon: 'fa-book-bookmark', path: '/handbook/index.html?v=20260708_1', external: true },
+  { id: 'yonetmelik', label: 'Yönetmelikler', icon: 'fa-book-bookmark', path: '/mdt/yonetmelikler' },
   { id: 'personel', label: 'Personel Listesi', icon: 'fa-users-viewfinder', path: '/mdt/personel' },
   { id: 'admin', label: 'Admin Seçenekleri', icon: 'fa-shield-halved', path: '/mdt/admin', adminOnly: true },
 ];
@@ -116,7 +116,7 @@ export default function MDTLayout({
           style={{ 
             background: 'rgba(10,10,10,0.5)', 
             backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255,255,255,0.1)', 
+            border: '1px solid var(--border-light)', 
             color: 'var(--text-primary)', 
             fontSize: '1.2rem', 
             cursor: 'pointer', 
@@ -242,7 +242,7 @@ export default function MDTLayout({
               {/* Logo & Profile Area */}
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '3.5rem 1.5rem 2rem' }}>
                 <img src="/lapd-logo.png" alt="LAPD" style={{ width: '56px', height: '56px', objectFit: 'contain', marginBottom: '0.8rem', filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.3))' }} />
-                <div style={{ fontSize: '1.05rem', fontWeight: 900, color: '#FFF', letterSpacing: '0.04em', fontFamily: "'Oswald', sans-serif" }}>
+                <div style={{ fontSize: '1.05rem', fontWeight: 900, color: "var(--text-primary)", letterSpacing: '0.04em', fontFamily: "'Oswald', sans-serif" }}>
                   LOS ANGELES C.P.D.
                 </div>
                 
@@ -275,7 +275,7 @@ export default function MDTLayout({
                 >
                   <i className="fa-solid fa-envelope-open-text" /> GELEN KUTUSU
                   {unreadCount > 0 && (
-                    <span style={{ position: 'absolute', top: '-6px', right: '-6px', background: 'var(--accent-secondary)', color: '#FFF', fontSize: '0.65rem', padding: '2px 7px', borderRadius: '10px', fontWeight: 800 }}>
+                    <span style={{ position: 'absolute', top: '-6px', right: '-6px', background: 'var(--accent-secondary)', color: "var(--text-primary)", fontSize: '0.65rem', padding: '2px 7px', borderRadius: '10px', fontWeight: 800 }}>
                       {unreadCount}
                     </span>
                   )}

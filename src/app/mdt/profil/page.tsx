@@ -208,9 +208,9 @@ export default function ProfilPage() {
 
   if (!user) {
     return (
-      <div style={{ textAlign: 'center', padding: '4rem', color: '#94a3b8' }}>
+      <div style={{ textAlign: 'center', padding: '4rem', color: 'var(--text-secondary)' }}>
         <i className="fa-solid fa-triangle-exclamation" style={{ fontSize: '3rem', color: '#0ea5e9', marginBottom: '1.5rem', filter: 'drop-shadow(0 0 10px #0ea5e9)' }} />
-        <h2 style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: '0.05em', color: '#fff' }}>KİMLİK DOĞRULAMA HATASI</h2>
+        <h2 style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: '0.05em', color: 'var(--text-primary)' }}>KİMLİK DOĞRULAMA HATASI</h2>
         <p>Kullanıcı verisi okunamadı. Lütfen tekrar giriş yapın.</p>
       </div>
     );
@@ -263,7 +263,7 @@ export default function ProfilPage() {
               <div style={{ padding: '1.5rem', borderBottom: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <img src="/lapd-logo.png" alt="LAC" style={{ width: '50px', height: '50px', borderRadius: '50%', boxShadow: '0 0 15px rgba(255,255,255,0.2)' }} />
                 <div style={{ textAlign: 'right' }}>
-                  <div style={{ color: '#fff', fontFamily: "'Oswald', sans-serif", fontSize: '1.4rem', letterSpacing: '0.1em', lineHeight: 1 }}>LAC</div>
+                  <div style={{ color: 'var(--text-primary)', fontFamily: "'Oswald', sans-serif", fontSize: '1.4rem', letterSpacing: '0.1em', lineHeight: 1 }}>LAC</div>
                   <div style={{ color: primaryColor, fontSize: '0.6rem', letterSpacing: '0.3em', fontWeight: 700 }}>IDENTIFICATION</div>
                 </div>
               </div>
@@ -285,8 +285,8 @@ export default function ProfilPage() {
                     ) : (
                       <img src="/lapd-logo.png" alt="LAC Logo" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.3, filter: 'grayscale(100%)' }} />
                     )}
-                    <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0, transition: 'opacity 0.2s' }} onMouseOver={e => e.currentTarget.style.opacity = '1'} onMouseOut={e => e.currentTarget.style.opacity = '0'}>
-                      <i className="fa-solid fa-camera" style={{ fontSize: '1.5rem', color: '#fff' }}></i>
+                    <div style={{ position: 'absolute', inset: 0, backgroundColor: 'var(--bg-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0, transition: 'opacity 0.2s' }} onMouseOver={e => e.currentTarget.style.opacity = '1'} onMouseOut={e => e.currentTarget.style.opacity = '0'}>
+                      <i className="fa-solid fa-camera" style={{ fontSize: '1.5rem', color: 'var(--text-primary)' }}></i>
                     </div>
                   </div>
                   {/* Duty Status Blip - Moved to top right of the image frame */}
@@ -295,16 +295,16 @@ export default function ProfilPage() {
 
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
                   <div style={{ paddingBottom: '0.75rem', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                    <div style={{ fontSize: '0.65rem', color: '#64748b', letterSpacing: '0.15em', fontWeight: 800 }}>OPERATOR</div>
-                    <div style={{ fontSize: '1.5rem', color: '#fff', fontWeight: 800, fontFamily: "'Oswald', sans-serif", letterSpacing: '0.05em', lineHeight: 1.1 }}>{user.name.toUpperCase()}</div>
+                    <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', letterSpacing: '0.15em', fontWeight: 800 }}>OPERATOR</div>
+                    <div style={{ fontSize: '1.5rem', color: 'var(--text-primary)', fontWeight: 800, fontFamily: "'Oswald', sans-serif", letterSpacing: '0.05em', lineHeight: 1.1 }}>{user.name.toUpperCase()}</div>
                   </div>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                     <div>
-                      <div style={{ fontSize: '0.65rem', color: '#64748b', letterSpacing: '0.15em', fontWeight: 800 }}>RANK</div>
+                      <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', letterSpacing: '0.15em', fontWeight: 800 }}>RANK</div>
                       <div style={{ fontSize: '0.9rem', color: '#e2e8f0', fontWeight: 600 }}>{user.rank.toUpperCase()}</div>
                     </div>
                     <div>
-                      <div style={{ fontSize: '0.65rem', color: '#64748b', letterSpacing: '0.15em', fontWeight: 800 }}>BADGE</div>
+                      <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', letterSpacing: '0.15em', fontWeight: 800 }}>BADGE</div>
                       <div style={{ fontSize: '1.1rem', color: primaryColor, fontWeight: 800, fontFamily: 'monospace' }}>#{user.badge}</div>
                     </div>
                   </div>
@@ -314,7 +314,7 @@ export default function ProfilPage() {
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
                         {user.specialRoles.split(',').filter(Boolean).map((sr: string, idx: number) => (
                           <span key={idx} style={{
-                            fontSize: '0.65rem', fontWeight: 700, color: '#fff',
+                            fontSize: '0.65rem', fontWeight: 700, color: 'var(--text-primary)',
                             backgroundColor: 'rgba(56, 189, 248, 0.2)', border: '1px solid rgba(56, 189, 248, 0.4)',
                             padding: '2px 7px', borderRadius: '4px', display: 'inline-flex', alignItems: 'center', gap: '4px'
                           }}>
@@ -328,7 +328,7 @@ export default function ProfilPage() {
               </div>
 
               {/* ID Footer Barcode */}
-              <div style={{ padding: '1rem 1.5rem', backgroundColor: 'rgba(0,0,0,0.3)', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+              <div style={{ padding: '1rem 1.5rem', backgroundColor: 'var(--bg-secondary)', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                  <div style={{ 
                    width: '100%', height: '30px', 
                    background: 'repeating-linear-gradient(to right, rgba(255,255,255,0.8), rgba(255,255,255,0.8) 2px, transparent 2px, transparent 4px, rgba(255,255,255,0.8) 4px, rgba(255,255,255,0.8) 5px, transparent 5px, transparent 8px, rgba(255,255,255,0.8) 8px, rgba(255,255,255,0.8) 12px, transparent 12px, transparent 14px)',
@@ -355,7 +355,7 @@ export default function ProfilPage() {
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', zIndex: 1 }}>
               <i className={`fa-solid ${isOnDuty ? 'fa-satellite-dish' : 'fa-power-off'}`} style={{ fontSize: '1.5rem', color: primaryColor, animation: isOnDuty ? 'pulse-icon 2s infinite' : 'none' }} />
-              <span style={{ fontSize: '1.2rem', fontWeight: 800, fontFamily: "'Oswald', sans-serif", color: '#fff', letterSpacing: '0.1em' }}>
+              <span style={{ fontSize: '1.2rem', fontWeight: 800, fontFamily: "'Oswald', sans-serif", color: 'var(--text-primary)', letterSpacing: '0.1em' }}>
                 {isOnDuty ? 'SİSTEM AKTİF - MESAİDE' : 'MESAİYE BAŞLA'}
               </span>
             </div>
@@ -372,7 +372,7 @@ export default function ProfilPage() {
           <div style={{ gridColumn: '1 / -1', backgroundColor: 'rgba(10, 15, 30, 0.6)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', padding: '2rem', backdropFilter: 'blur(16px)', position: 'relative', overflow: 'hidden' }}>
             <div style={{ position: 'absolute', top: 0, left: 0, width: '40px', height: '40px', borderTop: `3px solid ${primaryColor}`, borderLeft: `3px solid ${primaryColor}`, borderTopLeftRadius: '24px' }}></div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-              <h3 style={{ margin: 0, color: '#fff', fontSize: '1.2rem', fontFamily: "'Oswald', sans-serif", letterSpacing: '0.1em', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <h3 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '1.2rem', fontFamily: "'Oswald', sans-serif", letterSpacing: '0.1em', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                 <i className="fa-solid fa-chart-radar" style={{ color: primaryColor }}></i>
                 PERFORMANS METRİKLERİ
               </h3>
@@ -384,8 +384,8 @@ export default function ProfilPage() {
                 { label: 'RAPORLAR', value: String(reportCount), sub: 'Onaylanan evrak' }
               ].map((stat, i) => (
                 <div key={i} style={{ borderLeft: `2px solid ${primaryColor}50`, paddingLeft: '1rem' }}>
-                  <div style={{ fontSize: '0.65rem', color: '#94a3b8', letterSpacing: '0.1em', fontWeight: 700, marginBottom: '0.2rem' }}>{stat.label}</div>
-                  <div style={{ fontSize: '2.5rem', color: '#fff', fontWeight: 800, fontFamily: "'Oswald', sans-serif", lineHeight: 1, textShadow: `0 0 20px ${primaryColor}40` }}>{stat.value}</div>
+                  <div style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', letterSpacing: '0.1em', fontWeight: 700, marginBottom: '0.2rem' }}>{stat.label}</div>
+                  <div style={{ fontSize: '2.5rem', color: 'var(--text-primary)', fontWeight: 800, fontFamily: "'Oswald', sans-serif", lineHeight: 1, textShadow: `0 0 20px ${primaryColor}40` }}>{stat.value}</div>
                   <div style={{ fontSize: '0.7rem', color: primaryColor, marginTop: '0.4rem', opacity: 0.8 }}>{stat.sub}</div>
                 </div>
               ))}
@@ -394,7 +394,7 @@ export default function ProfilPage() {
 
           {/* QUICK TERMINALS */}
           <div style={{ backgroundColor: 'rgba(10, 15, 30, 0.6)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', padding: '2rem', backdropFilter: 'blur(16px)' }}>
-            <h3 style={{ margin: '0 0 1.5rem 0', color: '#fff', fontSize: '1.1rem', fontFamily: "'Oswald', sans-serif", letterSpacing: '0.1em', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <h3 style={{ margin: '0 0 1.5rem 0', color: 'var(--text-primary)', fontSize: '1.1rem', fontFamily: "'Oswald', sans-serif", letterSpacing: '0.1em', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
               <i className="fa-solid fa-terminal" style={{ color: '#0369a1' }}></i> HIZLI ERİŞİM
             </h3>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
@@ -406,14 +406,14 @@ export default function ProfilPage() {
               ].map((btn, i) => (
                 btn.targetBlank ? (
                   <a key={i} href={btn.href} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-                    <div whileHover={{ scale: 1.05, backgroundColor: `${btn.color}20`, borderColor: `${btn.color}50` }} style={{ backgroundColor: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '14px', padding: '1.25rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', transition: 'all 0.2s' }}>
+                    <div whileHover={{ scale: 1.05, backgroundColor: `${btn.color}20`, borderColor: `${btn.color}50` }} style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '14px', padding: '1.25rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', transition: 'all 0.2s' }}>
                       <i className={`fa-solid ${btn.icon}`} style={{ fontSize: '1.5rem', color: btn.color }} />
                       <span style={{ color: '#e2e8f0', fontSize: '0.8rem', fontWeight: 600 }}>{btn.label}</span>
                     </div>
                   </a>
                 ) : (
                   <Link key={i} href={btn.href} style={{ textDecoration: 'none' }}>
-                    <div whileHover={{ scale: 1.05, backgroundColor: `${btn.color}20`, borderColor: `${btn.color}50` }} style={{ backgroundColor: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '14px', padding: '1.25rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', transition: 'all 0.2s' }}>
+                    <div whileHover={{ scale: 1.05, backgroundColor: `${btn.color}20`, borderColor: `${btn.color}50` }} style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '14px', padding: '1.25rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', transition: 'all 0.2s' }}>
                       <i className={`fa-solid ${btn.icon}`} style={{ fontSize: '1.5rem', color: btn.color }} />
                       <span style={{ color: '#e2e8f0', fontSize: '0.8rem', fontWeight: 600 }}>{btn.label}</span>
                     </div>
@@ -425,24 +425,24 @@ export default function ProfilPage() {
 
           {/* SYSTEM STATUS */}
           <div style={{ backgroundColor: 'rgba(10, 15, 30, 0.6)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', padding: '2rem', backdropFilter: 'blur(16px)' }}>
-            <h3 style={{ margin: '0 0 1.5rem 0', color: '#fff', fontSize: '1.1rem', fontFamily: "'Oswald', sans-serif", letterSpacing: '0.1em', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <h3 style={{ margin: '0 0 1.5rem 0', color: 'var(--text-primary)', fontSize: '1.1rem', fontFamily: "'Oswald', sans-serif", letterSpacing: '0.1em', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
               <i className="fa-solid fa-network-wired" style={{ color: '#10b981' }}></i> SİSTEM DURUMU
             </h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: '0.75rem', color: '#94a3b8', letterSpacing: '0.1em' }}>AĞ GÜVENLİĞİ</span>
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>AĞ GÜVENLİĞİ</span>
                 <span style={{ fontSize: '0.8rem', color: '#10b981', fontWeight: 700, padding: '0.2rem 0.6rem', backgroundColor: 'rgba(14, 165, 233, 0.1)', borderRadius: '20px' }}>AKTİF & GÜVENLİ</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: '0.75rem', color: '#94a3b8', letterSpacing: '0.1em' }}>ERİŞİM YETKİSİ</span>
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>ERİŞİM YETKİSİ</span>
                 <span style={{ fontSize: '0.8rem', color: '#e2e8f0', fontWeight: 600 }}>{user.role === 'admin' ? 'KÖK (ROOT)' : 'STANDART'}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: '0.75rem', color: '#94a3b8', letterSpacing: '0.1em' }}>MDT VERSİYON</span>
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>MDT VERSİYON</span>
                 <span style={{ fontSize: '0.8rem', color: '#e2e8f0', fontWeight: 600, fontFamily: 'monospace' }}>v3.0</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: '0.75rem', color: '#94a3b8', letterSpacing: '0.1em' }}>KAYIT TARİHİ</span>
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>KAYIT TARİHİ</span>
                 <span style={{ fontSize: '0.8rem', color: '#e2e8f0', fontWeight: 600 }}>{formatDate(user.createdAt)}</span>
               </div>
             </div>
@@ -450,21 +450,21 @@ export default function ProfilPage() {
 
           {/* CONFIGURATION (PASSWORD & IMAGE) */}
           <div style={{ gridColumn: '1 / -1', backgroundColor: 'rgba(10, 15, 30, 0.6)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', padding: '2rem', backdropFilter: 'blur(16px)' }}>
-            <h3 style={{ margin: '0 0 2rem 0', color: '#fff', fontSize: '1.2rem', fontFamily: "'Oswald', sans-serif", letterSpacing: '0.1em', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <h3 style={{ margin: '0 0 2rem 0', color: 'var(--text-primary)', fontSize: '1.2rem', fontFamily: "'Oswald', sans-serif", letterSpacing: '0.1em', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
               <i className="fa-solid fa-sliders" style={{ color: '#f43f5e' }}></i> KONFİGÜRASYON
             </h3>
             
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem' }}>
               {/* Şifre */}
               <div>
-                <h4 style={{ fontSize: '0.8rem', color: '#94a3b8', letterSpacing: '0.1em', marginBottom: '1rem' }}>GÜVENLİK ANAHTARI DEĞİŞİMİ</h4>
+                <h4 style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', letterSpacing: '0.1em', marginBottom: '1rem' }}>GÜVENLİK ANAHTARI DEĞİŞİMİ</h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                  <input type="password" placeholder="Mevcut Şifre" value={pwForm.current} onChange={e => setPwForm(f => ({ ...f, current: e.target.value }))} style={{ width: '100%', padding: '1rem', backgroundColor: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '12px', color: '#fff', outline: 'none' }} />
+                  <input type="password" placeholder="Mevcut Şifre" value={pwForm.current} onChange={e => setPwForm(f => ({ ...f, current: e.target.value }))} style={{ width: '100%', padding: '1rem', backgroundColor: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '12px', color: 'var(--text-primary)', outline: 'none' }} />
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                    <input type="password" placeholder="Yeni Şifre" value={pwForm.newPw} onChange={e => setPwForm(f => ({ ...f, newPw: e.target.value }))} style={{ width: '100%', padding: '1rem', backgroundColor: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '12px', color: '#fff', outline: 'none' }} />
-                    <input type="password" placeholder="Yeni Şifre (Tekrar)" value={pwForm.confirm} onChange={e => setPwForm(f => ({ ...f, confirm: e.target.value }))} style={{ width: '100%', padding: '1rem', backgroundColor: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '12px', color: '#fff', outline: 'none' }} />
+                    <input type="password" placeholder="Yeni Şifre" value={pwForm.newPw} onChange={e => setPwForm(f => ({ ...f, newPw: e.target.value }))} style={{ width: '100%', padding: '1rem', backgroundColor: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '12px', color: 'var(--text-primary)', outline: 'none' }} />
+                    <input type="password" placeholder="Yeni Şifre (Tekrar)" value={pwForm.confirm} onChange={e => setPwForm(f => ({ ...f, confirm: e.target.value }))} style={{ width: '100%', padding: '1rem', backgroundColor: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '12px', color: 'var(--text-primary)', outline: 'none' }} />
                   </div>
-                  <button onClick={changePassword} disabled={pwLoading} style={{ width: '100%', padding: '1rem', backgroundColor: '#f43f5e', color: '#fff', border: 'none', borderRadius: '12px', fontWeight: 700, cursor: 'pointer', opacity: pwLoading ? 0.7 : 1 }}>
+                  <button onClick={changePassword} disabled={pwLoading} style={{ width: '100%', padding: '1rem', backgroundColor: '#f43f5e', color: 'var(--text-primary)', border: 'none', borderRadius: '12px', fontWeight: 700, cursor: 'pointer', opacity: pwLoading ? 0.7 : 1 }}>
                     {pwLoading ? 'İŞLENİYOR...' : 'ŞİFREYİ GÜNCELLE'}
                   </button>
                   {pwMessage && <div style={{ fontSize: '0.8rem', color: pwMessage.type === 'success' ? '#10b981' : '#0ea5e9' }}>{pwMessage.text}</div>}
@@ -473,9 +473,9 @@ export default function ProfilPage() {
 
               {/* Fotoğraf */}
               <div>
-                <h4 style={{ fontSize: '0.8rem', color: '#94a3b8', letterSpacing: '0.1em', marginBottom: '1rem' }}>BİYOMETRİK VERİ (FOTOĞRAF) GÜNCELLEMESİ</h4>
+                <h4 style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', letterSpacing: '0.1em', marginBottom: '1rem' }}>BİYOMETRİK VERİ (FOTOĞRAF) GÜNCELLEMESİ</h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                  <p style={{ fontSize: '0.8rem', color: '#94a3b8', margin: 0, lineHeight: 1.5 }}>
+                  <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>
                     Profil fotoğrafınızı değiştirmek için kimlik kartınızdaki fotoğrafınızın üzerine tıklayın. Mevcut fotoğrafınızı kaldırmak isterseniz aşağıdaki butonu kullanabilirsiniz.
                   </p>
                   <button onClick={removePhoto} disabled={imgLoading} style={{ width: '100%', padding: '1rem', backgroundColor: 'rgba(14, 165, 233, 0.1)', border: '1px solid rgba(14, 165, 233, 0.4)', color: '#38bdf8', borderRadius: '12px', fontWeight: 700, cursor: 'pointer', transition: 'all 0.2s', marginTop: 'auto' }} onMouseOver={e => e.currentTarget.style.backgroundColor = 'rgba(14, 165, 233, 0.2)'} onMouseOut={e => e.currentTarget.style.backgroundColor = 'rgba(14, 165, 233, 0.1)'}>

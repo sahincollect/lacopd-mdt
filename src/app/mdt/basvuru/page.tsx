@@ -114,12 +114,12 @@ export default function BirimBasvuruPage() {
   );
 
   return (
-    <div style={{ paddingBottom: '4rem', maxWidth: "1600px", width: "100%", padding: "0 1rem", margin: "0 auto", color: "#fff" }}>
+    <div style={{ paddingBottom: '4rem', maxWidth: "1600px", width: "100%", padding: "0 1rem", margin: "0 auto", color: 'var(--text-primary)' }}>
       
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2.5rem' }}>
         <div>
-          <h1 style={{ fontSize: '2.2rem', fontWeight: 800, margin: 0, color: "#fff", letterSpacing: '-0.02em', textTransform: 'uppercase' }}>
+          <h1 style={{ fontSize: '2.2rem', fontWeight: 800, margin: 0, color: 'var(--text-primary)', letterSpacing: '-0.02em', textTransform: 'uppercase' }}>
             Departman İçi <span style={{ color: "var(--accent-primary)", textShadow: "0 0 20px rgba(14, 165, 233,0.4)" }}>Birim Başvurusu</span>
           </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', marginTop: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
@@ -146,7 +146,7 @@ export default function BirimBasvuruPage() {
               <i className="fa-solid fa-check"></i>
             </div>
             <h2 style={{ fontSize: '2rem', fontWeight: 800, color: '#10B981', marginBottom: '1rem', textTransform: 'uppercase' }}>Başvurunuz Alındı</h2>
-            <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto', lineHeight: '1.6' }}>
+            <p style={{ color: "var(--text-secondary)", fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto', lineHeight: '1.6' }}>
               Birim başvurunuz komuta kademesine başarıyla iletildi. Değerlendirme süreci tamamlandığında sistem üzerinden bilgilendirileceksiniz.
             </p>
           </div>
@@ -155,7 +155,7 @@ export default function BirimBasvuruPage() {
             
             {/* Left Side - Division Selection */}
             <div>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#fff', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em', borderLeft: '3px solid var(--accent-primary)', paddingLeft: '0.5rem' }}>Hedef Birim Seçimi</h3>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em', borderLeft: '3px solid var(--accent-primary)', paddingLeft: '0.5rem' }}>Hedef Birim Seçimi</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
                 {Array.from(new Set(divisions.map(d => d.category))).map(category => (
                   <div key={category}>
@@ -212,7 +212,7 @@ export default function BirimBasvuruPage() {
                 boxShadow: activeDivision ? `0 20px 50px rgba(0,0,0,0.3), inset 0 0 20px ${activeDivision.color}10` : '0 20px 40px rgba(0,0,0,0.2)',
                 transition: 'all 0.4s ease'
               }}>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#fff', marginBottom: '1.5rem', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '0.75rem', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '1rem' }}>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '1.5rem', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '0.75rem', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '1rem' }}>
                   {activeDivision ? (
                     <><i className={`fa-solid ${activeDivision.icon}`} style={{ color: activeDivision.color, textShadow: activeDivision.glow }}></i> <span style={{ color: activeDivision.color }}>{activeDivision.name}</span> FORMU</>
                   ) : 'FORM DETAYLARI'}
@@ -223,7 +223,7 @@ export default function BirimBasvuruPage() {
                     <div>
                       <i className="fa-solid fa-hand-pointer" style={{ fontSize: '3rem', marginBottom: '1.5rem', opacity: 0.5 }}></i>
                     </div>
-                    <h4 style={{ color: '#fff', fontSize: '1.2rem', marginBottom: '0.5rem', fontWeight: 700 }}>Birim Seçilmedi</h4>
+                    <h4 style={{ color: 'var(--text-primary)', fontSize: '1.2rem', marginBottom: '0.5rem', fontWeight: 700 }}>Birim Seçilmedi</h4>
                     <p style={{ maxWidth: '250px', margin: '0 auto', lineHeight: '1.6', fontSize: '0.9rem' }}>Sol taraftaki listeden başvurmak istediğiniz departman birimini seçerek detaylara ulaşabilirsiniz.</p>
                   </div>
                 ) : (
@@ -235,9 +235,9 @@ export default function BirimBasvuruPage() {
                       <textarea 
                         name="reason" required value={formData.reason} onChange={handleChange}
                         style={{ 
-                          width: '100%', minHeight: '120px', resize: 'vertical', backgroundColor: 'rgba(0,0,0,0.3)', 
+                          width: '100%', minHeight: '120px', resize: 'vertical', backgroundColor: 'var(--bg-secondary)', 
                           border: `1px solid ${formData.reason ? activeDivision.color : 'rgba(255,255,255,0.1)'}`,
-                          borderRadius: '12px', padding: '1rem', color: '#fff', fontSize: '0.95rem',
+                          borderRadius: '12px', padding: '1rem', color: 'var(--text-primary)', fontSize: '0.95rem',
                           boxShadow: formData.reason ? `0 0 15px ${activeDivision.color}20` : 'none',
                           outline: 'none', transition: 'all 0.3s ease'
                         }}
@@ -254,9 +254,9 @@ export default function BirimBasvuruPage() {
                       <textarea 
                         name="experience" required value={formData.experience} onChange={handleChange}
                         style={{ 
-                          width: '100%', minHeight: '120px', resize: 'vertical', backgroundColor: 'rgba(0,0,0,0.3)', 
+                          width: '100%', minHeight: '120px', resize: 'vertical', backgroundColor: 'var(--bg-secondary)', 
                           border: `1px solid ${formData.experience ? activeDivision.color : 'rgba(255,255,255,0.1)'}`,
-                          borderRadius: '12px', padding: '1rem', color: '#fff', fontSize: '0.95rem',
+                          borderRadius: '12px', padding: '1rem', color: 'var(--text-primary)', fontSize: '0.95rem',
                           boxShadow: formData.experience ? `0 0 15px ${activeDivision.color}20` : 'none',
                           outline: 'none', transition: 'all 0.3s ease'
                         }}
@@ -300,7 +300,7 @@ export default function BirimBasvuruPage() {
       {user && (
         <div style={{ marginTop: '5rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem' }}>
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#fff', margin: 0, textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)', margin: 0, textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
               {user.role === 'admin' ? (
                 <><i className="fa-solid fa-user-shield" style={{ color: "var(--accent-primary)" }}></i> GELEN BİRİM BAŞVURULARI (YÖNETİCİ ONAY PANELİ)</>
               ) : (
@@ -343,8 +343,8 @@ export default function BirimBasvuruPage() {
                         </div>
                         <div>
                           {isAdminView && app.officer && (
-                            <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#fff', marginBottom: '0.2rem', fontFamily: "'Oswald', sans-serif", letterSpacing: '0.04em' }}>
-                              #{app.officer.badge || '0000'} — {app.officer.name || 'Bilinmiyor'} <span style={{ fontSize: '0.8rem', color: '#94a3b8', fontWeight: 600, marginLeft: '0.4rem' }}>({app.officer.rank || 'Memur'})</span>
+                            <div style={{ fontSize: '1.25rem', fontWeight: 900, color: 'var(--text-primary)', marginBottom: '0.2rem', fontFamily: "'Oswald', sans-serif", letterSpacing: '0.04em' }}>
+                              #{app.officer.badge || '0000'} — {app.officer.name || 'Bilinmiyor'} <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 600, marginLeft: '0.4rem' }}>({app.officer.rank || 'Memur'})</span>
                             </div>
                           )}
                           <div style={{ fontSize: isAdminView ? '0.9rem' : '1.2rem', color: divisionInfo.color, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
@@ -413,8 +413,8 @@ export default function BirimBasvuruPage() {
                               onClick={() => handleDelete(app.id)}
                               title="Başvuruyu Kalıcı Olarak Sil"
                               style={{ 
-                                padding: '0.5rem 0.75rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)',
-                                backgroundColor: 'rgba(255,255,255,0.05)', color: '#94a3b8', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer'
+                                padding: '0.5rem 0.75rem', borderRadius: '8px', border: '1px solid var(--border-light)',
+                                backgroundColor: 'rgba(255,255,255,0.05)', color: 'var(--text-secondary)', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer'
                               }}
                             >
                               <i className="fa-solid fa-trash"></i>

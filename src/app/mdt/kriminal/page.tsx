@@ -120,7 +120,7 @@ export default function SuçluVeritabanı() {
     backgroundColor: "rgba(15, 23, 42, 0.4)",
     border: "1px solid rgba(255,255,255,0.08)",
     borderRadius: "12px",
-    color: "#fff",
+    color: 'var(--text-primary)',
     fontSize: "0.95rem",
     outline: "none",
     boxSizing: "border-box",
@@ -132,12 +132,12 @@ export default function SuçluVeritabanı() {
      
      
      
-      style={{ color: "#fff", paddingBottom: "3rem", width: "100%", maxWidth: "1800px", margin: "0 auto", padding: "0 2rem" }}
+      style={{ color: 'var(--text-primary)', paddingBottom: "3rem", width: "100%", maxWidth: "1800px", margin: "0 auto", padding: "0 2rem" }}
     >
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2.5rem' }}>
         <div>
-          <h1 style={{ fontSize: '2.2rem', fontWeight: 800, margin: 0, color: "#fff", letterSpacing: '-0.02em', textTransform: 'uppercase' }}>
+          <h1 style={{ fontSize: '2.2rem', fontWeight: 800, margin: 0, color: 'var(--text-primary)', letterSpacing: '-0.02em', textTransform: 'uppercase' }}>
             Suçlu <span style={{ color: "var(--accent-primary)", textShadow: "0 0 20px rgba(14, 165, 233,0.4)" }}>Kayıt</span>
           </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', marginTop: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
@@ -221,7 +221,7 @@ export default function SuçluVeritabanı() {
                 <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem' }}>
                   <button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" disabled={submitting} style={{ 
                     flex: 1, padding: '1rem', borderRadius: '12px', border: 'none',
-                    background: "linear-gradient(135deg, #10B981, #059669)", color: '#fff', fontWeight: 800,
+                    background: "linear-gradient(135deg, #10B981, #059669)", color: 'var(--text-primary)', fontWeight: 800,
                     cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.7 : 1,
                     boxShadow: submitting ? 'none' : '0 8px 25px rgba(14, 165, 233, 0.3)'
                   }}>
@@ -275,7 +275,7 @@ export default function SuçluVeritabanı() {
               
               return (
                 <div key={c.id} whileHover={{ y: -5, boxShadow: '0 15px 40px rgba(14, 165, 233, 0.15)' }} style={{ 
-                  backgroundColor: 'rgba(15, 23, 42, 0.7)', 
+                  backgroundColor: 'var(--bg-secondary)', 
                   backdropFilter: 'blur(12px)',
                   WebkitBackdropFilter: 'blur(12px)',
                   borderRadius: '16px', 
@@ -351,7 +351,7 @@ export default function SuçluVeritabanı() {
                   
                   {c.notes && (
                     <div style={{ 
-                      backgroundColor: 'rgba(0,0,0,0.3)', 
+                      backgroundColor: 'var(--bg-secondary)', 
                       padding: '1.25rem', 
                       borderRadius: '12px', 
                       borderLeft: '4px solid #0ea5e9', 

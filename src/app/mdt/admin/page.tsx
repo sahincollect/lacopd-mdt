@@ -187,7 +187,7 @@ export default function AdminOptionsPage() {
             <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "#475569" }} />
             <span style={{ fontSize: "0.68rem", fontWeight: 700, color: "#F87171", letterSpacing: "0.1em" }}>RESTRICTED ACCESS</span>
           </div>
-          <h1 style={{ fontSize: "2.2rem", fontWeight: 800, color: "#FFF", margin: 0, letterSpacing: "-0.03em" }}>Admin Seçenekleri</h1>
+          <h1 style={{ fontSize: "2.2rem", fontWeight: 800, color: "var(--text-primary)", margin: 0, letterSpacing: "-0.03em" }}>Admin Seçenekleri</h1>
         </div>
         <div style={{ display: "flex", gap: "1rem", backgroundColor: "rgba(15, 23, 42, 0.4)", padding: "0.4rem", borderRadius: "14px", border: "1px solid rgba(255,255,255,0.05)" }}>
           <button onClick={() => setActiveTab("SISTEM")} style={{ padding: "0.6rem 1.25rem", borderRadius: "10px", background: activeTab === "SISTEM" ? "rgba(56, 189, 248, 0.15)" : "transparent", color: activeTab === "SISTEM" ? "#38BDF8" : "#94A3B8", border: "none", fontWeight: 700, fontSize: "0.85rem", cursor: "pointer", transition: "all 0.2s" }}>Sistem & Medya</button>
@@ -208,25 +208,25 @@ export default function AdminOptionsPage() {
                   <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#F87171", margin: "0 0 0.4rem 0" }}><i className="fa-solid fa-triangle-exclamation" style={{ marginRight: "0.5rem" }} /> Mesai Sıfırlama Protokolü</h3>
                   <p style={{ margin: 0, fontSize: "0.85rem", color: "#94A3B8" }}>Tüm personelin mevcut mesai saatlerini sıfırlar. Bu işlem geri alınamaz.</p>
                 </div>
-                <button onClick={handleResetShifts} style={{ background: "#EF4444", color: "#FFF", border: "none", padding: "0.8rem 1.5rem", borderRadius: "10px", fontWeight: 800, cursor: "pointer", boxShadow: "0 4px 15px rgba(239, 68, 68, 0.3)" }}>
+                <button onClick={handleResetShifts} style={{ background: "#EF4444", color: "var(--text-primary)", border: "none", padding: "0.8rem 1.5rem", borderRadius: "10px", fontWeight: 800, cursor: "pointer", boxShadow: "0 4px 15px rgba(239, 68, 68, 0.3)" }}>
                   TÜM MESAİLERİ SIFIRLA
                 </button>
               </div>
 
               {/* Media Upload */}
               <div style={{ background: "rgba(15, 23, 42, 0.4)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "20px", padding: "2.5rem" }}>
-                <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#FFF", margin: "0 0 1.5rem 0", display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text-primary)", margin: "0 0 1.5rem 0", display: "flex", alignItems: "center", gap: "0.6rem" }}>
                   <i className="fa-solid fa-cloud-arrow-up" style={{ color: "#38BDF8" }} /> Medya Yükle
                 </h3>
                 {error && <div style={{ color: "#FCA5A5", background: "rgba(239, 68, 68, 0.1)", padding: "1rem", borderRadius: "10px", border: "1px solid rgba(239, 68, 68, 0.2)", marginBottom: "1.5rem", fontSize: "0.85rem", fontWeight: 600 }}>{error}</div>}
                 <form onSubmit={handleAddImage} style={{ display: "flex", gap: "1.5rem", alignItems: "flex-end", flexWrap: "wrap" }}>
                   <div style={{ flex: "1 1 300px" }}>
                     <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, color: "#94A3B8", marginBottom: "0.5rem" }}>GÖRSEL URL</label>
-                    <input type="text" value={url} onChange={e => setUrl(e.target.value)} placeholder="/media__123.png veya https://..." required style={{ width: "100%", padding: "0.8rem 1rem", background: "rgba(0,0,0,0.2)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", color: "#FFF", outline: "none", fontSize: "0.9rem" }} />
+                    <input type="text" value={url} onChange={e => setUrl(e.target.value)} placeholder="/media__123.png veya https://..." required style={{ width: "100%", padding: "0.8rem 1rem", background: "rgba(0,0,0,0.2)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", color: "var(--text-primary)", outline: "none", fontSize: "0.9rem" }} />
                   </div>
                   <div style={{ width: "220px" }}>
                     <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, color: "#94A3B8", marginBottom: "0.5rem" }}>KATEGORİ</label>
-                    <select value={type} onChange={e => setType(e.target.value)} style={{ width: "100%", padding: "0.8rem 1rem", background: "rgba(0,0,0,0.2)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", color: "#FFF", outline: "none", fontSize: "0.9rem", appearance: "none" }}>
+                    <select value={type} onChange={e => setType(e.target.value)} style={{ width: "100%", padding: "0.8rem 1rem", background: "rgba(0,0,0,0.2)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", color: "var(--text-primary)", outline: "none", fontSize: "0.9rem", appearance: "none" }}>
                       <option value="GALERI" style={{ background: "#0F172A" }}>Galeri Sayfası</option>
                       <option value="GIRIS" style={{ background: "#0F172A" }}>Giriş Arkaplanı</option>
                     </select>
@@ -239,14 +239,14 @@ export default function AdminOptionsPage() {
 
               {/* Media Gallery */}
               <div>
-                <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#FFF", margin: "0 0 1.5rem 0" }}>Sistem Medya Arşivi</h3>
+                <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text-primary)", margin: "0 0 1.5rem 0" }}>Sistem Medya Arşivi</h3>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "1.5rem" }}>
                   {images.map(img => (
                     <div key={img.id} style={{ background: "rgba(15, 23, 42, 0.4)", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.06)", overflow: "hidden", display: "flex", flexDirection: "column" }}>
                       <div style={{ height: "140px", background: "#000", position: "relative" }}>
                         {/* eslint-disable-next-line */}
                         <img src={img.url} alt="medya" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.8 }} />
-                        <span style={{ position: "absolute", top: "0.5rem", left: "0.5rem", background: "rgba(0,0,0,0.7)", padding: "0.2rem 0.6rem", borderRadius: "6px", fontSize: "0.65rem", fontWeight: 800, color: "#FFF" }}>{img.type}</span>
+                        <span style={{ position: "absolute", top: "0.5rem", left: "0.5rem", background: "rgba(0,0,0,0.7)", padding: "0.2rem 0.6rem", borderRadius: "6px", fontSize: "0.65rem", fontWeight: 800, color: "var(--text-primary)" }}>{img.type}</span>
                       </div>
                       <div style={{ padding: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                         <div style={{ fontSize: "0.7rem", color: "#94A3B8", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "120px" }}>{img.url.split('/').pop()}</div>
@@ -276,7 +276,7 @@ export default function AdminOptionsPage() {
                       <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
                         <div style={{ width: "42px", height: "42px", borderRadius: "10px", background: `${divInfo.color}15`, border: `1px solid ${divInfo.color}40`, display: "flex", alignItems: "center", justifyContent: "center", color: divInfo.color, fontSize: "1.1rem" }}><i className={`fa-solid ${divInfo.icon}`} /></div>
                         <div>
-                          <h4 style={{ margin: "0 0 0.2rem 0", fontSize: "1.1rem", fontWeight: 800, color: "#FFF" }}>#{app.officer?.badge} - {app.officer?.name}</h4>
+                          <h4 style={{ margin: "0 0 0.2rem 0", fontSize: "1.1rem", fontWeight: 800, color: "var(--text-primary)" }}>#{app.officer?.badge} - {app.officer?.name}</h4>
                           <span style={{ fontSize: "0.75rem", color: divInfo.color, fontWeight: 700, letterSpacing: "0.05em", textTransform: "uppercase" }}>{divInfo.name}</span>
                         </div>
                       </div>
@@ -285,7 +285,7 @@ export default function AdminOptionsPage() {
                         <div style={{ display: "flex", gap: "0.4rem" }}>
                           <button onClick={() => handleUpdateUnitStatus(app.id, 'Onaylandı')} style={{ width: "32px", height: "32px", borderRadius: "8px", background: "rgba(52, 211, 153, 0.1)", border: "1px solid rgba(52, 211, 153, 0.3)", color: "#34D399", cursor: "pointer" }}><i className="fa-solid fa-check" /></button>
                           <button onClick={() => handleUpdateUnitStatus(app.id, 'Reddedildi')} style={{ width: "32px", height: "32px", borderRadius: "8px", background: "rgba(248, 113, 113, 0.1)", border: "1px solid rgba(248, 113, 113, 0.3)", color: "#F87171", cursor: "pointer" }}><i className="fa-solid fa-xmark" /></button>
-                          <button onClick={() => handleDeleteUnitApp(app.id)} style={{ width: "32px", height: "32px", borderRadius: "8px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "#94A3B8", cursor: "pointer" }}><i className="fa-solid fa-trash" /></button>
+                          <button onClick={() => handleDeleteUnitApp(app.id)} style={{ width: "32px", height: "32px", borderRadius: "8px", background: "rgba(255,255,255,0.05)", border: '1px solid var(--border-light)', color: "#94A3B8", cursor: "pointer" }}><i className="fa-solid fa-trash" /></button>
                         </div>
                       </div>
                     </div>
@@ -307,7 +307,7 @@ export default function AdminOptionsPage() {
               {civilApplications.length === 0 ? (
                 <div style={{ textAlign: "center", padding: "4rem", color: "#64748B", background: "rgba(15, 23, 42, 0.3)", borderRadius: "20px", border: "1px dashed rgba(255,255,255,0.06)" }}>Henüz sivil başvuru bulunmuyor.</div>
               ) : civilApplications.map((app: any) => {
-                const typeInfo = CIVIL_TYPE_LABELS[app.type] || { label: app.type, icon: "fa-file", color: "#94a3b8" };
+                const typeInfo = CIVIL_TYPE_LABELS[app.type] || { label: app.type, icon: "fa-file", color: 'var(--text-secondary)' };
                 const content = parseContent(app.content);
                 const isExpanded = expandedCivilId === app.id;
                 const statusColor = STATUS_COLORS[app.status] || "#94A3B8";
@@ -318,7 +318,7 @@ export default function AdminOptionsPage() {
                       <div style={{ width: "42px", height: "42px", borderRadius: "10px", background: `${typeInfo.color}15`, border: `1px solid ${typeInfo.color}30`, display: "flex", alignItems: "center", justifyContent: "center", color: typeInfo.color, fontSize: "1rem", flexShrink: 0 }}><i className={`fa-solid ${typeInfo.icon}`} /></div>
                       <div style={{ flex: 1 }}>
                         <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.2rem" }}>
-                          <span style={{ color: "#FFF", fontWeight: 700, fontSize: "0.95rem" }}>{app.fullName}</span>
+                          <span style={{ color: "var(--text-primary)", fontWeight: 700, fontSize: "0.95rem" }}>{app.fullName}</span>
                           <span style={{ fontSize: "0.65rem", color: typeInfo.color, background: `${typeInfo.color}15`, padding: "0.2rem 0.6rem", borderRadius: "50px", fontWeight: 800 }}>{typeInfo.label}</span>
                         </div>
                         <div style={{ fontSize: "0.75rem", color: "#94A3B8" }}><i className="fa-regular fa-calendar" style={{ marginRight: "0.4rem" }} />{new Date(app.createdAt).toLocaleDateString("tr-TR")}</div>
@@ -346,8 +346,8 @@ export default function AdminOptionsPage() {
                         ))}
                         <div style={{ display: "flex", gap: "1rem", alignItems: "center", paddingTop: "1.5rem", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
                           <span style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 800 }}>DURUM:</span>
-                          <select value={app.status} onChange={e => updateCivilStatus(app.id, e.target.value)} style={{ padding: "0.4rem 0.8rem", borderRadius: "8px", background: "rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.1)", color: statusColor, fontWeight: 700, fontSize: "0.8rem", cursor: "pointer", outline: "none" }}>
-                            {STATUS_OPTIONS.map(s => <option key={s} value={s} style={{ background: "#0F172A", color: "#FFF" }}>{s}</option>)}
+                          <select value={app.status} onChange={e => updateCivilStatus(app.id, e.target.value)} style={{ padding: "0.4rem 0.8rem", borderRadius: "8px", background: "rgba(0,0,0,0.3)", border: '1px solid var(--border-light)', color: statusColor, fontWeight: 700, fontSize: "0.8rem", cursor: "pointer", outline: "none" }}>
+                            {STATUS_OPTIONS.map(s => <option key={s} value={s} style={{ background: "#0F172A", color: "var(--text-primary)" }}>{s}</option>)}
                           </select>
                           <button onClick={() => deleteCivilApp(app.id)} style={{ marginLeft: "auto", padding: "0.4rem 1rem", borderRadius: "8px", background: "rgba(239, 68, 68, 0.1)", border: "1px solid rgba(239, 68, 68, 0.2)", color: "#F87171", fontSize: "0.8rem", fontWeight: 700, cursor: "pointer" }}><i className="fa-solid fa-trash" style={{ marginRight: "0.4rem" }} /> SİL</button>
                         </div>

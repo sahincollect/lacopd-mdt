@@ -466,17 +466,17 @@ Sayın Personel,
     <div style={{ padding: '1.75rem', maxWidth: '1650px', margin: '0 auto', minHeight: 'calc(100vh - 120px)', display: 'flex', flexDirection: 'column', gap: '1.5rem', boxSizing: 'border-box' }}>
       
       {/* ── TOP OPERATIONAL CONTROL HEADER & STATS BAR ── */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', backgroundColor: '#0f172a', padding: '1.25rem 1.75rem', borderRadius: '16px', border: '1px solid rgba(255, 255, 255, 0.08)', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', backgroundColor: 'var(--bg-primary)', padding: '1.25rem 1.75rem', borderRadius: '16px', border: '1px solid rgba(255, 255, 255, 0.08)', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
             <div style={{ width: '42px', height: '42px', borderRadius: '12px', backgroundColor: 'rgba(14, 165, 233, 0.15)', border: '1px solid rgba(14, 165, 233, 0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#38bdf8' }}>
               <i className="fa-solid fa-envelope-open-text" style={{ fontSize: '1.3rem' }}></i>
             </div>
             <div>
-              <h1 style={{ margin: 0, fontSize: '1.6rem', fontWeight: 900, color: '#fff', fontFamily: "'Oswald', sans-serif", letterSpacing: '0.04em' }}>
+              <h1 style={{ margin: 0, fontSize: '1.6rem', fontWeight: 900, color: 'var(--text-primary)', fontFamily: "'Oswald', sans-serif", letterSpacing: '0.04em' }}>
                 LAC OPERASYONEL MAIL BOX
               </h1>
-              <span style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 600, letterSpacing: '0.08em' }}>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: 600, letterSpacing: '0.08em' }}>
                 KURUMSAL BİRİM İÇİ VE DEPARTMANLAR ARASI HABERLEŞME TERMİNALİ
               </span>
             </div>
@@ -502,7 +502,7 @@ Sayın Personel,
               setComposeBody('');
               setTargetMode('single');
             }}
-            style={{ padding: '0.6rem 1.3rem', borderRadius: '10px', backgroundColor: '#0284c7', border: '1px solid #38bdf8', color: '#fff', fontWeight: 800, fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.6rem', boxShadow: '0 4px 15px rgba(2, 132, 199, 0.4)', transition: 'all 0.15s' }}
+            style={{ padding: '0.6rem 1.3rem', borderRadius: '10px', backgroundColor: '#0284c7', border: '1px solid #38bdf8', color: 'var(--text-primary)', fontWeight: 800, fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.6rem', boxShadow: '0 4px 15px rgba(2, 132, 199, 0.4)', transition: 'all 0.15s' }}
             onMouseOver={e => e.currentTarget.style.backgroundColor = '#0369a1'}
             onMouseOut={e => e.currentTarget.style.backgroundColor = '#0284c7'}
           >
@@ -545,7 +545,7 @@ Sayın Personel,
             >
               <span>{tab.label}</span>
               {tab.count > 0 && (
-                <span style={{ backgroundColor: tab.badgeColor, color: '#fff', fontSize: '0.7rem', fontWeight: 900, padding: '0.12rem 0.55rem', borderRadius: '12px' }}>
+                <span style={{ backgroundColor: tab.badgeColor, color: 'var(--text-primary)', fontSize: '0.7rem', fontWeight: 900, padding: '0.12rem 0.55rem', borderRadius: '12px' }}>
                   {tab.count} YENİ
                 </span>
               )}
@@ -565,7 +565,7 @@ Sayın Personel,
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
               <span style={{ display: 'inline-block', width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#38bdf8' }}></span>
-              <span style={{ fontWeight: 800, color: '#fff', fontSize: '0.95rem' }}>
+              <span style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '0.95rem' }}>
                 {selectedIds.length} öğe seçildi
               </span>
             </div>
@@ -601,21 +601,21 @@ Sayın Personel,
         <div
          
          
-          style={{ backgroundColor: '#0f172a', borderRadius: '18px', border: '1px solid rgba(255, 255, 255, 0.08)', padding: '2.25rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}
+          style={{ backgroundColor: 'var(--bg-primary)', borderRadius: '18px', border: '1px solid rgba(255, 255, 255, 0.08)', padding: '2.25rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.75rem', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '1.25rem' }}>
             <div>
-              <h2 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 900, color: '#fff', fontFamily: "'Oswald', sans-serif" }}>
+              <h2 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 900, color: 'var(--text-primary)', fontFamily: "'Oswald', sans-serif" }}>
                 ✍️ YENİ OPERASYONEL POSTA OLUŞTUR
               </h2>
-              <p style={{ margin: '0.3rem 0 0 0', fontSize: '0.82rem', color: '#94a3b8' }}>
+              <p style={{ margin: '0.3rem 0 0 0', fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
                 Göndereceğiniz postalar LAC resmi kayıtlarında şifreli olarak arşivlenir.
               </p>
             </div>
 
             {/* Quick Operational Templates Buttons */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
-              <span style={{ fontSize: '0.78rem', color: '#64748b', fontWeight: 700, marginRight: '0.2rem' }}>HAZIR ŞABLON:</span>
+              <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 700, marginRight: '0.2rem' }}>HAZIR ŞABLON:</span>
               <button
                 type="button"
                 onClick={() => handleApplyTemplate('patrol')}
@@ -698,7 +698,7 @@ Sayın Personel,
                   <select
                     value={composeTo}
                     onChange={(e) => setComposeTo(e.target.value)}
-                    style={{ width: '100%', padding: '0.85rem 1rem', borderRadius: '12px', backgroundColor: '#080e1a', border: '1px solid rgba(255,255,255,0.12)', color: '#fff', fontSize: '0.9rem', outline: 'none' }}
+                    style={{ width: '100%', padding: '0.85rem 1rem', borderRadius: '12px', backgroundColor: '#080e1a', border: '1px solid rgba(255,255,255,0.12)', color: 'var(--text-primary)', fontSize: '0.9rem', outline: 'none' }}
                   >
                     <option value="">-- Alıcı Memur Seçiniz --</option>
                     {allOfficers
@@ -720,7 +720,7 @@ Sayın Personel,
                   <select
                     value={composeDept}
                     onChange={(e) => setComposeDept(e.target.value)}
-                    style={{ width: '100%', padding: '0.85rem 1rem', borderRadius: '12px', backgroundColor: '#080e1a', border: '1px solid #38bdf8', color: '#fff', fontSize: '0.9rem', outline: 'none' }}
+                    style={{ width: '100%', padding: '0.85rem 1rem', borderRadius: '12px', backgroundColor: '#080e1a', border: '1px solid #38bdf8', color: 'var(--text-primary)', fontSize: '0.9rem', outline: 'none' }}
                   >
                     {departmentsList.map(d => (
                       <option key={d} value={d}>
@@ -739,7 +739,7 @@ Sayın Personel,
                   <select
                     value={composeRank}
                     onChange={(e) => setComposeRank(e.target.value)}
-                    style={{ width: '100%', padding: '0.85rem 1rem', borderRadius: '12px', backgroundColor: '#080e1a', border: '1px solid #38bdf8', color: '#fff', fontSize: '0.9rem', outline: 'none' }}
+                    style={{ width: '100%', padding: '0.85rem 1rem', borderRadius: '12px', backgroundColor: '#080e1a', border: '1px solid #38bdf8', color: 'var(--text-primary)', fontSize: '0.9rem', outline: 'none' }}
                   >
                     {ranksList.map(r => (
                       <option key={r} value={r}>
@@ -802,7 +802,7 @@ Sayın Personel,
                 value={composeSubject}
                 onChange={(e) => setComposeSubject(e.target.value)}
                 placeholder="Örn: Operasyonel Hazırlık Bildirimi / Devriye Raporu"
-                style={{ width: '100%', padding: '0.9rem 1rem', borderRadius: '12px', backgroundColor: '#080e1a', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontSize: '0.95rem', fontWeight: 600, outline: 'none' }}
+                style={{ width: '100%', padding: '0.9rem 1rem', borderRadius: '12px', backgroundColor: '#080e1a', border: '1px solid rgba(255,255,255,0.15)', color: 'var(--text-primary)', fontSize: '0.95rem', fontWeight: 600, outline: 'none' }}
               />
             </div>
 
@@ -816,7 +816,7 @@ Sayın Personel,
                 value={composeBody}
                 onChange={(e) => setComposeBody(e.target.value)}
                 placeholder="Kurumsal ileti içeriğini buraya yazın... (Markdown veya maddeler halinde biçimlendirebilirsiniz)"
-                style={{ width: '100%', padding: '1rem', borderRadius: '12px', backgroundColor: '#080e1a', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontSize: '0.92rem', lineHeight: '1.6', fontFamily: "'Inter', sans-serif", outline: 'none', resize: 'vertical' }}
+                style={{ width: '100%', padding: '1rem', borderRadius: '12px', backgroundColor: '#080e1a', border: '1px solid rgba(255,255,255,0.15)', color: 'var(--text-primary)', fontSize: '0.92rem', lineHeight: '1.6', fontFamily: "'Inter', sans-serif", outline: 'none', resize: 'vertical' }}
               />
             </div>
 
@@ -832,7 +832,7 @@ Sayın Personel,
               <button
                 type="submit"
                 disabled={submitting}
-                style={{ padding: '0.85rem 2.5rem', borderRadius: '12px', backgroundColor: '#0284c7', border: '1px solid #38bdf8', color: '#fff', fontWeight: 800, fontSize: '0.95rem', cursor: submitting ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', gap: '0.6rem', boxShadow: '0 4px 20px rgba(2, 132, 199, 0.4)' }}
+                style={{ padding: '0.85rem 2.5rem', borderRadius: '12px', backgroundColor: '#0284c7', border: '1px solid #38bdf8', color: 'var(--text-primary)', fontWeight: 800, fontSize: '0.95rem', cursor: submitting ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', gap: '0.6rem', boxShadow: '0 4px 20px rgba(2, 132, 199, 0.4)' }}
               >
                 {submitting ? (
                   <>
@@ -852,18 +852,18 @@ Sayın Personel,
         <div style={{ display: 'grid', gridTemplateColumns: 'minmax(380px, 460px) 1fr', gap: '1.5rem', minHeight: '680px' }}>
           
           {/* ── LEFT FOLDER LIST & OPERATIONAL FILTER PANEL ── */}
-          <div style={{ backgroundColor: '#0f172a', borderRadius: '18px', border: '1px solid rgba(255, 255, 255, 0.08)', display: 'flex', flexDirection: 'column', overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+          <div style={{ backgroundColor: 'var(--bg-primary)', borderRadius: '18px', border: '1px solid rgba(255, 255, 255, 0.08)', display: 'flex', flexDirection: 'column', overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
             
             {/* Search and Filters Header */}
             <div style={{ padding: '1.25rem', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
               <div style={{ position: 'relative' }}>
-                <i className="fa-solid fa-magnifying-glass" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: '#64748b', fontSize: '0.9rem' }}></i>
+                <i className="fa-solid fa-magnifying-glass" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)', fontSize: '0.9rem' }}></i>
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Konu, memur adı, sicil veya içerik ara..."
-                  style={{ width: '100%', padding: '0.7rem 1rem 0.7rem 2.6rem', borderRadius: '10px', backgroundColor: '#080e1a', border: '1px solid rgba(255,255,255,0.12)', color: '#fff', fontSize: '0.85rem', outline: 'none', boxSizing: 'border-box' }}
+                  style={{ width: '100%', padding: '0.7rem 1rem 0.7rem 2.6rem', borderRadius: '10px', backgroundColor: '#080e1a', border: '1px solid rgba(255,255,255,0.12)', color: 'var(--text-primary)', fontSize: '0.85rem', outline: 'none', boxSizing: 'border-box' }}
                 />
               </div>
 
@@ -873,7 +873,7 @@ Sayın Personel,
                   <select
                     value={filterPriority}
                     onChange={(e) => setFilterPriority(e.target.value as any)}
-                    style={{ flex: 1, padding: '0.45rem 0.6rem', borderRadius: '8px', backgroundColor: '#080e1a', border: '1px solid rgba(255,255,255,0.1)', color: '#cbd5e1', fontSize: '0.76rem', fontWeight: 600, outline: 'none' }}
+                    style={{ flex: 1, padding: '0.45rem 0.6rem', borderRadius: '8px', backgroundColor: '#080e1a', border: '1px solid var(--border-light)', color: '#cbd5e1', fontSize: '0.76rem', fontWeight: 600, outline: 'none' }}
                   >
                     <option value="all">Filtre: Tüm Öncelikler</option>
                     <option value="urgent_secret">🔴 Sadece Acil / Önemli</option>
@@ -883,7 +883,7 @@ Sayın Personel,
                   <select
                     value={filterStatus}
                     onChange={(e) => setFilterStatus(e.target.value as any)}
-                    style={{ flex: 1, padding: '0.45rem 0.6rem', borderRadius: '8px', backgroundColor: '#080e1a', border: '1px solid rgba(255,255,255,0.1)', color: '#cbd5e1', fontSize: '0.76rem', fontWeight: 600, outline: 'none' }}
+                    style={{ flex: 1, padding: '0.45rem 0.6rem', borderRadius: '8px', backgroundColor: '#080e1a', border: '1px solid var(--border-light)', color: '#cbd5e1', fontSize: '0.76rem', fontWeight: 600, outline: 'none' }}
                   >
                     <option value="all">Durum: Tümü</option>
                     <option value="unread">🔵 Okunmamışlar</option>
@@ -906,12 +906,12 @@ Sayın Personel,
             {/* Mail Rows List */}
             <div style={{ flex: 1, overflowY: 'auto', padding: '0.75rem', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
               {loading && mails.length === 0 ? (
-                <div style={{ padding: '4rem 2rem', textAlign: 'center', color: '#64748b' }}>
+                <div style={{ padding: '4rem 2rem', textAlign: 'center', color: 'var(--text-muted)' }}>
                   <i className="fa-solid fa-circle-notch fa-spin" style={{ fontSize: '2rem', marginBottom: '1rem', color: '#38bdf8' }}></i>
                   <div style={{ fontWeight: 700 }}>Postalar senkronize ediliyor...</div>
                 </div>
               ) : filteredMails.length === 0 ? (
-                <div style={{ padding: '4rem 2rem', textAlign: 'center', color: '#64748b' }}>
+                <div style={{ padding: '4rem 2rem', textAlign: 'center', color: 'var(--text-muted)' }}>
                   <i className="fa-solid fa-folder-open" style={{ fontSize: '2.5rem', marginBottom: '1rem', opacity: 0.5 }}></i>
                   <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>Bu klasörde veya arama kriterinizde posta bulunmuyor.</div>
                 </div>
@@ -959,7 +959,7 @@ Sayın Personel,
                       </div>
 
                       {/* Avatar */}
-                      <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '1rem', color: '#cbd5e1', border: '1px solid rgba(255,255,255,0.1)', flexShrink: 0 }}>
+                      <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '1rem', color: '#cbd5e1', border: '1px solid var(--border-light)', flexShrink: 0 }}>
                         {mail.sender.profileImage ? (
                           <img src={mail.sender.profileImage} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '10px' }} />
                         ) : (
@@ -973,7 +973,7 @@ Sayın Personel,
                           <span style={{ fontWeight: 800, fontSize: '0.85rem', color: isUnread ? '#fff' : '#e2e8f0', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                             {activeFolder === 'sent' ? `Alıcı: ${mail.receiver ? `${mail.receiver.name}` : 'TÜM DEPARTMAN'}` : `${mail.sender.name} (#${mail.sender.badge})`}
                           </span>
-                          <span style={{ fontSize: '0.72rem', color: '#64748b', fontWeight: 600, flexShrink: 0 }}>
+                          <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 600, flexShrink: 0 }}>
                             {new Date(mail.createdAt).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}
                           </span>
                         </div>
@@ -982,7 +982,7 @@ Sayın Personel,
                           {parsed.subject}
                         </div>
 
-                        <div style={{ fontSize: '0.78rem', color: '#94a3b8', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', lineHeight: '1.4' }}>
+                        <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', lineHeight: '1.4' }}>
                           {parsed.body}
                         </div>
 
@@ -1007,7 +1007,7 @@ Sayın Personel,
           </div>
 
           {/* ── RIGHT FUNCTIONAL READER PANEL (DETAY OKUYUCU) ── */}
-          <div style={{ backgroundColor: '#0f172a', borderRadius: '18px', border: '1px solid rgba(255, 255, 255, 0.08)', display: 'flex', flexDirection: 'column', overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+          <div style={{ backgroundColor: 'var(--bg-primary)', borderRadius: '18px', border: '1px solid rgba(255, 255, 255, 0.08)', display: 'flex', flexDirection: 'column', overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
             {selectedMail ? (
               (() => {
                 const parsed = parseMailContent(selectedMail.content);
@@ -1068,12 +1068,12 @@ Sayın Personel,
                     <div style={{ flex: 1, overflowY: 'auto', padding: '2rem' }}>
                       
                       {/* Subject Heading */}
-                      <h1 style={{ margin: '0 0 1.5rem 0', fontSize: '1.75rem', fontWeight: 900, color: '#fff', fontFamily: "'Oswald', sans-serif", letterSpacing: '0.03em', lineHeight: '1.3' }}>
+                      <h1 style={{ margin: '0 0 1.5rem 0', fontSize: '1.75rem', fontWeight: 900, color: 'var(--text-primary)', fontFamily: "'Oswald', sans-serif", letterSpacing: '0.03em', lineHeight: '1.3' }}>
                         {parsed.subject}
                       </h1>
 
                       {/* Sender & Recipient Information Card */}
-                      <div style={{ padding: '1.25rem', borderRadius: '14px', backgroundColor: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.08)', marginBottom: '1.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+                      <div style={{ padding: '1.25rem', borderRadius: '14px', backgroundColor: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.08)', marginBottom: '1.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                           <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: 'rgba(14, 165, 233, 0.15)', color: '#38bdf8', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '1.3rem', border: '1px solid rgba(14, 165, 233, 0.3)' }}>
                             {selectedMail.sender.profileImage ? (
@@ -1083,17 +1083,17 @@ Sayın Personel,
                             )}
                           </div>
                           <div>
-                            <div style={{ fontSize: '1rem', fontWeight: 800, color: '#fff' }}>
+                            <div style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--text-primary)' }}>
                               {selectedMail.sender.name} <span style={{ color: '#38bdf8' }}>#{selectedMail.sender.badge}</span>
                             </div>
-                            <div style={{ fontSize: '0.78rem', color: '#94a3b8', fontWeight: 600 }}>
+                            <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
                               Gönderen Rütbe: {selectedMail.sender.rank || 'Memur'}
                             </div>
                           </div>
                         </div>
 
                         <div style={{ textAlign: 'right' }}>
-                          <div style={{ fontSize: '0.78rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>
+                          <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase' }}>
                             ALICI / HEDEF:
                           </div>
                           <div style={{ fontSize: '0.9rem', fontWeight: 800, color: '#e2e8f0', marginTop: '2px' }}>
@@ -1103,7 +1103,7 @@ Sayın Personel,
                               <span style={{ color: '#fbbf24' }}>📢 TÜM DEPARTMAN GENEL DUYURUSU</span>
                             )}
                           </div>
-                          <div style={{ fontSize: '0.75rem', color: '#64748b', marginTop: '4px' }}>
+                          <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '4px' }}>
                             Tarih: {new Date(selectedMail.createdAt).toLocaleString('tr-TR')}
                           </div>
                         </div>
@@ -1118,7 +1118,7 @@ Sayın Personel,
                 );
               })()
             ) : (
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', padding: '3rem', textAlign: 'center', color: '#64748b' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', padding: '3rem', textAlign: 'center', color: 'var(--text-muted)' }}>
                 <div style={{ width: '80px', height: '80px', borderRadius: '24px', backgroundColor: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem' }}>
                   <i className="fa-solid fa-envelope-open-text" style={{ fontSize: '2.5rem', opacity: 0.4, color: '#38bdf8' }}></i>
                 </div>

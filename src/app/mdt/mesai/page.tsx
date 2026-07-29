@@ -84,7 +84,7 @@ export default function MesaiSistemiMinimal() {
       });
       if (!res.ok) throw new Error();
       toast.success(newIsOnDuty ? "Devriye başlatıldı. Güvenli seyirler." : "Devriye sonlandırıldı. İyi dinlenmeler.", {
-        style: { background: "#0D111D", color: "var(--bg-tertiary)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "12px", fontSize: "0.85rem" }
+        style: { background: "#0D111D", color: "var(--bg-tertiary)", border: '1px solid var(--border-light)', borderRadius: "12px", fontSize: "0.85rem" }
       });
       mutateMe();
       mutateShifts();
@@ -108,7 +108,7 @@ export default function MesaiSistemiMinimal() {
         body: JSON.stringify({ isOnDuty: false })
       });
       if (res.ok) {
-        toast.success(`Mesai kapatıldı: ${off.name}`, { style: { background: "#0D111D", color: "var(--bg-tertiary)", border: "1px solid rgba(255,255,255,0.1)" } });
+        toast.success(`Mesai kapatıldı: ${off.name}`, { style: { background: "#0D111D", color: "var(--bg-tertiary)", border: '1px solid var(--border-light)' } });
         mutateShifts();
       } else {
         toast.error("İşlem başarısız.");
@@ -183,7 +183,7 @@ export default function MesaiSistemiMinimal() {
             <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "#475569" }} />
             <span style={{ fontSize: "0.68rem", fontWeight: 600, color: "#64748B", fontFamily: "'Courier New', monospace" }}>PDT {currentTime}</span>
           </div>
-          <h1 style={{ fontSize: "1.85rem", fontWeight: 800, color: "#FFF", margin: "0.2rem 0 0 0", letterSpacing: "-0.04em" }}>
+          <h1 style={{ fontSize: "1.85rem", fontWeight: 800, color: "var(--text-primary)", margin: "0.2rem 0 0 0", letterSpacing: "-0.04em" }}>
             Devriye & Mesai Ağ Geçidi
           </h1>
         </div>
@@ -199,7 +199,7 @@ export default function MesaiSistemiMinimal() {
           <div style={{ width: "1px", height: "28px", background: "rgba(255,255,255,0.07)" }} />
           <div style={{ textAlign: "right" }}>
             <div style={{ fontSize: "0.65rem", fontWeight: 700, color: "#64748B", textTransform: "uppercase", letterSpacing: "0.1em" }}>DEPARTMAN EFORU</div>
-            <div style={{ fontSize: "1.1rem", fontWeight: 800, color: "#FFF", fontFamily: "'Courier New', monospace" }}>
+            <div style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text-primary)", fontFamily: "'Courier New', monospace" }}>
               {formatHoursMinimal(totalDepartmentSeconds)}
             </div>
           </div>
@@ -353,7 +353,7 @@ export default function MesaiSistemiMinimal() {
                     {medals.label}
                   </div>
                   <div>
-                    <div style={{ fontSize: "0.98rem", fontWeight: 800, color: "#FFF", display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                    <div style={{ fontSize: "0.98rem", fontWeight: 800, color: "var(--text-primary)", display: "flex", alignItems: "center", gap: "0.4rem" }}>
                       {off.name}
                       {off.isOnDuty && <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#34D399" }} title="Şu an devriyede" />}
                     </div>
@@ -364,7 +364,7 @@ export default function MesaiSistemiMinimal() {
                 </div>
 
                 <div style={{ textAlign: "right", zIndex: 1 }}>
-                  <div style={{ fontFamily: "'Courier New', monospace", fontSize: "1.25rem", fontWeight: 800, color: "#FFF" }}>
+                  <div style={{ fontFamily: "'Courier New', monospace", fontSize: "1.25rem", fontWeight: 800, color: "var(--text-primary)" }}>
                     {formatTime(secs)}
                   </div>
                   <div style={{ fontSize: "0.7rem", color: medals.color, fontWeight: 700 }}>
@@ -435,7 +435,7 @@ export default function MesaiSistemiMinimal() {
                   background: "rgba(255,255,255,0.03)",
                   border: "1px solid rgba(255,255,255,0.08)",
                   borderRadius: "10px",
-                  color: "#FFF",
+                  color: "var(--text-primary)",
                   fontSize: "0.8rem",
                   width: "240px",
                   outline: "none",
@@ -553,11 +553,11 @@ export default function MesaiSistemiMinimal() {
                         {/* Officer */}
                         <td style={{ padding: "1rem" }}>
                           <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                            <div style={{ width: "34px", height: "34px", borderRadius: "10px", background: isMe ? "#0284C7" : "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, color: "#FFF", fontSize: "0.85rem", flexShrink: 0 }}>
+                            <div style={{ width: "34px", height: "34px", borderRadius: "10px", background: isMe ? "#0284C7" : "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, color: "var(--text-primary)", fontSize: "0.85rem", flexShrink: 0 }}>
                               {off.name.charAt(0)}
                             </div>
                             <div>
-                              <div style={{ fontWeight: 700, color: "#FFF", fontSize: "0.9rem", display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                              <div style={{ fontWeight: 700, color: "var(--text-primary)", fontSize: "0.9rem", display: "flex", alignItems: "center", gap: "0.4rem" }}>
                                 {off.name}
                                 {isMe && <span style={{ fontSize: "0.62rem", background: "#38BDF8", color: "#000", padding: "0.1rem 0.35rem", borderRadius: "3px", fontWeight: 900 }}>SEN</span>}
                               </div>
@@ -642,11 +642,11 @@ export default function MesaiSistemiMinimal() {
                   >
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "0.7rem" }}>
-                        <div style={{ width: "38px", height: "38px", borderRadius: "10px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, color: "#FFF", fontSize: "0.9rem" }}>
+                        <div style={{ width: "38px", height: "38px", borderRadius: "10px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, color: "var(--text-primary)", fontSize: "0.9rem" }}>
                           {off.name.charAt(0)}
                         </div>
                         <div>
-                          <div style={{ fontWeight: 700, color: "#FFF", fontSize: "0.9rem", display: "flex", alignItems: "center", gap: "0.35rem" }}>
+                          <div style={{ fontWeight: 700, color: "var(--text-primary)", fontSize: "0.9rem", display: "flex", alignItems: "center", gap: "0.35rem" }}>
                             {off.name}
                             {isMe && <span style={{ fontSize: "0.6rem", background: "#38BDF8", color: "#000", padding: "0.1rem 0.3rem", borderRadius: "3px", fontWeight: 900 }}>SEN</span>}
                           </div>

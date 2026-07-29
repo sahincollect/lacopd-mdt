@@ -194,12 +194,12 @@ export default function PersonelListesi() {
   }, [officers, search, activeDeptFilter]);
 
   const getDeptMeta = (key: string) =>
-    DEPARTMENTS.find(d => d.key === key) || { key, label: key, icon: "fa-users", color: "#64748b" };
+    DEPARTMENTS.find(d => d.key === key) || { key, label: key, icon: "fa-users", color: 'var(--text-muted)' };
 
   const inputStyle: React.CSSProperties = {
     width: "100%", padding: "1rem",
-    backgroundColor: "rgba(0,0,0,0.4)", border: "1px solid rgba(255,255,255,0.05)",
-    borderRadius: "12px", color: "#fff", fontSize: "0.9rem", outline: "none",
+    backgroundColor: 'var(--bg-secondary)', border: "1px solid rgba(255,255,255,0.05)",
+    borderRadius: "12px", color: 'var(--text-primary)', fontSize: "0.9rem", outline: "none",
     boxSizing: "border-box", transition: "all 0.3s"
   };
 
@@ -226,11 +226,11 @@ export default function PersonelListesi() {
         
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
-            <h1 style={{ fontSize: "2rem", fontWeight: 800, margin: 0, fontFamily: "'Oswald', sans-serif", letterSpacing: "0.05em", color: "#fff", textShadow: "0 0 20px rgba(14, 165, 233, 0.5)", display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <h1 style={{ fontSize: "2rem", fontWeight: 800, margin: 0, fontFamily: "'Oswald', sans-serif", letterSpacing: "0.05em", color: 'var(--text-primary)', textShadow: "0 0 20px rgba(14, 165, 233, 0.5)", display: 'flex', alignItems: 'center', gap: '1rem' }}>
               <i className="fa-solid fa-users-viewfinder" style={{ color: '#0284c7' }}></i> PERSONEL VERİ TABANI
             </h1>
-            <p style={{ color: "#94a3b8", fontSize: "0.85rem", letterSpacing: "0.1em", margin: "0.5rem 0 0 0", textTransform: 'uppercase' }}>
-              Ağdaki Toplam Memur: <span style={{ color: '#fff', fontWeight: 700 }}>{officers.length}</span>
+            <p style={{ color: 'var(--text-secondary)', fontSize: "0.85rem", letterSpacing: "0.1em", margin: "0.5rem 0 0 0", textTransform: 'uppercase' }}>
+              Ağdaki Toplam Memur: <span style={{ color: 'var(--text-primary)', fontWeight: 700 }}>{officers.length}</span>
             </p>
           </div>
           {isAdmin && (
@@ -258,7 +258,7 @@ export default function PersonelListesi() {
             <input
               type="text" placeholder="Memur adı, sicil veya rütbe taraması (Örn: John, 104, Sergeant)..."
               value={search} onChange={e => setSearch(e.target.value)}
-              style={{ ...inputStyle, paddingLeft: "3rem", borderRadius: '16px', backgroundColor: 'rgba(0,0,0,0.5)', boxShadow: 'inset 0 0 10px rgba(0,0,0,0.5)', fontSize: '1rem' }}
+              style={{ ...inputStyle, paddingLeft: "3rem", borderRadius: '16px', backgroundColor: 'var(--bg-secondary)', boxShadow: 'inset 0 0 10px rgba(0,0,0,0.5)', fontSize: '1rem' }}
               onFocus={e => { e.currentTarget.style.borderColor = "#0284c7"; e.currentTarget.style.boxShadow = "0 0 15px rgba(14, 165, 233, 0.3), inset 0 0 10px rgba(0,0,0,0.5)"; }}
               onBlur={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)"; e.currentTarget.style.boxShadow = "inset 0 0 10px rgba(0,0,0,0.5)"; }}
             />
@@ -327,7 +327,7 @@ export default function PersonelListesi() {
               <div
                 key={app.id}
                 style={{
-                  backgroundColor: "rgba(0,0,0,0.5)",
+                  backgroundColor: 'var(--bg-secondary)',
                   border: "1px solid rgba(255,255,255,0.08)",
                   borderRadius: "16px",
                   padding: "1.25rem",
@@ -342,9 +342,9 @@ export default function PersonelListesi() {
                     {app.name?.charAt(0)}
                   </div>
                   <div>
-                    <div style={{ color: "#fff", fontWeight: 700, fontSize: "1.05rem" }}>{app.name}</div>
-                    <div style={{ color: "#94a3b8", fontSize: "0.85rem" }}>Rozet: <strong style={{ color: "#38bdf8" }}>#{app.badge}</strong> • {app.rank}</div>
-                    <div style={{ color: "#64748b", fontSize: "0.75rem" }}>Departman: {app.department}</div>
+                    <div style={{ color: 'var(--text-primary)', fontWeight: 700, fontSize: "1.05rem" }}>{app.name}</div>
+                    <div style={{ color: 'var(--text-secondary)', fontSize: "0.85rem" }}>Rozet: <strong style={{ color: "#38bdf8" }}>#{app.badge}</strong> • {app.rank}</div>
+                    <div style={{ color: 'var(--text-muted)', fontSize: "0.75rem" }}>Departman: {app.department}</div>
                   </div>
                 </div>
 
@@ -385,8 +385,8 @@ export default function PersonelListesi() {
       ) : allDepts.length === 0 ? (
         <div style={{ textAlign: "center", padding: "5rem", backgroundColor: "rgba(10, 15, 30, 0.6)", borderRadius: "24px", border: "1px solid rgba(255,255,255,0.05)", backdropFilter: 'blur(16px)' }}>
           <i className="fa-solid fa-ghost" style={{ fontSize: "4rem", marginBottom: "1.5rem", color: 'rgba(255,255,255,0.1)' }}></i>
-          <h2 style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: '0.1em', color: '#fff', margin: '0 0 0.5rem 0' }}>KAYIT BULUNAMADI</h2>
-          <p style={{ color: '#64748b', margin: 0 }}>Aranan kriterlere uygun memur kaydı sistemde mevcut değil.</p>
+          <h2 style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: '0.1em', color: 'var(--text-primary)', margin: '0 0 0.5rem 0' }}>KAYIT BULUNAMADI</h2>
+          <p style={{ color: 'var(--text-muted)', margin: 0 }}>Aranan kriterlere uygun memur kaydı sistemde mevcut değil.</p>
         </div>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
@@ -414,8 +414,8 @@ export default function PersonelListesi() {
                       <i className={`fa-solid ${meta.icon}`}></i>
                     </div>
                     <div>
-                      <h2 style={{ margin: 0, fontFamily: "'Oswald', sans-serif", fontSize: "1.2rem", letterSpacing: "0.05em", color: "#fff" }}>{meta.label.toUpperCase()}</h2>
-                      <div style={{ fontSize: "0.7rem", color: "#94a3b8", letterSpacing: '0.1em' }}>KAYITLI OPERATÖR: {members.length}</div>
+                      <h2 style={{ margin: 0, fontFamily: "'Oswald', sans-serif", fontSize: "1.2rem", letterSpacing: "0.05em", color: 'var(--text-primary)' }}>{meta.label.toUpperCase()}</h2>
+                      <div style={{ fontSize: "0.7rem", color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>KAYITLI OPERATÖR: {members.length}</div>
                     </div>
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
@@ -431,7 +431,7 @@ export default function PersonelListesi() {
                 {/* Members Grid */}
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1rem", padding: "1.5rem" }}>
                   {members.map(officer => (
-                    <div whileHover={{ y: -2, boxShadow: `0 8px 20px ${meta.color}15`, borderColor: `${meta.color}50` }} key={officer.id} style={{ display: "flex", alignItems: "center", gap: "0.8rem", padding: "0.75rem", backgroundColor: "rgba(0,0,0,0.4)", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.05)", transition: "all 0.3s", position: "relative", overflow: 'hidden' }}>
+                    <div whileHover={{ y: -2, boxShadow: `0 8px 20px ${meta.color}15`, borderColor: `${meta.color}50` }} key={officer.id} style={{ display: "flex", alignItems: "center", gap: "0.8rem", padding: "0.75rem", backgroundColor: 'var(--bg-secondary)', borderRadius: "12px", border: "1px solid rgba(255,255,255,0.05)", transition: "all 0.3s", position: "relative", overflow: 'hidden' }}>
                       
                       {/* Avatar (Rounded Square + LAC Logo Fallback) */}
                       <div style={{ position: 'relative' }}>
@@ -448,12 +448,12 @@ export default function PersonelListesi() {
 
                       {/* Info */}
                       <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: '0.1rem' }}>
-                        <div style={{ fontWeight: 800, fontSize: "0.95rem", fontFamily: "'Oswald', sans-serif", letterSpacing: '0.05em', whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", color: '#fff' }}>
+                        <div style={{ fontWeight: 800, fontSize: "0.95rem", fontFamily: "'Oswald', sans-serif", letterSpacing: '0.05em', whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", color: 'var(--text-primary)' }}>
                           {officer.name.toUpperCase()}
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                            <span style={{ fontSize: "0.7rem", color: meta.color, fontWeight: 700, fontFamily: 'monospace', backgroundColor: `${meta.color}15`, padding: '0.1rem 0.3rem', borderRadius: '4px' }}>#{officer.badge}</span>
-                           <span style={{ fontSize: "0.7rem", color: "#94a3b8", fontWeight: 600 }}>{officer.rank || "OFFICER I"}</span>
+                           <span style={{ fontSize: "0.7rem", color: 'var(--text-secondary)', fontWeight: 600 }}>{officer.rank || "OFFICER I"}</span>
                         </div>
                         {officer.specialRoles && (
                           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '3px', marginTop: '4px' }}>
@@ -511,11 +511,11 @@ export default function PersonelListesi() {
                     <i className={editingOfficer ? "fa-solid fa-user-pen" : "fa-solid fa-user-plus"}></i>
                   </div>
                   <div>
-                    <h2 style={{ margin: 0, fontFamily: "'Oswald', sans-serif", fontSize: "1.3rem", letterSpacing: "0.05em", color: "#fff" }}>{editingOfficer ? "SİCİL GÜNCELLEME" : "YENİ KAYIT OLUŞTUR"}</h2>
-                    <div style={{ fontSize: "0.72rem", color: "#94a3b8", letterSpacing: '0.08em' }}>{editingOfficer ? `Kayıtlı Operatör: ${editingOfficer.name}` : "Merkezi Veri Tabanı Kaydı"}</div>
+                    <h2 style={{ margin: 0, fontFamily: "'Oswald', sans-serif", fontSize: "1.3rem", letterSpacing: "0.05em", color: 'var(--text-primary)' }}>{editingOfficer ? "SİCİL GÜNCELLEME" : "YENİ KAYIT OLUŞTUR"}</h2>
+                    <div style={{ fontSize: "0.72rem", color: 'var(--text-secondary)', letterSpacing: '0.08em' }}>{editingOfficer ? `Kayıtlı Operatör: ${editingOfficer.name}` : "Merkezi Veri Tabanı Kaydı"}</div>
                   </div>
                 </div>
-                <button onClick={() => { setShowModal(false); setEditingOfficer(null); }} style={{ background: "none", border: "none", color: "#64748b", cursor: "pointer", fontSize: "1.4rem", transition: 'color 0.2s', padding: '0.3rem' }} onMouseOver={e => e.currentTarget.style.color = '#fff'} onMouseOut={e => e.currentTarget.style.color = '#64748b'}>
+                <button onClick={() => { setShowModal(false); setEditingOfficer(null); }} style={{ background: "none", border: "none", color: 'var(--text-muted)', cursor: "pointer", fontSize: "1.4rem", transition: 'color 0.2s', padding: '0.3rem' }} onMouseOver={e => e.currentTarget.style.color = '#fff'} onMouseOut={e => e.currentTarget.style.color = '#64748b'}>
                   <i className="fa-solid fa-xmark"></i>
                 </button>
               </div>
@@ -530,32 +530,32 @@ export default function PersonelListesi() {
 
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.1rem" }}>
                     <div>
-                      <label style={{ display: "block", fontSize: "0.72rem", color: "#94a3b8", marginBottom: "0.4rem", fontWeight: 700, letterSpacing: "0.08em" }}>ROZET NUMARASI *</label>
+                      <label style={{ display: "block", fontSize: "0.72rem", color: 'var(--text-secondary)', marginBottom: "0.4rem", fontWeight: 700, letterSpacing: "0.08em" }}>ROZET NUMARASI *</label>
                       <input required value={form.badge} onChange={e => setForm(f => ({ ...f, badge: e.target.value }))} placeholder="Örn: 04-1234" style={{ ...inputStyle, padding: "0.75rem 1rem" }} onFocus={e => e.currentTarget.style.borderColor = editingOfficer ? "#0369a1" : "#0284c7"} onBlur={e => e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)"} />
                     </div>
                     <div>
-                      <label style={{ display: "block", fontSize: "0.72rem", color: "#94a3b8", marginBottom: "0.4rem", fontWeight: 700, letterSpacing: "0.08em" }}>İSİM SOYİSİM *</label>
+                      <label style={{ display: "block", fontSize: "0.72rem", color: 'var(--text-secondary)', marginBottom: "0.4rem", fontWeight: 700, letterSpacing: "0.08em" }}>İSİM SOYİSİM *</label>
                       <input required value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} placeholder="Örn: John Doe" style={{ ...inputStyle, padding: "0.75rem 1rem" }} onFocus={e => e.currentTarget.style.borderColor = editingOfficer ? "#0369a1" : "#0284c7"} onBlur={e => e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)"} />
                     </div>
                   </div>
 
                   <div>
-                    <label style={{ display: "flex", justifyContent: 'space-between', alignItems: 'flex-end', fontSize: "0.72rem", color: "#94a3b8", marginBottom: "0.4rem", fontWeight: 700, letterSpacing: "0.08em" }}>
+                    <label style={{ display: "flex", justifyContent: 'space-between', alignItems: 'flex-end', fontSize: "0.72rem", color: 'var(--text-secondary)', marginBottom: "0.4rem", fontWeight: 700, letterSpacing: "0.08em" }}>
                       <span>GÜVENLİK ANAHTARI (ŞİFRE) {editingOfficer ? "" : "*"}</span>
-                      {editingOfficer && <span style={{ color: "#64748b", fontSize: "0.65rem", fontWeight: 400 }}>(Değiştirmeyecekseniz boş bırakın)</span>}
+                      {editingOfficer && <span style={{ color: 'var(--text-muted)', fontSize: "0.65rem", fontWeight: 400 }}>(Değiştirmeyecekseniz boş bırakın)</span>}
                     </label>
                     <input required={!editingOfficer} type="password" value={form.password} onChange={e => setForm(f => ({ ...f, password: e.target.value }))} placeholder={editingOfficer ? "********" : "Sisteme giriş şifresi belirleyin"} style={{ ...inputStyle, padding: "0.75rem 1rem" }} onFocus={e => e.currentTarget.style.borderColor = editingOfficer ? "#0369a1" : "#0284c7"} onBlur={e => e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)"} />
                   </div>
 
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.1rem" }}>
                     <div>
-                      <label style={{ display: "block", fontSize: "0.72rem", color: "#94a3b8", marginBottom: "0.4rem", fontWeight: 700, letterSpacing: "0.08em" }}>RÜTBE</label>
+                      <label style={{ display: "block", fontSize: "0.72rem", color: 'var(--text-secondary)', marginBottom: "0.4rem", fontWeight: 700, letterSpacing: "0.08em" }}>RÜTBE</label>
                       <select value={form.rank} onChange={e => setForm(f => ({ ...f, rank: e.target.value }))} style={{ ...inputStyle, padding: "0.75rem 1rem", cursor: "pointer", appearance: 'none' }}>
                         {RANKS.map(r => <option key={r} value={r} style={{ background: '#0a0f1e' }}>{r}</option>)}
                       </select>
                     </div>
                     <div>
-                      <label style={{ display: "block", fontSize: "0.72rem", color: "#94a3b8", marginBottom: "0.4rem", fontWeight: 700, letterSpacing: "0.08em" }}>YETKİ SEVİYESİ</label>
+                      <label style={{ display: "block", fontSize: "0.72rem", color: 'var(--text-secondary)', marginBottom: "0.4rem", fontWeight: 700, letterSpacing: "0.08em" }}>YETKİ SEVİYESİ</label>
                       <select value={form.role} onChange={e => setForm(f => ({ ...f, role: e.target.value }))} style={{ ...inputStyle, padding: "0.75rem 1rem", cursor: "pointer", appearance: 'none' }}>
                         <option value="user" style={{ background: '#0a0f1e' }}>Memur (Standart)</option>
                         <option value="admin" style={{ background: '#0a0f1e' }}>Yönetici (Admin)</option>
@@ -564,7 +564,7 @@ export default function PersonelListesi() {
                   </div>
 
                   <div>
-                    <label style={{ display: "block", fontSize: "0.72rem", color: "#94a3b8", marginBottom: "0.4rem", fontWeight: 700, letterSpacing: "0.08em" }}>BİRİM / DEPARTMAN</label>
+                    <label style={{ display: "block", fontSize: "0.72rem", color: 'var(--text-secondary)', marginBottom: "0.4rem", fontWeight: 700, letterSpacing: "0.08em" }}>BİRİM / DEPARTMAN</label>
                     <select value={form.department} onChange={e => setForm(f => ({ ...f, department: e.target.value }))} style={{ ...inputStyle, padding: "0.75rem 1rem", cursor: "pointer", appearance: 'none' }}>
                       {DEPARTMENTS.map(d => <option key={d.key} value={d.key} style={{ background: '#0a0f1e' }}>{d.label}</option>)}
                       <option value="High Command" style={{ background: '#0a0f1e' }}>High Command</option>
@@ -608,10 +608,10 @@ export default function PersonelListesi() {
                 </div>
 
                 <div style={{ padding: "1.1rem 1.75rem", borderTop: "1px solid rgba(255,255,255,0.06)", display: "flex", gap: "0.85rem", justifyContent: "flex-end", flexShrink: 0, backgroundColor: 'rgba(5, 10, 22, 0.98)' }}>
-                  <button type="button" onClick={() => { setShowModal(false); setEditingOfficer(null); }} style={{ padding: "0.75rem 1.5rem", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.12)", backgroundColor: "rgba(255,255,255,0.03)", color: "#94a3b8", cursor: "pointer", fontWeight: 700, fontSize: "0.85rem", transition: 'all 0.2s' }} onMouseOver={e => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.color = '#fff'; }} onMouseOut={e => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.03)'; e.currentTarget.style.color = '#94a3b8'; }}>
+                  <button type="button" onClick={() => { setShowModal(false); setEditingOfficer(null); }} style={{ padding: "0.75rem 1.5rem", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.12)", backgroundColor: "rgba(255,255,255,0.03)", color: 'var(--text-secondary)', cursor: "pointer", fontWeight: 700, fontSize: "0.85rem", transition: 'all 0.2s' }} onMouseOver={e => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.color = '#fff'; }} onMouseOut={e => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.03)'; e.currentTarget.style.color = '#94a3b8'; }}>
                     İPTAL
                   </button>
-                  <button type="submit" disabled={submitting} style={{ padding: "0.75rem 1.75rem", borderRadius: "10px", border: "none", backgroundColor: editingOfficer ? "#0369a1" : "#0284c7", color: "#fff", fontWeight: 800, fontSize: "0.85rem", cursor: submitting ? "not-allowed" : "pointer", opacity: submitting ? 0.7 : 1, display: "flex", alignItems: "center", gap: "0.6rem", boxShadow: `0 4px 15px ${editingOfficer ? "rgba(139,92,246,0.35)" : "rgba(14, 165, 233,0.35)"}`, transition: 'all 0.2s' }}>
+                  <button type="submit" disabled={submitting} style={{ padding: "0.75rem 1.75rem", borderRadius: "10px", border: "none", backgroundColor: editingOfficer ? "#0369a1" : "#0284c7", color: 'var(--text-primary)', fontWeight: 800, fontSize: "0.85rem", cursor: submitting ? "not-allowed" : "pointer", opacity: submitting ? 0.7 : 1, display: "flex", alignItems: "center", gap: "0.6rem", boxShadow: `0 4px 15px ${editingOfficer ? "rgba(139,92,246,0.35)" : "rgba(14, 165, 233,0.35)"}`, transition: 'all 0.2s' }}>
                     {submitting ? <><i className="fa-solid fa-circle-notch fa-spin"></i> İŞLENİYOR...</> : editingOfficer ? <><i className="fa-solid fa-floppy-disk"></i> KAYDI GÜNCELLE</> : <><i className="fa-solid fa-plus"></i> MEMUR EKLE</>}
                   </button>
                 </div>

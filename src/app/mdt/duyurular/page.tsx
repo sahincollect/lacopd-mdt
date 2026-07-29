@@ -123,7 +123,7 @@ export default function Duyurular() {
 
   const inputStyle: React.CSSProperties = {
     width: "100%", padding: "0.9rem 1.25rem", backgroundColor: "rgba(15, 23, 42, 0.4)",
-    border: "1px solid rgba(255,255,255,0.08)", borderRadius: "12px", color: "#fff",
+    border: "1px solid rgba(255,255,255,0.08)", borderRadius: "12px", color: 'var(--text-primary)',
     fontSize: "0.95rem", outline: "none", boxSizing: "border-box", transition: "all 0.2s ease"
   };
 
@@ -132,12 +132,12 @@ export default function Duyurular() {
      
      
      
-      style={{ color: "#fff", paddingBottom: "3rem", maxWidth: "1600px", width: "100%", padding: "0 1rem", margin: "0 auto" }}
+      style={{ color: 'var(--text-primary)', paddingBottom: "3rem", maxWidth: "1600px", width: "100%", padding: "0 1rem", margin: "0 auto" }}
     >
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2.5rem' }}>
         <div>
-          <h1 style={{ fontSize: '2.2rem', fontWeight: 800, margin: 0, color: "#fff", letterSpacing: '-0.02em', textTransform: 'uppercase' }}>
+          <h1 style={{ fontSize: '2.2rem', fontWeight: 800, margin: 0, color: 'var(--text-primary)', letterSpacing: '-0.02em', textTransform: 'uppercase' }}>
             Departman <span style={{ color: "var(--accent-primary)", textShadow: "0 0 20px rgba(14, 165, 233,0.4)" }}>Duyuruları</span>
           </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', marginTop: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
@@ -217,7 +217,7 @@ export default function Duyurular() {
                 <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
                   <button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" disabled={submitting} style={{ 
                     flex: 1, padding: '1rem', borderRadius: '12px', border: 'none',
-                    background: "linear-gradient(135deg, #0284c7, #1D4ED8)", color: '#fff', fontWeight: 800,
+                    background: "linear-gradient(135deg, #0284c7, #1D4ED8)", color: 'var(--text-primary)', fontWeight: 800,
                     cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.7 : 1,
                     boxShadow: submitting ? 'none' : '0 8px 25px rgba(14, 165, 233, 0.4)'
                   }}>
@@ -274,7 +274,7 @@ export default function Duyurular() {
                       <i className={`fa-solid ${styles.icon}`}></i>
                     </div>
                     <div>
-                      <h3 style={{ fontSize: '1.4rem', fontWeight: 800, textTransform: 'uppercase', margin: '0 0 0.5rem 0', color: '#fff', letterSpacing: '0.02em', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <h3 style={{ fontSize: '1.4rem', fontWeight: 800, textTransform: 'uppercase', margin: '0 0 0.5rem 0', color: 'var(--text-primary)', letterSpacing: '0.02em', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                         {ann.title}
                         <span style={{ fontSize: '0.65rem', padding: '0.2rem 0.6rem', borderRadius: '6px', backgroundColor: styles.bg, color: styles.color, border: `1px solid ${styles.border}`, verticalAlign: 'middle' }}>
                           {ann.type || "Normal"}
@@ -290,7 +290,7 @@ export default function Duyurular() {
                     <div style={{ display: 'flex', gap: '0.5rem' }}>
                       <button onClick={() => handleEdit(ann)} title="Düzenle" style={{
                         width: '35px', height: '35px', borderRadius: '8px', backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)', color: 'var(--text-secondary)', cursor: 'pointer',
+                        border: '1px solid var(--border-light)', color: 'var(--text-secondary)', cursor: 'pointer',
                         display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s'
                       }}
                       onMouseOver={e => { e.currentTarget.style.backgroundColor = '#0284c7'; e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = '#0284c7'; }}
@@ -308,7 +308,7 @@ export default function Duyurular() {
                     </div>
                   )}
                 </div>
-                <div style={{ backgroundColor: 'rgba(0,0,0,0.3)', padding: '1.25rem', borderRadius: '10px', borderLeft: `3px solid ${styles.color}` }}>
+                <div style={{ backgroundColor: 'var(--bg-secondary)', padding: '1.25rem', borderRadius: '10px', borderLeft: `3px solid ${styles.color}` }}>
                   <p style={{ lineHeight: '1.8', whiteSpace: 'pre-wrap', fontSize: '0.95rem', margin: 0, color: 'rgba(255,255,255,0.9)' }}>
                     {ann.content}
                   </p>
