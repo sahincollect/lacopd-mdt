@@ -50,7 +50,7 @@ export default function Navigation() {
         fontSize: '0.75rem', 
         color: 'var(--lapd-text-dark)' 
       }}>
-        <strong style={{ fontWeight: 800 }}>DUYURU!</strong> Los Angeles Polis Akademisi (Season 7) başvuruları başlamıştır. 
+        <strong style={{ fontWeight: 800 }}>DUYURU!</strong> Los Angeles Polis Akademisi (Season 1) başvuruları başlamıştır. 
         <Link href="https://discord.com/invite/laco" target="_blank" style={{ color: 'var(--lapd-orange)', marginLeft: '10px', textDecoration: 'none', fontWeight: 600 }}>
           — Detaylı Bilgi Alın
         </Link>
@@ -69,12 +69,15 @@ export default function Navigation() {
       }}>
         
         {/* Left: Logo */}
-        <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+        <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <img 
             src="/lapd-logo.png" 
             alt="LAPD Logo" 
             style={{ width: '60px', height: '60px', borderRadius: '50%', objectFit: 'cover' }} 
           />
+          <span style={{ color: 'var(--lapd-text-dark)', fontWeight: 800, fontSize: '0.95rem', letterSpacing: '0.02em', textTransform: 'uppercase', lineHeight: 1.2 }}>
+            Los Angeles<br/>Community
+          </span>
         </Link>
 
         {/* Right: Nav & Actions */}
@@ -175,7 +178,7 @@ export default function Navigation() {
               onMouseOver={e => e.currentTarget.style.backgroundColor = 'var(--lapd-orange-hover)'}
               onMouseOut={e => e.currentTarget.style.backgroundColor = 'var(--lapd-orange)'}
             >
-              MDT GİRİŞİ
+              PERSONEL GİRİŞİ
             </Link>
             
             <button style={{ 

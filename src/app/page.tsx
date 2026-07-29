@@ -79,8 +79,8 @@ export default function Home() {
           onMouseOver={e => e.currentTarget.style.background = 'linear-gradient(to top, rgba(0,0,0,1), transparent)'}
           onMouseOut={e => e.currentTarget.style.background = 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)'}
           >
-            <div style={{ width: '40px', height: '40px', backgroundColor: 'var(--lapd-orange)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, cursor: 'pointer' }}>
-              <i className="fa-solid fa-play" style={{ color: 'white', fontSize: '1rem', marginLeft: '3px' }}></i>
+            <div style={{ backgroundColor: 'var(--lapd-orange)', color: 'white', padding: '0.5rem 1rem', fontSize: '0.8rem', fontWeight: 700, borderRadius: '4px', flexShrink: 0 }}>
+              Mesajı Oku
             </div>
             <div>
               <div style={{ fontWeight: 700, fontSize: '0.95rem', lineHeight: 1.2 }}>Community Lead'den Mesaj</div>
