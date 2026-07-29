@@ -13,7 +13,6 @@ const RANK_META: Record<string, { color: string; glow: string; tier: number; ico
   'Officer III':   { color: '#cbd5e1', glow: 'rgba(203,213,225,0.25)', tier: 6, icon: 'fa-shield-halved' },
   'Officer II':    { color: '#94a3b8', glow: 'rgba(148,163,184,0.2)',  tier: 7, icon: 'fa-shield' },
   'Officer I':     { color: '#64748b', glow: 'rgba(100,116,139,0.2)',  tier: 8, icon: 'fa-user-check' },
-  'Cadet':         { color: '#475569', glow: 'rgba(71,85,105,0.2)',   tier: 9, icon: 'fa-user' },
   'Captain':       { color: '#F59E0B', glow: 'rgba(245,158,11,0.35)', tier: 10, icon: 'fa-medal' },
   'Lieutenant':    { color: '#E2E8F0', glow: 'rgba(226,232,240,0.3)', tier: 11, icon: 'fa-id-badge' },
 };
@@ -60,7 +59,6 @@ export default function Hakkimizda() {
     'Officer III',
     'Officer II',
     'Officer I',
-    'Cadet'
   ];
 
   const getRankGroup = (rank: string): string => {
