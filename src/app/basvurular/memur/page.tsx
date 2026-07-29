@@ -7,29 +7,29 @@ import { motion, AnimatePresence } from "framer-motion";
 const inputStyle: React.CSSProperties = {
   width: "100%",
   padding: "0.9rem 1.25rem",
-  backgroundColor: "rgba(15, 23, 42, 0.6)",
-  border: "1px solid rgba(255,255,255,0.08)",
-  borderRadius: "12px",
-  color: "#f1f5f9",
+  backgroundColor: "white",
+  border: "1px solid var(--lapd-border)",
+  borderRadius: "4px",
+  color: "var(--lapd-text-dark)",
   fontSize: "0.95rem",
   outline: "none",
   boxSizing: "border-box",
   transition: "all 0.2s ease",
-  fontFamily: "'Inter', sans-serif",
+  fontFamily: "var(--font-inter)",
 };
 
 const labelStyle: React.CSSProperties = {
   display: "block",
   fontSize: "0.75rem",
-  fontWeight: 700,
-  color: "#64748b",
+  fontWeight: 800,
+  color: "var(--lapd-text-muted)",
   textTransform: "uppercase",
   letterSpacing: "0.08em",
   marginBottom: "0.6rem",
 };
 
-const ACCENT = "#0EA5E9";
-const ACCENT_GLOW = "rgba(14,165,233,0.4)";
+const ACCENT = "var(--lapd-blue-dark)";
+const ACCENT_BG = "var(--lapd-gray-bg)";
 
 export default function MemurBasvurusu() {
   const [step, setStep] = useState(1);
@@ -94,44 +94,33 @@ export default function MemurBasvurusu() {
   };
 
   return (
-    <div style={{ backgroundColor: "#040914", minHeight: "100vh", color: "#f1f5f9", fontFamily: "'Inter', sans-serif" }}>
-      <style>{`
-        input:focus, select:focus, textarea:focus { border-color: ${ACCENT} !important; background-color: rgba(14,165,233,0.04) !important; box-shadow: 0 0 0 3px rgba(14,165,233,0.12) !important; }
-        @keyframes float-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-      `}</style>
+    <div style={{ backgroundColor: "var(--lapd-bg)", minHeight: "100vh", color: "var(--lapd-text-dark)", fontFamily: "var(--font-inter)", paddingBottom: '5rem' }}>
+      
+      {/* ── HEADER BREADCRUMB ── */}
+      <div style={{ backgroundColor: '#F0F4F4', padding: '1rem 2rem', borderBottom: '1px solid var(--lapd-border)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', fontSize: '0.85rem', color: 'var(--lapd-text-muted)' }}>
+          <Link href="/" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Ana Sayfa</Link> &nbsp;&gt;&nbsp; 
+          <Link href="/basvurular" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Başvurular</Link> &nbsp;&gt;&nbsp; 
+          <span style={{ color: 'var(--lapd-orange)' }}>Memur Başvurusu</span>
+        </div>
+      </div>
 
-      {/* BG */}
-      <div style={{ position: "fixed", inset: 0, background: "radial-gradient(circle at 30% 40%, rgba(14,165,233,0.06) 0%, transparent 50%)", pointerEvents: "none", zIndex: 0 }} />
-
-      {/* Nav */}
-      <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.25rem 5%", borderBottom: "1px solid rgba(255,255,255,0.04)", backgroundColor: "rgba(4,9,20,0.85)", backdropFilter: "blur(20px)" }}>
-        <Link href="/basvurular" style={{ display: "flex", alignItems: "center", gap: "0.75rem", textDecoration: "none" }}>
-          <img src="/lapd-logo.png" alt="LAC" style={{ width: "32px", height: "32px", borderRadius: "50%", border: "1px solid rgba(14,165,233,0.4)" }} />
-          <span style={{ color: "#94a3b8", fontSize: "0.85rem" }}>Başvurular</span>
-          <i className="fa-solid fa-chevron-right" style={{ color: "#475569", fontSize: "0.65rem" }} />
-          <span style={{ color: "#f8fafc", fontWeight: 700, fontSize: "0.9rem" }}>Memur Başvurusu</span>
-        </Link>
-        <Link href="/basvurular" style={{ color: "#94a3b8", textDecoration: "none", fontSize: "0.85rem", display: "flex", alignItems: "center", gap: "0.4rem" }}>
-          <i className="fa-solid fa-arrow-left" style={{ fontSize: "0.75rem" }} /> Geri
-        </Link>
-      </nav>
-
-      <main style={{ position: "relative", zIndex: 10, padding: "8rem 5% 4rem", maxWidth: "860px", margin: "0 auto" }}>
+      <main style={{ position: "relative", zIndex: 10, padding: "5rem 2rem 4rem", maxWidth: "860px", margin: "0 auto" }}>
         <AnimatePresence mode="wait">
           {submitted ? (
-            <motion.div key="success" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} style={{ textAlign: "center", padding: "4rem 2rem" }}>
-              <div style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "rgba(16,185,129,0.1)", border: "2px solid rgba(16,185,129,0.4)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 2rem", boxShadow: "0 0 30px rgba(16,185,129,0.3)" }}>
-                <i className="fa-solid fa-check" style={{ fontSize: "2rem", color: "#10b981" }} />
+            <motion.div key="success" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} style={{ textAlign: "center", padding: "4rem 2rem", backgroundColor: 'white', border: '1px solid var(--lapd-border)' }}>
+              <div style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "var(--lapd-gray-bg)", border: `2px solid var(--lapd-border)`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 2rem" }}>
+                <i className="fa-solid fa-check" style={{ fontSize: "2rem", color: "#10B981" }} />
               </div>
-              <h2 style={{ fontSize: "2rem", fontWeight: 800, color: "#fff", marginBottom: "1rem" }}>Başvurunuz Alındı!</h2>
-              <p style={{ color: "#94a3b8", fontSize: "1.05rem", lineHeight: 1.7, marginBottom: "2.5rem" }}>
+              <h2 style={{ fontSize: "2rem", fontWeight: 800, color: "var(--lapd-blue-dark)", marginBottom: "1rem" }}>Başvurunuz Alındı!</h2>
+              <p style={{ color: "var(--lapd-text-dark)", fontSize: "1.05rem", lineHeight: 1.7, marginBottom: "2.5rem" }}>
                 Memur başvurunuz başarıyla sisteme kaydedildi. Yönetim ekibimiz başvurunuzu en kısa sürede inceleyecek ve Discord üzerinden sizinle iletişime geçecektir.
               </p>
               <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-                <Link href="/basvurular" style={{ padding: "0.85rem 2rem", borderRadius: "12px", backgroundColor: ACCENT, color: "#040914", textDecoration: "none", fontWeight: 700 }}>
+                <Link href="/basvurular" style={{ padding: "0.85rem 2rem", backgroundColor: ACCENT, color: "white", textDecoration: "none", fontWeight: 700 }}>
                   Başvurulara Dön
                 </Link>
-                <Link href="/" style={{ padding: "0.85rem 2rem", borderRadius: "12px", backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "#e2e8f0", textDecoration: "none", fontWeight: 600 }}>
+                <Link href="/" style={{ padding: "0.85rem 2rem", backgroundColor: "var(--lapd-gray-bg)", border: "1px solid var(--lapd-border)", color: "var(--lapd-text-dark)", textDecoration: "none", fontWeight: 600 }}>
                   Ana Sayfa
                 </Link>
               </div>
@@ -139,174 +128,178 @@ export default function MemurBasvurusu() {
           ) : (
             <motion.div key="form" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
               {/* Header */}
-              <div style={{ marginBottom: "3rem" }}>
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", backgroundColor: "rgba(14,165,233,0.08)", border: "1px solid rgba(14,165,233,0.2)", borderRadius: "50px", padding: "0.4rem 1.25rem", marginBottom: "1.5rem" }}>
-                  <i className="fa-solid fa-shield-halved" style={{ color: ACCENT, fontSize: "0.8rem" }} />
-                  <span style={{ fontSize: "0.8rem", color: "#7dd3fc", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase" }}>Resmi Memur Başvurusu</span>
+              <div style={{ marginBottom: "3rem", textAlign: "center" }}>
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", backgroundColor: "var(--lapd-gray-bg)", border: `1px solid var(--lapd-border)`, padding: "0.4rem 1.25rem", marginBottom: "1.5rem" }}>
+                  <i className="fa-solid fa-shield-halved" style={{ color: "var(--lapd-orange)", fontSize: "0.8rem" }} />
+                  <span style={{ fontSize: "0.8rem", color: "var(--lapd-blue-dark)", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase" }}>Resmi Memur Başvurusu</span>
                 </div>
-                <h1 style={{ fontSize: "2.5rem", fontWeight: 800, color: "#fff", marginBottom: "1rem", letterSpacing: "-0.02em" }}>
-                  LAC&apos;ye Katıl
+                <h1 style={{ fontSize: "2.5rem", fontWeight: 800, color: "var(--lapd-blue-dark)", marginBottom: "1rem", letterSpacing: "-0.02em" }}>
+                  LAPD'ye Katıl
                 </h1>
-                <p style={{ color: "#94a3b8", fontSize: "1rem", lineHeight: 1.7 }}>
-                  Tüm alanları dürüstçe ve eksiksiz doldurun. Eksik veya yanlış bilgi başvurunuzun reddedilmesine neden olabilir.
+                <div style={{ width: '60px', height: '4px', backgroundColor: 'var(--lapd-orange)', margin: '0 auto 1.5rem' }}></div>
+                <p style={{ color: "var(--lapd-text-dark)", fontSize: "1rem", lineHeight: 1.7 }}>
+                  LAPD çatısı altında hizmet etmek bir ayrıcalıktır. Bu formu doldurarak Akademi sürecine (Phase 1) girmek için ilk adımı atıyorsunuz.
                 </p>
               </div>
 
               {/* Progress Steps */}
-              <div style={{ display: "flex", gap: "0", marginBottom: "3rem", position: "relative" }}>
-                {["Kişisel Bilgiler", "Deneyim & Motivasyon", "Onay"].map((s, i) => (
-                  <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", position: "relative" }}>
-                    {i < 2 && <div style={{ position: "absolute", top: "18px", left: "50%", right: "-50%", height: "2px", backgroundColor: step > i + 1 ? ACCENT : "rgba(255,255,255,0.08)", zIndex: 0, transition: "background-color 0.4s" }} />}
-                    <div style={{ width: "36px", height: "36px", borderRadius: "50%", backgroundColor: step > i ? ACCENT : step === i + 1 ? "rgba(14,165,233,0.2)" : "rgba(255,255,255,0.05)", border: `2px solid ${step >= i + 1 ? ACCENT : "rgba(255,255,255,0.1)"}`, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1, transition: "all 0.4s", boxShadow: step === i + 1 ? `0 0 15px ${ACCENT_GLOW}` : "none" }}>
-                      {step > i ? <i className="fa-solid fa-check" style={{ color: "#040914", fontSize: "0.75rem" }} /> : <span style={{ color: step === i + 1 ? ACCENT : "#475569", fontSize: "0.8rem", fontWeight: 700 }}>{i + 1}</span>}
+              <div style={{ display: "flex", justifyContent: "center", gap: "1rem", marginBottom: "3rem" }}>
+                {[1, 2, 3].map((s) => (
+                  <div key={s} style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                    <div style={{ width: "35px", height: "35px", borderRadius: "50%", backgroundColor: step === s ? ACCENT : step > s ? "#10B981" : "var(--lapd-gray-bg)", border: `1px solid ${step === s ? ACCENT : step > s ? "#10B981" : "var(--lapd-border)"}`, display: "flex", alignItems: "center", justifyContent: "center", color: step === s || step > s ? "white" : "var(--lapd-text-muted)", fontWeight: 800, fontSize: "0.9rem", transition: "all 0.3s" }}>
+                      {step > s ? <i className="fa-solid fa-check" /> : s}
                     </div>
-                    <span style={{ marginTop: "0.5rem", fontSize: "0.7rem", color: step === i + 1 ? ACCENT : "#475569", fontWeight: 600, textAlign: "center", display: "none" }}>{s}</span>
+                    {s !== 3 && <div style={{ width: "40px", height: "2px", backgroundColor: step > s ? "#10B981" : "var(--lapd-border)", transition: "all 0.3s" }} />}
                   </div>
                 ))}
               </div>
 
-              {/* Form Steps */}
-              <div style={{ backgroundColor: "rgba(10,16,35,0.8)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "24px", padding: "3rem", backdropFilter: "blur(16px)", boxShadow: "0 20px 50px rgba(0,0,0,0.4)" }}>
-                <AnimatePresence mode="wait">
-                  {step === 1 && (
-                    <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                      <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "#fff", marginBottom: "2rem", display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                        <i className="fa-solid fa-user" style={{ color: ACCENT }} /> Kişisel Bilgiler
-                      </h3>
+              {/* Form Container */}
+              <div style={{ backgroundColor: "white", border: "1px solid var(--lapd-border)", overflow: "hidden" }}>
+                
+                {/* STEP 1 */}
+                {step === 1 && (
+                  <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+                    <div style={{ padding: "3rem" }}>
+                      <h3 style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--lapd-blue-dark)", marginBottom: "2rem" }}>Kişisel Bilgiler & İletişim</h3>
                       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
                         <div style={{ gridColumn: "1 / -1" }}>
                           <label style={labelStyle}>Karakter Adı Soyadı *</label>
-                          <input style={inputStyle} placeholder="Örn: John Miller" value={form.fullName} onChange={e => set("fullName", e.target.value)} />
+                          <input style={inputStyle} placeholder="Örn: John Smith" value={form.fullName} onChange={e => set("fullName", e.target.value)} />
                         </div>
                         <div>
                           <label style={labelStyle}>Discord Kullanıcı Adı *</label>
                           <input style={inputStyle} placeholder="Örn: john#1234" value={form.discordName} onChange={e => set("discordName", e.target.value)} />
                         </div>
                         <div>
-                          <label style={labelStyle}>Yaş *</label>
-                          <input style={inputStyle} type="number" placeholder="Örn: 22" min="18" max="99" value={form.age} onChange={e => set("age", e.target.value)} />
+                          <label style={labelStyle}>Karakter Yaşı *</label>
+                          <input style={inputStyle} type="number" placeholder="Min 18" min="18" value={form.age} onChange={e => set("age", e.target.value)} />
                         </div>
                         <div>
-                          <label style={labelStyle}>E-posta (İsteğe Bağlı)</label>
-                          <input style={inputStyle} type="email" placeholder="ornek@mail.com" value={form.email} onChange={e => set("email", e.target.value)} />
+                          <label style={labelStyle}>Zaman Dilimi (Timezone)</label>
+                          <input style={inputStyle} placeholder="Örn: GMT+3 (TSİ)" value={form.timezone} onChange={e => set("timezone", e.target.value)} />
                         </div>
                         <div>
-                          <label style={labelStyle}>Zaman Dilimi</label>
-                          <select style={inputStyle} value={form.timezone} onChange={e => set("timezone", e.target.value)}>
-                            <option value="" style={{ color: "#0f172a" }}>Seçiniz...</option>
-                            <option value="UTC+3" style={{ color: "#0f172a" }}>UTC+3 (Türkiye)</option>
-                            <option value="UTC+1" style={{ color: "#0f172a" }}>UTC+1 (Avrupa Merkezi)</option>
-                            <option value="UTC+0" style={{ color: "#0f172a" }}>UTC+0 (İngiltere)</option>
-                            <option value="Diğer" style={{ color: "#0f172a" }}>Diğer</option>
-                          </select>
-                        </div>
-                        <div>
-                          <label style={labelStyle}>Haftalık Aktif Süre</label>
+                          <label style={labelStyle}>Haftalık Aktiflik Süresi</label>
                           <select style={inputStyle} value={form.hoursPerWeek} onChange={e => set("hoursPerWeek", e.target.value)}>
-                            <option value="" style={{ color: "#0f172a" }}>Seçiniz...</option>
-                            <option value="5-10 saat" style={{ color: "#0f172a" }}>5-10 saat</option>
-                            <option value="10-20 saat" style={{ color: "#0f172a" }}>10-20 saat</option>
-                            <option value="20-30 saat" style={{ color: "#0f172a" }}>20-30 saat</option>
-                            <option value="30+ saat" style={{ color: "#0f172a" }}>30+ saat</option>
+                            <option value="">Seçiniz...</option>
+                            <option value="10-20 Saat">10-20 Saat</option>
+                            <option value="20-30 Saat">20-30 Saat</option>
+                            <option value="30-40 Saat">30-40 Saat</option>
+                            <option value="40+ Saat">40+ Saat</option>
                           </select>
                         </div>
                       </div>
-                    </motion.div>
-                  )}
+                    </div>
+                  </motion.div>
+                )}
 
-                  {step === 2 && (
-                    <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                      <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "#fff", marginBottom: "2rem", display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                        <i className="fa-solid fa-star" style={{ color: ACCENT }} /> Deneyim ve Motivasyon
-                      </h3>
+                {/* STEP 2 */}
+                {step === 2 && (
+                  <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+                    <div style={{ padding: "3rem" }}>
+                      <h3 style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--lapd-blue-dark)", marginBottom: "2rem" }}>Deneyim & Niyet</h3>
                       <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
                         <div>
-                          <label style={labelStyle}>FiveM / Polis Roleplay Deneyiminiz</label>
-                          <textarea style={{ ...inputStyle, minHeight: "120px", resize: "vertical" }} placeholder="Daha önce hangi sunucularda, hangi pozisyonlarda görev aldınız?" value={form.experience} onChange={e => set("experience", e.target.value)} />
+                          <label style={labelStyle}>Polis Rolü Deneyiminiz Var mı?</label>
+                          <select style={inputStyle} value={form.experience} onChange={e => set("experience", e.target.value)}>
+                            <option value="">Seçiniz...</option>
+                            <option value="Hiç deneyimim yok (İlk kez)">Hiç deneyimim yok, akademi eğitimi almak istiyorum</option>
+                            <option value="Başka sunucularda polis rolü yaptım">Başka sunucularda polis rolü yaptım</option>
+                            <option value="Yüksek deneyime sahibim (Gerçekçi LEO RP)">Yüksek deneyime sahibim (Gerçekçi LEO RP)</option>
+                          </select>
+                        </div>
+                        {form.experience.includes("Başka") || form.experience.includes("Yüksek") ? (
+                          <div>
+                            <label style={labelStyle}>Geçmişte Görev Yaptığınız Departmanlar & Rütbeleriniz</label>
+                            <textarea style={{ ...inputStyle, minHeight: "80px", resize: "vertical" }} placeholder="Hangi sunucularda, hangi departman/rütbede görev aldınız?" value={form.pastDepartments} onChange={e => set("pastDepartments", e.target.value)} />
+                          </div>
+                        ) : null}
+                        <div>
+                          <label style={labelStyle}>LAPD'ye Katılma Motivasyonunuz Nedir? *</label>
+                          <textarea style={{ ...inputStyle, minHeight: "150px", resize: "vertical" }} placeholder="Karakterinizin neden polis olmak istediğini ve hedeflerini açıklayın. (Min. 50 kelime)" value={form.motivation} onChange={e => set("motivation", e.target.value)} />
                         </div>
                         <div>
-                          <label style={labelStyle}>Neden LAC&apos;ye Katılmak İstiyorsunuz? *</label>
-                          <textarea style={{ ...inputStyle, minHeight: "140px", resize: "vertical" }} placeholder="Motivasyonunuzu, hedeflerinizi ve beklentilerinizi detaylandırın..." value={form.motivation} onChange={e => set("motivation", e.target.value)} />
-                        </div>
-                        <div>
-                          <label style={labelStyle}>Daha Önce Çıkarıldığınız / Ayrıldığınız Departmanlar</label>
-                          <input style={inputStyle} placeholder="Yoksa 'Yok' yazın" value={form.pastDepartments} onChange={e => set("pastDepartments", e.target.value)} />
-                        </div>
-                        <div>
-                          <label style={labelStyle}>Sizi Kim Yönlendirdi? (İsteğe Bağlı)</label>
+                          <label style={labelStyle}>Bizi Nereden Buldunuz / Referansınız</label>
                           <input style={inputStyle} placeholder="Discord kullanıcı adı / Kimse" value={form.referral} onChange={e => set("referral", e.target.value)} />
                         </div>
                       </div>
-                    </motion.div>
-                  )}
+                    </div>
+                  </motion.div>
+                )}
 
-                  {step === 3 && (
-                    <motion.div key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                      <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "#fff", marginBottom: "2rem", display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                        <i className="fa-solid fa-clipboard-check" style={{ color: ACCENT }} /> Özet ve Onay
-                      </h3>
-
-                      <div style={{ backgroundColor: "rgba(14,165,233,0.04)", border: "1px solid rgba(14,165,233,0.15)", borderRadius: "16px", padding: "2rem", marginBottom: "2rem" }}>
+                {/* STEP 3 */}
+                {step === 3 && (
+                  <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+                    <div style={{ padding: "3rem" }}>
+                      <h3 style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--lapd-blue-dark)", marginBottom: "2rem" }}>Onay & Beyan</h3>
+                      
+                      <div style={{ backgroundColor: "var(--lapd-gray-bg)", border: "1px solid var(--lapd-border)", padding: "1.5rem", marginBottom: "2rem" }}>
+                        <h4 style={{ fontSize: "0.85rem", color: "var(--lapd-blue-dark)", fontWeight: 800, textTransform: "uppercase", marginBottom: "1rem" }}>Özet Bilgiler</h4>
                         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                           {[
-                            { label: "Ad Soyad", value: form.fullName },
+                            { label: "Karakter", value: form.fullName },
                             { label: "Discord", value: form.discordName },
                             { label: "Yaş", value: form.age },
-                            { label: "Zaman Dilimi", value: form.timezone || "—" },
-                            { label: "Haftalık Süre", value: form.hoursPerWeek || "—" },
-                            { label: "E-posta", value: form.email || "—" },
+                            { label: "Deneyim", value: form.experience || "Belirtilmedi" },
                           ].map((item, i) => (
                             <div key={i}>
-                              <div style={{ fontSize: "0.7rem", color: "#64748b", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.25rem" }}>{item.label}</div>
-                              <div style={{ color: "#e2e8f0", fontWeight: 600, fontSize: "0.9rem" }}>{item.value}</div>
+                              <div style={{ fontSize: "0.7rem", color: "var(--lapd-text-muted)", fontWeight: 800, textTransform: "uppercase" }}>{item.label}</div>
+                              <div style={{ color: "var(--lapd-text-dark)", fontSize: "0.95rem", fontWeight: 500 }}>{item.value || "-"}</div>
                             </div>
                           ))}
                         </div>
                       </div>
 
-                      <label style={{ display: "flex", gap: "1rem", alignItems: "flex-start", cursor: "pointer", marginBottom: "1.5rem" }}>
-                        <input type="checkbox" checked={form.agreeRules} onChange={e => set("agreeRules", e.target.checked)} style={{ width: "18px", height: "18px", marginTop: "2px", accentColor: ACCENT, flexShrink: 0 }} />
-                        <span style={{ color: "#94a3b8", fontSize: "0.9rem", lineHeight: 1.6 }}>
-                        Verdiğim bilgilerin doğru ve eksiksiz olduğunu, LAC sunucu kurallarını okuduğumu ve kabul ettiğimi onaylıyorum. Yanlış bilgi nedeniyle başvurumun reddedilebileceğini ve sunucudan çıkarılabileceğimi anlıyorum.
-                        </span>
-                      </label>
+                      <div style={{ borderTop: "1px solid var(--lapd-border)", paddingTop: "2rem" }}>
+                        <label style={{ display: "flex", gap: "1rem", alignItems: "flex-start", cursor: "pointer" }}>
+                          <input type="checkbox" checked={form.agreeRules} onChange={e => set("agreeRules", e.target.checked)} style={{ width: "20px", height: "20px", marginTop: "2px", accentColor: ACCENT, flexShrink: 0 }} />
+                          <span style={{ color: "var(--lapd-text-dark)", fontSize: "0.9rem", lineHeight: 1.6 }}>
+                            Verdiğim bilgilerin tamamen doğru olduğunu beyan ederim. Yalan beyan durumunda departmandan ihraç edileceğimi, 
+                            Akademi sürecindeki yoğun eğitimlere ve üstlerimin emirlerine kayıtsız şartsız itaat edeceğimi kabul ediyorum.
+                          </span>
+                        </label>
+                      </div>
 
                       {error && (
-                        <div style={{ backgroundColor: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", borderRadius: "10px", padding: "0.85rem 1.25rem", color: "#fca5a5", fontSize: "0.875rem", marginBottom: "1.5rem" }}>
-                          <i className="fa-solid fa-circle-exclamation" style={{ marginRight: "0.5rem" }} />
-                          {error}
+                        <div style={{ backgroundColor: "#FEF2F2", border: "1px solid #FCA5A5", padding: "0.85rem 1.25rem", color: "#DC2626", fontSize: "0.875rem", marginTop: "2rem" }}>
+                          <i className="fa-solid fa-circle-exclamation" style={{ marginRight: "0.5rem" }} />{error}
                         </div>
                       )}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                    </div>
+                  </motion.div>
+                )}
 
-                {/* Navigation Buttons */}
-                <div style={{ display: "flex", justifyContent: "space-between", marginTop: "2.5rem", gap: "1rem" }}>
-                  {step > 1 ? (
-                    <button onClick={() => setStep(s => s - 1)} style={{ padding: "0.9rem 2rem", borderRadius: "12px", backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "#94a3b8", fontWeight: 600, cursor: "pointer", transition: "all 0.2s" }}>
-                      <i className="fa-solid fa-arrow-left" style={{ marginRight: "0.5rem" }} /> Geri
-                    </button>
-                  ) : (
-                    <div />
-                  )}
+                {/* Footer Controls */}
+                <div style={{ padding: "1.5rem 3rem", backgroundColor: "var(--lapd-gray-bg)", borderTop: "1px solid var(--lapd-border)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <button 
+                    type="button" 
+                    onClick={() => setStep(step - 1)}
+                    style={{ padding: "0.85rem 1.5rem", background: "transparent", border: "1px solid var(--lapd-border)", color: "var(--lapd-text-dark)", fontWeight: 700, borderRadius: "4px", visibility: step === 1 ? "hidden" : "visible", cursor: "pointer" }}
+                  >
+                    Geri
+                  </button>
+
                   {step < 3 ? (
-                    <button
-                      onClick={() => setStep(s => s + 1)}
-                      style={{ padding: "0.9rem 2.5rem", borderRadius: "12px", background: `linear-gradient(135deg, ${ACCENT}, #0369a1)`, border: "none", color: "#fff", fontWeight: 700, cursor: "pointer", boxShadow: `0 8px 25px ${ACCENT_GLOW}`, transition: "all 0.2s", letterSpacing: "0.03em" }}
+                    <button 
+                      type="button" 
+                      onClick={() => setStep(step + 1)}
+                      style={{ padding: "0.85rem 2.5rem", background: ACCENT, border: "none", color: "white", fontWeight: 800, borderRadius: "4px", cursor: "pointer", transition: "background-color 0.2s" }}
                     >
-                      Devam Et <i className="fa-solid fa-arrow-right" style={{ marginLeft: "0.5rem" }} />
+                      İleri
                     </button>
                   ) : (
-                    <button
+                    <button 
+                      type="button" 
                       onClick={handleSubmit}
-                      disabled={submitting}
-                      style={{ padding: "0.9rem 2.5rem", borderRadius: "12px", background: submitting ? "rgba(16,185,129,0.3)" : "linear-gradient(135deg, #10b981, #059669)", border: "none", color: "#fff", fontWeight: 700, cursor: submitting ? "not-allowed" : "pointer", boxShadow: "0 8px 25px rgba(16,185,129,0.35)", transition: "all 0.2s", letterSpacing: "0.03em", opacity: submitting ? 0.7 : 1 }}
+                      disabled={submitting || !form.agreeRules}
+                      style={{ padding: "0.85rem 2.5rem", background: (submitting || !form.agreeRules) ? "var(--lapd-border)" : "#10B981", border: "none", color: "white", fontWeight: 800, borderRadius: "4px", cursor: (submitting || !form.agreeRules) ? "not-allowed" : "pointer", transition: "background-color 0.2s" }}
                     >
-                      {submitting ? <><i className="fa-solid fa-circle-notch fa-spin" style={{ marginRight: "0.5rem" }} />Gönderiliyor...</> : <><i className="fa-solid fa-paper-plane" style={{ marginRight: "0.5rem" }} />Başvuruyu Gönder</>}
+                      {submitting ? "Gönderiliyor..." : "Başvuruyu Tamamla"}
                     </button>
                   )}
                 </div>
+
               </div>
             </motion.div>
           )}

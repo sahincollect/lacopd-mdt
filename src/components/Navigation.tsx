@@ -2,21 +2,40 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 export default function Navigation() {
   const pathname = usePathname();
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
   // Memur paneli ve giriş sayfasında genel navigasyonu gizle
-  if (pathname === '/giris' || pathname?.startsWith('/mdt') || pathname?.startsWith('/rapor-portali') || pathname?.startsWith('/basvurular')) {
+  if (pathname === '/giris' || pathname?.startsWith('/mdt') || pathname?.startsWith('/rapor-portali')) {
     return null;
   }
 
-  const navLinks = [
-    { name: "HAKKIMIZDA", path: "/hakkimizda" },
-    { name: "KARİYER", path: "/kariyer" },
-    { name: "BAŞVURULAR", path: "/basvurular" },
-    { name: "GALERİ", path: "/galeri" }
+  const navMenus = [
+    { 
+      name: "DEPARTMANIMIZ", 
+      items: [
+        { label: "Biz Kimiz?", path: "/hakkimizda" },
+        { label: "Community Lead'den Mesaj", path: "/mesaj" },
+        { label: "Medya ve Galeri", path: "/galeri" }
+      ]
+    },
+    { 
+      name: "HİZMETLER", 
+      items: [
+        { label: "Polis Raporu Oluştur", path: "/rapor-portali" },
+        { label: "Trafik Kazası Raporu", path: "/rapor-portali" }
+      ]
+    },
+    { 
+      name: "BİLGİ & KARİYER", 
+      items: [
+        { label: "Aramıza Katıl", path: "/basvurular" },
+        { label: "Kariyer Olanakları", path: "/kariyer" }
+      ]
+    }
   ];
 
   return (
@@ -32,7 +51,7 @@ export default function Navigation() {
         color: 'var(--lapd-text-dark)' 
       }}>
         <strong style={{ fontWeight: 800 }}>DUYURU!</strong> Los Angeles Polis Akademisi (Season 7) başvuruları başlamıştır. 
-        <Link href="https://discord.gg/thelapd" target="_blank" style={{ color: 'var(--lapd-orange)', marginLeft: '10px', textDecoration: 'none', fontWeight: 600 }}>
+        <Link href="https://discord.com/invite/laco" target="_blank" style={{ color: 'var(--lapd-orange)', marginLeft: '10px', textDecoration: 'none', fontWeight: 600 }}>
           — Detaylı Bilgi Alın
         </Link>
       </div>
@@ -61,13 +80,16 @@ export default function Navigation() {
         {/* Right: Nav & Actions */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '2.5rem' }}>
           
-          {/* Nav Links */}
+          {/* Nav Links (Dropdown) */}
           <nav style={{ display: 'flex', gap: '2rem' }}>
-            {navLinks.map((link) => (
-              <Link 
-                key={link.path} 
-                href={link.path}
-                style={{ 
+            {navMenus.map((menu) => (
+              <div 
+                key={menu.name}
+                onMouseEnter={() => setActiveMenu(menu.name)}
+                onMouseLeave={() => setActiveMenu(null)}
+                style={{ position: 'relative', height: '100%', display: 'flex', alignItems: 'center', padding: '20px 0' }}
+              >
+                <div style={{ 
                   color: 'var(--lapd-text-dark)', 
                   textDecoration: 'none', 
                   fontSize: '0.85rem', 
@@ -75,18 +97,63 @@ export default function Navigation() {
                   fontFamily: 'var(--font-inter)',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '4px'
-                }}
-              >
-                {link.name}
-                <span style={{ 
-                  width: 0, height: 0, 
-                  borderLeft: '4px solid transparent', 
-                  borderRight: '4px solid transparent', 
-                  borderTop: '4px solid var(--lapd-orange)',
-                  marginTop: '2px'
-                }}></span>
-              </Link>
+                  gap: '6px',
+                  cursor: 'pointer'
+                }}>
+                  {menu.name}
+                  <span style={{ 
+                    width: 0, height: 0, 
+                    borderLeft: '4px solid transparent', 
+                    borderRight: '4px solid transparent', 
+                    borderTop: `4px solid ${activeMenu === menu.name ? 'var(--lapd-orange)' : 'var(--lapd-text-dark)'}`,
+                    marginTop: '2px',
+                    transition: 'border-top-color 0.2s'
+                  }}></span>
+                </div>
+
+                {/* Dropdown Box */}
+                {activeMenu === menu.name && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: '0',
+                    backgroundColor: 'white',
+                    border: '1px solid var(--lapd-border)',
+                    borderTop: '3px solid var(--lapd-orange)',
+                    boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
+                    minWidth: '250px',
+                    zIndex: 200,
+                    padding: '0.5rem 0'
+                  }}>
+                    {menu.items.map(item => (
+                      <Link 
+                        key={item.label}
+                        href={item.path}
+                        style={{
+                          display: 'block',
+                          padding: '0.8rem 1.5rem',
+                          color: 'var(--lapd-text-dark)',
+                          textDecoration: 'none',
+                          fontSize: '0.85rem',
+                          fontWeight: 500,
+                          transition: 'background-color 0.2s, color 0.2s'
+                        }}
+                        onMouseOver={e => {
+                          e.currentTarget.style.backgroundColor = 'var(--lapd-gray-bg)';
+                          e.currentTarget.style.color = 'var(--lapd-orange)';
+                        }}
+                        onMouseOut={e => {
+                          e.currentTarget.style.backgroundColor = 'transparent';
+                          e.currentTarget.style.color = 'var(--lapd-text-dark)';
+                        }}
+                        onClick={() => setActiveMenu(null)}
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
           </nav>
 

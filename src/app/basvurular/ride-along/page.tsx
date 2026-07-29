@@ -4,28 +4,28 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
-const ACCENT = "#8B5CF6";
-const ACCENT_GLOW = "rgba(139,92,246,0.4)";
+const ACCENT = "var(--lapd-blue-dark)";
+const ACCENT_BG = "var(--lapd-gray-bg)";
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
   padding: "0.9rem 1.25rem",
-  backgroundColor: "rgba(15, 23, 42, 0.6)",
-  border: "1px solid rgba(255,255,255,0.08)",
-  borderRadius: "12px",
-  color: "#f1f5f9",
+  backgroundColor: "white",
+  border: "1px solid var(--lapd-border)",
+  borderRadius: "4px",
+  color: "var(--lapd-text-dark)",
   fontSize: "0.95rem",
   outline: "none",
   boxSizing: "border-box",
   transition: "all 0.2s ease",
-  fontFamily: "'Inter', sans-serif",
+  fontFamily: "var(--font-inter)",
 };
 
 const labelStyle: React.CSSProperties = {
   display: "block",
   fontSize: "0.75rem",
-  fontWeight: 700,
-  color: "#64748b",
+  fontWeight: 800,
+  color: "var(--lapd-text-muted)",
   textTransform: "uppercase",
   letterSpacing: "0.08em",
   marginBottom: "0.6rem",
@@ -91,55 +91,47 @@ export default function RideAlongBasvurusu() {
   };
 
   return (
-    <div style={{ backgroundColor: "#040914", minHeight: "100vh", color: "#f1f5f9", fontFamily: "'Inter', sans-serif" }}>
-      <style>{`
-        input:focus, select:focus, textarea:focus { border-color: ${ACCENT} !important; background-color: rgba(139,92,246,0.04) !important; box-shadow: 0 0 0 3px rgba(139,92,246,0.12) !important; }
-      `}</style>
+    <div style={{ backgroundColor: "var(--lapd-bg)", minHeight: "100vh", color: "var(--lapd-text-dark)", fontFamily: "var(--font-inter)", paddingBottom: '5rem' }}>
+      
+      {/* ── HEADER BREADCRUMB ── */}
+      <div style={{ backgroundColor: '#F0F4F4', padding: '1rem 2rem', borderBottom: '1px solid var(--lapd-border)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', fontSize: '0.85rem', color: 'var(--lapd-text-muted)' }}>
+          <Link href="/" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Ana Sayfa</Link> &nbsp;&gt;&nbsp; 
+          <Link href="/basvurular" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Başvurular</Link> &nbsp;&gt;&nbsp; 
+          <span style={{ color: 'var(--lapd-orange)' }}>Ride Along</span>
+        </div>
+      </div>
 
-      <div style={{ position: "fixed", inset: 0, background: "radial-gradient(circle at 70% 30%, rgba(139,92,246,0.07) 0%, transparent 50%)", pointerEvents: "none", zIndex: 0 }} />
-
-      {/* Nav */}
-      <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.25rem 5%", borderBottom: "1px solid rgba(255,255,255,0.04)", backgroundColor: "rgba(4,9,20,0.85)", backdropFilter: "blur(20px)" }}>
-        <Link href="/basvurular" style={{ display: "flex", alignItems: "center", gap: "0.75rem", textDecoration: "none" }}>
-          <img src="/lapd-logo.png" alt="LAC" style={{ width: "32px", height: "32px", borderRadius: "50%", border: `1px solid ${ACCENT}66` }} />
-          <span style={{ color: "#94a3b8", fontSize: "0.85rem" }}>Başvurular</span>
-          <i className="fa-solid fa-chevron-right" style={{ color: "#475569", fontSize: "0.65rem" }} />
-          <span style={{ color: "#f8fafc", fontWeight: 700, fontSize: "0.9rem" }}>Ride Along</span>
-        </Link>
-        <Link href="/basvurular" style={{ color: "#94a3b8", textDecoration: "none", fontSize: "0.85rem", display: "flex", alignItems: "center", gap: "0.4rem" }}>
-          <i className="fa-solid fa-arrow-left" style={{ fontSize: "0.75rem" }} /> Geri
-        </Link>
-      </nav>
-
-      <main style={{ position: "relative", zIndex: 10, padding: "8rem 5% 4rem", maxWidth: "760px", margin: "0 auto" }}>
+      <main style={{ position: "relative", zIndex: 10, padding: "5rem 2rem 4rem", maxWidth: "800px", margin: "0 auto" }}>
         <AnimatePresence mode="wait">
           {submitted ? (
-            <motion.div key="success" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} style={{ textAlign: "center", padding: "4rem 2rem" }}>
-              <div style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "rgba(139,92,246,0.1)", border: `2px solid ${ACCENT}66`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 2rem", boxShadow: `0 0 30px ${ACCENT_GLOW}` }}>
-                <i className="fa-solid fa-car-side" style={{ fontSize: "1.8rem", color: ACCENT }} />
+            <motion.div key="success" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} style={{ textAlign: "center", padding: "4rem 2rem", backgroundColor: 'white', border: '1px solid var(--lapd-border)' }}>
+              <div style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "var(--lapd-gray-bg)", border: `2px solid var(--lapd-border)`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 2rem" }}>
+                <i className="fa-solid fa-car-side" style={{ fontSize: "1.8rem", color: 'var(--lapd-orange)' }} />
               </div>
-              <h2 style={{ fontSize: "2rem", fontWeight: 800, color: "#fff", marginBottom: "1rem" }}>Başvurunuz Alındı!</h2>
-              <p style={{ color: "#94a3b8", fontSize: "1.05rem", lineHeight: 1.7, marginBottom: "2.5rem" }}>
+              <h2 style={{ fontSize: "2rem", fontWeight: 800, color: "var(--lapd-blue-dark)", marginBottom: "1rem" }}>Başvurunuz Alındı!</h2>
+              <p style={{ color: "var(--lapd-text-dark)", fontSize: "1.05rem", lineHeight: 1.7, marginBottom: "2.5rem" }}>
                 Ride Along başvurunuz kaydedildi. Uygun bir devriye zamanı belirlendikten sonra Discord üzerinden bilgilendirileceksiniz. Katılım için ilgili memur koordinatörlüğünde olacaktır.
               </p>
               <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-                <Link href="/basvurular" style={{ padding: "0.85rem 2rem", borderRadius: "12px", backgroundColor: ACCENT, color: "#fff", textDecoration: "none", fontWeight: 700 }}>Başvurulara Dön</Link>
-                <Link href="/" style={{ padding: "0.85rem 2rem", borderRadius: "12px", backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "#e2e8f0", textDecoration: "none", fontWeight: 600 }}>Ana Sayfa</Link>
+                <Link href="/basvurular" style={{ padding: "0.85rem 2rem", backgroundColor: 'var(--lapd-blue-dark)', color: "white", textDecoration: "none", fontWeight: 700 }}>Başvurulara Dön</Link>
+                <Link href="/" style={{ padding: "0.85rem 2rem", backgroundColor: "var(--lapd-gray-bg)", border: "1px solid var(--lapd-border)", color: "var(--lapd-text-dark)", textDecoration: "none", fontWeight: 600 }}>Ana Sayfa</Link>
               </div>
             </motion.div>
           ) : (
             <motion.div key="form" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
               {/* Header */}
-              <div style={{ marginBottom: "3rem" }}>
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", backgroundColor: `${ACCENT}15`, border: `1px solid ${ACCENT}30`, borderRadius: "50px", padding: "0.4rem 1.25rem", marginBottom: "1.5rem" }}>
-                  <i className="fa-solid fa-car-side" style={{ color: ACCENT, fontSize: "0.85rem" }} />
-                  <span style={{ fontSize: "0.8rem", color: "#c4b5fd", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase" }}>Sivil Ride Along Programı</span>
+              <div style={{ marginBottom: "3rem", textAlign: 'center' }}>
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", backgroundColor: "var(--lapd-gray-bg)", border: `1px solid var(--lapd-border)`, padding: "0.4rem 1.25rem", marginBottom: "1.5rem" }}>
+                  <i className="fa-solid fa-car-side" style={{ color: "var(--lapd-orange)", fontSize: "0.85rem" }} />
+                  <span style={{ fontSize: "0.8rem", color: "var(--lapd-blue-dark)", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase" }}>Sivil Ride Along Programı</span>
                 </div>
-                <h1 style={{ fontSize: "2.5rem", fontWeight: 800, color: "#fff", marginBottom: "1rem", letterSpacing: "-0.02em" }}>
-                  Ride Along <span style={{ color: ACCENT }}>Başvurusu</span>
+                <h1 style={{ fontSize: "2.5rem", fontWeight: 800, color: "var(--lapd-blue-dark)", marginBottom: "1rem", letterSpacing: "-0.02em" }}>
+                  Ride Along Başvurusu
                 </h1>
-                <p style={{ color: "#94a3b8", fontSize: "1rem", lineHeight: 1.7 }}>
-                  LAC devriye araçlarına eşlik edin, gerçek saha deneyimi yaşayın. Başvurunuz onaylandıktan sonra size uygun bir devriye zamanı ayarlanacaktır.
+                <div style={{ width: '60px', height: '4px', backgroundColor: 'var(--lapd-orange)', margin: '0 auto 1.5rem' }}></div>
+                <p style={{ color: "var(--lapd-text-dark)", fontSize: "1rem", lineHeight: 1.7 }}>
+                  LAPD devriye araçlarına eşlik edin, gerçek saha deneyimi yaşayın. Başvurunuz onaylandıktan sonra size uygun bir devriye zamanı ayarlanacaktır.
                 </p>
 
                 {/* Info boxes */}
@@ -149,17 +141,17 @@ export default function RideAlongBasvurusu() {
                     { icon: "fa-user-shield", title: "Gözetim", text: "Deneyimli memur" },
                     { icon: "fa-ban", title: "Yasak", text: "Silah taşıma" },
                   ].map((info, i) => (
-                    <div key={i} style={{ backgroundColor: "rgba(139,92,246,0.06)", border: `1px solid ${ACCENT}20`, borderRadius: "12px", padding: "1rem", textAlign: "center" }}>
-                      <i className={`fa-solid ${info.icon}`} style={{ color: ACCENT, fontSize: "1.1rem", marginBottom: "0.5rem", display: "block" }} />
-                      <div style={{ fontSize: "0.7rem", color: "#64748b", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em" }}>{info.title}</div>
-                      <div style={{ color: "#e2e8f0", fontWeight: 600, fontSize: "0.85rem", marginTop: "0.2rem" }}>{info.text}</div>
+                    <div key={i} style={{ backgroundColor: "white", border: `1px solid var(--lapd-border)`, padding: "1.5rem 1rem", textAlign: "center" }}>
+                      <i className={`fa-solid ${info.icon}`} style={{ color: "var(--lapd-orange)", fontSize: "1.5rem", marginBottom: "1rem", display: "block" }} />
+                      <div style={{ fontSize: "0.75rem", color: "var(--lapd-text-muted)", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.05em" }}>{info.title}</div>
+                      <div style={{ color: "var(--lapd-blue-dark)", fontWeight: 700, fontSize: "0.95rem", marginTop: "0.5rem" }}>{info.text}</div>
                     </div>
                   ))}
                 </div>
               </div>
 
               <form onSubmit={handleSubmit}>
-                <div style={{ backgroundColor: "rgba(10,16,35,0.8)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "24px", padding: "3rem", backdropFilter: "blur(16px)", boxShadow: "0 20px 50px rgba(0,0,0,0.4)" }}>
+                <div style={{ backgroundColor: "white", border: "1px solid var(--lapd-border)", padding: "3rem" }}>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
                     <div style={{ gridColumn: "1 / -1" }}>
                       <label style={labelStyle}>Karakter Adı Soyadı *</label>
@@ -180,20 +172,20 @@ export default function RideAlongBasvurusu() {
                     <div>
                       <label style={labelStyle}>Tercih Ettiğiniz Birim</label>
                       <select style={inputStyle} value={form.preferredUnit} onChange={e => set("preferredUnit", e.target.value)}>
-                        <option value="" style={{ color: "#0f172a" }}>Fark etmez / Seçiniz</option>
-                        <option value="Genel Devriye" style={{ color: "#0f172a" }}>Genel Devriye</option>
-                        <option value="Traffic Unit" style={{ color: "#0f172a" }}>Traffic Unit</option>
-                        <option value="Dedektif Büro" style={{ color: "#0f172a" }}>Dedektif Büro</option>
-                        <option value="SWAT" style={{ color: "#0f172a" }}>SWAT (İzinli Operasyon)</option>
+                        <option value="">Fark etmez / Seçiniz</option>
+                        <option value="Genel Devriye">Genel Devriye</option>
+                        <option value="Traffic Unit">Traffic Unit</option>
+                        <option value="Dedektif Büro">Dedektif Büro</option>
+                        <option value="SWAT">SWAT (İzinli Operasyon)</option>
                       </select>
                     </div>
                     <div style={{ gridColumn: "1 / -1" }}>
                       <label style={labelStyle}>FiveM Polis RP Deneyiminiz Var mı?</label>
                       <select style={inputStyle} value={form.hasExperience} onChange={e => set("hasExperience", e.target.value)}>
-                        <option value="" style={{ color: "#0f172a" }}>Seçiniz...</option>
-                        <option value="Evet, aktif oynuyorum" style={{ color: "#0f172a" }}>Evet, aktif oynuyorum</option>
-                        <option value="Evet, geçmişte oynadım" style={{ color: "#0f172a" }}>Evet, geçmişte oynadım</option>
-                        <option value="Hayır, daha önce oynamadım" style={{ color: "#0f172a" }}>Hayır, daha önce oynamadım</option>
+                        <option value="">Seçiniz...</option>
+                        <option value="Evet, aktif oynuyorum">Evet, aktif oynuyorum</option>
+                        <option value="Evet, geçmişte oynadım">Evet, geçmişte oynadım</option>
+                        <option value="Hayır, daha önce oynamadım">Hayır, daha önce oynamadım</option>
                       </select>
                     </div>
                     <div style={{ gridColumn: "1 / -1" }}>
@@ -201,26 +193,26 @@ export default function RideAlongBasvurusu() {
                       <textarea style={{ ...inputStyle, minHeight: "120px", resize: "vertical" }} placeholder="Beklentilerinizi ve neden bu programa başvurduğunuzu yazın..." value={form.reason} onChange={e => set("reason", e.target.value)} required />
                     </div>
 
-                    <div style={{ gridColumn: "1 / -1", borderTop: "1px solid rgba(255,255,255,0.05)", paddingTop: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
+                    <div style={{ gridColumn: "1 / -1", borderTop: "1px solid var(--lapd-border)", paddingTop: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
                       <label style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start", cursor: "pointer" }}>
-                        <input type="checkbox" checked={form.agreeRules} onChange={e => set("agreeRules", e.target.checked)} style={{ width: "16px", height: "16px", marginTop: "3px", accentColor: ACCENT, flexShrink: 0 }} />
-                        <span style={{ color: "#94a3b8", fontSize: "0.875rem", lineHeight: 1.6 }}>LAC Ride Along program kurallarını okudum ve kabul ediyorum. Devriye sırasında görevli memurun tüm talimatlarına uymayı taahhüt ediyorum.</span>
+                        <input type="checkbox" checked={form.agreeRules} onChange={e => set("agreeRules", e.target.checked)} style={{ width: "16px", height: "16px", marginTop: "3px", accentColor: 'var(--lapd-blue-dark)', flexShrink: 0 }} />
+                        <span style={{ color: "var(--lapd-text-dark)", fontSize: "0.875rem", lineHeight: 1.6 }}>LAPD Ride Along program kurallarını okudum ve kabul ediyorum. Devriye sırasında görevli memurun tüm talimatlarına uymayı taahhüt ediyorum.</span>
                       </label>
                       <label style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start", cursor: "pointer" }}>
-                        <input type="checkbox" checked={form.agreeSafety} onChange={e => set("agreeSafety", e.target.checked)} style={{ width: "16px", height: "16px", marginTop: "3px", accentColor: ACCENT, flexShrink: 0 }} />
-                        <span style={{ color: "#94a3b8", fontSize: "0.875rem", lineHeight: 1.6 }}>Ride Along sırasında hiçbir polisiye müdahalede bulunmayacağımı, silahlı ya da fiziksel hiçbir eyleme girmeyeceğimi kabul ediyorum.</span>
+                        <input type="checkbox" checked={form.agreeSafety} onChange={e => set("agreeSafety", e.target.checked)} style={{ width: "16px", height: "16px", marginTop: "3px", accentColor: 'var(--lapd-blue-dark)', flexShrink: 0 }} />
+                        <span style={{ color: "var(--lapd-text-dark)", fontSize: "0.875rem", lineHeight: 1.6 }}>Ride Along sırasında hiçbir polisiye müdahalede bulunmayacağımı, silahlı ya da fiziksel hiçbir eyleme girmeyeceğimi kabul ediyorum.</span>
                       </label>
                     </div>
                   </div>
 
                   {error && (
-                    <div style={{ backgroundColor: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", borderRadius: "10px", padding: "0.85rem 1.25rem", color: "#fca5a5", fontSize: "0.875rem", marginTop: "1.5rem" }}>
+                    <div style={{ backgroundColor: "#FEF2F2", border: "1px solid #FCA5A5", padding: "0.85rem 1.25rem", color: "#DC2626", fontSize: "0.875rem", marginTop: "1.5rem" }}>
                       <i className="fa-solid fa-circle-exclamation" style={{ marginRight: "0.5rem" }} />{error}
                     </div>
                   )}
 
                   <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "2rem" }}>
-                    <button type="submit" disabled={submitting} style={{ padding: "1rem 2.5rem", borderRadius: "14px", background: submitting ? `${ACCENT}55` : `linear-gradient(135deg, ${ACCENT}, #6d28d9)`, border: "none", color: "#fff", fontWeight: 700, cursor: submitting ? "not-allowed" : "pointer", fontSize: "0.95rem", boxShadow: `0 8px 25px ${ACCENT_GLOW}`, transition: "all 0.2s", opacity: submitting ? 0.7 : 1, letterSpacing: "0.03em" }}>
+                    <button type="submit" disabled={submitting} style={{ padding: "1rem 2.5rem", background: submitting ? `var(--lapd-gray-bg)` : `var(--lapd-blue-dark)`, border: "none", color: submitting ? "var(--lapd-text-muted)" : "#fff", fontWeight: 800, cursor: submitting ? "not-allowed" : "pointer", fontSize: "0.95rem", transition: "all 0.2s" }}>
                       {submitting ? <><i className="fa-solid fa-circle-notch fa-spin" style={{ marginRight: "0.5rem" }} />Gönderiliyor...</> : <><i className="fa-solid fa-paper-plane" style={{ marginRight: "0.5rem" }} />Başvuruyu Gönder</>}
                     </button>
                   </div>
