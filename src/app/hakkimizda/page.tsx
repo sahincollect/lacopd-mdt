@@ -331,18 +331,64 @@ export default function Hakkimizda() {
         </motion.div>
       </motion.section>
 
+      {/* ── SOSYAL SORUMLULUK (MEHMETÇİK VAKFI) ── */}
+      <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer} style={{ maxWidth: '1000px', margin: '6rem auto 0', padding: '0 2rem' }}>
+        <motion.div variants={fadeUp} style={{ 
+          position: 'relative',
+          backgroundColor: 'var(--bg-panel)', 
+          border: '1px solid var(--accent-primary)', 
+          borderRadius: '24px', 
+          padding: '4rem 3rem', 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'center',
+          textAlign: 'center',
+          boxShadow: '0 20px 50px rgba(0,0,0,0.5), inset 0 0 0 2px rgba(204, 160, 0, 0.1)',
+          overflow: 'hidden'
+        }}>
+          {/* Subtle background glow */}
+          <div style={{ position: 'absolute', top: '-50%', left: '50%', transform: 'translateX(-50%)', width: '600px', height: '600px', background: 'radial-gradient(circle, rgba(204, 160, 0, 0.08) 0%, transparent 60%)', pointerEvents: 'none' }} />
+          
+          <div style={{ 
+            width: '80px', height: '80px', 
+            borderRadius: '50%', 
+            backgroundColor: 'rgba(227, 10, 23, 0.1)', 
+            border: '2px solid rgba(227, 10, 23, 0.5)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', 
+            fontSize: '2.5rem', color: '#E30A17', 
+            marginBottom: '2rem',
+            boxShadow: '0 0 30px rgba(227, 10, 23, 0.2)'
+          }}>
+            <i className="fa-solid fa-star-and-crescent"></i>
+          </div>
+
+          <h2 style={{ fontFamily: "'Oswald', sans-serif", fontSize: '2.8rem', color: '#fff', lineHeight: 1.1, marginBottom: '1.5rem', letterSpacing: '0.02em' }}>
+            BİZİM İÇİN <span style={{ color: 'var(--accent-primary)' }}>VATAN</span>, HER ŞEYDEN ÖNCE GELİR
+          </h2>
+          
+          <p style={{ color: 'var(--text-secondary)', fontSize: '1.15rem', lineHeight: 1.8, maxWidth: '800px', margin: '0 auto 2rem' }}>
+            Los Angeles sokaklarında adaleti sağlarken, kalbimiz her daim anavatanımızla atıyor. Departmanımızda toplanan fonlar ve personellerimizin gönüllü katkılarıyla, <strong>her ay düzenli olarak TSK Mehmetçik Vakfı'na</strong> bağışta bulunmaktan büyük bir onur duyuyoruz.
+          </p>
+
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '1rem', backgroundColor: 'rgba(0,0,0,0.4)', padding: '0.8rem 1.5rem', borderRadius: '100px', border: '1px solid rgba(255,255,255,0.05)' }}>
+            <i className="fa-solid fa-hand-holding-heart" style={{ color: 'var(--accent-primary)', fontSize: '1.2rem' }}></i>
+            <span style={{ color: '#fff', fontWeight: 600, fontSize: '0.95rem', letterSpacing: '0.05em' }}>Şehit ve gazi ailelerimizin daima yanındayız.</span>
+          </div>
+        </motion.div>
+      </motion.section>
+
       {/* ── CTA ── */}
       <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer} style={{ textAlign: 'center', marginTop: '6rem', padding: '0 2rem' }}>
         <motion.h2 variants={fadeUp} style={{ fontFamily: "'Oswald', sans-serif", fontSize: '3.5rem', color: '#fff', marginBottom: '1.5rem' }}>
-          HEMEN ARAMIZA <span style={{ color: '#3B82F6' }}>KATIL</span>
+          HEMEN ARAMIZA <span style={{ color: 'var(--accent-primary)' }}>KATIL</span>
         </motion.h2>
         <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', margin: '0 auto 2.5rem', maxWidth: '600px' }}>
           Süreç zorlu, standartlar yüksek, ancak şehrinize hizmet etmenin ödülü eşsizdir.
         </p>
         <motion.a href="https://discord.gg/thelapd" target="_blank" rel="noopener noreferrer" className="btn"
-          style={{ backgroundColor: '#3B82F6', color: '#000', fontSize: '1rem', padding: '1.2rem 3.5rem', borderRadius: '8px', letterSpacing: '0.1em', fontWeight: 800, boxShadow: '0 10px 20px rgba(59,130,246,0.2)', display: 'inline-flex', alignItems: 'center', gap: '0.75rem' }}
-          onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 15px 30px rgba(59,130,246,0.35)'; }}
-          onMouseOut={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 10px 20px rgba(59,130,246,0.2)'; }}>
+          style={{ backgroundColor: 'var(--accent-primary)', color: 'var(--bg-dark)', fontSize: '1rem', padding: '1.2rem 3.5rem', borderRadius: '4px', letterSpacing: '0.1em', fontWeight: 800, boxShadow: '0 10px 25px rgba(204, 160, 0, 0.3)', display: 'inline-flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none' }}
+          onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.backgroundColor = 'var(--accent-hover)'; }}
+          onMouseOut={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.backgroundColor = 'var(--accent-primary)'; }}>
           <i className="fa-brands fa-discord" />
           DİSCORD SUNUCUMUZA KATIL
         </motion.a>
