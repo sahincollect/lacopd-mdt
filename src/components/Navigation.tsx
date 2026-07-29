@@ -40,7 +40,8 @@ export default function Navigation() {
     { 
       name: "İLETİŞİM", 
       items: [
-        { label: "Memur Şikayet Formu", path: "/basvurular/sikayet" }
+        { label: "Memur Şikayet Formu", path: "/basvurular/sikayet" },
+        { label: "Departman İletişimi", path: "/iletisim" }
       ]
     }
   ];
