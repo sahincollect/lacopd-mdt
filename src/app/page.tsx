@@ -28,20 +28,23 @@ export default function Home() {
           bottom: '-25px', 
           left: '2rem', 
           width: '500px', 
-          backgroundColor: 'white', 
-          border: '1px solid var(--lapd-border)',
+          backgroundColor: 'var(--bg-secondary)', 
+          border: '1px solid var(--border-light)',
           display: 'flex', 
           alignItems: 'center', 
           padding: '0.8rem 1.2rem',
           zIndex: 10,
           boxShadow: '0 4px 6px rgba(0,0,0,0.05)'
         }}>
-          <i className="fa-solid fa-magnifying-glass" style={{ color: 'var(--lapd-orange)', fontSize: '1.2rem', marginRight: '10px' }}></i>
-          <input 
-            type="text" 
-            placeholder="Ne aramıştınız?" 
-            style={{ border: 'none', outline: 'none', width: '100%', fontSize: '1rem', color: 'var(--lapd-text-dark)' }} 
-          />
+          <i className="fa-solid fa-magnifying-glass" style={{ color: 'var(--accent-secondary)', fontSize: '1.2rem', marginRight: '10px' }}></i>
+          <form action="/arama" style={{ width: '100%', display: 'flex' }}>
+            <input 
+              type="text" 
+              name="q"
+              placeholder="Ne aramıştınız?" 
+              style={{ border: 'none', outline: 'none', width: '100%', fontSize: '1rem', color: 'var(--text-primary)', backgroundColor: 'transparent' }} 
+            />
+          </form>
         </div>
       </section>
 
@@ -165,16 +168,16 @@ export default function Home() {
       <section style={{ maxWidth: '1200px', margin: '4rem auto', padding: '0 2rem', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
         
         {/* Card 1 */}
-        <div style={{ backgroundColor: '#F0F4F4', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-light)', display: 'flex', flexDirection: 'column' }}>
           <img src="/gallery/statecar5.png" alt="Aramıza Katıl" style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
           <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
-            <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '0.5rem', color: 'var(--lapd-blue-dark)' }}>Aramıza Katıl</h3>
-            <p style={{ fontSize: '0.9rem', color: 'var(--lapd-text-dark)', marginBottom: '1.5rem', lineHeight: 1.5 }}>
+            <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '0.5rem', color: 'var(--text-primary)' }}>Aramıza Katıl</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '1.5rem', lineHeight: 1.5 }}>
               Departmanın işini yapmasına yardımcı olmanın sayısız yolu vardır. Siz de fark yaratın.
             </p>
             <div style={{ marginTop: 'auto' }}>
-              <Link href="/basvurular" style={{ color: 'var(--lapd-orange)', textDecoration: 'none', fontWeight: 600, fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
-                <span style={{ width: '15px', height: '2px', backgroundColor: 'var(--lapd-orange)' }}></span>
+              <Link href="/basvurular" style={{ color: 'var(--accent-secondary)', textDecoration: 'none', fontWeight: 600, fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+                <span style={{ width: '15px', height: '2px', backgroundColor: 'var(--accent-secondary)' }}></span>
                 Fark Yaratmanın Yollarını Keşfet
               </Link>
             </div>
@@ -182,16 +185,16 @@ export default function Home() {
         </div>
 
         {/* Card 2 */}
-        <div style={{ backgroundColor: '#F0F4F4', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-light)', display: 'flex', flexDirection: 'column' }}>
           <img src="/gallery/8.png" alt="Olay Videoları" style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
           <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
-            <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '0.5rem', color: 'var(--lapd-blue-dark)' }}>Kritik Olay Videoları</h3>
-            <p style={{ fontSize: '0.9rem', color: 'var(--lapd-text-dark)', marginBottom: '1.5rem', lineHeight: 1.5 }}>
+            <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '0.5rem', color: 'var(--text-primary)' }}>Kritik Olay Videoları</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '1.5rem', lineHeight: 1.5 }}>
               LAPD memurlarının dahil olduğu kritik olayları yakalayan, kamuya açıklanmış video kayıtlarını izleyin.
             </p>
             <div style={{ marginTop: 'auto' }}>
-              <Link href="/" style={{ color: 'var(--lapd-orange)', textDecoration: 'none', fontWeight: 600, fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
-                <span style={{ width: '15px', height: '2px', backgroundColor: 'var(--lapd-orange)' }}></span>
+              <Link href="/" style={{ color: 'var(--accent-secondary)', textDecoration: 'none', fontWeight: 600, fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+                <span style={{ width: '15px', height: '2px', backgroundColor: 'var(--accent-secondary)' }}></span>
                 Kritik Olay Videolarını İzle
               </Link>
             </div>
@@ -199,23 +202,23 @@ export default function Home() {
         </div>
 
         {/* Card 3 (Dark Blue) */}
-        <div style={{ backgroundColor: 'var(--lapd-blue-dark)', color: 'white', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ backgroundColor: 'var(--bg-tertiary)', border: '1px solid var(--border-light)', color: 'var(--text-primary)', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column' }}>
           <div style={{ marginBottom: '1.5rem' }}>
-            <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.7)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Sadece Hayati Tehlike İçeren Acil Durumlar:</div>
+            <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Sadece Hayati Tehlike İçeren Acil Durumlar:</div>
             <div style={{ fontSize: '1.5rem', fontWeight: 800 }}>9-1-1</div>
           </div>
           <div style={{ marginBottom: '1.5rem' }}>
-            <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.7)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Acil Olmayan Polis Yanıtı:</div>
+            <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Acil Olmayan Polis Yanıtı:</div>
             <div style={{ fontSize: '1.5rem', fontWeight: 800 }}>1-877-ASK-LAPD</div>
           </div>
           <div style={{ marginBottom: '2.5rem' }}>
-            <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.7)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>E-Posta Soru & Yorumlar:</div>
+            <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>E-Posta Soru & Yorumlar:</div>
             <div style={{ fontSize: '1rem', fontWeight: 600 }}>contact.lapdonline@gmail.com</div>
           </div>
 
           <div style={{ marginTop: 'auto' }}>
-            <Link href="/" style={{ color: 'var(--lapd-orange)', textDecoration: 'none', fontWeight: 600, fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
-              <span style={{ width: '15px', height: '2px', backgroundColor: 'var(--lapd-orange)' }}></span>
+            <Link href="/" style={{ color: 'var(--accent-secondary)', textDecoration: 'none', fontWeight: 600, fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+              <span style={{ width: '15px', height: '2px', backgroundColor: 'var(--accent-secondary)' }}></span>
               Tüm İletişim Bilgilerini Görüntüle
             </Link>
           </div>
@@ -230,19 +233,20 @@ export default function Home() {
         {/* Floating Box */}
         <div style={{ 
           position: 'absolute', left: '10%', bottom: '0', 
-          backgroundColor: '#F0F4F4', padding: '2rem 3rem',
+          backgroundColor: 'var(--bg-secondary)', padding: '2rem 3rem',
+          border: '1px solid var(--border-light)',
           transform: 'translateY(30px)',
-          boxShadow: '0 10px 20px rgba(0,0,0,0.1)'
+          boxShadow: '0 10px 20px rgba(0,0,0,0.5)'
         }}>
-          <h4 style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.05em', marginBottom: '1rem' }}>BİZİMLE KALIN</h4>
+          <h4 style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.05em', marginBottom: '1rem', color: 'var(--text-primary)' }}>BİZİMLE KALIN</h4>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-            <a href="https://discord.com/invite/laco" target="_blank" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', fontWeight: 500 }}>
+            <a href="https://discord.com/invite/laco" target="_blank" style={{ color: 'var(--text-secondary)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', fontWeight: 500 }}>
               <i className="fa-brands fa-discord"></i> Discord Sunucusu
             </a>
-            <a href="https://www.youtube.com/@Thelapd-7" target="_blank" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', fontWeight: 500 }}>
+            <a href="https://www.youtube.com/@Thelapd-7" target="_blank" style={{ color: 'var(--text-secondary)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', fontWeight: 500 }}>
               <i className="fa-brands fa-youtube"></i> YouTube Resmi
             </a>
-            <a href="https://www.tiktok.com/@thelapdfivem?lang=tr-TR" target="_blank" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', fontWeight: 500 }}>
+            <a href="https://www.tiktok.com/@thelapdfivem?lang=tr-TR" target="_blank" style={{ color: 'var(--text-secondary)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', fontWeight: 500 }}>
               <i className="fa-brands fa-tiktok"></i> TikTok Hesabı
             </a>
           </div>

@@ -27,41 +27,30 @@ export default function ThemeToggle() {
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
       style={{
         backgroundColor: 'transparent',
-        border: '1px solid var(--border-strong)',
+        border: 'none',
         color: 'var(--text-primary)',
-        borderRadius: '12px',
         cursor: 'pointer',
-        width: '36px',
-        height: '36px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        transition: 'border-color 0.2s, color 0.2s',
+        opacity: 0.7,
+        transition: 'opacity 0.2s, transform 0.2s',
       }}
       title={isDark ? "Aydınlık Temaya Geç" : "Karanlık Temaya Geç"}
       onMouseOver={(e) => {
-        e.currentTarget.style.borderColor = 'var(--text-muted)';
-        e.currentTarget.style.color = isDark ? '#FFF' : '#000';
+        e.currentTarget.style.opacity = '1';
+        e.currentTarget.style.transform = 'scale(1.1)';
       }}
       onMouseOut={(e) => {
-        e.currentTarget.style.borderColor = 'var(--border-strong)';
-        e.currentTarget.style.color = 'var(--text-primary)';
+        e.currentTarget.style.opacity = '0.7';
+        e.currentTarget.style.transform = 'scale(1)';
       }}
     >
-      <div style={{
-        position: 'relative',
-        width: '16px',
-        height: '16px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
-        {isDark ? (
-          <i className="fa-regular fa-sun" style={{ fontSize: '1rem', color: 'inherit' }} />
-        ) : (
-          <i className="fa-regular fa-moon" style={{ fontSize: '1rem', color: 'inherit' }} />
-        )}
-      </div>
+      {isDark ? (
+        <i className="fa-regular fa-sun" style={{ fontSize: '1.2rem', color: 'inherit' }} />
+      ) : (
+        <i className="fa-regular fa-moon" style={{ fontSize: '1.2rem', color: 'inherit' }} />
+      )}
     </button>
   );
 }

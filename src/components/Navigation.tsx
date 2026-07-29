@@ -157,10 +157,10 @@ export default function Navigation() {
                     position: 'absolute',
                     top: '100%',
                     left: '0',
-                    backgroundColor: 'white',
+                    backgroundColor: 'var(--bg-secondary)',
                     border: '1px solid var(--lapd-border)',
                     borderTop: '3px solid var(--lapd-orange)',
-                    boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
+                    boxShadow: '0 10px 25px rgba(0,0,0,0.5)',
                     minWidth: '250px',
                     zIndex: 200,
                     padding: '0.5rem 0'

@@ -281,10 +281,10 @@ export default function MDTLayout({
               background-color: var(--bg-tertiary);
             }
             .sidebar-link.active {
-              color: var(--bg-secondary);
-              background-color: var(--accent-primary);
-              border: 1px solid var(--accent-primary);
-              box-shadow: 0 4px 6px rgba(4, 22, 50, 0.2);
+              color: #FFFFFF;
+              background-color: var(--accent-secondary);
+              border: 1px solid var(--accent-secondary);
+              box-shadow: 0 4px 6px rgba(232, 79, 42, 0.2);
             }
             
             .sidebar-link .icon-box {
@@ -300,13 +300,13 @@ export default function MDTLayout({
               flex-shrink: 0;
             }
             .sidebar-link.active .icon-box {
-              color: var(--bg-secondary);
+              color: #FFFFFF;
             }
             .sidebar-link:hover .icon-box {
               color: var(--text-primary);
             }
             .sidebar-link.active:hover .icon-box {
-              color: var(--bg-secondary);
+              color: #FFFFFF;
             }
 
             .group-title {
