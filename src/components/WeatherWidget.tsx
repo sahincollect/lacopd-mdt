@@ -2,48 +2,124 @@
 
 import { useEffect, useState } from 'react';
 
+interface WeatherData {
+  temperature: number;
+  windspeed: number;
+  weathercode: number;
+  is_day: number;
+}
+
 export default function WeatherWidget() {
-  const [weather, setWeather] = useState<any>(null);
+  const [weather, setWeather] = useState<WeatherData | null>(null);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    // Latitude and Longitude for Los Angeles, CA
-    fetch('https://api.open-meteo.com/v1/forecast?latitude=34.0522&longitude=-118.2437&current_weather=true')
-      .then(res => res.json())
-      .then(data => {
-        setWeather(data.current_weather);
+    // Open-Meteo API — current (yeni format)
+    fetch(
+      'https://api.open-meteo.com/v1/forecast?latitude=34.0522&longitude=-118.2437&current=temperature_2m,wind_speed_10m,weather_code,is_day&wind_speed_unit=kmh&timezone=America%2FLos_Angeles'
+    )
+      .then(res => {
+        if (!res.ok) throw new Error('HTTP error');
+        return res.json();
       })
-      .catch(console.error);
+      .then(data => {
+        const c = data?.current;
+        if (!c) throw new Error('No current data');
+        setWeather({
+          temperature: Math.round(c.temperature_2m),
+          windspeed: Math.round(c.wind_speed_10m),
+          weathercode: c.weather_code,
+          is_day: c.is_day,
+        });
+      })
+      .catch(() => setError(true));
   }, []);
 
-  if (!weather) {
+  // WMO Weather code → icon + description
+  const getWeatherInfo = (code: number, isDay: number) => {
+    if (code === 0) return { icon: isDay ? 'fa-sun' : 'fa-moon', label: 'Açık' };
+    if (code <= 2) return { icon: 'fa-cloud-sun', label: 'Az Bulutlu' };
+    if (code === 3) return { icon: 'fa-cloud', label: 'Bulutlu' };
+    if (code <= 48) return { icon: 'fa-smog', label: 'Sisli' };
+    if (code <= 57) return { icon: 'fa-cloud-drizzle', label: 'Çisenti' };
+    if (code <= 67) return { icon: 'fa-cloud-rain', label: 'Yağmurlu' };
+    if (code <= 77) return { icon: 'fa-snowflake', label: 'Karlı' };
+    if (code <= 82) return { icon: 'fa-cloud-showers-heavy', label: 'Sağanak' };
+    if (code <= 99) return { icon: 'fa-bolt', label: 'Fırtınalı' };
+    return { icon: 'fa-cloud', label: 'Bilinmiyor' };
+  };
+
+  if (error) {
     return (
-      <div style={{ backgroundColor: '#f6f6f6', border: '1px solid #e2e2e2', padding: '20px', marginBottom: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px' }}>
-        <i className="fa-solid fa-spinner fa-spin" style={{ fontSize: '2rem', color: '#CC0000' }}></i>
+      <div style={{
+        backgroundColor: '#FEF2F2',
+        border: '1px solid #FECACA',
+        borderRadius: '8px',
+        padding: '16px',
+        marginBottom: '20px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px',
+        color: '#DC2626',
+        fontSize: '0.82rem',
+        fontWeight: 600,
+      }}>
+        <i className="fa-solid fa-triangle-exclamation"></i>
+        Hava durumu bilgisi alınamadı.
       </div>
     );
   }
 
-  // WMO Weather interpretation codes to icons
-  const code = weather.weathercode;
-  let icon = 'fa-sun';
-  if (code >= 1 && code <= 3) icon = 'fa-cloud-sun';
-  if (code >= 45 && code <= 48) icon = 'fa-smog';
-  if (code >= 51 && code <= 67) icon = 'fa-cloud-rain';
-  if (code >= 71 && code <= 77) icon = 'fa-snowflake';
-  if (code >= 95 && code <= 99) icon = 'fa-bolt';
+  if (!weather) {
+    return (
+      <div style={{
+        backgroundColor: '#F3F4F6',
+        border: '1px solid #E5E7EB',
+        borderRadius: '8px',
+        padding: '20px',
+        marginBottom: '20px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+      }}>
+        <i className="fa-solid fa-circle-notch fa-spin" style={{ color: '#9CA3AF', fontSize: '1.1rem' }}></i>
+        <span style={{ fontSize: '0.82rem', color: '#9CA3AF', fontWeight: 600 }}>Hava durumu yükleniyor...</span>
+      </div>
+    );
+  }
+
+  const { icon, label } = getWeatherInfo(weather.weathercode, weather.is_day);
 
   return (
-    <div style={{ backgroundColor: '#111', color: 'white', padding: '20px', marginBottom: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '4px solid #CC0000' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-        <i className={`fa-solid ${icon}`} style={{ fontSize: '2.5rem', color: '#CC0000' }}></i>
+    <div style={{
+      backgroundColor: '#041632',
+      borderRadius: '8px',
+      padding: '18px 20px',
+      marginBottom: '20px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      borderLeft: '4px solid #E84F2A',
+      color: 'white',
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+        <i className={`fa-solid ${icon}`} style={{ fontSize: '2rem', color: '#E84F2A' }}></i>
         <div>
-          <h3 style={{ margin: '0 0 5px 0', fontSize: '1.2rem', fontWeight: 800 }}>Los Angeles, CA</h3>
-          <p style={{ margin: 0, fontSize: '0.85rem', color: '#aaa', textTransform: 'uppercase', letterSpacing: '1px' }}>Current Weather</p>
+          <div style={{ fontWeight: 800, fontSize: '0.95rem', letterSpacing: '0.02em' }}>
+            Los Angeles, CA
+          </div>
+          <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.55)', marginTop: '2px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+            {label} — Rüzgar: {weather.windspeed} km/h
+          </div>
         </div>
       </div>
       <div style={{ textAlign: 'right' }}>
-        <div style={{ fontSize: '2.5rem', fontWeight: 900, lineHeight: 1 }}>{weather.temperature}°C</div>
-        <div style={{ fontSize: '0.8rem', color: '#aaa', marginTop: '5px' }}>Wind: {weather.windspeed} km/h</div>
+        <div style={{ fontSize: '2.2rem', fontWeight: 900, lineHeight: 1 }}>
+          {weather.temperature}°C
+        </div>
+        <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', marginTop: '3px' }}>
+          {weather.is_day ? 'Gündüz' : 'Gece'}
+        </div>
       </div>
     </div>
   );
