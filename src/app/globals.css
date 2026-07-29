@@ -45,24 +45,24 @@ html {
 
 :root {
   /* Deep Obsidian & Apple-like Dark Mode */
-  --bg-dark: #070B14;           /* Very deep blue/black */
-  --bg-panel: #0E1628;          /* Slightly lighter for panels */
-  --bg-hover: #15223A;          /* Hover states */
-  --border-color: rgba(59, 130, 246, 0.12); /* Subtle blue tint border */
+  --bg-dark: #000814;           /* Rich black */
+  --bg-panel: #001D3D;          /* Oxford Blue */
+  --bg-hover: #003566;          /* Yale Blue */
+  --border-color: rgba(204, 160, 0, 0.2); /* Subtle Gold border */
   --border-light: rgba(255, 255, 255, 0.05); /* Soft light border */
   
   --text-primary: #F8FAFC;      /* Crisp white */
   --text-secondary: #94A3B8;    /* Apple Slate Gray */
   
-  /* Cyber/Neon accents for modern terminal feel */
-  --accent-primary: #00D4FF;    /* Neon Cyan */
-  --accent-primary-light: #5CE1E6;
-  --accent-blue: #3B82F6;       /* LAPD Royal Blue */
-  --accent-secondary: #60A5FA;
-  --accent-gold: #FBBF24;
-  --accent-hover: #00A3C4;      
+  /* Kurumsal / Noble accents (Gold & Blue) */
+  --accent-primary: #CCA000;    /* Satin sheen gold */
+  --accent-primary-light: #F0CB46; /* Saffron */
+  --accent-blue: #003566;       /* Yale Blue */
+  --accent-secondary: #001D3D;  /* Oxford Blue */
+  --accent-gold: #CCA000;
+  --accent-hover: #F0CB46;      
   --accent-red: #EF4444;
-  --accent-yellow: #F59E0B;
+  --accent-yellow: #F0CB46;
   --accent-green: #10B981;
 }
 
