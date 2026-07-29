@@ -1,0 +1,169 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Officer {
+  id             Int              @id @default(autoincrement())
+  badge          String           @unique
+  password       String
+  name           String
+  rank           String           @default("Memur")
+  department     String           @default("Genel Devriye")
+  role           String           @default("user") // "admin" veya "user"
+  status         String           @default("APPROVED") // "PENDING", "APPROVED", "REJECTED"
+  specialRoles   String?          @db.Text // Virgülle ayrılmış özel roller (Örn: "Internal Affairs, FTO, SWAT")
+  failedLoginAttempts Int         @default(0)
+  isOnDuty       Boolean          @default(false)
+  profileImage   String?          @db.Text
+  createdAt      DateTime         @default(now())
+  TimeLogs       TimeLog[]
+  Reports        Report[]
+  LeaveRequests  LeaveRequest[]
+  Announcements  Announcement[]
+  CriminalRecords CriminalRecord[]
+  SentMessages     Message[] @relation("SentMessages")
+  ReceivedMessages Message[] @relation("ReceivedMessages")
+  Tahsisler        Tahsis[]
+}
+
+model TimeLog {
+  id        Int       @id @default(autoincrement())
+  officerId Int
+  officer   Officer   @relation(fields: [officerId], references: [id])
+  startTime DateTime  @default(now())
+  endTime   DateTime?
+}
+
+model Report {
+  id          Int      @id @default(autoincrement())
+  officerId   Int
+  officer     Officer  @relation(fields: [officerId], references: [id])
+  title       String
+  content     String   @db.Text
+  evidenceUrl String?  @db.Text
+  reportCode  String?  @unique
+  formId      String?
+  formData    String?  @db.LongText
+  diagramData String?  @db.LongText
+  createdAt   DateTime @default(now())
+}
+
+model LeaveRequest {
+  id        Int      @id @default(autoincrement())
+  officerId Int
+  officer   Officer  @relation(fields: [officerId], references: [id])
+  badge     String
+  fullName  String
+  reason    String   @db.Text
+  startDate DateTime
+  endDate   DateTime
+  dayCount  Int
+  status    String   @default("Bekliyor") // "Bekliyor", "Onaylandı", "Reddedildi"
+  createdAt DateTime @default(now())
+}
+
+model Announcement {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String   @db.Text
+  type      String   @default("Normal")
+  authorId  Int
+  author    Officer  @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model CriminalRecord {
+  id        Int      @id @default(autoincrement())
+  name      String
+  crimes    String   @db.Text
+  notes     String?  @db.Text
+  image     String?
+  officerId Int
+  officer   Officer  @relation(fields: [officerId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model SiteImage {
+  id        Int      @id @default(autoincrement())
+  url       String
+  type      String   // "GALERI" veya "GIRIS"
+  createdAt DateTime @default(now())
+}
+
+model Regulation {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String   @db.Text
+  authorId  Int
+  createdAt DateTime @default(now())
+}
+
+model Message {
+  id          Int      @id @default(autoincrement())
+  senderId    Int
+  sender      Officer  @relation("SentMessages", fields: [senderId], references: [id])
+  receiverId  Int?     
+  receiver    Officer? @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  content     String   @db.Text
+  createdAt   DateTime @default(now())
+  isRead      Boolean  @default(false)
+}
+
+model FileStorage {
+  id        String   @id @default(uuid())
+  data      String   @db.LongText
+  mimeType  String
+  fileName  String
+  createdAt DateTime @default(now())
+}
+
+model CivilApplication {
+  id          Int      @id @default(autoincrement())
+  type        String   // "memur", "ride-along", "sikayet"
+  fullName    String
+  discordName String?
+  email       String?
+  phone       String?
+  age         Int?
+  content     String   @db.Text  // JSON with form-specific fields
+  status      String   @default("Bekliyor") // "Bekliyor", "Inceleniyor", "Onaylandi", "Reddedildi"
+  createdAt   DateTime @default(now())
+}
+
+model Tahsis {
+  id             Int      @id @default(autoincrement())
+  officerId      Int?
+  officer        Officer? @relation(fields: [officerId], references: [id])
+  name           String
+  badge          String
+  rank           String
+  callsign       String?
+  weaponName     String?
+  weaponLicense  String?
+  hasPrc         Boolean  @default(false)
+  vehicleName    String?
+  vehiclePlate   String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model SystemSetting {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  value     String   @db.Text
+  updatedAt DateTime @updatedAt
+}
+
+model LoginLog {
+  id        Int      @id @default(autoincrement())
+  badge     String
+  ipAddress String
+  success   Boolean
+  createdAt DateTime @default(now())
+}
+

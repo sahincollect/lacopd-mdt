@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAPD Official Duty Manual & Handbook</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Main Style -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+    <!-- Outer Container -->
+    <div class="app-container">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="badge-logo">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div class="header-title">
+                    <span class="agency-title">THELAPD</span>
+                    <span class="sub-title" data-en="DUTY MANUAL" data-tr="GÖREV EL KİTABI">DUTY MANUAL</span>
+                </div>
+                <button class="mobile-close" id="sidebarCloseBtn">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <button onclick="switchTab('dashboard')" class="nav-btn active" id="btn-dashboard">
+                            <i class="fa-solid fa-house"></i>
+                            <span data-en="Dashboard" data-tr="Ana Ekran">Dashboard</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="switchTab('ethics')" class="nav-btn" id="btn-ethics">
+                            <i class="fa-solid fa-scale-balanced"></i>
+                            <span data-en="Ethics & True Policing" data-tr="Etik & Doğru Polislik">Ethics & True Policing</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="switchTab('cadet')" class="nav-btn" id="btn-cadet">
+                            <i class="fa-solid fa-user-shield"></i>
+                            <span data-en="Cadet Authorities" data-tr="Aday Memur">Cadet Authorities</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="switchTab('fid')" class="nav-btn" id="btn-fid">
+                            <i class="fa-solid fa-address-card"></i>
+                            <span data-en="Field Interview (FID)" data-tr="Saha Mülakatı (FID)">Field Interview (FID)</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="switchTab('procedures')" class="nav-btn" id="btn-procedures">
+                            <i class="fa-solid fa-gavel"></i>
+                            <span data-en="Essential Procedures" data-tr="Temel Prosedürler">Essential Procedures</span>
+                        </button>
+                    </li>
+
+                    <li>
+                        <button onclick="switchTab('bls')" class="nav-btn" id="btn-bls">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                            <span data-en="First Aid & BLS" data-tr="İlk Yardım & BLS">First Aid & BLS</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="switchTab('traffic')" class="nav-btn" id="btn-traffic">
+                            <i class="fa-solid fa-car"></i>
+                            <span data-en="Traffic Division" data-tr="Trafik Divizyonu">Traffic Division</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="switchTab('dresscode')" class="nav-btn" id="btn-dresscode">
+                            <i class="fa-solid fa-shirt"></i>
+                            <span data-en="Uniform & Dress Code" data-tr="Kıyafet Kodu">Uniform & Dress Code</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <span class="motto" data-en="To Protect and to Serve" data-tr="Korumak ve Hizmet Etmek İçin">To Protect and to Serve</span>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-wrapper">
+            <!-- Top Header Bar -->
+            <header class="top-bar">
+                <div class="left-section">
+                    <button class="mobile-toggle" id="sidebarToggleBtn">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <!-- Global Search -->
+                    <div class="search-container">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="globalSearch" data-en-placeholder="Search handbook..." data-tr-placeholder="El kitabında ara..." placeholder="Search handbook...">
+                        <div class="search-results-dropdown" id="searchResultsDropdown" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="right-section">
+                    <!-- Timer Badge -->
+                    <div class="badge-timer">
+                        <i class="fa-solid fa-clock"></i>
+                        <span id="systemClock">00:00:00</span>
+                    </div>
+
+                    <!-- Segmented Language Selector -->
+                    <div class="lang-selector-segmented">
+                        <button class="lang-segment-btn" id="langBtnEN">EN</button>
+                        <button class="lang-segment-btn" id="langBtnTR">TR</button>
+                    </div>
+
+                    <!-- Theme Switcher -->
+                    <button class="control-btn" id="themeToggle" title="Toggle Theme">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Scrollable Content Window -->
+            <main class="content-body" id="contentBody">
+                <div class="max-w-container">
+                    
+                    <!-- TAB 1: DASHBOARD -->
+                    <section id="dashboard" class="tab-content active">
+                        <div class="hero-card">
+                            <div class="hero-content">
+                                <h1 data-en="LAPD Duty Manual Portal" data-tr="LAPD Görev El Kitabı Portalı">LAPD Duty Manual Portal</h1>
+                                <p data-en="Welcome to the tactical officer reference portal. Standard Operating Procedures, Field Interview systems, and Medical Response guidelines." data-tr="Taktiksel memur referans portalına hoş geldiniz. Standart Çalışma Prosedürleri, Saha Mülakat sistemleri ve Tıbbi Müdahale kılavuzları.">Welcome to the tactical officer reference portal. Standard Operating Procedures, Field Interview systems, and Medical Response guidelines.</p>
+                                <div class="hero-stats">
+                                    <div class="stat-badge">
+                                        <span class="stat-num">CODE 3</span>
+                                        <span class="stat-label" data-en="Emergency" data-tr="Acil Durum">Emergency</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-grid">
+                            <div class="dashboard-card card-hover" onclick="switchTab('ethics')">
+                                <div class="card-icon ethics-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                                <h3 data-en="Ethics & True Policing" data-tr="Etik & Doğru Polislik">Ethics & True Policing</h3>
+                                <p data-en="Ethics, community policing, accountability, and the principles of true policing." data-tr="Etik ilkeler, toplum odaklı polislik, hesap verebilirlik ve doğru polisliğin esasları.">Ethics, community policing, accountability, and the principles of true policing.</p>
+                            </div>
+                            <div class="dashboard-card card-hover" onclick="switchTab('cadet')">
+                                <div class="card-icon cadet-icon"><i class="fa-solid fa-user-shield"></i></div>
+                                <h3 data-en="Cadet Authorities" data-tr="Aday Memur Yetkileri">Cadet Authorities</h3>
+                                <p data-en="FTO protocols, cadet responsibilities, and training boundaries." data-tr="FTO protokolleri, aday memur sorumlulukları ve eğitim sınırları.">FTO protocols, cadet responsibilities, and training boundaries.</p>
+                            </div>
+                            <div class="dashboard-card card-hover" onclick="switchTab('fid')">
+                                <div class="card-icon fid-icon"><i class="fa-solid fa-address-card"></i></div>
+                                <h3 data-en="FID Card Simulator" data-tr="FID Kart Simülatörü">FID Card Simulator</h3>
+                                <p data-en="Generate Field Interview records quickly for suspicious contacts." data-tr="Şüpheli temaslar için hızlıca Saha Mülakat raporu oluşturun.">Generate Field Interview records quickly for suspicious contacts.</p>
+                            </div>
+                            <div class="dashboard-card card-hover" onclick="switchTab('procedures')">
+                                <div class="card-icon procedures-icon"><i class="fa-solid fa-gavel"></i></div>
+                                <h3 data-en="Legal Procedures" data-tr="Yasal Prosedürler">Legal Procedures</h3>
+                                <p data-en="Miranda warning cards, Lybarger instructions for internal affairs." data-tr="Miranda uyarı kartları, içişleri için Lybarger talimatları.">Miranda warning cards, Lybarger instructions for internal affairs.</p>
+                            </div>
+
+                            <div class="dashboard-card card-hover" onclick="switchTab('bls')">
+                                <div class="card-icon bls-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                                <h3 data-en="Tactical BLS & CPR" data-tr="Taktiksel BLS & CPR">Tactical BLS & CPR</h3>
+                                <p data-en="Field triage guidelines and emergency CPR training metronome." data-tr="Saha triyaj yönergeleri ve acil CPR eğitim metronomu.">Field triage guidelines and emergency CPR training metronome.</p>
+                            </div>
+                            <div class="dashboard-card card-hover" onclick="switchTab('traffic')">
+                                <div class="card-icon traffic-icon"><i class="fa-solid fa-car"></i></div>
+                                <h3 data-en="Traffic Division" data-tr="Trafik Divizyonu">Traffic Division</h3>
+                                <p data-en="Traffic stops, vehicle checks, DUI testing, and towing operations." data-tr="Trafik durdurmaları, araç kontrolleri, DUI alkol testleri ve çekici işlemleri.">Traffic stops, vehicle checks, DUI testing, and towing operations.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- TAB 2: ETHICS & TRUE POLICING -->
+                    <section id="ethics" class="tab-content">
+                        <div class="page-header">
+                            <h2 data-en="Ethics & True Policing" data-tr="Meslek Etiği & Doğru Polislik">Ethics & True Policing</h2>
+                            <p class="subtitle" data-en="Principles of professional conduct, public trust, and true policing." data-tr="Mesleki davranış, kamu güveni ve doğru polisliğin temel ilkeleri.">Principles of professional conduct, public trust, and true policing.</p>
+                        </div>
+
+                        <div class="vertical-layout">
+                            <!-- Section 1: What is True Policing? -->
+                            <div class="glass-card flex-col">
+                                <div class="card-icon-title">
+                                    <i class="fa-solid fa-star-of-life card-header-icon text-blue"></i>
+                                    <h3 data-en="What is True Policing?" data-tr="Doğru Polislik Nedir ve Nasıl Yapılır?">What is True Policing?</h3>
+                                </div>
+                                <p class="description-text mb-6" data-en="True policing involves principles of ensuring public safety, building trust-based relationships with the community, and operating in accordance with the law. Ethical behavior, accountability, community collaboration, and professionalism are the cornerstones of modern policing. LAPD and LASD exemplify these principles in their operational structures." data-tr="Doğru polislik, kamu güvenliğini sağlama, toplumla güvene dayalı ilişkiler kurma ve hukuka uygun bir şekilde görev yapma ilkelerini içerir. Modern polislikte etik davranış, hesap verebilirlik, toplulukla iş birliği ve profesyonellik temel taşlardır. LAPD ve LASD, bu ilkeleri uygulamada örnek teşkil eden kurumlardır."></p>
+
+                                <h4 class="font-bold text-slate-300 mb-4 border-b pb-2 text-sm" data-en="Core Principles of True Policing" data-tr="Doğru Polisliğin Temel Prensipleri">Core Principles of True Policing</h4>
+                                <div class="suspicion-grid mb-6">
+                                    <!-- Rule of Law -->
+                                    <div class="suspicion-level-card border-blue-glow">
+                                        <div class="level-badge bg-blue"><span data-en="Rule of Law" data-tr="Hukukun Üstünlüğü">Rule of Law</span></div>
+                                        <h4 class="font-bold text-blue-400 mb-2 text-sm" data-en="Impartiality" data-tr="Hukukun Üstünlüğü">Impartiality</h4>
+                                        <div class="level-desc-block">
+                                            <p class="text-xs text-slate-300" data-en="Officers must apply the law impartially, avoid discrimination, and protect individual constitutional rights." data-tr="Polisler, yasaları tarafsız bir şekilde uygulamalı, ayrımcılıktan kaçınmalı ve bireylerin anayasal haklarını korumalıdır."></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Community Collaboration -->
+                                    <div class="suspicion-level-card border-blue-glow">
+                                        <div class="level-badge bg-blue"><span data-en="Collaboration" data-tr="İş Birliği">Collaboration</span></div>
+                                        <h4 class="font-bold text-blue-400 mb-2 text-sm" data-en="Community Partnership" data-tr="Toplumla İş Birliği">Community Partnership</h4>
+                                        <div class="level-desc-block">
+                                            <p class="text-xs text-slate-300" data-en="The police must establish partnerships with the community based on trust and transparency, understanding the needs of local citizens." data-tr="Polis, güven ve şeffaflık temelinde toplumla ortaklık kurmalı, yerel halkın ihtiyaçlarını anlamalıdır."></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Ethics & Professionalism -->
+                                    <div class="suspicion-level-card border-blue-glow">
+                                        <div class="level-badge bg-blue"><span data-en="Integrity" data-tr="Etik & Profesyonellik">Integrity</span></div>
+                                        <h4 class="font-bold text-blue-400 mb-2 text-sm" data-en="Ethics & Conduct" data-tr="Etik ve Profesyonellik">Ethics & Conduct</h4>
+                                        <div class="level-desc-block">
+                                            <p class="text-xs text-slate-300" data-en="Police officers must act in accordance with ethical standards and adhere to the principle of proportionality when using force." data-tr="Polis memurları, etik kurallara uygun davranmalı, güç kullanımı gibi durumlarda orantılılık ilkesine dikkat etmelidir."></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Accountability -->
+                                    <div class="suspicion-level-card border-blue-glow">
+                                        <div class="level-badge bg-blue"><span data-en="Audits" data-tr="Hesap Verebilirlik">Audits</span></div>
+                                        <h4 class="font-bold text-blue-400 mb-2 text-sm" data-en="Accountability" data-tr="Hesap Verebilirlik">Accountability</h4>
+                                        <div class="level-desc-block">
+                                            <p class="text-xs text-slate-300" data-en="Police departments must audit officer actions and conduct fair and transparent investigations into any misconduct." data-tr="Polis teşkilatları, memurlarının eylemlerini denetlemeli ve olası yanlış uygulamalar için adil ve şeffaf bir soruşturma süreci yürütmelidir."></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- De-Escalation -->
+                                    <div class="suspicion-level-card border-blue-glow">
+                                        <div class="level-badge bg-blue"><span data-en="Training" data-tr="Eğitim">Training</span></div>
+                                        <h4 class="font-bold text-blue-400 mb-2 text-sm" data-en="Avoidance of Violence" data-tr="Şiddetten Kaçınma ve Eğitim">Avoidance of Violence</h4>
+                                        <div class="level-desc-block">
+                                            <p class="text-xs text-slate-300" data-en="Officers must undergo regular training to resolve conflicts without relying on violence. Community-oriented, problem-solving approaches are prioritized." data-tr="Şiddete başvurmadan çatışmaları çözmek için polis memurları düzenli eğitimlerden geçirilmelidir. Toplum odaklı ve çözümleyici yaklaşımlar önceliklidir."></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 2: Code of Ethics Quote -->
+                            <div class="glass-card flex-col">
+                                <div class="card-badge bg-blue"><span data-en="Code of Ethics" data-tr="Etik İlkeleri">Code of Ethics</span></div>
+                                <div class="quote-content italic font-serif">
+                                    <p class="ethics-text mb-4">
+                                        “<span data-en="As a Law Enforcement Officer, my fundamental duty is to serve mankind; to safeguard lives and property; to protect the innocent against deception, the weak against oppression or intimidation, and the peaceful against violence or disorder; and to respect the Constitutional rights of all men to liberty, equality and justice." data-tr="Bir Kolluk Kuvveti Memuru olarak temel görevim insanlığa hizmet etmek; hayatları ve mülkiyeti korumak; masumları aldatmacaya, zayıfları baskı veya gözdağına ve barışçıl olanları şiddet veya düzensizliğe karşı korumak; ve tüm insanların hürriyet, eşitlik ve adalet üzerindeki Anayasal haklarına saygı duymaktır.">As a Law Enforcement Officer, my fundamental duty is to serve mankind; to safeguard lives and property; to protect the innocent against deception, the weak against oppression or intimidation, and the peaceful against violence or disorder; and to respect the Constitutional rights of all men to liberty, equality and justice.</span>”
+                                    </p>
+                                    <p class="ethics-text">
+                                        “<span data-en="I will keep my private life unsullied as an example to all; maintain courageous calm in the face of danger, scorn, or ridicule; develop self-restraint; and be constantly mindful of the welfare of others. Honest in thought and deed in both my personal and official life, I will be exemplary in obeying the laws of the land and the regulations of my department." data-tr="Özel hayatımı herkese örnek olacak şekilde temiz tutacağım; tehlike, hor görme veya alay karşısında cesurca sakin kalacağım; otokontrol geliştireceğim ve sürekli başkalarının refahını gözeteceğim. Hem kişisel hem de resmi hayatımda düşünce ve davranışlarımla dürüst kalacak, ülkenin yasalarına ve departmanımın yönetmeliklerine uymada örnek olacağım.">I will keep my private life unsullied as an example to all; maintain courageous calm in the face of danger, scorn, or ridicule; develop self-restraint; and be constantly mindful of the welfare of others. Honest in thought and deed in both my personal and official life, I will be exemplary in obeying the laws of the land and the regulations of my department.</span>”
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Section 3: LAPD/LASD Operations & Practices -->
+                            <div class="glass-card flex-col">
+                                <div class="card-icon-title">
+                                    <i class="fa-solid fa-building-shield card-header-icon text-gold"></i>
+                                    <h3 data-en="Agency Operations & Rules (LAPD & LASD)" data-tr="LAPD & LASD İşleyişi ve Kuralları">Agency Operations & Rules (LAPD & LASD)</h3>
+                                </div>
+                                <p class="description-text mb-6" data-en="Overview of the operational mandates, community policing models, use of force policies, and training scopes of LAPD and LASD." data-tr="LAPD ve LASD'nin operasyonel yetki alanları, toplum odaklı polislik modelleri, güç kullanımı politikaları ve eğitim kapsamlarının genel görünümü."></p>
+
+                                <div class="split-layout">
+                                    <!-- LAPD Column -->
+                                    <div class="glass-card flex-col border-blue-glow">
+                                        <div class="card-badge bg-blue"><span data-en="LAPD (Police)" data-tr="LAPD (Polis)">LAPD (Police)</span></div>
+                                        <ul class="bullet-list text-xs">
+                                            <li>
+                                                <strong data-en="Jurisdiction:" data-tr="Görev Alanı:">Jurisdiction:</strong>
+                                                <span data-en="Ensuring public order and safety within the municipal boundaries of the City of Los Angeles." data-tr="Los Angeles şehri sınırlarında kamu düzenini ve güvenliğini sağlamak.">Ensuring public order and safety within the municipal boundaries of the City of Los Angeles.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Community Policing:" data-tr="Toplum Odaklı Polislik:">Community Policing:</strong>
+                                                <span data-en="Utilizes active neighborhood patrols where officers hear community issues directly to build tailored solutions." data-tr="LAPD, Community Policing (Toplum Odaklı Polislik) stratejisini uygular. Polis memurları mahallelerde aktif görev yaparak halkın sorunlarını doğrudan dinler ve çözümler üretir.">Utilizes active neighborhood patrols where officers hear community issues directly to build tailored solutions.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Use of Force:" data-tr="Güç Kullanımı İlkeleri:">Use of Force:</strong>
+                                                <span data-en="Mandates that officers use force only when necessary and strictly proportional to the situation." data-tr="LAPD, memurlarının yalnızca gerektiğinde ve orantılı şekilde güç kullanmasını şart koşar. Bu konuda sürekli eğitim programları düzenlenir.">Mandates that officers use force only when necessary and strictly proportional to the situation.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Oversight:" data-tr="Denetim & Hesap Verebilirlik:">Oversight:</strong>
+                                                <span data-en="The Office of the Inspector General audits operations to verify complete transparency and compliance." data-tr="LAPD’nin Office of the Inspector General birimi, polis memurlarının eylemlerini inceler ve şeffaflığı sağlar.">The Office of the Inspector General audits operations to verify complete transparency and compliance.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Academy Scope:" data-tr="Eğitim Programları:">Academy Scope:</strong>
+                                                <span data-en="Officers train extensively in cultural awareness, crisis intervention, and conflict de-escalation." data-tr="Polis Akademisi'nde memurlar, kültürel farkındalık, kriz yönetimi ve şiddet önleme konularında eğitilir.">Officers train extensively in cultural awareness, crisis intervention, and conflict de-escalation.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Practices Column -->
+                                    <div class="glass-card flex-col border-gold-glow">
+                                        <div class="card-badge bg-gold"><span data-en="Exemplary Practices" data-tr="Örnek Uygulamalar">Exemplary Practices</span></div>
+                                        <ul class="bullet-list text-xs">
+                                            <li>
+                                                <strong data-en="Crisis Response Teams:" data-tr="Kriz Müdahale Ekipleri:">Crisis Response Teams:</strong>
+                                                <span data-en="LAPD maintains specialized units trained to resolve situations involving individuals with mental health crises safely." data-tr="LAPD, zihinsel sağlık sorunları olan bireylerle çatışmaları azaltmak için özel ekipler oluşturmuştur.">LAPD maintains specialized units trained to resolve situations involving individuals with mental health crises safely.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Body Cameras:" data-tr="Görev Kameraları:">Body Cameras:</strong>
+                                                <span data-en="Mandatory body-worn video devices document officer actions, increasing transparency and building citizen trust." data-tr="LAPD ve LASD, memurların faaliyetlerini belgelemek için vücut kameraları kullanır. Bu, şeffaflığı artırır ve vatandaşların güvenini sağlar.">Mandatory body-worn video devices document officer actions, increasing transparency and building citizen trust.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Training & Awareness:" data-tr="Eğitim ve Farkındalık:">Training & Awareness:</strong>
+                                                <span data-en="LAPD trains on racial/cultural awareness; LASD works on jail reforms and rehabilitation programs." data-tr="LAPD memurlarını ırksal ve kültürel farkındalık üzerine eğitir; LASD cezaevindeki reform süreçleri ve rehabilitasyon programları üzerinde çalışır.">LAPD trains on racial/cultural awareness; LASD works on jail reforms and rehabilitation programs.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Violence Prevention:" data-tr="Şiddeti Önleme Protokolleri:">Violence Prevention:</strong>
+                                                <span data-en="Both agencies use regular scenario-based drills to ensure officers deploy proportional force under stress." data-tr="Her iki teşkilat da orantılı güç kullanımını sağlamak için düzenli eğitimler ve senaryo tabanlı tatbikatlar yapar.">Both agencies use regular scenario-based drills to ensure officers deploy proportional force under stress.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 4: Community Oriented Policing -->
+                            <div class="glass-card flex-col">
+                                <div class="card-icon-title">
+                                    <i class="fa-solid fa-users-handshake card-header-icon text-blue"></i>
+                                    <h3 data-en="Community Oriented Policing" data-tr="Toplum Odaklı Polislik Uygulamaları">Community Oriented Policing</h3>
+                                </div>
+                                <p class="description-text mb-6" data-en="Community policing focuses on building ties and working closely with members of the community to solve local issues collaboratively." data-tr="Toplum odaklı polislik, topluluk üyeleriyle yakın ilişkiler kurmayı ve yerel sorunları iş birliği içinde çözmeyi ön planda tutan bir yaklaşımdır."></p>
+
+                                <div class="suspicion-grid">
+                                    <!-- NTF / Senior Lead Officers -->
+                                    <div class="suspicion-level-card border-blue-glow">
+                                        <div class="level-badge bg-blue"><span data-en="Local Focus" data-tr="Yerel Odak">Local Focus</span></div>
+                                        <h4 class="font-bold text-blue-400 mb-2 text-sm" data-en="Neighborhood Task Forces" data-tr="Mahalle Görev Kuvvetleri">Neighborhood Task Forces</h4>
+                                        <div class="level-desc-block">
+                                            <p class="text-xs text-slate-300" data-en="LAPD assigns officers to specific neighborhoods to familiarize themselves with the community, establishing continuous communication and trust while helping prevent local crime." data-tr="LAPD, mahallelerdeki polis memurlarını belirli bir bölgeye atayarak, memurların o toplumu tanımasını ve halkla sürekli iletişim kurmasını sağlar. Bu model, suçların önlenmesine ve toplum güveninin artmasına yardımcı olur."></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Youth Programs -->
+                                    <div class="suspicion-level-card border-blue-glow">
+                                        <div class="level-badge bg-blue"><span data-en="Youth Outreach" data-tr="Gençlik Programı">Youth Outreach</span></div>
+                                        <h4 class="font-bold text-blue-400 mb-2 text-sm" data-en="Youth Programs" data-tr="Gençlik Programları">Youth Programs</h4>
+                                        <div class="level-desc-block">
+                                            <p class="text-xs text-slate-300" data-en="Initiatives like the Cadet Program guide young people away from crime, build strong leadership skills, and encourage positive civic participation." data-tr="LAPD, gençleri suçlardan uzak tutmak için Cadet Program gibi inisiyatifler yürütmektedir. Bu programlar, gençlere liderlik becerileri kazandırır ve topluma katkıda bulunmalarını teşvik eder."></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Partnerships with NGOs -->
+                                    <div class="suspicion-level-card border-blue-glow">
+                                        <div class="level-badge bg-blue"><span data-en="Collaborations" data-tr="İş Birlikleri">Collaborations</span></div>
+                                        <h4 class="font-bold text-blue-400 mb-2 text-sm" data-en="Partnerships with NGOs" data-tr="Sivil Toplum Kuruluşları İş Birlikleri">Partnerships with NGOs</h4>
+                                        <div class="level-desc-block">
+                                            <p class="text-xs text-slate-300" data-en="Collaborates with local non-profits and civil organizations to address homelessness, substance dependency, and domestic violence through community-led projects." data-tr="LAPD, sivil toplum kuruluşlarıyla iş birliği yaparak evsizlik, uyuşturucu bağımlılığı ve aile içi şiddet gibi toplumsal sorunlara yönelik projeler geliştirir."></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 5: Police Violence & Preventive Measures -->
+                            <div class="glass-card flex-col">
+                                <div class="card-icon-title">
+                                    <i class="fa-solid fa-shield-halved card-header-icon text-red"></i>
+                                    <h3 data-en="Use of Force & Preventive Measures" data-tr="Polis Şiddeti ve Alınan Önlemler">Use of Force & Preventive Measures</h3>
+                                </div>
+                                <p class="description-text mb-6" data-en="Countermeasures and operational protocols designed to prevent excessive force, protect civil rights, and ensure professional accountability." data-tr="Aşırı güç kullanımını önlemek, sivil hakları korumak ve mesleki hesap verebilirliği sağlamak amacıyla tasarlanmış önlemler ve operasyonel protokoller."></p>
+
+                                <div class="suspicion-grid">
+                                    <!-- Body-Worn Cameras -->
+                                    <div class="suspicion-level-card border-red-glow">
+                                        <div class="level-badge bg-red"><span data-en="Cameras" data-tr="Kameralar">Cameras</span></div>
+                                        <h4 class="font-bold text-red-400 mb-2 text-sm" data-en="Body-Worn Cameras" data-tr="Görev Kameraları">Body-Worn Cameras</h4>
+                                        <div class="level-desc-block">
+                                            <p class="text-xs text-slate-300" data-en="Mandating body-worn audio/video recording equipment to document all interactions, ensuring transparency and factual accountability." data-tr="LAPD ve LASD gibi teşkilatlar, memurların eylemlerini kayıt altına almak için vücut kameralarını zorunlu hale getirmiştir."></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- De-Escalation Training -->
+                                    <div class="suspicion-level-card border-red-glow">
+                                        <div class="level-badge bg-red"><span data-en="Training" data-tr="Eğitim">Training</span></div>
+                                        <h4 class="font-bold text-red-400 mb-2 text-sm" data-en="De-Escalation Training" data-tr="De-Eskalasyon Eğitimleri">De-Escalation Training</h4>
+                                        <div class="level-desc-block">
+                                            <p class="text-xs text-slate-300" data-en="Regular tactical training focusing on verbal control, distance management, and non-lethal tools to resolve conflicts peacefully without escalating force." data-tr="Memurlara, şiddeti tırmandırmadan çatışmaları çözme konusunda düzenli eğitimler verilir."></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Independent Oversight -->
+                                    <div class="suspicion-level-card border-red-glow">
+                                        <div class="level-badge bg-red"><span data-en="Audits" data-tr="Denetim">Audits</span></div>
+                                        <h4 class="font-bold text-red-400 mb-2 text-sm" data-en="Independent Oversight" data-tr="Bağımsız Denetim">Independent Oversight</h4>
+                                        <div class="level-desc-block">
+                                            <p class="text-xs text-slate-300" data-en="Officer actions are reviewed by independent civilian panels. The LAPD's Office of the Inspector General operates as an active independent watchdog." data-tr="Polis eylemleri, sivil gözetim komisyonları ve bağımsız müfettişler tarafından incelenir. LAPD’nin Office of Inspector General birimi bu konuda aktif bir rol oynar."></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Transparency & Reporting -->
+                                    <div class="suspicion-level-card border-red-glow">
+                                        <div class="level-badge bg-red"><span data-en="Reporting" data-tr="Raporlama">Reporting</span></div>
+                                        <h4 class="font-bold text-red-400 mb-2 text-sm" data-en="Transparency & Reporting" data-tr="Şeffaflık ve Raporlama">Transparency & Reporting</h4>
+                                        <div class="level-desc-block">
+                                            <p class="text-xs text-slate-300" data-en="Comprehensive documentation and public reporting of all use-of-force incidents to foster departmental transparency and community trust." data-tr="Polislerin güç kullanımıyla ilgili raporları kamuya açık hale getirilir."></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 6: Accountability Mechanisms -->
+                            <div class="glass-card flex-col">
+                                <div class="card-icon-title">
+                                    <i class="fa-solid fa-gavel card-header-icon text-gold"></i>
+                                    <h3 data-en="Accountability Mechanisms" data-tr="Hesap Verebilirlik Mekanizmaları">Accountability Mechanisms</h3>
+                                </div>
+                                <p class="description-text mb-6" data-en="Legal and organizational frameworks established to audit police performance and address complaints." data-tr="Polis performansını denetlemek ve vatandaş şikayetlerini çözmek amacıyla kurulmuş yasal ve organizasyonel yapılar."></p>
+
+                                <div class="suspicion-grid">
+                                    <!-- Civilian Oversight Commissions -->
+                                    <div class="suspicion-level-card border-gold-glow">
+                                        <div class="level-badge bg-gold"><span data-en="Civilian Commission" data-tr="Sivil Komisyon">Civilian Commission</span></div>
+                                        <h4 class="font-bold text-amber-500 mb-2 text-sm" data-en="Civilian Oversight Commissions" data-tr="Sivil Gözetim Komisyonları">Civilian Oversight Commissions</h4>
+                                        <div class="level-desc-block">
+                                            <p class="text-xs text-slate-300" data-en="Boards like the Los Angeles Police Commission direct department policies, oversee operations, and review community complaints." data-tr="LAPD’nin Los Angeles Police Commission gibi organları, polis faaliyetlerini denetler ve vatandaş şikayetlerini değerlendirir."></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Internal Audit Units -->
+                                    <div class="suspicion-level-card border-gold-glow">
+                                        <div class="level-badge bg-gold"><span data-en="Internal Affairs" data-tr="İç Denetim">İç Denetim</span></div>
+                                        <h4 class="font-bold text-amber-500 mb-2 text-sm" data-en="Internal Audit Units" data-tr="İç Denetim Birimleri">Internal Audit Units</h4>
+                                        <div class="level-desc-block">
+                                            <p class="text-xs text-slate-300" data-en="Dedicated units (Internal Affairs Group) review allegations of officer misconduct and ethics violations to enforce strict standards of integrity." data-tr="Polis teşkilatları, iç denetim birimleri (Internal Affairs) aracılığıyla etik ihlalleri inceler."></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Community Engagement Platforms -->
+                                    <div class="suspicion-level-card border-gold-glow">
+                                        <div class="level-badge bg-gold"><span data-en="Engagements" data-tr="Katılım">Katılım</span></div>
+                                        <h4 class="font-bold text-amber-500 mb-2 text-sm" data-en="Community Engagement" data-tr="Halkla İletişim Platformları">Community Engagement</h4>
+                                        <div class="level-desc-block">
+                                            <p class="text-xs text-slate-300" data-en="Hosting regular community forums, town halls, and neighborhood council sessions to directly record public requests and grievances." data-tr="LAPD ve LASD, halka açık toplantılar düzenleyerek vatandaşların taleplerini ve şikayetlerini dinler."></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- TAB 3: CADET AUTHORITIES -->
+                    <section id="cadet" class="tab-content">
+                        <div class="page-header">
+                            <h2 data-en="Cadet Authorities & Responsibilities" data-tr="Aday Memur Yetki & Sorumlulukları">Cadet Authorities & Responsibilities</h2>
+                            <p class="subtitle" data-en="Training protocols and scope of operation for Cadets." data-tr="Aday memurlar (Cadet) için eğitim protokolleri ve görev kapsamı.">Training protocols and scope of operation for Cadets.</p>
+                        </div>
+
+                        <div class="vertical-layout">
+                            <div class="status-warning-card">
+                                <div class="warning-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                                <div class="warning-content">
+                                    <h4 data-en="FTO Supervision Mandatory" data-tr="FTO Gözetimi Zorunludur">FTO Supervision Mandatory</h4>
+                                    <p data-en="A Cadet has NO independent patrol or arrest authority. Every field operation must be conducted under the direct supervision of a Field Training Officer (FTO)." data-tr="Aday memurun bağımsız devriye gezme veya tutuklama yetkisi YOKTUR. Her saha operasyonu bir Saha Eğitim Memurunun (FTO) doğrudan gözetimi altında gerçekleştirilmelidir.">A Cadet has NO independent patrol or arrest authority. Every field operation must be conducted under the direct supervision of a Field Training Officer (FTO).</p>
+                                </div>
+                            </div>
+
+                            <div class="detail-grid">
+                                <div class="glass-card flex-col">
+                                    <div class="card-icon-title">
+                                        <i class="fa-solid fa-lock-open card-header-icon text-blue"></i>
+                                        <h3 data-en="Authorities" data-tr="Yetkiler">Authorities</h3>
+                                    </div>
+                                    <ul class="bullet-list">
+                                        <li data-en="Participate in field duties with an assigned FTO." data-tr="Atanmış bir FTO ile saha görevlerine katılmak.">Participate in field duties with an assigned FTO.</li>
+                                        <li data-en="Fill out Field Interview (FID) cards on FTO instruction." data-tr="FTO talimatıyla Saha Mülakat (FID) kartlarını doldurmak.">Fill out Field Interview (FID) cards on FTO instruction.</li>
+                                        <li data-en="Assist in radio communications (Dispatch) under FTO guidance." data-tr="FTO rehberliğinde telsiz iletişimine (Dispatch) yardımcı olmak.">Assist in radio communications (Dispatch) under FTO guidance.</li>
+                                        <li data-en="Secure crime scenes and manage traffic control perimeters." data-tr="Olay yeri güvenliğini sağlamak ve trafik kontrol çevrelerini yönetmek.">Secure crime scenes and manage traffic control perimeters.</li>
+                                    </ul>
+                                </div>
+
+                                <div class="glass-card flex-col">
+                                    <div class="card-icon-title">
+                                        <i class="fa-solid fa-list-check card-header-icon text-red"></i>
+                                        <h3 data-en="Responsibilities" data-tr="Sorumluluklar">Responsibilities</h3>
+                                    </div>
+                                    <ul class="bullet-list">
+                                        <li data-en="Memorize all standard Penal Codes." data-tr="Tüm standart Ceza Kodlarını ezberlemek.">Memorize all standard Penal Codes.</li>
+                                        <li data-en="Ensure cruiser equipment and tactical inventory are accounted for." data-tr="Devriye aracı ekipmanlarının ve taktik envanterin tam olmasını sağlamak.">Ensure cruiser equipment and tactical inventory are accounted for.</li>
+                                        <li data-en="Maintain proper tactical stance and professional radio etiquette." data-tr="Düzgün taktiksel duruşu ve profesyonel telsiz görgü kurallarını korumak.">Maintain proper tactical stance and professional radio etiquette.</li>
+                                        <li data-en="Observe and document FTO's actions during traffic stops." data-tr="Trafik çevirmelerinde FTO'nun eylemlerini gözlemlemek ve not etmek.">Observe and document FTO's actions during traffic stops.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- TAB 4: FIELD INTERVIEW (FID) -->
+                    <section id="fid" class="tab-content">
+                        <div class="page-header">
+                            <h2 data-en="Field Interview (FID) Card Protocol" data-tr="Saha Mülakatı (FID) Kart Protokolü">Field Interview (FID) Card Protocol</h2>
+                            <p class="subtitle" data-en="Standard operating protocol to log encounters with suspects and witnesses." data-tr="Şüpheli ve tanıklarla karşılaşmaları kaydetmek için standart çalışma protokolü.">Standard operating protocol to log encounters with suspects and witnesses.</p>
+                        </div>
+
+                        <div class="split-layout">
+                            <!-- Policy Guide (Scrollable) -->
+                            <div class="glass-card flex-col flex-1 policy-scroll-card">
+                                <h3 class="mb-4 border-b pb-2 text-blue-400" data-en="FI Card Protocol (Form 15.43.00)" data-tr="FI Kartı Protokolü (Form 15.43.00)">FI Card Protocol (Form 15.43.00)</h3>
+                                <div class="policy-scroll-content">
+                                    <!-- Section 1 -->
+                                    <div class="policy-section">
+                                        <h4 data-en="Conditions for Completion" data-tr="Doldurma Koşulları"><i class="fa-solid fa-list-check"></i> Conditions for Completion</h4>
+                                        <p data-en="An officer may record details of an interview on a Field Interview Report (FI Card), Form 15.43.00, only under the following conditions:" data-tr="Bir memur sahada bir kişiye soru sorduğunda, görüşmenin detaylarını ancak aşağıdaki durumlardan herhangi biri söz konusu olduğunda Saha Görüşme Raporu (FI Kartı), Form 15.43.00 üzerinde kaydedebilir:"></p>
+                                        <ul class="bullet-list">
+                                            <li data-en="When officers have reasonable suspicion that the person is connected to or has knowledge of criminal activity." data-tr="Memurların, kişinin suç faaliyetiyle bağlantılı olduğuna veya bu konuda bilgi sahibi olduğuna dair makul şüphe olduğunda."></li>
+                                            <li data-en="To document criminal activities (including ongoing or unresolved investigations) for future investigative use." data-tr="Devam eden veya çözülmemiş suç faaliyetlerini de içeren ve ileride yapılacak bir soruşturmada kullanılabilecek suç faaliyetlerini belgelendirmek için."></li>
+                                            <li data-en="To record a voluntary encounter related to either of the above." data-tr="Yukarıdaki iki maddeden herhangi biriyle ilgili gönüllü bir karşılaşmayı kayda geçirmek için."></li>
+                                            <li data-en="To document contact with a probationer or parolee." data-tr="Bir denetimli serbestlik veya şartlı tahliye hükümlüsü ile temasın belgelendirilmesi için."></li>
+                                            <li data-en="To document contact with an arrestee." data-tr="Bir tutuklu ile temasın belgelendirilmesi için."></li>
+                                        </ul>
+                                        <div class="policy-note">
+                                            <strong data-en="Note:" data-tr="Not:">Note:</strong>
+                                            <span data-en="Criminal activity includes, but is not limited to, suspected violations of the Los Angeles Municipal Code (LAMC), California Vehicle Code (CVC), and California Penal Code (PC)." data-tr="Suç faaliyeti, Los Angeles Belediye Kanunu'na ilişkin şüpheli ihlallerin yanı sıra Kaliforniya Araç Kanunu ve Ceza Kanunu ihlallerini de içerebilir ancak bunlarla sınırlı değildir."></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Section 2 -->
+                                    <div class="policy-section">
+                                        <h4 data-en="Policies & Restrictions" data-tr="Kurallar ve Sınırlamalar"><i class="fa-solid fa-triangle-exclamation"></i> Policies & Restrictions</h4>
+                                        <p data-en="Completing an FI Card must not be a routine action for all stops, nor conducted in a random, arbitrary, or biased manner." data-tr="FI Kartı doldurmak, tüm durdurmalarda rutin olarak gerçekleştirilecek bir işlem olmamalı; ayrıca rastgele, keyfi veya önyargılı şekilde yapılmamalıdır."></p>
+                                        <p data-en="Due to the department's termination of the CalGang database, officers shall not complete an FI Card for every encounter with a suspected gang member; it must only be filled out if it meets at least one of the conditions above." data-tr="Departmanın CalGang veri tabanını kullanmayı bırakması nedeniyle, memurlar şüpheli bir çete üyesiyle her karşılaşmada FI Kartı doldurmamalıdır; sadece yukarıdaki hükümlerin en az birine uyduğu durumlarda kart doldurulmalıdır."></p>
+                                        <p data-en="Information must relate to an official investigation (active or ongoing) and must not unnecessarily prolong the stop. The card should be filled out as soon as possible after the stop is completed to maximize accuracy." data-tr="FI Kartında yer alan bilgiler, resmi bir soruşturmaya (o anda başlatılmış ya da devam eden) ilişkin olmalıdır. FI Kartı doldurulması, durdurmayı gereksiz yere uzatmamalıdır. Kart, durdurma sona erdikten sonra mümkün olan en kısa sürede doldurulmalıdır ki belgelenen bilgilerin doğruluğu maksimize edilebilsin."></p>
+                                    </div>
+
+                                    <!-- Section 3 -->
+                                    <div class="policy-section">
+                                        <h4 data-en="Required Facts & Observations" data-tr="Belgelenmesi Gereken Bilgiler"><i class="fa-solid fa-file-pen"></i> Required Facts & Observations</h4>
+                                        <p data-en="Officers must document specific facts and observations on the FI Card, including but not limited to:" data-tr="Memurlar, bir FI Kartı doldururken aşağıdaki bilgilerle sınırlı olmamak üzere ilgili özel gerçekleri ve gözlemleri belgelemelidir:"></p>
+                                        <ul class="bullet-list">
+                                            <li data-en="Date, time, and location of the interview." data-tr="Görüşmenin yapıldığı tarih, saat ve yer."></li>
+                                            <li data-en="Detailed description of the person's clothing." data-tr="Görüşülen kişinin giyimiyle ilgili detaylar."></li>
+                                            <li data-en="Visible physical characteristics (tattoos, scars, etc.)." data-tr="Görüşülen kişinin görülebilir fiziksel özellikleri (örneğin dövmeler veya yara izleri)."></li>
+                                            <li data-en="Statements made during contact (including admissions of gang membership)." data-tr="Temas sırasında kişinin yaptığı beyanlar (çete üyeliğine dair ifadeler dahil)."></li>
+                                            <li data-en="Facts or statements showing knowledge of or participation in criminal activities." data-tr="Kişinin suç faaliyetleri hakkında bilgisi veya katılımına dair özel ifadeler ya da olgular."></li>
+                                        </ul>
+                                        <div class="policy-note">
+                                            <strong data-en="Note:" data-tr="Not:">Note:</strong>
+                                            <span data-en="FI Cards are used to document facts only. If stating an opinion about gang association, officers must document clear, articulable facts supporting this opinion on the reverse side of the card." data-tr="FI Kartı, yalnızca gerçekleri belgelemek için kullanılır. Memurlar, kişiyi bir çeteye üye ya da bağlantılı olduğuna dair bir görüş belirtmek istediklerinde, bu görüşlerini destekleyen açık ve ifade edilebilir gerçekleri FI Kartı'nın arka yüzünde mutlaka belgelemek zorundadır."></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Section 4 -->
+                                    <div class="policy-section">
+                                        <h4 data-en="Scope of Inquiries & Tattoos" data-tr="Soru Sorma Zorunluluğu ve Kapsamı"><i class="fa-solid fa-magnifying-glass"></i> Scope of Inquiries & Tattoos</h4>
+                                        <p data-en="Except for arrest, probation, or parole, a person cannot be required to answer questions solely to complete an FI Card — response is voluntary." data-tr="Tutuklama, denetimli serbestlik ya da şartlı tahliye gibi durumlar dışında, bir kişiden yalnızca FI Kartı doldurmak amacıyla sorulara cevap vermesi istenemez — kişi buna zorunlu değildir."></p>
+                                        <p data-en="Only Gang Enforcement Detail (GED) officers may request to view non-visible tattoos, scars, or markings (e.g. under a shirt). Officers must operate under Administrative Order No. 22, dated November 20, 2020 ('Consent to Search Policy')." data-tr="Yalnızca Çete Mücadele Birimi (GED) görevlileri, görünmeyen dövmeleri, yara izlerini veya diğer işaretleri (örneğin tişört altında kalan bir dövme) görmeyi talep edebilir. Bu gibi durumlarda, memurlar İdari Emir No. 22, 20 Kasım 2020 tarihli 'Arama İçin Rıza Politikası' kapsamında hareket etmelidir."></p>
+                                        <p data-en="Non-GED officers cannot request to show such markings unless the person is arrested or legally detained." data-tr="GED dışındaki memurlar, kişi tutuklanmamış veya yasal olarak alıkonulmamışsa, bu tür işaretleri göstermesini talep edemez."></p>
+                                    </div>
+
+                                    <!-- Section 5 -->
+                                    <div class="policy-section">
+                                        <h4 data-en="Body-Worn Video (BWV) Usage" data-tr="Vücut Kamerası (BWV) Kullanımı"><i class="fa-solid fa-video"></i> Body-Worn Video (BWV) Usage</h4>
+                                        <p data-en="Officer contacts with the public must be recorded with BWV per Manual Section 3/579.15. Officers are encouraged to use BWV to capture details (e.g., clothing, tattoos, physical features) that are constrained by space limits on the physical FI Card." data-tr="Memurların halkla olan temasları, Departman El Kitabı 3/579.15 Bölümü uyarınca Vücut Kamerası (BWV) ile kaydedilmelidir. Memurlar, durdurma ve gözaltı sırasında karşılaşma ve etkileşimlere ilişkin gerçekleri ve ilgili görsel detayları belgelemek için BWV cihazlarını kullanmaları konusunda hatırlatılır ve teşvik edilir. Örneğin, kişinin kıyafeti, dövmeleri veya fiziksel özellikleri gibi FI Kartı’nda yer için sınırlı olan ayrıntılar, BWV ile belgelenebilir."></p>
+                                    </div>
+
+                                    <!-- Section 6 -->
+                                    <div class="policy-section">
+                                        <h4 data-en="Birthplace Query Limitations" data-tr="Doğum Yeri Hakkında Soru Sorma Sınırlamaları"><i class="fa-solid fa-earth-americas"></i> Birthplace Query Limitations</h4>
+                                        <p data-en="Asking about birthplace can damage public trust, especially for victims or witnesses." data-tr="Kolluk kuvvetleriyle temas sırasında bir kişinin doğum yerine dair sorular sorulması, özellikle kişi mağdur ya da tanıksa, yanlış algılamalara neden olabilir. Bu durum, kamu güvenini zedeleyebilir. Bu nedenle aşağıdaki prosedürler izlenmelidir:"></p>
+                                        <ul class="bullet-list">
+                                            <li>
+                                                <strong data-en="Victims, Witnesses & Detainees:" data-tr="Mağdurlar, Tanıklar ve Geçici Alıkonanlar:">Victims, Witnesses & Detainees:</strong>
+                                                <span data-en="Officers shall not ask birthplace unless necessary for the criminal investigation." data-tr="Memurlar, yalnızca suç soruşturmasında gerekli olduğuna dair özel bir durum olmadıkça, bu kişilere doğum yerlerini sormamalıdır.">Officers shall not ask birthplace unless necessary for the criminal investigation.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Arrestees:" data-tr="Tutuklular:">Arrestees:</strong>
+                                                <span data-en="Birthplace may be asked and documented in the narrative only if: necessary for booking, consular notification, criminal investigation, or required by law." data-tr="Departman personeli, şu durumlarda FI Kartı'nın anlatım bölümünde tutuklunun doğum yerini sorabilir ve belgeleyebilir: Suç nedeniyle tutuklama veya işlem için gerekliyse, konsolosluk bildirimi zorunluluğu varsa, suç soruşturması için gerekliyse veya kanunen gerekliyse.">Birthplace may be asked and documented in the narrative only if: necessary for booking, consular notification, criminal investigation, or required by law.</span>
+                                            </li>
+                                        </ul>
+                                        <div class="policy-caution">
+                                            <strong data-en="Exception:" data-tr="İstisna:">Exception:</strong>
+                                            <span data-en="Persons arrested for public intoxication [PC 647(f)], begging [PC 647(e)], or misdemeanor traffic warrants." data-tr="Kamu sarhoşluğu [Ceza Kanunu (PC) 647(f)], dilencilik [PC 647(e)] veya kabahat niteliğindeki trafik yakalama emirleriyle tutuklanan kişiler içindir."></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Interactive Generator -->
+                            <div class="glass-card flex-col flex-1">
+                                <h3 class="mb-4 border-b pb-2 text-green-400" data-en="FID Simulator" data-tr="FID Simülatörü">FID Simulator</h3>
+                                <form id="fidForm" class="fid-form">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label data-en="Full Name" data-tr="Ad Soyad">Full Name</label>
+                                            <input type="text" id="fidName" placeholder="John Doe" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label data-en="Gender" data-tr="Cinsiyet">Gender</label>
+                                            <select id="fidGender">
+                                                <option value="Male" data-en="Male" data-tr="Erkek">Male</option>
+                                                <option value="Female" data-en="Female" data-tr="Kadın">Female</option>
+                                                <option value="Other" data-en="Other" data-tr="Diğer">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label data-en="Hair & Eyes" data-tr="Saç & Göz Rengi">Hair & Eyes</label>
+                                            <input type="text" id="fidPhysical" placeholder="Brown hair, Blue eyes">
+                                        </div>
+                                        <div class="form-group">
+                                            <label data-en="Height & Weight" data-tr="Boy & Kilo">Height & Weight</label>
+                                            <input type="text" id="fidSize" placeholder="6'1'', 180 lbs">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label data-en="Scars / Tattoos / Clothing" data-tr="Yara İzleri / Dövmeler / Kıyafet">Scars / Tattoos / Clothing</label>
+                                        <input type="text" id="fidScars" placeholder="Tattoo on right forearm, black hoodie">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label data-en="Vehicle (If applicable)" data-tr="Araç Bilgisi (Varsa)">Vehicle (If applicable)</label>
+                                        <input type="text" id="fidVehicle" placeholder="Black Premier, License: 45ABC89">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label data-en="Reason for Contact" data-tr="Temas Nedeni">Reason for Contact</label>
+                                        <textarea id="fidReason" rows="2" placeholder="Loitering in high-crime area during night shift. Matching suspect description of earlier 211 call."></textarea>
+                                    </div>
+
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-secondary" onclick="resetFIDForm()" data-en="Clear" data-tr="Temizle">Clear</button>
+                                        <button type="button" class="btn btn-primary" onclick="generateFIDCard()" data-en="Generate & Copy" data-tr="Oluştur & Kopyala">Generate & Copy</button>
+                                    </div>
+                                </form>
+
+                                <!-- Output Preview Console -->
+                                <div class="console-output mt-4" id="fidOutputContainer" style="display:none;">
+                                    <div class="console-header">
+                                        <span data-en="GENERATED FID REPORT" data-tr="OLUŞTURULAN FID RAPORU">GENERATED FID REPORT</span>
+                                        <button class="copy-console-btn" onclick="copyConsoleContent('fidTextOutput')"><i class="fa-solid fa-copy"></i></button>
+                                    </div>
+                                    <pre id="fidTextOutput" class="console-pre"></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- TAB 5: LEGAL PROCEDURES -->
+                    <section id="procedures" class="tab-content">
+                        <div class="page-header">
+                            <h2 data-en="Essential Legal Procedures" data-tr="Temel Yasal Prosedürler">Essential Legal Procedures</h2>
+                            <p class="subtitle" data-en="Legal requirements for custodial interrogation and officer administrative protection." data-tr="Gözaltı sorgulaması ve memur idari koruması için yasal gereklilikler.">Legal requirements for custodial interrogation and officer administrative protection.</p>
+                        </div>
+
+                        <div class="vertical-layout">
+                            <!-- Miranda Rights -->
+                            <div class="glass-card flex-col">
+                                <div class="card-icon-title">
+                                    <i class="fa-solid fa-gavel card-header-icon text-blue"></i>
+                                    <h3 data-en="Miranda Rights (Miranda Hakları)" data-tr="Miranda Hakları (Miranda Rights)">Miranda Rights</h3>
+                                </div>
+                                <p class="description-text mb-4" data-en="Must be read prior to custodial interrogation. If rights are not read, statements made by the suspect cannot be used in a court of law." data-tr="Gözaltı sorgusundan önce okunmalıdır. Haklar okunmazsa, şüphelinin yaptığı ifadeler mahkemede delil olarak kullanılamaz.">Must be read prior to custodial interrogation. If rights are not read, statements made by the suspect cannot be used in a court of law.</p>
+
+                                <div class="rights-block">
+                                    <div class="block-half">
+                                        <span class="rights-label">ENGLISH</span>
+                                        <div class="rights-quote font-serif" id="mirandaEN">
+                                            "You have the right to remain silent. Anything you say can and will be used against you in a court of law. You have the right to talk to a lawyer and have him present with you while you are being questioned. If you cannot afford to hire a lawyer, one will be appointed to represent you before any questioning if you wish."
+                                        </div>
+                                    </div>
+                                    <div class="block-half">
+                                        <span class="rights-label">TÜRKÇE</span>
+                                        <div class="rights-quote font-serif text-slate-300">
+                                            "Sessiz kalma hakkına sahipsiniz. Söyleyeceğiniz her şey mahkemede aleyhinize delil olarak kullanılabilir. Avukat tutma hakkına sahipsiniz. Eğer avukat tutacak maddi imkânınız yoksa, devlet size bir avukat atayacaktır. Haklarınızın okunduğunu ve anladığınızı onaylıyor musunuz?"
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Lybarger Warning -->
+                            <div class="glass-card flex-col">
+                                <div class="card-icon-title">
+                                    <i class="fa-solid fa-shield-halved card-header-icon text-red"></i>
+                                    <h3 data-en="Lybarger Warning (İdari Soruşturma)" data-tr="Lybarger Uyarısı (Lybarger Warning)">Lybarger Warning</h3>
+                                </div>
+                                <p class="description-text mb-4" data-en="Administrative rights read to an employee during an internal affairs inquiry. The employee is ordered to answer questions; statements cannot be used in subsequent criminal trials, but refusal to answer leads to disciplinary action including termination." data-tr="İçişleri (Internal Affairs) soruşturması sırasında personele okunan idari haklardır. Personelin soruları cevaplaması emredilir; bu ifadeler daha sonraki ceza davalarında aleyhine kullanılamaz, ancak cevaplamayı reddetmesi durumunda iş akdinin feshi dahil disiplin cezası uygulanır.">Administrative rights read to an employee during an internal affairs inquiry. The employee is ordered to answer questions; statements cannot be used in subsequent criminal trials, but refusal to answer leads to disciplinary action including termination.</p>
+
+                                <div class="rights-block">
+                                    <div class="block-half">
+                                        <span class="rights-label">ENGLISH</span>
+                                        <div class="rights-quote font-serif text-sm">
+                                            "You are being questioned as part of an official internal investigation. You are ordered to answer these questions truthfully. Anything you say can be used for departmental disciplinary actions, but none of your statements can be used against you in a criminal prosecution. If you refuse to answer, you will be subject to immediate dismissal for insubordination."
+                                        </div>
+                                    </div>
+                                    <div class="block-half">
+                                        <span class="rights-label">TÜRKÇE</span>
+                                        <div class="rights-quote font-serif text-sm text-slate-300">
+                                            "Resmi bir iç soruşturmanın parçası olarak sorgulanıyorsunuz. Bu sorulara dürüstçe cevap vermeniz emredilmiştir. Söyleyeceğiniz her şey departman içi disiplin cezaları için kullanılabilir, ancak ifadelerinizin hiçbiri bir ceza davasında aleyhinize delil olarak kullanılamaz. Cevap vermeyi reddederseniz, itaatsizlik nedeniyle derhal meslekten ihraç edilirsiniz."
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Levels of Suspicion & Cause -->
+                            <div class="glass-card flex-col">
+                                <div class="card-icon-title">
+                                    <i class="fa-solid fa-scale-balanced card-header-icon text-blue"></i>
+                                    <h3 data-en="Levels of Suspicion & Cause" data-tr="Şüphe Seviyeleri ve Gerekçeler">Levels of Suspicion & Cause</h3>
+                                </div>
+                                <p class="description-text mb-6" data-en="These legal concepts establish the authority limits for law enforcement interventions and safeguard individual constitutional rights against arbitrary actions." data-tr="Bu kavramlar hukukun içerisinde, kolluk kuvvetlerine yasal bir çerçeve sağlamak ve bireylerin haklarını korumak için kullanılır. Keyfi uygulamalara karşı koruma sağlar."></p>
+
+                                <div class="suspicion-grid">
+                                    <!-- Level 1 -->
+                                    <div class="suspicion-level-card border-blue-glow">
+                                        <div class="level-badge bg-blue"><span data-en="Level 1" data-tr="1. Seviye">Level 1</span></div>
+                                        <h4 class="font-bold text-blue-400 mb-2">Reasonable Suspicion <span class="text-xs text-slate-400 block mt-1">(Makul Şüphe)</span></h4>
+                                        <div class="level-desc-block">
+                                            <p class="text-xs text-slate-300" data-en="A rational, articulable belief that a person has committed, is committing, or is about to commit a crime. Based on behavior or environment. Grants officers limited search authority (e.g., Terry stop / pat-down for weapons)." data-tr="Bir kişi hakkında suç işlediği veya işlemeye teşebbüs ettiği yolunda makul bir şüpheye sahip olunması durumudur. Şüphelinin bulunduğu ortam veya davranışlara dayanır. Memurlara sınırlı arama yetkisi verir (ör. Terry stop / silah araması)."></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Level 2 -->
+                                    <div class="suspicion-level-card border-gold-glow">
+                                        <div class="level-badge bg-gold"><span data-en="Level 2" data-tr="2. Seviye">Level 2</span></div>
+                                        <h4 class="font-bold text-amber-500 mb-2">Reasonable Grounds <span class="text-xs text-slate-400 block mt-1">(Makul Gerekçe)</span></h4>
+                                        <div class="level-desc-block">
+                                            <p class="text-xs text-slate-300" data-en="A logical and objective basis to believe a person has committed or is attempting to commit a crime. Supported by concrete evidence, witness statements, or objective data." data-tr="Bir kişinin suç işlediği veya suç işlemeye teşebbüs ettiğiyle ilgili makul bir gerekçeye sahip olma durumudur. Deliller, tanıklar veya diğer objektif verilere dayanır."></p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Level 3 -->
+                                    <div class="suspicion-level-card border-red-glow">
+                                        <div class="level-badge bg-red"><span data-en="Level 3" data-tr="3. Seviye">Level 3</span></div>
+                                        <h4 class="font-bold text-red-400 mb-2">Probable Cause <span class="text-xs text-slate-400 block mt-1">(Olası Sebep / Kuvvetli Şüphe)</span></h4>
+                                        <div class="level-desc-block">
+                                            <p class="text-xs text-slate-300" data-en="A strong probability or reasonable belief that a crime has occurred and the specific person committed it. Necessary to support warrants for arrest or search submitted to a court." data-tr="Bir kişinin suç işlediği veya suç işlemeye teşebbüs ettiğiyle ilgili makul bir sebep bulunması durumudur. Polis tarafından mahkemeye sunulacak olan arama veya tutuklama emirlerini desteklemek için gereklidir."></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Vehicle Search Procedures -->
+                            <div class="glass-card flex-col">
+                                <div class="card-icon-title">
+                                    <i class="fa-solid fa-car card-header-icon text-blue"></i>
+                                    <h3 data-en="Vehicle Search Procedures (LAPD & LASD)" data-tr="Araç Arama İşlemi ve Prosedürleri (LAPD & LASD)">Vehicle Search Procedures (LAPD & LASD)</h3>
+                                </div>
+                                <p class="description-text mb-6" data-en="The Los Angeles Police Department (LAPD) and the Los Angeles County Sheriff's Department (LASD) conduct vehicle searches based on strict legal guidelines and constitutional compliance." data-tr="Los Angeles Polis Departmanı (LAPD) ve Los Angeles Şerif Departmanı (LASD), araç arama işlemlerini belirli prosedürlere göre gerçekleştirirler. Her iki kurum da yasalara ve iç yönergelerine sıkı sıkıya bağlı olarak hareket eder."></p>
+
+                                <div class="split-layout">
+                                    <!-- LAPD Column -->
+                                    <div class="glass-card flex-col border-blue-glow">
+                                        <div class="card-badge bg-blue"><span data-en="LAPD (Police)" data-tr="LAPD (Polis)">LAPD (Police)</span></div>
+                                        <ul class="bullet-list">
+                                            <li>
+                                                <strong data-en="Authorization & Cause:" data-tr="Yetkilendirme ve Gerekçe:">Authorization & Cause:</strong>
+                                                <span data-en="LAPD officers must have legal justification (e.g. probable cause, search incident to arrest, or inventory search) to search a vehicle. General searches violate constitutional rights." data-tr="LAPD memurları, araç arama işlemi için makul şüphe gerektiren yasal bir gerekçeye sahip olmalıdır. Genel araç araması yapılması anayasal hakların ihlali olabilir.">LAPD officers must have legal justification (e.g. probable cause, search incident to arrest, or inventory search) to search a vehicle. General searches violate constitutional rights.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Search Procedure:" data-tr="Arama Prosedürü:">Search Procedure:</strong>
+                                                <span data-en="Officers prioritize officer/scene safety and assess potential vehicle hazards. Contraband or evidence is documented and collected." data-tr="Kişisel güvenlikleri sağlamak ve aracın potansiyel tehlikelerini değerlendirmek için dikkatli olunur. Suç unsurları belgelenir ve delil olarak toplanır.">Officers prioritize officer/scene safety and assess potential vehicle hazards. Contraband or evidence is documented and collected.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Privacy & Rights:" data-tr="Mahremiyet ve Haklar:">Privacy & Rights:</strong>
+                                                <span data-en="Personal privacy must be protected; unnecessary intrusions are prohibited." data-tr="Kişisel mahremiyet korunur, gereksiz mahremiyet ihlalleri yapılmaz.">Personal privacy must be protected; unnecessary intrusions are prohibited.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- LASD Column -->
+                                    <div class="glass-card flex-col border-gold-glow">
+                                        <div class="card-badge bg-gold"><span data-en="LASD (Sheriff)" data-tr="LASD (Şerif)">LASD (Sheriff)</span></div>
+                                        <ul class="bullet-list">
+                                            <li>
+                                                <strong data-en="Legal Authority:" data-tr="Gerekçe ve Yasal Yetki:">Legal Authority:</strong>
+                                                <span data-en="LASD deputies must ensure legal compliance regarding the necessity of reasonable suspicion/probable cause for vehicle searches. General search is illegal." data-tr="LASD memurları da araç arama işlemlerinde makul şüphe gerekliliği konusunda yasalara uygunluk sağlar. Genel araç araması yasalara aykırıdır.">LASD deputies must ensure legal compliance regarding the necessity of reasonable suspicion/probable cause for vehicle searches. General search is illegal.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Search Techniques:" data-tr="Arama Teknikleri:">Search Techniques:</strong>
+                                                <span data-en="Search techniques are executed in accordance with professional training standards. Potential hazards or criminal elements are identified and reported." data-tr="Teknikler eğitimli ve prosedürlere uygun kullanılır. Potansiyel tehlikeler veya suç unsurları belirlenir, raporlanır.">Search techniques are executed in accordance with professional training standards. Potential hazards or criminal elements are identified and reported.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Rights & Risks:" data-tr="Haklar ve İhlal Riskleri:">Rights & Risks:</strong>
+                                                <span data-en="Individual rights are protected, and operations comply strictly with statutes. Necessary legal action is taken in case of violations." data-tr="Kişisel haklar korunur, yasalara uygun hareket edilir. İhlal durumunda gerekli hukuki adımlar atılır.">Individual rights are protected, and operations comply strictly with statutes. Necessary legal action is taken in case of violations.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Detain vs Arrest Differences -->
+                            <div class="glass-card flex-col">
+                                <div class="card-icon-title">
+                                    <i class="fa-solid fa-handcuffs card-header-icon text-red"></i>
+                                    <h3 data-en="Detention vs. Arrest" data-tr="Detain & Arrest Farkları">Detention vs. Arrest</h3>
+                                </div>
+                                <p class="description-text mb-6" data-en="Understanding the legal boundaries and operational differences between temporary detention and formal arrest is essential for constitutional compliance." data-tr="Geçici gözaltı ile resmi tutuklama arasındaki yasal sınırları ve operasyonel farkları anlamak, anayasal uyumluluk açısından büyük önem taşır."></p>
+
+                                <div class="split-layout">
+                                    <!-- Detain Column -->
+                                    <div class="glass-card flex-col border-blue-glow">
+                                        <div class="card-badge bg-blue"><span data-en="Detain (Detention)" data-tr="Detain (Gözaltı)">Detain (Detention)</span></div>
+                                        <ul class="bullet-list">
+                                            <li>
+                                                <strong data-en="Temporary Restriction:" data-tr="Geçici Kısıtlama:">Temporary Restriction:</strong>
+                                                <span data-en="Temporarily restricting a person's freedom of movement." data-tr="Bir kişinin geçici olarak özgürlüğünü sınırlamak anlamına gelir.">Temporarily restricting a person's freedom of movement.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Investigative Purpose:" data-tr="Soruşturma Amacı:">Investigative Purpose:</strong>
+                                                <span data-en="Usually conducted due to suspicion of criminal activity or for investigative purposes." data-tr="Genellikle bir suç işlediği şüphesiyle veya soruşturma amacıyla yapılır.">Usually conducted due to suspicion of criminal activity or for investigative purposes.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Questioning:" data-tr="Sorgulama Durumu:">Questioning:</strong>
+                                                <span data-en="The detained person is typically held for questioning." data-tr="Gözaltına alınan kişi, genellikle sorgulanmak üzere tutulur.">The detained person is typically held for questioning.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Short Duration:" data-tr="Kısa Süre:">Short Duration:</strong>
+                                                <span data-en="Detention is brief, and the person may be released afterwards." data-tr="Gözaltına alma süresi kısa olabilir ve kişi daha sonra serbest bırakılabilir.">Detention is brief, and the person may be released afterwards.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Arrest Column -->
+                                    <div class="glass-card flex-col border-red-glow">
+                                        <div class="card-badge bg-red"><span data-en="Arrest (Custody)" data-tr="Arrest (Tutuklama)">Arrest (Custody)</span></div>
+                                        <ul class="bullet-list">
+                                            <li>
+                                                <strong data-en="Formal Deprivation:" data-tr="Resmi Hak Kısıtlaması:">Formal Deprivation:</strong>
+                                                <span data-en="Formally depriving a person of liberty based on suspicion of a crime, caught red-handed, or via a legal warrant." data-tr="Bir kişinin resmi olarak suç işlediği şüphesiyle veya suçüstü yakalanarak veya bir tutuklama emriyle serbest bırakılmaz bir şekilde özgürlüğünün tamamen elinden alınmasıdır.">Formally depriving a person of liberty based on suspicion of a crime, caught red-handed, or via a legal warrant.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Legal Procedure:" data-tr="Yasal Prosedür:">Legal Procedure:</strong>
+                                                <span data-en="The individual is secured through legal arrest procedures under suspicion of committing a crime." data-tr="Kişi, suç işlediği gerekçesiyle yasal prosedürlerle tutuklanır.">The individual is secured through legal arrest procedures under suspicion of committing a crime.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Crime Severity:" data-tr="Suç Ciddiyeti:">Crime Severity:</strong>
+                                                <span data-en="Typically initiated for more serious crimes and begins the process of bringing the person to court." data-tr="Tutuklama genellikle daha ciddi suçlar için yapılır ve mahkemeye çıkarılma sürecini başlatır.">Typically initiated for more serious crimes and begins the process of bringing the person to court.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Judicial Phase:" data-tr="Yargı Süreci:">Judicial Phase:</strong>
+                                                <span data-en="Formally initiates the judicial phase, defining the individual's legal rights and obligations." data-tr="Tutuklama işlemi, yargı sürecinin bir parçası olarak kişinin haklarını ve yükümlülüklerini belirler.">Formally initiates the judicial phase, defining the individual's legal rights and obligations.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="glass-card flex-col">
+                                <div class="card-icon-title">
+                                    <i class="fa-solid fa-walkie-talkie card-header-icon text-blue"></i>
+                                    <h3 data-en="Radio & MDC Communications" data-tr="Taktiksel Telsiz & MDC İletişimi">Radio & MDC Communications</h3>
+                                </div>
+                                <p class="description-text mb-6" data-en="Proper radio communications etiquette, Crime Broadcast protocols, and standard MDC operations are vital for operational coordination and realism." data-tr="Düzgün telsiz konuşma kuralları, Crime Broadcast protokolleri ve standart MDC işlemleri, operasyonel koordinasyon ve gerçekçilik açısından hayati önem taşır."></p>
+
+                                <div class="suspicion-grid">
+                                    <!-- Column 1 -->
+                                    <div class="suspicion-level-card border-blue-glow">
+                                        <div class="level-badge bg-blue"><span data-en="Callout Etiquette" data-tr="Anons Kuralları">Callout Etiquette</span></div>
+                                        <h4 class="font-bold text-blue-400 mb-2" data-en="Radio Callouts & Units" data-tr="Telsiz Anonsları & Üniteler">Radio Callouts & Units</h4>
+                                        <div class="level-desc-block">
+                                            <ul class="bullet-list">
+                                                <li>
+                                                    <strong data-en="Use Unit Term:" data-tr="Ünite Terimi Kullanımı:">Use Unit Term:</strong>
+                                                    <span data-en="Always refer to responding units as 'Unit' instead of crew/crew members." data-tr="Telsiz anonslarında ekip yerine daima 'Ünite' (Unit) terimi kullanılır.">Always refer to responding units as 'Unit' instead of crew/crew members.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Specify Vehicle Plates:" data-tr="Araç Plakası Belirtin:">Specify Vehicle Plates:</strong>
+                                                    <span data-en="When conducting traffic stops, pass vehicle license plate, make/model, and color." data-tr="Trafik durdurmalarında anons geçerken mutlaka araç plakası, modeli ve rengi belirtilmelidir.">When conducting traffic stops, pass vehicle license plate, make/model, and color.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Example Callout:" data-tr="Örnek Anons:">Example Callout:</strong>
+                                                    <span class="italic text-slate-400 block mt-1" data-en="&ldquo;Traffic stop for Black Rocoto, Plate 123ABC. Requesting Backup Unit. Location is South Central.&rdquo;" data-tr="&ldquo;123ABC Plakalı Araç için Trafik Durdurması, Destek Ünite talebim mevcut. Burası South Central.&rdquo;">&ldquo;Traffic stop for Black Rocoto, Plate 123ABC. Requesting Backup Unit. Location is South Central.&rdquo;</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Column 2 -->
+                                    <div class="suspicion-level-card border-gold-glow">
+                                        <div class="level-badge bg-gold"><span data-en="Crime Broadcast" data-tr="Crime Broadcast">Crime Broadcast</span></div>
+                                        <h4 class="font-bold text-amber-500 mb-2" data-en="Crime Broadcast & APB" data-tr="Crime Broadcast & APB">Crime Broadcast & APB</h4>
+                                        <div class="level-desc-block">
+                                            <ul class="bullet-list">
+                                                <li>
+                                                    <strong data-en="BOLO Terminology:" data-tr="BOLO Kullanımı:">BOLO Terminology:</strong>
+                                                    <span data-en="Prefer using 'Crime Broadcast' instead of BOLO ('Be On the Lookout')." data-tr="Telsiz anonslarında BOLO yerine 'Crime Broadcast' teriminin kullanılması tercih edilir.">Prefer using 'Crime Broadcast' instead of BOLO ('Be On the Lookout').</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="APB Definition:" data-tr="APB Nedir:">APB Definition:</strong>
+                                                    <span data-en="APB ('All Points Bulletin') is a general alert broadcast to all units regarding wanted suspects or vehicles connected to serious crimes." data-tr="APB ('All Points Bulletin'), ciddi suçlarla bağlantılı aranan şahıslar veya araçlar hakkında tüm birimlere yönelik genel uyarılardır.">APB ('All Points Bulletin') is a general alert broadcast to all units regarding wanted suspects or vehicles connected to serious crimes.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Radio Silence Required:" data-tr="Telsiz Sessizliği:">Radio Silence Required:</strong>
+                                                    <span data-en="Before transmitting a BOLO/Broadcast, request radio silence ('Clear the channel for a Crime Broadcast')." data-tr="Bir Crime Broadcast geçilmeden önce telsizin stabil ve sessiz tutulması talep edilir; anons önceden bildirilir.">Before transmitting a BOLO/Broadcast, request radio silence ('Clear the channel for a Crime Broadcast').</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Required Details:" data-tr="Belgelenecek Detaylar:">Required Details:</strong>
+                                                    <span data-en="Vehicle specs (make, color, plate), suspect descriptors (gender, clothing, description), crime type, current location." data-tr="Araç bilgileri (marka, renk, plaka), şüpheli eşkali (cinsiyet, giyim, fiziksel özellikler), suç türü ve son konum bilgisi.">Vehicle specs (make, color, plate), suspect descriptors (gender, clothing, description), crime type, current location.</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Column 3 -->
+                                    <div class="suspicion-level-card border-red-glow">
+                                        <div class="level-badge bg-red"><span data-en="MDC Systems" data-tr="MDC Sistemleri">MDC Systems</span></div>
+                                        <h4 class="font-bold text-red-400 mb-2" data-en="MDC vs MDT" data-tr="MDC ve MDT Farkları">MDC vs MDT</h4>
+                                        <div class="level-desc-block">
+                                            <ul class="bullet-list">
+                                                <li>
+                                                    <strong data-en="Proper Abbreviation:" data-tr="Doğru Kısaltma:">Proper Abbreviation:</strong>
+                                                    <span data-en="Use 'MDC' (Mobile Data Computer / Mobile Data Center) instead of the obsolete 'MDT' (Mobile Data Terminal) term." data-tr="MDT (Mobile Data Terminal) terimi yerine 'MDC' (Mobile Data Computer / Mobil Veri Bilgisayarı) kısaltması kullanılır.">Use 'MDC' (Mobile Data Computer / Mobile Data Center) instead of the obsolete 'MDT' (Mobile Data Terminal) term.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="MDC Definition:" data-tr="MDC Nedir:">MDC Definition:</strong>
+                                                    <span data-en="Mobile Data Computer refers to the portable computer systems mounted inside police cruisers." data-tr="MDC, polis araçlarında kullanılan taşınabilir bilgisayar sistemlerini (Taşınabilir/Mobil Veri Bilgisayarı) ifade eder.">Mobile Data Computer refers to the portable computer systems mounted inside police cruisers.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="MDC Purpose:" data-tr="MDC Amacı:">MDC Purpose:</strong>
+                                                    <span data-en="Enables officers to run background queries (records check), view active dispatch calls, log reports, and access map data." data-tr="Memurlara sorgulama yapma, rapor oluşturma, harita bilgilerine erişim sağlama ve acil durum çağrılarına cevap verme gibi araçlar sunar.">Enables officers to run background queries (records check), view active dispatch calls, log reports, and access map data.</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Officer Defense Process & Shooting Inquiries -->
+                            <div class="glass-card flex-col">
+                                <div class="card-icon-title">
+                                    <i class="fa-solid fa-scale-balanced card-header-icon text-gold"></i>
+                                    <h3 data-en="Officer Defense Process & Shooting Inquiries" data-tr="Savunma Süreci & Silah Kullanım Soruşturmaları">Officer Defense Process & Shooting Inquiries</h3>
+                                </div>
+                                <p class="description-text mb-6" data-en="Protocols, reporting requirements, and legal considerations for officers involved in critical force incidents or officer-involved shootings (OIS)." data-tr="Polislerin birini vurduğu veya bir suça karıştığı durumlarda kendilerini savunma süreçleri, doldurmaları gereken raporlar ve yasal inceleme prosedürleri."></p>
+
+                                <div class="suspicion-grid">
+                                    <!-- Column 1: Inquest & Inquiry Steps -->
+                                    <div class="suspicion-level-card border-blue-glow">
+                                        <div class="level-badge bg-blue"><span data-en="Inquiry Steps" data-tr="İnceleme Aşamaları">Inquiry Steps</span></div>
+                                        <h4 class="font-bold text-blue-400 mb-2" data-en="Inquest & Investigation" data-tr="Soruşturma Aşamaları">Inquest & Investigation</h4>
+                                        <div class="level-desc-block text-xs">
+                                            <ul class="bullet-list">
+                                                <li>
+                                                    <strong data-en="Scene Response:" data-tr="Olay Anı Müdahale:">Scene Response:</strong>
+                                                    <span data-en="Immediate notification to supervisors; securing the scene, and dispatching specialized investigation teams." data-tr="Polis memuru, bir ateşli silah kullanımı veya suçlama durumunda derhal yetkili amirine bilgi verir. Olay yeri emniyete alınır.">Immediate notification to supervisors; securing the scene, and dispatching specialized investigation teams.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Reporting Process:" data-tr="Raporlama Süreci:">Reporting Process:</strong>
+                                                    <span data-en="Submission of Use of Force Reports (justifying force deployed) and Incident Reports (chronology and witness testimonies)." data-tr="Memur, Kuvvet Kullanımı Raporu (Use of Force Report) ve olayın kronolojisini içeren detaylı Olay Raporu (Incident Report) yazar.">Submission of Use of Force Reports (justifying force deployed) and Incident Reports (chronology and witness testimonies).</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Internal Review:" data-tr="İç Denetim Süreci:">Internal Review:</strong>
+                                                    <span data-en="Internal Affairs Divisions conduct audits to determine if the deployment of force complied with policy and proportionality." data-tr="Polis departmanındaki iç denetim birimi, ateşli silah kullanımının uygunluğunu ve kullanılan kuvvetin orantılılığını inceler.">Internal Affairs Divisions conduct audits to determine if the deployment of force complied with policy and proportionality.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Independent Review:" data-tr="Bağımsız Gözetim:">Independent Review:</strong>
+                                                    <span data-en="Civilian oversight commissions or district attorneys evaluate critical cases to determine criminal liability." data-tr="Ağır durumlarda sivil denetim kurulları veya savcılık devreye girer. Olay ceza kanunları çerçevesinde yargıya taşınabilir.">Civilian oversight commissions or district attorneys evaluate critical cases to determine criminal liability.</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Column 2: Legal Defense Arguments -->
+                                    <div class="suspicion-level-card border-gold-glow">
+                                        <div class="level-badge bg-gold"><span data-en="Defense Claims" data-tr="Savunma Argümanları">Defense Claims</span></div>
+                                        <h4 class="font-bold text-amber-500 mb-2" data-en="Legal Defenses" data-tr="Yasal Savunmalar">Yasal Savunmalar</h4>
+                                        <div class="level-desc-block text-xs">
+                                            <ul class="bullet-list">
+                                                <li>
+                                                    <strong data-en="Self-Defense:" data-tr="Meşru Müdafaa:">Self-Defense:</strong>
+                                                    <span data-en="Action taken under reasonable belief of an imminent threat of death or serious physical harm to self or others." data-tr="Memurun, kendisini veya başkalarını hayati tehlikeden ya da ağır yaralanmadan korumak amacıyla hareket ettiğini belirtmesidir.">Action taken under reasonable belief of an imminent threat of death or serious physical harm to self or others.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Proportional Force:" data-tr="Orantılı Güç:">Proportional Force:</strong>
+                                                    <span data-en="Demonstrating that the force used was necessary and proportional to the active threat under the circumstances." data-tr="Kullanılan kuvvetin, olay anındaki tehdit düzeyine uygun olduğunu ve başka bir makul seçenek olmadığını açıklamaktır.">Demonstrating that the force used was necessary and proportional to the active threat under the circumstances.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Protocol Compliance:" data-tr="Protokole Uygunluk:">Protocol Compliance:</strong>
+                                                    <span data-en="Proving actions strictly conformed to academy training and departmental Use of Force policies." data-tr="Memurun, olay sırasında eğitimi ve departman protokolleri (use of force policy) dahilinde hareket ettiğini belgelemesidir.">Proving actions strictly conformed to academy training and departmental Use of Force policies.</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Column 3: Auditing & Trial Factors -->
+                                    <div class="suspicion-level-card border-red-glow">
+                                        <div class="level-badge bg-red"><span data-en="Trial Factors" data-tr="Karar Kriterleri">Trial Factors</span></div>
+                                        <h4 class="font-bold text-red-400 mb-2" data-en="Post-Incident & Trial" data-tr="Süreç ve İnceleme">Post-Incident & Trial</h4>
+                                        <div class="level-desc-block text-xs">
+                                            <ul class="bullet-list">
+                                                <li>
+                                                    <strong data-en="Evidence Audits:" data-tr="Delil İncelemesi:">Evidence Audits:</strong>
+                                                    <span data-en="Evaluating BWC video recordings, radio transmission recordings, ballistic forensics, and civilian testimonies." data-tr="Kamera kayıtları (BWC), telsiz konuşmaları, balistik raporlar ve tanık ifadelerinin detaylıca denetlenmesidir.">Evaluating BWC video recordings, radio transmission recordings, ballistic forensics, and civilian testimonies.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Legal Representation:" data-tr="Hukuki Destek:">Legal Representation:</strong>
+                                                    <span data-en="Defense attorneys and police union representatives present academy compliance files and incident reports in court." data-tr="Memur hakkında dava açılması durumunda savunma avukatları ve sendikalar, silah kullanım protokollerini mahkemede sunar.">Defense attorneys and police union representatives present academy compliance files and incident reports in court.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Critical Decision Factors:" data-tr="Dikkate Alınanlar:">Critical Decision Factors:</strong>
+                                                    <span data-en="Evaluating threat severity at the split second of firing, constitutional case precedents, and witness credibility." data-tr="Olay anındaki anlık tehdit seviyesi, polisin kullandığı kuvvetin hukuka uygunluğu ve emsal niteliğindeki geçmiş mahkeme kararlarıdır.">Evaluating threat severity at the split second of firing, constitutional case precedents, and witness credibility.</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- LAPD Use of Force Policy & Less-Lethal Devices -->
+                            <div class="glass-card flex-col">
+                                <div class="card-icon-title">
+                                    <i class="fa-solid fa-hand-fist card-header-icon text-red"></i>
+                                    <h3 data-en="LAPD Use of Force Policy & Less-Lethal Devices" data-tr="LAPD Güç Kullanımı Politikası & Daha Az Ölümcül Cihazlar">LAPD Use of Force Policy & Less-Lethal Devices</h3>
+                                </div>
+                                <p class="description-text mb-6" data-en="Comprehensive protocols on objectively reasonable force deployment, de-escalation requirements, and authorization thresholds for less-lethal tactical devices." data-tr="Orantılı ve hukuka uygun güç kullanımı, de-eskalasyon zorunlulukları ve ölümcül olmayan taktiksel cihazların kullanım yetki sınırlarına dair kapsamlı protokoller."></p>
+
+                                <div class="split-layout mb-6">
+                                    <!-- Core Principles -->
+                                    <div class="glass-card flex-col border-blue-glow">
+                                        <div class="level-badge bg-blue"><span data-en="Core Principles" data-tr="Temel İlkeler">Core Principles</span></div>
+                                        <ul class="bullet-list text-xs">
+                                            <li>
+                                                <strong data-en="Reverence for Human Life:" data-tr="İnsan Hayatına Saygı:">Reverence for Human Life:</strong>
+                                                <span data-en="The guiding principle for all force policies. Officers must prioritize the safety and preservation of all lives." data-tr="Tüm güç kullanımı politikalarının temel taşıdır. Memurlar, insan hayatının korunmasını önceliklendirmelidir.">The guiding principle for all force policies. Officers must prioritize the safety and preservation of all lives.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Objectively Reasonable:" data-tr="Hukuki ve Orantılı Güç:">Objectively Reasonable:</strong>
+                                                <span data-en="Officers must use only the force that is objectively reasonable under the totality of circumstances to control the situation." data-tr="Memurlar, olayı kontrol altına almak için yalnızca koşullara göre objektif olarak orantılı ve gerekli düzeyde güç kullanmalıdır.">Officers must use only the force that is objectively reasonable under the totality of circumstances to control the situation.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="De-Escalation Mandate:" data-tr="De-Eskalasyon Zorunluluğu:">De-Escalation Mandate:</strong>
+                                                <span data-en="Whenever safe and feasible, officers must utilize verbal commands, time, distance, and resources to de-escalate and mitigate the need for force." data-tr="Güvenli ve uygulanabilir olduğunda memurlar; telsiz koordinasyonu, mesafe, zaman ve sözlü komutları kullanarak çatışmayı yatıştırmalıdır.">Whenever safe and feasible, officers must utilize verbal commands, time, distance, and resources to de-escalate and mitigate the need for force.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Passive Resistance Prohibition:" data-tr="Pasif Direnç Yasağı:">Passive Resistance Prohibition:</strong>
+                                                <span data-en="Less-lethal devices and physical force options shall never be used against individuals who are passively resisting or failing to comply with verbal orders." data-tr="Fiziksel güç veya daha az ölümcül araçlar, yalnızca sözlü talimatlara uymayan pasif direnç gösteren kişilere karşı kesinlikle kullanılamaz.">Less-lethal devices and physical force options shall never be used against individuals who are passively resisting or failing to comply with verbal orders.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Duty Protocols -->
+                                    <div class="glass-card flex-col border-gold-glow">
+                                        <div class="level-badge bg-gold"><span data-en="Deployment Rules" data-tr="Uygulama Kuralları">Deployment Rules</span></div>
+                                        <ul class="bullet-list text-xs">
+                                            <li>
+                                                <strong data-en="Duty to Warn:" data-tr="Uyarı ve İkaz Yükümlülüğü:">Duty to Warn:</strong>
+                                                <span data-en="Whenever practicable, officers must issue a clear verbal warning prior to deploying any less-lethal force option." data-tr="Uygulanabilir olduğu her durumda, memurlar herhangi bir güç veya cihaz kullanmadan önce net bir sözlü uyarı geçmek zorundadır.">Whenever practicable, officers must issue a clear verbal warning prior to deploying any less-lethal force option.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Medical Aid Mandate:" data-tr="Tıbbi Yardım Yükümlülüğü:">Medical Aid Mandate:</strong>
+                                                <span data-en="Immediately after deployment and scene stabilization, officers must render first aid and request emergency medical services (EMS) for any struck individual." data-tr="Güç kullanımı sonrası olay yeri güvenli hale getirildiğinde, yaralı şahıslara hemen ilk yardım uygulanmalı ve EMS (tıbbi ekip) çağrılmalıdır.">Immediately after deployment and scene stabilization, officers must render first aid and request emergency medical services (EMS) for any struck individual.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Targeting Limitations:" data-tr="Hedef Alma Sınırlamaları:">Targeting Limitations:</strong>
+                                                <span data-en="Intentional shots to the head, neck, face, eyes, or spine are strictly prohibited unless lethal force is fully authorized." data-tr="Ölümcül güç kullanımı meşru ve yetkili olmadığı sürece; kafa, boyun, yüz, gözler veya omurgaya yönelik hedef alma ve atış yapılması kesinlikle yasaktır.">Intentional shots to the head, neck, face, eyes, or spine are strictly prohibited unless lethal force is fully authorized.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Crowd Control Constraints:" data-tr="Kalabalık Kontrolü Kısıtlamaları:">Crowd Control Constraints:</strong>
+                                                <span data-en="Kinetic impact projectiles (Beanbag, 40mm) are strictly prohibited from being fired into crowds or for general dispersal purposes." data-tr="Kinetik enerji mermileri (Beanbag, 40mm) kalabalığa doğru veya kalabalığı dağıtmak amacıyla kesinlikle ateşlenemez.">Kinetic impact projectiles (Beanbag, 40mm) are strictly prohibited from being fired into crowds or for general dispersal purposes.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <h4 class="font-bold text-slate-300 mb-4 border-b pb-2 text-sm" data-en="Authorized Less-Lethal Device Catalog" data-tr="Yetkilendirilmiş Daha Az Ölümcül Cihaz Kataloğu">Authorized Less-Lethal Device Catalog</h4>
+                                <div class="suspicion-grid">
+                                    <!-- TASER -->
+                                    <div class="suspicion-level-card border-blue-glow">
+                                        <div class="level-badge bg-blue"><span data-en="TASER (ECD)" data-tr="TASER (ECD)">TASER (ECD)</span></div>
+                                        <h4 class="font-bold text-blue-400 mb-2 text-sm" data-en="Conducted Energy Device" data-tr="Elektroşok Cihazı">Conducted Energy Device</h4>
+                                        <div class="level-desc-block text-xs">
+                                            <ul class="bullet-list">
+                                                <li>
+                                                    <strong data-en="Force Level:" data-tr="Güç Seviyesi:">Force Level:</strong>
+                                                    <span data-en="Classified as intermediate force; used to control actively resistant subjects posing threats." data-tr="Orta düzey güç kullanımı olarak kabul edilir; aktif direnç gösteren veya tehdit oluşturan şahısları kontrol etmek için kullanılır.">Classified as intermediate force; used to control actively resistant subjects posing threats.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Target Zones:" data-tr="Hedef Bölgeler:">Target Zones:</strong>
+                                                    <span data-en="Optimal target areas are the back and large muscle groups; avoid face, neck, groin." data-tr="Optimum hedef bölgeleri sırt ve büyük kas gruplarıdır; yüz, boyun ve kasıklardan kaçınılmalıdır.">Optimal target areas are the back and large muscle groups; avoid face, neck, groin.</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- 40mm Launcher -->
+                                    <div class="suspicion-level-card border-gold-glow">
+                                        <div class="level-badge bg-gold"><span data-en="40mm Launcher" data-tr="40mm Fırlatıcı">40mm Launcher</span></div>
+                                        <h4 class="font-bold text-amber-500 mb-2 text-sm" data-en="Kinetic Impact Munition" data-tr="Kinetik Etki Fırlatıcısı">Kinetic Impact Munition</h4>
+                                        <div class="level-desc-block text-xs">
+                                            <ul class="bullet-list">
+                                                <li>
+                                                    <strong data-en="Force Level:" data-tr="Güç Seviyesi:">Force Level:</strong>
+                                                    <span data-en="Tactical stand-off less-lethal option. Deployable from 5 to 110 feet against violently resistant individuals." data-tr="Taktiksel güvenli mesafeli güç seçeneğidir. Şiddet uygulayan şüphelilere karşı 5 ila 110 fit mesafeden ateşlenir.">Tactical stand-off less-lethal option. Deployable from 5 to 110 feet against violently resistant individuals.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Restrictions:" data-tr="Kısıtlamalar:">Restrictions:</strong>
+                                                    <span data-en="Strictly prohibited for crowd control; targeting head/neck is illegal unless lethal force is authorized." data-tr="Toplumsal kalabalık kontrolü için kullanımı yasaktır; ölümcül güç gerekmedikçe kafa/boyun hedef alınamaz.">Strictly prohibited for crowd control; targeting head/neck is illegal unless lethal force is authorized.</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Beanbag Shotgun -->
+                                    <div class="suspicion-level-card border-red-glow">
+                                        <div class="level-badge bg-red"><span data-en="Beanbag Shotgun" data-tr="Beanbag Tüfeği">Beanbag Shotgun</span></div>
+                                        <h4 class="font-bold text-red-400 mb-2 text-sm" data-en="Kinetic Impact Tool" data-tr="Kinetik Kum Torbası Silahı">Kinetic Impact Tool</h4>
+                                        <div class="level-desc-block text-xs">
+                                            <ul class="bullet-list">
+                                                <li>
+                                                    <strong data-en="Ammunition:" data-tr="Mühimmat Türü:">Ammunition:</strong>
+                                                    <span data-en="Strictly deploys non-penetrating 'sock rounds' (fabric bags filled with lead shot)." data-tr="Yalnızca nüfuz etmeyen özel 'sock round' (kum torbası mermileri) mühimmatı ateşlemek üzere modifiye edilmiştir.">Strictly deploys non-penetrating 'sock rounds' (fabric bags filled with lead shot).</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Tactics:" data-tr="Taktik Kullanım:">Tactics:</strong>
+                                                    <span data-en="Used to temporarily incapacitate from a distance; aim for extremities or large muscle mass." data-tr="Uzaktan şüpheliyi geçici olarak etkisiz kılmak için kullanılır; uzuvlar ve geniş kas kütleleri hedeflenir.">Used to temporarily incapacitate from a distance; aim for extremities or large muscle mass.</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- BolaWrap -->
+                                    <div class="suspicion-level-card border-gold-glow">
+                                        <div class="level-badge bg-gold"><span data-en="BolaWrap" data-tr="BolaWrap">BolaWrap</span></div>
+                                        <h4 class="font-bold text-amber-500 mb-2 text-sm" data-en="Remote Restraint Device" data-tr="Uzaktan Bağlama Cihazı">Remote Restraint Device</h4>
+                                        <div class="level-desc-block text-xs">
+                                            <ul class="bullet-list">
+                                                <li>
+                                                    <strong data-en="Function:" data-tr="Çalışma Şekli:">Function:</strong>
+                                                    <span data-en="Deploys an 8-foot Kevlar cord with hooks at 640 ft/s to safely bind/wrap suspect's legs or torso." data-tr="Saniyede 640 fit hızla 8 fitlik kancalı Kevlar ipi fırlatarak şüphelinin bacak veya gövdesini sarıp sabitler.">Deploys an 8-foot Kevlar cord with hooks at 640 ft/s to safely bind/wrap suspect's legs or torso.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Usage Limits:" data-tr="Kullanım Koşulu:">Usage Limits:</strong>
+                                                    <span data-en="Intended for uncooperative or self-harming subjects; not effective against active assaultive behavior." data-tr="Sözlü uyarılara uymayan veya kendine zarar verme eğilimindeki kişilere yöneliktir; aktif saldırganlara karşı kullanılmaz.">Intended for uncooperative or self-harming subjects; not effective against active assaultive behavior.</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+
+                    <!-- TAB 7: FIRST AID & BLS -->
+                    <section id="bls" class="tab-content">
+                        <div class="page-header">
+                            <h2 data-en="Basic Life Support (BLS) & Tactical Medicine" data-tr="Temel Yaşam Desteği (BLS) & Taktik Tıp">Basic Life Support (BLS) & Tactical Medicine</h2>
+                            <p class="subtitle" data-en="Emergency medical procedures to stabilize casualties before EMS arrival." data-tr="EMS ekipleri ulaşmadan önce yaralıları stabilize etmek için acil tıbbi prosedürler.">Emergency medical procedures to stabilize casualties before EMS arrival.</p>
+                        </div>
+
+                        <div class="vertical-layout">
+                            <div class="medical-card border-red">
+                                <h4 class="text-red-400 font-bold mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-droplet"></i>
+                                    <span data-en="Gunshot Wounds & Hemorrhage Control" data-tr="Ateşli Silah Yaralanmaları & Kanama Kontrolü">Gunshot Wounds & Hemorrhage Control</span>
+                                </h4>
+                                <p class="text-sm leading-relaxed" data-en="Prioritize major bleeding control. Apply tactical tourniquet (TQ) high and tight on extremities. Use hemostatic gauze packing for junctional wounds. Apply direct pressure." data-tr="Büyük kanama kontrolüne öncelik verin. Yaralı uzuvlara yüksek ve sıkı taktik turnike (TQ) uygulayın. Eklemsel yaralara hemostatik gazlı bez doldurun. Doğrudan baskı uygulayın.">Prioritize major bleeding control. Apply tactical tourniquet (TQ) high and tight on extremities. Use hemostatic gauze packing for junctional wounds. Apply direct pressure.</p>
+                                <div class="caution-note mt-2">
+                                    <i class="fa-solid fa-shield-halved text-blue-400"></i>
+                                    <span data-en="Tactical Warning: Confirm Scene Safety before initiating medical aid." data-tr="Taktik Uyarı: Tıbbi yardıma başlamadan önce Çevre Güvenliğini sağlayın.">Tactical Warning: Confirm Scene Safety before initiating medical aid.</span>
+                                </div>
+                            </div>
+
+                            <div class="medical-card border-orange">
+                                <h4 class="text-orange-400 font-bold mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-car-burst"></i>
+                                    <span data-en="Chain-Reaction Accidents & Vehicular Extraction" data-tr="Zincirleme Trafik Kazaları & Araçtan Çıkarma">Chain-Reaction Accidents & Vehicular Extraction</span>
+                                </h4>
+                                <p class="text-sm leading-relaxed" data-en="Ensure vehicular engines are turned off. Mitigate fire hazards. Perform rapid triage using START method. Hold manual C-Spine (cervical spine) stabilization if neck/back injury is suspected; do not move casualties unless there is imminent fire hazard." data-tr="Araç motorlarının kapatıldığından emin olun. Yangın tehlikelerini azaltın. START yöntemini kullanarak hızlı triyaj yapın. Boyun/sırt yaralanması şüphesinde manuel C-Spine stabilizasyonu yapın; yangın gibi acil bir tehlike olmadıkça yaralıları hareket ettirmeyin.">Ensure vehicular engines are turned off. Mitigate fire hazards. Perform rapid triage using START method. Hold manual C-Spine (cervical spine) stabilization if neck/back injury is suspected; do not move casualties unless there is imminent fire hazard.</p>
+                            </div>
+
+                            <div class="medical-card border-yellow">
+                                <h4 class="text-yellow-400 font-bold mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-bone"></i>
+                                    <span data-en="Fractures & Splinting" data-tr="Kırıklar & Atel Uygulaması">Fractures & Splinting</span>
+                                </h4>
+                                <p class="text-sm leading-relaxed" data-en="Assess Pulse-Motor-Sensory (PMS) distal to injury. Immobilize bone above and below the joint. Use splints. Do not attempt to force bone fragments back into skin. Stop external bleeding." data-tr="Yaralanmanın ilerisindeki Nabız-Motor-Duyu (PMS) fonksiyonlarını kontrol edin. Eklem üstü ve altındaki kemiği sabitleyin. Atel kullanın. Kemik parçalarını derinin altına itmeye çalışmayın. Dış kanamaları durdurun.">Assess Pulse-Motor-Sensory (PMS) distal to injury. Immobilize bone above and below the joint. Use splints. Do not attempt to force bone fragments back into skin. Stop external bleeding.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- TAB 8: TRAFFIC DIVISION -->
+                    <section id="traffic" class="tab-content">
+                        <div class="page-header">
+                            <h2 data-en="Traffic Division Handbook" data-tr="Trafik Divizyon El Kitapçığı">Traffic Division Handbook</h2>
+                            <p class="subtitle" data-en="Standard protocols for traffic stops, DUI inspections, tow logistics, and tactical operations." data-tr="Trafik durdurmaları, araç yaklaşımları, DUI alkol/madde testleri, çekici işlemleri ve taktiksel trafik operasyonları için standart protokoller.">Standard protocols for traffic stops, DUI inspections, tow logistics, and tactical operations.</p>
+                        </div>
+
+                        <div class="vertical-layout">
+                            <!-- Section 1: Traffic Stops & Vehicle Approach -->
+                            <div class="glass-card flex-col">
+                                <div class="card-icon-title">
+                                    <i class="fa-solid fa-car card-header-icon text-blue"></i>
+                                    <h3 data-en="Traffic Stops & Vehicle Approach" data-tr="Trafik Durdurmaları & Araca Yaklaşım">Traffic Stops & Vehicle Approach</h3>
+                                </div>
+                                <p class="description-text mb-6" data-en="Traffic stops present high-risk variables. Officers must remain calm, professional, and execute vehicle approaches systematically." data-tr="Trafik durdurmaları her an yüksek riskli durumlara dönüşebilir. Memurlar sakin, saygılı ve profesyonel kalmalı, araca yaklaşım adımlarını adım adım uygulamalıdır."></p>
+
+                                <div class="suspicion-grid">
+                                    <!-- Stopping a Vehicle -->
+                                    <div class="suspicion-level-card border-blue-glow">
+                                        <div class="level-badge bg-blue"><span data-en="Stopping" data-tr="Durdurma">Stopping</span></div>
+                                        <h4 class="font-bold text-blue-400 mb-2 text-sm" data-en="Stopping a Vehicle" data-tr="Bir Aracı Durdurmak">Stopping a Vehicle</h4>
+                                        <div class="level-desc-block text-xs">
+                                            <ul class="bullet-list">
+                                                <li>
+                                                    <strong data-en="Positioning & Lights:" data-tr="Pozisyon ve Tepe Lambası:">Positioning & Lights:</strong>
+                                                    <span data-en="Position the cruiser behind the target vehicle and activate emergency lights. Tap the siren for 1–2 seconds to alert the driver." data-tr="Ekip aracını hedef aracın arkasına doğru pozisyonlandırın ve tepe lambasını açın. Şüpheliyi uyarmak için 1-2 saniye siren çalın.">Position the cruiser behind the target vehicle and activate emergency lights. Tap the siren for 1–2 seconds to alert the driver.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Megaphone & Warnings:" data-tr="Megafon ve İhtar:">Megaphone & Warnings:</strong>
+                                                    <span data-en="If non-compliant, keep the siren active and issue verbal warnings over the megaphone. Log details via radio." data-tr="Kenara çekmezse sireni açık tutun ve megafonla ihtar verip telsizden araç bilgilerini geçin.">If non-compliant, keep the siren active and issue verbal warnings over the megaphone. Log details via radio.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Pursuit Policy:" data-tr="Takip Protokolü:">Pursuit Policy:</strong>
+                                                    <span data-en="Non-compliance alone is not a pursuit. A pursuit is only declared if the suspect actively attempts to flee." data-tr="Dur ihtarına uymamak doğrudan 'Pursuit' (Takip) sayılmaz. Sürücü aktif olarak kaçmaya çalışırsa takip başlatılır.">Non-compliance alone is not a pursuit. A pursuit is only declared if the suspect actively attempts to flee.</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Lighting the Stopped Vehicle -->
+                                    <div class="suspicion-level-card border-blue-glow">
+                                        <div class="level-badge bg-blue"><span data-en="Lighting" data-tr="Aydınlatma">Lighting</span></div>
+                                        <h4 class="font-bold text-blue-400 mb-2 text-sm" data-en="Vehicle Lighting" data-tr="Aracı Aydınlatmak">Vehicle Lighting</h4>
+                                        <div class="level-desc-block text-xs">
+                                            <ul class="bullet-list">
+                                                <li>
+                                                    <strong data-en="Emergency Lights:" data-tr="Tepe Lambası:">Emergency Lights:</strong>
+                                                    <span data-en="Cruiser emergency lights must remain active during the entire traffic stop for safety and scene visibility." data-tr="Tepe lambası, trafik durdurması güvenli şekilde sona erene kadar sürekli açık tutulmalıdır.">Cruiser emergency lights must remain active during the entire traffic stop for safety and scene visibility.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Spotlight Use:" data-tr="Spot Işığı Kullanımı:">Spotlight Use:</strong>
+                                                    <span data-en="During night shifts, focus the cruiser spotlight directly inside the suspect vehicle to observe occupant actions." data-tr="Gece durdurmalarında spot ışığını hedef aracın içine odaklayarak içerideki hareketleri pür dikkat gözlemleyin.">During night shifts, focus the cruiser spotlight directly inside the suspect vehicle to observe occupant actions.</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Status Check & Approach -->
+                                    <div class="suspicion-level-card border-blue-glow">
+                                        <div class="level-badge bg-blue"><span data-en="Approach" data-tr="Yaklaşım">Approach</span></div>
+                                        <h4 class="font-bold text-blue-400 mb-2 text-sm" data-en="Status & Approach" data-tr="Durum & Yaklaşım">Status & Approach</h4>
+                                        <div class="level-desc-block text-xs">
+                                            <ul class="bullet-list">
+                                                <li>
+                                                    <strong data-en="Engine Check:" data-tr="Motor Kontrolü:">Engine Check:</strong>
+                                                    <span data-en="Ensure the suspect vehicle engine is shut off before proceeding with any radio query or approach." data-tr="Telsiz sorgusu veya yaklaşım yapmadan önce hedef aracın motorunun kapatıldığından emin olun.">Ensure the suspect vehicle engine is shut off before proceeding with any radio query or approach.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="MDC Check & Backup:" data-tr="MDC ve Destek:">MDC Check & Backup:</strong>
+                                                    <span data-en="Query plates on TEU MDC. Check owner. Request backup units if the vehicle has more than 3 occupants." data-tr="Plakayı TEU MDC'den sorgulatın. Araçta 3 kişiden fazla yolcu bulunuyorsa destek ünitesi talep edin.">Query plates on TEU MDC. Check owner. Request backup units if the vehicle has more than 3 occupants.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Tactical Approach:" data-tr="Taktiksel Yaklaşım:">Tactical Approach:</strong>
+                                                    <span data-en="Keep hand ready on unholstered weapon lock. Touch the trunk lid when walking past, and stand behind the driver door column." data-tr="Silah kılıfının kilidini açıp elinizi üstünde bekletin. Bagaja dokunun ve şoför kapısının biraz gerisinde durun.">Keep hand ready on unholstered weapon lock. Touch the trunk lid when walking past, and stand behind the driver door column.</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 2: Tactical Positioning & Occupant Arrests -->
+                            <div class="glass-card flex-col">
+                                <div class="card-icon-title">
+                                    <i class="fa-solid fa-people-group card-header-icon text-gold"></i>
+                                    <h3 data-en="Tactical Positioning & Occupant Arrests" data-tr="Taktiksel Pozisyonlar & Şüpheli İletişimi">Tactical Positioning & Occupant Arrests</h3>
+                                </div>
+                                <p class="description-text mb-6" data-en="Standard configurations for two-officer teams and protocol limits for occupant communication and physical searches." data-tr="İki memurlu ekiplerin standart saha yerleşimleri, araç içi iletişim kuralları ve şüpheli üst araması yasal sınırları."></p>
+
+                                <div class="split-layout">
+                                    <!-- Two-Officer Positioning -->
+                                    <div class="glass-card flex-col border-blue-glow">
+                                        <div class="card-badge bg-blue"><span data-en="2-Officer Positions" data-tr="2 Memur Pozisyonu">2-Officer Positions</span></div>
+                                        <ul class="bullet-list text-xs">
+                                            <li>
+                                                <strong data-en="Driver Officer (Contact):" data-tr="Sürücü Memur (Temas):">Driver Officer (Contact):</strong>
+                                                <span data-en="Disembarks and positions slightly behind the driver's door frame, protecting against sudden door openings." data-tr="Araçtan iner ve kapının aniden açılması tehdidine karşı şoför kapısının biraz gerisinde bekler.">Disembarks and positions slightly behind the driver's door frame, protecting against sudden door openings.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Passenger Officer (Cover):" data-tr="Yolcu Memur (Koruma):">Passenger Officer (Cover):</strong>
+                                                <span data-en="Positions at the right rear wheel of the suspect vehicle, maintaining visibility of all four passenger seats." data-tr="Hedef aracın sağ arka teker kısmında konumlanır ve 4 yolcu koltuğunu da net görecek şekilde koruma sağlar.">Positions at the right rear wheel of the suspect vehicle, maintaining visibility of all four passenger seats.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Occupant Arrests -->
+                                    <div class="glass-card flex-col border-gold-glow">
+                                        <div class="card-badge bg-gold"><span data-en="Arrests & Searches" data-tr="Tutuklama & Arama">Arrests & Searches</span></div>
+                                        <ul class="bullet-list text-xs">
+                                            <li>
+                                                <strong data-en="Exit Commands:" data-tr="Araçtan İndirme:">Exit Commands:</strong>
+                                                <span data-en="Instruct the driver to exit the vehicle clearly. Arrests can be done next to the vehicle or on the cruiser hood." data-tr="Sürücüye araçtan inmesini söyleyin. İşlenen suçun durumuna göre tutuklama işlemleri doğrudan aracın yanında veya ekip aracının kaputunda yapılabilir.">Instruct the driver to exit the vehicle clearly. Arrests can be done next to the vehicle or on the cruiser hood.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Search Restrictions:" data-tr="Arama Kısıtlaması:">Search Restrictions:</strong>
+                                                <span data-en="If securing the suspect next to their vehicle, officers must not question them or conduct a pat-down search. Pat-downs and questioning must be done on the cruiser hood." data-tr="Kişi kendi aracının yanında tutuklanıyorsa sorgulama ve üst araması yapılamaz. Arama ve sorular ekip aracının kaputunda yapılmalıdır.">If securing the suspect next to their vehicle, officers must not question them or conduct a pat-down search. Pat-downs and questioning must be done on the cruiser hood.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 3: Tinted Windows & DUI Inspections -->
+                            <div class="glass-card flex-col">
+                                <div class="card-icon-title">
+                                    <i class="fa-solid fa-beer-mug-empty card-header-icon text-red"></i>
+                                    <h3 data-en="Tinted Windows & DUI Inspections" data-tr="Filmli Cam Kontrolleri & DUI Denetimleri">Tinted Windows & DUI Inspections</h3>
+                                </div>
+                                <p class="description-text mb-6" data-en="Operational protocols for window tint percentage measurements and legal justifications for initiating DUI testing." data-tr="Cam film seviyelerinin teknik ölçümü ve sürücülere alkol/madde (DUI) testi uygulamak için yasal dayanaklar."></p>
+
+                                <div class="split-layout">
+                                    <!-- Tinted Window Check -->
+                                    <div class="glass-card flex-col border-blue-glow">
+                                        <div class="card-badge bg-blue"><span data-en="Window Tint" data-tr="Cam Filmi">Window Tint</span></div>
+                                        <ul class="bullet-list text-xs">
+                                            <li>
+                                                <strong data-en="Testing Device:" data-tr="Ölçüm Cihazı:">Testing Device:</strong>
+                                                <span data-en="If the window has film, place the light-transmission testing device on the top-right corner of the window." data-tr="Durdurulan aracın camları filmliyse ölçüm cihazını camın sağ üst köşesine yerleştirin.">If the window has film, place the light-transmission testing device on the top-right corner of the window.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Measurement:" data-tr="Ölçüm Sonucu:">Measurement:</strong>
+                                                <span data-en="The device will analyze and display the light transmission percentage. Ensure it complies with municipal traffic laws." data-tr="Cihaz camdan geçen ışık oranını yüzde olarak sunacaktır. Yasal limitlere uygunluğunu kontrol edin.">The device will analyze and display the light transmission percentage. Ensure it complies with municipal traffic laws.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- DUI Testing Triggers -->
+                                    <div class="glass-card flex-col border-red-glow">
+                                        <div class="level-badge bg-red"><span data-en="DUI Triggers" data-tr="DUI Koşulları">DUI Triggers</span></div>
+                                        <ul class="bullet-list text-xs">
+                                            <li>
+                                                <strong data-en="DUI Test Justifications:" data-tr="DUI Test Gerekçeleri:">DUI Test Justifications:</strong>
+                                                <span data-en="DUI field testing is strictly authorized only under the following conditions:" data-tr="Sürücülere yalnızca aşağıdaki koşullar mevcutsa DUI testi uygulanabilir:">DUI field testing is strictly authorized only under the following conditions:</span>
+                                            </li>
+                                            <li>
+                                                <i class="fa-solid fa-angle-right text-red-500 mr-2 text-xs"></i>
+                                                <span data-en="Strong smell of alcohol emanating from the vehicle cabin or the driver's person." data-tr="Araç içerisinden veya sürücünün üzerinden alkol kokusu gelmesi.">Strong smell of alcohol emanating from the vehicle cabin or the driver's person.</span>
+                                            </li>
+                                            <li>
+                                                <i class="fa-solid fa-angle-right text-red-500 mr-2 text-xs"></i>
+                                                <span data-en="Driver exhibits slurred speech or unprovoked, random laughter." data-tr="Sürücünün anormal şekilde kekelemesi veya amaçsızca kahkahalar atması.">Driver exhibits slurred speech or unprovoked, random laughter.</span>
+                                            </li>
+                                            <li>
+                                                <i class="fa-solid fa-angle-right text-red-500 mr-2 text-xs"></i>
+                                                <span data-en="Driver exhibits extreme physical clumsiness or loss of basic motor coordination." data-tr="Sürücünün hareketlerinde aşırı sakarlık ve koordinasyon kaybı bulunması.">Driver exhibits extreme physical clumsiness or loss of basic motor coordination.</span>
+                                            </li>
+                                            <li>
+                                                <i class="fa-solid fa-angle-right text-red-500 mr-2 text-xs"></i>
+                                                <span data-en="The vehicle or driver has been reported via dispatch for active DUI suspect behavior." data-tr="Sürücünün DUI durumuyla ilgili aktif bir 9-1-1 ihbar kaydının bulunması.">The vehicle or driver has been reported via dispatch for active DUI suspect behavior.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 4: DUI Field Tests -->
+                            <div class="glass-card flex-col">
+                                <div class="card-icon-title">
+                                    <i class="fa-solid fa-scale-unbalanced card-header-icon text-gold"></i>
+                                    <h3 data-en="DUI Field Tests & Breathalyzer Protocols" data-tr="DUI Saha Testleri & Alkolmetre Protokolleri">DUI Field Tests & Breathalyzer Protocols</h3>
+                                </div>
+                                <p class="description-text mb-6" data-en="Field sobriety balance checks and breathalyzer standards. Sürücü testlerin herhangi birinde başarısız olursa tutuklanır." data-tr="Saha denge kontrolü ve alkolmetre ölçüm standartları. Sürücü testlerin herhangi bir aşamasında başarısız olursa tutuklanır."></p>
+
+                                <div class="split-layout">
+                                    <!-- Balance Test -->
+                                    <div class="glass-card flex-col border-blue-glow">
+                                        <div class="card-badge bg-blue"><span data-en="Sobriety Balance Test" data-tr="Denge Testi">Sobriety Balance Test</span></div>
+                                        <ul class="bullet-list text-xs">
+                                            <li>
+                                                <strong data-en="Location Safety:" data-tr="Konum Güvenliği:">Location Safety:</strong>
+                                                <span data-en="Perform the test on the sidewalk (e.g. sidewalk curb), never on or near active roads, to prevent falls into traffic." data-tr="Denge testi mutlaka kaldırımda yapılmalıdır. Kişinin düşüp ezilme riski nedeniyle asla yol üzerinde veya yola çok yakın yapılmaz.">Perform the test on the sidewalk (e.g. sidewalk curb), never on or near active roads, to prevent falls into traffic.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Instructions:" data-tr="Test Yönergesi:">Instructions:</strong>
+                                                <span data-en="Instruct the suspect to walk a straight line with arms extended. If they lose balance, wobble, or fall, they fail the test." data-tr="Kişiye testi tarif edin: Kaldırımda bir çizgide kollarını yanlara açarak yürümelidir. Yalpalarsa veya düşerse başarısız sayılır.">Instruct the suspect to walk a straight line with arms extended. If they lose balance, wobble, or fall, they fail the test.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Attempts:" data-tr="Deneme Hakkı:">Attempts:</strong>
+                                                <span data-en="The subject has the right to a second attempt if they fail the first trial." data-tr="Kişinin denge testini tamamlamak için ikinci bir deneme yapma hakkı mevcuttur.">The subject has the right to a second attempt if they fail the first trial.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Breathalyzer -->
+                                    <div class="glass-card flex-col border-gold-glow">
+                                        <div class="card-badge bg-gold"><span data-en="Breathalyzer (Alkolmetre)" data-tr="Alkolmetre (Breathalyzer)">Alkolmetre (Breathalyzer)</span></div>
+                                        <ul class="bullet-list text-xs">
+                                            <li>
+                                                <strong data-en="Method:" data-tr="Üfleme Metodu:">Method:</strong>
+                                                <span data-en="The suspect must blow strongly into the breathalyzer. The device will automatically analyze and display Blood Alcohol Content (BAC)." data-tr="Kişi cihaza güçlü şekilde üflemelidir. Cihaz otomatik olarak kanındaki alkol oranını gösterecektir.">The suspect must blow strongly into the breathalyzer. The device will automatically analyze and display Blood Alcohol Content (BAC).</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Double Test Rule:" data-tr="Çift Test Kuralı:">Double Test Rule:</strong>
+                                                <span data-en="To eliminate device or execution errors, the test must be performed twice. The breathalyzer is more definitive than the balance test." data-tr="Hata unsurunu ortadan kaldırmak için alkolmetre testi mutlaka iki kere yapılmalıdır. Denge testinden daha kesin sonuç verir.">To eliminate device or execution errors, the test must be performed twice. The breathalyzer is more definitive than the balance test.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 5: Tow Logistics & Traffic Operations -->
+                            <div class="glass-card flex-col">
+                                <div class="card-icon-title">
+                                    <i class="fa-solid fa-truck-pickup card-header-icon text-blue"></i>
+                                    <h3 data-en="Tow Logistics & Traffic Operations" data-tr="Çekici İşlemleri & Trafik Operasyonları">Tow Logistics & Traffic Operations</h3>
+                                </div>
+                                <p class="description-text mb-6" data-en="Impound guidelines, tow dispatching protocols, and tactical large-scale traffic enforcement operations." data-tr="Çekici çağırma kuralları, impound (bağlama) yetkileri ve geniş ölçekli taktiksel trafik operasyonları yönergeleri."></p>
+
+                                <div class="suspicion-grid">
+                                    <!-- Tow Requests & Dispatch -->
+                                    <div class="suspicion-level-card border-blue-glow">
+                                        <div class="level-badge bg-blue"><span data-en="Towing" data-tr="Çekici">Towing</span></div>
+                                        <h4 class="font-bold text-blue-400 mb-2 text-sm" data-en="Tow Truck Logistics" data-tr="Çekici ve İmpound Kuralları">Tow Truck Logistics</h4>
+                                        <div class="level-desc-block text-xs">
+                                            <ul class="bullet-list">
+                                                <li>
+                                                    <strong data-en="Requests:" data-tr="Çekici Talepleri:">Requests:</strong>
+                                                    <span data-en="Tows are initiated via PD radio dispatch or 9-1-1 citizen calls. Respond strictly as Code 2." data-tr="Çekici talebi telsiz anonsu veya 9-1-1 sivil ihbarıyla gelir. Tüm çekici çağrıları KOD 2 şeklinde yanıtlanmalıdır.">Tows are initiated via PD radio dispatch or 9-1-1 citizen calls. Respond strictly as Code 2.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Impound Limits:" data-tr="İmpound Sınırı:">Impound Limits:</strong>
+                                                    <span data-en="Tows can only be responded to within LAPD jurisdiction. Do not respond to retrieve vehicles from the impound lot." data-tr="Çağrılar sadece LAPD yetki sınırlarındaki bölgelerde yanıtlanabilir. impound lot'tan araç çıkarmak isteyenlerin çağrıları yanıtlanmamalıdır.">Tows can only be responded to within LAPD jurisdiction. Do not respond to retrieve vehicles from the impound lot.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Towing Grounds:" data-tr="Çekilme Koşulları:">Towing Grounds:</strong>
+                                                    <span data-en="Vehicles may only be towed for illegal parking or blocking municipal buildings/red zones." data-tr="Araçlar sadece hatalı park yapılmışsa veya belediye/kamu kuruluşlarının önünü kapatıyorsa çekilebilir.">Vehicles may only be towed for illegal parking or blocking municipal buildings/red zones.</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Checkpoints & Speed Traps -->
+                                    <div class="suspicion-level-card border-blue-glow">
+                                        <div class="level-badge bg-blue"><span data-en="Operations" data-tr="Operasyonlar">Operations</span></div>
+                                        <h4 class="font-bold text-blue-400 mb-2 text-sm" data-en="Checkpoints & Speed Traps" data-tr="Kontrol Noktaları & Hız Tuzakları">Checkpoints & Speed Traps</h4>
+                                        <div class="level-desc-block text-xs">
+                                            <ul class="bullet-list">
+                                                <li>
+                                                    <strong data-en="Checkpoints:" data-tr="Kontrol Noktaları:">Checkpoints:</strong>
+                                                    <span data-en="Large-scale operations involving barriers and signage to inspect vehicles and drivers. Only Command Team can authorize." data-tr="Barikatlar ve işaretler yerleştirilerek araçların ve sürücülerin denetlendiği geniş ölçekli operasyonlardır. Sadece komuta takımı planlayabilir.">Large-scale operations involving barriers and signage to inspect vehicles and drivers. Only Command Team can authorize.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Speed Traps:" data-tr="Hız Tuzakları:">Speed Traps:</strong>
+                                                    <span data-en="Used to catch and warn speeding drivers, utilizing unmarked cruisers for concealment." data-tr="Aşırı hız yapanları tespit etmek ve durdurmak için yapılır. Genellikle unmarked (işaretsiz) polis araçları kullanılır.">Used to catch and warn speeding drivers, utilizing unmarked cruisers for concealment.</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Bait Operations -->
+                                    <div class="suspicion-level-card border-blue-glow">
+                                        <div class="level-badge bg-blue"><span data-en="Bait Ops" data-tr="Bait Operasyonu">Bait Ops</span></div>
+                                        <h4 class="font-bold text-blue-400 mb-2 text-sm" data-en="Bait Car Operations" data-tr="Bait Operasyonları">Bait Car Operations</h4>
+                                        <div class="level-desc-block text-xs">
+                                            <ul class="bullet-list">
+                                                <li>
+                                                    <strong data-en="Deployment:" data-tr="Yem Araç Dağıtımı:">Deployment:</strong>
+                                                    <span data-en="A bait car is parked in the city with its engine running as a sting operation." data-tr="Yem (bait) aracı motoru açık bir şekilde şehir içinde bir yere park edilir.">A bait car is parked in the city with its engine running as a sting operation.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Interception:" data-tr="Müdahale ve Tutuklama:">Interception:</strong>
+                                                    <span data-en="Once a suspect attempts to steal and flee with the bait car, traffic enforcement units intercept and arrest them." data-tr="Şüpheli aracı çalıp kaçmaya çalıştığı an, trafik ekipleri tarafından durdurulup tutuklanır.">Once a suspect attempts to steal and flee with the bait car, traffic enforcement units intercept and arrest them.</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </section>
+
+                    <!-- TAB 8: UNIFORM & DRESS CODE -->
+                    <section id="dresscode" class="tab-content">
+                        <div class="page-header">
+                            <h2 data-en="Uniform & Dress Code" data-tr="Üniforma & Kıyafet Standartları">Uniform & Dress Code</h2>
+                            <p class="subtitle" data-en="Official standards, class specifications, and grooming guidelines for department personnel." data-tr="Departman personeli için resmi üniforma standartları, sınıf özellikleri ve kişisel bakım yönergeleri.">Official standards, class specifications, and grooming guidelines for department personnel.</p>
+                        </div>
+
+                        <div class="vertical-layout">
+                            <!-- Section 1: Uniform Classes -->
+                            <div class="glass-card flex-col">
+                                <div class="card-icon-title">
+                                    <i class="fa-solid fa-shirt card-header-icon text-blue"></i>
+                                    <h3 data-en="Uniform Classes" data-tr="Üniforma Sınıfları">Uniform Classes</h3>
+                                </div>
+                                <p class="description-text mb-6" data-en="Personnel must strictly adhere to the designated uniform class based on their assignment, role, or active division." data-tr="Personel, atandıkları göreve, role veya aktif divizyonlarına bağlı olarak belirlenen üniforma sınıflarına kesinlikle uymalıdır."></p>
+
+                                <div class="suspicion-grid mb-6">
+                                    <!-- Class A -->
+                                    <div class="suspicion-level-card border-blue-glow">
+                                        <div class="level-badge bg-blue"><span data-en="Class A" data-tr="Sınıf A">Class A</span></div>
+                                        <h4 class="font-bold text-blue-400 mb-2 text-sm" data-en="Formal Uniform" data-tr="Resmi / Tören Üniforması">Formal Uniform</h4>
+                                        <div class="level-desc-block text-xs">
+                                            <ul class="bullet-list">
+                                                <li>
+                                                    <strong data-en="Occasions:" data-tr="Kullanım Alanı:">Occasions:</strong>
+                                                    <span data-en="High command meetings, promotions, official ceremonies, court appearances, and press conferences." data-tr="Yüksek komuta toplantıları, terfiler, resmi törenler, mahkeme katılımları ve basın açıklamaları.">High command meetings, promotions, official ceremonies, court appearances, and press conferences.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Components:" data-tr="Bileşenler:">Components:</strong>
+                                                    <span data-en="Long-sleeved dark blue shirt with tie, dress pants, official metal badge, and highly polished black leather dress shoes." data-tr="Kravatlı uzun kollu koyu mavi gömlek, resmi pantolon, metal departman rozeti ve yüksek derecede parlatılmış siyah deri ayakkabılar.">Long-sleeved dark blue shirt with tie, dress pants, official metal badge, and highly polished black leather dress shoes.</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Class B -->
+                                    <div class="suspicion-level-card border-blue-glow">
+                                        <div class="level-badge bg-blue"><span data-en="Class B" data-tr="Sınıf B">Class B</span></div>
+                                        <h4 class="font-bold text-blue-400 mb-2 text-sm" data-en="Standard Duty" data-tr="Standart Görev Üniforması">Standard Duty</h4>
+                                        <div class="level-desc-block text-xs">
+                                            <ul class="bullet-list">
+                                                <li>
+                                                    <strong data-en="Occasions:" data-tr="Kullanım Alanı:">Occasions:</strong>
+                                                    <span data-en="Daily routine patrols, general shifts, and standard field response." data-tr="Günlük rutin devriyeler, genel mesai saatleri ve standart saha görevleri.">Daily routine patrols, general shifts, and standard field response.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Components:" data-tr="Bileşenler:">Components:</strong>
+                                                    <span data-en="Short-sleeved or long-sleeved dark blue shirt (no tie required), standard duty pants, fully equipped duty belt, and black tactical boots." data-tr="Kısa veya uzun kollu koyu mavi gömlek (kravat zorunlu değil), standart görev pantolonu, tam teçhizatlı görev kemeri ve siyah taktiksel botlar.">Short-sleeved or long-sleeved dark blue shirt (no tie required), standard duty pants, fully equipped duty belt, and black tactical boots.</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Class C -->
+                                    <div class="suspicion-level-card border-blue-glow">
+                                        <div class="level-badge bg-blue"><span data-en="Class C" data-tr="Sınıf C">Class C</span></div>
+                                        <h4 class="font-bold text-blue-400 mb-2 text-sm" data-en="Tactical / Division" data-tr="Taktiksel / Divizyon Üniforması">Tactical / Division</h4>
+                                        <div class="level-desc-block text-xs">
+                                            <ul class="bullet-list">
+                                                <li>
+                                                    <strong data-en="Occasions:" data-tr="Kullanım Alanı:">Occasions:</strong>
+                                                    <span data-en="K9 unit, Metro Division, SWAT, Air Support, and high-risk tactical operations." data-tr="K9 birimi, Metro Divizyonu, SWAT, Hava Desteği ve yüksek riskli taktiksel operasyonlar.">K9 unit, Metro Division, SWAT, Air Support, and high-risk tactical operations.</span>
+                                                </li>
+                                                <li>
+                                                    <strong data-en="Components:" data-tr="Bileşenler:">Components:</strong>
+                                                    <span data-en="Tactical combat shirt, utility cargo pants, external tactical plate carrier, and heavy-duty tactical boots." data-tr="Taktiksel savaş gömleği, kargo cepli pantolon, dış taktiksel yelek (plaka taşıyıcı) ve dayanıklı taktiksel botlar.">Tactical combat shirt, utility cargo pants, external tactical plate carrier, and heavy-duty tactical boots.</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 2: Grooming & Personal Standards -->
+                            <div class="glass-card flex-col">
+                                <div class="card-icon-title">
+                                    <i class="fa-solid fa-user-tie card-header-icon text-gold"></i>
+                                    <h3 data-en="Grooming & Personal Standards" data-tr="Kişisel Bakım & Düzen Standartları">Grooming & Personal Standards</h3>
+                                </div>
+                                <p class="description-text mb-6" data-en="Professional appearance is vital to maintaining public confidence and representing the department with pride." data-tr="Kamu güvenini sürdürmek ve departmanı gururla temsil etmek için profesyonel bir dış görünüm hayati önem taşır."></p>
+
+                                <div class="split-layout">
+                                    <!-- Hair and Facial Hair -->
+                                    <div class="glass-card flex-col border-gold-glow">
+                                        <div class="card-badge bg-gold"><span data-en="Hair & Beards" data-tr="Saç & Sakal Standartları">Hair & Beards</span></div>
+                                        <ul class="bullet-list text-xs">
+                                            <li>
+                                                <strong data-en="Hair Standards:" data-tr="Saç Düzeni:">Hair Standards:</strong>
+                                                <span data-en="Hair must be clean, neatly styled, and in natural colors. For male officers, hair must not touch or overlap the shirt collar." data-tr="Saçlar temiz, düzgün taranmış ve doğal renklerde olmalıdır. Erkek memurlar için saç boyu gömlek yakasına temas etmemeli veya aşmamalıdir.">Hair must be clean, neatly styled, and in natural colors. For male officers, hair must not touch or overlap the shirt collar.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Facial Hair:" data-tr="Sakal ve Bıyık:">Facial Hair:</strong>
+                                                <span data-en="Mustaches are permitted if neatly trimmed and not extending past the corners of the mouth. Beards are generally prohibited unless a medical waiver is approved (maximum length 2mm to 4mm)." data-tr="Bıyık, düzgün kesilmiş olması ve ağız köşelerini aşmaması şartıyla serbesttir. Sakal, tıbbi bir muafiyet (tıbbi sakal izni) onaylanmadıkça genel olarak yasaktır (izin durumunda maks. 2mm-4mm).">Mustaches are permitted if neatly trimmed and not extending past the corners of the mouth. Beards are generally prohibited unless a medical waiver is approved (maximum length 2mm to 4mm).</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Tattoos & Accessories -->
+                                    <div class="glass-card flex-col border-blue-glow">
+                                        <div class="card-badge bg-blue"><span data-en="Tattoos & Jewelry" data-tr="Dövmeler & Aksesuarlar">Tattoos & Jewelry</span></div>
+                                        <ul class="bullet-list text-xs">
+                                            <li>
+                                                <strong data-en="Visible Tattoos:" data-tr="Görünen Dövmeler:">Visible Tattoos:</strong>
+                                                <span data-en="Tattoos that are offensive, extremist, or indecent are strictly prohibited. Face, head, and neck tattoos are not allowed under any circumstances." data-tr="Saldırgan, aşırılıkçı veya gayriahlaki dövmeler kesinlikle yasaktır. Yüz, baş ve boyun dövmelerine hiçbir koşulda izin verilmez.">Tattoos that are offensive, extremist, or indecent are strictly prohibited. Face, head, and neck tattoos are not allowed under any circumstances.</span>
+                                            </li>
+                                            <li>
+                                                <strong data-en="Jewelry & Accessories:" data-tr="Takı ve Aksesuar:">Jewelry & Accessories:</strong>
+                                                <span data-en="Only conservative and functional jewelry is permitted. Necklaces must be kept under the shirt. Rings must not interfere with safe firearm handling." data-tr="Yalnızca sade ve işlevsel takıların kullanımına izin verilir. Kolyeler gömlek altında tutulmalıdır. Yüzükler, güvenli silah kullanımını engellemeyecek yapıda olmalıdır.">Only conservative and functional jewelry is permitted. Necklaces must be kept under the shirt. Rings must not interfere with safe firearm handling.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast">
+        <span id="toastMsg">Notification content here</span>
+    </div>
+
+    <!-- Main Logic Script -->
+    <script src="app.js"></script>
+</body>
+</html>
+
