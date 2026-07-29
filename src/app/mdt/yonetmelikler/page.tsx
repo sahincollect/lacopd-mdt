@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 
 export default function Yonetmelikler() {
   const [htmlContent, setHtmlContent] = useState<string | null>(null);
@@ -50,6 +49,8 @@ export default function Yonetmelikler() {
           --text-muted: var(--text-secondary);
           --border-color: var(--border-light);
           --border-glow: var(--border-light);
+          --accent: var(--lapd-blue-dark);
+          --accent-hover: var(--lapd-orange);
         }
         
         /* Make handbook container fill MDT area properly */
@@ -58,16 +59,27 @@ export default function Yonetmelikler() {
            height: auto !important;
            min-height: 800px;
            border-right: 1px solid var(--border-light);
+           background: var(--bg-tertiary) !important;
         }
         
         .handbook-wrapper .main-content {
-           background: transparent !important;
+           background: var(--bg-primary) !important;
         }
 
         .handbook-wrapper .glass-card {
            background: var(--bg-secondary) !important;
-           border-color: var(--border-light) !important;
-           box-shadow: 0 4px 6px rgba(0,0,0,0.02) !important;
+           border: 1px solid var(--border-light) !important;
+           box-shadow: none !important;
+        }
+        
+        .handbook-wrapper h1, .handbook-wrapper h2, .handbook-wrapper h3 {
+           color: var(--lapd-blue-dark) !important;
+           font-family: var(--font-inter) !important;
+           font-weight: 900 !important;
+        }
+        
+        .handbook-wrapper .chapter-title {
+           color: var(--lapd-orange) !important;
         }
       `;
       
@@ -90,35 +102,32 @@ export default function Yonetmelikler() {
   }, [htmlContent]);
 
   return (
-    <div style={{ padding: "1.5rem", maxWidth: "1600px", margin: "0 auto", width: "100%", minHeight: "85vh" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
-        <div>
-          <h1 style={{ fontSize: "2rem", fontWeight: 800, margin: 0, color: "var(--text-primary)", display: "flex", alignItems: "center", gap: "0.8rem" }}>
-            <i className="fa-solid fa-book-bookmark" style={{ color: "var(--accent-primary)" }}></i> Yönetmelikler
-          </h1>
-          <p style={{ color: "var(--text-secondary)", marginTop: "0.5rem" }}>
-            Los Angeles Polis Departmanı resmi kural ve yönetmeliklerine buradan ulaşabilirsiniz.
-          </p>
-        </div>
+    <div style={{ fontFamily: "var(--font-inter)", display: "flex", flexDirection: "column", gap: "2rem" }}>
+      
+      {/* Header */}
+      <div style={{ borderBottom: "2px solid var(--border-light)", paddingBottom: "1rem" }}>
+        <h1 style={{ fontSize: '2.5rem', fontWeight: 900, margin: 0, color: 'var(--lapd-blue-dark)', letterSpacing: '-0.03em', textTransform: 'uppercase' }}>
+          DEPARTMAN YÖNETMELİKLERİ
+        </h1>
+        <p style={{ color: 'var(--text-muted)', fontSize: '1rem', marginTop: '0.2rem', fontWeight: 600 }}>
+          Los Angeles Polis Departmanı resmi kural ve yönetmeliklerine buradan ulaşabilirsiniz.
+        </p>
       </div>
 
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+      <div 
         style={{ 
           background: "var(--bg-primary)",
           borderRadius: '8px',
           border: "1px solid var(--border-light)",
           overflow: "hidden",
           minHeight: "800px",
-          boxShadow: "0 10px 25px rgba(0,0,0,0.02)"
         }}
         className="handbook-wrapper"
       >
         {!htmlContent ? (
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "500px", color: "var(--text-muted)" }}>
-            <i className="fa-solid fa-spinner fa-spin fa-2x"></i>
-            <span style={{ marginLeft: "1rem" }}>Yönetmelik yükleniyor...</span>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "500px", color: "var(--text-muted)", flexDirection: "column", gap: "1rem" }}>
+            <i className="fa-solid fa-circle-notch fa-spin" style={{ fontSize: "2rem" }}></i>
+            <span style={{ fontWeight: 700 }}>YÖNETMELİK YÜKLENİYOR...</span>
           </div>
         ) : (
           <div 
@@ -127,7 +136,7 @@ export default function Yonetmelikler() {
             style={{ display: "flex", width: "100%", height: "100%" }}
           />
         )}
-      </motion.div>
+      </div>
     </div>
   );
 }

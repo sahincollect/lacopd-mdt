@@ -14,26 +14,28 @@ interface SiteImage {
 }
 
 const CIVIL_TYPE_LABELS: Record<string, { label: string; icon: string; color: string }> = {
-  memur: { label: "Memur Başvurusu", icon: "fa-shield-halved", color: "#38BDF8" },
-  "ride-along": { label: "Ride Along", icon: "fa-car-side", color: "#8B5CF6" },
-  sikayet: { label: "Şikayet", icon: "fa-triangle-exclamation", color: "#F59E0B" },
+  memur: { label: "Memur Başvurusu", icon: "fa-shield-halved", color: "var(--lapd-blue-dark)" },
+  "ride-along": { label: "Ride Along", icon: "fa-car-side", color: "var(--lapd-orange)" },
+  sikayet: { label: "Şikayet", icon: "fa-triangle-exclamation", color: "var(--color-danger)" },
 };
+
 const STATUS_OPTIONS = ["Bekliyor", "Inceleniyor", "Onaylandi", "Reddedildi"];
 const STATUS_COLORS: Record<string, string> = {
-  Bekliyor: "#F59E0B",
-  Inceleniyor: "#38BDF8",
-  Onaylandi: "#34D399",
-  Reddedildi: "#F87171",
+  Bekliyor: "var(--lapd-orange)",
+  Inceleniyor: "var(--lapd-blue-dark)",
+  Onaylandi: "var(--color-success)",
+  Reddedildi: "var(--color-danger)",
 };
+
 const DIVISIONS = [
-  { id: "detective", name: "Dedektif Bürosu (RHD)", icon: "fa-user-secret", color: "#0284c7" },
-  { id: "gnd", name: "Gangs & Narcotics (GND)", icon: "fa-skull-crossbones", color: "#EC4899" },
-  { id: "git", name: "Gang Impact Teams (GIT)", icon: "fa-people-group", color: "#8b5cf6" },
-  { id: "k9", name: "K-9 Unit", icon: "fa-paw", color: "#F59E0B" },
-  { id: "dive", name: "Dive Unit", icon: "fa-water", color: "#0ea5e9" },
-  { id: "swat", name: "SWAT Unit", icon: "fa-crosshairs", color: "#0ea5e9" },
-  { id: "patrol", name: "Traffic Unit", icon: "fa-car", color: "#10B981" },
-  { id: "air", name: "Air Unit", icon: "fa-helicopter", color: "#0369a1" },
+  { id: "detective", name: "Dedektif Bürosu (RHD)", icon: "fa-user-secret", color: "var(--lapd-blue-dark)" },
+  { id: "gnd", name: "Gangs & Narcotics (GND)", icon: "fa-skull-crossbones", color: "var(--lapd-blue-dark)" },
+  { id: "git", name: "Gang Impact Teams (GIT)", icon: "fa-people-group", color: "var(--lapd-blue-dark)" },
+  { id: "k9", name: "K-9 Unit", icon: "fa-paw", color: "var(--lapd-orange)" },
+  { id: "dive", name: "Dive Unit", icon: "fa-water", color: "var(--lapd-blue-dark)" },
+  { id: "swat", name: "SWAT Unit", icon: "fa-crosshairs", color: "var(--lapd-orange)" },
+  { id: "patrol", name: "Traffic Unit", icon: "fa-car", color: "var(--color-success)" },
+  { id: "air", name: "Air Unit", icon: "fa-helicopter", color: "var(--lapd-blue-dark)" },
 ];
 
 export default function AdminOptionsPage() {
@@ -158,17 +160,16 @@ export default function AdminOptionsPage() {
 
   if (loading) {
     return (
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "70vh", color: "#64748B", flexDirection: "column", gap: "1rem" }}>
-        <div style={{ width: "32px", height: "32px", border: "2px solid rgba(255,255,255,0.08)", borderTopColor: "#38BDF8", borderRadius: "50%", animation: "spin 1s linear infinite" }} />
-        <span style={{ fontSize: "0.82rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#94A3B8", fontWeight: 600 }}>YÖNETİM VERİLERİ YÜKLENİYOR</span>
-        <style jsx>{`@keyframes spin { 100% { transform: rotate(360deg); } }`}</style>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "60vh", color: "var(--text-muted)", flexDirection: "column", gap: "1rem" }}>
+        <i className="fa-solid fa-circle-notch fa-spin" style={{ fontSize: "2rem" }} />
+        <span style={{ fontSize: "0.9rem", fontWeight: 700 }}>YÖNETİM VERİLERİ YÜKLENİYOR...</span>
       </div>
     );
   }
 
   if (user?.role !== 'admin') {
     return (
-      <div style={{ textAlign: "center", padding: "5rem 0", color: "#F87171" }}>
+      <div style={{ textAlign: "center", padding: "5rem 0", color: "var(--color-danger)" }}>
         <i className="fa-solid fa-triangle-exclamation" style={{ fontSize: "3rem", marginBottom: "1rem" }} />
         <h2>YETKİSİZ ERİŞİM</h2>
         <p>Bu alana girmek için gerekli yetkilere sahip değilsiniz.</p>
@@ -176,23 +177,32 @@ export default function AdminOptionsPage() {
     );
   }
 
+  const inputStyle: React.CSSProperties = {
+    width: "100%", padding: "0.75rem",
+    background: 'var(--bg-tertiary)', border: "1px solid var(--border-light)",
+    borderRadius: '4px', color: 'var(--text-primary)', fontSize: "0.9rem", outline: "none",
+    boxSizing: "border-box"
+  };
+
   return (
-    <div style={{ maxWidth: "1400px", margin: "0 auto", paddingBottom: "5rem", fontFamily: "'Inter', -apple-system, sans-serif" }}>
+    <div style={{ fontFamily: "var(--font-inter)", display: "flex", flexDirection: "column", gap: "2rem" }}>
       
       {/* ── HEADER ── */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "2rem", borderBottom: "1px solid rgba(255,255,255,0.06)", paddingBottom: "1.5rem", flexWrap: "wrap", gap: "1rem" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", borderBottom: "2px solid var(--border-light)", paddingBottom: "1rem", flexWrap: "wrap", gap: "1rem" }}>
         <div>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.5rem" }}>
-            <span style={{ fontSize: "0.68rem", fontWeight: 800, color: "#38BDF8", letterSpacing: "0.15em", textTransform: "uppercase" }}>LOS ANGELES POLICE DEPARTMENT</span>
-            <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "#475569" }} />
-            <span style={{ fontSize: "0.68rem", fontWeight: 700, color: "#F87171", letterSpacing: "0.1em" }}>RESTRICTED ACCESS</span>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.2rem" }}>
+            <span style={{ fontSize: "0.75rem", fontWeight: 900, color: "var(--lapd-blue-dark)", textTransform: "uppercase" }}>LOS ANGELES POLICE DEPARTMENT</span>
+            <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "var(--text-muted)" }} />
+            <span style={{ fontSize: "0.75rem", fontWeight: 900, color: "var(--color-danger)", textTransform: "uppercase" }}>RESTRICTED ACCESS</span>
           </div>
-          <h1 style={{ fontSize: "2.2rem", fontWeight: 800, color: "var(--text-primary)", margin: 0, letterSpacing: "-0.03em" }}>Admin Seçenekleri</h1>
+          <h1 style={{ fontSize: "2.5rem", fontWeight: 900, color: "var(--lapd-blue-dark)", margin: 0, letterSpacing: "-0.03em", textTransform: 'uppercase' }}>
+            ADMİN PANELİ
+          </h1>
         </div>
-        <div style={{ display: "flex", gap: "1rem", backgroundColor: 'var(--bg-secondary)', padding: "0.4rem", borderRadius: '8px', border: "1px solid rgba(255,255,255,0.05)" }}>
-          <button onClick={() => setActiveTab("SISTEM")} style={{ padding: "0.6rem 1.25rem", borderRadius: "10px", background: activeTab === "SISTEM" ? "rgba(56, 189, 248, 0.15)" : "transparent", color: activeTab === "SISTEM" ? "#38BDF8" : "#94A3B8", border: "none", fontWeight: 700, fontSize: "0.85rem", cursor: "pointer", transition: "all 0.2s" }}>Sistem & Medya</button>
-          <button onClick={() => setActiveTab("DEPARTMAN")} style={{ padding: "0.6rem 1.25rem", borderRadius: "10px", background: activeTab === "DEPARTMAN" ? "rgba(56, 189, 248, 0.15)" : "transparent", color: activeTab === "DEPARTMAN" ? "#38BDF8" : "#94A3B8", border: "none", fontWeight: 700, fontSize: "0.85rem", cursor: "pointer", transition: "all 0.2s" }}>Birim Başvuruları</button>
-          <button onClick={() => setActiveTab("SIVIL")} style={{ padding: "0.6rem 1.25rem", borderRadius: "10px", background: activeTab === "SIVIL" ? "rgba(56, 189, 248, 0.15)" : "transparent", color: activeTab === "SIVIL" ? "#38BDF8" : "#94A3B8", border: "none", fontWeight: 700, fontSize: "0.85rem", cursor: "pointer", transition: "all 0.2s" }}>Başvurular</button>
+        <div style={{ display: "flex", gap: "0.5rem", background: 'var(--bg-secondary)', padding: "0.5rem", borderRadius: '4px', border: "1px solid var(--border-light)" }}>
+          <button onClick={() => setActiveTab("SISTEM")} style={{ padding: "0.5rem 1rem", borderRadius: "4px", background: activeTab === "SISTEM" ? "var(--lapd-blue-dark)" : "transparent", color: activeTab === "SISTEM" ? "#fff" : "var(--text-muted)", border: "none", fontWeight: 800, fontSize: "0.85rem", cursor: "pointer", transition: "all 0.2s" }}>SİSTEM & MEDYA</button>
+          <button onClick={() => setActiveTab("DEPARTMAN")} style={{ padding: "0.5rem 1rem", borderRadius: "4px", background: activeTab === "DEPARTMAN" ? "var(--lapd-blue-dark)" : "transparent", color: activeTab === "DEPARTMAN" ? "#fff" : "var(--text-muted)", border: "none", fontWeight: 800, fontSize: "0.85rem", cursor: "pointer", transition: "all 0.2s" }}>BİRİM BAŞVURULARI</button>
+          <button onClick={() => setActiveTab("SIVIL")} style={{ padding: "0.5rem 1rem", borderRadius: "4px", background: activeTab === "SIVIL" ? "var(--lapd-blue-dark)" : "transparent", color: activeTab === "SIVIL" ? "#fff" : "var(--text-muted)", border: "none", fontWeight: 800, fontSize: "0.85rem", cursor: "pointer", transition: "all 0.2s" }}>SİVİL BAŞVURULAR</button>
         </div>
       </div>
 
@@ -202,59 +212,72 @@ export default function AdminOptionsPage() {
         {activeTab === "SISTEM" && (
           <div key="sistem">
             <div style={{ display: "flex", gap: "2rem", flexDirection: "column" }}>
+              
               {/* Reset Shifts */}
-              <div style={{ background: "linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(15, 23, 42, 0.4) 100%)", border: "1px solid rgba(239, 68, 68, 0.2)", borderRadius: "20px", padding: "2rem 2.5rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1.5rem" }}>
+              <div style={{ background: "rgba(239, 68, 68, 0.05)", border: "2px solid var(--color-danger)", borderRadius: "8px", padding: "2rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1.5rem" }}>
                 <div>
-                  <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "#F87171", margin: "0 0 0.4rem 0" }}><i className="fa-solid fa-triangle-exclamation" style={{ marginRight: "0.5rem" }} /> Mesai Sıfırlama Protokolü</h3>
-                  <p style={{ margin: 0, fontSize: "0.85rem", color: "#94A3B8" }}>Tüm personelin mevcut mesai saatlerini sıfırlar. Bu işlem geri alınamaz.</p>
+                  <h3 style={{ fontSize: "1.2rem", fontWeight: 900, color: "var(--color-danger)", margin: "0 0 0.5rem 0", textTransform: 'uppercase' }}>
+                    <i className="fa-solid fa-triangle-exclamation" style={{ marginRight: "0.5rem" }} /> Mesai Sıfırlama Protokolü
+                  </h3>
+                  <p style={{ margin: 0, fontSize: "0.95rem", color: "var(--text-muted)", fontWeight: 600 }}>Tüm personelin mevcut mesai saatlerini sıfırlar. Bu işlem geri alınamaz.</p>
                 </div>
-                <button onClick={handleResetShifts} style={{ background: "#EF4444", color: "var(--text-primary)", border: "none", padding: "0.8rem 1.5rem", borderRadius: "10px", fontWeight: 800, cursor: "pointer", boxShadow: "0 4px 15px rgba(239, 68, 68, 0.3)" }}>
+                <button onClick={handleResetShifts} style={{ background: "var(--color-danger)", color: "#fff", border: "none", padding: "1rem 2rem", borderRadius: "4px", fontWeight: 900, cursor: "pointer" }}>
                   TÜM MESAİLERİ SIFIRLA
                 </button>
               </div>
 
               {/* Media Upload */}
-              <div style={{ background: 'var(--bg-secondary)', border: "1px solid rgba(255,255,255,0.06)", borderRadius: "20px", padding: "2.5rem" }}>
-                <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text-primary)", margin: "0 0 1.5rem 0", display: "flex", alignItems: "center", gap: "0.6rem" }}>
-                  <i className="fa-solid fa-cloud-arrow-up" style={{ color: "#38BDF8" }} /> Medya Yükle
+              <div style={{ background: 'var(--bg-secondary)', border: "1px solid var(--border-light)", borderRadius: "8px", padding: "2rem" }}>
+                <h3 style={{ fontSize: "1.2rem", fontWeight: 900, color: "var(--lapd-blue-dark)", margin: "0 0 1.5rem 0", display: "flex", alignItems: "center", gap: "0.5rem", textTransform: 'uppercase' }}>
+                  <i className="fa-solid fa-cloud-arrow-up" /> MEDYA YÜKLE
                 </h3>
-                {error && <div style={{ color: "#FCA5A5", background: "rgba(239, 68, 68, 0.1)", padding: "1rem", borderRadius: "10px", border: "1px solid rgba(239, 68, 68, 0.2)", marginBottom: "1.5rem", fontSize: "0.85rem", fontWeight: 600 }}>{error}</div>}
+                {error && <div style={{ color: "#fff", background: "var(--color-danger)", padding: "1rem", borderRadius: "4px", marginBottom: "1.5rem", fontSize: "0.85rem", fontWeight: 700 }}><i className="fa-solid fa-triangle-exclamation"></i> {error}</div>}
+                
                 <form onSubmit={handleAddImage} style={{ display: "flex", gap: "1.5rem", alignItems: "flex-end", flexWrap: "wrap" }}>
                   <div style={{ flex: "1 1 300px" }}>
-                    <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, color: "#94A3B8", marginBottom: "0.5rem" }}>GÖRSEL URL</label>
-                    <input type="text" value={url} onChange={e => setUrl(e.target.value)} placeholder="/media__123.png veya https://..." required style={{ width: "100%", padding: "0.8rem 1rem", background: "rgba(0,0,0,0.2)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", color: "var(--text-primary)", outline: "none", fontSize: "0.9rem" }} />
+                    <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 800, color: "var(--text-primary)", marginBottom: "0.5rem" }}>GÖRSEL URL</label>
+                    <input type="text" value={url} onChange={e => setUrl(e.target.value)} placeholder="/media__123.png veya https://..." required style={inputStyle} />
                   </div>
                   <div style={{ width: "220px" }}>
-                    <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, color: "#94A3B8", marginBottom: "0.5rem" }}>KATEGORİ</label>
-                    <select value={type} onChange={e => setType(e.target.value)} style={{ width: "100%", padding: "0.8rem 1rem", background: "rgba(0,0,0,0.2)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", color: "var(--text-primary)", outline: "none", fontSize: "0.9rem", appearance: "none" }}>
-                      <option value="GALERI" style={{ background: "#0F172A" }}>Galeri Sayfası</option>
-                      <option value="GIRIS" style={{ background: "#0F172A" }}>Giriş Arkaplanı</option>
+                    <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 800, color: "var(--text-primary)", marginBottom: "0.5rem" }}>KATEGORİ</label>
+                    <select value={type} onChange={e => setType(e.target.value)} style={inputStyle}>
+                      <option value="GALERI">Galeri Sayfası</option>
+                      <option value="GIRIS">Giriş Arkaplanı</option>
                     </select>
                   </div>
-                  <button type="submit" disabled={isSubmitting} style={{ background: "#38BDF8", color: "#0F172A", border: "none", padding: "0.8rem 2rem", borderRadius: "10px", fontWeight: 800, cursor: isSubmitting ? "not-allowed" : "pointer", opacity: isSubmitting ? 0.7 : 1 }}>
+                  <button type="submit" disabled={isSubmitting} style={{ background: "var(--lapd-blue-dark)", color: "#fff", border: "none", padding: "0.75rem 2rem", borderRadius: "4px", fontWeight: 900, cursor: isSubmitting ? "not-allowed" : "pointer" }}>
                     {isSubmitting ? "YÜKLENİYOR..." : "SİSTEME YÜKLE"}
                   </button>
                 </form>
               </div>
 
               {/* Media Gallery */}
-              <div>
-                <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text-primary)", margin: "0 0 1.5rem 0" }}>Sistem Medya Arşivi</h3>
+              <div style={{ background: 'var(--bg-secondary)', border: "1px solid var(--border-light)", borderRadius: "8px", padding: "2rem" }}>
+                <h3 style={{ fontSize: "1.2rem", fontWeight: 900, color: "var(--lapd-blue-dark)", margin: "0 0 1.5rem 0", textTransform: 'uppercase' }}>
+                  <i className="fa-solid fa-images"></i> SİSTEM MEDYA ARŞİVİ
+                </h3>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "1.5rem" }}>
                   {images.map(img => (
-                    <div key={img.id} style={{ background: 'var(--bg-secondary)', borderRadius: '8px', border: "1px solid rgba(255,255,255,0.06)", overflow: "hidden", display: "flex", flexDirection: "column" }}>
-                      <div style={{ height: "140px", background: "#000", position: "relative" }}>
-                        {/* eslint-disable-next-line */}
-                        <img src={img.url} alt="medya" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.8 }} />
-                        <span style={{ position: "absolute", top: "0.5rem", left: "0.5rem", background: "rgba(0,0,0,0.7)", padding: "0.2rem 0.6rem", borderRadius: "6px", fontSize: "0.65rem", fontWeight: 800, color: "var(--text-primary)" }}>{img.type}</span>
+                    <div key={img.id} style={{ background: 'var(--bg-primary)', borderRadius: '4px', border: "1px solid var(--border-light)", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+                      <div style={{ height: "140px", background: "var(--bg-tertiary)", position: "relative" }}>
+                        <img src={img.url} alt="medya" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                        <span style={{ position: "absolute", top: "0.5rem", left: "0.5rem", background: "var(--bg-secondary)", border: "1px solid var(--border-light)", padding: "0.2rem 0.6rem", borderRadius: "4px", fontSize: "0.65rem", fontWeight: 800, color: "var(--text-primary)" }}>
+                          {img.type}
+                        </span>
                       </div>
                       <div style={{ padding: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <div style={{ fontSize: "0.7rem", color: "#94A3B8", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "120px" }}>{img.url.split('/').pop()}</div>
-                        <button onClick={() => handleDeleteImage(img.id)} style={{ background: "rgba(239, 68, 68, 0.1)", color: "#F87171", border: "1px solid rgba(239, 68, 68, 0.2)", borderRadius: "8px", width: "30px", height: "30px", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}><i className="fa-solid fa-trash" /></button>
+                        <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "140px", fontWeight: 600 }}>{img.url.split('/').pop()}</div>
+                        <button onClick={() => handleDeleteImage(img.id)} style={{ background: "var(--color-danger)", color: "#fff", border: "none", borderRadius: "4px", width: "32px", height: "32px", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+                          <i className="fa-solid fa-trash" />
+                        </button>
                       </div>
                     </div>
                   ))}
-                  {images.length === 0 && <div style={{ color: "#64748B", fontSize: "0.85rem", padding: "2rem", border: '1px solid var(--border-light)', borderRadius: '8px', textAlign: "center" }}>Medya bulunamadı.</div>}
+                  {images.length === 0 && (
+                    <div style={{ color: "var(--text-muted)", fontSize: "0.95rem", padding: "3rem", border: '1px dashed var(--border-light)', borderRadius: '4px', textAlign: "center", gridColumn: "1 / -1" }}>
+                      Medya bulunamadı.
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -264,34 +287,49 @@ export default function AdminOptionsPage() {
         {/* ── TAB 2: DEPARTMAN (BİRİM) BAŞVURULARI ── */}
         {activeTab === "DEPARTMAN" && (
           <div key="departman">
-            <div style={{ display: "grid", gap: "1.25rem" }}>
+            <div style={{ display: "grid", gap: "1.5rem" }}>
               {applications.length === 0 ? (
-                <div style={{ textAlign: "center", padding: "4rem", color: "#64748B", background: "rgba(15, 23, 42, 0.3)", borderRadius: "20px", border: "1px dashed rgba(255,255,255,0.06)" }}>Henüz birim başvurusu bulunmuyor.</div>
+                <div style={{ textAlign: "center", padding: "4rem", color: "var(--text-muted)", background: "var(--bg-secondary)", borderRadius: "8px", border: "1px dashed var(--border-light)", fontWeight: 600 }}>
+                  Henüz birim başvurusu bulunmuyor.
+                </div>
               ) : applications.map((app: any) => {
                 const divInfo = DIVISIONS.find(d => d.id === app.division) || DIVISIONS[0];
                 return (
-                  <div key={app.id} style={{ background: "rgba(15, 23, 42, 0.6)", borderRadius: '8px', border: "1px solid rgba(255,255,255,0.05)", padding: "1.5rem", display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
-                    <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: "4px", background: divInfo.color }} />
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1.5rem", paddingLeft: "0.5rem" }}>
+                  <div key={app.id} style={{ background: "var(--bg-secondary)", borderRadius: '8px', border: "1px solid var(--border-light)", padding: "2rem", display: "flex", flexDirection: "column" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1.5rem" }}>
                       <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-                        <div style={{ width: "42px", height: "42px", borderRadius: "10px", background: `${divInfo.color}15`, border: `1px solid ${divInfo.color}40`, display: "flex", alignItems: "center", justifyContent: "center", color: divInfo.color, fontSize: "1.1rem" }}><i className={`fa-solid ${divInfo.icon}`} /></div>
+                        <div style={{ width: "50px", height: "50px", borderRadius: "4px", background: "var(--bg-tertiary)", border: `1px solid var(--border-light)`, display: "flex", alignItems: "center", justifyContent: "center", color: divInfo.color, fontSize: "1.25rem" }}>
+                          <i className={`fa-solid ${divInfo.icon}`} />
+                        </div>
                         <div>
-                          <h4 style={{ margin: "0 0 0.2rem 0", fontSize: "1.1rem", fontWeight: 800, color: "var(--text-primary)" }}>#{app.officer?.badge} - {app.officer?.name}</h4>
-                          <span style={{ fontSize: "0.75rem", color: divInfo.color, fontWeight: 700, letterSpacing: "0.05em", textTransform: "uppercase" }}>{divInfo.name}</span>
+                          <h4 style={{ margin: "0 0 0.2rem 0", fontSize: "1.1rem", fontWeight: 900, color: "var(--text-primary)" }}>#{app.officer?.badge} - {app.officer?.name}</h4>
+                          <span style={{ fontSize: "0.8rem", color: divInfo.color, fontWeight: 800, textTransform: "uppercase" }}>{divInfo.name}</span>
                         </div>
                       </div>
                       <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                        <span style={{ padding: "0.3rem 0.8rem", borderRadius: "8px", fontSize: "0.7rem", fontWeight: 800, background: app.status === "Onaylandı" ? "rgba(52, 211, 153, 0.15)" : app.status === "Reddedildi" ? "rgba(248, 113, 113, 0.15)" : "rgba(245, 158, 11, 0.15)", color: app.status === "Onaylandı" ? "#34D399" : app.status === "Reddedildi" ? "#F87171" : "#F59E0B" }}>{app.status}</span>
-                        <div style={{ display: "flex", gap: "0.4rem" }}>
-                          <button onClick={() => handleUpdateUnitStatus(app.id, 'Onaylandı')} style={{ width: "32px", height: "32px", borderRadius: "8px", background: "rgba(52, 211, 153, 0.1)", border: "1px solid rgba(52, 211, 153, 0.3)", color: "#34D399", cursor: "pointer" }}><i className="fa-solid fa-check" /></button>
-                          <button onClick={() => handleUpdateUnitStatus(app.id, 'Reddedildi')} style={{ width: "32px", height: "32px", borderRadius: "8px", background: "rgba(248, 113, 113, 0.1)", border: "1px solid rgba(248, 113, 113, 0.3)", color: "#F87171", cursor: "pointer" }}><i className="fa-solid fa-xmark" /></button>
-                          <button onClick={() => handleDeleteUnitApp(app.id)} style={{ width: "32px", height: "32px", borderRadius: "8px", background: "rgba(255,255,255,0.05)", border: '1px solid var(--border-light)', color: "#94A3B8", cursor: "pointer" }}><i className="fa-solid fa-trash" /></button>
+                        <span style={{ 
+                          padding: "0.4rem 1rem", borderRadius: "4px", fontSize: "0.75rem", fontWeight: 900, textTransform: 'uppercase',
+                          background: app.status === "Onaylandı" ? "var(--color-success)" : app.status === "Reddedildi" ? "var(--color-danger)" : "var(--lapd-orange)", 
+                          color: "#fff" 
+                        }}>
+                          {app.status}
+                        </span>
+                        <div style={{ display: "flex", gap: "0.5rem" }}>
+                          <button onClick={() => handleUpdateUnitStatus(app.id, 'Onaylandı')} style={{ width: "36px", height: "36px", borderRadius: "4px", background: "var(--color-success)", border: "none", color: "#fff", cursor: "pointer" }}><i className="fa-solid fa-check" /></button>
+                          <button onClick={() => handleUpdateUnitStatus(app.id, 'Reddedildi')} style={{ width: "36px", height: "36px", borderRadius: "4px", background: "var(--color-danger)", border: "none", color: "#fff", cursor: "pointer" }}><i className="fa-solid fa-xmark" /></button>
+                          <button onClick={() => handleDeleteUnitApp(app.id)} style={{ width: "36px", height: "36px", borderRadius: "4px", background: "var(--bg-tertiary)", border: '1px solid var(--border-light)', color: "var(--text-muted)", cursor: "pointer" }}><i className="fa-solid fa-trash" /></button>
                         </div>
                       </div>
                     </div>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem", background: "rgba(0,0,0,0.2)", padding: "1.25rem", borderRadius: '6px', borderLeft: `2px solid ${divInfo.color}40`, marginLeft: "0.5rem" }}>
-                      <div><div style={{ fontSize: "0.7rem", color: divInfo.color, fontWeight: 800, marginBottom: "0.5rem", textTransform: "uppercase" }}>Neden Katılmak İstiyor?</div><p style={{ margin: 0, fontSize: "0.85rem", color: "#E2E8F0", lineHeight: "1.6", whiteSpace: "pre-wrap" }}>{app.reason}</p></div>
-                      <div><div style={{ fontSize: "0.7rem", color: divInfo.color, fontWeight: 800, marginBottom: "0.5rem", textTransform: "uppercase" }}>Tecrübesi</div><p style={{ margin: 0, fontSize: "0.85rem", color: "#E2E8F0", lineHeight: "1.6", whiteSpace: "pre-wrap" }}>{app.experience}</p></div>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem", background: "var(--bg-tertiary)", padding: "1.5rem", borderRadius: '4px', border: "1px solid var(--border-light)" }}>
+                      <div>
+                        <div style={{ fontSize: "0.8rem", color: "var(--lapd-blue-dark)", fontWeight: 900, marginBottom: "0.5rem", textTransform: "uppercase" }}>Neden Katılmak İstiyor?</div>
+                        <p style={{ margin: 0, fontSize: "0.95rem", color: "var(--text-primary)", lineHeight: "1.6", whiteSpace: "pre-wrap" }}>{app.reason}</p>
+                      </div>
+                      <div>
+                        <div style={{ fontSize: "0.8rem", color: "var(--lapd-blue-dark)", fontWeight: 900, marginBottom: "0.5rem", textTransform: "uppercase" }}>Tecrübesi</div>
+                        <p style={{ margin: 0, fontSize: "0.95rem", color: "var(--text-primary)", lineHeight: "1.6", whiteSpace: "pre-wrap" }}>{app.experience}</p>
+                      </div>
                     </div>
                   </div>
                 );
@@ -303,53 +341,68 @@ export default function AdminOptionsPage() {
         {/* ── TAB 3: SİVİL BAŞVURULAR ── */}
         {activeTab === "SIVIL" && (
           <div key="sivil">
-            <div style={{ display: "grid", gap: "1.25rem" }}>
+            <div style={{ display: "grid", gap: "1.5rem" }}>
               {civilApplications.length === 0 ? (
-                <div style={{ textAlign: "center", padding: "4rem", color: "#64748B", background: "rgba(15, 23, 42, 0.3)", borderRadius: "20px", border: "1px dashed rgba(255,255,255,0.06)" }}>Henüz sivil başvuru bulunmuyor.</div>
+                <div style={{ textAlign: "center", padding: "4rem", color: "var(--text-muted)", background: "var(--bg-secondary)", borderRadius: "8px", border: "1px dashed var(--border-light)", fontWeight: 600 }}>
+                  Henüz sivil başvuru bulunmuyor.
+                </div>
               ) : civilApplications.map((app: any) => {
                 const typeInfo = CIVIL_TYPE_LABELS[app.type] || { label: app.type, icon: "fa-file", color: 'var(--text-secondary)' };
                 const content = parseContent(app.content);
                 const isExpanded = expandedCivilId === app.id;
-                const statusColor = STATUS_COLORS[app.status] || "#94A3B8";
+                const statusColor = STATUS_COLORS[app.status] || "var(--text-muted)";
 
                 return (
-                  <div key={app.id}>
-                    <div onClick={() => setExpandedCivilId(isExpanded ? null : app.id)} style={{ display: "flex", alignItems: "center", gap: "1.5rem", padding: "1.25rem 1.5rem", background: isExpanded ? "rgba(56, 189, 248, 0.05)" : "rgba(15, 23, 42, 0.6)", border: `1px solid ${isExpanded ? "rgba(56, 189, 248, 0.2)" : "rgba(255,255,255,0.05)"}`, borderRadius: isExpanded ? "16px 16px 0 0" : "16px", cursor: "pointer", transition: "all 0.2s" }}>
-                      <div style={{ width: "42px", height: "42px", borderRadius: "10px", background: `${typeInfo.color}15`, border: `1px solid ${typeInfo.color}30`, display: "flex", alignItems: "center", justifyContent: "center", color: typeInfo.color, fontSize: "1rem", flexShrink: 0 }}><i className={`fa-solid ${typeInfo.icon}`} /></div>
-                      <div style={{ flex: 1 }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.2rem" }}>
-                          <span style={{ color: "var(--text-primary)", fontWeight: 700, fontSize: "0.95rem" }}>{app.fullName}</span>
-                          <span style={{ fontSize: "0.65rem", color: typeInfo.color, background: `${typeInfo.color}15`, padding: "0.2rem 0.6rem", borderRadius: "50px", fontWeight: 800 }}>{typeInfo.label}</span>
-                        </div>
-                        <div style={{ fontSize: "0.75rem", color: "#94A3B8" }}><i className="fa-regular fa-calendar" style={{ marginRight: "0.4rem" }} />{new Date(app.createdAt).toLocaleDateString("tr-TR")}</div>
+                  <div key={app.id} style={{ background: "var(--bg-secondary)", borderRadius: '8px', border: "1px solid var(--border-light)", overflow: "hidden" }}>
+                    
+                    {/* Compact Header */}
+                    <div onClick={() => setExpandedCivilId(isExpanded ? null : app.id)} style={{ display: "flex", alignItems: "center", gap: "1.5rem", padding: "1.5rem", cursor: "pointer", borderBottom: isExpanded ? "1px solid var(--border-light)" : "none", background: isExpanded ? "var(--bg-tertiary)" : "transparent" }}>
+                      <div style={{ width: "45px", height: "45px", borderRadius: "4px", background: "var(--bg-tertiary)", border: `1px solid var(--border-light)`, display: "flex", alignItems: "center", justifyContent: "center", color: typeInfo.color, fontSize: "1.2rem", flexShrink: 0 }}>
+                        <i className={`fa-solid ${typeInfo.icon}`} />
                       </div>
-                      <span style={{ fontSize: "0.7rem", fontWeight: 800, color: statusColor, background: `${statusColor}15`, border: `1px solid ${statusColor}30`, padding: "0.3rem 0.8rem", borderRadius: "50px" }}>{app.status}</span>
-                      <i className={`fa-solid fa-chevron-${isExpanded ? "up" : "down"}`} style={{ color: "#64748B", fontSize: "0.8rem", marginLeft: "0.5rem" }} />
+                      <div style={{ flex: 1 }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "0.2rem" }}>
+                          <span style={{ color: "var(--text-primary)", fontWeight: 900, fontSize: "1.1rem" }}>{app.fullName}</span>
+                          <span style={{ fontSize: "0.75rem", color: "#fff", background: typeInfo.color, padding: "0.2rem 0.6rem", borderRadius: "4px", fontWeight: 800 }}>{typeInfo.label}</span>
+                        </div>
+                        <div style={{ fontSize: "0.85rem", color: "var(--text-muted)", fontWeight: 600 }}>
+                          <i className="fa-regular fa-calendar" style={{ marginRight: "0.4rem" }} />{new Date(app.createdAt).toLocaleDateString("tr-TR")}
+                        </div>
+                      </div>
+                      <span style={{ fontSize: "0.75rem", fontWeight: 900, color: "#fff", background: statusColor, padding: "0.4rem 1rem", borderRadius: "4px", textTransform: 'uppercase' }}>
+                        {app.status}
+                      </span>
+                      <i className={`fa-solid fa-chevron-${isExpanded ? "up" : "down"}`} style={{ color: "var(--text-muted)", fontSize: "1rem", marginLeft: "1rem" }} />
                     </div>
                     
+                    {/* Expanded Content */}
                     {isExpanded && (
-                      <div style={{ padding: "2rem", background: "rgba(8, 14, 28, 0.6)", border: "1px solid rgba(56, 189, 248, 0.2)", borderTop: "none", borderRadius: "0 0 16px 16px" }}>
-                        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "1.5rem", marginBottom: "2rem" }}>
-                          {app.fullName && <div><div style={{ fontSize: "0.65rem", color: "#64748B", fontWeight: 800, marginBottom: "0.3rem" }}>AD SOYAD</div><div style={{ color: "#E2E8F0", fontSize: "0.85rem", fontWeight: 600 }}>{app.fullName}</div></div>}
-                          {app.discordName && <div><div style={{ fontSize: "0.65rem", color: "#64748B", fontWeight: 800, marginBottom: "0.3rem" }}>DISCORD</div><div style={{ color: "#E2E8F0", fontSize: "0.85rem", fontWeight: 600 }}>{app.discordName}</div></div>}
-                          {app.age && <div><div style={{ fontSize: "0.65rem", color: "#64748B", fontWeight: 800, marginBottom: "0.3rem" }}>YAŞ</div><div style={{ color: "#E2E8F0", fontSize: "0.85rem", fontWeight: 600 }}>{app.age}</div></div>}
-                          {app.email && <div><div style={{ fontSize: "0.65rem", color: "#64748B", fontWeight: 800, marginBottom: "0.3rem" }}>E-POSTA</div><div style={{ color: "#E2E8F0", fontSize: "0.85rem", fontWeight: 600 }}>{app.email}</div></div>}
+                      <div style={{ padding: "2rem" }}>
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "1.5rem", marginBottom: "2rem" }}>
+                          {app.fullName && <div><div style={{ fontSize: "0.75rem", color: "var(--lapd-blue-dark)", fontWeight: 900, marginBottom: "0.3rem" }}>AD SOYAD</div><div style={{ color: "var(--text-primary)", fontSize: "0.95rem", fontWeight: 600 }}>{app.fullName}</div></div>}
+                          {app.discordName && <div><div style={{ fontSize: "0.75rem", color: "var(--lapd-blue-dark)", fontWeight: 900, marginBottom: "0.3rem" }}>DISCORD</div><div style={{ color: "var(--text-primary)", fontSize: "0.95rem", fontWeight: 600 }}>{app.discordName}</div></div>}
+                          {app.age && <div><div style={{ fontSize: "0.75rem", color: "var(--lapd-blue-dark)", fontWeight: 900, marginBottom: "0.3rem" }}>YAŞ</div><div style={{ color: "var(--text-primary)", fontSize: "0.95rem", fontWeight: 600 }}>{app.age}</div></div>}
+                          {app.email && <div><div style={{ fontSize: "0.75rem", color: "var(--lapd-blue-dark)", fontWeight: 900, marginBottom: "0.3rem" }}>E-POSTA</div><div style={{ color: "var(--text-primary)", fontSize: "0.95rem", fontWeight: 600 }}>{app.email}</div></div>}
                           {Object.entries(content).map(([key, val]) => val && typeof val === "string" && val.length < 200 && (
-                            <div key={key}><div style={{ fontSize: "0.65rem", color: "#64748B", fontWeight: 800, marginBottom: "0.3rem", textTransform: "uppercase" }}>{key}</div><div style={{ color: "#E2E8F0", fontSize: "0.85rem", fontWeight: 600 }}>{val}</div></div>
+                            <div key={key}><div style={{ fontSize: "0.75rem", color: "var(--lapd-blue-dark)", fontWeight: 900, marginBottom: "0.3rem", textTransform: "uppercase" }}>{key}</div><div style={{ color: "var(--text-primary)", fontSize: "0.95rem", fontWeight: 600 }}>{val}</div></div>
                           ))}
                         </div>
                         {Object.entries(content).map(([key, val]) => val && typeof val === "string" && val.length >= 200 && (
                           <div key={key} style={{ marginBottom: "1.5rem" }}>
-                            <div style={{ fontSize: "0.65rem", color: "#64748B", fontWeight: 800, marginBottom: "0.5rem", textTransform: "uppercase" }}>{key}</div>
-                            <div style={{ background: "rgba(0,0,0,0.2)", padding: "1rem", borderRadius: "10px", color: "#CBD5E1", fontSize: "0.85rem", lineHeight: "1.6", whiteSpace: "pre-wrap", border: "1px solid rgba(255,255,255,0.05)" }}>{val}</div>
+                            <div style={{ fontSize: "0.75rem", color: "var(--lapd-blue-dark)", fontWeight: 900, marginBottom: "0.5rem", textTransform: "uppercase" }}>{key}</div>
+                            <div style={{ background: "var(--bg-tertiary)", padding: "1.5rem", borderRadius: "4px", color: "var(--text-primary)", fontSize: "0.95rem", lineHeight: "1.6", whiteSpace: "pre-wrap", border: "1px solid var(--border-light)" }}>{val}</div>
                           </div>
                         ))}
-                        <div style={{ display: "flex", gap: "1rem", alignItems: "center", paddingTop: "1.5rem", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
-                          <span style={{ fontSize: "0.75rem", color: "#64748B", fontWeight: 800 }}>DURUM:</span>
-                          <select value={app.status} onChange={e => updateCivilStatus(app.id, e.target.value)} style={{ padding: "0.4rem 0.8rem", borderRadius: "8px", background: "rgba(0,0,0,0.3)", border: '1px solid var(--border-light)', color: statusColor, fontWeight: 700, fontSize: "0.8rem", cursor: "pointer", outline: "none" }}>
-                            {STATUS_OPTIONS.map(s => <option key={s} value={s} style={{ background: "#0F172A", color: "var(--text-primary)" }}>{s}</option>)}
+                        
+                        {/* Actions */}
+                        <div style={{ display: "flex", gap: "1rem", alignItems: "center", paddingTop: "2rem", borderTop: "2px solid var(--border-light)", marginTop: "2rem" }}>
+                          <span style={{ fontSize: "0.85rem", color: "var(--lapd-blue-dark)", fontWeight: 900 }}>DURUM GÜNCELLE:</span>
+                          <select value={app.status} onChange={e => updateCivilStatus(app.id, e.target.value)} style={{ padding: "0.6rem 1rem", borderRadius: "4px", background: "var(--bg-tertiary)", border: '1px solid var(--border-light)', color: "var(--text-primary)", fontWeight: 700, fontSize: "0.9rem", cursor: "pointer", outline: "none" }}>
+                            {STATUS_OPTIONS.map(s => <option key={s} value={s}>{s}</option>)}
                           </select>
-                          <button onClick={() => deleteCivilApp(app.id)} style={{ marginLeft: "auto", padding: "0.4rem 1rem", borderRadius: "8px", background: "rgba(239, 68, 68, 0.1)", border: "1px solid rgba(239, 68, 68, 0.2)", color: "#F87171", fontSize: "0.8rem", fontWeight: 700, cursor: "pointer" }}><i className="fa-solid fa-trash" style={{ marginRight: "0.4rem" }} /> SİL</button>
+                          <button onClick={() => deleteCivilApp(app.id)} style={{ marginLeft: "auto", padding: "0.6rem 1.5rem", borderRadius: "4px", background: "var(--color-danger)", border: "none", color: "#fff", fontSize: "0.85rem", fontWeight: 800, cursor: "pointer" }}>
+                            <i className="fa-solid fa-trash" style={{ marginRight: "0.5rem" }} /> BAŞVURUYU SİL
+                          </button>
                         </div>
                       </div>
                     )}

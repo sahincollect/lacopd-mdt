@@ -1,31 +1,10 @@
-﻿"use client";
+"use client";
 import { useState, useEffect } from 'react';
 
-const inputStyle: React.CSSProperties = {
-  width: '100%',
-  padding: '0.75rem 1rem',
-  backgroundColor: 'var(--bg-secondary)',
-  border: '1px solid rgba(255,255,255,0.08)',
-  borderRadius: '10px',
-  color: 'var(--text-primary)',
-  fontSize: '0.95rem',
-  outline: 'none',
-};
-
-const labelStyle: React.CSSProperties = {
-  fontSize: '0.75rem',
-  color: 'rgba(255,255,255,0.5)',
-  textTransform: 'uppercase',
-  letterSpacing: '0.06em',
-  fontWeight: 600,
-  marginBottom: '0.4rem',
-  display: 'block'
-};
-
 const statusColor: Record<string, string> = {
-  'Bekliyor': '#F59E0B',
-  'Onaylandı': '#10B981',
-  'Reddedildi': '#0ea5e9',
+  'Bekliyor': 'var(--lapd-orange)',
+  'Onaylandı': 'var(--color-success)',
+  'Reddedildi': 'var(--color-danger)',
 };
 
 export default function MazeretlerPage() {
@@ -47,7 +26,6 @@ export default function MazeretlerPage() {
     if (res.ok) setRequests(await res.json());
   };
 
-  // Auto-calculate day count when dates change
   useEffect(() => {
     if (form.startDate && form.endDate) {
       const start = new Date(form.startDate);
@@ -94,26 +72,34 @@ export default function MazeretlerPage() {
 
   const formatDate = (d: string) => new Date(d).toLocaleDateString('tr-TR', { day: '2-digit', month: 'short', year: 'numeric' });
 
+  const inputStyle: React.CSSProperties = {
+    width: '100%', padding: '0.85rem', backgroundColor: 'var(--bg-tertiary)', border: '1px solid var(--border-light)',
+    borderRadius: '4px', color: 'var(--text-primary)', fontSize: '0.95rem', outline: 'none', boxSizing: "border-box"
+  };
+
+  const labelStyle: React.CSSProperties = {
+    fontSize: '0.85rem', color: 'var(--text-primary)', textTransform: 'uppercase', fontWeight: 900, marginBottom: '0.5rem', display: 'block'
+  };
+
   return (
-    <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+    <div style={{ fontFamily: "var(--font-inter)", display: "flex", flexDirection: "column", gap: "2rem" }}>
       {/* Başlık */}
-      <div style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', borderBottom: '2px solid var(--border-light)', paddingBottom: '1rem', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
-          <h1 style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>
-            <i className="fa-solid fa-calendar-xmark" style={{ color: '#F59E0B', marginRight: '0.75rem' }}></i>
-            Mazeret Yönetimi
+          <h1 style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--lapd-blue-dark)', margin: 0, textTransform: 'uppercase', letterSpacing: '-0.03em' }}>
+            MAZERET YÖNETİMİ
           </h1>
-          <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.85rem', marginTop: '0.25rem' }}>
+          <p style={{ color: 'var(--text-muted)', fontSize: '1rem', marginTop: '0.2rem', fontWeight: 600 }}>
             İzin ve mazeret taleplerini buradan oluşturabilir ve takip edebilirsiniz.
           </p>
         </div>
         <div style={{ display: 'flex', gap: '0.5rem' }}>
           {(['form', 'list'] as const).map(t => (
             <button key={t} onClick={() => setTab(t)} style={{
-              padding: '0.6rem 1.25rem', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 600, fontSize: '0.85rem',
-              backgroundColor: tab === t ? 'var(--accent-primary)' : 'rgba(255,255,255,0.06)',
-              color: tab === t ? '#000' : 'rgba(255,255,255,0.6)',
-              transition: 'all 0.2s'
+              padding: '0.75rem 1.25rem', borderRadius: '4px', border: t === tab ? '1px solid var(--lapd-blue-dark)' : '1px solid var(--border-light)', cursor: 'pointer', fontWeight: 900, fontSize: '0.85rem',
+              backgroundColor: tab === t ? 'var(--bg-tertiary)' : 'var(--bg-primary)',
+              color: tab === t ? 'var(--lapd-blue-dark)' : 'var(--text-muted)',
+              transition: 'all 0.2s', textTransform: 'uppercase'
             }}>
               {t === 'form' ? '+ Yeni Mazeret' : `📋 Talepler (${requests.length})`}
             </button>
@@ -124,127 +110,119 @@ export default function MazeretlerPage() {
       <>
         {tab === 'form' ? (
           <div key="form">
-            <div style={{ backgroundColor: 'rgba(17, 28, 50, 0.6)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.06)', backdropFilter: 'blur(10px)', padding: '2rem' }}>
-              <h2 style={{ margin: '0 0 1.5rem', fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-primary)' }}>
-                Mazeret Talebi Oluştur
+            <div style={{ backgroundColor: 'var(--bg-secondary)', borderRadius: '8px', border: '1px solid var(--border-light)', padding: '2rem' }}>
+              <h2 style={{ margin: '0 0 1.5rem', fontSize: '1.25rem', fontWeight: 900, color: 'var(--lapd-blue-dark)', textTransform: 'uppercase' }}>
+                MAZERET TALEBİ OLUŞTUR
               </h2>
               
               {success && (
-                <div style={{ backgroundColor: 'rgba(14, 165, 233,0.1)', border: '1px solid rgba(14, 165, 233,0.3)', borderRadius: '10px', padding: '0.75rem 1rem', marginBottom: '1.25rem', color: '#10B981', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <div style={{ backgroundColor: 'var(--bg-tertiary)', border: '1px solid var(--color-success)', borderRadius: '4px', padding: '1rem', marginBottom: '1.5rem', color: 'var(--color-success)', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700 }}>
                   <i className="fa-solid fa-check-circle"></i> {success}
                 </div>
               )}
               {error && (
-                <div style={{ backgroundColor: 'rgba(14, 165, 233,0.1)', border: '1px solid rgba(14, 165, 233,0.3)', borderRadius: '10px', padding: '0.75rem 1rem', marginBottom: '1.25rem', color: '#0ea5e9', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <div style={{ backgroundColor: 'var(--bg-tertiary)', border: '1px solid var(--color-danger)', borderRadius: '4px', padding: '1rem', marginBottom: '1.5rem', color: 'var(--color-danger)', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700 }}>
                   <i className="fa-solid fa-circle-exclamation"></i> {error}
                 </div>
               )}
 
               <form onSubmit={handleSubmit}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '1.5rem' }}>
                   <div>
                     <label style={labelStyle}>Rozet Numarası *</label>
-                    <input style={inputStyle} placeholder="Örn: 042" value={form.badge} onChange={e => setForm(f => ({ ...f, badge: e.target.value }))} required
-                      onFocus={e => e.currentTarget.style.borderColor = 'var(--accent-primary)'}
-                      onBlur={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'} />
+                    <input style={inputStyle} placeholder="Örn: 042" value={form.badge} onChange={e => setForm(f => ({ ...f, badge: e.target.value }))} required />
                   </div>
                   <div>
                     <label style={labelStyle}>İsim Soyisim *</label>
-                    <input style={inputStyle} placeholder="Tam adınız" value={form.fullName} onChange={e => setForm(f => ({ ...f, fullName: e.target.value }))} required
-                      onFocus={e => e.currentTarget.style.borderColor = 'var(--accent-primary)'}
-                      onBlur={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'} />
+                    <input style={inputStyle} placeholder="Tam adınız" value={form.fullName} onChange={e => setForm(f => ({ ...f, fullName: e.target.value }))} required />
                   </div>
                   <div>
                     <label style={labelStyle}>Başlangıç Tarihi *</label>
-                    <input type="date" style={{ ...inputStyle, colorScheme: 'dark' }} value={form.startDate} onChange={e => setForm(f => ({ ...f, startDate: e.target.value }))} required
-                      onFocus={e => e.currentTarget.style.borderColor = 'var(--accent-primary)'}
-                      onBlur={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'} />
+                    <input type="date" style={{ ...inputStyle, colorScheme: 'dark' }} value={form.startDate} onChange={e => setForm(f => ({ ...f, startDate: e.target.value }))} required />
                   </div>
                   <div>
                     <label style={labelStyle}>Bitiş Tarihi *</label>
-                    <input type="date" style={{ ...inputStyle, colorScheme: 'dark' }} value={form.endDate} onChange={e => setForm(f => ({ ...f, endDate: e.target.value }))} required
-                      onFocus={e => e.currentTarget.style.borderColor = 'var(--accent-primary)'}
-                      onBlur={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'} />
+                    <input type="date" style={{ ...inputStyle, colorScheme: 'dark' }} value={form.endDate} onChange={e => setForm(f => ({ ...f, endDate: e.target.value }))} required />
                   </div>
                 </div>
 
                 {form.dayCount && (
-                  <div style={{ backgroundColor: 'rgba(14, 165, 233,0.08)', border: '1px solid rgba(14, 165, 233,0.2)', borderRadius: '8px', padding: '0.6rem 1rem', marginBottom: '1rem', color: 'var(--accent-primary)', fontSize: '0.85rem', fontWeight: 600 }}>
+                  <div style={{ backgroundColor: 'var(--bg-tertiary)', border: '1px solid var(--border-light)', borderRadius: '4px', padding: '1rem', marginBottom: '1.5rem', color: 'var(--lapd-blue-dark)', fontSize: '0.9rem', fontWeight: 800 }}>
                     <i className="fa-solid fa-calendar-days" style={{ marginRight: '0.5rem' }}></i>
-                    Toplam Gün Sayısı: <strong>{form.dayCount} gün</strong>
+                    TOPLAM GÜN SAYISI: <strong>{form.dayCount} GÜN</strong>
                   </div>
                 )}
 
                 <div style={{ marginBottom: '1.5rem' }}>
                   <label style={labelStyle}>Mazeret Nedeni *</label>
-                  <textarea style={{ ...inputStyle, minHeight: '100px', resize: 'vertical', fontFamily: 'inherit' }}
+                  <textarea style={{ ...inputStyle, minHeight: '120px', resize: 'vertical', fontFamily: 'inherit' }}
                     placeholder="Mazeret nedeninizi açıklayınız..."
                     value={form.reason}
                     onChange={e => setForm(f => ({ ...f, reason: e.target.value }))} required
-                    onFocus={e => e.currentTarget.style.borderColor = 'var(--accent-primary)'}
-                    onBlur={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'}
                   />
                 </div>
 
-                <button type="submit" disabled={loading} style={{
-                  backgroundColor: loading ? 'rgba(14, 165, 233,0.4)' : 'var(--accent-primary)',
-                  color: '#000', padding: '0.85rem 2rem', borderRadius: '10px', border: 'none',
-                  fontWeight: 700, fontSize: '0.95rem', cursor: loading ? 'not-allowed' : 'pointer',
-                  transition: 'all 0.2s', display: 'flex', alignItems: 'center', gap: '0.5rem'
-                }}>
-                  {loading ? <><i className="fa-solid fa-circle-notch fa-spin"></i> Gönderiliyor...</> : <><i className="fa-solid fa-paper-plane"></i> Mazeret Gönder</>}
-                </button>
+                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  <button type="submit" disabled={loading} style={{
+                    backgroundColor: 'var(--lapd-blue-dark)', color: '#fff', padding: '0.85rem 2.5rem', borderRadius: '4px', border: 'none',
+                    fontWeight: 900, fontSize: '0.95rem', cursor: loading ? 'not-allowed' : 'pointer',
+                    display: 'flex', alignItems: 'center', gap: '0.5rem'
+                  }}>
+                    {loading ? <><i className="fa-solid fa-circle-notch fa-spin"></i> GÖNDERİLİYOR...</> : <><i className="fa-solid fa-paper-plane"></i> MAZERET GÖNDER</>}
+                  </button>
+                </div>
               </form>
             </div>
           </div>
         ) : (
           <div key="list">
             {requests.length === 0 ? (
-              <div style={{ textAlign: 'center', padding: '4rem', color: 'rgba(255,255,255,0.3)' }}>
-                <i className="fa-solid fa-calendar-xmark" style={{ fontSize: '3rem', display: 'block', marginBottom: '1rem' }}></i>
-                Henüz mazeret talebi bulunmuyor.
+              <div style={{ backgroundColor: 'var(--bg-secondary)', borderRadius: '8px', padding: '4rem 2rem', textAlign: 'center', border: '1px solid var(--border-light)' }}>
+                <i className="fa-solid fa-calendar-xmark" style={{ fontSize: '3rem', display: 'block', marginBottom: '1rem', color: 'var(--text-muted)' }}></i>
+                <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', margin: 0, fontWeight: 700 }}>
+                  Henüz mazeret talebi bulunmuyor.
+                </p>
               </div>
             ) : (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 {requests.map(r => (
                   <div key={r.id}
-                    style={{ backgroundColor: 'rgba(17, 28, 50, 0.6)', borderRadius: '8px', border: `1px solid ${statusColor[r.status]}22`, backdropFilter: 'blur(10px)', padding: '1.25rem 1.5rem', display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
+                    style={{ backgroundColor: 'var(--bg-secondary)', borderRadius: '8px', border: `1px solid var(--border-light)`, padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
                     
-                    {/* Sol: Durum çizgisi */}
-                    <div style={{ width: '4px', height: '60px', borderRadius: '4px', backgroundColor: statusColor[r.status], flexShrink: 0 }}></div>
+                    <div style={{ width: '4px', height: '60px', borderRadius: '4px', backgroundColor: statusColor[r.status] || 'var(--text-muted)', flexShrink: 0 }}></div>
 
-                    {/* Bilgiler */}
                     <div style={{ flex: 1, minWidth: '200px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.3rem' }}>
-                        <span style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '0.95rem' }}>{r.fullName}</span>
-                        <span style={{ backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: '6px', padding: '0.1rem 0.5rem', fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', fontFamily: 'monospace' }}>#{r.badge}</span>
-                        <span style={{ marginLeft: 'auto', fontSize: '0.75rem', fontWeight: 700, color: statusColor[r.status], backgroundColor: `${statusColor[r.status]}18`, padding: '0.2rem 0.75rem', borderRadius: '20px', border: `1px solid ${statusColor[r.status]}40` }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
+                        <span style={{ fontWeight: 900, color: 'var(--text-primary)', fontSize: '1.1rem', textTransform: 'uppercase' }}>{r.fullName}</span>
+                        <span style={{ backgroundColor: 'var(--bg-tertiary)', borderRadius: '4px', padding: '0.2rem 0.6rem', fontSize: '0.8rem', color: 'var(--lapd-blue-dark)', fontWeight: 800, border: '1px solid var(--border-light)' }}>#{r.badge}</span>
+                        <span style={{ marginLeft: 'auto', fontSize: '0.75rem', fontWeight: 900, color: '#fff', backgroundColor: statusColor[r.status] || 'var(--text-muted)', padding: '0.4rem 1rem', borderRadius: '4px', textTransform: 'uppercase' }}>
                           {r.status}
                         </span>
                       </div>
-                      <div style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.5)', marginBottom: '0.3rem' }}>
+                      <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.5rem', fontWeight: 700 }}>
                         <i className="fa-solid fa-calendar-range" style={{ marginRight: '0.4rem' }}></i>
                         {formatDate(r.startDate)} – {formatDate(r.endDate)}
-                        <span style={{ marginLeft: '0.75rem', color: 'var(--accent-primary)', fontWeight: 600 }}>{r.dayCount} gün</span>
+                        <span style={{ marginLeft: '1rem', color: 'var(--lapd-blue-dark)', fontWeight: 900 }}>{r.dayCount} GÜN</span>
                       </div>
-                      <div style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.45)', fontStyle: 'italic' }}>&ldquo;{r.reason}&rdquo;</div>
+                      <div style={{ fontSize: '0.95rem', color: 'var(--text-primary)', backgroundColor: 'var(--bg-tertiary)', padding: '1rem', borderRadius: '4px', border: '1px solid var(--border-light)', marginTop: '0.5rem' }}>
+                        {r.reason}
+                      </div>
                     </div>
 
-                    {/* Admin işlemler */}
                     {user?.role === 'admin' && (
-                      <div style={{ display: 'flex', gap: '0.5rem', flexShrink: 0 }}>
+                      <div style={{ display: 'flex', gap: '0.5rem', flexShrink: 0, flexDirection: 'column' }}>
                         {r.status === 'Bekliyor' && (
-                          <>
-                            <button onClick={() => handleStatus(r.id, 'Onaylandı')} style={{ padding: '0.5rem 0.9rem', borderRadius: '8px', border: '1px solid rgba(14, 165, 233,0.3)', backgroundColor: 'rgba(14, 165, 233,0.1)', color: '#10B981', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600 }}>
+                          <div style={{ display: 'flex', gap: '0.5rem' }}>
+                            <button onClick={() => handleStatus(r.id, 'Onaylandı')} style={{ padding: '0.6rem 1rem', borderRadius: '4px', border: 'none', backgroundColor: 'var(--color-success)', color: '#fff', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                               <i className="fa-solid fa-check"></i> Onayla
                             </button>
-                            <button onClick={() => handleStatus(r.id, 'Reddedildi')} style={{ padding: '0.5rem 0.9rem', borderRadius: '8px', border: '1px solid rgba(14, 165, 233,0.3)', backgroundColor: 'rgba(14, 165, 233,0.1)', color: '#0ea5e9', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600 }}>
+                            <button onClick={() => handleStatus(r.id, 'Reddedildi')} style={{ padding: '0.6rem 1rem', borderRadius: '4px', border: 'none', backgroundColor: 'var(--lapd-orange)', color: '#fff', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                               <i className="fa-solid fa-xmark"></i> Reddet
                             </button>
-                          </>
+                          </div>
                         )}
-                        <button onClick={() => handleDelete(r.id)} style={{ padding: '0.5rem 0.75rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.08)', backgroundColor: 'rgba(255,255,255,0.04)', color: 'rgba(255,255,255,0.4)', cursor: 'pointer', fontSize: '0.8rem' }}>
-                          <i className="fa-solid fa-trash"></i>
+                        <button onClick={() => handleDelete(r.id)} style={{ padding: '0.6rem 1rem', borderRadius: '4px', border: 'none', backgroundColor: 'var(--color-danger)', color: '#fff', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.4rem', justifyContent: 'center' }}>
+                          <i className="fa-solid fa-trash"></i> SİL
                         </button>
                       </div>
                     )}
