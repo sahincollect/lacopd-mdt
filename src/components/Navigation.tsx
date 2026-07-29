@@ -75,8 +75,8 @@ export default function Navigation() {
             alt="LAPD Logo" 
             style={{ width: '60px', height: '60px', borderRadius: '50%', objectFit: 'cover' }} 
           />
-          <span style={{ color: 'var(--lapd-text-dark)', fontWeight: 800, fontSize: '0.95rem', letterSpacing: '0.02em', textTransform: 'uppercase', lineHeight: 1.2 }}>
-            Los Angeles<br/>Community
+          <span style={{ color: 'var(--lapd-text-dark)', fontWeight: 800, fontSize: '0.95rem', letterSpacing: '0.02em', lineHeight: 1.2 }}>
+            LOS ANGELES<br/>COMMUNITY
           </span>
         </Link>
 
