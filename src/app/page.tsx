@@ -254,22 +254,22 @@ export default function Home() {
       </section>
 
       {/* ── BOTTOM LINKS STRIP ── */}
-      <section style={{ backgroundColor: 'var(--bg-secondary)', padding: '4rem 2rem 3rem' }}>
+      <section style={{ backgroundColor: 'var(--bg-tertiary)', borderTop: '1px solid var(--border-light)', padding: '4rem 2rem 3rem' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem' }}>
           <div>
             <h4 style={{ fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '1rem', color: 'var(--text-primary)' }}>PORTAL HİZMETLERİ</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-              <Link href="/mdt/basvuru" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Birim Başvuruları</Link>
-              <Link href="/mdt/kriminal" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Kriminal Kayıt Sistemi</Link>
-              <Link href="/mdt/duyurular" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Departman Duyuruları</Link>
+              <Link href="/mdt/basvuru" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 500 }}>Birim Başvuruları</Link>
+              <Link href="/mdt/kriminal" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 500 }}>Kriminal Kayıt Sistemi</Link>
+              <Link href="/mdt/duyurular" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 500 }}>Departman Duyuruları</Link>
             </div>
           </div>
           <div>
             <h4 style={{ fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '1rem', color: 'var(--text-primary)' }}>KURUMSAL BAĞLANTILAR</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-              <Link href="/hakkimizda" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Hakkımızda</Link>
-              <Link href="/kariyer" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Kariyer ve Akademi</Link>
-              <Link href="/iletisim" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>İletişim ve Destek</Link>
+              <Link href="/hakkimizda" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 500 }}>Hakkımızda</Link>
+              <Link href="/kariyer" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 500 }}>Kariyer ve Akademi</Link>
+              <Link href="/iletisim" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 500 }}>İletişim ve Destek</Link>
             </div>
           </div>
         </div>

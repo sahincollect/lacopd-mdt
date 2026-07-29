@@ -52,15 +52,15 @@ export default function Navigation() {
       
       {/* ── TOP ALERT BAR ── */}
       <div style={{ 
-        backgroundColor: '#F9FAFB', 
-        borderBottom: '1px solid var(--lapd-border)', 
+        backgroundColor: 'var(--bg-tertiary)', 
+        borderBottom: '1px solid var(--border-light)', 
         padding: '0.4rem 1rem', 
         textAlign: 'center', 
         fontSize: '0.75rem', 
-        color: 'var(--lapd-text-dark)' 
+        color: 'var(--text-primary)' 
       }}>
         <strong style={{ fontWeight: 800 }}>DUYURU!</strong> Los Angeles Polis Akademisi (Season 1) başvuruları başlamıştır. 
-        <Link href="https://discord.com/invite/laco" target="_blank" style={{ color: 'var(--lapd-orange)', marginLeft: '10px', textDecoration: 'none', fontWeight: 600 }}>
+        <Link href="https://discord.com/invite/laco" target="_blank" style={{ color: 'var(--accent-secondary)', marginLeft: '10px', textDecoration: 'none', fontWeight: 600 }}>
           — Detaylı Bilgi Alın
         </Link>
       </div>

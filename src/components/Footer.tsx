@@ -13,8 +13,9 @@ export default function Footer() {
 
   return (
     <footer style={{
-      backgroundColor: 'var(--lapd-blue-dark)',
-      color: 'rgba(255,255,255,0.7)',
+      backgroundColor: 'var(--bg-secondary)',
+      borderTop: '1px solid var(--border-light)',
+      color: 'var(--text-secondary)',
       padding: '1.5rem 2rem',
       marginTop: 'auto',
       fontSize: '0.75rem',
@@ -31,12 +32,12 @@ export default function Footer() {
       }}>
         <div style={{ flex: 1, lineHeight: 1.6 }}>
           Telif Hakkı &copy; {new Date().getFullYear()} Los Angeles Community Police Department ve LAC. Tüm hakları saklıdır.
-          <Link href="/gizlilik" style={{ color: 'white', marginLeft: '1rem', textDecoration: 'none' }}>Gizlilik Politikası</Link>
-          <Link href="/verilerim" style={{ color: 'white', marginLeft: '1rem', textDecoration: 'none' }}>Kişisel Verilerim</Link>
+          <Link href="/gizlilik" style={{ color: 'var(--text-primary)', marginLeft: '1rem', textDecoration: 'none', fontWeight: 600 }}>Gizlilik Politikası</Link>
+          <Link href="/verilerim" style={{ color: 'var(--text-primary)', marginLeft: '1rem', textDecoration: 'none', fontWeight: 600 }}>Kişisel Verilerim</Link>
         </div>
-        <div style={{ color: 'rgba(255,255,255,0.6)', textAlign: 'right', lineHeight: 1.6, flexShrink: 0 }}>
+        <div style={{ textAlign: 'right', lineHeight: 1.6, flexShrink: 0 }}>
           Bu web sitesi sadece <strong>FiveM Roleplay</strong> amaçlı geliştirilmiştir.<br/>
-          <span style={{ color: 'var(--lapd-orange)' }}>Gerçek kurumlar veya LAPD ile hiçbir ilgisi yoktur.</span>
+          <span style={{ color: 'var(--accent-secondary)' }}>Gerçek kurumlar veya LAPD ile hiçbir ilgisi yoktur.</span>
         </div>
       </div>
     </footer>
