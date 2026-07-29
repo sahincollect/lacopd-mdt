@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import useSWR from 'swr';
 import { fetcher } from '@/lib/fetcher';
+import ThemeToggle from '@/components/ThemeToggle';
 
 export default function MDTLayout({
   children,
@@ -69,14 +70,14 @@ export default function MDTLayout({
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', backgroundColor: '#F9FAFB', color: '#1F2937', overflow: 'hidden', position: 'relative', fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif" }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)', overflow: 'hidden', position: 'relative', fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif" }}>
       
       {/* ── OFFICIAL GOVERNMENT HEADER BANNER ── */}
       <header style={{
         width: '100%',
         height: '72px',
-        backgroundColor: '#FFFFFF',
-        borderBottom: '3px solid #041632',
+        backgroundColor: 'var(--bg-secondary)',
+        borderBottom: '3px solid var(--accent-primary)',
         padding: '0 2.5rem',
         display: 'flex',
         alignItems: 'center',
@@ -90,17 +91,17 @@ export default function MDTLayout({
         <Link href="/mdt" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '1.2rem', cursor: 'pointer' }}>
           <div style={{
             width: '46px', height: '46px', borderRadius: '50%',
-            overflow: 'hidden', border: '2px solid #E5E7EB',
+            overflow: 'hidden', border: '2px solid var(--border-light)',
             boxShadow: '0 0 10px rgba(0, 0, 0, 0.05)',
             flexShrink: 0
           }}>
-            <img src="/lapd-logo.png" alt="LAC Official Seal" style={{ width: '100%', height: '100%', objectFit: 'cover', backgroundColor: '#041632' }} />
+            <img src="/lapd-logo.png" alt="LAC Official Seal" style={{ width: '100%', height: '100%', objectFit: 'cover', backgroundColor: 'var(--accent-primary)' }} />
           </div>
           <div>
-            <div style={{ fontSize: '1.2rem', fontWeight: 900, color: '#041632', letterSpacing: '0.04em', fontFamily: "'Oswald', sans-serif" }}>
+            <div style={{ fontSize: '1.2rem', fontWeight: 900, color: 'var(--accent-primary)', letterSpacing: '0.04em', fontFamily: "'Oswald', sans-serif" }}>
               LOS ANGELES C.P.D.
             </div>
-            <div style={{ fontSize: '0.72rem', color: '#6B7280', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', marginTop: '0.1rem' }}>
+            <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', marginTop: '0.1rem' }}>
               MDT • MOBILE DATA TERMINAL
             </div>
           </div>
@@ -109,6 +110,7 @@ export default function MDTLayout({
         {/* Right User Info */}
         {user ? (
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
+            <ThemeToggle />
             {/* ── MAILBOX HEADER BUTTON ── */}
             <Link
               href="/mdt/mesajlar"
@@ -120,9 +122,9 @@ export default function MDTLayout({
                 textDecoration: 'none',
                 padding: '0.5rem 0.95rem',
                 borderRadius: '8px',
-                backgroundColor: pathname === '/mdt/mesajlar' ? '#041632' : '#F3F4F6',
-                border: `1px solid ${pathname === '/mdt/mesajlar' ? '#041632' : '#E5E7EB'}`,
-                color: pathname === '/mdt/mesajlar' ? '#FFFFFF' : '#4B5563',
+                backgroundColor: pathname === '/mdt/mesajlar' ? 'var(--accent-primary)' : 'var(--bg-tertiary)',
+                border: `1px solid ${pathname === '/mdt/mesajlar' ? 'var(--accent-primary)' : 'var(--border-light)'}`,
+                color: pathname === '/mdt/mesajlar' ? 'var(--bg-secondary)' : 'var(--text-secondary)',
                 fontWeight: 700,
                 fontSize: '0.84rem',
                 fontFamily: "'Oswald', sans-serif",
@@ -131,26 +133,26 @@ export default function MDTLayout({
               }}
               onMouseOver={e => {
                 if (pathname !== '/mdt/mesajlar') {
-                  e.currentTarget.style.backgroundColor = '#E5E7EB';
-                  e.currentTarget.style.color = '#1F2937';
+                  e.currentTarget.style.backgroundColor = 'var(--border-light)';
+                  e.currentTarget.style.color = 'var(--text-primary)';
                 }
               }}
               onMouseOut={e => {
                 if (pathname !== '/mdt/mesajlar') {
-                  e.currentTarget.style.backgroundColor = '#F3F4F6';
-                  e.currentTarget.style.color = '#4B5563';
+                  e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)';
+                  e.currentTarget.style.color = 'var(--text-secondary)';
                 }
               }}
             >
-              <i className="fa-solid fa-envelope-open-text" style={{ color: pathname === '/mdt/mesajlar' ? '#FFFFFF' : '#041632', fontSize: '1rem' }} />
+              <i className="fa-solid fa-envelope-open-text" style={{ color: pathname === '/mdt/mesajlar' ? 'var(--bg-secondary)' : 'var(--accent-primary)', fontSize: '1rem' }} />
               <span>GELEN KUTUSU</span>
               {unreadCount > 0 && (
                 <span style={{
                   position: 'absolute',
                   top: '-6px',
                   right: '-6px',
-                  backgroundColor: '#E84F2A',
-                  color: '#ffffff',
+                  backgroundColor: 'var(--accent-secondary)',
+                  color: 'var(--bg-secondary)',
                   fontSize: '0.68rem',
                   fontWeight: 900,
                   padding: '0.12rem 0.5rem',
@@ -162,17 +164,17 @@ export default function MDTLayout({
               )}
             </Link>
 
-            <Link href="/mdt/profil" style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', textDecoration: 'none', transition: 'all 0.15s', padding: '0.4rem 0.7rem 0.4rem 1rem', borderRadius: '8px', backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB' }} onMouseOver={e => { e.currentTarget.style.borderColor = '#D1D5DB'; e.currentTarget.style.backgroundColor = '#F9FAFB'; }} onMouseOut={e => { e.currentTarget.style.borderColor = '#E5E7EB'; e.currentTarget.style.backgroundColor = '#FFFFFF'; }}>
+            <Link href="/mdt/profil" style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', textDecoration: 'none', transition: 'all 0.15s', padding: '0.4rem 0.7rem 0.4rem 1rem', borderRadius: '8px', backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-light)' }} onMouseOver={e => { e.currentTarget.style.borderColor = 'var(--border-strong)'; e.currentTarget.style.backgroundColor = 'var(--bg-primary)'; }} onMouseOut={e => { e.currentTarget.style.borderColor = 'var(--border-light)'; e.currentTarget.style.backgroundColor = 'var(--bg-secondary)'; }}>
               <div style={{ textAlign: 'right' }}>
-                <div style={{ fontSize: '0.82rem', fontWeight: 800, color: '#041632', display: 'flex', alignItems: 'center', gap: '0.35rem', justifyContent: 'flex-end', fontFamily: "'Oswald', sans-serif", letterSpacing: '0.04em' }}>
-                  <span style={{ color: '#E84F2A' }}>#{user.badge}</span>
+                <div style={{ fontSize: '0.82rem', fontWeight: 800, color: 'var(--accent-primary)', display: 'flex', alignItems: 'center', gap: '0.35rem', justifyContent: 'flex-end', fontFamily: "'Oswald', sans-serif", letterSpacing: '0.04em' }}>
+                  <span style={{ color: 'var(--accent-secondary)' }}>#{user.badge}</span>
                   <span>{user.name}</span>
                 </div>
-                <div style={{ fontSize: '0.65rem', color: '#6B7280', fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase', marginTop: '2px' }}>
+                <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase', marginTop: '2px' }}>
                   {user.role === 'admin' ? 'SYSTEM ADMIN' : 'OFFICER'} • {user.rank || 'Patrol'}
                 </div>
               </div>
-              <div style={{ width: '36px', height: '36px', borderRadius: '6px', backgroundColor: '#041632', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFFFFF', fontWeight: 800, fontSize: '0.9rem', overflow: 'hidden', flexShrink: 0 }}>
+              <div style={{ width: '36px', height: '36px', borderRadius: '6px', backgroundColor: 'var(--accent-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--bg-secondary)', fontWeight: 800, fontSize: '0.9rem', overflow: 'hidden', flexShrink: 0 }}>
                 {user.profileImage ? (
                   <img src={user.profileImage} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 ) : (
@@ -181,12 +183,12 @@ export default function MDTLayout({
               </div>
             </Link>
 
-            <button onClick={handleLogout} style={{ backgroundColor: '#FEF2F2', border: '1px solid #FECACA', color: '#DC2626', borderRadius: '8px', cursor: 'pointer', width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.15s' }} onMouseOver={e => { e.currentTarget.style.backgroundColor = '#FEE2E2'; e.currentTarget.style.color = '#B91C1C'; }} onMouseOut={e => { e.currentTarget.style.backgroundColor = '#FEF2F2'; e.currentTarget.style.color = '#DC2626'; }} title="Sistemden Çık">
+            <button onClick={handleLogout} style={{ backgroundColor: 'var(--color-danger-bg)', border: '1px solid var(--color-danger-border)', color: 'var(--color-danger)', borderRadius: '8px', cursor: 'pointer', width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.15s' }} onMouseOver={e => { e.currentTarget.style.backgroundColor = 'var(--color-danger-border)'; e.currentTarget.style.color = 'var(--text-primary)'; }} onMouseOut={e => { e.currentTarget.style.backgroundColor = 'var(--color-danger-bg)'; e.currentTarget.style.color = 'var(--color-danger)'; }} title="Sistemden Çık">
               <i className="fa-solid fa-power-off" style={{ fontSize: '0.9rem' }} />
             </button>
           </div>
         ) : (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#041632', fontSize: '0.8rem', fontWeight: 700, fontFamily: "'Oswald', sans-serif" }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--accent-primary)', fontSize: '0.8rem', fontWeight: 700, fontFamily: "'Oswald', sans-serif" }}>
             <i className="fa-solid fa-circle-notch fa-spin" /> BAĞLANILIYOR...
           </div>
         )}
@@ -194,8 +196,8 @@ export default function MDTLayout({
 
       {/* ── CJIS COMPLIANT DISPATCH TICKER ── */}
       <div style={{
-        backgroundColor: '#FFFBEB',
-        borderBottom: '1px solid #FEF3C7',
+        backgroundColor: 'var(--color-warning-bg)',
+        borderBottom: '1px solid var(--color-warning-border)',
         height: '32px',
         display: 'flex',
         alignItems: 'center',
@@ -203,20 +205,20 @@ export default function MDTLayout({
         overflow: 'hidden'
       }}>
         <div style={{
-           backgroundColor: '#FEF3C7',
+           backgroundColor: 'var(--color-warning-border)',
            padding: '0 1.25rem',
            height: '100%',
            display: 'flex',
            alignItems: 'center',
            gap: '0.6rem',
-           borderRight: '1px solid #FDE68A',
-           color: '#92400E',
+           borderRight: '1px solid var(--color-warning-border)',
+           color: 'var(--color-warning)',
            fontSize: '0.72rem',
            fontWeight: 800,
            letterSpacing: '0.14em',
            flexShrink: 0
         }}>
-           <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#D97706', boxShadow: '0 0 8px #F59E0B', animation: 'ping-pulse 2s infinite' }} />
+           <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--color-warning)', boxShadow: '0 0 8px #F59E0B', animation: 'ping-pulse 2s infinite' }} />
            SYSTEM BROADCAST
         </div>
         <style jsx>{`
@@ -237,8 +239,8 @@ export default function MDTLayout({
           width: '280px', 
           minWidth: '280px',
           height: '100%',
-          backgroundColor: '#FFFFFF',
-          borderRight: '1px solid #E5E7EB', 
+          backgroundColor: 'var(--bg-secondary)',
+          borderRight: '1px solid var(--border-light)', 
           padding: '1.25rem 1rem', 
           display: 'flex', 
           flexDirection: 'column', 
@@ -249,8 +251,8 @@ export default function MDTLayout({
         }}>
           <style jsx global>{`
             aside::-webkit-scrollbar { width: 4px; }
-            aside::-webkit-scrollbar-track { background: #FFFFFF; }
-            aside::-webkit-scrollbar-thumb { background: #E5E7EB; border-radius: 10px; }
+            aside::-webkit-scrollbar-track { background: var(--bg-secondary); }
+            aside::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 10px; }
 
             .sidebar-link {
               position: relative;
@@ -264,7 +266,7 @@ export default function MDTLayout({
               text-decoration: none;
               font-size: 0.85rem;
               font-weight: 600;
-              color: #4B5563;
+              color: var(--text-secondary);
               transition: all 0.15s ease;
               border: 1px solid transparent;
               white-space: nowrap !important;
@@ -275,13 +277,13 @@ export default function MDTLayout({
               text-overflow: ellipsis !important;
             }
             .sidebar-link:hover {
-              color: #1F2937;
-              background-color: #F3F4F6;
+              color: var(--text-primary);
+              background-color: var(--bg-tertiary);
             }
             .sidebar-link.active {
-              color: #FFFFFF;
-              background-color: #041632;
-              border: 1px solid #041632;
+              color: var(--bg-secondary);
+              background-color: var(--accent-primary);
+              border: 1px solid var(--accent-primary);
               box-shadow: 0 4px 6px rgba(4, 22, 50, 0.2);
             }
             
@@ -292,24 +294,24 @@ export default function MDTLayout({
               display: flex;
               align-items: center;
               justify-content: center;
-              color: #6B7280;
+              color: var(--text-muted);
               font-size: 0.85rem;
               transition: all 0.15s ease;
               flex-shrink: 0;
             }
             .sidebar-link.active .icon-box {
-              color: #FFFFFF;
+              color: var(--bg-secondary);
             }
             .sidebar-link:hover .icon-box {
-              color: #374151;
+              color: var(--text-primary);
             }
             .sidebar-link.active:hover .icon-box {
-              color: #FFFFFF;
+              color: var(--bg-secondary);
             }
 
             .group-title {
               font-size: 0.7rem;
-              color: #9CA3AF;
+              color: var(--text-muted);
               text-transform: uppercase;
               letter-spacing: 0.1em;
               margin-top: 1.25rem;
@@ -322,8 +324,8 @@ export default function MDTLayout({
             .unread-badge {
               font-size: 0.6rem;
               font-weight: 800;
-              background-color: #E84F2A;
-              color: #ffffff;
+              background-color: var(--accent-secondary);
+              color: var(--bg-secondary);
               padding: 0.15rem 0.5rem;
               border-radius: 20px;
               letter-spacing: 0.05em;
@@ -363,7 +365,7 @@ export default function MDTLayout({
           <a href="/handbook/index.html?v=20260708_1" target="_blank" rel="noopener noreferrer" className="sidebar-link">
             <div className="icon-box"><i className="fa-solid fa-book-bookmark" /></div> 
             <span style={{ flex: 1 }}>Yönetmelikler</span>
-            <i className="fa-solid fa-arrow-up-right-from-square" style={{ fontSize: '0.68rem', color: '#041632', opacity: 0.5 }} />
+            <i className="fa-solid fa-arrow-up-right-from-square" style={{ fontSize: '0.68rem', color: 'var(--accent-primary)', opacity: 0.5 }} />
           </a>
           <Link href="/mdt/personel" className={`sidebar-link ${pathname === '/mdt/personel' ? 'active' : ''}`}>
             <div className="icon-box"><i className="fa-solid fa-users-viewfinder" /></div> <span style={{ flex: 1 }}>Personel Listesi</span>
@@ -371,7 +373,7 @@ export default function MDTLayout({
 
           {user?.role === 'admin' && (
             <>
-              <div className="group-title" style={{ color: '#E84F2A' }}>YÖNETİM</div>
+              <div className="group-title" style={{ color: 'var(--accent-secondary)' }}>YÖNETİM</div>
               <Link href="/mdt/admin" className={`sidebar-link ${pathname === '/mdt/admin' ? 'active' : ''}`}>
                 <div className="icon-box"><i className="fa-solid fa-shield-halved" /></div> <span style={{ flex: 1 }}>Admin Seçenekleri</span>
               </Link>
@@ -382,32 +384,32 @@ export default function MDTLayout({
           <div style={{ marginTop: 'auto', paddingTop: '1rem' }}>
             <div style={{
               padding: '0.85rem',
-              backgroundColor: '#F9FAFB',
+              backgroundColor: 'var(--bg-primary)',
               borderRadius: '14px',
-              border: '1px solid #E5E7EB'
+              border: '1px solid var(--border-light)'
             }}>
                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                   <div style={{ 
                     width: '32px', height: '32px', borderRadius: '8px', 
                     backgroundColor: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.2)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                    color: '#10B981', fontSize: '0.85rem'
+                    color: 'var(--color-success)', fontSize: '0.85rem'
                   }}>
                     <i className="fa-solid fa-lock" />
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: '0.58rem', color: '#10B981', letterSpacing: '0.08em', fontWeight: 800 }}>GÜVENLİ AĞ AKTİF</div>
-                    <div style={{ fontSize: '0.8rem', color: '#1F2937', fontWeight: 700, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{user?.name || 'Bilinmiyor'}</div>
+                    <div style={{ fontSize: '0.58rem', color: 'var(--color-success)', letterSpacing: '0.08em', fontWeight: 800 }}>GÜVENLİ AĞ AKTİF</div>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-primary)', fontWeight: 700, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{user?.name || 'Bilinmiyor'}</div>
                   </div>
                </div>
 
                <div style={{ display: 'flex', gap: '0.4rem', marginTop: '0.75rem' }}>
                   <Link href="/mdt/profil" style={{ flex: 1 }}>
-                    <button style={{ width: '100%', padding: '0.45rem', borderRadius: '8px', backgroundColor: '#FFFFFF', color: '#4B5563', border: '1px solid #D1D5DB', cursor: 'pointer', fontSize: '0.72rem', fontWeight: 700, transition: 'all 0.15s' }} onMouseOver={e => { e.currentTarget.style.backgroundColor = '#F3F4F6'; }}>
+                    <button style={{ width: '100%', padding: '0.45rem', borderRadius: '8px', backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)', border: '1px solid var(--border-strong)', cursor: 'pointer', fontSize: '0.72rem', fontWeight: 700, transition: 'all 0.15s' }} onMouseOver={e => { e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)'; }}>
                       PROFİL
                     </button>
                   </Link>
-                  <button onClick={handleLogout} style={{ width: '34px', padding: '0.45rem', borderRadius: '8px', backgroundColor: '#FEF2F2', color: '#DC2626', border: '1px solid #FECACA', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.15s' }} onMouseOver={e => { e.currentTarget.style.backgroundColor = '#FEE2E2'; }} title="Sistemden Çık">
+                  <button onClick={handleLogout} style={{ width: '34px', padding: '0.45rem', borderRadius: '8px', backgroundColor: 'var(--color-danger-bg)', color: 'var(--color-danger)', border: '1px solid var(--color-danger-border)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.15s' }} onMouseOver={e => { e.currentTarget.style.backgroundColor = 'var(--color-danger-border)'; }} title="Sistemden Çık">
                      <i className="fa-solid fa-power-off" style={{ fontSize: '0.75rem' }} />
                   </button>
                </div>

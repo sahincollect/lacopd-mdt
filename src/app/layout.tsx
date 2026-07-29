@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import { Toaster } from "react-hot-toast";
 import SpotlightCursor from "../components/SpotlightCursor";
 import { MotionConfig } from "framer-motion";
+import { ThemeProvider } from "../components/ThemeProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -32,33 +33,34 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tr" className={`${inter.variable} ${oswald.variable}`}>
+    <html lang="tr" className={`${inter.variable} ${oswald.variable}`} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
       </head>
       <body style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', margin: 0 }}>
         <MotionConfig reducedMotion="never">
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
         <SpotlightCursor />
         <Toaster 
           position="top-right"
           toastOptions={{
             duration: 3000,
             style: {
-              background: 'rgba(15, 23, 42, 0.85)',
-              color: '#fff',
+              background: 'var(--bg-secondary)',
+              color: 'var(--text-primary)',
               backdropFilter: 'blur(12px)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              border: '1px solid var(--border-light)',
               borderRadius: '12px',
               fontSize: '0.9rem',
               fontWeight: 500,
               boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)',
             },
             success: {
-              iconTheme: { primary: '#10b981', secondary: '#0f172a' },
+              iconTheme: { primary: 'var(--color-success)', secondary: 'var(--bg-secondary)' },
             },
             error: {
-              iconTheme: { primary: '#ef4444', secondary: '#0f172a' },
+              iconTheme: { primary: 'var(--color-danger)', secondary: 'var(--bg-secondary)' },
             },
           }}
         />
@@ -67,6 +69,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        </ThemeProvider>
         </MotionConfig>
       </body>
     </html>
