@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import ThemeToggle from '@/components/ThemeToggle';
 
 const DEPARTMENTS = [
   "Patrol Division",
@@ -90,11 +91,11 @@ export default function GirisPage() {
   const inputStyle: React.CSSProperties = {
     width: '100%',
     padding: '11px 14px',
-    border: '1.5px solid #D1D5DB',
+    border: '1.5px solid var(--border-strong)',
     borderRadius: '8px',
     fontSize: '0.9rem',
-    color: '#111827',
-    backgroundColor: '#FFFFFF',
+    color: 'var(--text-primary)',
+    backgroundColor: 'var(--bg-secondary)',
     outline: 'none',
     boxSizing: 'border-box',
     transition: 'border-color 0.2s, box-shadow 0.2s',
@@ -105,7 +106,7 @@ export default function GirisPage() {
     display: 'block',
     fontSize: '0.75rem',
     fontWeight: 700,
-    color: '#374151',
+    color: 'var(--text-secondary)',
     marginBottom: '6px',
     letterSpacing: '0.04em',
     textTransform: 'uppercase',
@@ -115,12 +116,12 @@ export default function GirisPage() {
     <>
       <style>{`
         html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
-        .lapd-input:focus { border-color: #041632 !important; box-shadow: 0 0 0 3px rgba(4,22,50,0.08) !important; }
-        .login-btn:hover { background-color: #E84F2A !important; }
+        .lapd-input:focus { border-color: var(--accent-primary) !important; box-shadow: 0 0 0 3px rgba(4,22,50,0.08) !important; }
+        .login-btn:hover { background-color: var(--accent-secondary) !important; }
         .tab-btn { transition: all 0.2s; }
-        .tab-btn:hover { color: #041632 !important; }
-        .back-link:hover { color: #E84F2A !important; }
-        .reg-btn:hover { background-color: #E84F2A !important; }
+        .tab-btn:hover { color: var(--accent-primary) !important; }
+        .back-link:hover { color: var(--accent-secondary) !important; }
+        .reg-btn:hover { background-color: var(--accent-secondary) !important; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
         .form-fade { animation: fadeIn 0.25s ease; }
       `}</style>
@@ -166,7 +167,7 @@ export default function GirisPage() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
               <div style={{
                 width: 48, height: 48,
-                backgroundColor: 'white',
+                backgroundColor: 'var(--bg-secondary)',
                 borderRadius: '10px',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
@@ -174,7 +175,7 @@ export default function GirisPage() {
                 <img src="/lapd-logo.png" alt="LAPD" style={{ width: 34, height: 34, objectFit: 'contain' }} />
               </div>
               <div>
-                <div style={{ color: 'white', fontWeight: 800, fontSize: '1rem', letterSpacing: '0.06em' }}>
+                <div style={{ color: 'var(--bg-secondary)', fontWeight: 800, fontSize: '1rem', letterSpacing: '0.06em' }}>
                   LOS ANGELES C.P.D.
                 </div>
                 <div style={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.1em' }}>
@@ -187,8 +188,8 @@ export default function GirisPage() {
             <div style={{ marginTop: 'auto', marginBottom: 'auto', paddingTop: '2rem' }}>
               <div style={{
                 display: 'inline-flex', alignItems: 'center', gap: '8px',
-                backgroundColor: '#E84F2A',
-                color: 'white',
+                backgroundColor: 'var(--accent-secondary)',
+                color: 'var(--bg-secondary)',
                 padding: '5px 14px',
                 borderRadius: '4px',
                 fontSize: '0.68rem',
@@ -202,7 +203,7 @@ export default function GirisPage() {
               </div>
 
               <h1 style={{
-                color: 'white',
+                color: 'var(--bg-secondary)',
                 fontSize: '3.2rem',
                 fontWeight: 900,
                 lineHeight: 1.1,
@@ -210,7 +211,7 @@ export default function GirisPage() {
                 letterSpacing: '-0.02em',
               }}>
                 Protect.<br />Serve.<br />
-                <span style={{ color: '#E84F2A' }}>Command.</span>
+                <span style={{ color: 'var(--accent-secondary)' }}>Command.</span>
               </h1>
 
               <p style={{
@@ -243,7 +244,7 @@ export default function GirisPage() {
         {/* ── RIGHT PANEL: FORM ── */}
         <div style={{
           flex: 1,
-          backgroundColor: '#F9FAFB',
+          backgroundColor: 'var(--bg-primary)',
           display: 'flex',
           flexDirection: 'column',
           overflow: 'hidden',
@@ -251,23 +252,26 @@ export default function GirisPage() {
           {/* Top bar */}
           <div style={{
             padding: '1.25rem 2.5rem',
-            backgroundColor: 'white',
-            borderBottom: '1px solid #E5E7EB',
+            backgroundColor: 'var(--bg-secondary)',
+            borderBottom: '1px solid var(--border-light)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
           }}>
-            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#9CA3AF', letterSpacing: '0.06em' }}>
+            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.06em' }}>
               MDT PERSONEL PORTALI
             </div>
-            <Link href="/" className="back-link" style={{
-              display: 'flex', alignItems: 'center', gap: '6px',
-              fontSize: '0.8rem', fontWeight: 600, color: '#6B7280',
-              textDecoration: 'none', transition: 'color 0.2s',
-            }}>
-              <i className="fa-solid fa-arrow-left"></i>
-              Ana Sayfaya Dön
-            </Link>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+              <ThemeToggle />
+              <Link href="/" className="back-link" style={{
+                display: 'flex', alignItems: 'center', gap: '6px',
+                fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-muted)',
+                textDecoration: 'none', transition: 'color 0.2s',
+              }}>
+                <i className="fa-solid fa-arrow-left"></i>
+                Ana Sayfaya Dön
+              </Link>
+            </div>
           </div>
 
           {/* Form area */}
@@ -284,7 +288,7 @@ export default function GirisPage() {
               {/* Tabs */}
               <div style={{
                 display: 'flex',
-                backgroundColor: '#E5E7EB',
+                backgroundColor: 'var(--border-light)',
                 padding: '4px',
                 borderRadius: '10px',
                 marginBottom: '2rem',
@@ -300,8 +304,8 @@ export default function GirisPage() {
                       padding: '9px',
                       border: 'none',
                       borderRadius: '8px',
-                      backgroundColor: activeTab === tab ? 'white' : 'transparent',
-                      color: activeTab === tab ? '#041632' : '#6B7280',
+                      backgroundColor: activeTab === tab ? 'var(--bg-secondary)' : 'transparent',
+                      color: activeTab === tab ? 'var(--accent-primary)' : 'var(--text-muted)',
                       fontWeight: 700,
                       fontSize: '0.85rem',
                       cursor: 'pointer',
@@ -317,10 +321,10 @@ export default function GirisPage() {
               {activeTab === 'login' ? (
                 <div className="form-fade">
                   <div style={{ marginBottom: '1.75rem' }}>
-                    <h2 style={{ margin: '0 0 6px', fontSize: '1.6rem', fontWeight: 800, color: '#041632', letterSpacing: '-0.02em' }}>
+                    <h2 style={{ margin: '0 0 6px', fontSize: '1.6rem', fontWeight: 800, color: 'var(--accent-primary)', letterSpacing: '-0.02em' }}>
                       Hoş Geldiniz
                     </h2>
-                    <p style={{ margin: 0, fontSize: '0.85rem', color: '#9CA3AF' }}>
+                    <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                       MDT sistemine erişmek için giriş yapın.
                     </p>
                   </div>
@@ -339,7 +343,7 @@ export default function GirisPage() {
 
                   <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
                     <div>
-                      <label style={labelStyle}>Sicil / Rozet Numarası <span style={{ color: '#E84F2A' }}>*</span></label>
+                      <label style={labelStyle}>Sicil / Rozet Numarası <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
                       <input
                         className="lapd-input"
                         type="text"
@@ -352,7 +356,7 @@ export default function GirisPage() {
                     </div>
 
                     <div>
-                      <label style={labelStyle}>Güvenlik Şifresi <span style={{ color: '#E84F2A' }}>*</span></label>
+                      <label style={labelStyle}>Güvenlik Şifresi <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
                       <input
                         className="lapd-input"
                         type="password"
@@ -370,9 +374,9 @@ export default function GirisPage() {
                         id="remember"
                         checked={rememberMe}
                         onChange={e => setRememberMe(e.target.checked)}
-                        style={{ width: 16, height: 16, cursor: 'pointer', accentColor: '#041632' }}
+                        style={{ width: 16, height: 16, cursor: 'pointer', accentColor: 'var(--accent-primary)' }}
                       />
-                      <label htmlFor="remember" style={{ fontSize: '0.82rem', color: '#6B7280', cursor: 'pointer', userSelect: 'none' }}>
+                      <label htmlFor="remember" style={{ fontSize: '0.82rem', color: 'var(--text-muted)', cursor: 'pointer', userSelect: 'none' }}>
                         Oturumu 24 saat boyunca açık tut
                       </label>
                     </div>
@@ -384,8 +388,8 @@ export default function GirisPage() {
                       style={{
                         width: '100%',
                         padding: '13px',
-                        backgroundColor: '#041632',
-                        color: 'white',
+                        backgroundColor: 'var(--accent-primary)',
+                        color: 'var(--bg-secondary)',
                         border: 'none',
                         borderRadius: '8px',
                         fontSize: '0.9rem',
@@ -409,9 +413,9 @@ export default function GirisPage() {
                     </button>
                   </form>
 
-                  <p style={{ textAlign: 'center', fontSize: '0.78rem', color: '#9CA3AF', marginTop: '1.5rem' }}>
+                  <p style={{ textAlign: 'center', fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '1.5rem' }}>
                     Hesabınız yok mu?{' '}
-                    <button onClick={() => setActiveTab('register')} style={{ background: 'none', border: 'none', color: '#041632', fontWeight: 700, cursor: 'pointer', fontSize: 'inherit', padding: 0, fontFamily: 'inherit' }}>
+                    <button onClick={() => setActiveTab('register')} style={{ background: 'none', border: 'none', color: 'var(--accent-primary)', fontWeight: 700, cursor: 'pointer', fontSize: 'inherit', padding: 0, fontFamily: 'inherit' }}>
                       Başvuru Yapın
                     </button>
                   </p>
@@ -423,13 +427,13 @@ export default function GirisPage() {
                       <div style={{ width: 64, height: 64, backgroundColor: '#DCFCE7', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', fontSize: '1.8rem', color: '#16A34A' }}>
                         <i className="fa-solid fa-check"></i>
                       </div>
-                      <h3 style={{ margin: '0 0 8px', color: '#041632', fontWeight: 800, fontSize: '1.3rem' }}>Başvuru Alındı!</h3>
-                      <p style={{ margin: '0 0 1.5rem', color: '#6B7280', fontSize: '0.88rem', lineHeight: 1.6 }}>
+                      <h3 style={{ margin: '0 0 8px', color: 'var(--accent-primary)', fontWeight: 800, fontSize: '1.3rem' }}>Başvuru Alındı!</h3>
+                      <p style={{ margin: '0 0 1.5rem', color: 'var(--text-muted)', fontSize: '0.88rem', lineHeight: 1.6 }}>
                         Yetki talebiniz yönetime iletildi.<br />Onaylandıktan sonra giriş yapabilirsiniz.
                       </p>
                       <button
                         onClick={() => { setActiveTab('login'); setRegSuccess(false); }}
-                        style={{ padding: '10px 24px', backgroundColor: '#041632', color: 'white', border: 'none', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}
+                        style={{ padding: '10px 24px', backgroundColor: 'var(--accent-primary)', color: 'var(--bg-secondary)', border: 'none', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}
                       >
                         Giriş Ekranına Dön
                       </button>
@@ -437,10 +441,10 @@ export default function GirisPage() {
                   ) : (
                     <>
                       <div style={{ marginBottom: '1.75rem' }}>
-                        <h2 style={{ margin: '0 0 6px', fontSize: '1.6rem', fontWeight: 800, color: '#041632', letterSpacing: '-0.02em' }}>
+                        <h2 style={{ margin: '0 0 6px', fontSize: '1.6rem', fontWeight: 800, color: 'var(--accent-primary)', letterSpacing: '-0.02em' }}>
                           Personel Başvurusu
                         </h2>
-                        <p style={{ margin: 0, fontSize: '0.85rem', color: '#9CA3AF' }}>
+                        <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                           MDT erişimi için bilgilerinizi eksiksiz doldurun.
                         </p>
                       </div>
@@ -460,31 +464,31 @@ export default function GirisPage() {
                       <form onSubmit={handleRegister} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                           <div>
-                            <label style={labelStyle}>Rozet No <span style={{ color: '#E84F2A' }}>*</span></label>
+                            <label style={labelStyle}>Rozet No <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
                             <input className="lapd-input" type="text" placeholder="1234" value={regBadge} onChange={e => setRegBadge(e.target.value)} required style={inputStyle} />
                           </div>
                           <div>
-                            <label style={labelStyle}>İsim Soyisim <span style={{ color: '#E84F2A' }}>*</span></label>
+                            <label style={labelStyle}>İsim Soyisim <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
                             <input className="lapd-input" type="text" placeholder="John Doe" value={regName} onChange={e => setRegName(e.target.value)} required style={inputStyle} />
                           </div>
                         </div>
 
                         <div>
-                          <label style={labelStyle}>Birim / Departman <span style={{ color: '#E84F2A' }}>*</span></label>
+                          <label style={labelStyle}>Birim / Departman <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
                           <select value={regDept} onChange={e => setRegDept(e.target.value)} className="lapd-input" style={{ ...inputStyle, cursor: 'pointer' }}>
                             {DEPARTMENTS.map(d => <option key={d}>{d}</option>)}
                           </select>
                         </div>
 
                         <div>
-                          <label style={labelStyle}>Rütbe <span style={{ color: '#E84F2A' }}>*</span></label>
+                          <label style={labelStyle}>Rütbe <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
                           <select value={regRank} onChange={e => setRegRank(e.target.value)} className="lapd-input" style={{ ...inputStyle, cursor: 'pointer' }}>
                             {RANKS.map(r => <option key={r}>{r}</option>)}
                           </select>
                         </div>
 
                         <div>
-                          <label style={labelStyle}>Şifre <span style={{ color: '#E84F2A' }}>*</span></label>
+                          <label style={labelStyle}>Şifre <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
                           <input className="lapd-input" type="password" placeholder="••••••••" value={regPassword} onChange={e => setRegPassword(e.target.value)} required style={inputStyle} />
                         </div>
 
@@ -494,7 +498,7 @@ export default function GirisPage() {
                           className="reg-btn"
                           style={{
                             width: '100%', padding: '13px',
-                            backgroundColor: '#041632', color: 'white',
+                            backgroundColor: 'var(--accent-primary)', color: 'var(--bg-secondary)',
                             border: 'none', borderRadius: '8px',
                             fontSize: '0.9rem', fontWeight: 800,
                             cursor: regLoading ? 'not-allowed' : 'pointer',
@@ -518,11 +522,11 @@ export default function GirisPage() {
               <div style={{
                 marginTop: '2rem',
                 paddingTop: '1.25rem',
-                borderTop: '1px solid #E5E7EB',
+                borderTop: '1px solid var(--border-light)',
                 display: 'flex',
                 justifyContent: 'space-between',
                 fontSize: '0.7rem',
-                color: '#9CA3AF',
+                color: 'var(--text-muted)',
               }}>
                 <span><i className="fa-solid fa-lock" style={{ marginRight: '5px' }}></i>AES-256 TLS 1.3</span>
                 <span>© 2026 LAC Police Department</span>
