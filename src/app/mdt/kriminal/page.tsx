@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import toast from "react-hot-toast";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
@@ -105,9 +104,9 @@ export default function SuçluVeritabanı() {
 
   if (loading) return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "60vh", color: "var(--text-secondary)", flexDirection: "column", gap: "1.5rem" }}>
-      <motion.i 
-        animate={{ rotate: 360 }} 
-        transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+      <i 
+        
+       
         className="fa-solid fa-circle-notch" 
         style={{ fontSize: "2.5rem", color: "var(--accent-primary)" }}
       />
@@ -129,10 +128,10 @@ export default function SuçluVeritabanı() {
   };
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+    <div 
+     
+     
+     
       style={{ color: "#fff", paddingBottom: "3rem", width: "100%", maxWidth: "1800px", margin: "0 auto", padding: "0 2rem" }}
     >
       {/* Header */}
@@ -146,7 +145,7 @@ export default function SuçluVeritabanı() {
           </p>
         </div>
         <div>
-          <motion.button 
+          <button 
             whileHover={{ scale: 1.05, backgroundColor: "rgba(14, 165, 233, 0.2)", boxShadow: "0 0 30px rgba(14, 165, 233, 0.4), inset 0 0 15px rgba(14, 165, 233, 0.2)" }}
             whileTap={{ scale: 0.95 }}
             className="btn"
@@ -168,17 +167,17 @@ export default function SuçluVeritabanı() {
             }}
           >
             {showAddForm ? <><i className="fa-solid fa-xmark"></i> İPTAL ET</> : <><i className="fa-solid fa-plus"></i> YENİ SABIKA KAYDI</>}
-          </motion.button>
+          </button>
         </div>
       </div>
 
-      <AnimatePresence>
+      <>
         {/* Form */}
         {showAddForm && (
-          <motion.div 
-            initial={{ opacity: 0, height: 0, marginBottom: 0 }}
-            animate={{ opacity: 1, height: "auto", marginBottom: "2.5rem" }}
-            exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+          <div 
+           
+           
+           
             style={{ overflow: 'hidden' }}
           >
             <div style={{ 
@@ -220,20 +219,20 @@ export default function SuçluVeritabanı() {
                 </div>
 
                 <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem' }}>
-                  <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" disabled={submitting} style={{ 
+                  <button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" disabled={submitting} style={{ 
                     flex: 1, padding: '1rem', borderRadius: '12px', border: 'none',
                     background: "linear-gradient(135deg, #10B981, #059669)", color: '#fff', fontWeight: 800,
                     cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.7 : 1,
                     boxShadow: submitting ? 'none' : '0 8px 25px rgba(14, 165, 233, 0.3)'
                   }}>
                     {submitting ? <><i className="fa-solid fa-spinner fa-spin" style={{ marginRight: '0.5rem' }}></i> İŞLENİYOR...</> : <><i className="fa-solid fa-save" style={{ marginRight: '0.5rem' }}></i> {editingId ? "GÜNCELLE" : "KAYDET"}</>}
-                  </motion.button>
+                  </button>
                 </div>
               </form>
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
+      </>
 
       {/* Kayıt Listesi */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
@@ -257,7 +256,7 @@ export default function SuçluVeritabanı() {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         {filteredCriminals.length === 0 ? (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ 
+          <div style={{ 
             backgroundColor: 'rgba(15, 23, 42, 0.4)', borderRadius: '16px', padding: '4rem 2rem', 
             textAlign: 'center', border: '1px dashed rgba(255,255,255,0.1)' 
           }}>
@@ -265,9 +264,9 @@ export default function SuçluVeritabanı() {
             <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', margin: 0 }}>
               Sistemde kayıtlı veya aramanızla eşleşen şüpheli bulunamadı.
             </p>
-          </motion.div>
+          </div>
         ) : (
-          <motion.div variants={containerVariants} initial="hidden" animate="show" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             {filteredCriminals.map((c: any) => {
               const canModify = user && (user.id === c.officerId || user.role === 'admin');
               
@@ -275,7 +274,7 @@ export default function SuçluVeritabanı() {
               const crimesList = c.crimes ? c.crimes.split(',').map((item: string) => item.trim()) : [];
               
               return (
-                <motion.div key={c.id} variants={itemVariants} whileHover={{ y: -5, boxShadow: '0 15px 40px rgba(14, 165, 233, 0.15)' }} style={{ 
+                <div key={c.id} whileHover={{ y: -5, boxShadow: '0 15px 40px rgba(14, 165, 233, 0.15)' }} style={{ 
                   backgroundColor: 'rgba(15, 23, 42, 0.7)', 
                   backdropFilter: 'blur(12px)',
                   WebkitBackdropFilter: 'blur(12px)',
@@ -321,13 +320,13 @@ export default function SuçluVeritabanı() {
                     </div>
                   </div>
 
-                  <AnimatePresence initial={false}>
+                  <>
                     {expandedIds.includes(c.id) && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
+                      <div
+                       
+                       
+                       
+                       
                         style={{ overflow: 'hidden', display: 'flex', flexDirection: 'column', flex: 1, position: 'relative', zIndex: 2 }}
                       >
 
@@ -396,16 +395,16 @@ export default function SuçluVeritabanı() {
                       </div>
                     )}
                   </div>
-                      </motion.div>
+                      </div>
                     )}
-                  </AnimatePresence>
+                  </>
 
-                </motion.div>
+                </div>
               );
             })}
-          </motion.div>
+          </div>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 }

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
 
 const ACCENT = "var(--lapd-orange)";
 const ACCENT_BG = "var(--lapd-gray-bg)";
@@ -106,9 +105,9 @@ export default function SikayetBasvurusu() {
       </div>
 
       <main style={{ position: "relative", zIndex: 10, padding: "5rem 2rem 4rem", maxWidth: "800px", margin: "0 auto" }}>
-        <AnimatePresence mode="wait">
+        <>
           {submitted ? (
-            <motion.div key="success" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} style={{ textAlign: "center", padding: "4rem 2rem", backgroundColor: 'white', border: '1px solid var(--lapd-border)' }}>
+            <div key="success" style={{ textAlign: "center", padding: "4rem 2rem", backgroundColor: 'white', border: '1px solid var(--lapd-border)' }}>
               <div style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "var(--lapd-gray-bg)", border: `2px solid var(--lapd-border)`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 2rem" }}>
                 <i className="fa-solid fa-check" style={{ fontSize: "1.8rem", color: ACCENT }} />
               </div>
@@ -123,9 +122,9 @@ export default function SikayetBasvurusu() {
                 <Link href="/basvurular" style={{ padding: "0.85rem 2rem", backgroundColor: ACCENT, color: "white", textDecoration: "none", fontWeight: 700 }}>Başvurulara Dön</Link>
                 <Link href="/" style={{ padding: "0.85rem 2rem", backgroundColor: "var(--lapd-gray-bg)", border: "1px solid var(--lapd-border)", color: "var(--lapd-text-dark)", textDecoration: "none", fontWeight: 600 }}>Ana Sayfa</Link>
               </div>
-            </motion.div>
+            </div>
           ) : (
-            <motion.div key="form" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <div key="form">
               <div style={{ marginBottom: "3rem", textAlign: "center" }}>
                 <div style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", backgroundColor: "var(--lapd-gray-bg)", border: `1px solid var(--lapd-border)`, padding: "0.4rem 1.25rem", marginBottom: "1.5rem" }}>
                   <i className="fa-solid fa-triangle-exclamation" style={{ color: ACCENT, fontSize: "0.85rem" }} />
@@ -248,9 +247,9 @@ export default function SikayetBasvurusu() {
                   </div>
                 </div>
               </form>
-            </motion.div>
+            </div>
           )}
-        </AnimatePresence>
+        </>
       </main>
     </div>
   );

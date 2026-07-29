@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
 interface MDTIntroProps {
   user: { name: string; badge: string; rank: string } | null;
@@ -57,12 +56,12 @@ export default function MDTIntro({ user, onComplete }: MDTIntroProps) {
   if (phase === "done") return null;
 
   return (
-    <AnimatePresence>
-      <motion.div
+    <>
+      <div
         key="intro"
-        initial={{ opacity: 1 }}
-        animate={phase === "flash" ? { opacity: [1, 0.05, 1, 0] } : { opacity: 1 }}
-        transition={phase === "flash" ? { duration: 0.6, times: [0, 0.2, 0.5, 1] } : {}}
+       
+       
+       
         style={{
           position: "fixed",
           inset: 0,
@@ -137,13 +136,13 @@ export default function MDTIntro({ user, onComplete }: MDTIntroProps) {
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem", textAlign: "center" }}>
 
           {/* LAC Logo / System Boot */}
-          <AnimatePresence>
+          <>
             {(phase === "boot" || phase === "badge" || phase === "name" || phase === "rank" || phase === "flash") && (
-              <motion.div
+              <div
                 key="logo"
-                initial={{ opacity: 0, scale: 0.7 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+               
+               
+               
                 style={{ marginBottom: "2.5rem", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.75rem" }}
               >
                 {/* Hex Badge */}
@@ -181,18 +180,18 @@ export default function MDTIntro({ user, onComplete }: MDTIntroProps) {
                 <div style={{ fontSize: "0.65rem", color: "rgba(59,130,246,0.5)", letterSpacing: "0.35em", fontFamily: "monospace", textTransform: "uppercase" }}>
                   LAC — MOBILE DISPATCH TERMINAL
                 </div>
-              </motion.div>
+              </div>
             )}
-          </AnimatePresence>
+          </>
 
           {/* Badge Number */}
-          <AnimatePresence>
+          <>
             {(phase === "badge" || phase === "name" || phase === "rank" || phase === "flash") && (
-              <motion.div
+              <div
                 key="badge"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
+               
+               
+               
                 style={{
                   fontSize: "0.72rem", color: "rgba(255,255,255,0.3)",
                   letterSpacing: "0.25em", fontFamily: "monospace",
@@ -200,18 +199,18 @@ export default function MDTIntro({ user, onComplete }: MDTIntroProps) {
                 }}
               >
                 ROZET #{user?.badge || "———"}
-              </motion.div>
+              </div>
             )}
-          </AnimatePresence>
+          </>
 
           {/* HOŞ GELDİNİZ label */}
-          <AnimatePresence>
+          <>
             {(phase === "name" || phase === "rank" || phase === "flash") && (
-              <motion.div
+              <div
                 key="welcome-label"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
+               
+               
+               
                 style={{
                   fontSize: "0.85rem",
                   color: "rgba(255,255,255,0.25)",
@@ -222,18 +221,18 @@ export default function MDTIntro({ user, onComplete }: MDTIntroProps) {
                 }}
               >
                 HOŞ GELDİNİZ
-              </motion.div>
+              </div>
             )}
-          </AnimatePresence>
+          </>
 
           {/* Full Name — typewriter */}
-          <AnimatePresence>
+          <>
             {(phase === "name" || phase === "rank" || phase === "flash") && (
-              <motion.h1
+              <h1
                 key="name"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.2 }}
+               
+               
+               
                 style={{
                   fontFamily: "'Oswald', sans-serif",
                   fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
@@ -256,18 +255,18 @@ export default function MDTIntro({ user, onComplete }: MDTIntroProps) {
                     &nbsp;
                   </span>
                 )}
-              </motion.h1>
+              </h1>
             )}
-          </AnimatePresence>
+          </>
 
           {/* Rank */}
-          <AnimatePresence>
+          <>
             {(phase === "rank" || phase === "flash") && (
-              <motion.div
+              <div
                 key="rank"
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
+               
+               
+               
                 style={{
                   marginTop: "1rem",
                   display: "flex",
@@ -287,28 +286,28 @@ export default function MDTIntro({ user, onComplete }: MDTIntroProps) {
                   {user?.rank || "MEMUR"} — LOS ANGELES P.D.
                 </span>
                 <div style={{ flex: 1, height: "1px", width: "60px", background: "linear-gradient(to left, transparent, rgba(59,130,246,0.4))" }} />
-              </motion.div>
+              </div>
             )}
-          </AnimatePresence>
+          </>
 
           {/* Loading bar */}
-          <AnimatePresence>
+          <>
             {(phase === "rank" || phase === "flash") && (
-              <motion.div
+              <div
                 key="loadbar"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3, delay: 0.3 }}
+               
+               
+               
                 style={{ marginTop: "2.5rem", width: "280px" }}
               >
                 <div style={{
                   height: "2px", backgroundColor: "rgba(255,255,255,0.06)",
                   borderRadius: "2px", overflow: "hidden"
                 }}>
-                  <motion.div
-                    initial={{ width: "0%" }}
-                    animate={{ width: "100%" }}
-                    transition={{ duration: 1.2, ease: "linear" }}
+                  <div
+                   
+                   
+                   
                     style={{
                       height: "100%",
                       background: "linear-gradient(90deg, #3B82F6, #8B5CF6)",
@@ -320,19 +319,19 @@ export default function MDTIntro({ user, onComplete }: MDTIntroProps) {
                 <div style={{ marginTop: "0.6rem", fontSize: "0.62rem", color: "rgba(255,255,255,0.2)", letterSpacing: "0.15em", fontFamily: "monospace", textAlign: "center" }}>
                   SİSTEM YETKİLENDİRMESİ TAMAMLANDI
                 </div>
-              </motion.div>
+              </div>
             )}
-          </AnimatePresence>
+          </>
         </div>
 
         {/* Skip button */}
-        <AnimatePresence>
+        <>
           {showSkip && phase !== "flash" && (
-            <motion.button
+            <button
               key="skip"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+             
+             
+             
               onClick={() => { timeouts.current.forEach(clearTimeout); setPhase("done"); onComplete(); }}
               style={{
                 position: "absolute",
@@ -352,10 +351,10 @@ export default function MDTIntro({ user, onComplete }: MDTIntroProps) {
               onMouseOut={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = "rgba(255,255,255,0.3)"; }}
             >
               GEÇ →
-            </motion.button>
+            </button>
           )}
-        </AnimatePresence>
-      </motion.div>
-    </AnimatePresence>
+        </>
+      </div>
+    </>
   );
 }

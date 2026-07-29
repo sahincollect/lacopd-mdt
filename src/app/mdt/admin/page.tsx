@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import toast from "react-hot-toast";
 import useSWR from 'swr';
 import { fetcher } from '@/lib/fetcher';
@@ -197,11 +196,11 @@ export default function AdminOptionsPage() {
         </div>
       </div>
 
-      <AnimatePresence mode="wait">
+      <>
         
         {/* ── TAB 1: SYSTEM & MEDIA ── */}
         {activeTab === "SISTEM" && (
-          <motion.div key="sistem" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} transition={{ duration: 0.2 }}>
+          <div key="sistem">
             <div style={{ display: "flex", gap: "2rem", flexDirection: "column" }}>
               {/* Reset Shifts */}
               <div style={{ background: "linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(15, 23, 42, 0.4) 100%)", border: "1px solid rgba(239, 68, 68, 0.2)", borderRadius: "20px", padding: "2rem 2.5rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1.5rem" }}>
@@ -259,12 +258,12 @@ export default function AdminOptionsPage() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         )}
 
         {/* ── TAB 2: DEPARTMAN (BİRİM) BAŞVURULARI ── */}
         {activeTab === "DEPARTMAN" && (
-          <motion.div key="departman" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} transition={{ duration: 0.2 }}>
+          <div key="departman">
             <div style={{ display: "grid", gap: "1.25rem" }}>
               {applications.length === 0 ? (
                 <div style={{ textAlign: "center", padding: "4rem", color: "#64748B", background: "rgba(15, 23, 42, 0.3)", borderRadius: "20px", border: "1px dashed rgba(255,255,255,0.06)" }}>Henüz birim başvurusu bulunmuyor.</div>
@@ -298,12 +297,12 @@ export default function AdminOptionsPage() {
                 );
               })}
             </div>
-          </motion.div>
+          </div>
         )}
 
         {/* ── TAB 3: SİVİL BAŞVURULAR ── */}
         {activeTab === "SIVIL" && (
-          <motion.div key="sivil" initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} transition={{ duration: 0.2 }}>
+          <div key="sivil">
             <div style={{ display: "grid", gap: "1.25rem" }}>
               {civilApplications.length === 0 ? (
                 <div style={{ textAlign: "center", padding: "4rem", color: "#64748B", background: "rgba(15, 23, 42, 0.3)", borderRadius: "20px", border: "1px dashed rgba(255,255,255,0.06)" }}>Henüz sivil başvuru bulunmuyor.</div>
@@ -358,9 +357,9 @@ export default function AdminOptionsPage() {
                 );
               })}
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
+      </>
     </div>
   );
 }

@@ -2,7 +2,6 @@
 
 import { useEffect, useState, useCallback, useMemo } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
 import useSWR from 'swr';
 import { fetcher } from '@/lib/fetcher';
 
@@ -237,10 +236,10 @@ export default function ProfilPage() {
         {/* ================= LEFT COLUMN: HOLOGRAPHIC ID CARD ================= */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', position: 'sticky', top: '2rem' }}>
           
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+          <div 
+           
+           
+           
             style={{ position: 'relative' }}
           >
             {/* Holographic Glowing Frame */}
@@ -254,9 +253,9 @@ export default function ProfilPage() {
             }}>
               
               {/* Scanning Laser Line */}
-              <motion.div 
-                animate={{ top: ['0%', '100%', '0%'] }}
-                transition={{ duration: 4, ease: "linear", repeat: Infinity }}
+              <div 
+               
+               
                 style={{ position: 'absolute', left: 0, right: 0, height: '2px', background: `linear-gradient(90deg, transparent, ${primaryColor}, transparent)`, boxShadow: `0 0 10px ${primaryColor}`, zIndex: 10, opacity: 0.6 }}
               />
 
@@ -337,10 +336,10 @@ export default function ProfilPage() {
                  }}></div>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* EXPERIMENTAL DUTY BUTTON */}
-          <motion.button
+          <button
             whileHover={{ scale: 1.02, boxShadow: `0 0 30px ${primaryColor}60` }}
             whileTap={{ scale: 0.98 }}
             onClick={toggleDuty}
@@ -363,14 +362,14 @@ export default function ProfilPage() {
             <span style={{ fontSize: '0.7rem', color: primaryColor, letterSpacing: '0.2em', zIndex: 1 }}>
                {isOnDuty ? 'VERİLER KAYDEDİLİYOR...' : 'SİSTEM BAĞLANTISI BEKLENİYOR'}
             </span>
-          </motion.button>
+          </button>
         </div>
 
         {/* ================= RIGHT COLUMN: EXPERIMENTAL PANELS ================= */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem' }}>
           
           {/* PERFORMANCE HUD */}
-          <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.1 }} style={{ gridColumn: '1 / -1', backgroundColor: 'rgba(10, 15, 30, 0.6)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', padding: '2rem', backdropFilter: 'blur(16px)', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ gridColumn: '1 / -1', backgroundColor: 'rgba(10, 15, 30, 0.6)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', padding: '2rem', backdropFilter: 'blur(16px)', position: 'relative', overflow: 'hidden' }}>
             <div style={{ position: 'absolute', top: 0, left: 0, width: '40px', height: '40px', borderTop: `3px solid ${primaryColor}`, borderLeft: `3px solid ${primaryColor}`, borderTopLeftRadius: '24px' }}></div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
               <h3 style={{ margin: 0, color: '#fff', fontSize: '1.2rem', fontFamily: "'Oswald', sans-serif", letterSpacing: '0.1em', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
@@ -391,10 +390,10 @@ export default function ProfilPage() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* QUICK TERMINALS */}
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }} style={{ backgroundColor: 'rgba(10, 15, 30, 0.6)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', padding: '2rem', backdropFilter: 'blur(16px)' }}>
+          <div style={{ backgroundColor: 'rgba(10, 15, 30, 0.6)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', padding: '2rem', backdropFilter: 'blur(16px)' }}>
             <h3 style={{ margin: '0 0 1.5rem 0', color: '#fff', fontSize: '1.1rem', fontFamily: "'Oswald', sans-serif", letterSpacing: '0.1em', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
               <i className="fa-solid fa-terminal" style={{ color: '#0369a1' }}></i> HIZLI ERİŞİM
             </h3>
@@ -407,25 +406,25 @@ export default function ProfilPage() {
               ].map((btn, i) => (
                 btn.targetBlank ? (
                   <a key={i} href={btn.href} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-                    <motion.div whileHover={{ scale: 1.05, backgroundColor: `${btn.color}20`, borderColor: `${btn.color}50` }} style={{ backgroundColor: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '14px', padding: '1.25rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', transition: 'all 0.2s' }}>
+                    <div whileHover={{ scale: 1.05, backgroundColor: `${btn.color}20`, borderColor: `${btn.color}50` }} style={{ backgroundColor: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '14px', padding: '1.25rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', transition: 'all 0.2s' }}>
                       <i className={`fa-solid ${btn.icon}`} style={{ fontSize: '1.5rem', color: btn.color }} />
                       <span style={{ color: '#e2e8f0', fontSize: '0.8rem', fontWeight: 600 }}>{btn.label}</span>
-                    </motion.div>
+                    </div>
                   </a>
                 ) : (
                   <Link key={i} href={btn.href} style={{ textDecoration: 'none' }}>
-                    <motion.div whileHover={{ scale: 1.05, backgroundColor: `${btn.color}20`, borderColor: `${btn.color}50` }} style={{ backgroundColor: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '14px', padding: '1.25rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', transition: 'all 0.2s' }}>
+                    <div whileHover={{ scale: 1.05, backgroundColor: `${btn.color}20`, borderColor: `${btn.color}50` }} style={{ backgroundColor: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '14px', padding: '1.25rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', transition: 'all 0.2s' }}>
                       <i className={`fa-solid ${btn.icon}`} style={{ fontSize: '1.5rem', color: btn.color }} />
                       <span style={{ color: '#e2e8f0', fontSize: '0.8rem', fontWeight: 600 }}>{btn.label}</span>
-                    </motion.div>
+                    </div>
                   </Link>
                 )
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* SYSTEM STATUS */}
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }} style={{ backgroundColor: 'rgba(10, 15, 30, 0.6)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', padding: '2rem', backdropFilter: 'blur(16px)' }}>
+          <div style={{ backgroundColor: 'rgba(10, 15, 30, 0.6)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', padding: '2rem', backdropFilter: 'blur(16px)' }}>
             <h3 style={{ margin: '0 0 1.5rem 0', color: '#fff', fontSize: '1.1rem', fontFamily: "'Oswald', sans-serif", letterSpacing: '0.1em', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
               <i className="fa-solid fa-network-wired" style={{ color: '#10b981' }}></i> SİSTEM DURUMU
             </h3>
@@ -447,10 +446,10 @@ export default function ProfilPage() {
                 <span style={{ fontSize: '0.8rem', color: '#e2e8f0', fontWeight: 600 }}>{formatDate(user.createdAt)}</span>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* CONFIGURATION (PASSWORD & IMAGE) */}
-          <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.4 }} style={{ gridColumn: '1 / -1', backgroundColor: 'rgba(10, 15, 30, 0.6)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', padding: '2rem', backdropFilter: 'blur(16px)' }}>
+          <div style={{ gridColumn: '1 / -1', backgroundColor: 'rgba(10, 15, 30, 0.6)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', padding: '2rem', backdropFilter: 'blur(16px)' }}>
             <h3 style={{ margin: '0 0 2rem 0', color: '#fff', fontSize: '1.2rem', fontFamily: "'Oswald', sans-serif", letterSpacing: '0.1em', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
               <i className="fa-solid fa-sliders" style={{ color: '#f43f5e' }}></i> KONFİGÜRASYON
             </h3>
@@ -486,7 +485,7 @@ export default function ProfilPage() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
 
         </div>
       </div>

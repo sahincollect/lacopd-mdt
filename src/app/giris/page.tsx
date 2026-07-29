@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
 
 const DEPARTMENTS = [
   "Patrol Division",
@@ -177,10 +176,10 @@ export default function ResponsiveSplitScreenLogin() {
       }} />
 
       {/* ── MAIN SPLIT-SCREEN CARD CONTAINER (SCALES AND FITS WITHIN VIEWPORT) ── */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      <div
+       
+       
+       
         style={{
           width: '100%',
           maxWidth: '1080px',
@@ -347,14 +346,14 @@ export default function ResponsiveSplitScreenLogin() {
             </div>
 
             {/* FORM CONTAINER */}
-            <AnimatePresence mode="wait">
+            <>
               {activeTab === 'login' ? (
-                <motion.form
+                <form
                   key="login"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.15 }}
+                 
+                 
+                 
+                 
                   onSubmit={handleLogin}
                   style={{ display: 'flex', flexDirection: 'column', gap: '0.95rem' }}
                 >
@@ -460,14 +459,14 @@ export default function ResponsiveSplitScreenLogin() {
                       </button>
                     </span>
                   </div>
-                </motion.form>
+                </form>
               ) : (
-                <motion.form
+                <form
                   key="register"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.15 }}
+                 
+                 
+                 
+                 
                   onSubmit={handleRegister}
                   style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}
                 >
@@ -616,9 +615,9 @@ export default function ResponsiveSplitScreenLogin() {
                       </button>
                     </>
                   )}
-                </motion.form>
+                </form>
               )}
-            </AnimatePresence>
+            </>
 
             {/* Bottom Security Note */}
             <div style={{ marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid rgba(255, 255, 255, 0.06)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.68rem', color: '#64748b' }}>
@@ -631,7 +630,7 @@ export default function ResponsiveSplitScreenLogin() {
 
           </div>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

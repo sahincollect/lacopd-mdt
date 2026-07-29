@@ -2,7 +2,6 @@
 
 import { useState, useCallback } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
@@ -12,10 +11,10 @@ const SkeletonLine = ({ w = "100%", h = "12px", mb = "0" }: { w?: string; h?: st
 );
 
 const StatCard = ({ icon, label, value, color, delay }: { icon: string; label: string; value: string | number; color: string; delay: number }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 15 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.4, delay }}
+  <div
+   
+   
+   
     whileHover={{ y: -2, borderColor: color }}
     style={{
       background: "rgba(11, 15, 25, 0.6)",
@@ -37,7 +36,7 @@ const StatCard = ({ icon, label, value, color, delay }: { icon: string; label: s
     <div style={{ width: "42px", height: "42px", borderRadius: "12px", background: `${color}15`, border: `1px solid ${color}30`, display: "flex", alignItems: "center", justifyContent: "center", color, fontSize: "1.1rem", flexShrink: 0 }}>
       <i className={icon} />
     </div>
-  </motion.div>
+  </div>
 );
 
 export default function MDTDashboard() {
@@ -136,10 +135,10 @@ export default function MDTDashboard() {
       <div style={{ display: "grid", gridTemplateColumns: "1fr 340px", gap: "1.5rem", alignItems: "stretch" }}>
 
         {/* Greeting & Tactical Radar Console */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
+        <div
+         
+         
+         
           style={{
             background: "rgba(11, 15, 25, 0.65)",
             border: "1px solid rgba(255, 255, 255, 0.07)",
@@ -230,13 +229,13 @@ export default function MDTDashboard() {
             </div>
 
           </div>
-        </motion.div>
+        </div>
 
         {/* Duty Action Trigger Card */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
+        <div
+         
+         
+         
           style={{
             background: user?.isOnDuty
               ? "linear-gradient(145deg, rgba(16, 185, 129, 0.08), rgba(15, 23, 42, 0.7))"
@@ -301,7 +300,7 @@ export default function MDTDashboard() {
               <><i className="fa-solid fa-play" style={{ fontSize: "0.7rem" }} /> DEVRİYEYE BAŞLA</>
             )}
           </button>
-        </motion.div>
+        </div>
       </div>
 
       {/* ── 4 TACTICAL STAT PILLARS ── */}
@@ -316,7 +315,7 @@ export default function MDTDashboard() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(330px, 1fr))", gap: "1.5rem", alignItems: "start" }}>
 
         {/* COLUMN 1: SON RAPORLAR */}
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.3 }} style={{ background: "rgba(11, 15, 25, 0.65)", border: "1px solid rgba(255, 255, 255, 0.06)", borderRadius: "22px", overflow: "hidden", display: "flex", flexDirection: "column", height: "100%" }}>
+        <div style={{ background: "rgba(11, 15, 25, 0.65)", border: "1px solid rgba(255, 255, 255, 0.06)", borderRadius: "22px", overflow: "hidden", display: "flex", flexDirection: "column", height: "100%" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1.25rem 1.5rem", borderBottom: "1px solid rgba(255, 255, 255, 0.06)", background: "rgba(255,255,255,0.015)" }}>
             <h2 style={{ fontSize: "0.85rem", fontWeight: 800, margin: 0, display: "flex", alignItems: "center", gap: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#FFF" }}>
               <span style={{ width: "26px", height: "26px", borderRadius: "8px", background: "rgba(56, 189, 248, 0.12)", border: "1px solid rgba(56, 189, 248, 0.25)", display: "flex", alignItems: "center", justifyContent: "center", color: "#38BDF8", fontSize: "0.8rem" }}><i className="fa-solid fa-file-lines" /></span>
@@ -352,10 +351,10 @@ export default function MDTDashboard() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* COLUMN 2: BİLDİRİMLER & DUYURULAR */}
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.35 }} style={{ background: "rgba(11, 15, 25, 0.65)", border: "1px solid rgba(255, 255, 255, 0.06)", borderRadius: "22px", overflow: "hidden", display: "flex", flexDirection: "column", height: "100%" }}>
+        <div style={{ background: "rgba(11, 15, 25, 0.65)", border: "1px solid rgba(255, 255, 255, 0.06)", borderRadius: "22px", overflow: "hidden", display: "flex", flexDirection: "column", height: "100%" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1.25rem 1.5rem", borderBottom: "1px solid rgba(255, 255, 255, 0.06)", background: "rgba(255,255,255,0.015)" }}>
             <h2 style={{ fontSize: "0.85rem", fontWeight: 800, margin: 0, display: "flex", alignItems: "center", gap: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#FFF" }}>
               <span style={{ width: "26px", height: "26px", borderRadius: "8px", background: "rgba(245, 158, 11, 0.12)", border: "1px solid rgba(245, 158, 11, 0.25)", display: "flex", alignItems: "center", justifyContent: "center", color: "#F59E0B", fontSize: "0.8rem" }}><i className="fa-solid fa-bullhorn" /></span>
@@ -402,10 +401,10 @@ export default function MDTDashboard() {
               );
             })}
           </div>
-        </motion.div>
+        </div>
 
         {/* COLUMN 3: AKTİF BİRİMLER + SUÇLU KAYDI */}
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.4 }} style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
           
           {/* Aktif Birimler Mini List */}
           <div style={{ background: "rgba(11, 15, 25, 0.65)", border: "1px solid rgba(255, 255, 255, 0.06)", borderRadius: "22px", overflow: "hidden" }}>
@@ -473,7 +472,7 @@ export default function MDTDashboard() {
             </div>
           </div>
 
-        </motion.div>
+        </div>
 
       </div>
     </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import toast from "react-hot-toast";
 
 interface MailItem {
@@ -556,12 +555,12 @@ Sayın Personel,
       </div>
 
       {/* ── BATCH / BULK ACTION FLOATING TOOLBAR ── */}
-      <AnimatePresence>
+      <>
         {selectedIds.length > 0 && activeFolder !== 'compose' && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+          <div
+           
+           
+           
             style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'rgba(30, 41, 59, 0.95)', border: '1px solid #38bdf8', padding: '0.75rem 1.5rem', borderRadius: '12px', boxShadow: '0 8px 32px rgba(14, 165, 233, 0.25)', zIndex: 10 }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
@@ -592,16 +591,16 @@ Sayın Personel,
                 İptal
               </button>
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
+      </>
 
       {/* ── MAIN CONTENT SECTION ── */}
       {activeFolder === 'compose' ? (
         /* ================= COMPOSE (YENİ POSTA YAZ) FUNCTIONAL SCREEN ================= */
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
+        <div
+         
+         
           style={{ backgroundColor: '#0f172a', borderRadius: '18px', border: '1px solid rgba(255, 255, 255, 0.08)', padding: '2.25rem', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.75rem', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '1.25rem' }}>
@@ -847,7 +846,7 @@ Sayın Personel,
               </button>
             </div>
           </form>
-        </motion.div>
+        </div>
       ) : (
         /* ================= INBOX / SENT / BROADCAST MASTER-DETAIL WORKSPACE ================= */
         <div style={{ display: 'grid', gridTemplateColumns: 'minmax(380px, 460px) 1fr', gap: '1.5rem', minHeight: '680px' }}>

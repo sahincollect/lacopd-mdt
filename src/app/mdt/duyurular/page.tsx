@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import toast from "react-hot-toast";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
@@ -112,9 +111,9 @@ export default function Duyurular() {
 
   if (loading) return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "60vh", color: "var(--text-secondary)", flexDirection: "column", gap: "1.5rem" }}>
-      <motion.i 
-        animate={{ rotate: 360 }} 
-        transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+      <i 
+        
+       
         className="fa-solid fa-circle-notch" 
         style={{ fontSize: "2.5rem", color: "var(--accent-primary)" }}
       />
@@ -129,10 +128,10 @@ export default function Duyurular() {
   };
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+    <div 
+     
+     
+     
       style={{ color: "#fff", paddingBottom: "3rem", maxWidth: "1600px", width: "100%", padding: "0 1rem", margin: "0 auto" }}
     >
       {/* Header */}
@@ -147,7 +146,7 @@ export default function Duyurular() {
         </div>
         {user?.role === 'admin' && (
           <div>
-            <motion.button 
+            <button 
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="btn"
@@ -161,18 +160,18 @@ export default function Duyurular() {
               }}
             >
               {showAddForm ? <><i className="fa-solid fa-xmark" style={{ marginRight: '0.5rem' }}></i> İPTAL</> : <><i className="fa-solid fa-bullhorn" style={{ marginRight: '0.5rem' }}></i> YENİ DUYURU</>}
-            </motion.button>
+            </button>
           </div>
         )}
       </div>
 
-      <AnimatePresence>
+      <>
         {/* Form */}
         {showAddForm && user?.role === 'admin' && (
-          <motion.div 
-            initial={{ opacity: 0, height: 0, marginBottom: 0 }}
-            animate={{ opacity: 1, height: "auto", marginBottom: "2.5rem" }}
-            exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+          <div 
+           
+           
+           
             style={{ overflow: 'hidden' }}
           >
             <div style={{ 
@@ -216,24 +215,24 @@ export default function Duyurular() {
                 </div>
 
                 <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-                  <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" disabled={submitting} style={{ 
+                  <button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" disabled={submitting} style={{ 
                     flex: 1, padding: '1rem', borderRadius: '12px', border: 'none',
                     background: "linear-gradient(135deg, #0284c7, #1D4ED8)", color: '#fff', fontWeight: 800,
                     cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.7 : 1,
                     boxShadow: submitting ? 'none' : '0 8px 25px rgba(14, 165, 233, 0.4)'
                   }}>
                     {submitting ? <><i className="fa-solid fa-spinner fa-spin" style={{ marginRight: '0.5rem' }}></i> İŞLENİYOR...</> : <><i className="fa-solid fa-paper-plane" style={{ marginRight: '0.5rem' }}></i> {editingId ? "GÜNCELLE" : "YAYINLA"}</>}
-                  </motion.button>
+                  </button>
                 </div>
               </form>
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
+      </>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         {announcements.length === 0 ? (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ 
+          <div style={{ 
             backgroundColor: 'rgba(15, 23, 42, 0.4)', borderRadius: '16px', padding: '4rem 2rem', 
             textAlign: 'center', border: '1px dashed rgba(255,255,255,0.1)' 
           }}>
@@ -241,15 +240,15 @@ export default function Duyurular() {
             <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', margin: 0 }}>
               Sistemde henüz yayınlanmış bir duyuru bulunmuyor.
             </p>
-          </motion.div>
+          </div>
         ) : (
           announcements.map((ann: any, idx: number) => {
             const styles = getTypeStyles(ann.type || "Normal");
             return (
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: idx * 0.1 }}
+              <div 
+               
+               
+               
                 key={ann.id} 
                 style={{ 
                   backgroundColor: 'rgba(15, 23, 42, 0.5)', 
@@ -314,11 +313,11 @@ export default function Duyurular() {
                     {ann.content}
                   </p>
                 </div>
-              </motion.div>
+              </div>
             );
           })
         )}
       </div>
-    </motion.div>
+    </div>
   );
 }

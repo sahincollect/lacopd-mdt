@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
   const [activeUnit, setActiveUnit] = useState(0);
@@ -86,26 +85,26 @@ export default function Home() {
   return (
     <>
       {!isInstantlyHidden && (
-        <AnimatePresence>
+        <>
           {showIntro && (
-            <motion.div
+            <div
               key="intro"
-              initial={{ opacity: 1 }}
-              exit={{ opacity: 0, scale: 1.1, filter: "blur(20px)" }}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
+             
+             
+             
               style={{
                 position: 'fixed', inset: 0, zIndex: 9999, backgroundColor: '#000000', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
               }}
             >
               <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at top center, rgba(245, 130, 32, 0.06) 0%, transparent 70%)' }}></div>
 
-              <motion.div
-                 initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
+              <div
+                
                  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: '450px', textAlign: 'center', padding: '3.5rem 3rem', backgroundColor: '#050505', border: '1px solid #1a1a1a', borderRadius: '24px', boxShadow: '0 30px 60px rgba(0,0,0,0.9)', zIndex: 1 }}
               >
                 {/* Cloudflare-like Spinner */}
                 <div style={{ position: 'relative', width: '60px', height: '60px', marginBottom: '2rem' }}>
-                  <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1.2, ease: "linear" }} style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '3px solid rgba(255,255,255,0.05)', borderTopColor: '#f58220', borderRightColor: '#f58220' }}></motion.div>
+                  <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '3px solid rgba(255,255,255,0.05)', borderTopColor: '#f58220', borderRightColor: '#f58220' }}></div>
                   <i className="fa-solid fa-shield-check" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', color: '#f58220', fontSize: '1.25rem', opacity: 0.8 }}></i>
                 </div>
                 
@@ -123,7 +122,7 @@ export default function Home() {
                       <span style={{ color: '#10b981' }}>Onaylandı</span>
                    </div>
                    <div style={{ width: '100%', height: '4px', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '2px', overflow: 'hidden', position: 'relative' }}>
-                      <motion.div initial={{ width: '0%' }} animate={{ width: '100%' }} transition={{ duration: 2.8, ease: "easeInOut" }} style={{ position: 'absolute', top: 0, bottom: 0, left: 0, backgroundColor: '#f58220' }}></motion.div>
+                      <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, backgroundColor: '#f58220' }}></div>
                    </div>
                 </div>
 
@@ -138,10 +137,10 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           )}
-        </AnimatePresence>
+        </>
       )}
 
     <div style={{ backgroundColor: '#040914', minHeight: '100vh', color: '#f1f5f9', overflowX: 'hidden', position: 'relative', fontFamily: "'Inter', sans-serif" }}>
@@ -181,33 +180,33 @@ export default function Home() {
 
       {/* HERO SECTION (EXPERIMENTAL CYBER-SLEEK) */}
       <main style={{ position: 'relative', zIndex: 10, minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '6rem 2rem' }}>
-        <motion.div initial="hidden" animate="visible" variants={staggerContainer} style={{ width: '100%', maxWidth: '1400px', display: 'flex', flexWrap: 'wrap', gap: '4rem', alignItems: 'center', justifyContent: 'space-between', position: 'relative' }}>
+        <div style={{ width: '100%', maxWidth: '1400px', display: 'flex', flexWrap: 'wrap', gap: '4rem', alignItems: 'center', justifyContent: 'space-between', position: 'relative' }}>
           
           {/* LEFT SIDE: TEXT & BUTTONS */}
           <div style={{ flex: '1 1 500px', display: 'flex', flexDirection: 'column', position: 'relative' }}>
             <div style={{ position: 'absolute', left: '-2rem', top: '-1rem', width: '2px', height: '120%', background: 'linear-gradient(to bottom, transparent, rgba(14, 165, 233, 0.5), transparent)', zIndex: 0 }}></div>
             <div style={{ position: 'absolute', left: '-2.35rem', top: '10%', width: '12px', height: '12px', borderRadius: '50%', border: '2px solid #0EA5E9', backgroundColor: '#040914', zIndex: 1, boxShadow: '0 0 15px #0EA5E9' }}></div>
 
-            <motion.div variants={fadeUp} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem', backgroundColor: 'rgba(34, 197, 94, 0.08)', borderLeft: '3px solid #22c55e', padding: '0.5rem 1.5rem', marginBottom: '2rem', backdropFilter: 'blur(8px)', width: 'fit-content' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem', backgroundColor: 'rgba(34, 197, 94, 0.08)', borderLeft: '3px solid #22c55e', padding: '0.5rem 1.5rem', marginBottom: '2rem', backdropFilter: 'blur(8px)', width: 'fit-content' }}>
               <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#22c55e', animation: 'pulse-green 1.5s infinite' }}></div>
               <span style={{ fontSize: '0.85rem', color: '#bbf7d0', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}>MDT 3.0 Personel Yönetim Sistemi Çevrimiçi</span>
-            </motion.div>
+            </div>
             
-            <motion.div variants={fadeUp} style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', marginBottom: '1.5rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', marginBottom: '1.5rem' }}>
               <h1 style={{ fontSize: 'clamp(2.5rem, 4vw, 4rem)', fontWeight: 300, color: '#e2e8f0', lineHeight: 1, letterSpacing: '0.05em', fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif", margin: 0, textTransform: 'uppercase' }}>
                 LOS ANGELES
               </h1>
               <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 5.2rem)', fontWeight: 800, color: '#ffffff', lineHeight: 0.95, letterSpacing: '-0.02em', fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif", margin: 0, textTransform: 'uppercase' }}>
                 POLICE <span style={{ color: '#0EA5E9' }}>DEPARTMENT</span>
               </h1>
-            </motion.div>
+            </div>
             
-            <motion.p variants={fadeUp} style={{ color: '#cbd5e1', fontSize: '1.1rem', lineHeight: 1.7, maxWidth: '550px', margin: '0 0 3rem 0', fontWeight: 400, letterSpacing: '0.01em', fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" }}>
+            <p style={{ color: '#cbd5e1', fontSize: '1.1rem', lineHeight: 1.7, maxWidth: '550px', margin: '0 0 3rem 0', fontWeight: 400, letterSpacing: '0.01em', fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" }}>
               Korumak, hizmet etmek ve adaleti teknolojiyle sağlamak. Gelişmiş operasyonel ağımıza katılarak sokakların kontrolünü elinize alın.
-            </motion.p>
+            </p>
 
             {/* BUTTONS (SLEEK REDESIGN) */}
-            <motion.div variants={fadeUp} style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
               <Link href="/giris" passHref legacyBehavior>
                 <a style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem', backgroundColor: '#0EA5E9', color: '#040914', padding: '0.85rem 2rem', borderRadius: '50px', fontSize: '0.9rem', fontWeight: 700, textDecoration: 'none', letterSpacing: '0.05em', transition: 'all 0.3s ease', boxShadow: '0 0 20px rgba(14, 165, 233, 0.4)' }} onMouseOver={e => { e.currentTarget.style.backgroundColor = '#fff'; e.currentTarget.style.boxShadow = '0 0 25px rgba(255, 255, 255, 0.5)'; }} onMouseOut={e => { e.currentTarget.style.backgroundColor = '#0EA5E9'; e.currentTarget.style.boxShadow = '0 0 20px rgba(14, 165, 233, 0.4)'; }}>
                   SİSTEME GİRİŞ <i className="fa-solid fa-arrow-right"></i>
@@ -227,11 +226,11 @@ export default function Home() {
               <a href="https://www.tiktok.com/@thelapdfivem?lang=tr-TR" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '45px', height: '45px', borderRadius: '50%', border: '1px solid rgba(255, 255, 255, 0.3)', color: '#fff', backgroundColor: 'transparent', transition: 'all 0.3s ease' }} onMouseOver={e => { e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.05)'; e.currentTarget.style.borderColor = '#fff'; e.currentTarget.style.boxShadow = '0 0 15px rgba(255, 255, 255, 0.2)'; }} onMouseOut={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)'; e.currentTarget.style.boxShadow = 'none'; }} title="TikTok">
                 <i className="fa-brands fa-tiktok" style={{ fontSize: '1.2rem' }}></i>
               </a>
-            </motion.div>
+            </div>
           </div>
 
           {/* RIGHT SIDE: SLEEK VIDEO PLAYER */}
-          <motion.div variants={fadeUp} style={{ flex: '1 1 400px', position: 'relative', width: '100%', aspectRatio: '16/9', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 20px 50px rgba(0,0,0,0.8), 0 0 40px rgba(14, 165, 233, 0.15)' }}>
+          <div style={{ flex: '1 1 400px', position: 'relative', width: '100%', aspectRatio: '16/9', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 20px 50px rgba(0,0,0,0.8), 0 0 40px rgba(14, 165, 233, 0.15)' }}>
             <video 
               ref={videoRef}
               autoPlay 
@@ -256,9 +255,9 @@ export default function Home() {
                 <i className={`fa-solid ${isPlaying ? 'fa-pause' : 'fa-play'}`} style={{ fontSize: '0.9rem' }}></i>
               </button>
             </div>
-          </motion.div>
+          </div>
 
-        </motion.div>
+        </div>
       </main>
 
       {/* HUD STATS SECTION (MINIMAL & UNIFIED) */}
@@ -270,7 +269,7 @@ export default function Home() {
             { value: '25', label: 'AKTİF GÖREVLİ', icon: 'fa-user-shield' },
             { value: '122', label: 'EMEKLİ MEMUR', icon: 'fa-medal' }
           ].map((stat, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.5 }} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem 1rem', borderRadius: '16px', backgroundColor: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)', transition: 'all 0.3s ease' }} onMouseOver={e => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.04)'; e.currentTarget.style.borderColor = 'rgba(14, 165, 233, 0.2)'; e.currentTarget.style.transform = 'translateY(-2px)' }} onMouseOut={e => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.02)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.04)'; e.currentTarget.style.transform = 'translateY(0)' }}>
+            <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem 1rem', borderRadius: '16px', backgroundColor: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)', transition: 'all 0.3s ease' }} onMouseOver={e => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.04)'; e.currentTarget.style.borderColor = 'rgba(14, 165, 233, 0.2)'; e.currentTarget.style.transform = 'translateY(-2px)' }} onMouseOut={e => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.02)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.04)'; e.currentTarget.style.transform = 'translateY(0)' }}>
               <i className={`fa-solid ${stat.icon}`} style={{ fontSize: '1.25rem', color: '#0EA5E9', marginBottom: '0.75rem', opacity: 0.8 }}></i>
               <div style={{ fontSize: '2.5rem', fontWeight: 700, color: '#f8fafc', fontFamily: "'Oswald', sans-serif", lineHeight: 1 }}>
                 {stat.value}
@@ -278,7 +277,7 @@ export default function Home() {
               <div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 600, letterSpacing: '0.15em', marginTop: '0.5rem' }}>
                 {stat.label}
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>
@@ -325,7 +324,7 @@ export default function Home() {
                   
                   {/* Active Background Glow */}
                   {activeUnit === i && (
-                    <motion.div layoutId="activeUnitBg" style={{ position: 'absolute', inset: 0, background: `linear-gradient(90deg, ${unit.color}15 0%, transparent 100%)`, zIndex: 0 }} />
+                    <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(90deg, ${unit.color}15 0%, transparent 100%)`, zIndex: 0 }} />
                   )}
 
                   <i className={`fa-solid ${unit.icon}`} style={{ fontSize: '1.25rem', color: activeUnit === i ? unit.color : '#334155', zIndex: 1, transition: 'all 0.3s' }}></i>
@@ -341,13 +340,13 @@ export default function Home() {
 
             {/* Right Panel (Dossier Interface) */}
             <div style={{ flex: '2 1 500px', position: 'relative' }}>
-              <AnimatePresence mode="wait">
-                <motion.div
+              <>
+                <div
                   key={activeUnit}
-                  initial={{ opacity: 0, clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 0)' }}
-                  animate={{ opacity: 1, clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' }}
-                  exit={{ opacity: 0, clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0 100%)' }}
-                  transition={{ duration: 0.4, ease: 'easeInOut' }}
+                 
+                 
+                 
+                 
                   style={{
                     backgroundColor: 'rgba(4, 9, 20, 0.7)',
                     border: `1px solid rgba(255, 255, 255, 0.05)`,
@@ -396,8 +395,8 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                </motion.div>
-              </AnimatePresence>
+                </div>
+              </>
             </div>
           </div>
         </div>
@@ -407,7 +406,7 @@ export default function Home() {
       <section style={{ position: 'relative', zIndex: 10, padding: '6rem 5%', backgroundColor: 'rgba(2, 6, 23, 0.6)', borderTop: '1px solid rgba(255,255,255,0.03)' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', alignItems: 'center', gap: '4rem', flexWrap: 'wrap-reverse' }}>
           
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ flex: '1 1 450px' }}>
+          <div style={{ flex: '1 1 450px' }}>
             <div style={{
               backgroundColor: '#050a14',
               borderRadius: '16px',
@@ -443,9 +442,9 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} style={{ flex: '1 1 450px' }}>
+          <div style={{ flex: '1 1 450px' }}>
             <h2 style={{ fontSize: '2.5rem', fontWeight: 800, color: '#fff', marginBottom: '1.25rem', lineHeight: 1.1, textTransform: 'uppercase' }}>
               Yeni Nesil <span style={{ color: '#0EA5E9' }}>MDT</span>
             </h2>
@@ -467,7 +466,7 @@ export default function Home() {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
         </div>
       </section>
@@ -484,12 +483,12 @@ export default function Home() {
             <div style={{ position: 'absolute', top: 0, bottom: 0, left: '34px', width: '2px', backgroundColor: 'rgba(255,255,255,0.05)', zIndex: 0 }}></div>
             
             {steps.map((step, i) => (
-              <motion.div 
+              <div 
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
+               
+               
+               
+               
                 style={{ display: 'flex', gap: '2.5rem', position: 'relative', zIndex: 1, alignItems: 'flex-start' }}
               >
                 <div style={{ flexShrink: 0, width: '70px', height: '70px', borderRadius: '50%', backgroundColor: '#0f172a', border: '2px solid rgba(14, 165, 233, 0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.25rem', fontWeight: 800, color: '#0EA5E9' }}>
@@ -499,7 +498,7 @@ export default function Home() {
                   <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#f8fafc', margin: '0 0 0.5rem' }}>{step.title}</h3>
                   <p style={{ fontSize: '1rem', color: '#94a3b8', lineHeight: 1.6, margin: 0 }}>{step.text}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

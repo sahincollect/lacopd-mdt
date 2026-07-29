@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 
 const applicationTypes = [
   {
@@ -79,7 +78,7 @@ export default function BasvurularPage() {
           textAlign: "center",
         }}
       >
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+        <div>
           <div
             style={{
               display: "inline-flex",
@@ -128,7 +127,7 @@ export default function BasvurularPage() {
             Los Angeles Polis Departmanı'na başvurmak veya resmi bir işlem başlatmak için
             aşağıdaki formlardan uygun olanı seçin.
           </p>
-        </motion.div>
+        </div>
 
         {/* Application Cards */}
         <div
@@ -142,11 +141,11 @@ export default function BasvurularPage() {
           }}
         >
           {applicationTypes.map((app, i) => (
-            <motion.div
+            <div
               key={app.id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i * 0.12 }}
+             
+             
+             
               style={{
                 position: "relative",
                 backgroundColor: "white",
@@ -242,7 +241,7 @@ export default function BasvurularPage() {
                   {app.id === "memur" ? "DISCORD'A GİT" : "BAŞVURUYA GİT"} <i className={app.id === "memur" ? "fa-brands fa-discord" : "fa-solid fa-arrow-right"} />
                 </Link>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>

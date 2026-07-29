@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
 
 export default function AudioPlayer() {
   const pathname = usePathname();
@@ -90,17 +89,12 @@ export default function AudioPlayer() {
         preload="auto"
       />
 
-      <AnimatePresence>
-        <motion.div
+      <>
+        <div
           key="player"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ 
-            opacity: 1, 
-            y: 0,
-            scale: isHome ? 1 : 0.85,
-            transformOrigin: "bottom left"
-          }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+         
+         
+         
           style={{
             position: 'fixed',
             bottom: isHome ? '2.5rem' : '1.5rem',
@@ -176,8 +170,8 @@ export default function AudioPlayer() {
             </div>
             
           </div>
-        </motion.div>
-      </AnimatePresence>
+        </div>
+      </>
     </>
   );
 }

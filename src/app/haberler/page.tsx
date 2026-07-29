@@ -1,7 +1,6 @@
 "use client";
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 
 export default function HaberlerPage() {
   const staggerContainer: any = {
@@ -76,14 +75,14 @@ export default function HaberlerPage() {
       </section>
 
       {/* ── İÇERİK BÖLÜMÜ ── */}
-      <motion.section 
-        initial="hidden" animate="visible" variants={staggerContainer} 
+      <section 
+        
         style={{ maxWidth: '1200px', margin: '4rem auto 0', padding: '0 2rem' }}
       >
         
         {/* ÖNE ÇIKAN HABER */}
         {newsItems.filter(n => n.featured).map(news => (
-          <motion.div variants={fadeUp} key={news.id} style={{ 
+          <div key={news.id} style={{ 
             display: 'flex', flexWrap: 'wrap', backgroundColor: 'white', border: '1px solid var(--lapd-border)', marginBottom: '3rem', boxShadow: '0 10px 30px rgba(0,0,0,0.03)'
           }}>
             <div style={{ flex: '1 1 500px', minHeight: '350px', backgroundImage: `url(${news.img})`, backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
@@ -104,13 +103,13 @@ export default function HaberlerPage() {
                 </button>
               </div>
             </div>
-          </motion.div>
+          </div>
         ))}
 
         {/* DİĞER HABERLER GRID */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2rem' }}>
           {newsItems.filter(n => !n.featured).map(news => (
-            <motion.div variants={fadeUp} key={news.id} style={{ 
+            <div key={news.id} style={{ 
               backgroundColor: 'white', border: '1px solid var(--lapd-border)', display: 'flex', flexDirection: 'column', transition: 'transform 0.2s, box-shadow 0.2s'
             }}
             onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.boxShadow = '0 10px 20px rgba(0,0,0,0.06)'; }}
@@ -134,11 +133,11 @@ export default function HaberlerPage() {
                   </span>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-      </motion.section>
+      </section>
 
       {/* ── SOSYAL MEDYA CALL TO ACTION ── */}
       <section style={{ backgroundColor: 'var(--lapd-blue-dark)', color: 'white', textAlign: 'center', padding: '4rem 2rem', marginTop: '5rem' }}>

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import toast from "react-hot-toast";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
@@ -76,10 +75,10 @@ export default function Yonetmelikler() {
   };
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+    <div 
+     
+     
+     
       style={{ color: "#fff", paddingBottom: "3rem", maxWidth: "1600px", width: "100%", padding: "0 1rem", margin: "0 auto" }}
     >
       <style>{`
@@ -98,7 +97,7 @@ export default function Yonetmelikler() {
         </div>
         {user?.role === 'admin' && (
           <div>
-            <motion.button 
+            <button 
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="btn"
@@ -112,18 +111,18 @@ export default function Yonetmelikler() {
               }}
             >
               {showForm ? <><i className="fa-solid fa-xmark"></i> İPTAL</> : <><i className="fa-solid fa-plus"></i> YENİ YÖNETMELİK</>}
-            </motion.button>
+            </button>
           </div>
         )}
       </div>
 
-      <AnimatePresence>
+      <>
         {/* Form */}
         {showForm && user?.role === 'admin' && (
-          <motion.div 
-            initial={{ opacity: 0, height: 0, marginBottom: 0 }}
-            animate={{ opacity: 1, height: "auto", marginBottom: "2.5rem" }}
-            exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+          <div 
+           
+           
+           
             style={{ overflow: 'hidden' }}
           >
             <div style={{ 
@@ -156,42 +155,42 @@ export default function Yonetmelikler() {
                 </div>
 
                 <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-                  <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" disabled={saving} style={{ 
+                  <button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" disabled={saving} style={{ 
                     flex: 1, padding: '1rem', borderRadius: '12px', border: 'none',
                     background: "linear-gradient(135deg, #0284c7, #1D4ED8)", color: '#fff', fontWeight: 800,
                     letterSpacing: '0.05em', cursor: saving ? 'not-allowed' : 'pointer', opacity: saving ? 0.7 : 1,
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem', boxShadow: '0 8px 25px rgba(14, 165, 233, 0.4)'
                   }}>
                     {saving ? <><i className="fa-solid fa-circle-notch fa-spin"></i> KAYDEDİLİYOR</> : <><i className="fa-solid fa-paper-plane"></i> {editingId ? "GÜNCELLE" : "YAYINLA"}</>}
-                  </motion.button>
+                  </button>
                 </div>
               </form>
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
+      </>
 
       {/* List */}
       {loading ? (
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "40vh", color: "var(--text-secondary)", flexDirection: "column", gap: "1.5rem" }}>
-          <motion.i animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }} className="fa-solid fa-circle-notch" style={{ fontSize: "2.5rem", color: "var(--accent-primary)" }} />
+          <i className="fa-solid fa-circle-notch" style={{ fontSize: "2.5rem", color: "var(--accent-primary)" }} />
           <span style={{ fontSize: "1.1rem", letterSpacing: "0.05em" }}>Veriler Yükleniyor...</span>
         </div>
       ) : regulations.length === 0 ? (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ backgroundColor: 'rgba(15,23,42,0.4)', borderRadius: '20px', padding: '4rem 2rem', textAlign: 'center', border: '1px dashed rgba(255,255,255,0.1)' }}>
+        <div style={{ backgroundColor: 'rgba(15,23,42,0.4)', borderRadius: '20px', padding: '4rem 2rem', textAlign: 'center', border: '1px dashed rgba(255,255,255,0.1)' }}>
           <i className="fa-solid fa-book-open" style={{ fontSize: '3rem', color: 'var(--text-secondary)', opacity: 0.5, marginBottom: '1rem' }}></i>
           <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', margin: 0 }}>Sistemde henüz bir yönetmelik bulunmuyor.</p>
-        </motion.div>
+        </div>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
           {regulations.map((reg: any, idx: number) => {
             const isExpanded = expandedId === reg.id;
             return (
-              <motion.div
+              <div
                 key={reg.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: idx * 0.05 }}
+               
+               
+               
               >
                 <div
                   className="reg-card-hover"
@@ -247,21 +246,21 @@ export default function Yonetmelikler() {
                         </button>
                       </div>
                     )}
-                    <motion.div
-                      animate={{ rotate: isExpanded ? 180 : 0 }} transition={{ duration: 0.3 }}
+                    <div
+                     
                       style={{ width: "32px", height: "32px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: isExpanded ? "rgba(14, 165, 233,0.2)" : "transparent", color: isExpanded ? "#60A5FA" : "var(--text-secondary)" }}
                     >
                       <i className="fa-solid fa-chevron-down" />
-                    </motion.div>
+                    </div>
                   </div>
                 </div>
 
                 {/* Accordion Body */}
-                <AnimatePresence>
+                <>
                   {isExpanded && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }} style={{ overflow: "hidden" }}
+                    <div
+                     
+                      style={{ overflow: "hidden" }}
                     >
                       <div style={{
                         padding: "2rem 2.5rem", backgroundColor: "rgba(10,15,25,0.8)", border: "1px solid rgba(14, 165, 233,0.3)",
@@ -275,14 +274,14 @@ export default function Yonetmelikler() {
                           {reg.content}
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
                   )}
-                </AnimatePresence>
-              </motion.div>
+                </>
+              </div>
             );
           })}
         </div>
       )}
-    </motion.div>
+    </div>
   );
 }

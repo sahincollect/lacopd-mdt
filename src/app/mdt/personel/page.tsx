@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import toast from "react-hot-toast";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
@@ -223,7 +222,7 @@ export default function PersonelListesi() {
       </div>
 
       {/* HEADER SECTION */}
-      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '3rem', backgroundColor: 'rgba(10, 15, 30, 0.6)', padding: '2rem', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.05)', backdropFilter: 'blur(16px)', boxShadow: '0 10px 40px rgba(0,0,0,0.3)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '3rem', backgroundColor: 'rgba(10, 15, 30, 0.6)', padding: '2rem', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.05)', backdropFilter: 'blur(16px)', boxShadow: '0 10px 40px rgba(0,0,0,0.3)' }}>
         
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
@@ -235,7 +234,7 @@ export default function PersonelListesi() {
             </p>
           </div>
           {isAdmin && (
-            <motion.button
+            <button
               whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(14, 165, 233, 0.4)" }}
               whileTap={{ scale: 0.95 }}
               onClick={() => { setShowModal(true); setEditingOfficer(null); setFormError(""); setForm({ ...EMPTY_FORM }); }}
@@ -247,7 +246,7 @@ export default function PersonelListesi() {
               }}
             >
               <i className="fa-solid fa-user-plus"></i> MEMUR EKLE
-            </motion.button>
+            </button>
           )}
         </div>
 
@@ -297,13 +296,13 @@ export default function PersonelListesi() {
           </div>
         </div>
 
-      </motion.div>
+      </div>
 
       {/* ── ONAY BEKLEYEN HESAP BAŞVURULARI (YALNIZCA ADMİNLER İÇİN) ── */}
       {isAdmin && pendingOfficers && pendingOfficers.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
+        <div
+         
+         
           style={{
             marginBottom: "3rem",
             backgroundColor: "rgba(239, 68, 68, 0.08)",
@@ -374,7 +373,7 @@ export default function PersonelListesi() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       )}
 
       {/* DEPARTMENT CARDS */}
@@ -384,20 +383,20 @@ export default function PersonelListesi() {
           <span style={{ color: '#0284c7', fontSize: '0.85rem', letterSpacing: '0.3em', textTransform: 'uppercase', animation: 'pulse 2s infinite' }}>Veri Tabanı Sorgulanıyor...</span>
         </div>
       ) : allDepts.length === 0 ? (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ textAlign: "center", padding: "5rem", backgroundColor: "rgba(10, 15, 30, 0.6)", borderRadius: "24px", border: "1px solid rgba(255,255,255,0.05)", backdropFilter: 'blur(16px)' }}>
+        <div style={{ textAlign: "center", padding: "5rem", backgroundColor: "rgba(10, 15, 30, 0.6)", borderRadius: "24px", border: "1px solid rgba(255,255,255,0.05)", backdropFilter: 'blur(16px)' }}>
           <i className="fa-solid fa-ghost" style={{ fontSize: "4rem", marginBottom: "1.5rem", color: 'rgba(255,255,255,0.1)' }}></i>
           <h2 style={{ fontFamily: "'Oswald', sans-serif", letterSpacing: '0.1em', color: '#fff', margin: '0 0 0.5rem 0' }}>KAYIT BULUNAMADI</h2>
           <p style={{ color: '#64748b', margin: 0 }}>Aranan kriterlere uygun memur kaydı sistemde mevcut değil.</p>
-        </motion.div>
+        </div>
       ) : (
-        <motion.div variants={containerVariants} initial="hidden" animate="visible" style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
           {allDepts.map(dept => {
             const meta = getDeptMeta(dept);
             const members = grouped[dept];
             const onDuty = members.filter(o => o.isOnDuty).length;
 
             return (
-              <motion.div variants={itemVariants} key={dept} style={{ backgroundColor: "rgba(10, 15, 30, 0.6)", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.05)", overflow: "hidden", backdropFilter: 'blur(16px)', position: 'relative' }}>
+              <div key={dept} style={{ backgroundColor: "rgba(10, 15, 30, 0.6)", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.05)", overflow: "hidden", backdropFilter: 'blur(16px)', position: 'relative' }}>
                 {/* Glowing Corner Edge */}
                 <div style={{ 
                   position: 'absolute', inset: 0, borderRadius: 'inherit', pointerEvents: 'none',
@@ -432,7 +431,7 @@ export default function PersonelListesi() {
                 {/* Members Grid */}
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1rem", padding: "1.5rem" }}>
                   {members.map(officer => (
-                    <motion.div whileHover={{ y: -2, boxShadow: `0 8px 20px ${meta.color}15`, borderColor: `${meta.color}50` }} key={officer.id} style={{ display: "flex", alignItems: "center", gap: "0.8rem", padding: "0.75rem", backgroundColor: "rgba(0,0,0,0.4)", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.05)", transition: "all 0.3s", position: "relative", overflow: 'hidden' }}>
+                    <div whileHover={{ y: -2, boxShadow: `0 8px 20px ${meta.color}15`, borderColor: `${meta.color}50` }} key={officer.id} style={{ display: "flex", alignItems: "center", gap: "0.8rem", padding: "0.75rem", backgroundColor: "rgba(0,0,0,0.4)", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.05)", transition: "all 0.3s", position: "relative", overflow: 'hidden' }}>
                       
                       {/* Avatar (Rounded Square + LAC Logo Fallback) */}
                       <div style={{ position: 'relative' }}>
@@ -481,28 +480,28 @@ export default function PersonelListesi() {
                       {/* Admin actions */}
                       {isAdmin && (
                         <div style={{ display: "flex", gap: "0.4rem", flexShrink: 0 }}>
-                          <motion.button whileHover={{ scale: 1.1, backgroundColor: 'rgba(14, 165, 233, 0.2)' }} whileTap={{ scale: 0.9 }} onClick={() => handleEdit(officer)} title="Düzenle" style={{ width: "24px", height: "24px", borderRadius: "6px", border: "1px solid rgba(14, 165, 233,0.3)", backgroundColor: "rgba(14, 165, 233,0.1)", color: "#60a5fa", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.7rem" }}>
+                          <button whileHover={{ scale: 1.1, backgroundColor: 'rgba(14, 165, 233, 0.2)' }} whileTap={{ scale: 0.9 }} onClick={() => handleEdit(officer)} title="Düzenle" style={{ width: "24px", height: "24px", borderRadius: "6px", border: "1px solid rgba(14, 165, 233,0.3)", backgroundColor: "rgba(14, 165, 233,0.1)", color: "#60a5fa", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.7rem" }}>
                             <i className="fa-solid fa-pen"></i>
-                          </motion.button>
-                          <motion.button whileHover={{ scale: 1.1, backgroundColor: 'rgba(14, 165, 233, 0.2)' }} whileTap={{ scale: 0.9 }} onClick={() => handleDelete(officer.id, officer.name)} disabled={deletingId === officer.id} title="Kaldır" style={{ width: "24px", height: "24px", borderRadius: "6px", border: "1px solid rgba(14, 165, 233,0.3)", backgroundColor: "rgba(14, 165, 233,0.1)", color: "#38bdf8", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.7rem" }}>
+                          </button>
+                          <button whileHover={{ scale: 1.1, backgroundColor: 'rgba(14, 165, 233, 0.2)' }} whileTap={{ scale: 0.9 }} onClick={() => handleDelete(officer.id, officer.name)} disabled={deletingId === officer.id} title="Kaldır" style={{ width: "24px", height: "24px", borderRadius: "6px", border: "1px solid rgba(14, 165, 233,0.3)", backgroundColor: "rgba(14, 165, 233,0.1)", color: "#38bdf8", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.7rem" }}>
                             {deletingId === officer.id ? <i className="fa-solid fa-circle-notch fa-spin"></i> : <i className="fa-solid fa-trash-can"></i>}
-                          </motion.button>
+                          </button>
                         </div>
                       )}
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             );
           })}
-        </motion.div>
+        </div>
       )}
 
       {/* EXPERIMENTAL MODAL */}
-      <AnimatePresence>
+      <>
         {showModal && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ position: "fixed", inset: 0, backgroundColor: "rgba(0,0,0,0.82)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 99999, backdropFilter: "blur(10px)", padding: "1.25rem", overflowY: "auto" }} onClick={e => { if (e.target === e.currentTarget) { setShowModal(false); setEditingOfficer(null); } }}>
-            <motion.div initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.9, y: 20 }} style={{ backgroundColor: "rgba(10, 15, 30, 0.96)", border: `1px solid ${editingOfficer ? '#0369a1' : '#0284c7'}50`, borderRadius: "24px", width: "100%", maxWidth: "620px", maxHeight: "calc(100vh - 2.5rem)", display: "flex", flexDirection: "column", overflow: "hidden", boxShadow: `0 25px 60px rgba(0,0,0,0.9), 0 0 40px ${editingOfficer ? '#0369a1' : '#0284c7'}20`, position: 'relative' }}>
+          <div style={{ position: "fixed", inset: 0, backgroundColor: "rgba(0,0,0,0.82)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 99999, backdropFilter: "blur(10px)", padding: "1.25rem", overflowY: "auto" }} onClick={e => { if (e.target === e.currentTarget) { setShowModal(false); setEditingOfficer(null); } }}>
+            <div style={{ backgroundColor: "rgba(10, 15, 30, 0.96)", border: `1px solid ${editingOfficer ? '#0369a1' : '#0284c7'}50`, borderRadius: "24px", width: "100%", maxWidth: "620px", maxHeight: "calc(100vh - 2.5rem)", display: "flex", flexDirection: "column", overflow: "hidden", boxShadow: `0 25px 60px rgba(0,0,0,0.9), 0 0 40px ${editingOfficer ? '#0369a1' : '#0284c7'}20`, position: 'relative' }}>
               
               <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: `linear-gradient(90deg, transparent, ${editingOfficer ? '#0369a1' : '#0284c7'}, transparent)`, zIndex: 10 }}></div>
 
@@ -524,9 +523,9 @@ export default function PersonelListesi() {
               <form onSubmit={handleSave} style={{ display: "flex", flexDirection: "column", flex: 1, minHeight: 0 }}>
                 <div style={{ padding: "1.5rem 1.75rem", display: "flex", flexDirection: "column", gap: "1.1rem", overflowY: "auto", flex: 1 }}>
                   {formError && (
-                    <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} style={{ backgroundColor: "rgba(14, 165, 233,0.1)", border: "1px solid rgba(14, 165, 233,0.3)", color: "#7dd3fc", padding: "0.85rem", borderRadius: "12px", fontSize: "0.82rem", display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <div style={{ backgroundColor: "rgba(14, 165, 233,0.1)", border: "1px solid rgba(14, 165, 233,0.3)", color: "#7dd3fc", padding: "0.85rem", borderRadius: "12px", fontSize: "0.82rem", display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                       <i className="fa-solid fa-triangle-exclamation"></i> {formError}
-                    </motion.div>
+                    </div>
                   )}
 
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.1rem" }}>
@@ -617,10 +616,10 @@ export default function PersonelListesi() {
                   </button>
                 </div>
               </form>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         )}
-      </AnimatePresence>
+      </>
     </div>
   );
 }

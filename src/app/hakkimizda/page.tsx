@@ -1,7 +1,6 @@
 "use client";
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 
 export default function Hakkimizda() {
   const staggerContainer: any = {
@@ -95,19 +94,19 @@ export default function Hakkimizda() {
       </section>
 
       {/* ── Birimler ── */}
-      <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer} style={{ maxWidth: '1200px', margin: '5rem auto 0', padding: '0 2rem' }}>
-        <motion.div variants={fadeUp} style={{ borderLeft: '4px solid var(--lapd-orange)', paddingLeft: '1.5rem', marginBottom: '3rem' }}>
+      <section style={{ maxWidth: '1200px', margin: '5rem auto 0', padding: '0 2rem' }}>
+        <div style={{ borderLeft: '4px solid var(--lapd-orange)', paddingLeft: '1.5rem', marginBottom: '3rem' }}>
           <h2 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', lineHeight: 1 }}>
             DEPARTMAN BİRİMLERİ
           </h2>
           <p style={{ color: 'var(--lapd-text-muted)', fontSize: '1rem', marginTop: '1rem', maxWidth: '800px' }}>
             Los Angeles gibi devasa bir metropolün güvenliği, uzmanlaşmış ve senkronize çalışan birimlerin varlığıyla mümkündür.
           </p>
-        </motion.div>
+        </div>
         
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
           {divisions.map(div => (
-            <motion.div variants={fadeUp} key={div.id} style={{ 
+            <div key={div.id} style={{ 
               backgroundColor: 'white', border: '1px solid var(--lapd-border)', padding: '2rem', display: 'flex', flexDirection: 'column',
               boxShadow: '0 4px 6px rgba(0,0,0,0.02)', transition: 'transform 0.2s, box-shadow 0.2s', cursor: 'default'
             }}
@@ -121,14 +120,14 @@ export default function Hakkimizda() {
                 <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', margin: 0 }}>{div.name}</h3>
               </div>
               <p style={{ color: 'var(--lapd-text-dark)', fontSize: '0.95rem', lineHeight: '1.6', margin: 0 }}>{div.desc}</p>
-            </motion.div>
+            </div>
           ))}
         </div>
-      </motion.section>
+      </section>
 
       {/* ── Komuta Kademesi Org Chart ── */}
-      <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer} style={{ maxWidth: '1000px', margin: '5rem auto 0', padding: '0 2rem' }}>
-        <motion.div variants={fadeUp} style={{ backgroundColor: 'white', border: '1px solid var(--lapd-border)', padding: '3rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+      <section style={{ maxWidth: '1000px', margin: '5rem auto 0', padding: '0 2rem' }}>
+        <div style={{ backgroundColor: 'white', border: '1px solid var(--lapd-border)', padding: '3rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
 
           <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
             <h2 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', lineHeight: 1, marginBottom: '1rem' }}>
@@ -168,27 +167,27 @@ export default function Hakkimizda() {
             ))}
           </div>
 
-        </motion.div>
-      </motion.section>
+        </div>
+      </section>
 
 
       {/* ── CTA ── */}
-      <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer} style={{ textAlign: 'center', marginTop: '6rem', padding: '0 2rem' }}>
-        <motion.h2 variants={fadeUp} style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', marginBottom: '1rem' }}>
+      <section style={{ textAlign: 'center', marginTop: '6rem', padding: '0 2rem' }}>
+        <h2 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', marginBottom: '1rem' }}>
           HEMEN ARAMIZA KATILIN
-        </motion.h2>
+        </h2>
         <div style={{ width: '60px', height: '4px', backgroundColor: 'var(--lapd-orange)', margin: '0 auto 1.5rem' }}></div>
         <p style={{ color: 'var(--lapd-text-muted)', fontSize: '1.1rem', margin: '0 auto 2.5rem', maxWidth: '600px' }}>
           Süreç zorlu, standartlar yüksek, ancak şehrinize hizmet etmenin ödülü eşsizdir.
         </p>
-        <motion.a href="https://discord.com/invite/laco" target="_blank" rel="noopener noreferrer"
+        <a href="https://discord.com/invite/laco" target="_blank" rel="noopener noreferrer"
           style={{ backgroundColor: 'var(--lapd-orange)', color: 'white', fontSize: '1rem', padding: '1.2rem 3.5rem', fontWeight: 800, display: 'inline-flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none', transition: 'background-color 0.2s' }}
           onMouseOver={e => e.currentTarget.style.backgroundColor = 'var(--lapd-orange-hover)'}
           onMouseOut={e => e.currentTarget.style.backgroundColor = 'var(--lapd-orange)'}>
           <i className="fa-brands fa-discord" />
           DISCORD SUNUCUMUZA KATIL
-        </motion.a>
-      </motion.section>
+        </a>
+      </section>
     </div>
   );
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 
 export default function Galeri() {
@@ -53,12 +52,12 @@ export default function Galeri() {
         ) : (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', gap: '2rem' }}>
             {images.map((img, idx) => (
-              <motion.div 
+              <div 
                 key={img.id} 
                 onClick={() => setSelectedImage(img.url)}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: idx * 0.05 }}
+               
+               
+               
                 whileHover={{ y: -5 }}
                 style={{ 
                   position: 'relative', 
@@ -72,7 +71,7 @@ export default function Galeri() {
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={img.url} alt={`Gallery Image ${idx + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              </motion.div>
+              </div>
             ))}
             {images.length === 0 && (
               <div style={{ padding: '3rem', backgroundColor: 'var(--lapd-gray-bg)', border: '1px dashed var(--lapd-border)', textAlign: 'center', color: 'var(--lapd-text-muted)', gridColumn: '1 / -1' }}>
@@ -85,12 +84,12 @@ export default function Galeri() {
       </div>
 
       {/* Lightbox / Pop-up */}
-      <AnimatePresence>
+      <>
         {selectedImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+          <div
+           
+           
+           
             onClick={() => setSelectedImage(null)}
             style={{
               position: 'fixed',
@@ -104,7 +103,7 @@ export default function Galeri() {
               cursor: 'zoom-out'
             }}
           >
-            <motion.button
+            <button
               onClick={() => setSelectedImage(null)}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
@@ -124,12 +123,12 @@ export default function Galeri() {
               }}
             >
               <i className="fa-solid fa-xmark"></i>
-            </motion.button>
-            <motion.img
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            </button>
+            <img
+             
+             
+             
+             
               src={selectedImage}
               alt="Selected Gallery Image"
               style={{
@@ -142,9 +141,9 @@ export default function Galeri() {
               }}
               onClick={(e) => e.stopPropagation()}
             />
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
+      </>
     </div>
   );
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import toast from "react-hot-toast";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
@@ -208,9 +207,9 @@ export default function MesaiSistemiMinimal() {
       </div>
 
       {/* ── THE ZEN SHIFT CONSOLE (LINEAR APP / GLASS FLOATING ISLAND) ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
+      <div
+       
+       
         style={{
           background: user?.isOnDuty
             ? "linear-gradient(145deg, rgba(16, 185, 129, 0.08), rgba(15, 23, 42, 0.7) 50%, rgba(10, 15, 29, 0.85))"
@@ -267,7 +266,7 @@ export default function MesaiSistemiMinimal() {
 
         {/* Right: Sleek Magnetic Action Trigger */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "1rem" }}>
-          <motion.button
+          <button
             whileHover={!toggling ? { scale: 1.02, y: -1 } : {}}
             whileTap={!toggling ? { scale: 0.98 } : {}}
             onClick={toggleDuty}
@@ -302,12 +301,12 @@ export default function MesaiSistemiMinimal() {
             ) : (
               <><i className="fa-solid fa-play" style={{ fontSize: "0.75rem" }} /> AKTİF DEVRİYEYE BAŞLA</>
             )}
-          </motion.button>
+          </button>
           <span style={{ fontSize: "0.72rem", color: "#64748B" }}>
             {user?.isOnDuty ? "Sinyal kesintisiz telsiz ağına iletiliyor" : "Sisteme giriş yaptığınız an canlı saat başlar"}
           </span>
         </div>
-      </motion.div>
+      </div>
 
       {/* ── ELITE TRIAD PODIUM (MINIMALIST THREE-COLUMN SHOWCASE) ── */}
       <div style={{ marginBottom: "3.5rem" }}>
@@ -328,7 +327,7 @@ export default function MesaiSistemiMinimal() {
             ][idx] || { color: "#64748B", label: `0${idx + 1}`, border: "rgba(255,255,255,0.06)" };
 
             return (
-              <motion.div
+              <div
                 key={off.id}
                 whileHover={{ y: -3, borderColor: medals.color }}
                 style={{
@@ -372,7 +371,7 @@ export default function MesaiSistemiMinimal() {
                     {formatHoursMinimal(secs)}
                   </div>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>
@@ -527,7 +526,7 @@ export default function MesaiSistemiMinimal() {
                 </tr>
               </thead>
               <tbody>
-                <AnimatePresence>
+                <>
                   {filteredList.map((off) => {
                     const idx = leaderboard.indexOf(off);
                     const secs = liveTicks[off.id] !== undefined ? liveTicks[off.id] : off.totalSeconds;
@@ -535,11 +534,11 @@ export default function MesaiSistemiMinimal() {
                     const isMe = off.id === user?.id;
 
                     return (
-                      <motion.tr
+                      <tr
                         key={off.id}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
+                       
+                       
+                       
                         style={{
                           borderBottom: "1px solid rgba(255,255,255,0.035)",
                           background: isMe ? "rgba(56, 189, 248, 0.05)" : "transparent",
@@ -607,17 +606,17 @@ export default function MesaiSistemiMinimal() {
                             )}
                           </td>
                         )}
-                      </motion.tr>
+                      </tr>
                     );
                   })}
-                </AnimatePresence>
+                </>
               </tbody>
             </table>
           </div>
         ) : (
           /* ULTRA-MINIMALIST GRID CARDS */
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1rem" }}>
-            <AnimatePresence>
+            <>
               {filteredList.map((off) => {
                 const idx = leaderboard.indexOf(off);
                 const secs = liveTicks[off.id] !== undefined ? liveTicks[off.id] : off.totalSeconds;
@@ -625,11 +624,11 @@ export default function MesaiSistemiMinimal() {
                 const isMe = off.id === user?.id;
 
                 return (
-                  <motion.div
+                  <div
                     key={off.id}
-                    initial={{ opacity: 0, scale: 0.98 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
+                   
+                   
+                   
                     style={{
                       background: isMe ? "rgba(56, 189, 248, 0.06)" : "rgba(255,255,255,0.02)",
                       border: `1px solid ${isMe ? "rgba(56, 189, 248, 0.3)" : "rgba(255,255,255,0.06)"}`,
@@ -677,10 +676,10 @@ export default function MesaiSistemiMinimal() {
                         </button>
                       )}
                     </div>
-                  </motion.div>
+                  </div>
                 );
               })}
-            </AnimatePresence>
+            </>
           </div>
         )}
 

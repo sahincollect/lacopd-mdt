@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
@@ -106,9 +105,9 @@ export default function MemurBasvurusu() {
       </div>
 
       <main style={{ position: "relative", zIndex: 10, padding: "5rem 2rem 4rem", maxWidth: "860px", margin: "0 auto" }}>
-        <AnimatePresence mode="wait">
+        <>
           {submitted ? (
-            <motion.div key="success" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} style={{ textAlign: "center", padding: "4rem 2rem", backgroundColor: 'white', border: '1px solid var(--lapd-border)' }}>
+            <div key="success" style={{ textAlign: "center", padding: "4rem 2rem", backgroundColor: 'white', border: '1px solid var(--lapd-border)' }}>
               <div style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "var(--lapd-gray-bg)", border: `2px solid var(--lapd-border)`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 2rem" }}>
                 <i className="fa-solid fa-check" style={{ fontSize: "2rem", color: "#10B981" }} />
               </div>
@@ -124,9 +123,9 @@ export default function MemurBasvurusu() {
                   Ana Sayfa
                 </Link>
               </div>
-            </motion.div>
+            </div>
           ) : (
-            <motion.div key="form" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <div key="form">
               {/* Header */}
               <div style={{ marginBottom: "3rem", textAlign: "center" }}>
                 <div style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", backgroundColor: "var(--lapd-gray-bg)", border: `1px solid var(--lapd-border)`, padding: "0.4rem 1.25rem", marginBottom: "1.5rem" }}>
@@ -159,7 +158,7 @@ export default function MemurBasvurusu() {
                 
                 {/* STEP 1 */}
                 {step === 1 && (
-                  <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+                  <div>
                     <div style={{ padding: "3rem" }}>
                       <h3 style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--lapd-blue-dark)", marginBottom: "2rem" }}>Kişisel Bilgiler & İletişim</h3>
                       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
@@ -191,12 +190,12 @@ export default function MemurBasvurusu() {
                         </div>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 )}
 
                 {/* STEP 2 */}
                 {step === 2 && (
-                  <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+                  <div>
                     <div style={{ padding: "3rem" }}>
                       <h3 style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--lapd-blue-dark)", marginBottom: "2rem" }}>Deneyim & Niyet</h3>
                       <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
@@ -225,12 +224,12 @@ export default function MemurBasvurusu() {
                         </div>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 )}
 
                 {/* STEP 3 */}
                 {step === 3 && (
-                  <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+                  <div>
                     <div style={{ padding: "3rem" }}>
                       <h3 style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--lapd-blue-dark)", marginBottom: "2rem" }}>Onay & Beyan</h3>
                       
@@ -267,7 +266,7 @@ export default function MemurBasvurusu() {
                         </div>
                       )}
                     </div>
-                  </motion.div>
+                  </div>
                 )}
 
                 {/* Footer Controls */}
@@ -301,9 +300,9 @@ export default function MemurBasvurusu() {
                 </div>
 
               </div>
-            </motion.div>
+            </div>
           )}
-        </AnimatePresence>
+        </>
       </main>
     </div>
   );

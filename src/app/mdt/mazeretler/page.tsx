@@ -1,6 +1,5 @@
 ﻿"use client";
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 const inputStyle: React.CSSProperties = {
   width: '100%',
@@ -122,9 +121,9 @@ export default function MazeretlerPage() {
         </div>
       </div>
 
-      <AnimatePresence mode="wait">
+      <>
         {tab === 'form' ? (
-          <motion.div key="form" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }}>
+          <div key="form">
             <div style={{ backgroundColor: 'rgba(17, 28, 50, 0.6)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.06)', backdropFilter: 'blur(10px)', padding: '2rem' }}>
               <h2 style={{ margin: '0 0 1.5rem', fontSize: '1.1rem', fontWeight: 700, color: '#fff' }}>
                 Mazeret Talebi Oluştur
@@ -197,9 +196,9 @@ export default function MazeretlerPage() {
                 </button>
               </form>
             </div>
-          </motion.div>
+          </div>
         ) : (
-          <motion.div key="list" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }}>
+          <div key="list">
             {requests.length === 0 ? (
               <div style={{ textAlign: 'center', padding: '4rem', color: 'rgba(255,255,255,0.3)' }}>
                 <i className="fa-solid fa-calendar-xmark" style={{ fontSize: '3rem', display: 'block', marginBottom: '1rem' }}></i>
@@ -208,7 +207,7 @@ export default function MazeretlerPage() {
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 {requests.map(r => (
-                  <motion.div key={r.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
+                  <div key={r.id}
                     style={{ backgroundColor: 'rgba(17, 28, 50, 0.6)', borderRadius: '14px', border: `1px solid ${statusColor[r.status]}22`, backdropFilter: 'blur(10px)', padding: '1.25rem 1.5rem', display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
                     
                     {/* Sol: Durum çizgisi */}
@@ -249,13 +248,13 @@ export default function MazeretlerPage() {
                         </button>
                       </div>
                     )}
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             )}
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
+      </>
     </div>
   );
 }
