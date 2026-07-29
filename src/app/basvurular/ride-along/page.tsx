@@ -113,7 +113,7 @@ export default function RideAlongBasvurusu() {
                 Ride Along başvurunuz kaydedildi. Uygun bir devriye zamanı belirlendikten sonra Discord üzerinden bilgilendirileceksiniz. Katılım için ilgili memur koordinatörlüğünde olacaktır.
               </p>
               <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-                <Link href="/basvurular" style={{ padding: "0.85rem 2rem", backgroundColor: 'var(--lapd-blue-dark)', color: "white", textDecoration: "none", fontWeight: 700 }}>Başvurulara Dön</Link>
+                <Link href="/basvurular" style={{ padding: "0.85rem 2rem", backgroundColor: 'var(--lapd-blue-dark)', color: "var(--bg-primary)", textDecoration: "none", fontWeight: 700 }}>Başvurulara Dön</Link>
                 <Link href="/" style={{ padding: "0.85rem 2rem", backgroundColor: "var(--bg-tertiary)", border: "1px solid var(--lapd-border)", color: "var(--lapd-text-dark)", textDecoration: "none", fontWeight: 600 }}>Ana Sayfa</Link>
               </div>
             </div>

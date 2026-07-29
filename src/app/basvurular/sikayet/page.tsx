@@ -119,7 +119,7 @@ export default function SikayetBasvurusu() {
                 Anonim başvurular da kabul edilmekte olup süreç hakkında e-posta ile bilgilendirilmek isterseniz e-posta adresinizi belirtmeniz gerekmektedir.
               </p>
               <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-                <Link href="/basvurular" style={{ padding: "0.85rem 2rem", backgroundColor: ACCENT, color: "white", textDecoration: "none", fontWeight: 700 }}>Başvurulara Dön</Link>
+                <Link href="/basvurular" style={{ padding: "0.85rem 2rem", backgroundColor: ACCENT, color: "var(--bg-primary)", textDecoration: "none", fontWeight: 700 }}>Başvurulara Dön</Link>
                 <Link href="/" style={{ padding: "0.85rem 2rem", backgroundColor: "var(--bg-tertiary)", border: "1px solid var(--lapd-border)", color: "var(--lapd-text-dark)", textDecoration: "none", fontWeight: 600 }}>Ana Sayfa</Link>
               </div>
             </div>
@@ -139,10 +139,10 @@ export default function SikayetBasvurusu() {
                 </p>
 
                 {/* Warning */}
-                <div style={{ backgroundColor: "#FFFBEB", border: `1px solid #FCD34D`, padding: "1.25rem 1.5rem", display: "flex", gap: "1rem", alignItems: "flex-start", textAlign: "left" }}>
+                <div style={{ backgroundColor: "var(--color-warning-bg)", border: "1px solid var(--color-warning-border)", padding: "1.25rem 1.5rem", display: "flex", gap: "1rem", alignItems: "flex-start", textAlign: "left" }}>
                   <i className="fa-solid fa-circle-info" style={{ color: ACCENT, fontSize: "1rem", marginTop: "2px", flexShrink: 0 }} />
                   <div style={{ fontSize: "0.875rem", color: "var(--lapd-text-dark)", lineHeight: 1.6 }}>
-                    <strong style={{ color: "#B45309" }}>Önemli Bilgi:</strong> Asılsız veya kötü niyetle yapılan şikayetler kendi başına disiplin süreci başlatılmasına neden olabilir. Lütfen yalnızca gerçek olayları bildirin.
+                    <strong style={{ color: "var(--color-warning)" }}>Önemli Bilgi:</strong> Asılsız veya kötü niyetle yapılan şikayetler kendi başına disiplin süreci başlatılmasına neden olabilir. Lütfen yalnızca gerçek olayları bildirin.
                   </div>
                 </div>
               </div>

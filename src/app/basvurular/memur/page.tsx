@@ -116,7 +116,7 @@ export default function MemurBasvurusu() {
                 Memur başvurunuz başarıyla sisteme kaydedildi. Yönetim ekibimiz başvurunuzu en kısa sürede inceleyecek ve Discord üzerinden sizinle iletişime geçecektir.
               </p>
               <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-                <Link href="/basvurular" style={{ padding: "0.85rem 2rem", backgroundColor: ACCENT, color: "white", textDecoration: "none", fontWeight: 700 }}>
+                <Link href="/basvurular" style={{ padding: "0.85rem 2rem", backgroundColor: ACCENT, color: "var(--bg-primary)", textDecoration: "none", fontWeight: 700 }}>
                   Başvurulara Dön
                 </Link>
                 <Link href="/" style={{ padding: "0.85rem 2rem", backgroundColor: "var(--bg-tertiary)", border: "1px solid var(--lapd-border)", color: "var(--lapd-text-dark)", textDecoration: "none", fontWeight: 600 }}>
@@ -145,7 +145,7 @@ export default function MemurBasvurusu() {
               <div style={{ display: "flex", justifyContent: "center", gap: "1rem", marginBottom: "3rem" }}>
                 {[1, 2, 3].map((s) => (
                   <div key={s} style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                    <div style={{ width: "35px", height: "35px", borderRadius: "50%", backgroundColor: step === s ? ACCENT : step > s ? "#10B981" : "var(--bg-tertiary)", border: `1px solid ${step === s ? ACCENT : step > s ? "#10B981" : "var(--lapd-border)"}`, display: "flex", alignItems: "center", justifyContent: "center", color: step === s || step > s ? "white" : "var(--lapd-text-muted)", fontWeight: 800, fontSize: "0.9rem", transition: "all 0.3s" }}>
+                    <div style={{ width: "35px", height: "35px", borderRadius: "50%", backgroundColor: step === s ? ACCENT : step > s ? "#10B981" : "var(--bg-tertiary)", border: `1px solid ${step === s ? ACCENT : step > s ? "#10B981" : "var(--lapd-border)"}`, display: "flex", alignItems: "center", justifyContent: "center", color: step === s || step > s ? "var(--bg-primary)" : "var(--lapd-text-muted)", fontWeight: 800, fontSize: "0.9rem", transition: "all 0.3s" }}>
                       {step > s ? <i className="fa-solid fa-check" /> : s}
                     </div>
                     {s !== 3 && <div style={{ width: "40px", height: "2px", backgroundColor: step > s ? "#10B981" : "var(--lapd-border)", transition: "all 0.3s" }} />}
@@ -283,7 +283,7 @@ export default function MemurBasvurusu() {
                     <button 
                       type="button" 
                       onClick={() => setStep(step + 1)}
-                      style={{ padding: "0.85rem 2.5rem", background: ACCENT, border: "none", color: "white", fontWeight: 800, borderRadius: "4px", cursor: "pointer", transition: "background-color 0.2s" }}
+                      style={{ padding: "0.85rem 2.5rem", background: ACCENT, border: "none", color: "var(--bg-primary)", fontWeight: 800, borderRadius: "4px", cursor: "pointer", transition: "background-color 0.2s" }}
                     >
                       İleri
                     </button>
@@ -292,7 +292,7 @@ export default function MemurBasvurusu() {
                       type="button" 
                       onClick={handleSubmit}
                       disabled={submitting || !form.agreeRules}
-                      style={{ padding: "0.85rem 2.5rem", background: (submitting || !form.agreeRules) ? "var(--lapd-border)" : "#10B981", border: "none", color: "white", fontWeight: 800, borderRadius: "4px", cursor: (submitting || !form.agreeRules) ? "not-allowed" : "pointer", transition: "background-color 0.2s" }}
+                      style={{ padding: "0.85rem 2.5rem", background: (submitting || !form.agreeRules) ? "var(--lapd-border)" : "#10B981", border: "none", color: "var(--bg-primary)", fontWeight: 800, borderRadius: "4px", cursor: (submitting || !form.agreeRules) ? "not-allowed" : "pointer", transition: "background-color 0.2s" }}
                     >
                       {submitting ? "Gönderiliyor..." : "Başvuruyu Tamamla"}
                     </button>
