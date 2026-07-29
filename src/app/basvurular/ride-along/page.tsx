@@ -211,7 +211,7 @@ export default function RideAlongBasvurusu() {
                   )}
 
                   <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "2rem" }}>
-                    <button type="submit" disabled={submitting} style={{ padding: "1rem 2.5rem", background: submitting ? `var(--bg-tertiary)` : `var(--lapd-blue-dark)`, border: "none", color: submitting ? "var(--lapd-text-muted)" : "#fff", fontWeight: 800, cursor: submitting ? "not-allowed" : "pointer", fontSize: "0.95rem", transition: "all 0.2s" }}>
+                    <button type="submit" disabled={submitting} style={{ padding: "1rem 2.5rem", background: submitting ? `var(--bg-tertiary)` : `var(--lapd-blue-dark)`, border: "none", color: submitting ? "var(--lapd-text-muted)" : "var(--bg-primary)", fontWeight: 800, cursor: submitting ? "not-allowed" : "pointer", fontSize: "0.95rem", transition: "all 0.2s" }}>
                       {submitting ? <><i className="fa-solid fa-circle-notch fa-spin" style={{ marginRight: "0.5rem" }} />Gönderiliyor...</> : <><i className="fa-solid fa-paper-plane" style={{ marginRight: "0.5rem" }} />Başvuruyu Gönder</>}
                     </button>
                   </div>

@@ -81,9 +81,9 @@ export default function Hakkimizda() {
       </div>
 
       {/* ── Hero ── */}
-      <section style={{ position: 'relative', height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', borderBottom: '1px solid var(--lapd-border)', backgroundImage: 'url("/gallery/saspbenz.png")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
-        <div style={{ position: 'absolute', inset: 0, backgroundColor: 'var(--bg-secondary)', opacity: 0.9 }} />
-        <div style={{ position: 'relative', zIndex: 1, maxWidth: '900px', padding: '0 2rem' }}>
+      <section style={{ position: 'relative', minHeight: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', borderBottom: '1px solid var(--lapd-border)', backgroundImage: 'url("/gallery/saspbenz.png")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, var(--bg-primary) 0%, rgba(10, 10, 10, 0.7) 50%, var(--bg-primary) 100%)' }} />
+        <div style={{ position: 'relative', zIndex: 1, maxWidth: '900px', padding: '4rem 2rem' }}>
           <h1 style={{ fontFamily: 'var(--font-inter)', fontSize: '3.5rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', marginBottom: '1.5rem', letterSpacing: '-0.02em' }}>
             BİZ KİMİZ?
           </h1>

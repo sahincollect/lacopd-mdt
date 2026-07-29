@@ -53,7 +53,7 @@ export default function Home() {
         
         {/* Left Big Image */}
         <div style={{ flex: 2, position: 'relative' }}>
-          <img src="/gallery/lapdtoren3.png" alt="LAPD Memurları" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <img src="/news/1.jpg" alt="LAPD Memurları" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           <div style={{
             position: 'absolute', left: 0, right: 0, bottom: 0,
             backgroundColor: 'var(--lapd-blue)', padding: '1rem 2rem',
@@ -129,37 +129,36 @@ export default function Home() {
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
           {/* Main News Card */}
-          <div style={{ border: '1px solid var(--lapd-border)', padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-            <div>
-              <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', lineHeight: 1.3, marginBottom: '0.5rem' }}>
-                LAPD Memur Karışımlı Çatışma - Hollenbeck Bölgesi NRF012-20fp
-              </h2>
-              <p style={{ fontSize: '0.85rem', color: 'var(--lapd-text-muted)' }}>23/04/2026</p>
+          <Link href="/haberler" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <div style={{ position: 'relative', height: '350px', borderRadius: '8px', overflow: 'hidden' }}>
+              <img src="/news/1.jpg" alt="Main News" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)' }}></div>
+              <div style={{ position: 'absolute', bottom: '2rem', left: '2rem', right: '2rem' }}>
+                <span style={{ backgroundColor: 'var(--lapd-orange)', color: '#fff', padding: '0.3rem 0.8rem', fontSize: '0.75rem', fontWeight: 800, borderRadius: '4px', marginBottom: '0.5rem', display: 'inline-block' }}>GANG UNIT</span>
+                <h2 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#fff', lineHeight: 1.2, margin: '0.5rem 0' }}>
+                  Los Angeles Sokaklarında Dev Çete Operasyonu
+                </h2>
+                <p style={{ fontSize: '0.9rem', color: '#ccc', margin: 0 }}>August 12, 2026</p>
+              </div>
             </div>
-            <Link href="/" style={{ color: 'var(--lapd-orange)', textDecoration: 'none', fontWeight: 600, fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '5px', marginTop: '2rem' }}>
-              <span style={{ width: '15px', height: '2px', backgroundColor: 'var(--lapd-orange)' }}></span>
-              Tüm Haberleri Görüntüle
-            </Link>
-          </div>
+          </Link>
 
           {/* Sub News Grid */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
-            <div>
-              <h4 style={{ fontSize: '0.9rem', fontWeight: 700, lineHeight: 1.4, marginBottom: '0.3rem' }}>Banka Soygunu Şüphelisi Dedektiflerce Yakalandı NR20088ti</h4>
-              <p style={{ fontSize: '0.8rem', color: 'var(--lapd-text-muted)' }}>23/04/2026</p>
-            </div>
-            <div>
-              <h4 style={{ fontSize: '0.9rem', fontWeight: 700, lineHeight: 1.4, marginBottom: '0.3rem' }}>Silahlı Saldırı Şüphelisi Yakalandı NR20028lh</h4>
-              <p style={{ fontSize: '0.8rem', color: 'var(--lapd-text-muted)' }}>23/04/2026</p>
-            </div>
-            <div>
-              <h4 style={{ fontSize: '0.9rem', fontWeight: 700, lineHeight: 1.4, marginBottom: '0.3rem' }}>Ölümcül Silahlı Çatışma NR20085ml</h4>
-              <p style={{ fontSize: '0.8rem', color: 'var(--lapd-text-muted)' }}>23/04/2026</p>
-            </div>
-            <div>
-              <h4 style={{ fontSize: '0.9rem', fontWeight: 700, lineHeight: 1.4, marginBottom: '0.3rem' }}>Toplumsal İlişkiler Geliştirme Programı Başlatıldı</h4>
-              <p style={{ fontSize: '0.8rem', color: 'var(--lapd-text-muted)' }}>21/04/2026</p>
-            </div>
+            {[
+              { title: 'Organize Suç Örgütlerine Büyük Darbe', date: 'August 09, 2026', img: '/news/2.jpg' },
+              { title: 'Crash Night: Hafta Sonu Trafik Denetimleri', date: 'August 05, 2026', img: '/news/3.jpg' },
+              { title: 'LAPD Filosuna Yeni Nesil Devriye Araçları', date: 'August 01, 2026', img: '/news/4.jpg' },
+              { title: 'Şafak Operasyonu: Ağır Silahlar Ele Geçirildi', date: 'July 25, 2026', img: '/news/6.jpg' }
+            ].map((n, i) => (
+              <Link key={i} href="/haberler" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column' }}>
+                <div style={{ width: '100%', height: '120px', borderRadius: '6px', overflow: 'hidden', marginBottom: '0.8rem' }}>
+                  <img src={n.img} alt={n.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+                <h4 style={{ fontSize: '1rem', fontWeight: 700, lineHeight: 1.3, marginBottom: '0.3rem', color: 'var(--text-primary)' }}>{n.title}</h4>
+                <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{n.date}</p>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -169,7 +168,7 @@ export default function Home() {
         
         {/* Card 1 */}
         <div style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-light)', display: 'flex', flexDirection: 'column' }}>
-          <img src="/gallery/statecar5.png" alt="Aramıza Katıl" style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+          <img src="/news/4.jpg" alt="Aramıza Katıl" style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
           <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
             <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '0.5rem', color: 'var(--text-primary)' }}>Aramıza Katıl</h3>
             <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '1.5rem', lineHeight: 1.5 }}>
@@ -186,7 +185,7 @@ export default function Home() {
 
         {/* Card 2 */}
         <div style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-light)', display: 'flex', flexDirection: 'column' }}>
-          <img src="/gallery/8.png" alt="Olay Videoları" style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+          <img src="/news/3.jpg" alt="Olay Videoları" style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
           <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
             <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '0.5rem', color: 'var(--text-primary)' }}>Kritik Olay Videoları</h3>
             <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '1.5rem', lineHeight: 1.5 }}>
@@ -227,8 +226,8 @@ export default function Home() {
 
       {/* ── BOTTOM HERO / STAY CONNECTED ── */}
       <section style={{ display: 'flex', width: '100%', height: '350px', position: 'relative' }}>
-        <div style={{ flex: 1, backgroundImage: 'url("/gallery/saspbenz.png")', backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
-        <div style={{ flex: 1, backgroundImage: 'url("/gallery/lspd7.png")', backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
+        <div style={{ flex: 1, backgroundImage: 'url("/news/5.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
+        <div style={{ flex: 1, backgroundImage: 'url("/news/6.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
         
         {/* Floating Box */}
         <div style={{ 
