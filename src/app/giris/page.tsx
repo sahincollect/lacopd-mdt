@@ -219,11 +219,11 @@ export default function ResponsiveSplitScreenLogin() {
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
             }}>
-              <img src="/lapd-logo.jpg" alt="LAPD" style={{ width: '24px', height: '24px', borderRadius: '50%' }} />
+              <img src="/lapd-logo.jpg" alt="LAC" style={{ width: '24px', height: '24px', borderRadius: '50%' }} />
             </div>
             <div>
               <span style={{ fontSize: '0.88rem', fontWeight: 800, letterSpacing: '0.08em', color: '#ffffff', fontFamily: "'Oswald', sans-serif" }}>
-                LAPD • MDT NETWORK
+                LAC • MDT NETWORK
               </span>
               <div style={{ fontSize: '0.62rem', color: '#38bdf8', fontWeight: 700, letterSpacing: '0.12em' }}>
                 MOBILE DATA TERMINAL v7.4
@@ -607,7 +607,7 @@ export default function ResponsiveSplitScreenLogin() {
                 <i className="fa-solid fa-lock" style={{ color: '#3b82f6' }}></i>
                 <span>AES-256 TLS 1.3 Encrypted</span>
               </div>
-              <span>LAPD High Command © 2026</span>
+              <span>LAC High Command © 2026</span>
             </div>
 
           </div>

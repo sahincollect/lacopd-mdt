@@ -180,7 +180,7 @@ export default function MesaiSistemiMinimal() {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1.25rem 0", borderBottom: "1px solid rgba(255,255,255,0.06)", marginBottom: "3rem" }}>
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-            <span style={{ fontSize: "0.68rem", fontWeight: 700, color: "#38BDF8", letterSpacing: "0.18em", textTransform: "uppercase" }}>LAPD • TIME LOGS</span>
+            <span style={{ fontSize: "0.68rem", fontWeight: 700, color: "#38BDF8", letterSpacing: "0.18em", textTransform: "uppercase" }}>LAC • TIME LOGS</span>
             <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "#475569" }} />
             <span style={{ fontSize: "0.68rem", fontWeight: 600, color: "#64748B", fontFamily: "'Courier New', monospace" }}>PDT {currentTime}</span>
           </div>

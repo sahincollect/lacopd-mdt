@@ -136,7 +136,7 @@ export default function MDTIntro({ user, onComplete }: MDTIntroProps) {
         {/* Center Content */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem", textAlign: "center" }}>
 
-          {/* LAPD Logo / System Boot */}
+          {/* LAC Logo / System Boot */}
           <AnimatePresence>
             {(phase === "boot" || phase === "badge" || phase === "name" || phase === "rank" || phase === "flash") && (
               <motion.div
@@ -179,7 +179,7 @@ export default function MDTIntro({ user, onComplete }: MDTIntroProps) {
                 </div>
 
                 <div style={{ fontSize: "0.65rem", color: "rgba(59,130,246,0.5)", letterSpacing: "0.35em", fontFamily: "monospace", textTransform: "uppercase" }}>
-                  LAPD — MOBILE DISPATCH TERMINAL
+                  LAC — MOBILE DISPATCH TERMINAL
                 </div>
               </motion.div>
             )}

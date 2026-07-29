@@ -21,8 +21,8 @@ const oswald = Oswald({
 });
 
 export const metadata: Metadata = {
-  title: "LAPD Portal - Los Angeles Police Department",
-  description: "Los Angeles Police Department Memur Paneli ve Veritabanı Sistemi",
+  title: "LAC Portal - Los Angeles Community",
+  description: "Los Angeles Community Memur Paneli ve Veritabanı Sistemi",
 };
 
 export default function RootLayout({

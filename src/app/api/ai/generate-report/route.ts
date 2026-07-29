@@ -24,7 +24,7 @@ export async function POST(req: Request) {
       `"${f.id}": (${f.label} - Tür: ${f.type})`
     ).join(",\n  ");
 
-    const systemPrompt = `Sen Los Angeles Polis Departmanı (LAPD) için çalışan üst düzey, profesyonel bir Yapay Zeka Rapor ve Tutanak Asistanısın (L.A.R.S.).
+    const systemPrompt = `Sen Los Angeles Polis Departmanı (LAC) için çalışan üst düzey, profesyonel bir Yapay Zeka Rapor ve Tutanak Asistanısın (L.A.R.S.).
 Görevin: Memur tarafından serbest dille veya eksik kelimelerle anlatılan olay özetini inceleyerek, seçilen "${templateName}" (${templateId}) şablonunun alanlarını yasal, resmi ve kusursuz bir polis diliyle otomatik olarak doldurmaktır.
 
 Aşağıdaki JSON anahtarlarını (keys) eksiksiz olarak doldurarak SADECE geçerli bir JSON nesnesi (object) döndür:

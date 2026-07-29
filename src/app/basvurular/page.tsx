@@ -8,7 +8,7 @@ const applicationTypes = [
     id: "memur",
     href: "https://discord.gg/thelapd",
     title: "Memur Başvurusu",
-    subtitle: "LAPD Officer Application",
+    subtitle: "LAC Officer Application",
     description:
       "Los Angeles Polis Departmanı'na katılmak isteyen adaylar için resmi başvuru formu. Tüm gereksinimler ve değerlendirme süreci bu form üzerinden yürütülür.",
     icon: "fa-shield-halved",
@@ -38,7 +38,7 @@ const applicationTypes = [
     title: "Memur Şikayet",
     subtitle: "Officer Complaint Form",
     description:
-      "Bir LAPD görevlisiyle ilgili şikayetinizi iletebileceğiniz resmi şikayet formu. Tüm başvurular İç İşler Bürosu tarafından titizlikle incelenir.",
+      "Bir LAC görevlisiyle ilgili şikayetinizi iletebileceğiniz resmi şikayet formu. Tüm başvurular İç İşler Bürosu tarafından titizlikle incelenir.",
     icon: "fa-triangle-exclamation",
     color: "#F59E0B",
     glow: "rgba(245, 158, 11, 0.4)",
@@ -96,8 +96,8 @@ export default function BasvurularPage() {
         }}
       >
         <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.75rem", textDecoration: "none" }}>
-          <img src="/lapd-logo.jpg" alt="LAPD" style={{ width: "36px", height: "36px", borderRadius: "50%", border: "1px solid rgba(14,165,233,0.4)" }} />
-          <span style={{ color: "#f8fafc", fontWeight: 700, fontSize: "1rem", letterSpacing: "0.05em" }}>LAPD</span>
+          <img src="/lapd-logo.jpg" alt="LAC" style={{ width: "36px", height: "36px", borderRadius: "50%", border: "1px solid rgba(14,165,233,0.4)" }} />
+          <span style={{ color: "#f8fafc", fontWeight: 700, fontSize: "1rem", letterSpacing: "0.05em" }}>LAC</span>
         </Link>
         <Link
           href="/"
@@ -161,7 +161,7 @@ export default function BasvurularPage() {
               textTransform: "uppercase",
             }}
           >
-            LAPD{" "}
+            LAC{" "}
             <span style={{ color: "#0EA5E9", textShadow: "0 0 40px rgba(14,165,233,0.5)" }}>
               Başvurular
             </span>
@@ -320,7 +320,7 @@ export default function BasvurularPage() {
           fontSize: "0.8rem",
         }}
       >
-        <p>© {new Date().getFullYear()} Los Angeles Police Department — FiveM Roleplay | Tüm başvurular kayıt altına alınmaktadır.</p>
+        <p>© {new Date().getFullYear()} Los Angeles Community — FiveM Roleplay | Tüm başvurular kayıt altına alınmaktadır.</p>
       </footer>
     </div>
   );

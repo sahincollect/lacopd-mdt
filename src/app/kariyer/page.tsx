@@ -30,7 +30,7 @@ export default function KariyerPage() {
         <motion.div initial="hidden" animate="visible" variants={staggerContainer} style={{ maxWidth: '900px', margin: '0 auto' }}>
           <motion.div variants={fadeUp} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', backgroundColor: 'rgba(59, 130, 246,0.1)', border: '1px solid rgba(59, 130, 246,0.3)', borderRadius: '20px', padding: '0.4rem 1.2rem', marginBottom: '2rem' }}>
             <i className="fa-solid fa-star" style={{ color: 'var(--accent-primary)', fontSize: '0.8rem' }}></i>
-            <span style={{ fontSize: '0.85rem', color: 'var(--accent-primary)', fontWeight: 600, letterSpacing: '0.1em' }}>JOIN THE LAPD</span>
+            <span style={{ fontSize: '0.85rem', color: 'var(--accent-primary)', fontWeight: 600, letterSpacing: '0.1em' }}>JOIN THE LAC</span>
           </motion.div>
           
           <motion.h1 variants={fadeUp} style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', fontWeight: 800, lineHeight: 1.1, marginBottom: '2rem', fontFamily: "'Inter', sans-serif" }}>
@@ -99,9 +99,9 @@ export default function KariyerPage() {
 
             {[
               { title: "Faz 1: İşe Alım (Recruitment)", desc: "Başvuru formunuzun titizlikle incelenmesi ve hem rol yapma yeteneklerinizi hem de karakter hikayenizi değerlendirdiğimiz temel IC/OOC mülakat aşaması.", icon: "fa-clipboard-user" },
-              { title: "Faz 2: Akademi (The Academy)", desc: "Gerçek materyallerle desteklenmiş hukuki ve taktiksel teori eğitimi. Bu aşamada ABD polisleriyle gerçekleştirilen canlı seminerlere katılacak ve LAPD yasalarını öğreneceksiniz.", icon: "fa-school" },
+              { title: "Faz 2: Akademi (The Academy)", desc: "Gerçek materyallerle desteklenmiş hukuki ve taktiksel teori eğitimi. Bu aşamada ABD polisleriyle gerçekleştirilen canlı seminerlere katılacak ve LAC yasalarını öğreneceksiniz.", icon: "fa-school" },
               { title: "Faz 3: Saha Eğitimi (FTO Program)", desc: "Öğrendiklerinizi sahada test etme vakti. Kıdemli bir saha eğitim memuru (FTO) eşliğinde sokaklarda pratik deneyim kazanacak ve gerçekçi senaryolarla sınanacaksınız.", icon: "fa-car-side" },
-              { title: "Faz 4: Yemin Töreni ve Görev", desc: "Tüm eğitimleri başarıyla tamamladıktan sonra resmi yemin töreninde rozetinizi takar ve tam yetkili bir LAPD memuru olarak Los Santos sokaklarında adaleti sağlamaya başlarsınız.", icon: "fa-shield-halved" },
+              { title: "Faz 4: Yemin Töreni ve Görev", desc: "Tüm eğitimleri başarıyla tamamladıktan sonra resmi yemin töreninde rozetinizi takar ve tam yetkili bir LAC memuru olarak Los Santos sokaklarında adaleti sağlamaya başlarsınız.", icon: "fa-shield-halved" },
             ].map((step, idx) => (
               <motion.div key={idx} variants={fadeUp} style={{ position: 'relative', paddingLeft: '3rem', marginBottom: idx !== 3 ? '4rem' : '0' }}>
                 <div style={{

@@ -128,7 +128,7 @@ export default function Hakkimizda() {
             LOS ANGELES POLICE <span style={{ color: 'var(--accent-primary)' }}>DEPARTMENT</span>
           </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: '1.8', margin: '0 auto 2.5rem', maxWidth: '750px' }}>
-            Biz, Los Angeles şehrinin huzur ve güvenliğini sağlamaya yemin etmiş, profesyonelliğin ve taktiksel üstünlüğün zirvesini temsil eden <strong>LAPDPORTAL</strong> ekibiyiz.
+            Biz, Los Angeles şehrinin huzur ve güvenliğini sağlamaya yemin etmiş, profesyonelliğin ve taktiksel üstünlüğün zirvesini temsil eden <strong>LACPORTAL</strong> ekibiyiz.
           </p>
 
           {/* ── CANLI DURUM SAYACI (Sürpriz!) ── */}
@@ -187,7 +187,7 @@ export default function Hakkimizda() {
               KOMUTA <span style={{ color: 'var(--accent-primary)' }}>ZİNCİRİ & PERSONELİMİZ</span>
             </h2>
             <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: '1.8', maxWidth: '800px', margin: '0 auto' }}>
-              LAPD, katı ve disiplinli bir askeri hiyerarşi üzerine kuruludur. Yeşil halka, o an aktif görevde olan personeli gösterir.
+              LAC, katı ve disiplinli bir askeri hiyerarşi üzerine kuruludur. Yeşil halka, o an aktif görevde olan personeli gösterir.
             </p>
           </div>
 

@@ -262,9 +262,9 @@ export default function ProfilPage() {
 
               {/* ID Header */}
               <div style={{ padding: '1.5rem', borderBottom: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <img src="/lapd-logo.jpg" alt="LAPD" style={{ width: '50px', height: '50px', borderRadius: '50%', boxShadow: '0 0 15px rgba(255,255,255,0.2)' }} />
+                <img src="/lapd-logo.jpg" alt="LAC" style={{ width: '50px', height: '50px', borderRadius: '50%', boxShadow: '0 0 15px rgba(255,255,255,0.2)' }} />
                 <div style={{ textAlign: 'right' }}>
-                  <div style={{ color: '#fff', fontFamily: "'Oswald', sans-serif", fontSize: '1.4rem', letterSpacing: '0.1em', lineHeight: 1 }}>LAPD</div>
+                  <div style={{ color: '#fff', fontFamily: "'Oswald', sans-serif", fontSize: '1.4rem', letterSpacing: '0.1em', lineHeight: 1 }}>LAC</div>
                   <div style={{ color: primaryColor, fontSize: '0.6rem', letterSpacing: '0.3em', fontWeight: 700 }}>IDENTIFICATION</div>
                 </div>
               </div>
@@ -284,7 +284,7 @@ export default function ProfilPage() {
                     {user.profileImage ? (
                       <img src={user.profileImage} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     ) : (
-                      <img src="/lapd-logo.jpg" alt="LAPD Logo" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.3, filter: 'grayscale(100%)' }} />
+                      <img src="/lapd-logo.jpg" alt="LAC Logo" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.3, filter: 'grayscale(100%)' }} />
                     )}
                     <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0, transition: 'opacity 0.2s' }} onMouseOver={e => e.currentTarget.style.opacity = '1'} onMouseOut={e => e.currentTarget.style.opacity = '0'}>
                       <i className="fa-solid fa-camera" style={{ fontSize: '1.5rem', color: '#fff' }}></i>

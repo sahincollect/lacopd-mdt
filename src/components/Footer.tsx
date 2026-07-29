@@ -31,7 +31,7 @@ export default function Footer() {
         {/* Brand Section */}
         <div style={{ flex: '1 1 300px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
-            <img src="/lapd-logo.jpg" alt="LAPD Logo" style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover', boxShadow: '0 0 10px rgba(59, 130, 246, 0.3)' }} />
+            <img src="/lapd-logo.jpg" alt="LAC Logo" style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover', boxShadow: '0 0 10px rgba(59, 130, 246, 0.3)' }} />
             <h2 style={{ 
               margin: 0, 
               fontSize: '2rem', 
@@ -40,7 +40,7 @@ export default function Footer() {
               letterSpacing: '0.1em',
               fontFamily: "'Oswald', sans-serif"
             }}>
-              LAPD<span style={{ color: 'var(--accent-primary, #3B82F6)', fontWeight: 400 }}>PORTAL</span>
+              LAC<span style={{ color: 'var(--accent-primary, #3B82F6)', fontWeight: 400 }}>PORTAL</span>
             </h2>
           </div>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: '1.6', maxWidth: '350px' }}>
@@ -82,10 +82,10 @@ export default function Footer() {
       }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', flex: 1 }}>
           <div style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>
-            &copy; {new Date().getFullYear()} Los Angeles Police Department. Tüm Hakları Saklıdır.
+            &copy; {new Date().getFullYear()} Los Angeles Community. Tüm Hakları Saklıdır.
           </div>
           <div style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.75rem', lineHeight: '1.4', maxWidth: '800px' }}>
-            <strong>Yasal Uyarı:</strong> Bu web sitesi, Grand Theft Auto V (FiveM) platformu üzerinde faaliyet gösteren kurgusal bir rol yapma (roleplay) topluluğu için hazırlanmıştır. Gerçek Los Angeles Polis Departmanı (LAPD) veya herhangi bir resmi devlet kurumu ile hiçbir ticari veya resmi bağlantısı bulunmamaktadır.
+            <strong>Yasal Uyarı:</strong> Bu web sitesi, Grand Theft Auto V (FiveM) platformu üzerinde faaliyet gösteren kurgusal bir rol yapma (roleplay) topluluğu için hazırlanmıştır. Gerçek Los Angeles Polis Departmanı (LAC) veya herhangi bir resmi devlet kurumu ile hiçbir ticari veya resmi bağlantısı bulunmamaktadır.
           </div>
         </div>
         <div style={{ display: 'flex', gap: '1rem' }}>

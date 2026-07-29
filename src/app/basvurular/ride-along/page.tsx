@@ -101,7 +101,7 @@ export default function RideAlongBasvurusu() {
       {/* Nav */}
       <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.25rem 5%", borderBottom: "1px solid rgba(255,255,255,0.04)", backgroundColor: "rgba(4,9,20,0.85)", backdropFilter: "blur(20px)" }}>
         <Link href="/basvurular" style={{ display: "flex", alignItems: "center", gap: "0.75rem", textDecoration: "none" }}>
-          <img src="/lapd-logo.jpg" alt="LAPD" style={{ width: "32px", height: "32px", borderRadius: "50%", border: `1px solid ${ACCENT}66` }} />
+          <img src="/lapd-logo.jpg" alt="LAC" style={{ width: "32px", height: "32px", borderRadius: "50%", border: `1px solid ${ACCENT}66` }} />
           <span style={{ color: "#94a3b8", fontSize: "0.85rem" }}>Başvurular</span>
           <i className="fa-solid fa-chevron-right" style={{ color: "#475569", fontSize: "0.65rem" }} />
           <span style={{ color: "#f8fafc", fontWeight: 700, fontSize: "0.9rem" }}>Ride Along</span>
@@ -139,7 +139,7 @@ export default function RideAlongBasvurusu() {
                   Ride Along <span style={{ color: ACCENT }}>Başvurusu</span>
                 </h1>
                 <p style={{ color: "#94a3b8", fontSize: "1rem", lineHeight: 1.7 }}>
-                  LAPD devriye araçlarına eşlik edin, gerçek saha deneyimi yaşayın. Başvurunuz onaylandıktan sonra size uygun bir devriye zamanı ayarlanacaktır.
+                  LAC devriye araçlarına eşlik edin, gerçek saha deneyimi yaşayın. Başvurunuz onaylandıktan sonra size uygun bir devriye zamanı ayarlanacaktır.
                 </p>
 
                 {/* Info boxes */}
@@ -204,7 +204,7 @@ export default function RideAlongBasvurusu() {
                     <div style={{ gridColumn: "1 / -1", borderTop: "1px solid rgba(255,255,255,0.05)", paddingTop: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
                       <label style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start", cursor: "pointer" }}>
                         <input type="checkbox" checked={form.agreeRules} onChange={e => set("agreeRules", e.target.checked)} style={{ width: "16px", height: "16px", marginTop: "3px", accentColor: ACCENT, flexShrink: 0 }} />
-                        <span style={{ color: "#94a3b8", fontSize: "0.875rem", lineHeight: 1.6 }}>LAPD Ride Along program kurallarını okudum ve kabul ediyorum. Devriye sırasında görevli memurun tüm talimatlarına uymayı taahhüt ediyorum.</span>
+                        <span style={{ color: "#94a3b8", fontSize: "0.875rem", lineHeight: 1.6 }}>LAC Ride Along program kurallarını okudum ve kabul ediyorum. Devriye sırasında görevli memurun tüm talimatlarına uymayı taahhüt ediyorum.</span>
                       </label>
                       <label style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start", cursor: "pointer" }}>
                         <input type="checkbox" checked={form.agreeSafety} onChange={e => set("agreeSafety", e.target.checked)} style={{ width: "16px", height: "16px", marginTop: "3px", accentColor: ACCENT, flexShrink: 0 }} />

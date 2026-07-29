@@ -409,9 +409,9 @@ export default function RaporPortali() {
       {/* ── HEADER ── */}
       <header className="no-print" style={{ position: 'sticky', top: 0, zIndex: 50, background: 'rgba(7,9,15,0.85)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.05)', padding: '0 2.5rem', height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem', cursor: 'pointer' }} onClick={() => setView("home")}>
-          <img src="/tahsis-portali/lapd-badge-logo-pngseeklogo-214481.png" alt="LAPD" style={{ width: '28px', filter: 'drop-shadow(0 0 6px rgba(56,189,248,0.3))' }} />
+          <img src="/tahsis-portali/lapd-badge-logo-pngseeklogo-214481.png" alt="LAC" style={{ width: '28px', filter: 'drop-shadow(0 0 6px rgba(56,189,248,0.3))' }} />
           <span style={{ fontSize: '0.95rem', fontWeight: 700, color: '#e2e8f0', letterSpacing: '0.01em' }}>
-            LAPD <span style={{ color: '#38bdf8' }}>L.A.R.S.</span>
+            LAC <span style={{ color: '#38bdf8' }}>L.A.R.S.</span>
           </span>
         </div>
 
@@ -435,7 +435,7 @@ export default function RaporPortali() {
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(56,189,248,0.08)', border: '1px solid rgba(56,189,248,0.15)', borderRadius: '50px', padding: '0.3rem 1rem', marginBottom: '1.5rem', fontSize: '0.75rem', fontWeight: 600, color: '#38bdf8', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
               <i className="fa-solid fa-file-shield" style={{ fontSize: '0.7rem' }} />
-              Los Angeles Police Department
+              Los Angeles Community
             </div>
             <h1 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', fontWeight: 300, color: '#f1f5f9', letterSpacing: '-0.03em', margin: '0 0 0.75rem', lineHeight: 1.2 }}>
               Resmi Rapor Şablonları
@@ -516,7 +516,7 @@ export default function RaporPortali() {
                     </div>
                     <div style={{ textAlign: 'right' }}>
                       <div style={{ fontFamily: 'monospace', fontSize: '0.68rem', color: '#d4af37', background: 'rgba(212,175,55,0.07)', border: '1px solid rgba(212,175,55,0.15)', padding: '0.2rem 0.55rem', borderRadius: '4px', display: 'inline-block' }}>
-                        LAPD {tmpl.code}
+                        LAC {tmpl.code}
                       </div>
                     </div>
                   </div>
@@ -597,13 +597,13 @@ export default function RaporPortali() {
               {/* Doc Header */}
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-                  <img src="/tahsis-portali/lapd-badge-logo-pngseeklogo-214481.png" alt="LAPD" style={{ width: '36px', opacity: 0.8 }} />
+                  <img src="/tahsis-portali/lapd-badge-logo-pngseeklogo-214481.png" alt="LAC" style={{ width: '36px', opacity: 0.8 }} />
                   <div>
-                    <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#cbd5e1', letterSpacing: '0.5px' }}>LOS ANGELES POLICE DEPARTMENT</div>
+                    <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#cbd5e1', letterSpacing: '0.5px' }}>LOS ANGELES COMMUNITY</div>
                     <div style={{ fontSize: '0.88rem', color: '#38bdf8', fontWeight: 500, marginTop: '0.1rem' }}>{previewTemplate.name}</div>
                   </div>
                 </div>
-                <div style={{ fontFamily: 'monospace', color: '#d4af37', fontSize: '0.88rem', fontWeight: 700 }}>LAPD {previewTemplate.code}</div>
+                <div style={{ fontFamily: 'monospace', color: '#d4af37', fontSize: '0.88rem', fontWeight: 700 }}>LAC {previewTemplate.code}</div>
               </div>
 
               {previewTemplate.sections.map((sec: any, si: number) => (
@@ -655,14 +655,14 @@ export default function RaporPortali() {
             {/* Doc Header */}
             <div style={{ padding: '2rem 2.5rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-                <img src="/tahsis-portali/lapd-badge-logo-pngseeklogo-214481.png" alt="LAPD" style={{ width: '52px', filter: 'drop-shadow(0 0 5px rgba(56,189,248,0.2))' }} />
+                <img src="/tahsis-portali/lapd-badge-logo-pngseeklogo-214481.png" alt="LAC" style={{ width: '52px', filter: 'drop-shadow(0 0 5px rgba(56,189,248,0.2))' }} />
                 <div>
-                  <div className="doc-header-title" style={{ fontSize: '1.2rem', fontWeight: 800, color: '#f1f5f9', letterSpacing: '0.5px' }}>LOS ANGELES POLICE DEPARTMENT</div>
+                  <div className="doc-header-title" style={{ fontSize: '1.2rem', fontWeight: 800, color: '#f1f5f9', letterSpacing: '0.5px' }}>LOS ANGELES COMMUNITY</div>
                   <div className="doc-header-subtitle" style={{ fontSize: '0.9rem', color: '#38bdf8', fontWeight: 500, marginTop: '0.15rem' }}>{template.name}</div>
                 </div>
               </div>
               <div style={{ textAlign: 'right' }}>
-                <div className="doc-header-code" style={{ fontFamily: 'monospace', color: '#d4af37', fontWeight: 700, fontSize: '1rem' }}>LAPD {template.code}</div>
+                <div className="doc-header-code" style={{ fontFamily: 'monospace', color: '#d4af37', fontWeight: 700, fontSize: '1rem' }}>LAC {template.code}</div>
                 <div className="doc-header-code" style={{ fontSize: '0.75rem', color: '#334155', marginTop: '0.25rem', fontFamily: 'monospace' }}>{reportCode}</div>
               </div>
             </div>

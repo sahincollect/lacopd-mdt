@@ -333,6 +333,16 @@ export default function Home() {
           {/* SCANLINE */}
           <div style={S.scanline} />
 
+          {/* PRELOAD NEXT IMAGE */}
+          {activeStage + 1 < STAGES.length && (
+            <img 
+              src={STAGES[activeStage + 1].bg} 
+              style={{ display: 'none' }} 
+              alt="preload" 
+              fetchPriority="low" 
+            />
+          )}
+
           {/* BG IMAGE */}
           <AnimatePresence mode="wait">
             <motion.img
@@ -344,6 +354,8 @@ export default function Home() {
               exit={{ opacity: 0, scale: 0.97 }}
               transition={{ duration: 1.1, ease: 'easeInOut' }}
               style={S.bgImg}
+              loading={activeStage === 0 ? "eager" : "lazy"}
+              fetchPriority={activeStage === 0 ? "high" : "low"}
             />
           </AnimatePresence>
           <div style={S.bgOverlay} />
@@ -352,7 +364,7 @@ export default function Home() {
           <div style={S.hudTop}>
             <div style={S.rec}>
               <div style={S.recDot} />
-              <span>REC // L.A.P.D.</span>
+              <span>REC // L.A.C.</span>
             </div>
           </div>
 
@@ -392,7 +404,7 @@ export default function Home() {
                 >
                   <img 
                     src="/lapd-logo.jpg" 
-                    alt="LAPD Seal" 
+                    alt="LAC Seal" 
                     style={{ 
                       width: 140, height: 140, borderRadius: '50%', marginBottom: '2.5rem', 
                       boxShadow: '0 0 50px rgba(255,255,255,0.1), inset 0 0 20px rgba(0,0,0,0.5)', 
@@ -414,7 +426,7 @@ export default function Home() {
                     color: '#fff', letterSpacing: '0.25em', lineHeight: 1.2,
                     textShadow: '0 0 40px rgba(255,255,255,0.4)',
                   }}>
-                    POLICE DEPARTMENT
+                    COMMUNITY
                   </h2>
                   <div style={{ width: '80px', height: '1px', background: 'rgba(255,255,255,0.4)', margin: '2.5rem auto' }} />
                   <p style={{
@@ -548,14 +560,14 @@ export default function Home() {
 
                     {/* Header */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2.5rem' }}>
-                      <img src="/lapd-logo.jpg" alt="LAPD" style={{
+                      <img src="/lapd-logo.jpg" alt="LAC" style={{
                         width: 48, height: 48, borderRadius: '50%', objectFit: 'cover',
                         border: '1px solid rgba(96,165,250,0.3)',
                         boxShadow: '0 0 16px rgba(59,130,246,0.4)',
                       }} />
                       <div>
                         <div style={{ fontSize: '1.5rem', fontWeight: 900, color: '#fff', letterSpacing: '0.04em', lineHeight: 1 }}>
-                          LAPD<span style={{ color: '#60A5FA', fontWeight: 300 }}>PORTAL</span>
+                          LAC<span style={{ color: '#60A5FA', fontWeight: 300 }}>PORTAL</span>
                         </div>
                         <div style={{ fontSize: '0.65rem', letterSpacing: '0.25em', color: 'rgba(96,165,250,0.5)', fontFamily: 'monospace', marginTop: 4, textTransform: 'uppercase' }}>
                           Yetkili Personel Sistemi
@@ -605,7 +617,7 @@ export default function Home() {
                             {isSubmitting ? 'Bağlanıyor...' : 'Memur Girişi'}
                           </div>
                           <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.1em', marginTop: 2, fontFamily: 'monospace' }}>
-                            {isSubmitting ? loginStatus : 'lapd.portal.gov / secure'}
+                            {isSubmitting ? loginStatus : 'lac.portal.gov / secure'}
                           </div>
                         </div>
                         {!isSubmitting && (

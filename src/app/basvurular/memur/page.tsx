@@ -106,7 +106,7 @@ export default function MemurBasvurusu() {
       {/* Nav */}
       <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.25rem 5%", borderBottom: "1px solid rgba(255,255,255,0.04)", backgroundColor: "rgba(4,9,20,0.85)", backdropFilter: "blur(20px)" }}>
         <Link href="/basvurular" style={{ display: "flex", alignItems: "center", gap: "0.75rem", textDecoration: "none" }}>
-          <img src="/lapd-logo.jpg" alt="LAPD" style={{ width: "32px", height: "32px", borderRadius: "50%", border: "1px solid rgba(14,165,233,0.4)" }} />
+          <img src="/lapd-logo.jpg" alt="LAC" style={{ width: "32px", height: "32px", borderRadius: "50%", border: "1px solid rgba(14,165,233,0.4)" }} />
           <span style={{ color: "#94a3b8", fontSize: "0.85rem" }}>Başvurular</span>
           <i className="fa-solid fa-chevron-right" style={{ color: "#475569", fontSize: "0.65rem" }} />
           <span style={{ color: "#f8fafc", fontWeight: 700, fontSize: "0.9rem" }}>Memur Başvurusu</span>
@@ -145,7 +145,7 @@ export default function MemurBasvurusu() {
                   <span style={{ fontSize: "0.8rem", color: "#7dd3fc", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase" }}>Resmi Memur Başvurusu</span>
                 </div>
                 <h1 style={{ fontSize: "2.5rem", fontWeight: 800, color: "#fff", marginBottom: "1rem", letterSpacing: "-0.02em" }}>
-                  LAPD&apos;ye Katıl
+                  LAC&apos;ye Katıl
                 </h1>
                 <p style={{ color: "#94a3b8", fontSize: "1rem", lineHeight: 1.7 }}>
                   Tüm alanları dürüstçe ve eksiksiz doldurun. Eksik veya yanlış bilgi başvurunuzun reddedilmesine neden olabilir.
@@ -225,7 +225,7 @@ export default function MemurBasvurusu() {
                           <textarea style={{ ...inputStyle, minHeight: "120px", resize: "vertical" }} placeholder="Daha önce hangi sunucularda, hangi pozisyonlarda görev aldınız?" value={form.experience} onChange={e => set("experience", e.target.value)} />
                         </div>
                         <div>
-                          <label style={labelStyle}>Neden LAPD&apos;ye Katılmak İstiyorsunuz? *</label>
+                          <label style={labelStyle}>Neden LAC&apos;ye Katılmak İstiyorsunuz? *</label>
                           <textarea style={{ ...inputStyle, minHeight: "140px", resize: "vertical" }} placeholder="Motivasyonunuzu, hedeflerinizi ve beklentilerinizi detaylandırın..." value={form.motivation} onChange={e => set("motivation", e.target.value)} />
                         </div>
                         <div>
@@ -267,7 +267,7 @@ export default function MemurBasvurusu() {
                       <label style={{ display: "flex", gap: "1rem", alignItems: "flex-start", cursor: "pointer", marginBottom: "1.5rem" }}>
                         <input type="checkbox" checked={form.agreeRules} onChange={e => set("agreeRules", e.target.checked)} style={{ width: "18px", height: "18px", marginTop: "2px", accentColor: ACCENT, flexShrink: 0 }} />
                         <span style={{ color: "#94a3b8", fontSize: "0.9rem", lineHeight: 1.6 }}>
-                        Verdiğim bilgilerin doğru ve eksiksiz olduğunu, LAPD sunucu kurallarını okuduğumu ve kabul ettiğimi onaylıyorum. Yanlış bilgi nedeniyle başvurumun reddedilebileceğini ve sunucudan çıkarılabileceğimi anlıyorum.
+                        Verdiğim bilgilerin doğru ve eksiksiz olduğunu, LAC sunucu kurallarını okuduğumu ve kabul ettiğimi onaylıyorum. Yanlış bilgi nedeniyle başvurumun reddedilebileceğini ve sunucudan çıkarılabileceğimi anlıyorum.
                         </span>
                       </label>
 

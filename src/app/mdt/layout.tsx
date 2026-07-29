@@ -101,11 +101,11 @@ export default function MDTLayout({
             boxShadow: '0 0 10px rgba(255, 255, 255, 0.1)',
             flexShrink: 0
           }}>
-            <img src="/lapd-logo.jpg" alt="LAPD Official Seal" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <img src="/lapd-logo.jpg" alt="LAC Official Seal" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
           <div>
             <div style={{ fontSize: '1.2rem', fontWeight: 900, color: '#ffffff', letterSpacing: '0.06em', fontFamily: "'Oswald', sans-serif" }}>
-              CITY OF LOS ANGELES — POLICE DEPARTMENT
+              CITY OF LOS ANGELES — COMMUNITY
             </div>
             <div style={{ fontSize: '0.72rem', color: '#93c5fd', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', marginTop: '0.1rem' }}>
               INTERNAL LAW ENFORCEMENT & MOBILE DATA TERMINAL PORTAL
@@ -232,7 +232,7 @@ export default function MDTLayout({
         `}</style>
         <div style={{ flex: 1, overflow: 'hidden', position: 'relative', display: 'flex', alignItems: 'center' }}>
           <div style={{ display: 'inline-block', whiteSpace: 'nowrap', animation: 'marquee 35s linear infinite', paddingRight: '100vw', fontSize: '0.75rem', fontWeight: 600, color: '#cbd5e1', letterSpacing: '0.04em', fontFamily: "'Courier New', monospace" }}>
-             [SYSTEM] LAPD CENTRAL DISPATCH ONLINE. ALL OFFICERS ARE REQUIRED TO LOG THEIR SHIFTS VIA THE TIME & ATTENDANCE MODULE. SECURE CJIS NETWORK ACTIVE.
+             [SYSTEM] LAC CENTRAL DISPATCH ONLINE. ALL OFFICERS ARE REQUIRED TO LOG THEIR SHIFTS VIA THE TIME & ATTENDANCE MODULE. SECURE CJIS NETWORK ACTIVE.
           </div>
         </div>
       </div>

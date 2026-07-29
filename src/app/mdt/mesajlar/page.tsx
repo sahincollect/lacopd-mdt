@@ -415,7 +415,7 @@ Sayın Personel,
     printWindow.document.write(`
       <html>
         <head>
-          <title>LAPD OFFICIAL RECORD - #${mail.id}</title>
+          <title>LAC OFFICIAL RECORD - #${mail.id}</title>
           <style>
             body { font-family: 'Courier New', monospace; padding: 40px; color: #000; background: #fff; }
             .header { border-bottom: 2px solid #000; padding-bottom: 15px; margin-bottom: 25px; }
@@ -428,7 +428,7 @@ Sayın Personel,
         </head>
         <body>
           <div class="header">
-            <div class="title">LOS ANGELES POLICE DEPARTMENT — INTERNAL MAIL RECORD</div>
+            <div class="title">LOS ANGELES COMMUNITY — INTERNAL MAIL RECORD</div>
             <div class="sub">OFFICIAL LAW ENFORCEMENT COMMUNICATION TRANSCRIPT</div>
           </div>
           <div class="meta">
@@ -441,7 +441,7 @@ Sayın Personel,
           </div>
           <div class="body">${parsed.body}</div>
           <div class="footer">
-            CONFIDENTIAL LAW ENFORCEMENT RECORD — CITY OF LOS ANGELES POLICE DEPARTMENT<br/>
+            CONFIDENTIAL LAW ENFORCEMENT RECORD — CITY OF LOS ANGELES COMMUNITY<br/>
             Printed on: ${new Date().toLocaleString('tr-TR')} by Officer #${currentUser?.badge || 'UNKNOWN'}
           </div>
         </body>
@@ -475,7 +475,7 @@ Sayın Personel,
             </div>
             <div>
               <h1 style={{ margin: 0, fontSize: '1.6rem', fontWeight: 900, color: '#fff', fontFamily: "'Oswald', sans-serif", letterSpacing: '0.04em' }}>
-                LAPD OPERASYONEL MAIL BOX
+                LAC OPERASYONEL MAIL BOX
               </h1>
               <span style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 600, letterSpacing: '0.08em' }}>
                 KURUMSAL BİRİM İÇİ VE DEPARTMANLAR ARASI HABERLEŞME TERMİNALİ
@@ -610,7 +610,7 @@ Sayın Personel,
                 ✍️ YENİ OPERASYONEL POSTA OLUŞTUR
               </h2>
               <p style={{ margin: '0.3rem 0 0 0', fontSize: '0.82rem', color: '#94a3b8' }}>
-                Göndereceğiniz postalar LAPD resmi kayıtlarında şifreli olarak arşivlenir.
+                Göndereceğiniz postalar LAC resmi kayıtlarında şifreli olarak arşivlenir.
               </p>
             </div>
 

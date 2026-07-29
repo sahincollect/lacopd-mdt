@@ -103,7 +103,7 @@ export default function SikayetBasvurusu() {
 
       <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.25rem 5%", borderBottom: "1px solid rgba(255,255,255,0.04)", backgroundColor: "rgba(4,9,20,0.85)", backdropFilter: "blur(20px)" }}>
         <Link href="/basvurular" style={{ display: "flex", alignItems: "center", gap: "0.75rem", textDecoration: "none" }}>
-          <img src="/lapd-logo.jpg" alt="LAPD" style={{ width: "32px", height: "32px", borderRadius: "50%", border: `1px solid ${ACCENT}66` }} />
+          <img src="/lapd-logo.jpg" alt="LAC" style={{ width: "32px", height: "32px", borderRadius: "50%", border: `1px solid ${ACCENT}66` }} />
           <span style={{ color: "#94a3b8", fontSize: "0.85rem" }}>Başvurular</span>
           <i className="fa-solid fa-chevron-right" style={{ color: "#475569", fontSize: "0.65rem" }} />
           <span style={{ color: "#f8fafc", fontWeight: 700, fontSize: "0.9rem" }}>Şikayet Formu</span>
@@ -143,7 +143,7 @@ export default function SikayetBasvurusu() {
                   Memur <span style={{ color: ACCENT }}>Şikayet Formu</span>
                 </h1>
                 <p style={{ color: "#94a3b8", fontSize: "1rem", lineHeight: 1.7, marginBottom: "1.5rem" }}>
-                  Bir LAPD görevlisiyle ilgili şikayetinizi buradan iletebilirsiniz. Tüm başvurular gizli tutulur ve İç İşler Bürosu tarafından titizlikle incelenir.
+                  Bir LAC görevlisiyle ilgili şikayetinizi buradan iletebilirsiniz. Tüm başvurular gizli tutulur ve İç İşler Bürosu tarafından titizlikle incelenir.
                 </p>
 
                 {/* Warning */}

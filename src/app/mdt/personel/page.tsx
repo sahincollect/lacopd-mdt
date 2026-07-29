@@ -434,13 +434,13 @@ export default function PersonelListesi() {
                   {members.map(officer => (
                     <motion.div whileHover={{ y: -2, boxShadow: `0 8px 20px ${meta.color}15`, borderColor: `${meta.color}50` }} key={officer.id} style={{ display: "flex", alignItems: "center", gap: "0.8rem", padding: "0.75rem", backgroundColor: "rgba(0,0,0,0.4)", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.05)", transition: "all 0.3s", position: "relative", overflow: 'hidden' }}>
                       
-                      {/* Avatar (Rounded Square + LAPD Logo Fallback) */}
+                      {/* Avatar (Rounded Square + LAC Logo Fallback) */}
                       <div style={{ position: 'relative' }}>
                         <div style={{ width: "42px", height: "42px", borderRadius: "10px", flexShrink: 0, backgroundColor: 'rgba(255,255,255,0.05)', border: `1px solid ${meta.color}40`, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", boxShadow: `0 0 10px ${meta.color}10` }}>
                           {officer.profileImage ? (
                             <img src={officer.profileImage} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                           ) : (
-                            <img src="/lapd-logo.jpg" alt="LAPD Logo" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.3, filter: 'grayscale(100%)' }} />
+                            <img src="/lapd-logo.jpg" alt="LAC Logo" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.3, filter: 'grayscale(100%)' }} />
                           )}
                         </div>
                         {/* Status Blip */}
