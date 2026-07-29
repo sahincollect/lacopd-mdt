@@ -15,25 +15,31 @@ export default function Navigation() {
 
   const navMenus = [
     { 
-      name: "DEPARTMANIMIZ", 
+      name: "HAKKIMIZDA", 
       items: [
         { label: "Biz Kimiz?", path: "/hakkimizda" },
-        { label: "Community Lead'den Mesaj", path: "/mesaj" },
-        { label: "Medya ve Galeri", path: "/galeri" }
+        { label: "Community Lead'den Mesaj", path: "/mesaj" }
       ]
     },
     { 
-      name: "HİZMETLER", 
-      items: [
-        { label: "Polis Raporu Oluştur", path: "/rapor-portali" },
-        { label: "Trafik Kazası Raporu", path: "/rapor-portali" }
-      ]
+      name: "GALERİ", 
+      path: "/galeri"
     },
     { 
-      name: "BİLGİ & KARİYER", 
+      name: "KARİYER", 
       items: [
-        { label: "Aramıza Katıl", path: "/basvurular" },
+        { label: "Akademi Başvurusu", path: "/basvurular/memur" },
+        { label: "Ride-Along Programı", path: "/basvurular/ride-along" },
         { label: "Kariyer Olanakları", path: "/kariyer" }
+      ]
+    },
+    { 
+      name: "İLETİŞİM", 
+      items: [
+        { label: "Memur Şikayet Formu", path: "/basvurular/sikayet" },
+        { label: "İstek & Öneri Formu", path: "/basvurular" },
+        { label: "Trafik Kazası Raporu", path: "/rapor-portali" },
+        { label: "Polis Raporu Oluştur", path: "/rapor-portali" }
       ]
     }
   ];
@@ -92,30 +98,46 @@ export default function Navigation() {
                 onMouseLeave={() => setActiveMenu(null)}
                 style={{ position: 'relative', height: '100%', display: 'flex', alignItems: 'center', padding: '20px 0' }}
               >
-                <div style={{ 
-                  color: 'var(--lapd-text-dark)', 
-                  textDecoration: 'none', 
-                  fontSize: '0.85rem', 
-                  fontWeight: 700, 
-                  fontFamily: 'var(--font-inter)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  cursor: 'pointer'
-                }}>
-                  {menu.name}
-                  <span style={{ 
-                    width: 0, height: 0, 
-                    borderLeft: '4px solid transparent', 
-                    borderRight: '4px solid transparent', 
-                    borderTop: `4px solid ${activeMenu === menu.name ? 'var(--lapd-orange)' : 'var(--lapd-text-dark)'}`,
-                    marginTop: '2px',
-                    transition: 'border-top-color 0.2s'
-                  }}></span>
-                </div>
+                {menu.path ? (
+                  <Link href={menu.path} style={{ 
+                    color: 'var(--lapd-text-dark)', 
+                    textDecoration: 'none', 
+                    fontSize: '0.85rem', 
+                    fontWeight: 700, 
+                    fontFamily: 'var(--font-inter)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    cursor: 'pointer'
+                  }}>
+                    {menu.name}
+                  </Link>
+                ) : (
+                  <div style={{ 
+                    color: 'var(--lapd-text-dark)', 
+                    textDecoration: 'none', 
+                    fontSize: '0.85rem', 
+                    fontWeight: 700, 
+                    fontFamily: 'var(--font-inter)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    cursor: 'pointer'
+                  }}>
+                    {menu.name}
+                    <span style={{ 
+                      width: 0, height: 0, 
+                      borderLeft: '4px solid transparent', 
+                      borderRight: '4px solid transparent', 
+                      borderTop: `4px solid ${activeMenu === menu.name ? 'var(--lapd-orange)' : 'var(--lapd-text-dark)'}`,
+                      marginTop: '2px',
+                      transition: 'border-top-color 0.2s'
+                    }}></span>
+                  </div>
+                )}
 
                 {/* Dropdown Box */}
-                {activeMenu === menu.name && (
+                {activeMenu === menu.name && menu.items && (
                   <div style={{
                     position: 'absolute',
                     top: '100%',
