@@ -26,6 +26,10 @@ export default function Navigation() {
       path: "/galeri"
     },
     { 
+      name: "HABERLER", 
+      path: "/haberler"
+    },
+    { 
       name: "KARİYER", 
       items: [
         { label: "Akademi Başvurusu", path: "/basvurular/memur" },
