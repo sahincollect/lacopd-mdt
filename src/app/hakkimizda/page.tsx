@@ -82,13 +82,13 @@ export default function Hakkimizda() {
 
       {/* ── Hero ── */}
       <section style={{ position: 'relative', minHeight: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', borderBottom: '1px solid var(--lapd-border)', backgroundImage: 'url("/gallery/saspbenz.png")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, var(--bg-primary) 0%, rgba(10, 10, 10, 0.7) 50%, var(--bg-primary) 100%)' }} />
+        <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.65)' }} />
         <div style={{ position: 'relative', zIndex: 1, maxWidth: '900px', padding: '4rem 2rem' }}>
-          <h1 style={{ fontFamily: 'var(--font-inter)', fontSize: '3.5rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', marginBottom: '1.5rem', letterSpacing: '-0.02em' }}>
+          <h1 style={{ fontFamily: 'var(--font-inter)', fontSize: '3.5rem', fontWeight: 800, color: '#ffffff', marginBottom: '1.5rem', letterSpacing: '-0.02em', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
             BİZ KİMİZ?
           </h1>
-          <p style={{ color: 'var(--lapd-text-dark)', fontSize: '1.1rem', lineHeight: '1.8', margin: '0 auto', maxWidth: '750px', fontWeight: 500 }}>
-            Biz, Los Angeles şehrinin huzur ve güvenliğini sağlamaya yemin etmiş, profesyonelliğin ve taktiksel üstünlüğün zirvesini temsil eden <strong>LACPORTAL</strong> ekibiyiz.
+          <p style={{ color: '#f3f4f6', fontSize: '1.1rem', lineHeight: '1.8', margin: '0 auto', maxWidth: '750px', fontWeight: 500, textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}>
+            Biz, Los Angeles şehrinin huzur ve güvenliğini sağlamaya yemin etmiş, profesyonelliğin ve taktiksel üstünlüğün zirvesini temsil eden <strong style={{ color: '#ffffff', fontWeight: 800 }}>LACPORTAL</strong> ekibiyiz.
           </p>
         </div>
       </section>
