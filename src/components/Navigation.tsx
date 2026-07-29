@@ -13,137 +13,115 @@ export default function Navigation() {
   }
 
   const navLinks = [
-    { name: "Ana Sayfa", path: "/" },
-    { name: "Hakkımızda", path: "/hakkimizda" },
-    { name: "Kariyer", path: "/kariyer" },
-    { name: "Başvurular", path: "/basvurular" },
-    { name: "Galeri", path: "/galeri" }
+    { name: "HAKKIMIZDA", path: "/hakkimizda" },
+    { name: "KARİYER", path: "/kariyer" },
+    { name: "BAŞVURULAR", path: "/basvurular" },
+    { name: "GALERİ", path: "/galeri" }
   ];
 
   return (
-    <div style={{ position: "sticky", top: "1rem", zIndex: 50, padding: "0 2rem", width: "100%", maxWidth: "1600px", margin: "0 auto", boxSizing: "border-box" }}>
-      <motion.nav 
-        initial={{ y: -50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          padding: '0.8rem 2rem',
-          backgroundColor: 'rgba(10, 15, 30, 0.7)',
-          backdropFilter: 'blur(24px)',
-          WebkitBackdropFilter: 'blur(24px)',
-          border: '1px solid rgba(59, 130, 246, 0.2)',
-          borderRadius: '24px',
-          boxShadow: '0 10px 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(59, 130, 246, 0.05)'
-        }}
-      >
-        {/* Sol Logo Alanı */}
-        <Link href="/" style={{ textDecoration: 'none' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', width: '250px', cursor: 'pointer' }}>
-            <div style={{ position: 'relative' }}>
-              <img src="/lapd-logo.png" alt="LAC Logo" style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover', position: 'relative', zIndex: 1 }} />
-              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, borderRadius: '50%', boxShadow: '0 0 15px rgba(59, 130, 246, 0.8)', animation: 'pulse-blip 3s infinite' }}></div>
-            </div>
-            <h1 style={{ 
-              margin: 0, 
-              fontSize: '1.6rem', 
-              fontWeight: 800, 
-              color: 'white', 
-              letterSpacing: '0.12em',
-              fontFamily: "'Oswald', sans-serif",
-              textShadow: '0 2px 10px rgba(0,0,0,0.5)'
-            }}>
-              LAC<span style={{ color: 'var(--accent-primary, #3B82F6)', fontWeight: 400, textShadow: '0 0 15px rgba(59,130,246,0.6)' }}>PORTAL</span>
-            </h1>
-          </div>
+    <div style={{ width: "100%", zIndex: 100, position: "relative" }}>
+      
+      {/* ── TOP ALERT BAR ── */}
+      <div style={{ 
+        backgroundColor: '#F9FAFB', 
+        borderBottom: '1px solid var(--lapd-border)', 
+        padding: '0.4rem 1rem', 
+        textAlign: 'center', 
+        fontSize: '0.75rem', 
+        color: 'var(--lapd-text-dark)' 
+      }}>
+        <strong style={{ fontWeight: 800 }}>DUYURU!</strong> Los Angeles Polis Akademisi (Season 7) başvuruları başlamıştır. 
+        <Link href="https://discord.gg/thelapd" target="_blank" style={{ color: 'var(--lapd-orange)', marginLeft: '10px', textDecoration: 'none', fontWeight: 600 }}>
+          — Detaylı Bilgi Alın
         </Link>
-        
-        {/* Orta Menü */}
-        <div style={{ display: 'flex', gap: '2rem', alignItems: 'center', justifyContent: 'center', flex: 1 }}>
-          {navLinks.map((link) => {
-            const isActive = pathname === link.path || (link.path === '/mdt' && pathname?.startsWith('/mdt'));
-            return (
-              <Link href={link.path} key={link.path} style={{ textDecoration: 'none' }}>
-                <motion.div
-                  whileHover={{ y: -2 }}
-                  style={{
-                    position: 'relative',
-                    fontFamily: "'Inter', sans-serif", 
-                    fontSize: '0.9rem', 
-                    fontWeight: isActive ? 700 : 500, 
-                    letterSpacing: '0.08em', 
-                    textTransform: 'uppercase',
-                    color: isActive ? '#60A5FA' : 'rgba(255,255,255,0.7)',
-                    padding: '0.5rem 0',
-                    cursor: 'pointer',
-                    transition: 'color 0.3s ease'
-                  }}
-                  onMouseOver={(e) => { if (!isActive) e.currentTarget.style.color = '#fff'; }}
-                  onMouseOut={(e) => { if (!isActive) e.currentTarget.style.color = 'rgba(255,255,255,0.7)'; }}
-                >
-                  {link.name}
-                  {isActive && (
-                    <motion.div
-                      layoutId="nav-indicator"
-                      style={{
-                        position: 'absolute',
-                        bottom: -4,
-                        left: 0,
-                        right: 0,
-                        height: '2px',
-                        background: 'linear-gradient(90deg, transparent, #3B82F6, transparent)',
-                        boxShadow: '0 0 10px #3B82F6'
-                      }}
-                    />
-                  )}
-                </motion.div>
-              </Link>
-            );
-          })}
-        </div>
+      </div>
 
-        {/* Sağ Butonlar */}
-        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', justifyContent: 'flex-end', width: '320px' }}>
-          <motion.a 
-            whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(88, 101, 242, 0.4)' }}
-            whileTap={{ scale: 0.95 }}
-            href="https://discord.gg/thelapd" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            style={{ 
-              backgroundColor: 'rgba(88, 101, 242, 0.15)', border: '1px solid rgba(88, 101, 242, 0.5)', color: '#a5b4fc', 
-              borderRadius: '12px', padding: '0.6rem 1.25rem', whiteSpace: 'nowrap', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', textDecoration: 'none'
-            }}
-          >
-            <i className="fa-brands fa-discord"></i> DISCORD
-          </motion.a>
+      {/* ── MAIN WHITE HEADER ── */}
+      <div style={{
+        backgroundColor: 'var(--lapd-bg)',
+        borderBottom: '1px solid var(--lapd-border)',
+        padding: '1rem 2rem',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        height: '80px',
+        boxSizing: 'border-box'
+      }}>
+        
+        {/* Left: Logo */}
+        <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+          <img 
+            src="/lapd-logo.png" 
+            alt="LAPD Logo" 
+            style={{ width: '60px', height: '60px', borderRadius: '50%', objectFit: 'cover' }} 
+          />
+        </Link>
+
+        {/* Right: Nav & Actions */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '2.5rem' }}>
           
-          <Link href="/giris" style={{ textDecoration: 'none' }}>
-            <motion.div 
-              whileHover={{ scale: 1.05, boxShadow: '0 0 25px rgba(59, 130, 246, 0.5)' }}
-              whileTap={{ scale: 0.95 }}
+          {/* Nav Links */}
+          <nav style={{ display: 'flex', gap: '2rem' }}>
+            {navLinks.map((link) => (
+              <Link 
+                key={link.path} 
+                href={link.path}
+                style={{ 
+                  color: 'var(--lapd-text-dark)', 
+                  textDecoration: 'none', 
+                  fontSize: '0.85rem', 
+                  fontWeight: 700, 
+                  fontFamily: 'var(--font-inter)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px'
+                }}
+              >
+                {link.name}
+                <span style={{ 
+                  width: 0, height: 0, 
+                  borderLeft: '4px solid transparent', 
+                  borderRight: '4px solid transparent', 
+                  borderTop: '4px solid var(--lapd-orange)',
+                  marginTop: '2px'
+                }}></span>
+              </Link>
+            ))}
+          </nav>
+
+          {/* Actions */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+            <Link 
+              href="/giris" 
               style={{
-                background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)',
-                border: 'none',
-                color: '#fff',
-                borderRadius: '12px',
+                backgroundColor: 'var(--lapd-orange)',
+                color: 'white',
                 padding: '0.6rem 1.25rem',
-                whiteSpace: 'nowrap',
+                fontSize: '0.8rem',
                 fontWeight: 700,
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                fontSize: '0.85rem',
-                textShadow: '0 2px 5px rgba(0,0,0,0.2)'
+                textDecoration: 'none',
+                fontFamily: 'var(--font-inter)',
+                transition: 'background-color 0.2s',
+                display: 'inline-block'
               }}
+              onMouseOver={e => e.currentTarget.style.backgroundColor = 'var(--lapd-orange-hover)'}
+              onMouseOut={e => e.currentTarget.style.backgroundColor = 'var(--lapd-orange)'}
             >
-              <i className="fa-solid fa-shield-halved"></i> MEMUR GİRİŞİ
-            </motion.div>
-          </Link>
+              MDT GİRİŞİ
+            </Link>
+            
+            <button style={{ 
+              background: 'none', border: 'none', cursor: 'pointer', 
+              color: 'var(--lapd-text-dark)', fontSize: '1.1rem' 
+            }}>
+              <i className="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </div>
+
         </div>
-      </motion.nav>
+      </div>
+
     </div>
   );
 }

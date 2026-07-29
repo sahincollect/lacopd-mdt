@@ -1,271 +1,279 @@
 "use client";
 
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 export default function Home() {
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
-  };
-
   return (
-    <div style={{ backgroundColor: 'var(--bg-dark)', minHeight: '100vh', color: 'var(--text-primary)' }}>
+    <div style={{ backgroundColor: 'var(--lapd-bg)', color: 'var(--lapd-text-dark)', fontFamily: 'var(--font-inter)' }}>
       
-      {/* ── HERO SECTION ── */}
-      <section style={{
-        position: 'relative',
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden',
-        marginTop: '-80px' // Pull up behind the transparent navbar
-      }}>
-        {/* Background Image */}
-        <div style={{
-          position: 'absolute', inset: 0,
-          backgroundImage: 'url("/gallery/lapdtoren3.png")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed',
-          zIndex: 0
-        }} />
+      {/* ── HERO TITLE SECTION ── */}
+      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '3rem 2rem 1.5rem', position: 'relative' }}>
+        <p style={{ fontSize: '1rem', color: 'var(--lapd-text-muted)', marginBottom: '0.2rem', fontWeight: 500 }}>
+          The Official Site of the Los Angeles Community Police Department
+        </p>
+        <h1 style={{ 
+          fontFamily: 'var(--font-inter)', 
+          fontSize: '3.5rem', 
+          fontWeight: 800, 
+          color: 'var(--lapd-blue-dark)', 
+          margin: 0,
+          letterSpacing: '-0.02em'
+        }}>
+          To Protect and to Serve
+        </h1>
+
+        {/* SEARCH BAR (Absolute positioned overflowing into images) */}
+        <div style={{ 
+          position: 'absolute', 
+          bottom: '-25px', 
+          left: '2rem', 
+          width: '500px', 
+          backgroundColor: 'white', 
+          border: '1px solid var(--lapd-border)',
+          display: 'flex', 
+          alignItems: 'center', 
+          padding: '0.8rem 1.2rem',
+          zIndex: 10,
+          boxShadow: '0 4px 6px rgba(0,0,0,0.05)'
+        }}>
+          <i className="fa-solid fa-magnifying-glass" style={{ color: 'var(--lapd-orange)', fontSize: '1.2rem', marginRight: '10px' }}></i>
+          <input 
+            type="text" 
+            placeholder="What are you looking for?" 
+            style={{ border: 'none', outline: 'none', width: '100%', fontSize: '1rem', color: 'var(--lapd-text-dark)' }} 
+          />
+        </div>
+      </section>
+
+      {/* ── HERO IMAGES ── */}
+      <section style={{ display: 'flex', width: '100%', height: '400px' }}>
         
-        {/* Elegant Gradient Overlays */}
-        <div style={{
-          position: 'absolute', inset: 0,
-          background: 'radial-gradient(circle at center, rgba(0,29,61,0.4) 0%, rgba(0,8,20,0.85) 100%)',
-          zIndex: 1
-        }} />
-        <div style={{
-          position: 'absolute', left: 0, right: 0, bottom: 0, height: '40vh',
-          background: 'linear-gradient(to top, var(--bg-dark) 0%, transparent 100%)',
-          zIndex: 1
-        }} />
-
-        <div style={{ position: 'relative', zIndex: 2, textAlign: 'center', padding: '0 2rem', maxWidth: '1000px' }}>
-          <motion.div initial="hidden" animate="visible" variants={staggerContainer} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            
-            <motion.img 
-              variants={fadeInUp}
-              src="/lapd-logo.png" 
-              alt="LAPD Logo" 
-              style={{ width: '180px', height: '180px', marginBottom: '2rem', filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.5))' }} 
-            />
-
-            <motion.div variants={fadeInUp} style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '1.5rem' }}>
-              <div style={{ height: '2px', width: '60px', backgroundColor: 'var(--accent-primary)' }} />
-              <span style={{ color: 'var(--accent-primary)', fontWeight: 700, letterSpacing: '0.4em', fontSize: '0.9rem' }}>EST. 1781</span>
-              <div style={{ height: '2px', width: '60px', backgroundColor: 'var(--accent-primary)' }} />
-            </motion.div>
-
-            <motion.h1 variants={fadeInUp} style={{ 
-              fontFamily: 'var(--font-oswald)', 
-              fontSize: 'clamp(3rem, 8vw, 6rem)', 
-              lineHeight: 1.1, 
-              fontWeight: 700,
-              textShadow: '0 10px 30px rgba(0,0,0,0.8)',
-              marginBottom: '1rem',
-              letterSpacing: '0.02em'
-            }}>
-              LOS ANGELES <br />
-              <span style={{ color: 'var(--text-primary)', opacity: 0.9 }}>POLICE DEPARTMENT</span>
-            </motion.h1>
-
-            <motion.p variants={fadeInUp} style={{ 
-              color: 'var(--text-secondary)', 
-              fontSize: '1.25rem', 
-              maxWidth: '700px', 
-              margin: '0 auto 3rem',
-              lineHeight: 1.8,
-              fontWeight: 400
-            }}>
-              Los Angeles topluluğuna adanmış, dürüstlük, cesaret ve profesyonellik ilkeleriyle şehre hizmet eden asil bir güç. <strong>To Protect and To Serve.</strong>
-            </motion.p>
-
-            <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-              <Link href="/giris" style={{
-                backgroundColor: 'var(--accent-primary)',
-                color: 'var(--bg-dark)',
-                padding: '1.2rem 3rem',
-                borderRadius: '4px',
-                fontWeight: 800,
-                fontSize: '1rem',
-                letterSpacing: '0.1em',
-                textDecoration: 'none',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.75rem',
-                transition: 'all 0.3s ease',
-                boxShadow: '0 10px 25px rgba(204, 160, 0, 0.3)',
-                textTransform: 'uppercase'
-              }}
-              onMouseOver={e => { e.currentTarget.style.backgroundColor = 'var(--accent-hover)'; e.currentTarget.style.transform = 'translateY(-3px)'; }}
-              onMouseOut={e => { e.currentTarget.style.backgroundColor = 'var(--accent-primary)'; e.currentTarget.style.transform = 'translateY(0)'; }}
-              >
-                <i className="fa-solid fa-shield-halved"></i>
-                MDT SİSTEMİNE GİRİŞ
-              </Link>
-              
-              <Link href="https://discord.gg/thelapd" target="_blank" style={{
-                backgroundColor: 'rgba(0, 29, 61, 0.5)',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                color: 'var(--text-primary)',
-                padding: '1.2rem 3rem',
-                borderRadius: '4px',
-                fontWeight: 600,
-                fontSize: '1rem',
-                letterSpacing: '0.1em',
-                textDecoration: 'none',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.75rem',
-                transition: 'all 0.3s ease',
-              }}
-              onMouseOver={e => { e.currentTarget.style.borderColor = 'var(--accent-primary)'; e.currentTarget.style.backgroundColor = 'rgba(0, 29, 61, 0.8)'; }}
-              onMouseOut={e => { e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'; e.currentTarget.style.backgroundColor = 'rgba(0, 29, 61, 0.5)'; }}
-              >
-                <i className="fa-brands fa-discord"></i>
-                DİSCORD'A KATIL
-              </Link>
-            </motion.div>
-
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── CORE VALUES SECTION ── */}
-      <section style={{ padding: '8rem 2rem', backgroundColor: 'var(--bg-dark)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <motion.div 
-            initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer}
-            style={{ textAlign: 'center', marginBottom: '5rem' }}
-          >
-            <motion.h2 variants={fadeInUp} style={{ fontFamily: 'var(--font-oswald)', fontSize: '3rem', color: 'var(--text-primary)', marginBottom: '1rem' }}>
-              TEMEL <span style={{ color: 'var(--accent-primary)' }}>DEĞERLERİMİZ</span>
-            </motion.h2>
-            <motion.p variants={fadeInUp} style={{ color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto', fontSize: '1.1rem' }}>
-              Los Angeles topluluğuna hizmet ederken her bir memurumuzun kalbinde taşıdığı sarsılmaz ilkeler.
-            </motion.p>
-          </motion.div>
-
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem' }}>
-            
-            {[
-              { icon: 'fa-scale-balanced', title: 'DÜRÜSTLÜK & ADALET', desc: 'Her koşulda yasaları tarafsızca uygular, rozetimizin onurunu koruyarak şeffaf ve hesap verebilir bir hizmet sunarız.' },
-              { icon: 'fa-user-shield', title: 'PROFESYONELLİK', desc: 'Görevimizi en yüksek standartlarda, sürekli eğitim ve gelişimle destekleyerek, saygı ve disiplin çerçevesinde ifa ederiz.' },
-              { icon: 'fa-hand-holding-heart', title: 'TOPLUMA BAĞLILIK', desc: 'Hizmet ettiğimiz halkla omuz omuza çalışır, güven inşa eder ve şehrimizin yaşam kalitesini artırmak için çabalarız.' }
-            ].map((item, i) => (
-              <motion.div key={i} variants={fadeInUp} style={{ 
-                backgroundColor: 'var(--bg-panel)', 
-                padding: '3rem 2rem', 
-                borderRadius: '12px',
-                borderTop: '3px solid var(--accent-primary)',
-                boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
-                textAlign: 'center',
-                transition: 'transform 0.3s ease',
-              }}
-              onMouseOver={e => e.currentTarget.style.transform = 'translateY(-10px)'}
-              onMouseOut={e => e.currentTarget.style.transform = 'translateY(0)'}
-              >
-                <div style={{ 
-                  width: '70px', height: '70px', 
-                  backgroundColor: 'rgba(204, 160, 0, 0.1)', 
-                  color: 'var(--accent-primary)', 
-                  borderRadius: '50%', 
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                  fontSize: '2rem', margin: '0 auto 1.5rem' 
-                }}>
-                  <i className={`fa-solid ${item.icon}`}></i>
-                </div>
-                <h3 style={{ fontFamily: 'var(--font-oswald)', fontSize: '1.5rem', marginBottom: '1rem', letterSpacing: '0.05em' }}>{item.title}</h3>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: 1.7 }}>{item.desc}</p>
-              </motion.div>
-            ))}
-
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── DIVISIONS PREVIEW ── */}
-      <section style={{ padding: '8rem 2rem', backgroundColor: 'var(--bg-panel)', position: 'relative', overflow: 'hidden' }}>
-        {/* Decorative background element */}
-        <div style={{ position: 'absolute', top: '-10%', right: '-5%', width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(0,53,102,0.2) 0%, transparent 70%)', borderRadius: '50%' }} />
-
-        <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer} style={{ display: 'flex', flexDirection: 'column', md: { flexDirection: 'row' }, justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '4rem' }}>
-            <div style={{ maxWidth: '600px' }}>
-              <motion.div variants={fadeInUp} style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
-                <span style={{ width: '40px', height: '2px', backgroundColor: 'var(--accent-primary)' }} />
-                <span style={{ color: 'var(--accent-primary)', fontWeight: 700, letterSpacing: '0.2em', fontSize: '0.85rem' }}>OPERASYONEL BİRİMLER</span>
-              </motion.div>
-              <motion.h2 variants={fadeInUp} style={{ fontFamily: 'var(--font-oswald)', fontSize: '3.5rem', lineHeight: 1.1 }}>
-                ŞEHRİN GÜVENLİĞİ İÇİN<br />
-                <span style={{ color: 'var(--text-secondary)' }}>KOORDİNELİ GÜÇ</span>
-              </motion.h2>
+        {/* Left Big Image */}
+        <div style={{ flex: 2, position: 'relative' }}>
+          <img src="/gallery/lapdtoren3.png" alt="LAPD Officers" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <div style={{
+            position: 'absolute', left: 0, right: 0, bottom: 0,
+            backgroundColor: 'var(--lapd-blue)', padding: '1rem 2rem',
+            color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center'
+          }}>
+            <span style={{ fontWeight: 600, fontSize: '0.9rem' }}>Commitment to Leadership</span>
+            <div style={{ display: 'flex', gap: '4px' }}>
+              <div style={{ width: 6, height: 6, backgroundColor: 'white', borderRadius: '50%' }}></div>
+              <div style={{ width: 6, height: 6, backgroundColor: 'rgba(255,255,255,0.4)', borderRadius: '50%' }}></div>
+              <div style={{ width: 6, height: 6, backgroundColor: 'rgba(255,255,255,0.4)', borderRadius: '50%' }}></div>
+              <div style={{ width: 6, height: 6, backgroundColor: 'rgba(255,255,255,0.4)', borderRadius: '50%' }}></div>
+              <div style={{ width: 6, height: 6, backgroundColor: 'rgba(255,255,255,0.4)', borderRadius: '50%' }}></div>
             </div>
-            <motion.div variants={fadeInUp} style={{ marginTop: '2rem' }}>
-              <Link href="/hakkimizda" style={{ color: 'var(--text-primary)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600, fontSize: '1rem', borderBottom: '1px solid var(--accent-primary)', paddingBottom: '4px', transition: 'all 0.2s' }}
-              onMouseOver={e => e.currentTarget.style.color = 'var(--accent-primary)'}
-              onMouseOut={e => e.currentTarget.style.color = 'var(--text-primary)'}
-              >
-                TÜM BİRİMLERİ İNCELE <i className="fa-solid fa-arrow-right"></i>
-              </Link>
-            </motion.div>
-          </motion.div>
+          </div>
+        </div>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
-            {[
-              { id: '01', title: 'PATROL DIVISION', desc: 'Sokakların ilk savunma hattı ve günlük asayişin temeli.' },
-              { id: '02', title: 'DETECTIVE BUREAU', desc: 'Büyük suçların araştırılması ve çözümlenmesi.' },
-              { id: '03', title: 'S.W.A.T.', desc: 'Yüksek riskli operasyonlar ve taktiksel müdahale.' },
-              { id: '04', title: 'TRAFFIC DIVISION', desc: 'Otoyol güvenliği ve trafik operasyonları.' },
-            ].map((unit, i) => (
-              <motion.div key={i} variants={fadeInUp} style={{
-                position: 'relative',
-                backgroundColor: 'var(--bg-dark)',
-                padding: '2.5rem 2rem',
-                borderRadius: '8px',
-                border: '1px solid var(--border-light)',
-                overflow: 'hidden',
-                transition: 'all 0.3s ease',
-                cursor: 'pointer'
-              }}
-              onMouseOver={e => {
-                e.currentTarget.style.borderColor = 'var(--accent-primary)';
-                e.currentTarget.style.transform = 'translateY(-5px)';
-                (e.currentTarget.querySelector('.unit-bg') as HTMLElement).style.opacity = '1';
-              }}
-              onMouseOut={e => {
-                e.currentTarget.style.borderColor = 'var(--border-light)';
-                e.currentTarget.style.transform = 'translateY(0)';
-                (e.currentTarget.querySelector('.unit-bg') as HTMLElement).style.opacity = '0';
-              }}
-              >
-                <div className="unit-bg" style={{
-                  position: 'absolute', top: 0, right: 0, bottom: 0, width: '100%',
-                  background: 'linear-gradient(45deg, transparent 50%, rgba(204, 160, 0, 0.05) 100%)',
-                  opacity: 0, transition: 'opacity 0.3s', pointerEvents: 'none'
-                }} />
-                
-                <div style={{ color: 'var(--accent-primary)', fontFamily: 'var(--font-oswald)', fontSize: '2.5rem', opacity: 0.3, marginBottom: '1rem', lineHeight: 1 }}>
-                  {unit.id}
-                </div>
-                <h3 style={{ fontFamily: 'var(--font-oswald)', fontSize: '1.4rem', marginBottom: '0.5rem', letterSpacing: '0.05em' }}>{unit.title}</h3>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', margin: 0 }}>{unit.desc}</p>
-              </motion.div>
-            ))}
-          </motion.div>
+        {/* Right Image */}
+        <div style={{ flex: 1, position: 'relative' }}>
+          <img src="/gallery/1.png" alt="Message from Command" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <div style={{
+            position: 'absolute', left: 0, right: 0, bottom: 0,
+            background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)', padding: '1.5rem',
+            color: 'white', display: 'flex', alignItems: 'flex-start', gap: '1rem'
+          }}>
+            <div style={{ width: '40px', height: '40px', backgroundColor: 'var(--lapd-orange)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, cursor: 'pointer' }}>
+              <i className="fa-solid fa-play" style={{ color: 'white', fontSize: '1rem', marginLeft: '3px' }}></i>
+            </div>
+            <div>
+              <div style={{ fontWeight: 700, fontSize: '0.95rem', lineHeight: 1.2 }}>Message from Command Staff</div>
+              <div style={{ fontSize: '0.75rem', opacity: 0.8, marginTop: '2px' }}>7/29/2026</div>
+            </div>
+          </div>
         </div>
       </section>
 
+      {/* ── QUICKLINKS ── */}
+      <section style={{ maxWidth: '1200px', margin: '4rem auto', padding: '0 2rem' }}>
+        <h3 style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '1rem' }}>QUICKLINKS</h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', border: '1px solid var(--lapd-border)', backgroundColor: 'white' }}>
+          {[
+            { icon: 'fa-file-lines', label: 'File a Police Report' },
+            { icon: 'fa-car-burst', label: 'File a Traffic Collision Report' },
+            { icon: 'fa-map-location-dot', label: 'Crime Mapping' },
+            { icon: 'fa-book-bookmark', label: 'Reference Library' },
+            { icon: 'fa-user-secret', label: 'Most Wanted' },
+            { icon: 'fa-user-tie', label: 'Join the Team' },
+          ].map((item, idx) => (
+            <div key={idx} style={{ 
+              display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', 
+              padding: '2rem 1rem', borderRight: idx !== 5 ? '1px solid var(--lapd-border)' : 'none',
+              textAlign: 'center', cursor: 'pointer', transition: 'background-color 0.2s'
+            }}
+            onMouseOver={e => e.currentTarget.style.backgroundColor = 'var(--lapd-gray-bg)'}
+            onMouseOut={e => e.currentTarget.style.backgroundColor = 'white'}
+            >
+              <i className={`fa-solid ${item.icon}`} style={{ fontSize: '1.8rem', color: 'var(--lapd-blue-dark)', marginBottom: '1rem' }}></i>
+              <span style={{ fontSize: '0.8rem', fontWeight: 500 }}>{item.label}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── NEWSROOM ── */}
+      <section style={{ maxWidth: '1200px', margin: '4rem auto', padding: '0 2rem' }}>
+        <div style={{ display: 'flex', borderBottom: '1px solid var(--lapd-orange)', marginBottom: '2rem' }}>
+          <div style={{ padding: '0.5rem 1rem', color: 'var(--lapd-orange)', fontWeight: 800, fontSize: '0.85rem', borderBottom: '3px solid var(--lapd-orange)', textTransform: 'uppercase' }}>NEWSROOM</div>
+          <div style={{ padding: '0.5rem 1rem', color: 'var(--lapd-text-dark)', fontWeight: 800, fontSize: '0.85rem', textTransform: 'uppercase', cursor: 'pointer' }}>EVENTS</div>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+          {/* Main News Card */}
+          <div style={{ border: '1px solid var(--lapd-border)', padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <div>
+              <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', lineHeight: 1.3, marginBottom: '0.5rem' }}>
+                LAPD Officer-Involved Shooting in Hollenbeck Division NRF012-20fp
+              </h2>
+              <p style={{ fontSize: '0.85rem', color: 'var(--lapd-text-muted)' }}>4/23/2026</p>
+            </div>
+            <Link href="/" style={{ color: 'var(--lapd-orange)', textDecoration: 'none', fontWeight: 600, fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '5px', marginTop: '2rem' }}>
+              <span style={{ width: '15px', height: '2px', backgroundColor: 'var(--lapd-orange)' }}></span>
+              View All News Items
+            </Link>
+          </div>
+
+          {/* Sub News Grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+            <div>
+              <h4 style={{ fontSize: '0.9rem', fontWeight: 700, lineHeight: 1.4, marginBottom: '0.3rem' }}>LAPD Officer-Involved Shooting in Hollenbeck Division NRF012-20fp</h4>
+              <p style={{ fontSize: '0.8rem', color: 'var(--lapd-text-muted)' }}>4/23/2026</p>
+            </div>
+            <div>
+              <h4 style={{ fontSize: '0.9rem', fontWeight: 700, lineHeight: 1.4, marginBottom: '0.3rem' }}>Shooting Suspect Caught NR20028lh</h4>
+              <p style={{ fontSize: '0.8rem', color: 'var(--lapd-text-muted)' }}>4/23/2026</p>
+            </div>
+            <div>
+              <h4 style={{ fontSize: '0.9rem', fontWeight: 700, lineHeight: 1.4, marginBottom: '0.3rem' }}>Bank Robbery Suspect Caught by Detectives NR20088ti</h4>
+              <p style={{ fontSize: '0.8rem', color: 'var(--lapd-text-muted)' }}>4/23/2026</p>
+            </div>
+            <div>
+              <h4 style={{ fontSize: '0.9rem', fontWeight: 700, lineHeight: 1.4, marginBottom: '0.3rem' }}>Fatal Shooting NR20085ml</h4>
+              <p style={{ fontSize: '0.8rem', color: 'var(--lapd-text-muted)' }}>4/23/2026</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── INFO CARDS (Join Team / Videos / Contact) ── */}
+      <section style={{ maxWidth: '1200px', margin: '4rem auto', padding: '0 2rem', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
+        
+        {/* Card 1 */}
+        <div style={{ backgroundColor: '#F0F4F4', display: 'flex', flexDirection: 'column' }}>
+          <img src="/gallery/statecar5.png" alt="Join Team" style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+          <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
+            <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '0.5rem', color: 'var(--lapd-blue-dark)' }}>Join the Team</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--lapd-text-dark)', marginBottom: '1.5rem', lineHeight: 1.5 }}>
+              There are countless ways to help the LAPD do its job.
+            </p>
+            <div style={{ marginTop: 'auto' }}>
+              <Link href="/basvurular" style={{ color: 'var(--lapd-orange)', textDecoration: 'none', fontWeight: 600, fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+                <span style={{ width: '15px', height: '2px', backgroundColor: 'var(--lapd-orange)' }}></span>
+                Explore How to Make a Difference
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Card 2 */}
+        <div style={{ backgroundColor: '#F0F4F4', display: 'flex', flexDirection: 'column' }}>
+          <img src="/gallery/8.png" alt="Incident Videos" style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+          <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
+            <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '0.5rem', color: 'var(--lapd-blue-dark)' }}>Critical Incident Videos</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--lapd-text-dark)', marginBottom: '1.5rem', lineHeight: 1.5 }}>
+              View publicly released video recordings that capture critical incidents involving LAPD officers.
+            </p>
+            <div style={{ marginTop: 'auto' }}>
+              <Link href="/" style={{ color: 'var(--lapd-orange)', textDecoration: 'none', fontWeight: 600, fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+                <span style={{ width: '15px', height: '2px', backgroundColor: 'var(--lapd-orange)' }}></span>
+                Watch Critical Incident Videos
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Card 3 (Dark Blue) */}
+        <div style={{ backgroundColor: 'var(--lapd-blue-dark)', color: 'white', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column' }}>
+          <div style={{ marginBottom: '1.5rem' }}>
+            <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.7)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Life Threatening Emergencies Only:</div>
+            <div style={{ fontSize: '1.5rem', fontWeight: 800 }}>9-1-1</div>
+          </div>
+          <div style={{ marginBottom: '1.5rem' }}>
+            <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.7)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Non-Emergency Police Response:</div>
+            <div style={{ fontSize: '1.5rem', fontWeight: 800 }}>1-877-ASK-LAPD</div>
+          </div>
+          <div style={{ marginBottom: '2.5rem' }}>
+            <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.7)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Email Questions & Comments:</div>
+            <div style={{ fontSize: '1rem', fontWeight: 600 }}>contact.lapdonline@gmail.com</div>
+          </div>
+
+          <div style={{ marginTop: 'auto' }}>
+            <Link href="/" style={{ color: 'var(--lapd-orange)', textDecoration: 'none', fontWeight: 600, fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+              <span style={{ width: '15px', height: '2px', backgroundColor: 'var(--lapd-orange)' }}></span>
+              View All Contact Information
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── BOTTOM HERO / STAY CONNECTED ── */}
+      <section style={{ display: 'flex', width: '100%', height: '350px', position: 'relative' }}>
+        <div style={{ flex: 1, backgroundImage: 'url("/gallery/saspbenz.png")', backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
+        <div style={{ flex: 1, backgroundImage: 'url("/gallery/lspd7.png")', backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
+        
+        {/* Floating Box */}
+        <div style={{ 
+          position: 'absolute', left: '10%', bottom: '0', 
+          backgroundColor: '#F0F4F4', padding: '2rem 3rem',
+          transform: 'translateY(30px)',
+          boxShadow: '0 10px 20px rgba(0,0,0,0.1)'
+        }}>
+          <h4 style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.05em', marginBottom: '1rem' }}>STAY CONNECTED</h4>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+            <a href="#" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', fontWeight: 500 }}>
+              <i className="fa-brands fa-facebook"></i> Facebook
+            </a>
+            <a href="#" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', fontWeight: 500 }}>
+              <i className="fa-brands fa-twitter"></i> Twitter
+            </a>
+            <a href="#" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', fontWeight: 500 }}>
+              <i className="fa-brands fa-instagram"></i> Instagram
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── BOTTOM LINKS STRIP ── */}
+      <section style={{ backgroundColor: 'white', padding: '6rem 2rem 3rem' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem' }}>
+          <div>
+            <h4 style={{ fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '1rem' }}>QUICKLINKS</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+              <a href="#" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontSize: '0.85rem' }}>File a Police Report</a>
+              <a href="#" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontSize: '0.85rem' }}>File a Traffic Collision Report</a>
+              <a href="#" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontSize: '0.85rem' }}>Crime Mapping</a>
+            </div>
+          </div>
+          <div>
+            <h4 style={{ fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '1rem', color: 'transparent' }}>_</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+              <a href="#" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontSize: '0.85rem' }}>Reference Library</a>
+              <a href="#" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontSize: '0.85rem' }}>Most Wanted</a>
+              <a href="#" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontSize: '0.85rem' }}>Join the Team</a>
+            </div>
+          </div>
+          <div>
+            <h4 style={{ fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '1rem' }}>TRANSLATE THIS PAGE</h4>
+            <select style={{ width: '100%', padding: '0.6rem', border: '1px solid var(--lapd-border)', backgroundColor: 'white' }}>
+              <option>Select Language</option>
+              <option>Spanish</option>
+            </select>
+          </div>
+        </div>
+      </section>
+      
     </div>
   );
 }

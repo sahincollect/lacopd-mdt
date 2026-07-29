@@ -64,6 +64,17 @@ html {
   --accent-red: #EF4444;
   --accent-yellow: #F0CB46;
   --accent-green: #10B981;
+
+  /* --- NEW LIGHT THEME VARS (LAPD CLONE) --- */
+  --lapd-bg: #FFFFFF;
+  --lapd-gray-bg: #F5F6F8;
+  --lapd-text-dark: #1F2937;
+  --lapd-text-muted: #6B7280;
+  --lapd-blue: #06224A;
+  --lapd-blue-dark: #041632;
+  --lapd-orange: #E84F2A;
+  --lapd-orange-hover: #C63D1D;
+  --lapd-border: #E5E7EB;
 }
 
 * {
