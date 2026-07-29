@@ -15,7 +15,7 @@ const StatCard = ({ icon, label, value, color, delay }: { icon: string; label: s
     style={{
       background: "var(--bg-secondary)",
       border: "1px solid var(--border-light)",
-      borderRadius: "12px",
+      borderRadius: '6px',
       padding: "1.4rem 1.6rem",
       display: "flex",
       alignItems: "center",
@@ -135,7 +135,7 @@ export default function MDTDashboard() {
           style={{
             background: "var(--bg-secondary)",
             border: "1px solid var(--border-light)",
-            borderRadius: "16px",
+            borderRadius: '8px',
             padding: "2.25rem 2.75rem",
             display: "flex",
             justifyContent: "space-between",
@@ -228,7 +228,7 @@ export default function MDTDashboard() {
           style={{
             background: "var(--bg-secondary)",
             border: "1px solid var(--border-light)",
-            borderRadius: "16px",
+            borderRadius: '8px',
             padding: "2rem",
             display: "flex",
             flexDirection: "column",
@@ -246,7 +246,7 @@ export default function MDTDashboard() {
             </span>
           </div>
 
-          <div style={{ width: "56px", height: "56px", borderRadius: "16px", background: user?.isOnDuty ? "var(--color-success-bg)" : "var(--bg-primary)", border: `1px solid ${user?.isOnDuty ? "var(--color-success-border)" : "var(--border-light)"}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.5rem", color: user?.isOnDuty ? "var(--color-success)" : "var(--text-muted)" }}>
+          <div style={{ width: "56px", height: "56px", borderRadius: '8px', background: user?.isOnDuty ? "var(--color-success-bg)" : "var(--bg-primary)", border: `1px solid ${user?.isOnDuty ? "var(--color-success-border)" : "var(--border-light)"}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.5rem", color: user?.isOnDuty ? "var(--color-success)" : "var(--text-muted)" }}>
             <i className={user?.isOnDuty ? "fa-solid fa-shield-halved" : "fa-solid fa-shield"} />
           </div>
 
@@ -302,7 +302,7 @@ export default function MDTDashboard() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(330px, 1fr))", gap: "1.5rem", alignItems: "start" }}>
 
         {/* COLUMN 1: SON RAPORLAR */}
-        <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-light)", borderRadius: "16px", overflow: "hidden", display: "flex", flexDirection: "column", height: "100%", boxShadow: "0 4px 6px rgba(0,0,0,0.02)" }}>
+        <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-light)", borderRadius: '8px', overflow: "hidden", display: "flex", flexDirection: "column", height: "100%", boxShadow: "0 4px 6px rgba(0,0,0,0.02)" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1.25rem 1.5rem", borderBottom: "1px solid var(--border-light)", background: "var(--bg-primary)" }}>
             <h2 style={{ fontSize: "0.85rem", fontWeight: 800, margin: 0, display: "flex", alignItems: "center", gap: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--accent-primary)" }}>
               <span style={{ width: "26px", height: "26px", borderRadius: "6px", background: "var(--color-info-bg)", border: "1px solid var(--color-info-border)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--color-info)", fontSize: "0.8rem" }}><i className="fa-solid fa-file-lines" /></span>
@@ -341,7 +341,7 @@ export default function MDTDashboard() {
         </div>
 
         {/* COLUMN 2: BİLDİRİMLER & DUYURULAR */}
-        <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-light)", borderRadius: "16px", overflow: "hidden", display: "flex", flexDirection: "column", height: "100%", boxShadow: "0 4px 6px rgba(0,0,0,0.02)" }}>
+        <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-light)", borderRadius: '8px', overflow: "hidden", display: "flex", flexDirection: "column", height: "100%", boxShadow: "0 4px 6px rgba(0,0,0,0.02)" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1.25rem 1.5rem", borderBottom: "1px solid var(--border-light)", background: "var(--bg-primary)" }}>
             <h2 style={{ fontSize: "0.85rem", fontWeight: 800, margin: 0, display: "flex", alignItems: "center", gap: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--accent-primary)" }}>
               <span style={{ width: "26px", height: "26px", borderRadius: "6px", background: "var(--color-warning-border)", border: "1px solid var(--color-warning-border)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--color-warning)", fontSize: "0.8rem" }}><i className="fa-solid fa-bullhorn" /></span>
@@ -394,7 +394,7 @@ export default function MDTDashboard() {
         <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
           
           {/* Aktif Birimler Mini List */}
-          <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-light)", borderRadius: "16px", overflow: "hidden", boxShadow: "0 4px 6px rgba(0,0,0,0.02)" }}>
+          <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-light)", borderRadius: '8px', overflow: "hidden", boxShadow: "0 4px 6px rgba(0,0,0,0.02)" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1.1rem 1.5rem", borderBottom: "1px solid var(--border-light)", background: "var(--bg-primary)" }}>
               <h2 style={{ fontSize: "0.85rem", fontWeight: 800, margin: 0, display: "flex", alignItems: "center", gap: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--accent-primary)" }}>
                 <span style={{ width: "26px", height: "26px", borderRadius: "6px", background: "var(--color-success-bg)", border: "1px solid var(--color-success-border)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--color-success)", fontSize: "0.8rem" }}><i className="fa-solid fa-walkie-talkie" /></span>
@@ -434,7 +434,7 @@ export default function MDTDashboard() {
           </div>
 
           {/* Kriminal Bilgi Mini Card */}
-          <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-light)", borderRadius: "16px", overflow: "hidden", boxShadow: "0 4px 6px rgba(0,0,0,0.02)" }}>
+          <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-light)", borderRadius: '8px', overflow: "hidden", boxShadow: "0 4px 6px rgba(0,0,0,0.02)" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1.1rem 1.5rem", borderBottom: "1px solid var(--border-light)", background: "var(--bg-primary)" }}>
               <h2 style={{ fontSize: "0.85rem", fontWeight: 800, margin: 0, display: "flex", alignItems: "center", gap: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--accent-primary)" }}>
                 <span style={{ width: "26px", height: "26px", borderRadius: "6px", background: "var(--color-danger-bg)", border: "1px solid var(--color-danger-border)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--accent-secondary)", fontSize: "0.8rem" }}><i className="fa-solid fa-fingerprint" /></span>

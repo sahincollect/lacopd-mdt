@@ -406,14 +406,14 @@ export default function ProfilPage() {
               ].map((btn, i) => (
                 btn.targetBlank ? (
                   <a key={i} href={btn.href} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-                    <div whileHover={{ scale: 1.05, backgroundColor: `${btn.color}20`, borderColor: `${btn.color}50` }} style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '14px', padding: '1.25rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', transition: 'all 0.2s' }}>
+                    <div whileHover={{ scale: 1.05, backgroundColor: `${btn.color}20`, borderColor: `${btn.color}50` }} style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '8px', padding: '1.25rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', transition: 'all 0.2s' }}>
                       <i className={`fa-solid ${btn.icon}`} style={{ fontSize: '1.5rem', color: btn.color }} />
                       <span style={{ color: '#e2e8f0', fontSize: '0.8rem', fontWeight: 600 }}>{btn.label}</span>
                     </div>
                   </a>
                 ) : (
                   <Link key={i} href={btn.href} style={{ textDecoration: 'none' }}>
-                    <div whileHover={{ scale: 1.05, backgroundColor: `${btn.color}20`, borderColor: `${btn.color}50` }} style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '14px', padding: '1.25rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', transition: 'all 0.2s' }}>
+                    <div whileHover={{ scale: 1.05, backgroundColor: `${btn.color}20`, borderColor: `${btn.color}50` }} style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '8px', padding: '1.25rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', transition: 'all 0.2s' }}>
                       <i className={`fa-solid ${btn.icon}`} style={{ fontSize: '1.5rem', color: btn.color }} />
                       <span style={{ color: '#e2e8f0', fontSize: '0.8rem', fontWeight: 600 }}>{btn.label}</span>
                     </div>
@@ -459,12 +459,12 @@ export default function ProfilPage() {
               <div>
                 <h4 style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', letterSpacing: '0.1em', marginBottom: '1rem' }}>GÜVENLİK ANAHTARI DEĞİŞİMİ</h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                  <input type="password" placeholder="Mevcut Şifre" value={pwForm.current} onChange={e => setPwForm(f => ({ ...f, current: e.target.value }))} style={{ width: '100%', padding: '1rem', backgroundColor: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '12px', color: 'var(--text-primary)', outline: 'none' }} />
+                  <input type="password" placeholder="Mevcut Şifre" value={pwForm.current} onChange={e => setPwForm(f => ({ ...f, current: e.target.value }))} style={{ width: '100%', padding: '1rem', backgroundColor: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '6px', color: 'var(--text-primary)', outline: 'none' }} />
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                    <input type="password" placeholder="Yeni Şifre" value={pwForm.newPw} onChange={e => setPwForm(f => ({ ...f, newPw: e.target.value }))} style={{ width: '100%', padding: '1rem', backgroundColor: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '12px', color: 'var(--text-primary)', outline: 'none' }} />
-                    <input type="password" placeholder="Yeni Şifre (Tekrar)" value={pwForm.confirm} onChange={e => setPwForm(f => ({ ...f, confirm: e.target.value }))} style={{ width: '100%', padding: '1rem', backgroundColor: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '12px', color: 'var(--text-primary)', outline: 'none' }} />
+                    <input type="password" placeholder="Yeni Şifre" value={pwForm.newPw} onChange={e => setPwForm(f => ({ ...f, newPw: e.target.value }))} style={{ width: '100%', padding: '1rem', backgroundColor: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '6px', color: 'var(--text-primary)', outline: 'none' }} />
+                    <input type="password" placeholder="Yeni Şifre (Tekrar)" value={pwForm.confirm} onChange={e => setPwForm(f => ({ ...f, confirm: e.target.value }))} style={{ width: '100%', padding: '1rem', backgroundColor: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '6px', color: 'var(--text-primary)', outline: 'none' }} />
                   </div>
-                  <button onClick={changePassword} disabled={pwLoading} style={{ width: '100%', padding: '1rem', backgroundColor: '#f43f5e', color: 'var(--text-primary)', border: 'none', borderRadius: '12px', fontWeight: 700, cursor: 'pointer', opacity: pwLoading ? 0.7 : 1 }}>
+                  <button onClick={changePassword} disabled={pwLoading} style={{ width: '100%', padding: '1rem', backgroundColor: '#f43f5e', color: 'var(--text-primary)', border: 'none', borderRadius: '6px', fontWeight: 700, cursor: 'pointer', opacity: pwLoading ? 0.7 : 1 }}>
                     {pwLoading ? 'İŞLENİYOR...' : 'ŞİFREYİ GÜNCELLE'}
                   </button>
                   {pwMessage && <div style={{ fontSize: '0.8rem', color: pwMessage.type === 'success' ? '#10b981' : '#0ea5e9' }}>{pwMessage.text}</div>}
@@ -478,7 +478,7 @@ export default function ProfilPage() {
                   <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>
                     Profil fotoğrafınızı değiştirmek için kimlik kartınızdaki fotoğrafınızın üzerine tıklayın. Mevcut fotoğrafınızı kaldırmak isterseniz aşağıdaki butonu kullanabilirsiniz.
                   </p>
-                  <button onClick={removePhoto} disabled={imgLoading} style={{ width: '100%', padding: '1rem', backgroundColor: 'rgba(14, 165, 233, 0.1)', border: '1px solid rgba(14, 165, 233, 0.4)', color: '#38bdf8', borderRadius: '12px', fontWeight: 700, cursor: 'pointer', transition: 'all 0.2s', marginTop: 'auto' }} onMouseOver={e => e.currentTarget.style.backgroundColor = 'rgba(14, 165, 233, 0.2)'} onMouseOut={e => e.currentTarget.style.backgroundColor = 'rgba(14, 165, 233, 0.1)'}>
+                  <button onClick={removePhoto} disabled={imgLoading} style={{ width: '100%', padding: '1rem', backgroundColor: 'rgba(14, 165, 233, 0.1)', border: '1px solid rgba(14, 165, 233, 0.4)', color: '#38bdf8', borderRadius: '6px', fontWeight: 700, cursor: 'pointer', transition: 'all 0.2s', marginTop: 'auto' }} onMouseOver={e => e.currentTarget.style.backgroundColor = 'rgba(14, 165, 233, 0.2)'} onMouseOut={e => e.currentTarget.style.backgroundColor = 'rgba(14, 165, 233, 0.1)'}>
                     {imgLoading ? 'İŞLENİYOR...' : 'FOTOĞRAFI KALDIR'}
                   </button>
                   {imgMessage && <div style={{ fontSize: '0.8rem', color: imgMessage.type === 'success' ? '#10b981' : '#0ea5e9' }}>{imgMessage.text}</div>}

@@ -122,8 +122,8 @@ export default function Duyurular() {
   );
 
   const inputStyle: React.CSSProperties = {
-    width: "100%", padding: "0.9rem 1.25rem", backgroundColor: "rgba(15, 23, 42, 0.4)",
-    border: "1px solid rgba(255,255,255,0.08)", borderRadius: "12px", color: 'var(--text-primary)',
+    width: "100%", padding: "0.9rem 1.25rem", backgroundColor: 'var(--bg-secondary)',
+    border: "1px solid rgba(255,255,255,0.08)", borderRadius: '6px', color: 'var(--text-primary)',
     fontSize: "0.95rem", outline: "none", boxSizing: "border-box", transition: "all 0.2s ease"
   };
 
@@ -156,7 +156,7 @@ export default function Duyurular() {
                 color: showAddForm ? "#7dd3fc" : "#fff",
                 border: showAddForm ? "1px solid rgba(14, 165, 233,0.3)" : "none",
                 boxShadow: showAddForm ? "none" : "0 8px 25px rgba(14, 165, 233, 0.4)",
-                padding: "1rem 1.5rem", borderRadius: "12px", fontWeight: 800
+                padding: "1rem 1.5rem", borderRadius: '6px', fontWeight: 800
               }}
             >
               {showAddForm ? <><i className="fa-solid fa-xmark" style={{ marginRight: '0.5rem' }}></i> İPTAL</> : <><i className="fa-solid fa-bullhorn" style={{ marginRight: '0.5rem' }}></i> YENİ DUYURU</>}
@@ -216,7 +216,7 @@ export default function Duyurular() {
 
                 <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
                   <button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" disabled={submitting} style={{ 
-                    flex: 1, padding: '1rem', borderRadius: '12px', border: 'none',
+                    flex: 1, padding: '1rem', borderRadius: '6px', border: 'none',
                     background: "linear-gradient(135deg, #0284c7, #1D4ED8)", color: 'var(--text-primary)', fontWeight: 800,
                     cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.7 : 1,
                     boxShadow: submitting ? 'none' : '0 8px 25px rgba(14, 165, 233, 0.4)'
@@ -233,8 +233,8 @@ export default function Duyurular() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         {announcements.length === 0 ? (
           <div style={{ 
-            backgroundColor: 'rgba(15, 23, 42, 0.4)', borderRadius: '16px', padding: '4rem 2rem', 
-            textAlign: 'center', border: '1px dashed rgba(255,255,255,0.1)' 
+            backgroundColor: 'var(--bg-secondary)', borderRadius: '8px', padding: '4rem 2rem', 
+            textAlign: 'center', border: '1px solid var(--border-light)' 
           }}>
             <i className="fa-solid fa-bell-slash" style={{ fontSize: '3rem', color: 'var(--text-secondary)', opacity: 0.5, marginBottom: '1rem' }}></i>
             <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', margin: 0 }}>
@@ -253,7 +253,7 @@ export default function Duyurular() {
                 style={{ 
                   backgroundColor: 'rgba(15, 23, 42, 0.5)', 
                   backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
-                  borderRadius: '16px', 
+                  borderRadius: '8px', 
                   border: `1px solid ${styles.border}`,
                   padding: '1.5rem',
                   boxShadow: `0 10px 30px rgba(0,0,0,0.15), inset 0 0 20px ${styles.bg}`,
@@ -266,7 +266,7 @@ export default function Duyurular() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
                     <div style={{ 
-                      width: '45px', height: '45px', borderRadius: '12px', flexShrink: 0,
+                      width: '45px', height: '45px', borderRadius: '6px', flexShrink: 0,
                       backgroundColor: styles.bg, color: styles.color, border: `1px solid ${styles.border}`,
                       display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem',
                       boxShadow: styles.glow

@@ -124,7 +124,7 @@ export default function MazeretlerPage() {
       <>
         {tab === 'form' ? (
           <div key="form">
-            <div style={{ backgroundColor: 'rgba(17, 28, 50, 0.6)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.06)', backdropFilter: 'blur(10px)', padding: '2rem' }}>
+            <div style={{ backgroundColor: 'rgba(17, 28, 50, 0.6)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.06)', backdropFilter: 'blur(10px)', padding: '2rem' }}>
               <h2 style={{ margin: '0 0 1.5rem', fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-primary)' }}>
                 Mazeret Talebi Oluştur
               </h2>
@@ -208,7 +208,7 @@ export default function MazeretlerPage() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 {requests.map(r => (
                   <div key={r.id}
-                    style={{ backgroundColor: 'rgba(17, 28, 50, 0.6)', borderRadius: '14px', border: `1px solid ${statusColor[r.status]}22`, backdropFilter: 'blur(10px)', padding: '1.25rem 1.5rem', display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
+                    style={{ backgroundColor: 'rgba(17, 28, 50, 0.6)', borderRadius: '8px', border: `1px solid ${statusColor[r.status]}22`, backdropFilter: 'blur(10px)', padding: '1.25rem 1.5rem', display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
                     
                     {/* Sol: Durum çizgisi */}
                     <div style={{ width: '4px', height: '60px', borderRadius: '4px', backgroundColor: statusColor[r.status], flexShrink: 0 }}></div>

@@ -466,10 +466,10 @@ Sayın Personel,
     <div style={{ padding: '1.75rem', maxWidth: '1650px', margin: '0 auto', minHeight: 'calc(100vh - 120px)', display: 'flex', flexDirection: 'column', gap: '1.5rem', boxSizing: 'border-box' }}>
       
       {/* ── TOP OPERATIONAL CONTROL HEADER & STATS BAR ── */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', backgroundColor: 'var(--bg-primary)', padding: '1.25rem 1.75rem', borderRadius: '16px', border: '1px solid rgba(255, 255, 255, 0.08)', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', backgroundColor: 'var(--bg-primary)', padding: '1.25rem 1.75rem', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.08)', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-            <div style={{ width: '42px', height: '42px', borderRadius: '12px', backgroundColor: 'rgba(14, 165, 233, 0.15)', border: '1px solid rgba(14, 165, 233, 0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#38bdf8' }}>
+            <div style={{ width: '42px', height: '42px', borderRadius: '6px', backgroundColor: 'rgba(14, 165, 233, 0.15)', border: '1px solid rgba(14, 165, 233, 0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#38bdf8' }}>
               <i className="fa-solid fa-envelope-open-text" style={{ fontSize: '1.3rem' }}></i>
             </div>
             <div>
@@ -512,7 +512,7 @@ Sayın Personel,
       </div>
 
       {/* ── NAVIGATION FOLDERS TABS BAR ── */}
-      <div style={{ display: 'flex', gap: '0.6rem', backgroundColor: '#0c1222', padding: '0.5rem', borderRadius: '14px', border: '1px solid rgba(255, 255, 255, 0.06)', overflowX: 'auto' }}>
+      <div style={{ display: 'flex', gap: '0.6rem', backgroundColor: '#0c1222', padding: '0.5rem', borderRadius: '8px', border: '1px solid rgba(255, 255, 255, 0.06)', overflowX: 'auto' }}>
         {[
           { id: 'inbox', label: '📥 Gelen Kutusu (Inbox)', count: unreadCount, badgeColor: '#ef4444' },
           { id: 'sent', label: '📤 Gönderilenler (Sent)', count: 0 },
@@ -545,7 +545,7 @@ Sayın Personel,
             >
               <span>{tab.label}</span>
               {tab.count > 0 && (
-                <span style={{ backgroundColor: tab.badgeColor, color: 'var(--text-primary)', fontSize: '0.7rem', fontWeight: 900, padding: '0.12rem 0.55rem', borderRadius: '12px' }}>
+                <span style={{ backgroundColor: tab.badgeColor, color: 'var(--text-primary)', fontSize: '0.7rem', fontWeight: 900, padding: '0.12rem 0.55rem', borderRadius: '6px' }}>
                   {tab.count} YENİ
                 </span>
               )}
@@ -561,7 +561,7 @@ Sayın Personel,
            
            
            
-            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'rgba(30, 41, 59, 0.95)', border: '1px solid #38bdf8', padding: '0.75rem 1.5rem', borderRadius: '12px', boxShadow: '0 8px 32px rgba(14, 165, 233, 0.25)', zIndex: 10 }}
+            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'rgba(30, 41, 59, 0.95)', border: '1px solid #38bdf8', padding: '0.75rem 1.5rem', borderRadius: '6px', boxShadow: '0 8px 32px rgba(14, 165, 233, 0.25)', zIndex: 10 }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
               <span style={{ display: 'inline-block', width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#38bdf8' }}></span>
@@ -698,7 +698,7 @@ Sayın Personel,
                   <select
                     value={composeTo}
                     onChange={(e) => setComposeTo(e.target.value)}
-                    style={{ width: '100%', padding: '0.85rem 1rem', borderRadius: '12px', backgroundColor: '#080e1a', border: '1px solid rgba(255,255,255,0.12)', color: 'var(--text-primary)', fontSize: '0.9rem', outline: 'none' }}
+                    style={{ width: '100%', padding: '0.85rem 1rem', borderRadius: '6px', backgroundColor: '#080e1a', border: '1px solid rgba(255,255,255,0.12)', color: 'var(--text-primary)', fontSize: '0.9rem', outline: 'none' }}
                   >
                     <option value="">-- Alıcı Memur Seçiniz --</option>
                     {allOfficers
@@ -720,7 +720,7 @@ Sayın Personel,
                   <select
                     value={composeDept}
                     onChange={(e) => setComposeDept(e.target.value)}
-                    style={{ width: '100%', padding: '0.85rem 1rem', borderRadius: '12px', backgroundColor: '#080e1a', border: '1px solid #38bdf8', color: 'var(--text-primary)', fontSize: '0.9rem', outline: 'none' }}
+                    style={{ width: '100%', padding: '0.85rem 1rem', borderRadius: '6px', backgroundColor: '#080e1a', border: '1px solid #38bdf8', color: 'var(--text-primary)', fontSize: '0.9rem', outline: 'none' }}
                   >
                     {departmentsList.map(d => (
                       <option key={d} value={d}>
@@ -739,7 +739,7 @@ Sayın Personel,
                   <select
                     value={composeRank}
                     onChange={(e) => setComposeRank(e.target.value)}
-                    style={{ width: '100%', padding: '0.85rem 1rem', borderRadius: '12px', backgroundColor: '#080e1a', border: '1px solid #38bdf8', color: 'var(--text-primary)', fontSize: '0.9rem', outline: 'none' }}
+                    style={{ width: '100%', padding: '0.85rem 1rem', borderRadius: '6px', backgroundColor: '#080e1a', border: '1px solid #38bdf8', color: 'var(--text-primary)', fontSize: '0.9rem', outline: 'none' }}
                   >
                     {ranksList.map(r => (
                       <option key={r} value={r}>
@@ -751,7 +751,7 @@ Sayın Personel,
               )}
 
               {targetMode === 'broadcast' && (
-                <div style={{ padding: '0.85rem 1rem', borderRadius: '12px', backgroundColor: 'rgba(245, 158, 11, 0.1)', border: '1px dashed #f59e0b', color: '#fbbf24', fontSize: '0.88rem', display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+                <div style={{ padding: '0.85rem 1rem', borderRadius: '6px', backgroundColor: 'rgba(245, 158, 11, 0.1)', border: '1px dashed #f59e0b', color: '#fbbf24', fontSize: '0.88rem', display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
                   <i className="fa-solid fa-shield-halved" style={{ fontSize: '1.3rem' }}></i>
                   <span>Bu ileti departmandaki tüm memur ve yöneticilerin Gelen Kutusuna <strong>Genel Departman Duyurusu</strong> olarak yayımlanacaktır.</span>
                 </div>
@@ -802,7 +802,7 @@ Sayın Personel,
                 value={composeSubject}
                 onChange={(e) => setComposeSubject(e.target.value)}
                 placeholder="Örn: Operasyonel Hazırlık Bildirimi / Devriye Raporu"
-                style={{ width: '100%', padding: '0.9rem 1rem', borderRadius: '12px', backgroundColor: '#080e1a', border: '1px solid rgba(255,255,255,0.15)', color: 'var(--text-primary)', fontSize: '0.95rem', fontWeight: 600, outline: 'none' }}
+                style={{ width: '100%', padding: '0.9rem 1rem', borderRadius: '6px', backgroundColor: '#080e1a', border: '1px solid rgba(255,255,255,0.15)', color: 'var(--text-primary)', fontSize: '0.95rem', fontWeight: 600, outline: 'none' }}
               />
             </div>
 
@@ -816,7 +816,7 @@ Sayın Personel,
                 value={composeBody}
                 onChange={(e) => setComposeBody(e.target.value)}
                 placeholder="Kurumsal ileti içeriğini buraya yazın... (Markdown veya maddeler halinde biçimlendirebilirsiniz)"
-                style={{ width: '100%', padding: '1rem', borderRadius: '12px', backgroundColor: '#080e1a', border: '1px solid rgba(255,255,255,0.15)', color: 'var(--text-primary)', fontSize: '0.92rem', lineHeight: '1.6', fontFamily: "'Inter', sans-serif", outline: 'none', resize: 'vertical' }}
+                style={{ width: '100%', padding: '1rem', borderRadius: '6px', backgroundColor: '#080e1a', border: '1px solid rgba(255,255,255,0.15)', color: 'var(--text-primary)', fontSize: '0.92rem', lineHeight: '1.6', fontFamily: "'Inter', sans-serif", outline: 'none', resize: 'vertical' }}
               />
             </div>
 
@@ -825,14 +825,14 @@ Sayın Personel,
               <button
                 type="button"
                 onClick={() => setActiveFolder('inbox')}
-                style={{ padding: '0.85rem 1.75rem', borderRadius: '12px', backgroundColor: 'transparent', border: '1px solid rgba(255,255,255,0.2)', color: '#cbd5e1', fontWeight: 700, fontSize: '0.9rem', cursor: 'pointer' }}
+                style={{ padding: '0.85rem 1.75rem', borderRadius: '6px', backgroundColor: 'transparent', border: '1px solid rgba(255,255,255,0.2)', color: '#cbd5e1', fontWeight: 700, fontSize: '0.9rem', cursor: 'pointer' }}
               >
                 İptal Et
               </button>
               <button
                 type="submit"
                 disabled={submitting}
-                style={{ padding: '0.85rem 2.5rem', borderRadius: '12px', backgroundColor: '#0284c7', border: '1px solid #38bdf8', color: 'var(--text-primary)', fontWeight: 800, fontSize: '0.95rem', cursor: submitting ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', gap: '0.6rem', boxShadow: '0 4px 20px rgba(2, 132, 199, 0.4)' }}
+                style={{ padding: '0.85rem 2.5rem', borderRadius: '6px', backgroundColor: '#0284c7', border: '1px solid #38bdf8', color: 'var(--text-primary)', fontWeight: 800, fontSize: '0.95rem', cursor: submitting ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', gap: '0.6rem', boxShadow: '0 4px 20px rgba(2, 132, 199, 0.4)' }}
               >
                 {submitting ? (
                   <>
@@ -939,7 +939,7 @@ Sayın Personel,
                       onClick={() => handleSelectMailItem(mail)}
                       style={{
                         padding: '1rem',
-                        borderRadius: '12px',
+                        borderRadius: '6px',
                         backgroundColor: isSelected ? 'rgba(14, 165, 233, 0.18)' : isUnread ? 'rgba(30, 41, 59, 0.8)' : 'rgba(15, 23, 42, 0.6)',
                         border: isSelected ? '1px solid #38bdf8' : isUnread ? '1px solid rgba(56, 189, 248, 0.35)' : '1px solid rgba(255,255,255,0.06)',
                         cursor: 'pointer',
@@ -1073,11 +1073,11 @@ Sayın Personel,
                       </h1>
 
                       {/* Sender & Recipient Information Card */}
-                      <div style={{ padding: '1.25rem', borderRadius: '14px', backgroundColor: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.08)', marginBottom: '1.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+                      <div style={{ padding: '1.25rem', borderRadius: '8px', backgroundColor: 'var(--bg-secondary)', border: '1px solid rgba(255,255,255,0.08)', marginBottom: '1.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                          <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: 'rgba(14, 165, 233, 0.15)', color: '#38bdf8', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '1.3rem', border: '1px solid rgba(14, 165, 233, 0.3)' }}>
+                          <div style={{ width: '48px', height: '48px', borderRadius: '6px', backgroundColor: 'rgba(14, 165, 233, 0.15)', color: '#38bdf8', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '1.3rem', border: '1px solid rgba(14, 165, 233, 0.3)' }}>
                             {selectedMail.sender.profileImage ? (
-                              <img src={selectedMail.sender.profileImage} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '12px' }} />
+                              <img src={selectedMail.sender.profileImage} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '6px' }} />
                             ) : (
                               selectedMail.sender.name.charAt(0)
                             )}
@@ -1110,7 +1110,7 @@ Sayın Personel,
                       </div>
 
                       {/* Message Body Content Box */}
-                      <div style={{ padding: '1.75rem', borderRadius: '14px', backgroundColor: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', fontSize: '0.98rem', lineHeight: '1.8', color: 'var(--bg-tertiary)', whiteSpace: 'pre-wrap', fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif", wordBreak: 'break-word' }}>
+                      <div style={{ padding: '1.75rem', borderRadius: '8px', backgroundColor: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', fontSize: '0.98rem', lineHeight: '1.8', color: 'var(--bg-tertiary)', whiteSpace: 'pre-wrap', fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif", wordBreak: 'break-word' }}>
                         {parsed.body}
                       </div>
                     </div>

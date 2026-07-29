@@ -84,7 +84,7 @@ export default function MesaiSistemiMinimal() {
       });
       if (!res.ok) throw new Error();
       toast.success(newIsOnDuty ? "Devriye başlatıldı. Güvenli seyirler." : "Devriye sonlandırıldı. İyi dinlenmeler.", {
-        style: { background: "#0D111D", color: "var(--bg-tertiary)", border: '1px solid var(--border-light)', borderRadius: "12px", fontSize: "0.85rem" }
+        style: { background: "#0D111D", color: "var(--bg-tertiary)", border: '1px solid var(--border-light)', borderRadius: '6px', fontSize: "0.85rem" }
       });
       mutateMe();
       mutateShifts();
@@ -273,7 +273,7 @@ export default function MesaiSistemiMinimal() {
             disabled={toggling}
             style={{
               padding: "1.1rem 2.2rem",
-              borderRadius: "16px",
+              borderRadius: '8px',
               cursor: toggling ? "not-allowed" : "pointer",
               fontWeight: 800,
               fontSize: "0.92rem",
@@ -331,7 +331,7 @@ export default function MesaiSistemiMinimal() {
                 key={off.id}
                 whileHover={{ y: -3, borderColor: medals.color }}
                 style={{
-                  background: "rgba(15, 23, 42, 0.4)",
+                  background: 'var(--bg-secondary)',
                   border: `1px solid ${medals.border}`,
                   borderRadius: "20px",
                   padding: "1.5rem 1.75rem",
@@ -349,7 +349,7 @@ export default function MesaiSistemiMinimal() {
                 </div>
 
                 <div style={{ display: "flex", alignItems: "center", gap: "1.1rem", zIndex: 1 }}>
-                  <div style={{ width: "42px", height: "42px", borderRadius: "12px", background: "rgba(255,255,255,0.04)", border: `1px solid ${medals.border}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem", fontWeight: 800, color: medals.color, flexShrink: 0 }}>
+                  <div style={{ width: "42px", height: "42px", borderRadius: '6px', background: "rgba(255,255,255,0.04)", border: `1px solid ${medals.border}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem", fontWeight: 800, color: medals.color, flexShrink: 0 }}>
                     {medals.label}
                   </div>
                   <div>
@@ -378,7 +378,7 @@ export default function MesaiSistemiMinimal() {
       </div>
 
       {/* ── THE ROSTER SECTION (ULTRA-CLEAN LINEAR STYLE DATA GRID) ── */}
-      <div style={{ background: "rgba(15, 23, 42, 0.4)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "24px", padding: "1.75rem 2rem" }}>
+      <div style={{ background: 'var(--bg-secondary)', border: "1px solid rgba(255,255,255,0.06)", borderRadius: "24px", padding: "1.75rem 2rem" }}>
         
         {/* Filter & Search Header */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1.5rem", marginBottom: "2rem", paddingBottom: "1.5rem", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
@@ -632,7 +632,7 @@ export default function MesaiSistemiMinimal() {
                     style={{
                       background: isMe ? "rgba(56, 189, 248, 0.06)" : "rgba(255,255,255,0.02)",
                       border: `1px solid ${isMe ? "rgba(56, 189, 248, 0.3)" : "rgba(255,255,255,0.06)"}`,
-                      borderRadius: "16px",
+                      borderRadius: '8px',
                       padding: "1.25rem",
                       display: "flex",
                       flexDirection: "column",

@@ -490,7 +490,7 @@ export default function RaporPortali() {
           </div>
 
           {/* Template Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1px', background: 'var(--bg-tertiary)', borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--border-light)' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1px', background: 'var(--bg-tertiary)', borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--border-light)' }}>
             {filtered.map((tmpl, idx) => {
               const cat = getCatInfo(tmpl.category);
               const fieldCnt = fieldCount(tmpl);
@@ -511,7 +511,7 @@ export default function RaporPortali() {
                 >
                   {/* Card top row */}
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                    <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: cat.bg, border: `1px solid ${cat.color}22`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: cat.color, fontSize: '1.15rem' }}>
+                    <div style={{ width: '44px', height: '44px', borderRadius: '6px', background: cat.bg, border: `1px solid ${cat.color}22`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: cat.color, fontSize: '1.15rem' }}>
                       <i className={`fa-solid ${tmpl.icon}`} />
                     </div>
                     <div style={{ textAlign: 'right' }}>
@@ -575,7 +575,7 @@ export default function RaporPortali() {
           onClick={() => setPreviewTemplate(null)}
           style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem', backdropFilter: 'blur(4px)' }}
         >
-          <div onClick={e => e.stopPropagation()} style={{ background: '#0d1320', border: '1px solid var(--border-light)', borderRadius: '16px', width: '100%', maxWidth: '700px', maxHeight: '85vh', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+          <div onClick={e => e.stopPropagation()} style={{ background: '#0d1320', border: '1px solid var(--border-light)', borderRadius: '8px', width: '100%', maxWidth: '700px', maxHeight: '85vh', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
             {/* Modal Header */}
             <div style={{ padding: '1.25rem 1.5rem', borderBottom: '1px solid var(--border-light)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
@@ -632,7 +632,7 @@ export default function RaporPortali() {
       {view === "editor" && template && (
         <div className="editor-wrapper" style={{ position: 'relative', zIndex: 10, padding: '2rem 3rem 5rem', maxWidth: '1100px', margin: '0 auto' }}>
           {/* Action bar */}
-          <div className="no-print" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', padding: '1rem 1.5rem', background: 'var(--bg-tertiary)', border: '1px solid var(--border-light)', borderRadius: '12px', marginBottom: '2rem' }}>
+          <div className="no-print" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', padding: '1rem 1.5rem', background: 'var(--bg-tertiary)', border: '1px solid var(--border-light)', borderRadius: '6px', marginBottom: '2rem' }}>
             <div>
               <div style={{ fontSize: '0.68rem', color: '#334155', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: '0.2rem' }}>Düzenleniyor</div>
               <div style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-primary)' }}>
@@ -651,7 +651,7 @@ export default function RaporPortali() {
           </div>
 
           {/* Document */}
-          <div className="print-doc" style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-light)', borderRadius: '16px', overflow: 'hidden' }}>
+          <div className="print-doc" style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-light)', borderRadius: '8px', overflow: 'hidden' }}>
             {/* Doc Header */}
             <div style={{ padding: '2rem 2.5rem', borderBottom: '1px solid var(--border-light)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
@@ -750,7 +750,7 @@ export default function RaporPortali() {
               <div style={{ marginTop: '1rem', fontSize: '0.85rem' }}>Raporlar yükleniyor...</div>
             </div>
           ) : savedReports.length === 0 ? (
-            <div style={{ background: 'var(--bg-tertiary)', border: '1px dashed rgba(255,255,255,0.08)', borderRadius: '16px', padding: '6rem', textAlign: 'center' }}>
+            <div style={{ background: 'var(--bg-tertiary)', border: '1px dashed rgba(255,255,255,0.08)', borderRadius: '8px', padding: '6rem', textAlign: 'center' }}>
               <i className="fa-regular fa-folder-open" style={{ fontSize: '3rem', color: '#334155', marginBottom: '1.25rem', display: 'block' }} />
               <div style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '2rem' }}>Henüz kayıtlı rapor bulunmuyor.</div>
               <button onClick={() => setView("home")} style={{ background: 'linear-gradient(135deg, #0284c7, #1d4ed8)', border: 'none', color: 'var(--text-primary)', padding: '0.75rem 1.5rem', borderRadius: '9px', cursor: 'pointer', fontWeight: 600, fontSize: '0.85rem', boxShadow: '0 4px 15px rgba(2,132,199,0.25)' }}>
@@ -758,7 +758,7 @@ export default function RaporPortali() {
               </button>
             </div>
           ) : (
-            <div style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-light)', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.05)' }}>
+            <div style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-light)', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.05)' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                 <thead>
                   <tr style={{ background: 'var(--bg-tertiary)', borderBottom: '1px solid var(--border-light)' }}>

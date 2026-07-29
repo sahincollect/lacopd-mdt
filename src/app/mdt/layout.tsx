@@ -163,7 +163,7 @@ export default function MDTLayout({
               <style jsx global>{`
                 aside::-webkit-scrollbar { width: 4px; }
                 aside::-webkit-scrollbar-track { background: transparent; }
-                aside::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+                aside::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 10px; }
 
                 .sidebar-link {
                   position: relative;
@@ -173,11 +173,11 @@ export default function MDTLayout({
                   align-items: center !important;
                   gap: 1rem !important;
                   padding: 0.75rem 1rem !important;
-                  border-radius: 8px;
+                  border-radius: 6px;
                   text-decoration: none;
                   font-size: 0.85rem;
                   font-weight: 500;
-                  color: rgba(255,255,255,0.6);
+                  color: var(--text-secondary);
                   transition: all 0.2s ease;
                   border: 1px solid transparent;
                   white-space: nowrap !important;
@@ -189,13 +189,14 @@ export default function MDTLayout({
                   text-overflow: ellipsis !important;
                 }
                 .sidebar-link:hover {
-                  color: #FFF;
-                  background-color: rgba(255,255,255,0.05);
+                  color: var(--text-primary);
+                  background-color: var(--bg-hover-subtle);
                 }
                 .sidebar-link.active {
-                  color: #FFF;
-                  background-color: rgba(255,255,255,0.08);
-                  border: 1px solid rgba(255,255,255,0.1);
+                  color: var(--accent-primary);
+                  background-color: var(--bg-tertiary);
+                  border: 1px solid var(--border-light);
+                  font-weight: 700;
                 }
                 
                 .sidebar-link .icon-box {
@@ -212,6 +213,7 @@ export default function MDTLayout({
                 }
                 .sidebar-link.active .icon-box {
                   opacity: 1;
+                  color: var(--accent-primary);
                 }
                 .sidebar-link:hover .icon-box {
                   opacity: 1;

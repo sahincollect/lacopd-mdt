@@ -168,7 +168,7 @@ export default function BirimBasvuruPage() {
                             key={div.id} onClick={() => setSelectedDivision(div.id)}
                             whileHover={{ scale: isSelected ? 1.02 : 1.01 }} whileTap={{ scale: 0.98 }}
                             style={{ 
-                              padding: '1.25rem', cursor: 'pointer', borderRadius: '16px', display: 'flex', alignItems: 'flex-start', gap: '1.25rem',
+                              padding: '1.25rem', cursor: 'pointer', borderRadius: '8px', display: 'flex', alignItems: 'flex-start', gap: '1.25rem',
                               backgroundColor: isSelected ? 'rgba(15,23,42,0.8)' : 'rgba(15,23,42,0.4)',
                               backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)',
                               border: isSelected ? `1px solid ${div.color}` : '1px solid rgba(255,255,255,0.05)',
@@ -177,7 +177,7 @@ export default function BirimBasvuruPage() {
                             }}
                           >
                             <div style={{ 
-                              width: '48px', height: '48px', borderRadius: '12px', flexShrink: 0,
+                              width: '48px', height: '48px', borderRadius: '6px', flexShrink: 0,
                               backgroundColor: isSelected ? `${div.color}15` : 'rgba(255,255,255,0.03)',
                               border: isSelected ? `1px solid ${div.color}40` : '1px solid rgba(255,255,255,0.1)',
                               display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem',
@@ -237,7 +237,7 @@ export default function BirimBasvuruPage() {
                         style={{ 
                           width: '100%', minHeight: '120px', resize: 'vertical', backgroundColor: 'var(--bg-secondary)', 
                           border: `1px solid ${formData.reason ? activeDivision.color : 'rgba(255,255,255,0.1)'}`,
-                          borderRadius: '12px', padding: '1rem', color: 'var(--text-primary)', fontSize: '0.95rem',
+                          borderRadius: '6px', padding: '1rem', color: 'var(--text-primary)', fontSize: '0.95rem',
                           boxShadow: formData.reason ? `0 0 15px ${activeDivision.color}20` : 'none',
                           outline: 'none', transition: 'all 0.3s ease'
                         }}
@@ -256,7 +256,7 @@ export default function BirimBasvuruPage() {
                         style={{ 
                           width: '100%', minHeight: '120px', resize: 'vertical', backgroundColor: 'var(--bg-secondary)', 
                           border: `1px solid ${formData.experience ? activeDivision.color : 'rgba(255,255,255,0.1)'}`,
-                          borderRadius: '12px', padding: '1rem', color: 'var(--text-primary)', fontSize: '0.95rem',
+                          borderRadius: '6px', padding: '1rem', color: 'var(--text-primary)', fontSize: '0.95rem',
                           boxShadow: formData.experience ? `0 0 15px ${activeDivision.color}20` : 'none',
                           outline: 'none', transition: 'all 0.3s ease'
                         }}
@@ -268,7 +268,7 @@ export default function BirimBasvuruPage() {
 
                     <div 
                      
-                      style={{ backgroundColor: `${activeDivision.color}15`, border: `1px solid ${activeDivision.color}30`, padding: '1.25rem', borderRadius: '12px', display: 'flex', gap: '1rem', alignItems: 'flex-start', boxShadow: `inset 0 0 10px ${activeDivision.color}10` }}
+                      style={{ backgroundColor: `${activeDivision.color}15`, border: `1px solid ${activeDivision.color}30`, padding: '1.25rem', borderRadius: '6px', display: 'flex', gap: '1rem', alignItems: 'flex-start', boxShadow: `inset 0 0 10px ${activeDivision.color}10` }}
                     >
                       <i className="fa-solid fa-shield-halved" style={{ color: activeDivision.color, marginTop: '0.2rem', fontSize: '1.2rem', textShadow: activeDivision.glow }}></i>
                       <p style={{ margin: 0, fontSize: '0.85rem', color: 'rgba(255,255,255,0.8)', lineHeight: '1.6' }}>
@@ -281,7 +281,7 @@ export default function BirimBasvuruPage() {
                       whileHover={!submitting ? { scale: 1.02 } : {}} whileTap={!submitting ? { scale: 0.98 } : {}}
                       style={{ 
                         backgroundColor: activeDivision.color, color: '#000', fontWeight: 800, letterSpacing: '0.1em',
-                        padding: '1.2rem', borderRadius: '12px', border: 'none', cursor: submitting ? 'not-allowed' : 'pointer',
+                        padding: '1.2rem', borderRadius: '6px', border: 'none', cursor: submitting ? 'not-allowed' : 'pointer',
                         opacity: submitting ? 0.7 : 1, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.75rem',
                         boxShadow: `0 8px 25px ${activeDivision.color}50`, transition: 'all 0.2s', fontSize: '1rem'
                       }}
@@ -316,7 +316,7 @@ export default function BirimBasvuruPage() {
           
           <div style={{ display: 'grid', gap: '1.5rem' }}>
             {applications.length === 0 ? (
-              <div style={{ backgroundColor: 'rgba(15,23,42,0.4)', borderRadius: '16px', padding: '4rem 2rem', textAlign: 'center', border: '1px dashed rgba(255,255,255,0.1)' }}>
+              <div style={{ backgroundColor: 'var(--bg-secondary)', borderRadius: '8px', padding: '4rem 2rem', textAlign: 'center', border: '1px solid var(--border-light)' }}>
                 <i className="fa-solid fa-folder-open" style={{ fontSize: '3rem', color: 'var(--text-secondary)', opacity: 0.5, marginBottom: '1rem' }}></i>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', margin: 0 }}>Sistemde henüz bir başvuru bulunmuyor.</p>
               </div>
@@ -330,7 +330,7 @@ export default function BirimBasvuruPage() {
                     key={app.id} 
                     style={{ 
                       backgroundColor: 'rgba(15,23,42,0.5)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
-                      borderRadius: '16px', border: isAdminView && app.status === 'Bekliyor' ? `1px solid rgba(245, 158, 11, 0.4)` : `1px solid rgba(255,255,255,0.05)`, padding: '1.5rem',
+                      borderRadius: '8px', border: isAdminView && app.status === 'Bekliyor' ? `1px solid rgba(245, 158, 11, 0.4)` : `1px solid rgba(255,255,255,0.05)`, padding: '1.5rem',
                       boxShadow: '0 10px 30px rgba(0,0,0,0.15)', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden'
                     }}
                   >
@@ -338,7 +338,7 @@ export default function BirimBasvuruPage() {
                     
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: isAdminView ? '1.25rem' : '1.5rem', paddingLeft: '1rem', flexWrap: 'wrap', gap: '1rem' }}>
                       <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center' }}>
-                        <div style={{ width: '50px', height: '50px', borderRadius: '12px', backgroundColor: `${divisionInfo.color}15`, color: divisionInfo.color, border: `1px solid ${divisionInfo.color}40`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.4rem', boxShadow: divisionInfo.glow, flexShrink: 0 }}>
+                        <div style={{ width: '50px', height: '50px', borderRadius: '6px', backgroundColor: `${divisionInfo.color}15`, color: divisionInfo.color, border: `1px solid ${divisionInfo.color}40`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.4rem', boxShadow: divisionInfo.glow, flexShrink: 0 }}>
                           <i className={`fa-solid ${divisionInfo.icon}`}></i>
                         </div>
                         <div>
@@ -425,7 +425,7 @@ export default function BirimBasvuruPage() {
                     </div>
                     
                     {isAdminView && (app.reason || app.experience) && (
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', backgroundColor: 'rgba(0,0,0,0.35)', padding: '1.25rem', borderRadius: '12px', borderLeft: `2px solid ${divisionInfo.color}60`, marginLeft: '1rem', marginTop: '0.5rem' }}>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', backgroundColor: 'rgba(0,0,0,0.35)', padding: '1.25rem', borderRadius: '6px', borderLeft: `2px solid ${divisionInfo.color}60`, marginLeft: '1rem', marginTop: '0.5rem' }}>
                         {app.reason && (
                           <div>
                             <div style={{ fontSize: '0.72rem', color: divisionInfo.color, fontWeight: 800, marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>

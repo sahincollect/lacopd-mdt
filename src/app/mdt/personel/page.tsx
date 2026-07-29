@@ -199,7 +199,7 @@ export default function PersonelListesi() {
   const inputStyle: React.CSSProperties = {
     width: "100%", padding: "1rem",
     backgroundColor: 'var(--bg-secondary)', border: "1px solid rgba(255,255,255,0.05)",
-    borderRadius: "12px", color: 'var(--text-primary)', fontSize: "0.9rem", outline: "none",
+    borderRadius: '6px', color: 'var(--text-primary)', fontSize: "0.9rem", outline: "none",
     boxSizing: "border-box", transition: "all 0.3s"
   };
 
@@ -240,7 +240,7 @@ export default function PersonelListesi() {
               onClick={() => { setShowModal(true); setEditingOfficer(null); setFormError(""); setForm({ ...EMPTY_FORM }); }}
               style={{
                 display: "flex", alignItems: "center", gap: "0.75rem",
-                padding: "0.8rem 1.5rem", borderRadius: "12px", border: "1px solid rgba(14, 165, 233, 0.5)",
+                padding: "0.8rem 1.5rem", borderRadius: '6px', border: "1px solid rgba(14, 165, 233, 0.5)",
                 backgroundColor: "rgba(14, 165, 233, 0.1)", color: "#10b981",
                 fontWeight: 800, fontSize: "0.9rem", cursor: "pointer", backdropFilter: 'blur(10px)', letterSpacing: '0.05em'
               }}
@@ -258,7 +258,7 @@ export default function PersonelListesi() {
             <input
               type="text" placeholder="Memur adı, sicil veya rütbe taraması (Örn: John, 104, Sergeant)..."
               value={search} onChange={e => setSearch(e.target.value)}
-              style={{ ...inputStyle, paddingLeft: "3rem", borderRadius: '16px', backgroundColor: 'var(--bg-secondary)', boxShadow: 'inset 0 0 10px rgba(0,0,0,0.5)', fontSize: '1rem' }}
+              style={{ ...inputStyle, paddingLeft: "3rem", borderRadius: '8px', backgroundColor: 'var(--bg-secondary)', boxShadow: 'inset 0 0 10px rgba(0,0,0,0.5)', fontSize: '1rem' }}
               onFocus={e => { e.currentTarget.style.borderColor = "#0284c7"; e.currentTarget.style.boxShadow = "0 0 15px rgba(14, 165, 233, 0.3), inset 0 0 10px rgba(0,0,0,0.5)"; }}
               onBlur={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)"; e.currentTarget.style.boxShadow = "inset 0 0 10px rgba(0,0,0,0.5)"; }}
             />
@@ -329,7 +329,7 @@ export default function PersonelListesi() {
                 style={{
                   backgroundColor: 'var(--bg-secondary)',
                   border: "1px solid rgba(255,255,255,0.08)",
-                  borderRadius: "16px",
+                  borderRadius: '8px',
                   padding: "1.25rem",
                   display: "flex",
                   flexDirection: "column",
@@ -338,7 +338,7 @@ export default function PersonelListesi() {
                 }}
               >
                 <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                  <div style={{ width: "45px", height: "45px", borderRadius: "12px", backgroundColor: "rgba(239, 68, 68, 0.15)", color: "#f87171", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.2rem", fontWeight: "bold" }}>
+                  <div style={{ width: "45px", height: "45px", borderRadius: '6px', backgroundColor: "rgba(239, 68, 68, 0.15)", color: "#f87171", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.2rem", fontWeight: "bold" }}>
                     {app.name?.charAt(0)}
                   </div>
                   <div>
@@ -396,7 +396,7 @@ export default function PersonelListesi() {
             const onDuty = members.filter(o => o.isOnDuty).length;
 
             return (
-              <div key={dept} style={{ backgroundColor: "rgba(10, 15, 30, 0.6)", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.05)", overflow: "hidden", backdropFilter: 'blur(16px)', position: 'relative' }}>
+              <div key={dept} style={{ backgroundColor: "rgba(10, 15, 30, 0.6)", borderRadius: '8px', border: "1px solid rgba(255,255,255,0.05)", overflow: "hidden", backdropFilter: 'blur(16px)', position: 'relative' }}>
                 {/* Glowing Corner Edge */}
                 <div style={{ 
                   position: 'absolute', inset: 0, borderRadius: 'inherit', pointerEvents: 'none',
@@ -431,7 +431,7 @@ export default function PersonelListesi() {
                 {/* Members Grid */}
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1rem", padding: "1.5rem" }}>
                   {members.map(officer => (
-                    <div whileHover={{ y: -2, boxShadow: `0 8px 20px ${meta.color}15`, borderColor: `${meta.color}50` }} key={officer.id} style={{ display: "flex", alignItems: "center", gap: "0.8rem", padding: "0.75rem", backgroundColor: 'var(--bg-secondary)', borderRadius: "12px", border: "1px solid rgba(255,255,255,0.05)", transition: "all 0.3s", position: "relative", overflow: 'hidden' }}>
+                    <div whileHover={{ y: -2, boxShadow: `0 8px 20px ${meta.color}15`, borderColor: `${meta.color}50` }} key={officer.id} style={{ display: "flex", alignItems: "center", gap: "0.8rem", padding: "0.75rem", backgroundColor: 'var(--bg-secondary)', borderRadius: '6px', border: "1px solid rgba(255,255,255,0.05)", transition: "all 0.3s", position: "relative", overflow: 'hidden' }}>
                       
                       {/* Avatar (Rounded Square + LAC Logo Fallback) */}
                       <div style={{ position: 'relative' }}>
@@ -507,7 +507,7 @@ export default function PersonelListesi() {
 
               <div style={{ padding: "1.25rem 1.75rem", borderBottom: "1px solid rgba(255,255,255,0.06)", display: "flex", justifyContent: "space-between", alignItems: "center", flexShrink: 0, backgroundColor: "rgba(10, 15, 30, 0.98)" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.85rem" }}>
-                  <div style={{ width: "44px", height: "44px", borderRadius: "12px", backgroundColor: editingOfficer ? "rgba(139,92,246,0.15)" : "rgba(14, 165, 233,0.15)", border: `1px solid ${editingOfficer ? "rgba(139,92,246,0.4)" : "rgba(14, 165, 233,0.4)"}`, display: "flex", alignItems: "center", justifyContent: "center", color: editingOfficer ? "#a78bfa" : "#60a5fa", fontSize: '1.2rem' }}>
+                  <div style={{ width: "44px", height: "44px", borderRadius: '6px', backgroundColor: editingOfficer ? "rgba(139,92,246,0.15)" : "rgba(14, 165, 233,0.15)", border: `1px solid ${editingOfficer ? "rgba(139,92,246,0.4)" : "rgba(14, 165, 233,0.4)"}`, display: "flex", alignItems: "center", justifyContent: "center", color: editingOfficer ? "#a78bfa" : "#60a5fa", fontSize: '1.2rem' }}>
                     <i className={editingOfficer ? "fa-solid fa-user-pen" : "fa-solid fa-user-plus"}></i>
                   </div>
                   <div>
@@ -523,7 +523,7 @@ export default function PersonelListesi() {
               <form onSubmit={handleSave} style={{ display: "flex", flexDirection: "column", flex: 1, minHeight: 0 }}>
                 <div style={{ padding: "1.5rem 1.75rem", display: "flex", flexDirection: "column", gap: "1.1rem", overflowY: "auto", flex: 1 }}>
                   {formError && (
-                    <div style={{ backgroundColor: "rgba(14, 165, 233,0.1)", border: "1px solid rgba(14, 165, 233,0.3)", color: "#7dd3fc", padding: "0.85rem", borderRadius: "12px", fontSize: "0.82rem", display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <div style={{ backgroundColor: "rgba(14, 165, 233,0.1)", border: "1px solid rgba(14, 165, 233,0.3)", color: "#7dd3fc", padding: "0.85rem", borderRadius: '6px', fontSize: "0.82rem", display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                       <i className="fa-solid fa-triangle-exclamation"></i> {formError}
                     </div>
                   )}
@@ -579,7 +579,7 @@ export default function PersonelListesi() {
                       </label>
                       <div style={{
                         display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.5rem',
-                        backgroundColor: 'rgba(5, 12, 28, 0.8)', padding: '0.85rem', borderRadius: '12px',
+                        backgroundColor: 'rgba(5, 12, 28, 0.8)', padding: '0.85rem', borderRadius: '6px',
                         border: '1px solid rgba(56, 189, 248, 0.3)', maxHeight: '150px', overflowY: 'auto'
                       }}>
                         {SPECIAL_ROLES_LIST.map((sr) => {

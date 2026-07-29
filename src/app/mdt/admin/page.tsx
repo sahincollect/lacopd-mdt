@@ -189,7 +189,7 @@ export default function AdminOptionsPage() {
           </div>
           <h1 style={{ fontSize: "2.2rem", fontWeight: 800, color: "var(--text-primary)", margin: 0, letterSpacing: "-0.03em" }}>Admin Seçenekleri</h1>
         </div>
-        <div style={{ display: "flex", gap: "1rem", backgroundColor: "rgba(15, 23, 42, 0.4)", padding: "0.4rem", borderRadius: "14px", border: "1px solid rgba(255,255,255,0.05)" }}>
+        <div style={{ display: "flex", gap: "1rem", backgroundColor: 'var(--bg-secondary)', padding: "0.4rem", borderRadius: '8px', border: "1px solid rgba(255,255,255,0.05)" }}>
           <button onClick={() => setActiveTab("SISTEM")} style={{ padding: "0.6rem 1.25rem", borderRadius: "10px", background: activeTab === "SISTEM" ? "rgba(56, 189, 248, 0.15)" : "transparent", color: activeTab === "SISTEM" ? "#38BDF8" : "#94A3B8", border: "none", fontWeight: 700, fontSize: "0.85rem", cursor: "pointer", transition: "all 0.2s" }}>Sistem & Medya</button>
           <button onClick={() => setActiveTab("DEPARTMAN")} style={{ padding: "0.6rem 1.25rem", borderRadius: "10px", background: activeTab === "DEPARTMAN" ? "rgba(56, 189, 248, 0.15)" : "transparent", color: activeTab === "DEPARTMAN" ? "#38BDF8" : "#94A3B8", border: "none", fontWeight: 700, fontSize: "0.85rem", cursor: "pointer", transition: "all 0.2s" }}>Birim Başvuruları</button>
           <button onClick={() => setActiveTab("SIVIL")} style={{ padding: "0.6rem 1.25rem", borderRadius: "10px", background: activeTab === "SIVIL" ? "rgba(56, 189, 248, 0.15)" : "transparent", color: activeTab === "SIVIL" ? "#38BDF8" : "#94A3B8", border: "none", fontWeight: 700, fontSize: "0.85rem", cursor: "pointer", transition: "all 0.2s" }}>Başvurular</button>
@@ -214,7 +214,7 @@ export default function AdminOptionsPage() {
               </div>
 
               {/* Media Upload */}
-              <div style={{ background: "rgba(15, 23, 42, 0.4)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "20px", padding: "2.5rem" }}>
+              <div style={{ background: 'var(--bg-secondary)', border: "1px solid rgba(255,255,255,0.06)", borderRadius: "20px", padding: "2.5rem" }}>
                 <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text-primary)", margin: "0 0 1.5rem 0", display: "flex", alignItems: "center", gap: "0.6rem" }}>
                   <i className="fa-solid fa-cloud-arrow-up" style={{ color: "#38BDF8" }} /> Medya Yükle
                 </h3>
@@ -242,7 +242,7 @@ export default function AdminOptionsPage() {
                 <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text-primary)", margin: "0 0 1.5rem 0" }}>Sistem Medya Arşivi</h3>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "1.5rem" }}>
                   {images.map(img => (
-                    <div key={img.id} style={{ background: "rgba(15, 23, 42, 0.4)", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.06)", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+                    <div key={img.id} style={{ background: 'var(--bg-secondary)', borderRadius: '8px', border: "1px solid rgba(255,255,255,0.06)", overflow: "hidden", display: "flex", flexDirection: "column" }}>
                       <div style={{ height: "140px", background: "#000", position: "relative" }}>
                         {/* eslint-disable-next-line */}
                         <img src={img.url} alt="medya" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.8 }} />
@@ -254,7 +254,7 @@ export default function AdminOptionsPage() {
                       </div>
                     </div>
                   ))}
-                  {images.length === 0 && <div style={{ color: "#64748B", fontSize: "0.85rem", padding: "2rem", border: "1px dashed rgba(255,255,255,0.1)", borderRadius: "16px", textAlign: "center" }}>Medya bulunamadı.</div>}
+                  {images.length === 0 && <div style={{ color: "#64748B", fontSize: "0.85rem", padding: "2rem", border: '1px solid var(--border-light)', borderRadius: '8px', textAlign: "center" }}>Medya bulunamadı.</div>}
                 </div>
               </div>
             </div>
@@ -270,7 +270,7 @@ export default function AdminOptionsPage() {
               ) : applications.map((app: any) => {
                 const divInfo = DIVISIONS.find(d => d.id === app.division) || DIVISIONS[0];
                 return (
-                  <div key={app.id} style={{ background: "rgba(15, 23, 42, 0.6)", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.05)", padding: "1.5rem", display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
+                  <div key={app.id} style={{ background: "rgba(15, 23, 42, 0.6)", borderRadius: '8px', border: "1px solid rgba(255,255,255,0.05)", padding: "1.5rem", display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
                     <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: "4px", background: divInfo.color }} />
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1.5rem", paddingLeft: "0.5rem" }}>
                       <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
@@ -289,7 +289,7 @@ export default function AdminOptionsPage() {
                         </div>
                       </div>
                     </div>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem", background: "rgba(0,0,0,0.2)", padding: "1.25rem", borderRadius: "12px", borderLeft: `2px solid ${divInfo.color}40`, marginLeft: "0.5rem" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem", background: "rgba(0,0,0,0.2)", padding: "1.25rem", borderRadius: '6px', borderLeft: `2px solid ${divInfo.color}40`, marginLeft: "0.5rem" }}>
                       <div><div style={{ fontSize: "0.7rem", color: divInfo.color, fontWeight: 800, marginBottom: "0.5rem", textTransform: "uppercase" }}>Neden Katılmak İstiyor?</div><p style={{ margin: 0, fontSize: "0.85rem", color: "#E2E8F0", lineHeight: "1.6", whiteSpace: "pre-wrap" }}>{app.reason}</p></div>
                       <div><div style={{ fontSize: "0.7rem", color: divInfo.color, fontWeight: 800, marginBottom: "0.5rem", textTransform: "uppercase" }}>Tecrübesi</div><p style={{ margin: 0, fontSize: "0.85rem", color: "#E2E8F0", lineHeight: "1.6", whiteSpace: "pre-wrap" }}>{app.experience}</p></div>
                     </div>

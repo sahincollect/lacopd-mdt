@@ -7,6 +7,7 @@ import { Toaster } from "react-hot-toast";
 import SpotlightCursor from "../components/SpotlightCursor";
 import { MotionConfig } from "framer-motion";
 import { ThemeProvider } from "../components/ThemeProvider";
+import ImageRightClickPreventer from "../components/ImageRightClickPreventer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -42,6 +43,7 @@ export default function RootLayout({
         <MotionConfig reducedMotion="never">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
         <SpotlightCursor />
+        <ImageRightClickPreventer />
         <Toaster 
           position="top-right"
           toastOptions={{

@@ -117,9 +117,9 @@ export default function SuçluVeritabanı() {
   const inputStyle: React.CSSProperties = {
     width: "100%",
     padding: "0.9rem 1.25rem",
-    backgroundColor: "rgba(15, 23, 42, 0.4)",
+    backgroundColor: 'var(--bg-secondary)',
     border: "1px solid rgba(255,255,255,0.08)",
-    borderRadius: "12px",
+    borderRadius: '6px',
     color: 'var(--text-primary)',
     fontSize: "0.95rem",
     outline: "none",
@@ -156,7 +156,7 @@ export default function SuçluVeritabanı() {
               border: showAddForm ? "1px solid rgba(14, 165, 233,0.2)" : "1px solid rgba(14, 165, 233, 0.5)",
               boxShadow: showAddForm ? "none" : "0 0 20px rgba(14, 165, 233, 0.2), inset 0 0 10px rgba(14, 165, 233, 0.1)",
               padding: "0.8rem 1.8rem",
-              borderRadius: "14px",
+              borderRadius: '8px',
               fontWeight: 900,
               letterSpacing: "0.05em",
               backdropFilter: "blur(12px)",
@@ -220,7 +220,7 @@ export default function SuçluVeritabanı() {
 
                 <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem' }}>
                   <button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" disabled={submitting} style={{ 
-                    flex: 1, padding: '1rem', borderRadius: '12px', border: 'none',
+                    flex: 1, padding: '1rem', borderRadius: '6px', border: 'none',
                     background: "linear-gradient(135deg, #10B981, #059669)", color: 'var(--text-primary)', fontWeight: 800,
                     cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? 0.7 : 1,
                     boxShadow: submitting ? 'none' : '0 8px 25px rgba(14, 165, 233, 0.3)'
@@ -257,8 +257,8 @@ export default function SuçluVeritabanı() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         {filteredCriminals.length === 0 ? (
           <div style={{ 
-            backgroundColor: 'rgba(15, 23, 42, 0.4)', borderRadius: '16px', padding: '4rem 2rem', 
-            textAlign: 'center', border: '1px dashed rgba(255,255,255,0.1)' 
+            backgroundColor: 'var(--bg-secondary)', borderRadius: '8px', padding: '4rem 2rem', 
+            textAlign: 'center', border: '1px solid var(--border-light)' 
           }}>
             <i className="fa-solid fa-shield-check" style={{ fontSize: '3rem', color: 'var(--text-secondary)', opacity: 0.5, marginBottom: '1rem' }}></i>
             <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', margin: 0 }}>
@@ -278,7 +278,7 @@ export default function SuçluVeritabanı() {
                   backgroundColor: 'var(--bg-secondary)', 
                   backdropFilter: 'blur(12px)',
                   WebkitBackdropFilter: 'blur(12px)',
-                  borderRadius: '16px', 
+                  borderRadius: '8px', 
                   border: '1px solid rgba(14, 165, 233, 0.2)',
                   padding: '1.5rem',
                   boxShadow: '0 10px 30px rgba(0,0,0,0.25)',
@@ -302,7 +302,7 @@ export default function SuçluVeritabanı() {
                     style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', cursor: 'pointer', marginBottom: expandedIds.includes(c.id) ? '1.5rem' : '0', position: 'relative', zIndex: 2 }}
                   >
                     <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                      <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: 'rgba(14, 165, 233, 0.1)', border: '1px solid rgba(14, 165, 233, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0ea5e9', fontSize: '1.5rem' }}>
+                      <div style={{ width: '48px', height: '48px', borderRadius: '6px', backgroundColor: 'rgba(14, 165, 233, 0.1)', border: '1px solid rgba(14, 165, 233, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0ea5e9', fontSize: '1.5rem' }}>
                         <i className="fa-solid fa-user-secret"></i>
                       </div>
                       <div>
@@ -353,7 +353,7 @@ export default function SuçluVeritabanı() {
                     <div style={{ 
                       backgroundColor: 'var(--bg-secondary)', 
                       padding: '1.25rem', 
-                      borderRadius: '12px', 
+                      borderRadius: '6px', 
                       borderLeft: '4px solid #0ea5e9', 
                       marginBottom: '1.5rem',
                       flex: 1,

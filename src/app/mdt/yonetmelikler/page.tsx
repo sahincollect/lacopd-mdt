@@ -107,7 +107,7 @@ export default function Yonetmelikler() {
         animate={{ opacity: 1, y: 0 }}
         style={{ 
           background: "var(--bg-primary)",
-          borderRadius: "16px",
+          borderRadius: '8px',
           border: "1px solid var(--border-light)",
           overflow: "hidden",
           minHeight: "800px",
