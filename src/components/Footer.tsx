@@ -28,13 +28,14 @@ export default function Footer() {
         alignItems: 'center',
         gap: '1rem'
       }}>
-        <div>
-          Copyright &copy; {new Date().getFullYear()} Los Angeles Community Police Department and the LAC. All rights reserved.
-          <a href="#" style={{ color: 'white', marginLeft: '1rem', textDecoration: 'none' }}>Privacy Policy</a>
-          <a href="#" style={{ color: 'white', marginLeft: '1rem', textDecoration: 'none' }}>Do Not Sell My Info</a>
+        <div style={{ flex: 1, lineHeight: 1.6 }}>
+          Telif Hakkı &copy; {new Date().getFullYear()} Los Angeles Community Police Department ve LAC. Tüm hakları saklıdır.
+          <a href="#" style={{ color: 'white', marginLeft: '1rem', textDecoration: 'none' }}>Gizlilik Politikası</a>
+          <a href="#" style={{ color: 'white', marginLeft: '1rem', textDecoration: 'none' }}>Kişisel Verilerim</a>
         </div>
-        <div style={{ color: 'rgba(255,255,255,0.5)' }}>
-          Developed for FiveM Roleplay Purposes.
+        <div style={{ color: 'rgba(255,255,255,0.6)', textAlign: 'right', lineHeight: 1.6, flexShrink: 0 }}>
+          Bu web sitesi sadece <strong>FiveM Roleplay</strong> amaçlı geliştirilmiştir.<br/>
+          <span style={{ color: 'var(--lapd-orange)' }}>Gerçek kurumlar veya LAPD ile hiçbir ilgisi yoktur.</span>
         </div>
       </div>
     </footer>
