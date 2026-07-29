@@ -333,7 +333,12 @@ export default function MDTLayout({
             }
           `}</style>
           
-          <div className="group-title" style={{ marginTop: '0.3rem' }}>OPERASYONEL</div>
+          <div className="group-title" style={{ marginTop: '0.3rem' }}>GENEL</div>
+          <Link href="/" className="sidebar-link">
+            <div className="icon-box"><i className="fa-solid fa-house" /></div> <span style={{ flex: 1 }}>Ana Sayfa (Portal)</span>
+          </Link>
+
+          <div className="group-title">OPERASYONEL</div>
 
           <Link href="/mdt" className={`sidebar-link ${pathname === '/mdt' ? 'active' : ''}`}>
             <div className="icon-box"><i className="fa-solid fa-border-all" /></div> <span style={{ flex: 1 }}>Kontrol Paneli</span>
