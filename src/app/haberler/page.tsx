@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import WeatherWidget from '@/components/WeatherWidget';
 
 export default function HaberlerPage() {
   const newsItems = [
@@ -92,6 +93,9 @@ export default function HaberlerPage() {
 
           {/* RIGHT COLUMN: MORE TOP STORIES */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            
+            <WeatherWidget />
+
             <div style={{ borderBottom: '2px solid #111', paddingBottom: '5px', marginBottom: '10px' }}>
               <h2 style={{ fontSize: '1.2rem', fontWeight: 800, margin: 0 }}>More Top Stories</h2>
             </div>
