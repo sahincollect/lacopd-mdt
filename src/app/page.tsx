@@ -225,6 +225,7 @@ export default function Home() {
         @keyframes scan { from { top: -2px; } to { top: 100vh; } }
         @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
         @keyframes blink { 0%,100%{opacity:1} 49%{opacity:1} 50%{opacity:0} 99%{opacity:0} }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         body { margin: 0; }
       `}</style>
 
@@ -546,100 +547,203 @@ export default function Home() {
               {/* PORTAL */}
               {isPortal && (
                 <motion.div key="portal"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -30 }}
-                  transition={{ duration: 0.7 }}
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.96 }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
                   style={{
                     position: 'absolute', inset: 0, display: 'flex',
                     alignItems: 'center', justifyContent: 'center',
-                    background: 'rgba(2,4,10,0.88)', backdropFilter: 'blur(32px)',
+                    background: 'linear-gradient(135deg, rgba(2,4,10,0.92) 0%, rgba(10,15,35,0.95) 100%)',
+                    backdropFilter: 'blur(40px)',
                   }}
                 >
-                  <div style={{ width: '100%', maxWidth: 480, padding: '0 2rem' }}>
+                  {/* Decorative glow orbs */}
+                  <div style={{
+                    position: 'absolute', top: '20%', left: '10%',
+                    width: 300, height: 300, borderRadius: '50%',
+                    background: 'radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%)',
+                    pointerEvents: 'none',
+                  }} />
+                  <div style={{
+                    position: 'absolute', bottom: '15%', right: '8%',
+                    width: 250, height: 250, borderRadius: '50%',
+                    background: 'radial-gradient(circle, rgba(139,92,246,0.06) 0%, transparent 70%)',
+                    pointerEvents: 'none',
+                  }} />
 
-                    {/* Header */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2.5rem' }}>
-                      <img src="/lapd-logo.jpg" alt="LAC" style={{
-                        width: 48, height: 48, borderRadius: '50%', objectFit: 'cover',
-                        border: '1px solid rgba(96,165,250,0.3)',
-                        boxShadow: '0 0 16px rgba(59,130,246,0.4)',
-                      }} />
-                      <div>
-                        <div style={{ fontSize: '1.5rem', fontWeight: 900, color: '#fff', letterSpacing: '0.04em', lineHeight: 1 }}>
-                          LAC<span style={{ color: '#60A5FA', fontWeight: 300 }}>PORTAL</span>
-                        </div>
-                        <div style={{ fontSize: '0.65rem', letterSpacing: '0.25em', color: 'rgba(96,165,250,0.5)', fontFamily: 'monospace', marginTop: 4, textTransform: 'uppercase' }}>
-                          Yetkili Personel Sistemi
-                        </div>
-                      </div>
-                    </div>
+                  <div style={{ width: '100%', maxWidth: 520, padding: '0 2rem', position: 'relative', zIndex: 1 }}>
 
-                    {/* Divider */}
-                    <div style={{ height: 1, background: 'linear-gradient(to right, rgba(96,165,250,0.3), transparent)', marginBottom: '2.5rem' }} />
-
-                    {/* Status */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '2rem' }}>
-                      <motion.div
-                        animate={{ opacity: [1, 0.3, 1] }}
-                        transition={{ repeat: Infinity, duration: 2 }}
-                        style={{ width: 6, height: 6, borderRadius: '50%', background: '#4ADE80', boxShadow: '0 0 6px #4ADE80' }}
-                      />
-                      <span style={{ fontFamily: 'monospace', fontSize: '0.7rem', letterSpacing: '0.2em', color: 'rgba(74,222,128,0.7)', textTransform: 'uppercase' }}>Sistem Aktif &mdash; Güvenli Bağlantı</span>
-                    </div>
-
-                    {/* Login Button */}
-                    <form onSubmit={handleLogin}>
-                      <motion.button
-                        type="submit"
-                        disabled={isSubmitting}
-                        whileHover={{ scale: isSubmitting ? 1 : 1.02, boxShadow: '0 12px 40px rgba(59,130,246,0.5)' }}
-                        whileTap={{ scale: 0.98 }}
-                        style={{
-                          width: '100%', padding: '1rem 1.5rem',
-                          display: 'flex', alignItems: 'center', gap: '0.75rem',
-                          background: 'rgba(59,130,246,0.12)',
-                          border: '1px solid rgba(96,165,250,0.25)',
-                          borderRadius: 10, cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                          color: '#fff', fontFamily: 'inherit',
-                          transition: 'box-shadow 0.2s',
-                          boxShadow: '0 4px 24px rgba(59,130,246,0.15)',
-                        }}
-                      >
+                    {/* Logo + Brand */}
+                    <motion.div
+                      initial={{ opacity: 0, y: -20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.15, duration: 0.5 }}
+                      style={{ textAlign: 'center', marginBottom: '2.5rem' }}
+                    >
+                      <div style={{ position: 'relative', display: 'inline-block', marginBottom: '1.25rem' }}>
                         <div style={{
-                          width: 36, height: 36, borderRadius: 8,
-                          background: 'linear-gradient(135deg, #1E3A8A, #3B82F6)',
-                          display: 'flex', alignItems: 'center', justifyContent: 'center',
-                          fontSize: '1rem', flexShrink: 0,
-                        }}>🔐</div>
-                        <div style={{ textAlign: 'left', flex: 1 }}>
-                          <div style={{ fontSize: '0.9rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                            {isSubmitting ? 'Bağlanıyor...' : 'Memur Girişi'}
-                          </div>
-                          <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.1em', marginTop: 2, fontFamily: 'monospace' }}>
-                            {isSubmitting ? loginStatus : 'lac.portal.gov / secure'}
-                          </div>
-                        </div>
-                        {!isSubmitting && (
-                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ opacity: 0.4 }}>
-                            <path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                        )}
-                      </motion.button>
-
-                      {/* Minimal tags */}
-                      <div style={{ display: 'flex', gap: '0.6rem', marginTop: '1rem', flexWrap: 'wrap' }}>
-                        {['SSL Şifreli', 'Sadece Yetkili Personel', 'v3.0 Güvenli'].map(tag => (
-                          <span key={tag} style={{
-                            fontSize: '0.6rem', letterSpacing: '0.15em', fontFamily: 'monospace',
-                            padding: '0.25rem 0.6rem',
-                            border: '1px solid rgba(255,255,255,0.07)',
-                            borderRadius: 4, color: 'rgba(255,255,255,0.25)',
-                            textTransform: 'uppercase',
-                          }}>{tag}</span>
-                        ))}
+                          position: 'absolute', inset: -4, borderRadius: '50%',
+                          background: 'conic-gradient(from 0deg, #3B82F6, #8B5CF6, #3B82F6)',
+                          animation: 'spin 6s linear infinite',
+                          opacity: 0.6,
+                        }} />
+                        <img src="/lapd-logo.jpg" alt="LACO MDT" style={{
+                          width: 80, height: 80, borderRadius: '50%', objectFit: 'cover',
+                          position: 'relative', zIndex: 1,
+                          border: '3px solid rgba(10,15,35,1)',
+                        }} />
                       </div>
-                    </form>
+                      <div style={{
+                        fontSize: '2rem', fontWeight: 900, color: '#fff',
+                        letterSpacing: '0.12em', lineHeight: 1,
+                        fontFamily: "'Oswald', sans-serif",
+                        textShadow: '0 0 30px rgba(96,165,250,0.4)',
+                      }}>
+                        LACO <span style={{
+                          background: 'linear-gradient(135deg, #60A5FA, #8B5CF6)',
+                          WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+                        }}>MDT</span>
+                      </div>
+                      <div style={{
+                        fontSize: '0.6rem', letterSpacing: '0.4em', color: 'rgba(148,163,184,0.6)',
+                        fontFamily: 'monospace', marginTop: '0.5rem', textTransform: 'uppercase',
+                      }}>
+                        Los Angeles Community — Personel Sistemi
+                      </div>
+                    </motion.div>
+
+                    {/* Card */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.25, duration: 0.5 }}
+                      style={{
+                        background: 'linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%)',
+                        border: '1px solid rgba(255,255,255,0.08)',
+                        borderRadius: 20,
+                        padding: '2rem',
+                        boxShadow: '0 25px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)',
+                      }}
+                    >
+                      {/* Status bar */}
+                      <div style={{
+                        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                        marginBottom: '1.75rem', paddingBottom: '1.25rem',
+                        borderBottom: '1px solid rgba(255,255,255,0.06)',
+                      }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                          <motion.div
+                            animate={{ opacity: [1, 0.2, 1], scale: [1, 1.3, 1] }}
+                            transition={{ repeat: Infinity, duration: 2.5 }}
+                            style={{ width: 7, height: 7, borderRadius: '50%', background: '#4ADE80', boxShadow: '0 0 8px #4ADE80' }}
+                          />
+                          <span style={{ fontFamily: 'monospace', fontSize: '0.65rem', letterSpacing: '0.2em', color: 'rgba(74,222,128,0.8)', textTransform: 'uppercase' }}>
+                            Sistem Aktif
+                          </span>
+                        </div>
+                        <div style={{ display: 'flex', gap: '0.4rem' }}>
+                          {['SSL', 'TLS 1.3', 'AES-256'].map(tag => (
+                            <span key={tag} style={{
+                              fontSize: '0.55rem', letterSpacing: '0.1em', fontFamily: 'monospace',
+                              padding: '0.2rem 0.5rem',
+                              background: 'rgba(59,130,246,0.1)',
+                              border: '1px solid rgba(59,130,246,0.2)',
+                              borderRadius: 4, color: 'rgba(96,165,250,0.7)',
+                              textTransform: 'uppercase',
+                            }}>{tag}</span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Login button */}
+                      <form onSubmit={handleLogin}>
+                        <motion.button
+                          type="submit"
+                          disabled={isSubmitting}
+                          whileHover={!isSubmitting ? {
+                            scale: 1.02,
+                            boxShadow: '0 20px 50px rgba(59,130,246,0.4)',
+                          } : {}}
+                          whileTap={{ scale: 0.98 }}
+                          style={{
+                            width: '100%', padding: '1.1rem 1.5rem',
+                            display: 'flex', alignItems: 'center', gap: '1rem',
+                            background: isSubmitting
+                              ? 'rgba(59,130,246,0.08)'
+                              : 'linear-gradient(135deg, rgba(59,130,246,0.18) 0%, rgba(139,92,246,0.12) 100%)',
+                            border: '1px solid rgba(96,165,250,0.3)',
+                            borderRadius: 14,
+                            cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                            color: '#fff', fontFamily: 'inherit',
+                            transition: 'all 0.3s ease',
+                            boxShadow: '0 8px 32px rgba(59,130,246,0.12)',
+                            position: 'relative', overflow: 'hidden',
+                          }}
+                        >
+                          {/* Shimmer effect */}
+                          {!isSubmitting && (
+                            <motion.div
+                              animate={{ x: ['-100%', '200%'] }}
+                              transition={{ repeat: Infinity, duration: 3, ease: 'linear', repeatDelay: 1 }}
+                              style={{
+                                position: 'absolute', top: 0, left: 0,
+                                width: '40%', height: '100%',
+                                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent)',
+                                pointerEvents: 'none',
+                              }}
+                            />
+                          )}
+                          <div style={{
+                            width: 44, height: 44, borderRadius: 12, flexShrink: 0,
+                            background: 'linear-gradient(135deg, #1d4ed8, #7c3aed)',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            fontSize: '1.2rem',
+                            boxShadow: '0 4px 12px rgba(59,130,246,0.4)',
+                          }}>🛡️</div>
+                          <div style={{ textAlign: 'left', flex: 1 }}>
+                            <div style={{ fontSize: '0.95rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+                              {isSubmitting ? 'Bağlanıyor...' : 'Personel Girişi'}
+                            </div>
+                            <div style={{ fontSize: '0.62rem', color: 'rgba(148,163,184,0.6)', letterSpacing: '0.15em', marginTop: 3, fontFamily: 'monospace' }}>
+                              {isSubmitting ? loginStatus : 'laco.mdt.portal / şifreli bağlantı'}
+                            </div>
+                          </div>
+                          {!isSubmitting && (
+                            <motion.div
+                              animate={{ x: [0, 4, 0] }}
+                              transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+                            >
+                              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ opacity: 0.5 }}>
+                                <path d="M4 10h12M12 5l5 5-5 5" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                              </svg>
+                            </motion.div>
+                          )}
+                        </motion.button>
+
+                        {/* Bottom info */}
+                        <div style={{ marginTop: '1.25rem', textAlign: 'center' }}>
+                          <span style={{
+                            fontSize: '0.6rem', letterSpacing: '0.2em', fontFamily: 'monospace',
+                            color: 'rgba(100,116,139,0.5)', textTransform: 'uppercase',
+                          }}>
+                            Sadece Yetkili Personel &nbsp;·&nbsp; Tüm Aktiviteler Kayıt Altındadır
+                          </span>
+                        </div>
+                      </form>
+                    </motion.div>
+
+                    {/* Bottom version */}
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.5 }}
+                      style={{ textAlign: 'center', marginTop: '1.5rem' }}
+                    >
+                      <span style={{ fontFamily: 'monospace', fontSize: '0.55rem', letterSpacing: '0.3em', color: 'rgba(100,116,139,0.35)', textTransform: 'uppercase' }}>
+                        LACO MDT v3.0 &nbsp;·&nbsp; Secure Channel
+                      </span>
+                    </motion.div>
                   </div>
                 </motion.div>
               )}
