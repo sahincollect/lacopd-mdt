@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
 export default function Footer() {
   const pathname = usePathname();
@@ -30,8 +31,8 @@ export default function Footer() {
       }}>
         <div style={{ flex: 1, lineHeight: 1.6 }}>
           Telif Hakkı &copy; {new Date().getFullYear()} Los Angeles Community Police Department ve LAC. Tüm hakları saklıdır.
-          <a href="#" style={{ color: 'white', marginLeft: '1rem', textDecoration: 'none' }}>Gizlilik Politikası</a>
-          <a href="#" style={{ color: 'white', marginLeft: '1rem', textDecoration: 'none' }}>Kişisel Verilerim</a>
+          <Link href="/gizlilik" style={{ color: 'white', marginLeft: '1rem', textDecoration: 'none' }}>Gizlilik Politikası</Link>
+          <Link href="/verilerim" style={{ color: 'white', marginLeft: '1rem', textDecoration: 'none' }}>Kişisel Verilerim</Link>
         </div>
         <div style={{ color: 'rgba(255,255,255,0.6)', textAlign: 'right', lineHeight: 1.6, flexShrink: 0 }}>
           Bu web sitesi sadece <strong>FiveM Roleplay</strong> amaçlı geliştirilmiştir.<br/>

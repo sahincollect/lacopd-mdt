@@ -250,31 +250,23 @@ export default function Home() {
       </section>
 
       {/* ── BOTTOM LINKS STRIP ── */}
-      <section style={{ backgroundColor: 'white', padding: '6rem 2rem 3rem' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem' }}>
+      <section style={{ backgroundColor: 'var(--bg-secondary)', padding: '4rem 2rem 3rem' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem' }}>
           <div>
-            <h4 style={{ fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '1rem' }}>HIZLI BAĞLANTILAR</h4>
+            <h4 style={{ fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '1rem', color: 'var(--text-primary)' }}>PORTAL HİZMETLERİ</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-              <a href="#" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontSize: '0.85rem' }}>Polis Raporu Oluştur</a>
-              <a href="#" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontSize: '0.85rem' }}>Trafik Kazası Raporu Oluştur</a>
-              <a href="#" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontSize: '0.85rem' }}>Suç Haritası</a>
+              <Link href="/mdt/basvuru" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Birim Başvuruları</Link>
+              <Link href="/mdt/kriminal" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Kriminal Kayıt Sistemi</Link>
+              <Link href="/mdt/duyurular" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Departman Duyuruları</Link>
             </div>
           </div>
           <div>
-            <h4 style={{ fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '1rem', color: 'transparent' }}>_</h4>
+            <h4 style={{ fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '1rem', color: 'var(--text-primary)' }}>KURUMSAL BAĞLANTILAR</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-              <a href="#" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontSize: '0.85rem' }}>Referans Kütüphanesi</a>
-              <a href="#" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontSize: '0.85rem' }}>Arananlar Listesi</a>
-              <a href="#" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontSize: '0.85rem' }}>Aramıza Katıl</a>
+              <Link href="/hakkimizda" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Hakkımızda</Link>
+              <Link href="/kariyer" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>Kariyer ve Akademi</Link>
+              <Link href="/iletisim" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.85rem' }}>İletişim ve Destek</Link>
             </div>
-          </div>
-          <div>
-            <h4 style={{ fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '1rem' }}>SAYFAYI ÇEVİR</h4>
-            <select style={{ width: '100%', padding: '0.6rem', border: '1px solid var(--lapd-border)', backgroundColor: 'white' }}>
-              <option>Dil Seçiniz</option>
-              <option>English</option>
-              <option>Türkçe</option>
-            </select>
           </div>
         </div>
       </section>
