@@ -77,15 +77,27 @@ export default function Navigation() {
       }}>
         
         {/* Left: Logo */}
-        <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <img 
-            src="/lapd-logo.png" 
-            alt="LAPD Logo" 
-            style={{ width: '60px', height: '60px', borderRadius: '50%', objectFit: 'cover' }} 
-          />
-          <span style={{ color: 'var(--lapd-text-dark)', fontWeight: 800, fontSize: '0.95rem', letterSpacing: '0.02em', lineHeight: 1.2 }}>
-            LOS ANGELES<br/>COMMUNITY
-          </span>
+        <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
+          <div style={{
+            width: '54px', height: '54px', borderRadius: '50%',
+            overflow: 'hidden', border: '2px solid var(--border-strong)',
+            boxShadow: '0 4px 10px rgba(0, 0, 0, 0.08)',
+            flexShrink: 0
+          }}>
+            <img 
+              src="/lapd-logo.png" 
+              alt="LAPD Logo" 
+              style={{ width: '100%', height: '100%', objectFit: 'cover', backgroundColor: 'var(--accent-primary)' }} 
+            />
+          </div>
+          <div>
+            <div style={{ fontSize: '1.5rem', fontWeight: 900, color: 'var(--accent-primary)', letterSpacing: '0.03em', fontFamily: "'Oswald', sans-serif", lineHeight: 1 }}>
+              LOS ANGELES C.P.D.
+            </div>
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginTop: '0.25rem' }}>
+              RESMİ WEB PORTALI
+            </div>
+          </div>
         </Link>
 
         {/* Right: Nav & Actions */}
