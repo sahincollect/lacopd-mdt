@@ -1,28 +1,9 @@
 "use client";
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-const RANK_META: Record<string, { color: string; bg: string; tier: number; icon: string }> = {
-  'Sergeant II':   { color: 'var(--lapd-orange)', bg: '#fffaf0', tier: 1, icon: 'fa-star' },
-  'Detective III': { color: 'var(--lapd-blue)', bg: '#f0f4f8', tier: 2, icon: 'fa-user-shield' },
-  'Sergeant I':    { color: 'var(--lapd-orange)', bg: '#fffaf0', tier: 3, icon: 'fa-chevron-up' },
-  'Detective II':  { color: 'var(--lapd-blue)', bg: '#f0f4f8', tier: 4, icon: 'fa-magnifying-glass' },
-  'Detective I':   { color: 'var(--lapd-blue)', bg: '#f0f4f8', tier: 5, icon: 'fa-user-secret' },
-  'Officer III':   { color: 'var(--lapd-text-dark)', bg: '#f9fafb', tier: 6, icon: 'fa-shield-halved' },
-  'Officer II':    { color: 'var(--lapd-text-dark)', bg: '#f9fafb', tier: 7, icon: 'fa-shield' },
-  'Officer I':     { color: 'var(--lapd-text-dark)', bg: '#f9fafb', tier: 8, icon: 'fa-user-check' },
-  'Captain':       { color: 'var(--lapd-orange)', bg: '#fffaf0', tier: 10, icon: 'fa-medal' },
-  'Lieutenant':    { color: 'var(--lapd-text-dark)', bg: '#f9fafb', tier: 11, icon: 'fa-id-badge' },
-};
-
-const DEFAULT_META = { color: 'var(--lapd-text-dark)', bg: '#f9fafb', tier: 99, icon: 'fa-user-shield' };
-
 export default function Hakkimizda() {
-  const [officers, setOfficers] = useState<any[]>([]);
-  const [loaded, setLoaded] = useState(false);
-
   const staggerContainer: any = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
@@ -32,62 +13,6 @@ export default function Hakkimizda() {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
-
-  useEffect(() => {
-    fetch('/api/officers')
-      .then(res => res.json())
-      .then(data => { 
-        if (data.officers) {
-          const visibleOfficers = data.officers.filter((o: any) => 
-            o.name?.toLowerCase() !== 'admin' && 
-            o.rank?.toLowerCase() !== 'chief of police'
-          );
-          setOfficers(visibleOfficers);
-        } 
-      })
-      .catch(console.error)
-      .finally(() => setLoaded(true));
-  }, []);
-
-  const predefinedRanks = [
-    'Sergeant II',
-    'Detective III',
-    'Sergeant I',
-    'Detective II',
-    'Detective I',
-    'Officer III',
-    'Officer II',
-    'Officer I',
-  ];
-
-  const getRankGroup = (rank: string): string => {
-    if (!rank) return '';
-    const r = rank.trim();
-    const exact = predefinedRanks.find(pr => r.toLowerCase() === pr.toLowerCase());
-    if (exact) return exact;
-    const match = predefinedRanks.find(pr => r.toLowerCase().startsWith(pr.toLowerCase()));
-    return match || rank;
-  };
-
-  let officersByRank = predefinedRanks.map(rank => ({
-    rankName: rank,
-    members: officers.filter(o => getRankGroup(o.rank || '') === rank)
-  }));
-
-  if (officers.length > 0) {
-    const handledRanks = new Set(predefinedRanks.map(r => r.toLowerCase()));
-    const unhandled = officers.filter(o => {
-      const group = getRankGroup(o.rank || '');
-      return !handledRanks.has(group.toLowerCase()) && group !== '';
-    });
-    const extraGroupNames = Array.from(new Set(unhandled.map(o => getRankGroup(o.rank || ''))));
-    extraGroupNames.forEach(rank => {
-      officersByRank.push({ rankName: rank, members: officers.filter(o => getRankGroup(o.rank || '') === rank) });
-    });
-  }
-
-  const onDutyCount = officers.filter(o => o.isOnDuty).length;
-  const totalOfficers = officers.length;
 
   const divisions = [
     { id: "patrol",    name: "Genel Devriye (Patrol)",        icon: "fa-shield",           desc: "Şehrin ön safhalarındaki ilk müdahale hattı. Günlük asayiş, acil çağrılara yanıt ve sokak güvenliğinden sorumlu temel birim." },
@@ -99,6 +24,55 @@ export default function Hakkimizda() {
     { id: "k9",        name: "K-9 Birimi",                     icon: "fa-paw",              desc: "Şüpheli takibi, uyuşturucu/patlayıcı tespiti ve arama kurtarma görevleri için özel eğitimli polis köpekleri ve idarecilerinden oluşur." },
   ];
 
+  const hierarchy = [
+    {
+      tier: "LİDERLİK KADEMESİ",
+      color: "var(--lapd-blue-dark)",
+      bg: "white",
+      ranks: [
+        { title: "Community Lead", icon: "fa-star", desc: "Topluluğun kurucusu ve nihai karar mercii." }
+      ]
+    },
+    {
+      tier: "YÜKSEK KOMUTA (HIGH COMMAND)",
+      color: "var(--lapd-blue)",
+      bg: "#f0f4f8",
+      ranks: [
+        { title: "Chief of Police", icon: "fa-star", desc: "Departmanın en yetkili memuru, vizyon ve stratejiyi belirler." },
+        { title: "Assistant Chief", icon: "fa-star-half-stroke", desc: "Şefin sağ kolu, büroların denetiminden sorumludur." },
+        { title: "Deputy Chief", icon: "fa-shield-halved", desc: "Büro yöneticileri ve üst düzey operasyon amirleridir." }
+      ]
+    },
+    {
+      tier: "KOMUTA KADEMESİ (COMMAND STAFF)",
+      color: "var(--lapd-orange)",
+      bg: "#fffaf0",
+      ranks: [
+        { title: "Commander", icon: "fa-certificate", desc: "Bölge veya büyük grupların yöneticiliğini üstlenir." },
+        { title: "Captain", icon: "fa-medal", desc: "İstasyonların ve belirli departman birimlerinin komutanları." }
+      ]
+    },
+    {
+      tier: "DENETLEYİCİ KADEME (SUPERVISORY STAFF)",
+      color: "var(--lapd-text-dark)",
+      bg: "#f9fafb",
+      ranks: [
+        { title: "Lieutenant", icon: "fa-id-badge", desc: "Vardiya amirleri ve operasyon yöneticileridir." },
+        { title: "Sergeant", icon: "fa-chevron-up", desc: "Sahadaki liderler, personelin doğrudan denetleyicileri." }
+      ]
+    },
+    {
+      tier: "SAHA PERSONELİ (FIELD STAFF)",
+      color: "var(--lapd-text-muted)",
+      bg: "white",
+      ranks: [
+        { title: "Detective", icon: "fa-user-secret", desc: "Soruşturma ve sivil saha operasyonları uzmanları." },
+        { title: "Officer", icon: "fa-user-shield", desc: "Sahadaki ilk müdahale ekibi, devriye memurları." },
+        { title: "Cadet", icon: "fa-user", desc: "Akademi sürecindeki aday memurlar." }
+      ]
+    }
+  ];
+
   return (
     <div style={{ backgroundColor: 'var(--lapd-bg)', color: 'var(--lapd-text-dark)', fontFamily: 'var(--font-inter)', minHeight: '100vh', paddingBottom: '5rem' }}>
       
@@ -106,7 +80,7 @@ export default function Hakkimizda() {
       <div style={{ backgroundColor: '#F0F4F4', padding: '1rem 2rem', borderBottom: '1px solid var(--lapd-border)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', fontSize: '0.85rem', color: 'var(--lapd-text-muted)' }}>
           <Link href="/" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Ana Sayfa</Link> &nbsp;&gt;&nbsp; 
-          <span style={{ color: 'var(--lapd-orange)' }}>Hakkımızda</span>
+          <span style={{ color: 'var(--lapd-orange)' }}>Biz Kimiz?</span>
         </div>
       </div>
 
@@ -115,26 +89,11 @@ export default function Hakkimizda() {
         <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(255,255,255,0.9)' }} />
         <div style={{ position: 'relative', zIndex: 1, maxWidth: '900px', padding: '0 2rem' }}>
           <h1 style={{ fontFamily: 'var(--font-inter)', fontSize: '3.5rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', marginBottom: '1.5rem', letterSpacing: '-0.02em' }}>
-            HAKKIMIZDA
+            BİZ KİMİZ?
           </h1>
-          <p style={{ color: 'var(--lapd-text-dark)', fontSize: '1.1rem', lineHeight: '1.8', margin: '0 auto 2.5rem', maxWidth: '750px', fontWeight: 500 }}>
+          <p style={{ color: 'var(--lapd-text-dark)', fontSize: '1.1rem', lineHeight: '1.8', margin: '0 auto', maxWidth: '750px', fontWeight: 500 }}>
             Biz, Los Angeles şehrinin huzur ve güvenliğini sağlamaya yemin etmiş, profesyonelliğin ve taktiksel üstünlüğün zirvesini temsil eden <strong>LACPORTAL</strong> ekibiyiz.
           </p>
-
-          {/* ── CANLI DURUM SAYACI ── */}
-          {loaded && (
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '2rem', backgroundColor: 'white', border: '1px solid var(--lapd-border)', borderRadius: '4px', padding: '0.75rem 2rem', boxShadow: '0 4px 10px rgba(0,0,0,0.05)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                <div style={{ width: 10, height: 10, borderRadius: '50%', backgroundColor: onDutyCount > 0 ? '#10B981' : 'var(--lapd-text-muted)' }} />
-                <span style={{ fontWeight: 700, color: onDutyCount > 0 ? '#10B981' : 'var(--lapd-text-muted)', fontSize: '0.9rem' }}>{onDutyCount} Aktif Görevde</span>
-              </div>
-              <div style={{ width: 1, height: 20, backgroundColor: 'var(--lapd-border)' }} />
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                <i className="fa-solid fa-users" style={{ color: 'var(--lapd-blue)', fontSize: '0.85rem' }} />
-                <span style={{ fontWeight: 700, color: 'var(--lapd-text-dark)', fontSize: '0.9rem' }}>{totalOfficers} Kayıtlı Personel</span>
-              </div>
-            </div>
-          )}
         </div>
       </section>
 
@@ -170,111 +129,48 @@ export default function Hakkimizda() {
         </div>
       </motion.section>
 
-      {/* ── Personel Org Chart ── */}
-      <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer} style={{ maxWidth: '1200px', margin: '5rem auto 0', padding: '0 2rem' }}>
+      {/* ── Komuta Kademesi Org Chart ── */}
+      <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer} style={{ maxWidth: '1000px', margin: '5rem auto 0', padding: '0 2rem' }}>
         <motion.div variants={fadeUp} style={{ backgroundColor: 'white', border: '1px solid var(--lapd-border)', padding: '3rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
 
-          <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
             <h2 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', lineHeight: 1, marginBottom: '1rem' }}>
-              KOMUTA ZİNCİRİ & PERSONELİMİZ
+              KOMUTA KADEMESİ
             </h2>
             <div style={{ width: '60px', height: '4px', backgroundColor: 'var(--lapd-orange)', margin: '0 auto 1.5rem' }}></div>
             <p style={{ color: 'var(--lapd-text-muted)', fontSize: '1.1rem', lineHeight: '1.8', maxWidth: '800px', margin: '0 auto' }}>
-              LAC, katı ve disiplinli bir hiyerarşi üzerine kuruludur. Yeşil ibare, o an aktif görevde olan personeli gösterir.
+              Los Angeles Community Police Department, operasyonel başarıyı sağlamak adına katı bir emir-komuta zinciriyle yönetilir.
             </p>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-            {!loaded ? (
-              <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--lapd-text-muted)' }}>
-                <i className="fa-solid fa-spinner fa-spin" style={{ fontSize: '2rem', marginBottom: '1rem', display: 'block' }} />
-                <p>Personel listesi yükleniyor...</p>
-              </div>
-            ) : officersByRank.map((group, i) => {
-              const meta = RANK_META[group.rankName] || DEFAULT_META;
-              return (
-                <div key={group.rankName} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-
-                  {/* Rank Node */}
-                  <div style={{
-                    backgroundColor: meta.bg,
-                    border: `1px solid var(--lapd-border)`,
-                    borderTop: `3px solid ${meta.color}`,
-                    padding: '2rem',
-                    width: '100%',
-                    maxWidth: i === 0 ? '600px' : i === 1 ? '700px' : i === 2 ? '850px' : '1000px',
-                    marginBottom: '1rem'
-                  }}>
-                    {/* Rank Header */}
-                    <div style={{ textAlign: 'center', marginBottom: group.members.length > 0 ? '1.75rem' : '0', paddingBottom: group.members.length > 0 ? '1.25rem' : '0', borderBottom: group.members.length > 0 ? `1px solid var(--lapd-border)` : 'none' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-                        <div style={{ color: meta.color, fontSize: '1.2rem' }}>
-                          <i className={`fa-solid ${meta.icon}`} />
-                        </div>
-                        <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', margin: 0 }}>
-                          {group.rankName.toUpperCase()}
-                        </h3>
-                        <span style={{ backgroundColor: 'var(--lapd-gray-bg)', color: 'var(--lapd-text-dark)', padding: '0.2rem 0.8rem', fontSize: '0.75rem', fontWeight: 700, border: `1px solid var(--lapd-border)` }}>
-                          KADEME {String(i + 1).padStart(2, '0')}
-                        </span>
-                        {group.members.length > 0 && (
-                          <span style={{ color: 'var(--lapd-text-muted)', fontSize: '0.75rem', fontWeight: 600 }}>
-                            {group.members.length} personel
-                          </span>
-                        )}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            {hierarchy.map((tier, idx) => (
+              <div key={idx} style={{ 
+                border: '1px solid var(--lapd-border)', 
+                borderLeft: `4px solid ${tier.color}`,
+                backgroundColor: tier.bg,
+                padding: '2rem'
+              }}>
+                <div style={{ fontSize: '0.85rem', fontWeight: 800, color: tier.color, letterSpacing: '0.05em', marginBottom: '1.5rem' }}>
+                  {tier.tier}
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
+                  {tier.ranks.map((rank, ridx) => (
+                    <div key={ridx} style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
+                      <div style={{ width: '40px', height: '40px', backgroundColor: 'rgba(0,0,0,0.05)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: tier.color, flexShrink: 0 }}>
+                        <i className={`fa-solid ${rank.icon}`} />
+                      </div>
+                      <div>
+                        <h4 style={{ margin: '0 0 0.3rem', fontSize: '1.1rem', fontWeight: 700, color: 'var(--lapd-text-dark)' }}>{rank.title}</h4>
+                        <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--lapd-text-muted)', lineHeight: 1.4 }}>{rank.desc}</p>
                       </div>
                     </div>
-
-                    {/* Officer Cards */}
-                    {group.members.length > 0 && (
-                      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1rem' }}>
-                        {group.members.map(member => (
-                          <div
-                            key={member.badge}
-                            style={{
-                              display: 'flex', alignItems: 'center', gap: '1rem',
-                              backgroundColor: 'white',
-                              padding: '1rem',
-                              border: member.isOnDuty ? '1px solid #10B981' : '1px solid var(--lapd-border)',
-                              minWidth: '220px',
-                              boxShadow: '0 2px 5px rgba(0,0,0,0.02)'
-                            }}
-                          >
-                            {/* Avatar */}
-                            <div style={{ position: 'relative', flexShrink: 0 }}>
-                              <div style={{
-                                width: 45, height: 45, borderRadius: '50%',
-                                backgroundColor: 'var(--lapd-gray-bg)',
-                                border: `2px solid var(--lapd-border)`,
-                                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                color: 'var(--lapd-blue-dark)', fontWeight: 800, fontSize: '1.1rem'
-                              }}>
-                                {member.name.charAt(0).toUpperCase()}
-                              </div>
-                            </div>
-
-                            {/* Info */}
-                            <div style={{ textAlign: 'left', minWidth: 0 }}>
-                              <div style={{ color: 'var(--lapd-text-dark)', fontWeight: 700, fontSize: '0.95rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '140px' }}>{member.name}</div>
-                              <div style={{ color: 'var(--lapd-text-muted)', fontSize: '0.75rem', marginTop: '0.1rem' }}>Yaka No: #{member.badge}</div>
-                              <div style={{ color: member.isOnDuty ? '#10B981' : 'var(--lapd-text-muted)', fontSize: '0.7rem', fontWeight: 700, marginTop: '0.2rem' }}>
-                                {member.isOnDuty ? '● GÖREVDE' : '○ HAZIR'}
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Connector */}
-                  {i < officersByRank.length - 1 && (
-                    <div style={{ width: '2px', height: '30px', backgroundColor: 'var(--lapd-border)', margin: '0.5rem 0' }} />
-                  )}
+                  ))}
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
+
         </motion.div>
       </motion.section>
 
@@ -292,16 +188,18 @@ export default function Hakkimizda() {
           boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
         }}>
           
+          {/* TÜRK BAYRAĞI */}
           <div style={{ 
-            width: '80px', height: '80px', 
+            width: '100px', height: '100px', 
             borderRadius: '50%', 
             backgroundColor: '#fef2f2', 
-            border: '2px solid #fca5a5',
+            border: '3px solid #fca5a5',
             display: 'flex', alignItems: 'center', justifyContent: 'center', 
-            fontSize: '2.5rem', color: '#E30A17', 
-            marginBottom: '2rem'
+            marginBottom: '2rem',
+            overflow: 'hidden',
+            boxShadow: '0 4px 10px rgba(227, 10, 23, 0.2)'
           }}>
-            <i className="fa-solid fa-star-and-crescent"></i>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Turkey.svg" alt="Türk Bayrağı" style={{ width: '150%', height: '150%', objectFit: 'cover' }} />
           </div>
 
           <h2 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', lineHeight: 1.2, marginBottom: '1.5rem', letterSpacing: '-0.02em' }}>
