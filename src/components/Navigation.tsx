@@ -210,11 +210,11 @@ export default function Navigation() {
                 fontWeight: 700,
                 textDecoration: 'none',
                 fontFamily: 'var(--font-inter)',
-                transition: 'background-color 0.2s',
+                transition: 'opacity 0.2s',
                 display: 'inline-block'
               }}
-              onMouseOver={e => e.currentTarget.style.backgroundColor = 'var(--lapd-orange-hover)'}
-              onMouseOut={e => e.currentTarget.style.backgroundColor = 'var(--lapd-orange)'}
+              onMouseOver={e => e.currentTarget.style.opacity = '0.85'}
+              onMouseOut={e => e.currentTarget.style.opacity = '1'}
             >
               PERSONEL GİRİŞİ
             </Link>

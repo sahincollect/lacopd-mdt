@@ -175,7 +175,7 @@ export default function GirisPage() {
                 <img src="/lapd-logo.png" alt="LAPD" style={{ width: 34, height: 34, objectFit: 'contain' }} />
               </div>
               <div>
-                <div style={{ color: 'var(--bg-secondary)', fontWeight: 800, fontSize: '1rem', letterSpacing: '0.06em' }}>
+                <div style={{ color: '#FFFFFF', fontWeight: 800, fontSize: '1rem', letterSpacing: '0.06em' }}>
                   LOS ANGELES C.P.D.
                 </div>
                 <div style={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.1em' }}>
@@ -189,7 +189,7 @@ export default function GirisPage() {
               <div style={{
                 display: 'inline-flex', alignItems: 'center', gap: '8px',
                 backgroundColor: 'var(--accent-secondary)',
-                color: 'var(--bg-secondary)',
+                color: '#000000',
                 padding: '5px 14px',
                 borderRadius: '4px',
                 fontSize: '0.68rem',
@@ -203,7 +203,7 @@ export default function GirisPage() {
               </div>
 
               <h1 style={{
-                color: 'var(--bg-secondary)',
+                color: '#FFFFFF',
                 fontSize: '3.2rem',
                 fontWeight: 900,
                 lineHeight: 1.1,
