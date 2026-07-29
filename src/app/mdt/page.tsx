@@ -7,7 +7,7 @@ import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
 
 /* ─── Mini Sparkline ─────────────────────────────── */
-function SparkLine({ color = "#E84F2A" }: { color?: string }) {
+function SparkLine({ color = "#1D6EF7" }: { color?: string }) {
   const pts = [28, 40, 33, 52, 38, 58, 45, 50, 62, 54, 68, 58];
   const max = Math.max(...pts), min = Math.min(...pts);
   const norm = (v: number) => 100 - ((v - min) / (max - min)) * 76 - 12;
@@ -110,10 +110,10 @@ export default function MDTDashboard() {
 
   /* ─── Stat cards config ─── */
   const STATS = [
-    { label: "Toplam Personel", value: loading ? "—" : String(officers.length), sub: "kayıtlı memur", icon: "fa-users",       color: "#E84F2A" },
-    { label: "Sahada Birim",   value: loading ? "—" : String(onDuty.length),    sub: `${officers.length > 0 ? Math.round(onDuty.length / officers.length * 100) : 0}% aktif`,  icon: "fa-car-side",  color: "#22c55e" },
-    { label: "Toplam Rapor",   value: loading ? "—" : String(allReports.length),sub: "sisteme girilmiş",  icon: "fa-file-lines",color: "#f59e0b" },
-    { label: "Mesaim",         value: loading ? "—" : `${myHours}s`,            sub: "toplam saat",      icon: "fa-clock",     color: "#E84F2A" },
+    { label: "Toplam Personel", value: loading ? "—" : String(officers.length), sub: "kayıtlı memur",    icon: "fa-users",     color: "#1D6EF7" },
+    { label: "Sahada Birim",   value: loading ? "—" : String(onDuty.length),    sub: `${officers.length > 0 ? Math.round(onDuty.length / officers.length * 100) : 0}% aktif`, icon: "fa-car-side",  color: "#22c55e" },
+    { label: "Toplam Rapor",   value: loading ? "—" : String(allReports.length),sub: "sisteme girilmiş", icon: "fa-file-lines",color: "#f59e0b" },
+    { label: "Mesaim",         value: loading ? "—" : `${myHours}s`,            sub: "toplam saat",      icon: "fa-clock",     color: "#1D6EF7" },
   ];
 
   /* ─── Styles ─── */
@@ -360,7 +360,7 @@ export default function MDTDashboard() {
                   justifyContent: "center",
                 }}
               >
-                <i className="fa-solid fa-file-lines" style={{ color: "#E84F2A", fontSize: "0.8rem" }} />
+                <i className="fa-solid fa-file-lines" style={{ color: "#1D6EF7", fontSize: "0.8rem" }} />
               </span>
               Son Raporlar
             </h3>
@@ -412,15 +412,15 @@ export default function MDTDashboard() {
                       width: 34,
                       height: 34,
                       borderRadius: 8,
-                      background: "rgba(232,79,42,0.08)",
-                      border: "1px solid rgba(232,79,42,0.15)",
+                      background: "rgba(29,110,247,0.08)",
+                      border: "1px solid rgba(29,110,247,0.15)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       flexShrink: 0,
                     }}
                   >
-                    <i className="fa-solid fa-file-alt" style={{ color: "#E84F2A", fontSize: "0.78rem" }} />
+                    <i className="fa-solid fa-file-alt" style={{ color: "#1D6EF7", fontSize: "0.78rem" }} />
                   </div>
 
                   <div style={{ flex: 1, minWidth: 0 }}>
