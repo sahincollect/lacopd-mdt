@@ -40,9 +40,7 @@ export default function Navigation() {
     { 
       name: "İLETİŞİM", 
       items: [
-        { label: "Memur Şikayet Formu", path: "/basvurular/sikayet" },
-        { label: "Trafik Kazası Raporu", path: "/rapor-portali" },
-        { label: "Polis Raporu Oluştur", path: "/rapor-portali" }
+        { label: "Memur Şikayet Formu", path: "/basvurular/sikayet" }
       ]
     }
   ];

@@ -3,158 +3,203 @@
 import Link from 'next/link';
 
 export default function HaberlerPage() {
-  const staggerContainer: any = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
-  };
-
-  const fadeUp: any = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-  };
-
   const newsItems = [
     {
       id: 1,
-      tag: "BASIN BÜLTENİ",
-      title: "LAPD Özel Harekât (SWAT) Ekibi Vinewood'da Rehine Krizini Başarıyla Çözdü",
-      date: "28 Temmuz 2026",
-      desc: "Dün gece geç saatlerde Batı Vinewood'da bir bankada meydana gelen silahlı soygun ve rehine alma girişimi, LAPD SWAT ekiplerinin başarılı operasyonuyla can kaybı yaşanmadan sonlandırıldı. Şüpheliler gözaltına alındı.",
+      tag: "BREAKING NEWS",
+      title: "LAPD SWAT Ekibi Vinewood'da Rehine Krizini Başarıyla Çözdü",
+      date: "Updated 10:45 AM PT, July 28, 2026",
+      desc: "Dün gece geç saatlerde Batı Vinewood'da bir bankada meydana gelen silahlı soygun ve rehine alma girişimi, LAPD SWAT ekiplerinin başarılı operasyonuyla can kaybı yaşanmadan sonlandırıldı. Şüpheliler gözaltına alındı. Yetkililer halkı bölgeden uzak durmaları konusunda uyarmıştı ancak tehlike tamamen geçti.",
       img: "/gallery/8.png",
       featured: true
     },
     {
       id: 2,
-      tag: "TOPLUMSAL İLİŞKİLER",
+      tag: "COMMUNITY",
       title: "Yeni 'Ride-Along' Sürüş Programı Başlıyor",
-      date: "25 Temmuz 2026",
+      date: "July 25, 2026",
       desc: "Vatandaşlarımızın polis memurlarının günlük görevlerine tanıklık edebilmesi için başlatılan Ride-Along programı kayıtları açıldı. Toplumla şeffaf bağlar kurmak en büyük önceliğimiz.",
       img: "/gallery/statecar5.png",
       featured: false
     },
     {
       id: 3,
-      tag: "TRAFİK BÜROSU",
+      tag: "TRAFFIC",
       title: "Otoyol Güvenliği: Hız İhlallerine Karşı Sıkı Denetim",
-      date: "22 Temmuz 2026",
+      date: "July 22, 2026",
       desc: "Los Angeles otoyollarında artan trafik kazalarını önlemek amacıyla Trafik Birimi (TED), önümüzdeki hafta boyunca yüksek katılımlı bir radar denetimi gerçekleştireceğini duyurdu.",
       img: "/gallery/saspbenz.png",
       featured: false
     },
     {
       id: 4,
-      tag: "AKADEMİ",
+      tag: "ACADEMY",
       title: "Season 1 Polis Akademisi Mezuniyet Töreni Gerçekleşti",
-      date: "15 Temmuz 2026",
-      desc: "Aylarca süren zorlu fiziksel ve zihinsel eğitimlerini tamamlayan yeni aday memurlarımız, bugün düzenlenen törenle yemin ederek rozetlerini taktılar. Los Angeles sokakları artık daha güvenli.",
+      date: "July 15, 2026",
+      desc: "Aylarca süren zorlu fiziksel ve zihinsel eğitimlerini tamamlayan yeni aday memurlarımız, bugün düzenlenen törenle yemin ederek rozetlerini taktılar.",
       img: "/gallery/lapdtoren3.png",
+      featured: false
+    },
+    {
+      id: 5,
+      tag: "CRIME",
+      title: "Güney Merkez'de Çete Operasyonu: 12 Gözaltı",
+      date: "July 10, 2026",
+      desc: "GND birimlerinin aylardır sürdürdüğü takip sonucu gerçekleşen şafak baskınında yasadışı silah ve yüklü miktarda nakit ele geçirildi.",
+      img: "/gallery/6.png",
       featured: false
     }
   ];
 
+  const featuredNews = newsItems.find(n => n.featured);
+  const otherNews = newsItems.filter(n => !n.featured);
+
   return (
-    <div style={{ backgroundColor: 'var(--lapd-bg)', color: 'var(--lapd-text-dark)', fontFamily: 'var(--font-inter)', minHeight: '100vh', paddingBottom: '5rem' }}>
+    <div style={{ backgroundColor: 'white', color: '#111', fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif', minHeight: '100vh' }}>
       
-      {/* ── HEADER BREADCRUMB ── */}
-      <div style={{ backgroundColor: '#F0F4F4', padding: '1rem 2rem', borderBottom: '1px solid var(--lapd-border)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', fontSize: '0.85rem', color: 'var(--lapd-text-muted)' }}>
-          <Link href="/" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Ana Sayfa</Link> &nbsp;&gt;&nbsp; 
-          <span style={{ color: 'var(--lapd-orange)' }}>Haberler & Basın Odası</span>
+      {/* ── CNN STYLE HEADER ── */}
+      <header style={{ backgroundColor: 'black', padding: '15px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #333' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+          {/* Menu Icon */}
+          <div style={{ color: 'white', fontSize: '1.5rem', cursor: 'pointer' }}>
+            <i className="fa-solid fa-bars"></i>
+          </div>
+          {/* CNN Logo Clone but with text */}
+          <Link href="/" style={{ textDecoration: 'none' }}>
+            <div style={{ 
+              backgroundColor: '#CC0000', 
+              color: 'white', 
+              fontWeight: 900, 
+              fontSize: '2rem', 
+              padding: '0px 10px', 
+              letterSpacing: '-2px',
+              display: 'inline-block',
+              lineHeight: 1.2
+            }}>
+              CNN
+            </div>
+          </Link>
+          <div style={{ color: 'white', fontWeight: 700, fontSize: '1.2rem', marginLeft: '10px' }}>
+            Newsroom
+          </div>
         </div>
+        
+        <div style={{ display: 'flex', alignItems: 'center', gap: '15px', color: 'white' }}>
+          <div style={{ fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer' }}>Watch Live</div>
+          <div style={{ fontSize: '1.2rem', cursor: 'pointer' }}>
+            <i className="fa-solid fa-magnifying-glass"></i>
+          </div>
+        </div>
+      </header>
+
+      {/* ── CNN STYLE SUB-NAV ── */}
+      <div style={{ backgroundColor: '#f6f6f6', borderBottom: '1px solid #e2e2e2', padding: '10px 20px', display: 'flex', gap: '20px', overflowX: 'auto', whiteSpace: 'nowrap', fontWeight: 700, fontSize: '0.9rem', color: '#333' }}>
+        <span style={{ cursor: 'pointer', color: '#CC0000' }}>World</span>
+        <span style={{ cursor: 'pointer' }}>US Politics</span>
+        <span style={{ cursor: 'pointer' }}>Business</span>
+        <span style={{ cursor: 'pointer' }}>Los Angeles Crime</span>
+        <span style={{ cursor: 'pointer' }}>Community</span>
+        <span style={{ cursor: 'pointer' }}>Traffic</span>
+        <span style={{ cursor: 'pointer' }}>Press Releases</span>
       </div>
 
-      {/* ── Hero / Sayfa Başlığı ── */}
-      <section style={{ backgroundColor: 'white', padding: '4rem 2rem', borderBottom: '1px solid var(--lapd-border)', textAlign: 'center' }}>
-        <h1 style={{ fontSize: '3rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', margin: '0 0 1rem', letterSpacing: '-0.02em' }}>
-          HABER ODASI
-        </h1>
-        <div style={{ width: '60px', height: '4px', backgroundColor: 'var(--lapd-orange)', margin: '0 auto 1.5rem' }}></div>
-        <p style={{ fontSize: '1.1rem', color: 'var(--lapd-text-muted)', maxWidth: '600px', margin: '0 auto', lineHeight: 1.6 }}>
-          Los Angeles Community Police Department'ın en güncel basın bültenleri, olay raporları ve departman duyuruları.
-        </p>
-      </section>
+      {/* ── BREAKING NEWS BANNER ── */}
+      <div style={{ backgroundColor: '#CC0000', color: 'white', padding: '10px 20px', display: 'flex', alignItems: 'center', gap: '15px' }}>
+        <div style={{ fontWeight: 800, fontSize: '0.85rem', letterSpacing: '1px' }}>BREAKING NEWS</div>
+        <div style={{ height: '15px', width: '2px', backgroundColor: 'rgba(255,255,255,0.5)' }}></div>
+        <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>LAPD Chief announces new community safety initiative starting next month.</div>
+      </div>
 
-      {/* ── İÇERİK BÖLÜMÜ ── */}
-      <section 
-        
-        style={{ maxWidth: '1200px', margin: '4rem auto 0', padding: '0 2rem' }}
-      >
-        
-        {/* ÖNE ÇIKAN HABER */}
-        {newsItems.filter(n => n.featured).map(news => (
-          <div key={news.id} style={{ 
-            display: 'flex', flexWrap: 'wrap', backgroundColor: 'white', border: '1px solid var(--lapd-border)', marginBottom: '3rem', boxShadow: '0 10px 30px rgba(0,0,0,0.03)'
-          }}>
-            <div style={{ flex: '1 1 500px', minHeight: '350px', backgroundImage: `url(${news.img})`, backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
-            <div style={{ flex: '1 1 400px', padding: '3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <div style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--lapd-orange)', letterSpacing: '0.1em', marginBottom: '1rem' }}>{news.tag}</div>
-              <h2 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', lineHeight: 1.2, marginBottom: '1rem' }}>{news.title}</h2>
-              <div style={{ fontSize: '0.85rem', color: 'var(--lapd-text-muted)', marginBottom: '1.5rem', fontWeight: 600 }}>
-                <i className="fa-regular fa-calendar" style={{ marginRight: '8px' }}></i> {news.date}
+      {/* ── MAIN CONTENT ── */}
+      <main style={{ maxWidth: '1300px', margin: '0 auto', padding: '2rem 1rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '3rem' }}>
+          
+          {/* LEFT COLUMN: HERO NEWS */}
+          {featuredNews && (
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+                <h1 style={{ fontSize: '3rem', fontWeight: 800, lineHeight: 1.1, margin: '0 0 10px', letterSpacing: '-0.5px', color: '#111' }}>
+                  {featuredNews.title}
+                </h1>
+                <p style={{ fontSize: '1.1rem', color: '#444', lineHeight: 1.6, maxWidth: '800px', margin: '0 auto' }}>
+                  {featuredNews.desc}
+                </p>
               </div>
-              <p style={{ fontSize: '1rem', color: 'var(--lapd-text-dark)', lineHeight: 1.7, marginBottom: '2rem' }}>
-                {news.desc}
-              </p>
-              <div>
-                <button style={{ backgroundColor: 'var(--lapd-blue-dark)', color: 'white', border: 'none', padding: '0.8rem 1.5rem', fontSize: '0.85rem', fontWeight: 700, cursor: 'pointer', transition: 'background-color 0.2s' }}
-                  onMouseOver={e => e.currentTarget.style.backgroundColor = 'var(--lapd-orange)'}
-                  onMouseOut={e => e.currentTarget.style.backgroundColor = 'var(--lapd-blue-dark)'}>
-                  Devamını Oku &rarr;
-                </button>
+              <div style={{ position: 'relative' }}>
+                <img src={featuredNews.img} alt={featuredNews.title} style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover', maxHeight: '500px' }} />
+                <div style={{ fontSize: '0.8rem', color: '#666', marginTop: '10px' }}>
+                  {featuredNews.date}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          )}
 
-        {/* DİĞER HABERLER GRID */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2rem' }}>
-          {newsItems.filter(n => !n.featured).map(news => (
-            <div key={news.id} style={{ 
-              backgroundColor: 'white', border: '1px solid var(--lapd-border)', display: 'flex', flexDirection: 'column', transition: 'transform 0.2s, box-shadow 0.2s'
-            }}
-            onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.boxShadow = '0 10px 20px rgba(0,0,0,0.06)'; }}
-            onMouseOut={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
-            >
-              <div style={{ width: '100%', height: '220px', backgroundImage: `url(${news.img})`, backgroundSize: 'cover', backgroundPosition: 'center', borderBottom: '1px solid var(--lapd-border)' }}></div>
-              <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
-                <div style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--lapd-orange)', letterSpacing: '0.1em', marginBottom: '0.8rem' }}>{news.tag}</div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', lineHeight: 1.3, marginBottom: '1rem' }}>{news.title}</h3>
-                <div style={{ fontSize: '0.8rem', color: 'var(--lapd-text-muted)', marginBottom: '1rem', fontWeight: 600 }}>
-                  <i className="fa-regular fa-calendar" style={{ marginRight: '5px' }}></i> {news.date}
-                </div>
-                <p style={{ fontSize: '0.9rem', color: 'var(--lapd-text-dark)', lineHeight: 1.6, marginBottom: '1.5rem', flex: 1 }}>
-                  {news.desc}
-                </p>
-                <div style={{ marginTop: 'auto' }}>
-                  <span style={{ color: 'var(--lapd-blue-dark)', fontSize: '0.85rem', fontWeight: 700, cursor: 'pointer' }}
-                    onMouseOver={e => e.currentTarget.style.color = 'var(--lapd-orange)'}
-                    onMouseOut={e => e.currentTarget.style.color = 'var(--lapd-blue-dark)'}>
-                    Haberi Oku &rarr;
-                  </span>
+          {/* RIGHT COLUMN: MORE TOP STORIES */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div style={{ borderBottom: '2px solid #111', paddingBottom: '5px', marginBottom: '10px' }}>
+              <h2 style={{ fontSize: '1.2rem', fontWeight: 800, margin: 0 }}>More Top Stories</h2>
+            </div>
+            
+            {otherNews.slice(0, 3).map((news, index) => (
+              <div key={news.id} style={{ display: 'flex', gap: '15px', borderBottom: index !== 2 ? '1px solid #e2e2e2' : 'none', paddingBottom: index !== 2 ? '15px' : '0' }}>
+                <img src={news.img} alt={news.title} style={{ width: '120px', height: '80px', objectFit: 'cover' }} />
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                  <h3 style={{ fontSize: '1rem', fontWeight: 700, margin: '0 0 5px', lineHeight: 1.3, color: '#111' }}>
+                    {news.title}
+                  </h3>
+                  <span style={{ fontSize: '0.75rem', color: '#666' }}>{news.date.split(',')[0]}</span>
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── LOWER GRID (CNN STYLE 3 COLUMNS) ── */}
+        <div style={{ marginTop: '3rem', borderTop: '4px solid #111', paddingTop: '1.5rem', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem' }}>
+          {otherNews.map(news => (
+            <div key={news.id} style={{ display: 'flex', flexDirection: 'column' }}>
+              <img src={news.img} alt={news.title} style={{ width: '100%', height: '200px', objectFit: 'cover', marginBottom: '10px' }} />
+              <h3 style={{ fontSize: '1.3rem', fontWeight: 800, margin: '0 0 10px', lineHeight: 1.2 }}>
+                {news.title}
+              </h3>
+              <p style={{ fontSize: '0.95rem', color: '#444', lineHeight: 1.5, margin: 0 }}>
+                {news.desc.length > 100 ? news.desc.substring(0, 100) + '...' : news.desc}
+              </p>
             </div>
           ))}
         </div>
+      </main>
 
-      </section>
-
-      {/* ── SOSYAL MEDYA CALL TO ACTION ── */}
-      <section style={{ backgroundColor: 'var(--lapd-blue-dark)', color: 'white', textAlign: 'center', padding: '4rem 2rem', marginTop: '5rem' }}>
-        <h2 style={{ fontSize: '2rem', fontWeight: 800, margin: '0 0 1rem' }}>Anlık Gelişmeler İçin Bizi Takip Edin</h2>
-        <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.7)', maxWidth: '600px', margin: '0 auto 2rem' }}>
-          En sıcak haberler, olay yeri duyuruları ve topluluk etkinliklerinden ilk siz haberdar olun.
-        </p>
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
-          <a href="https://discord.com/invite/laco" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '50px', height: '50px', backgroundColor: 'rgba(255,255,255,0.1)', color: 'white', borderRadius: '50%', textDecoration: 'none', fontSize: '1.5rem', transition: 'background-color 0.2s' }} onMouseOver={e => e.currentTarget.style.backgroundColor = 'var(--lapd-orange)'} onMouseOut={e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'}>
-            <i className="fa-brands fa-discord"></i>
-          </a>
-          <a href="https://www.youtube.com/@Thelapd-7" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '50px', height: '50px', backgroundColor: 'rgba(255,255,255,0.1)', color: 'white', borderRadius: '50%', textDecoration: 'none', fontSize: '1.5rem', transition: 'background-color 0.2s' }} onMouseOver={e => e.currentTarget.style.backgroundColor = '#FF0000'} onMouseOut={e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'}>
-            <i className="fa-brands fa-youtube"></i>
-          </a>
+      {/* ── FOOTER (CNN STYLE) ── */}
+      <footer style={{ backgroundColor: 'black', color: 'white', padding: '3rem 2rem', marginTop: '4rem' }}>
+        <div style={{ maxWidth: '1300px', margin: '0 auto' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px', borderBottom: '1px solid #333', paddingBottom: '20px', marginBottom: '20px' }}>
+            <div style={{ backgroundColor: '#CC0000', color: 'white', fontWeight: 900, fontSize: '2rem', padding: '0px 10px', letterSpacing: '-2px', display: 'inline-block', lineHeight: 1.2 }}>
+              CNN
+            </div>
+            <div style={{ fontSize: '0.9rem', color: '#999', display: 'flex', gap: '15px' }}>
+              <span>World</span>
+              <span>Politics</span>
+              <span>Business</span>
+              <span>Health</span>
+              <span>Entertainment</span>
+              <span>Tech</span>
+              <span>Style</span>
+              <span>Travel</span>
+              <span>Sports</span>
+            </div>
+          </div>
+          <div style={{ fontSize: '0.8rem', color: '#666', display: 'flex', justifyContent: 'space-between' }}>
+            <span>© 2026 Cable News Network. A Warner Bros. Discovery Company. All Rights Reserved.</span>
+            <div style={{ display: 'flex', gap: '15px' }}>
+              <span>Terms of Use</span>
+              <span>Privacy Policy</span>
+              <span>Ad Choices</span>
+              <span>About Us</span>
+            </div>
+          </div>
         </div>
-      </section>
-
+      </footer>
     </div>
   );
 }

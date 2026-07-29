@@ -95,12 +95,12 @@ export default function Home() {
         <h3 style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '1rem' }}>HIZLI BAĞLANTILAR</h3>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', border: '1px solid var(--lapd-border)', backgroundColor: 'white' }}>
           {[
-            { icon: 'fa-file-lines', label: 'Polis Raporu Oluştur', href: '/rapor-portali' },
-            { icon: 'fa-car-burst', label: 'Trafik Kazası Raporu', href: '/rapor-portali' },
-            { icon: 'fa-map-location-dot', label: 'Suç Haritası', href: '/' },
-            { icon: 'fa-book-bookmark', label: 'Referans Kütüphanesi', href: '/hakkimizda' },
-            { icon: 'fa-user-secret', label: 'Arananlar Listesi', href: '/' },
-            { icon: 'fa-user-tie', label: 'Aramıza Katıl', href: '/basvurular' },
+            { icon: 'fa-users', label: 'Biz Kimiz?', href: '/hakkimizda' },
+            { icon: 'fa-images', label: 'Galeri', href: '/galeri' },
+            { icon: 'fa-newspaper', label: 'Haberler', href: '/haberler' },
+            { icon: 'fa-user-graduate', label: 'Akademi Başvurusu', href: '/basvurular/memur' },
+            { icon: 'fa-briefcase', label: 'Kariyer Olanakları', href: '/kariyer' },
+            { icon: 'fa-file-signature', label: 'Şikayet Formu', href: '/basvurular/sikayet' },
           ].map((item, idx) => (
             <Link href={item.href} key={idx} style={{ 
               display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', 
