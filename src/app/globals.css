@@ -137,6 +137,38 @@ html {
   --lapd-border: var(--border-light);
 }
 
+/* ═══════════════════════════════════════════════
+   MDT ZONE – Always-dark premium dashboard tokens
+   (Independent from light/dark site toggle)
+   ═══════════════════════════════════════════════ */
+:root,
+.dark {
+  /* MDT sidebar */
+  --mdt-sidebar-bg:     #0b0d12;
+  --mdt-bg-main:        #0f1117;
+  --mdt-card-bg:        #161820;
+  --mdt-border:         rgba(255,255,255,0.07);
+  --mdt-hover:          rgba(255,255,255,0.05);
+
+  /* MDT text */
+  --mdt-text-primary:   #e8eaf0;
+  --mdt-text-secondary: #8b91a0;
+  --mdt-text-muted:     #555d6e;
+
+  /* MDT accents – electric LAPD blue */
+  --mdt-accent:         #3b82f6;
+  --mdt-accent-alpha:   rgba(59,130,246,0.12);
+  --mdt-accent-hover:   #2563eb;
+
+  /* LAPD orange kept */
+  --mdt-orange:         #E84F2A;
+
+  /* Status */
+  --mdt-success:        #10b981;
+  --mdt-warning:        #f59e0b;
+  --mdt-danger:         #ef4444;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -189,6 +221,41 @@ body {
 .mdt-zone a,
 .mdt-zone [role="button"] {
   cursor: pointer !important;
+}
+
+/* === MDT ZONE: Force dark theme variables for all sub-pages === */
+.mdt-zone {
+  --bg-primary:       #0f1117;
+  --bg-secondary:     #161820;
+  --bg-tertiary:      #1e2130;
+  --bg-hover-subtle:  #262b38;
+  --text-primary:     #e8eaf0;
+  --text-secondary:   #8b91a0;
+  --text-muted:       #555d6e;
+  --border-light:     rgba(255,255,255,0.07);
+  --border-strong:    rgba(255,255,255,0.14);
+  --lapd-bg:          #0f1117;
+  --lapd-blue-dark:   #3b82f6;
+  --lapd-orange:      #E84F2A;
+  --lapd-border:      rgba(255,255,255,0.07);
+  --lapd-text-dark:   #e8eaf0;
+  --lapd-text-muted:  #555d6e;
+  --bg-dark:          #0f1117;
+  --bg-panel:         #161820;
+  --bg-hover:         #1e2130;
+  --border-color:     rgba(255,255,255,0.07);
+  --color-success:    #10b981;
+  --color-success-bg: rgba(16,185,129,0.12);
+  --color-success-border: rgba(16,185,129,0.25);
+  --color-danger:     #ef4444;
+  --color-danger-bg:  rgba(239,68,68,0.15);
+  --color-danger-border: rgba(239,68,68,0.3);
+  --color-warning:    #f59e0b;
+  --color-warning-bg: rgba(245,158,11,0.12);
+  --color-info:       #818cf8;
+  --color-info-bg:    rgba(79,70,229,0.12);
+  --accent-primary:   #3b82f6;
+  --accent-secondary: #E84F2A;
 }
 
 @keyframes submarineFlash {
