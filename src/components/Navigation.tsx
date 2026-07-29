@@ -16,6 +16,10 @@ export default function Navigation() {
 
   const navMenus = [
     { 
+      name: "ANA SAYFA", 
+      path: "/"
+    },
+    { 
       name: "HAKKIMIZDA", 
       items: [
         { label: "Biz Kimiz?", path: "/hakkimizda" },
