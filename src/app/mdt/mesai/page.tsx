@@ -84,7 +84,7 @@ export default function MesaiSistemiMinimal() {
       });
       if (!res.ok) throw new Error();
       toast.success(newIsOnDuty ? "Devriye başlatıldı. Güvenli seyirler." : "Devriye sonlandırıldı. İyi dinlenmeler.", {
-        style: { background: "#0D111D", color: "#F8FAFC", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "12px", fontSize: "0.85rem" }
+        style: { background: "#0D111D", color: "var(--bg-tertiary)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "12px", fontSize: "0.85rem" }
       });
       mutateMe();
       mutateShifts();
@@ -108,7 +108,7 @@ export default function MesaiSistemiMinimal() {
         body: JSON.stringify({ isOnDuty: false })
       });
       if (res.ok) {
-        toast.success(`Mesai kapatıldı: ${off.name}`, { style: { background: "#0D111D", color: "#F8FAFC", border: "1px solid rgba(255,255,255,0.1)" } });
+        toast.success(`Mesai kapatıldı: ${off.name}`, { style: { background: "#0D111D", color: "var(--bg-tertiary)", border: "1px solid rgba(255,255,255,0.1)" } });
         mutateShifts();
       } else {
         toast.error("İşlem başarısız.");
@@ -173,7 +173,7 @@ export default function MesaiSistemiMinimal() {
   }
 
   return (
-    <div style={{ color: "#F8FAFC", paddingBottom: "6rem", maxWidth: "1280px", margin: "0 auto", fontFamily: "'Inter', -apple-system, system-ui, sans-serif" }}>
+    <div style={{ color: "var(--bg-tertiary)", paddingBottom: "6rem", maxWidth: "1280px", margin: "0 auto", fontFamily: "'Inter', -apple-system, system-ui, sans-serif" }}>
       
       {/* ── TOP ULTRA-MINIMALIST BAR ── */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1.25rem 0", borderBottom: "1px solid rgba(255,255,255,0.06)", marginBottom: "3rem" }}>

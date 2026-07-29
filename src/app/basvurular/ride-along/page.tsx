@@ -4,12 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 
 const ACCENT = "var(--lapd-blue-dark)";
-const ACCENT_BG = "var(--lapd-gray-bg)";
+const ACCENT_BG = "var(--bg-tertiary)";
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
   padding: "0.9rem 1.25rem",
-  backgroundColor: "white",
+  backgroundColor: "var(--bg-secondary)",
   border: "1px solid var(--lapd-border)",
   borderRadius: "4px",
   color: "var(--lapd-text-dark)",
@@ -93,7 +93,7 @@ export default function RideAlongBasvurusu() {
     <div style={{ backgroundColor: "var(--lapd-bg)", minHeight: "100vh", color: "var(--lapd-text-dark)", fontFamily: "var(--font-inter)", paddingBottom: '5rem' }}>
       
       {/* ── HEADER BREADCRUMB ── */}
-      <div style={{ backgroundColor: '#F0F4F4', padding: '1rem 2rem', borderBottom: '1px solid var(--lapd-border)' }}>
+      <div style={{ backgroundColor: 'var(--bg-tertiary)', padding: '1rem 2rem', borderBottom: '1px solid var(--lapd-border)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', fontSize: '0.85rem', color: 'var(--lapd-text-muted)' }}>
           <Link href="/" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Ana Sayfa</Link> &nbsp;&gt;&nbsp; 
           <Link href="/basvurular" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Başvurular</Link> &nbsp;&gt;&nbsp; 
@@ -104,8 +104,8 @@ export default function RideAlongBasvurusu() {
       <main style={{ position: "relative", zIndex: 10, padding: "5rem 2rem 4rem", maxWidth: "800px", margin: "0 auto" }}>
         <>
           {submitted ? (
-            <div key="success" style={{ textAlign: "center", padding: "4rem 2rem", backgroundColor: 'white', border: '1px solid var(--lapd-border)' }}>
-              <div style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "var(--lapd-gray-bg)", border: `2px solid var(--lapd-border)`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 2rem" }}>
+            <div key="success" style={{ textAlign: "center", padding: "4rem 2rem", backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--lapd-border)' }}>
+              <div style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "var(--bg-tertiary)", border: `2px solid var(--lapd-border)`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 2rem" }}>
                 <i className="fa-solid fa-car-side" style={{ fontSize: "1.8rem", color: 'var(--lapd-orange)' }} />
               </div>
               <h2 style={{ fontSize: "2rem", fontWeight: 800, color: "var(--lapd-blue-dark)", marginBottom: "1rem" }}>Başvurunuz Alındı!</h2>
@@ -114,14 +114,14 @@ export default function RideAlongBasvurusu() {
               </p>
               <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
                 <Link href="/basvurular" style={{ padding: "0.85rem 2rem", backgroundColor: 'var(--lapd-blue-dark)', color: "white", textDecoration: "none", fontWeight: 700 }}>Başvurulara Dön</Link>
-                <Link href="/" style={{ padding: "0.85rem 2rem", backgroundColor: "var(--lapd-gray-bg)", border: "1px solid var(--lapd-border)", color: "var(--lapd-text-dark)", textDecoration: "none", fontWeight: 600 }}>Ana Sayfa</Link>
+                <Link href="/" style={{ padding: "0.85rem 2rem", backgroundColor: "var(--bg-tertiary)", border: "1px solid var(--lapd-border)", color: "var(--lapd-text-dark)", textDecoration: "none", fontWeight: 600 }}>Ana Sayfa</Link>
               </div>
             </div>
           ) : (
             <div key="form">
               {/* Header */}
               <div style={{ marginBottom: "3rem", textAlign: 'center' }}>
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", backgroundColor: "var(--lapd-gray-bg)", border: `1px solid var(--lapd-border)`, padding: "0.4rem 1.25rem", marginBottom: "1.5rem" }}>
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", backgroundColor: "var(--bg-tertiary)", border: `1px solid var(--lapd-border)`, padding: "0.4rem 1.25rem", marginBottom: "1.5rem" }}>
                   <i className="fa-solid fa-car-side" style={{ color: "var(--lapd-orange)", fontSize: "0.85rem" }} />
                   <span style={{ fontSize: "0.8rem", color: "var(--lapd-blue-dark)", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase" }}>Sivil Ride Along Programı</span>
                 </div>
@@ -140,7 +140,7 @@ export default function RideAlongBasvurusu() {
                     { icon: "fa-user-shield", title: "Gözetim", text: "Deneyimli memur" },
                     { icon: "fa-ban", title: "Yasak", text: "Silah taşıma" },
                   ].map((info, i) => (
-                    <div key={i} style={{ backgroundColor: "white", border: `1px solid var(--lapd-border)`, padding: "1.5rem 1rem", textAlign: "center" }}>
+                    <div key={i} style={{ backgroundColor: "var(--bg-secondary)", border: `1px solid var(--lapd-border)`, padding: "1.5rem 1rem", textAlign: "center" }}>
                       <i className={`fa-solid ${info.icon}`} style={{ color: "var(--lapd-orange)", fontSize: "1.5rem", marginBottom: "1rem", display: "block" }} />
                       <div style={{ fontSize: "0.75rem", color: "var(--lapd-text-muted)", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.05em" }}>{info.title}</div>
                       <div style={{ color: "var(--lapd-blue-dark)", fontWeight: 700, fontSize: "0.95rem", marginTop: "0.5rem" }}>{info.text}</div>
@@ -150,7 +150,7 @@ export default function RideAlongBasvurusu() {
               </div>
 
               <form onSubmit={handleSubmit}>
-                <div style={{ backgroundColor: "white", border: "1px solid var(--lapd-border)", padding: "3rem" }}>
+                <div style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--lapd-border)", padding: "3rem" }}>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
                     <div style={{ gridColumn: "1 / -1" }}>
                       <label style={labelStyle}>Karakter Adı Soyadı *</label>
@@ -211,7 +211,7 @@ export default function RideAlongBasvurusu() {
                   )}
 
                   <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "2rem" }}>
-                    <button type="submit" disabled={submitting} style={{ padding: "1rem 2.5rem", background: submitting ? `var(--lapd-gray-bg)` : `var(--lapd-blue-dark)`, border: "none", color: submitting ? "var(--lapd-text-muted)" : "#fff", fontWeight: 800, cursor: submitting ? "not-allowed" : "pointer", fontSize: "0.95rem", transition: "all 0.2s" }}>
+                    <button type="submit" disabled={submitting} style={{ padding: "1rem 2.5rem", background: submitting ? `var(--bg-tertiary)` : `var(--lapd-blue-dark)`, border: "none", color: submitting ? "var(--lapd-text-muted)" : "#fff", fontWeight: 800, cursor: submitting ? "not-allowed" : "pointer", fontSize: "0.95rem", transition: "all 0.2s" }}>
                       {submitting ? <><i className="fa-solid fa-circle-notch fa-spin" style={{ marginRight: "0.5rem" }} />Gönderiliyor...</> : <><i className="fa-solid fa-paper-plane" style={{ marginRight: "0.5rem" }} />Başvuruyu Gönder</>}
                     </button>
                   </div>

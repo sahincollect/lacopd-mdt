@@ -29,7 +29,7 @@ export default function Galeri() {
     <div style={{ minHeight: '100vh', backgroundColor: 'var(--lapd-bg)', fontFamily: 'var(--font-inter)', paddingBottom: '5rem' }}>
       
       {/* ── HEADER BREADCRUMB ── */}
-      <div style={{ backgroundColor: '#F0F4F4', padding: '1rem 2rem', borderBottom: '1px solid var(--lapd-border)' }}>
+      <div style={{ backgroundColor: 'var(--bg-tertiary)', padding: '1rem 2rem', borderBottom: '1px solid var(--lapd-border)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', fontSize: '0.85rem', color: 'var(--lapd-text-muted)' }}>
           <Link href="/" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Ana Sayfa</Link> &nbsp;&gt;&nbsp; 
           <span style={{ color: 'var(--lapd-orange)' }}>Medya Galeresi</span>
@@ -61,7 +61,7 @@ export default function Galeri() {
                 whileHover={{ y: -5 }}
                 style={{ 
                   position: 'relative', 
-                  backgroundColor: 'white',
+                  backgroundColor: 'var(--bg-secondary)',
                   border: '1px solid var(--lapd-border)',
                   padding: '0.5rem',
                   boxShadow: '0 4px 6px rgba(0,0,0,0.02)',

@@ -27,7 +27,7 @@ export default function KariyerPage() {
       {/* 1. HERO SECTION */}
       <section style={{ position: 'relative', padding: '6rem 2rem', textAlign: 'center', backgroundColor: 'var(--bg-secondary)', borderBottom: '1px solid var(--lapd-border)' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', backgroundColor: 'var(--lapd-gray-bg)', border: '1px solid var(--lapd-border)', padding: '0.4rem 1.2rem', marginBottom: '2rem' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', backgroundColor: 'var(--bg-tertiary)', border: '1px solid var(--lapd-border)', padding: '0.4rem 1.2rem', marginBottom: '2rem' }}>
             <i className="fa-solid fa-star" style={{ color: 'var(--lapd-orange)', fontSize: '0.8rem' }}></i>
             <span style={{ fontSize: '0.85rem', color: 'var(--lapd-blue-dark)', fontWeight: 800, letterSpacing: '0.1em' }}>JOIN THE LAPD</span>
           </div>
@@ -46,7 +46,7 @@ export default function KariyerPage() {
       </section>
 
       {/* 2. NEDEN BİZ? */}
-      <section style={{ position: 'relative', padding: '5rem 2rem', backgroundColor: 'var(--lapd-gray-bg)', borderBottom: '1px solid var(--lapd-border)' }}>
+      <section style={{ position: 'relative', padding: '5rem 2rem', backgroundColor: 'var(--bg-tertiary)', borderBottom: '1px solid var(--lapd-border)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
             <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem', color: 'var(--lapd-blue-dark)' }}>Fark Yaratan Özelliklerimiz</h2>
@@ -58,7 +58,7 @@ export default function KariyerPage() {
             
             {/* Feature 1 */}
             <div style={{ padding: '2.5rem', backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--lapd-border)', transition: 'all 0.3s', cursor: 'default', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }} onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.boxShadow = '0 10px 20px rgba(0,0,0,0.08)'; }} onMouseOut={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.02)'; }}>
-              <div style={{ width: '60px', height: '60px', backgroundColor: 'var(--lapd-gray-bg)', border: '1px solid var(--lapd-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.8rem', color: 'var(--lapd-blue-dark)', marginBottom: '1.5rem' }}>
+              <div style={{ width: '60px', height: '60px', backgroundColor: 'var(--bg-tertiary)', border: '1px solid var(--lapd-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.8rem', color: 'var(--lapd-blue-dark)', marginBottom: '1.5rem' }}>
                 <i className="fa-solid fa-book-open"></i>
               </div>
               <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '1rem', color: 'var(--lapd-blue-dark)' }}>Eksiksiz ve Gerçekçi Müfredat</h3>
@@ -67,7 +67,7 @@ export default function KariyerPage() {
 
             {/* Feature 2 */}
             <div style={{ padding: '2.5rem', backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--lapd-border)', transition: 'all 0.3s', cursor: 'default', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }} onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.boxShadow = '0 10px 20px rgba(0,0,0,0.08)'; }} onMouseOut={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.02)'; }}>
-              <div style={{ width: '60px', height: '60px', backgroundColor: 'var(--lapd-gray-bg)', border: '1px solid var(--lapd-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.8rem', color: 'var(--lapd-blue-dark)', marginBottom: '1.5rem' }}>
+              <div style={{ width: '60px', height: '60px', backgroundColor: 'var(--bg-tertiary)', border: '1px solid var(--lapd-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.8rem', color: 'var(--lapd-blue-dark)', marginBottom: '1.5rem' }}>
                 <i className="fa-solid fa-video"></i>
               </div>
               <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '1rem', color: 'var(--lapd-blue-dark)' }}>Canlı Taktiksel Eğitimler</h3>
@@ -76,7 +76,7 @@ export default function KariyerPage() {
 
             {/* Feature 3 */}
             <div style={{ padding: '2.5rem', backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--lapd-border)', transition: 'all 0.3s', cursor: 'default', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }} onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.boxShadow = '0 10px 20px rgba(0,0,0,0.08)'; }} onMouseOut={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.02)'; }}>
-              <div style={{ width: '60px', height: '60px', backgroundColor: 'var(--lapd-gray-bg)', border: '1px solid var(--lapd-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.8rem', color: 'var(--lapd-blue-dark)', marginBottom: '1.5rem' }}>
+              <div style={{ width: '60px', height: '60px', backgroundColor: 'var(--bg-tertiary)', border: '1px solid var(--lapd-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.8rem', color: 'var(--lapd-blue-dark)', marginBottom: '1.5rem' }}>
                 <i className="fa-solid fa-ranking-star"></i>
               </div>
               <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '1rem', color: 'var(--lapd-blue-dark)' }}>Gerçekçi Hiyerarşi ve Kariyer Yolu</h3>
@@ -110,7 +110,7 @@ export default function KariyerPage() {
                   position: 'absolute', left: '-13px', top: '10px', width: '28px', height: '28px', borderRadius: '50%',
                   backgroundColor: 'var(--bg-secondary)', border: '4px solid var(--lapd-orange)'
                 }}></div>
-                <div style={{ padding: '2rem', backgroundColor: 'var(--lapd-gray-bg)', border: '1px solid var(--lapd-border)' }}>
+                <div style={{ padding: '2rem', backgroundColor: 'var(--bg-tertiary)', border: '1px solid var(--lapd-border)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '0.8rem' }}>
                     <i className={`fa-solid ${step.icon}`} style={{ color: 'var(--lapd-blue-dark)', fontSize: '1.2rem' }}></i>
                     <h3 style={{ fontSize: '1.3rem', fontWeight: 800, margin: 0, color: 'var(--lapd-blue-dark)' }}>{step.title}</h3>
@@ -124,7 +124,7 @@ export default function KariyerPage() {
       </section>
 
       {/* 4. S.S.S. */}
-      <section style={{ position: 'relative', padding: '5rem 2rem 8rem', backgroundColor: 'var(--lapd-gray-bg)', borderTop: '1px solid var(--lapd-border)' }}>
+      <section style={{ position: 'relative', padding: '5rem 2rem 8rem', backgroundColor: 'var(--bg-tertiary)', borderTop: '1px solid var(--lapd-border)' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
             <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem', color: 'var(--lapd-blue-dark)' }}>Sıkça Sorulan Sorular</h2>

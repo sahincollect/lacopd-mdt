@@ -70,13 +70,13 @@ export default function IletisimPage() {
                 </div>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', fontSize: '0.9rem', color: 'var(--lapd-text-dark)' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f0f0f0', paddingBottom: '0.5rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--bg-tertiary)', paddingBottom: '0.5rem' }}>
                   <span style={{ fontWeight: 600 }}>Acil Durum:</span> <span style={{ color: 'var(--lapd-orange)', fontWeight: 800 }}>911</span>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f0f0f0', paddingBottom: '0.5rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--bg-tertiary)', paddingBottom: '0.5rem' }}>
                   <span style={{ fontWeight: 600 }}>Acil Olmayan İhbar:</span> <span>1-877-ASK-LAPD</span>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f0f0f0', paddingBottom: '0.5rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--bg-tertiary)', paddingBottom: '0.5rem' }}>
                   <span style={{ fontWeight: 600 }}>İşe Alım Hattı:</span> <span>(866) 444-1429</span>
                 </div>
               </div>

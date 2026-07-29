@@ -56,7 +56,7 @@ export default function HaberlerPage() {
   const otherNews = newsItems.filter(n => !n.featured);
 
   return (
-    <div style={{ backgroundColor: 'white', color: '#111', fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif', minHeight: '100vh' }}>
+    <div style={{ backgroundColor: 'var(--bg-secondary)', color: '#111', fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif', minHeight: '100vh' }}>
       
 
 

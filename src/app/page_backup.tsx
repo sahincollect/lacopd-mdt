@@ -108,7 +108,7 @@ export default function Home() {
                   <i className="fa-solid fa-shield-check" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', color: '#f58220', fontSize: '1.25rem', opacity: 0.8 }}></i>
                 </div>
                 
-                <h2 style={{ fontSize: '1.35rem', color: '#f8fafc', fontWeight: 600, margin: '0 0 1rem 0', letterSpacing: '-0.01em' }}>
+                <h2 style={{ fontSize: '1.35rem', color: 'var(--bg-tertiary)', fontWeight: 600, margin: '0 0 1rem 0', letterSpacing: '-0.01em' }}>
                   Güvenli Bağlantı Doğrulanıyor
                 </h2>
                 <p style={{ fontSize: '0.95rem', color: '#94a3b8', lineHeight: 1.6, margin: '0 0 2.5rem 0' }}>
@@ -133,7 +133,7 @@ export default function Home() {
                     <i className="fa-brands fa-cloudflare" style={{ fontSize: '2.5rem', color: '#f58220', filter: 'drop-shadow(0 0 10px rgba(245, 130, 32, 0.4))' }}></i>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                       <span style={{ fontSize: '0.7rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '-0.1rem' }}>Performance & Security by</span>
-                      <span style={{ fontSize: '1.4rem', fontWeight: 800, color: '#f8fafc', letterSpacing: '-0.02em' }}>Cloudflare</span>
+                      <span style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--bg-tertiary)', letterSpacing: '-0.02em' }}>Cloudflare</span>
                     </div>
                   </div>
                 </div>
@@ -143,7 +143,7 @@ export default function Home() {
         </>
       )}
 
-    <div style={{ backgroundColor: '#040914', minHeight: '100vh', color: '#f1f5f9', overflowX: 'hidden', position: 'relative', fontFamily: "'Inter', sans-serif" }}>
+    <div style={{ backgroundColor: '#040914', minHeight: '100vh', color: 'var(--bg-tertiary)', overflowX: 'hidden', position: 'relative', fontFamily: "'Inter', sans-serif" }}>
       
       {/* GLOBAL STYLES & ANIMATIONS */}
       <style>{`
@@ -271,7 +271,7 @@ export default function Home() {
           ].map((stat, i) => (
             <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem 1rem', borderRadius: '16px', backgroundColor: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)', transition: 'all 0.3s ease' }} onMouseOver={e => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.04)'; e.currentTarget.style.borderColor = 'rgba(14, 165, 233, 0.2)'; e.currentTarget.style.transform = 'translateY(-2px)' }} onMouseOut={e => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.02)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.04)'; e.currentTarget.style.transform = 'translateY(0)' }}>
               <i className={`fa-solid ${stat.icon}`} style={{ fontSize: '1.25rem', color: '#0EA5E9', marginBottom: '0.75rem', opacity: 0.8 }}></i>
-              <div style={{ fontSize: '2.5rem', fontWeight: 700, color: '#f8fafc', fontFamily: "'Oswald', sans-serif", lineHeight: 1 }}>
+              <div style={{ fontSize: '2.5rem', fontWeight: 700, color: 'var(--bg-tertiary)', fontFamily: "'Oswald', sans-serif", lineHeight: 1 }}>
                 {stat.value}
               </div>
               <div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 600, letterSpacing: '0.15em', marginTop: '0.5rem' }}>
@@ -288,7 +288,7 @@ export default function Home() {
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '3rem', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '1.5rem' }}>
             <div>
               <div style={{ fontSize: '0.75rem', color: '#0EA5E9', letterSpacing: '0.2em', fontWeight: 700, marginBottom: '0.5rem' }}>[ DATABASE :: DIVISIONS ]</div>
-              <h2 style={{ fontSize: '2.5rem', fontWeight: 800, color: '#f8fafc', textTransform: 'uppercase', letterSpacing: '0.02em', margin: 0 }}>OPERASYONEL <span style={{ color: 'transparent', WebkitTextStroke: '1px #0EA5E9' }}>BİRİMLER</span></h2>
+              <h2 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--bg-tertiary)', textTransform: 'uppercase', letterSpacing: '0.02em', margin: 0 }}>OPERASYONEL <span style={{ color: 'transparent', WebkitTextStroke: '1px #0EA5E9' }}>BİRİMLER</span></h2>
             </div>
             <div style={{ display: 'flex', gap: '0.35rem' }}>
               <div style={{ width: '6px', height: '6px', backgroundColor: '#0EA5E9' }}></div>
@@ -432,11 +432,11 @@ export default function Home() {
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
                   <div style={{ backgroundColor: 'rgba(255,255,255,0.02)', padding: '1.5rem', borderRadius: '12px', textAlign: 'center' }}>
-                    <div style={{ fontSize: '2rem', fontWeight: 700, color: '#f8fafc' }}>24/7</div>
+                    <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--bg-tertiary)' }}>24/7</div>
                     <div style={{ fontSize: '0.7rem', color: '#64748b', fontWeight: 600, letterSpacing: '0.1em', marginTop: '0.5rem' }}>UPTIME</div>
                   </div>
                   <div style={{ backgroundColor: 'rgba(255,255,255,0.02)', padding: '1.5rem', borderRadius: '12px', textAlign: 'center' }}>
-                    <div style={{ fontSize: '2rem', fontWeight: 700, color: '#f8fafc' }}>%100</div>
+                    <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--bg-tertiary)' }}>%100</div>
                     <div style={{ fontSize: '0.7rem', color: '#64748b', fontWeight: 600, letterSpacing: '0.1em', marginTop: '0.5rem' }}>GÜVENLİ</div>
                   </div>
                 </div>
@@ -495,7 +495,7 @@ export default function Home() {
                   {step.step}
                 </div>
                 <div style={{ backgroundColor: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '16px', padding: '2rem', flex: 1 }}>
-                  <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#f8fafc', margin: '0 0 0.5rem' }}>{step.title}</h3>
+                  <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--bg-tertiary)', margin: '0 0 0.5rem' }}>{step.title}</h3>
                   <p style={{ fontSize: '1rem', color: '#94a3b8', lineHeight: 1.6, margin: 0 }}>{step.text}</p>
                 </div>
               </div>

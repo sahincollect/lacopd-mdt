@@ -61,7 +61,7 @@ export default function Home() {
           }}>
             <span style={{ fontWeight: 600, fontSize: '0.9rem' }}>Liderliğe Adanmışlık</span>
             <div style={{ display: 'flex', gap: '4px' }}>
-              <div style={{ width: 6, height: 6, backgroundColor: 'white', borderRadius: '50%' }}></div>
+              <div style={{ width: 6, height: 6, backgroundColor: 'var(--bg-secondary)', borderRadius: '50%' }}></div>
               <div style={{ width: 6, height: 6, backgroundColor: 'rgba(255,255,255,0.4)', borderRadius: '50%' }}></div>
               <div style={{ width: 6, height: 6, backgroundColor: 'rgba(255,255,255,0.4)', borderRadius: '50%' }}></div>
               <div style={{ width: 6, height: 6, backgroundColor: 'rgba(255,255,255,0.4)', borderRadius: '50%' }}></div>

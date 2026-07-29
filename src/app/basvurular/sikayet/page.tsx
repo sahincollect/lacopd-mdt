@@ -4,12 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 
 const ACCENT = "var(--lapd-orange)";
-const ACCENT_BG = "var(--lapd-gray-bg)";
+const ACCENT_BG = "var(--bg-tertiary)";
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
   padding: "0.9rem 1.25rem",
-  backgroundColor: "white",
+  backgroundColor: "var(--bg-secondary)",
   border: "1px solid var(--lapd-border)",
   borderRadius: "4px",
   color: "var(--lapd-text-dark)",
@@ -96,7 +96,7 @@ export default function SikayetBasvurusu() {
     <div style={{ backgroundColor: "var(--lapd-bg)", minHeight: "100vh", color: "var(--lapd-text-dark)", fontFamily: "var(--font-inter)", paddingBottom: '5rem' }}>
       
       {/* ── HEADER BREADCRUMB ── */}
-      <div style={{ backgroundColor: '#F0F4F4', padding: '1rem 2rem', borderBottom: '1px solid var(--lapd-border)' }}>
+      <div style={{ backgroundColor: 'var(--bg-tertiary)', padding: '1rem 2rem', borderBottom: '1px solid var(--lapd-border)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', fontSize: '0.85rem', color: 'var(--lapd-text-muted)' }}>
           <Link href="/" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Ana Sayfa</Link> &nbsp;&gt;&nbsp; 
           <Link href="/basvurular" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Başvurular</Link> &nbsp;&gt;&nbsp; 
@@ -107,8 +107,8 @@ export default function SikayetBasvurusu() {
       <main style={{ position: "relative", zIndex: 10, padding: "5rem 2rem 4rem", maxWidth: "800px", margin: "0 auto" }}>
         <>
           {submitted ? (
-            <div key="success" style={{ textAlign: "center", padding: "4rem 2rem", backgroundColor: 'white', border: '1px solid var(--lapd-border)' }}>
-              <div style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "var(--lapd-gray-bg)", border: `2px solid var(--lapd-border)`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 2rem" }}>
+            <div key="success" style={{ textAlign: "center", padding: "4rem 2rem", backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--lapd-border)' }}>
+              <div style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "var(--bg-tertiary)", border: `2px solid var(--lapd-border)`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 2rem" }}>
                 <i className="fa-solid fa-check" style={{ fontSize: "1.8rem", color: ACCENT }} />
               </div>
               <h2 style={{ fontSize: "2rem", fontWeight: 800, color: "var(--lapd-blue-dark)", marginBottom: "1rem" }}>Şikayetiniz Alındı</h2>
@@ -120,13 +120,13 @@ export default function SikayetBasvurusu() {
               </p>
               <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
                 <Link href="/basvurular" style={{ padding: "0.85rem 2rem", backgroundColor: ACCENT, color: "white", textDecoration: "none", fontWeight: 700 }}>Başvurulara Dön</Link>
-                <Link href="/" style={{ padding: "0.85rem 2rem", backgroundColor: "var(--lapd-gray-bg)", border: "1px solid var(--lapd-border)", color: "var(--lapd-text-dark)", textDecoration: "none", fontWeight: 600 }}>Ana Sayfa</Link>
+                <Link href="/" style={{ padding: "0.85rem 2rem", backgroundColor: "var(--bg-tertiary)", border: "1px solid var(--lapd-border)", color: "var(--lapd-text-dark)", textDecoration: "none", fontWeight: 600 }}>Ana Sayfa</Link>
               </div>
             </div>
           ) : (
             <div key="form">
               <div style={{ marginBottom: "3rem", textAlign: "center" }}>
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", backgroundColor: "var(--lapd-gray-bg)", border: `1px solid var(--lapd-border)`, padding: "0.4rem 1.25rem", marginBottom: "1.5rem" }}>
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", backgroundColor: "var(--bg-tertiary)", border: `1px solid var(--lapd-border)`, padding: "0.4rem 1.25rem", marginBottom: "1.5rem" }}>
                   <i className="fa-solid fa-triangle-exclamation" style={{ color: ACCENT, fontSize: "0.85rem" }} />
                   <span style={{ fontSize: "0.8rem", color: "var(--lapd-blue-dark)", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase" }}>İç İşler Bürosu</span>
                 </div>
@@ -148,9 +148,9 @@ export default function SikayetBasvurusu() {
               </div>
 
               <form onSubmit={handleSubmit}>
-                <div style={{ backgroundColor: "white", border: "1px solid var(--lapd-border)", overflow: "hidden" }}>
+                <div style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--lapd-border)", overflow: "hidden" }}>
                   {/* Section: Şikayet Eden */}
-                  <div style={{ padding: "2rem 2.5rem", borderBottom: "1px solid var(--lapd-border)", backgroundColor: 'var(--lapd-gray-bg)' }}>
+                  <div style={{ padding: "2rem 2.5rem", borderBottom: "1px solid var(--lapd-border)", backgroundColor: 'var(--bg-tertiary)' }}>
                     <h3 style={{ fontSize: "0.85rem", color: "var(--lapd-blue-dark)", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
                       <i className="fa-solid fa-user" style={{ color: ACCENT }} /> Şikayetçi Bilgileri
                     </h3>
@@ -239,7 +239,7 @@ export default function SikayetBasvurusu() {
                       )}
 
                       <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                        <button type="submit" disabled={submitting} style={{ padding: "1rem 2.5rem", background: submitting ? `var(--lapd-gray-bg)` : ACCENT, border: "none", color: submitting ? "var(--lapd-text-muted)" : "white", fontWeight: 800, cursor: submitting ? "not-allowed" : "pointer", fontSize: "0.95rem", transition: "all 0.2s" }}>
+                        <button type="submit" disabled={submitting} style={{ padding: "1rem 2.5rem", background: submitting ? `var(--bg-tertiary)` : ACCENT, border: "none", color: submitting ? "var(--lapd-text-muted)" : "white", fontWeight: 800, cursor: submitting ? "not-allowed" : "pointer", fontSize: "0.95rem", transition: "all 0.2s" }}>
                           {submitting ? <><i className="fa-solid fa-circle-notch fa-spin" style={{ marginRight: "0.5rem" }} />Gönderiliyor...</> : <><i className="fa-solid fa-paper-plane" style={{ marginRight: "0.5rem" }} />Şikayeti Gönder</>}
                         </button>
                       </div>

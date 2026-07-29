@@ -27,7 +27,7 @@ const applicationTypes = [
       "Aktif devriye araçlarına refakat etmek isteyen sivil vatandaşlar için Ride Along programı başvurusu. Memurlarla birlikte saha deneyimi kazanın.",
     icon: "fa-car-side",
     color: "var(--lapd-text-dark)",
-    bg: "var(--lapd-gray-bg)",
+    bg: "var(--bg-tertiary)",
     hoverBg: "var(--lapd-border)",
     requirements: ["Sivil karakter", "Temiz sabıka", "Ön bilgilendirme tamamlandı"],
     badge: "Açık",
@@ -63,7 +63,7 @@ export default function BasvurularPage() {
       }}
     >
       {/* ── HEADER BREADCRUMB ── */}
-      <div style={{ backgroundColor: '#F0F4F4', padding: '1rem 2rem', borderBottom: '1px solid var(--lapd-border)' }}>
+      <div style={{ backgroundColor: 'var(--bg-tertiary)', padding: '1rem 2rem', borderBottom: '1px solid var(--lapd-border)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', fontSize: '0.85rem', color: 'var(--lapd-text-muted)' }}>
           <Link href="/" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Ana Sayfa</Link> &nbsp;&gt;&nbsp; 
           <span style={{ color: 'var(--lapd-orange)' }}>Başvurular</span>
@@ -84,7 +84,7 @@ export default function BasvurularPage() {
               display: "inline-flex",
               alignItems: "center",
               gap: "0.6rem",
-              backgroundColor: "white",
+              backgroundColor: "var(--bg-secondary)",
               border: "1px solid var(--lapd-border)",
               borderRadius: "4px",
               padding: "0.4rem 1.25rem",
@@ -148,7 +148,7 @@ export default function BasvurularPage() {
              
               style={{
                 position: "relative",
-                backgroundColor: "white",
+                backgroundColor: "var(--bg-secondary)",
                 border: "1px solid var(--lapd-border)",
                 transition: "transform 0.2s, box-shadow 0.2s",
                 boxShadow: "0 4px 10px rgba(0,0,0,0.03)",
@@ -167,7 +167,7 @@ export default function BasvurularPage() {
                     style={{
                       width: "60px",
                       height: "60px",
-                      backgroundColor: "var(--lapd-gray-bg)",
+                      backgroundColor: "var(--bg-tertiary)",
                       border: "1px solid var(--lapd-border)",
                       display: "flex",
                       alignItems: "center",
@@ -181,7 +181,7 @@ export default function BasvurularPage() {
                       fontSize: "0.75rem",
                       fontWeight: 800,
                       color: app.badgeColor,
-                      backgroundColor: 'white',
+                      backgroundColor: 'var(--bg-secondary)',
                       border: `1px solid ${app.badgeColor}`,
                       padding: "0.3rem 0.8rem",
                       letterSpacing: "0.05em",
@@ -206,7 +206,7 @@ export default function BasvurularPage() {
                   <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.75rem" }}>
                     {app.requirements.map((req, ri) => (
                       <li key={ri} style={{ display: "flex", alignItems: "center", gap: "0.8rem", fontSize: "0.9rem", color: "var(--lapd-text-dark)", fontWeight: 500 }}>
-                        <div style={{ width: "20px", height: "20px", borderRadius: "50%", backgroundColor: "var(--lapd-gray-bg)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <div style={{ width: "20px", height: "20px", borderRadius: "50%", backgroundColor: "var(--bg-tertiary)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                           <i className="fa-solid fa-check" style={{ color: app.color, fontSize: "0.7rem" }} />
                         </div>
                         {req}
@@ -228,7 +228,7 @@ export default function BasvurularPage() {
                     padding: "1rem",
                     backgroundColor: app.bg,
                     border: 'none',
-                    color: app.bg === 'var(--lapd-gray-bg)' ? 'var(--lapd-text-dark)' : 'white',
+                    color: app.bg === 'var(--bg-tertiary)' ? 'var(--lapd-text-dark)' : 'white',
                     textDecoration: "none",
                     fontWeight: 800,
                     fontSize: "0.9rem",

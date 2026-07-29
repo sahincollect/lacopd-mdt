@@ -1110,7 +1110,7 @@ Sayın Personel,
                       </div>
 
                       {/* Message Body Content Box */}
-                      <div style={{ padding: '1.75rem', borderRadius: '14px', backgroundColor: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', fontSize: '0.98rem', lineHeight: '1.8', color: '#f1f5f9', whiteSpace: 'pre-wrap', fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif", wordBreak: 'break-word' }}>
+                      <div style={{ padding: '1.75rem', borderRadius: '14px', backgroundColor: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', fontSize: '0.98rem', lineHeight: '1.8', color: 'var(--bg-tertiary)', whiteSpace: 'pre-wrap', fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif", wordBreak: 'break-word' }}>
                         {parsed.body}
                       </div>
                     </div>

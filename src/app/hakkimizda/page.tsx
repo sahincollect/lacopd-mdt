@@ -27,7 +27,7 @@ export default function Hakkimizda() {
     {
       tier: "LİDERLİK KADEMESİ",
       color: "var(--lapd-blue-dark)",
-      bg: "white",
+      bg: "var(--bg-tertiary)",
       ranks: [
         { title: "Sergeant II", icon: "fa-star", desc: "Topluluk Lideri (Community Lead) - Departmanın kurucusu ve nihai karar mercii." }
       ]
@@ -35,7 +35,7 @@ export default function Hakkimizda() {
     {
       tier: "ÜST DÜZEY YÖNETİM",
       color: "var(--lapd-blue)",
-      bg: "#f0f4f8",
+      bg: "var(--bg-tertiary)",
       ranks: [
         { title: "Detective III", icon: "fa-user-shield", desc: "Büro yöneticileri ve üst düzey operasyon amirleri." }
       ]
@@ -43,7 +43,7 @@ export default function Hakkimizda() {
     {
       tier: "DENETLEYİCİ KADEME",
       color: "var(--lapd-orange)",
-      bg: "#fffaf0",
+      bg: "var(--bg-tertiary)",
       ranks: [
         { title: "Sergeant I", icon: "fa-chevron-up", desc: "Vardiya amirleri ve sahadaki doğrudan denetleyiciler." }
       ]
@@ -51,7 +51,7 @@ export default function Hakkimizda() {
     {
       tier: "SORUŞTURMA & UZMAN PERSONEL",
       color: "var(--lapd-text-dark)",
-      bg: "#f9fafb",
+      bg: "var(--bg-tertiary)",
       ranks: [
         { title: "Detective II", icon: "fa-magnifying-glass", desc: "Kıdemli dedektifler ve uzman soruşturmacılar." },
         { title: "Detective I", icon: "fa-user-secret", desc: "Saha soruşturmaları ve sivil operasyon personeli." }
@@ -60,7 +60,7 @@ export default function Hakkimizda() {
     {
       tier: "SAHA PERSONELİ (PATROL)",
       color: "var(--lapd-text-muted)",
-      bg: "white",
+      bg: "var(--bg-tertiary)",
       ranks: [
         { title: "Officer III", icon: "fa-shield-halved", desc: "Kıdemli devriye memurları ve saha eğitmenleri." },
         { title: "Officer II", icon: "fa-shield", desc: "Bağımsız devriye atanabilen standart saha memurları." },

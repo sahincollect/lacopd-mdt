@@ -6,7 +6,7 @@ import Link from "next/link";
 const inputStyle: React.CSSProperties = {
   width: "100%",
   padding: "0.9rem 1.25rem",
-  backgroundColor: "white",
+  backgroundColor: "var(--bg-secondary)",
   border: "1px solid var(--lapd-border)",
   borderRadius: "4px",
   color: "var(--lapd-text-dark)",
@@ -28,7 +28,7 @@ const labelStyle: React.CSSProperties = {
 };
 
 const ACCENT = "var(--lapd-blue-dark)";
-const ACCENT_BG = "var(--lapd-gray-bg)";
+const ACCENT_BG = "var(--bg-tertiary)";
 
 export default function MemurBasvurusu() {
   const [step, setStep] = useState(1);
@@ -96,7 +96,7 @@ export default function MemurBasvurusu() {
     <div style={{ backgroundColor: "var(--lapd-bg)", minHeight: "100vh", color: "var(--lapd-text-dark)", fontFamily: "var(--font-inter)", paddingBottom: '5rem' }}>
       
       {/* ── HEADER BREADCRUMB ── */}
-      <div style={{ backgroundColor: '#F0F4F4', padding: '1rem 2rem', borderBottom: '1px solid var(--lapd-border)' }}>
+      <div style={{ backgroundColor: 'var(--bg-tertiary)', padding: '1rem 2rem', borderBottom: '1px solid var(--lapd-border)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', fontSize: '0.85rem', color: 'var(--lapd-text-muted)' }}>
           <Link href="/" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Ana Sayfa</Link> &nbsp;&gt;&nbsp; 
           <Link href="/basvurular" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Başvurular</Link> &nbsp;&gt;&nbsp; 
@@ -107,8 +107,8 @@ export default function MemurBasvurusu() {
       <main style={{ position: "relative", zIndex: 10, padding: "5rem 2rem 4rem", maxWidth: "860px", margin: "0 auto" }}>
         <>
           {submitted ? (
-            <div key="success" style={{ textAlign: "center", padding: "4rem 2rem", backgroundColor: 'white', border: '1px solid var(--lapd-border)' }}>
-              <div style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "var(--lapd-gray-bg)", border: `2px solid var(--lapd-border)`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 2rem" }}>
+            <div key="success" style={{ textAlign: "center", padding: "4rem 2rem", backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--lapd-border)' }}>
+              <div style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "var(--bg-tertiary)", border: `2px solid var(--lapd-border)`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 2rem" }}>
                 <i className="fa-solid fa-check" style={{ fontSize: "2rem", color: "#10B981" }} />
               </div>
               <h2 style={{ fontSize: "2rem", fontWeight: 800, color: "var(--lapd-blue-dark)", marginBottom: "1rem" }}>Başvurunuz Alındı!</h2>
@@ -119,7 +119,7 @@ export default function MemurBasvurusu() {
                 <Link href="/basvurular" style={{ padding: "0.85rem 2rem", backgroundColor: ACCENT, color: "white", textDecoration: "none", fontWeight: 700 }}>
                   Başvurulara Dön
                 </Link>
-                <Link href="/" style={{ padding: "0.85rem 2rem", backgroundColor: "var(--lapd-gray-bg)", border: "1px solid var(--lapd-border)", color: "var(--lapd-text-dark)", textDecoration: "none", fontWeight: 600 }}>
+                <Link href="/" style={{ padding: "0.85rem 2rem", backgroundColor: "var(--bg-tertiary)", border: "1px solid var(--lapd-border)", color: "var(--lapd-text-dark)", textDecoration: "none", fontWeight: 600 }}>
                   Ana Sayfa
                 </Link>
               </div>
@@ -128,7 +128,7 @@ export default function MemurBasvurusu() {
             <div key="form">
               {/* Header */}
               <div style={{ marginBottom: "3rem", textAlign: "center" }}>
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", backgroundColor: "var(--lapd-gray-bg)", border: `1px solid var(--lapd-border)`, padding: "0.4rem 1.25rem", marginBottom: "1.5rem" }}>
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", backgroundColor: "var(--bg-tertiary)", border: `1px solid var(--lapd-border)`, padding: "0.4rem 1.25rem", marginBottom: "1.5rem" }}>
                   <i className="fa-solid fa-shield-halved" style={{ color: "var(--lapd-orange)", fontSize: "0.8rem" }} />
                   <span style={{ fontSize: "0.8rem", color: "var(--lapd-blue-dark)", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase" }}>Resmi Memur Başvurusu</span>
                 </div>
@@ -145,7 +145,7 @@ export default function MemurBasvurusu() {
               <div style={{ display: "flex", justifyContent: "center", gap: "1rem", marginBottom: "3rem" }}>
                 {[1, 2, 3].map((s) => (
                   <div key={s} style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                    <div style={{ width: "35px", height: "35px", borderRadius: "50%", backgroundColor: step === s ? ACCENT : step > s ? "#10B981" : "var(--lapd-gray-bg)", border: `1px solid ${step === s ? ACCENT : step > s ? "#10B981" : "var(--lapd-border)"}`, display: "flex", alignItems: "center", justifyContent: "center", color: step === s || step > s ? "white" : "var(--lapd-text-muted)", fontWeight: 800, fontSize: "0.9rem", transition: "all 0.3s" }}>
+                    <div style={{ width: "35px", height: "35px", borderRadius: "50%", backgroundColor: step === s ? ACCENT : step > s ? "#10B981" : "var(--bg-tertiary)", border: `1px solid ${step === s ? ACCENT : step > s ? "#10B981" : "var(--lapd-border)"}`, display: "flex", alignItems: "center", justifyContent: "center", color: step === s || step > s ? "white" : "var(--lapd-text-muted)", fontWeight: 800, fontSize: "0.9rem", transition: "all 0.3s" }}>
                       {step > s ? <i className="fa-solid fa-check" /> : s}
                     </div>
                     {s !== 3 && <div style={{ width: "40px", height: "2px", backgroundColor: step > s ? "#10B981" : "var(--lapd-border)", transition: "all 0.3s" }} />}
@@ -154,7 +154,7 @@ export default function MemurBasvurusu() {
               </div>
 
               {/* Form Container */}
-              <div style={{ backgroundColor: "white", border: "1px solid var(--lapd-border)", overflow: "hidden" }}>
+              <div style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--lapd-border)", overflow: "hidden" }}>
                 
                 {/* STEP 1 */}
                 {step === 1 && (
@@ -233,7 +233,7 @@ export default function MemurBasvurusu() {
                     <div style={{ padding: "3rem" }}>
                       <h3 style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--lapd-blue-dark)", marginBottom: "2rem" }}>Onay & Beyan</h3>
                       
-                      <div style={{ backgroundColor: "var(--lapd-gray-bg)", border: "1px solid var(--lapd-border)", padding: "1.5rem", marginBottom: "2rem" }}>
+                      <div style={{ backgroundColor: "var(--bg-tertiary)", border: "1px solid var(--lapd-border)", padding: "1.5rem", marginBottom: "2rem" }}>
                         <h4 style={{ fontSize: "0.85rem", color: "var(--lapd-blue-dark)", fontWeight: 800, textTransform: "uppercase", marginBottom: "1rem" }}>Özet Bilgiler</h4>
                         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                           {[
@@ -270,7 +270,7 @@ export default function MemurBasvurusu() {
                 )}
 
                 {/* Footer Controls */}
-                <div style={{ padding: "1.5rem 3rem", backgroundColor: "var(--lapd-gray-bg)", borderTop: "1px solid var(--lapd-border)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div style={{ padding: "1.5rem 3rem", backgroundColor: "var(--bg-tertiary)", borderTop: "1px solid var(--lapd-border)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <button 
                     type="button" 
                     onClick={() => setStep(step - 1)}

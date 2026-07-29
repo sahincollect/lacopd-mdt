@@ -437,7 +437,7 @@ export default function RaporPortali() {
               <i className="fa-solid fa-file-shield" style={{ fontSize: '0.7rem' }} />
               Los Angeles Community
             </div>
-            <h1 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', fontWeight: 300, color: '#f1f5f9', letterSpacing: '-0.03em', margin: '0 0 0.75rem', lineHeight: 1.2 }}>
+            <h1 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', fontWeight: 300, color: 'var(--bg-tertiary)', letterSpacing: '-0.03em', margin: '0 0 0.75rem', lineHeight: 1.2 }}>
               Resmi Rapor Şablonları
             </h1>
             <p style={{ color: '#475569', fontSize: '0.95rem', fontWeight: 400, margin: 0 }}>
@@ -657,7 +657,7 @@ export default function RaporPortali() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
                 <img src="/tahsis-portali/lapd-badge-logo-pngseeklogo-214481.png" alt="LAC" style={{ width: '52px', filter: 'drop-shadow(0 0 5px rgba(56,189,248,0.2))' }} />
                 <div>
-                  <div className="doc-header-title" style={{ fontSize: '1.2rem', fontWeight: 800, color: '#f1f5f9', letterSpacing: '0.5px' }}>LOS ANGELES COMMUNITY</div>
+                  <div className="doc-header-title" style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--bg-tertiary)', letterSpacing: '0.5px' }}>LOS ANGELES COMMUNITY</div>
                   <div className="doc-header-subtitle" style={{ fontSize: '0.9rem', color: '#38bdf8', fontWeight: 500, marginTop: '0.15rem' }}>{template.name}</div>
                 </div>
               </div>
@@ -723,7 +723,7 @@ export default function RaporPortali() {
         <div style={{ position: 'relative', zIndex: 10, padding: '2.5rem 3rem 5rem', maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2rem', flexWrap: 'wrap', gap: '1.5rem' }}>
             <div>
-              <h2 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#f1f5f9', margin: 0, letterSpacing: '-0.02em' }}>Arşiv Raporları</h2>
+              <h2 style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--bg-tertiary)', margin: 0, letterSpacing: '-0.02em' }}>Arşiv Raporları</h2>
               <p style={{ color: '#64748b', fontSize: '0.85rem', margin: '0.35rem 0 0' }}>{savedReports.length} kayıtlı rapor</p>
             </div>
             
