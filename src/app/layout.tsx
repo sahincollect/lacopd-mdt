@@ -5,6 +5,7 @@ import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import { Toaster } from "react-hot-toast";
 import SpotlightCursor from "../components/SpotlightCursor";
+import { MotionConfig } from "framer-motion";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -37,6 +38,7 @@ export default function RootLayout({
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
       </head>
       <body style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', margin: 0 }}>
+        <MotionConfig reducedMotion="never">
         <SpotlightCursor />
         <Toaster 
           position="top-right"
@@ -65,6 +67,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        </MotionConfig>
       </body>
     </html>
   );
