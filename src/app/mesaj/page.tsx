@@ -21,8 +21,8 @@ export default function MessagePage() {
         <div style={{ flex: '0 0 350px' }}>
           <img src="/chief.png" alt="Community Lead" style={{ width: '100%', border: '1px solid var(--lapd-border)', boxShadow: '0 10px 20px rgba(0,0,0,0.05)' }} />
           <div style={{ backgroundColor: 'var(--lapd-blue-dark)', color: 'white', padding: '1.5rem', marginTop: '-5px' }}>
-            <h3 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 800 }}>Community Lead</h3>
-            <p style={{ margin: '0.5rem 0 0', fontSize: '0.9rem', color: 'rgba(255,255,255,0.7)' }}>Los Angeles Community</p>
+            <h3 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 800 }}>Ador Vance</h3>
+            <p style={{ margin: '0.5rem 0 0', fontSize: '0.9rem', color: 'rgba(255,255,255,0.7)' }}>Community Lead, Los Angeles Community</p>
           </div>
           
           <div style={{ border: '1px solid var(--lapd-border)', padding: '1.5rem', marginTop: '2rem' }}>
@@ -57,7 +57,7 @@ export default function MessagePage() {
             </p>
             <p style={{ marginTop: '1rem', fontStyle: 'italic', fontWeight: 600 }}>
               Saygılarımla,<br/><br/>
-              <span style={{ color: 'var(--lapd-blue-dark)', fontStyle: 'normal', fontSize: '1.2rem' }}>Community Lead</span>
+              <span style={{ color: 'var(--lapd-blue-dark)', fontStyle: 'normal', fontSize: '1.2rem' }}>Ador Vance<br/><span style={{ fontSize: '0.9rem', color: 'var(--lapd-text-muted)' }}>Community Lead</span></span>
             </p>
           </div>
         </div>
