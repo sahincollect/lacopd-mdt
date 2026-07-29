@@ -19,7 +19,7 @@ export default function Home() {
           margin: 0,
           letterSpacing: '-0.02em'
         }}>
-          Korumak ve Hizmet Etmek
+          To Protect and to Serve
         </h1>
 
         {/* SEARCH BAR (Absolute positioned overflowing into images) */}
