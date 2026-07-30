@@ -1,3 +1,4 @@
+// src/app/mdt/duyurular/page.tsx
 "use client";
 
 import { useState } from "react";
@@ -57,7 +58,6 @@ export default function Duyurular() {
     setFormData({ title: ann.title, content: ann.content, type: ann.type || "Normal" });
     setEditingId(ann.id);
     setShowAddForm(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleDelete = async (id: number) => {
@@ -78,147 +78,116 @@ export default function Duyurular() {
   const getTypeStyles = (type: string) => {
     switch(type) {
       case "Acil":
-        return { color: "var(--color-danger)", bg: "rgba(239, 68, 68, 0.1)", border: "var(--color-danger)", icon: "fa-triangle-exclamation" };
+        return { color: "var(--mdt-danger)", bg: "rgba(239, 68, 68, 0.12)", border: "rgba(239, 68, 68, 0.22)", icon: "fa-triangle-exclamation" };
       case "Dikkat":
-        return { color: "var(--lapd-orange)", bg: "rgba(245, 158, 11, 0.1)", border: "var(--lapd-orange)", icon: "fa-circle-exclamation" };
+        return { color: "var(--mdt-warning)", bg: "rgba(245, 158, 11, 0.14)", border: "rgba(245, 158, 11, 0.25)", icon: "fa-circle-exclamation" };
       case "Normal":
       default:
-        return { color: "var(--lapd-blue-dark)", bg: "var(--bg-tertiary)", border: "var(--border-light)", icon: "fa-info-circle" };
+        return { color: "var(--mdt-accent)", bg: "rgba(29, 110, 247, 0.12)", border: "rgba(29, 110, 247, 0.22)", icon: "fa-bullhorn" };
     }
   };
 
   if (loading) return (
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "60vh", color: "var(--text-muted)", flexDirection: "column", gap: "1rem" }}>
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "60vh", color: "var(--mdt-text-muted)", flexDirection: "column", gap: "1rem" }}>
       <i className="fa-solid fa-circle-notch fa-spin" style={{ fontSize: "2rem" }} />
       <span style={{ fontSize: "0.9rem", fontWeight: 700 }}>DUYURULAR YÜKLENİYOR...</span>
     </div>
   );
 
-  const inputStyle: React.CSSProperties = {
-    width: "100%", padding: "0.85rem", background: 'var(--bg-tertiary)', border: "1px solid var(--border-light)",
-    borderRadius: '4px', color: 'var(--text-primary)', fontSize: "0.95rem", outline: "none", boxSizing: "border-box"
-  };
-
   return (
-    <div style={{ fontFamily: "var(--font-inter)", display: "flex", flexDirection: "column", gap: "2rem" }}>
-      {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', borderBottom: "2px solid var(--border-light)", paddingBottom: "1rem", flexWrap: "wrap", gap: "1rem" }}>
+    <div style={{ fontFamily: "'Inter', sans-serif" }}>
+      {/* Page Header */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem', paddingBottom: '1.5rem', borderBottom: '1px solid var(--mdt-border)', marginBottom: '2rem' }}>
         <div>
-          <h1 style={{ fontSize: '2.5rem', fontWeight: 900, margin: 0, color: 'var(--lapd-blue-dark)', letterSpacing: '-0.03em', textTransform: 'uppercase' }}>
-            DEPARTMAN DUYURULARI
+          <p style={{ fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)', margin: '0 0 0.3rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            L.A.C.P.D. · İÇ İLETİŞİM
+            <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "var(--mdt-text-muted)" }} />
+            <span style={{ color: "var(--mdt-accent)" }}>DEPT BROADCAST</span>
+          </p>
+          <h1 style={{ fontSize: '1.75rem', fontWeight: 900, margin: 0, color: 'var(--mdt-text-primary)', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+            Duyurular
           </h1>
-          <p style={{ color: 'var(--text-muted)', fontSize: '1rem', marginTop: '0.2rem', fontWeight: 600 }}>
+          <p style={{ color: 'var(--mdt-text-muted)', fontSize: '0.82rem', marginTop: '0.35rem', fontWeight: 400 }}>
             Departman içi önemli bildirimler ve uyarılar.
           </p>
         </div>
         {user?.role === 'admin' && (
           <div>
             <button 
-              onClick={() => { setShowAddForm(!showAddForm); setEditingId(null); setFormData({title: "", content: "", type: "Normal"}); }}
-              style={{ 
-                background: showAddForm ? "var(--bg-tertiary)" : "var(--lapd-blue-dark)",
-                color: showAddForm ? "var(--text-primary)" : "#fff",
-                border: showAddForm ? "1px solid var(--border-light)" : "none",
-                padding: "0.75rem 1.5rem", borderRadius: '4px', fontWeight: 900, cursor: "pointer",
-                display: "flex", alignItems: "center", gap: "0.5rem"
-              }}
+              onClick={() => { setShowAddForm(true); setEditingId(null); setFormData({title: "", content: "", type: "Normal"}); }}
+              style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.65rem 1.35rem', borderRadius: 8, border: '1px solid var(--mdt-accent)', background: 'var(--mdt-accent)', color: '#fff', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer', transition: 'opacity 0.15s' }}
+              onMouseOver={e => (e.currentTarget as HTMLElement).style.opacity = '0.85'}
+              onMouseOut={e => (e.currentTarget as HTMLElement).style.opacity = '1'}
             >
-              {showAddForm ? <><i className="fa-solid fa-xmark"></i> İPTAL</> : <><i className="fa-solid fa-bullhorn"></i> YENİ DUYURU</>}
+              <i className="fa-solid fa-plus"></i> YENİ DUYURU
             </button>
           </div>
         )}
       </div>
 
-      {/* Form */}
-      {showAddForm && user?.role === 'admin' && (
-        <div style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-light)', borderRadius: '8px', padding: '2rem' }}>
-          <h3 style={{ fontSize: '1.25rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '1.5rem', color: 'var(--lapd-blue-dark)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <i className="fa-solid fa-pen-to-square"></i>
-            {editingId ? "Duyuruyu Düzenle" : "Yeni Duyuru Yayınla"}
-          </h3>
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-            
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
-              <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 900, color: 'var(--text-primary)', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Duyuru Başlığı</label>
-                <input name="title" type="text" style={inputStyle} value={formData.title} onChange={handleChange} required />
-              </div>
-              <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 900, color: 'var(--text-primary)', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Önem Derecesi</label>
-                <select name="type" style={inputStyle} value={formData.type} onChange={handleChange} required>
-                  <option value="Normal">Normal</option>
-                  <option value="Dikkat">Dikkat</option>
-                  <option value="Acil">Acil</option>
-                </select>
-              </div>
-            </div>
-
-            <div>
-              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 900, color: 'var(--text-primary)', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Duyuru İçeriği</label>
-              <textarea name="content" style={{ ...inputStyle, minHeight: '120px', resize: 'vertical' }} rows={4} value={formData.content} onChange={handleChange} required></textarea>
-            </div>
-
-            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '0.5rem' }}>
-              <button type="submit" disabled={submitting} style={{ 
-                padding: '0.85rem 2rem', borderRadius: '4px', border: 'none',
-                background: "var(--lapd-blue-dark)", color: '#fff', fontWeight: 900,
-                cursor: submitting ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem'
-              }}>
-                {submitting ? <><i className="fa-solid fa-spinner fa-spin"></i> İŞLENİYOR...</> : <><i className="fa-solid fa-paper-plane"></i> {editingId ? "GÜNCELLE" : "YAYINLA"}</>}
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
-
       {/* Duyuru Listesi */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         {announcements.length === 0 ? (
-          <div style={{ backgroundColor: 'var(--bg-secondary)', borderRadius: '8px', padding: '4rem 2rem', textAlign: 'center', border: '1px solid var(--border-light)' }}>
-            <i className="fa-solid fa-bell-slash" style={{ fontSize: '3rem', color: 'var(--text-muted)', marginBottom: '1rem' }}></i>
-            <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', margin: 0, fontWeight: 700 }}>
-              Sistemde henüz yayınlanmış bir duyuru bulunmuyor.
-            </p>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '4rem 2rem', gap: '1rem', color: 'var(--mdt-text-muted)', textAlign: 'center' }}>
+            <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'var(--mdt-accent-alpha)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <i className="fa-solid fa-bell-slash" style={{ fontSize: '1.5rem', color: 'var(--mdt-accent)', opacity: 0.6 }} />
+            </div>
+            <div>
+              <div style={{ fontWeight: 700, color: 'var(--mdt-text-secondary)', marginBottom: '0.3rem' }}>Duyuru bulunamadı</div>
+              <div style={{ fontSize: '0.82rem' }}>Sistemde henüz yayınlanmış bir duyuru yok.</div>
+            </div>
           </div>
         ) : (
           announcements.map((ann: any) => {
             const styles = getTypeStyles(ann.type || "Normal");
             return (
-              <div key={ann.id} style={{ backgroundColor: 'var(--bg-secondary)', borderRadius: '8px', border: `1px solid var(--border-light)`, padding: '2rem', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden' }}>
-                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', backgroundColor: styles.color }} />
+              <div key={ann.id} style={{ 
+                background: 'var(--mdt-card-bg)',
+                border: '1px solid var(--mdt-border)',
+                borderLeft: `4px solid ${styles.color}`,
+                borderRadius: 10,
+                padding: '1.5rem',
+                transition: 'border-color 0.15s',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1rem'
+              }}
+              onMouseOver={e => (e.currentTarget as HTMLElement).style.borderRightColor = 'var(--mdt-accent)'}
+              onMouseOut={e => (e.currentTarget as HTMLElement).style.borderRightColor = 'var(--mdt-border)'}>
                 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
-                  <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>
-                    <div style={{ width: '45px', height: '45px', borderRadius: '4px', flexShrink: 0, backgroundColor: styles.bg, color: styles.color, border: `1px solid ${styles.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.25rem' }}>
-                      <i className={`fa-solid ${styles.icon}`}></i>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
+                      <span style={{ padding: '3px 10px', borderRadius: 20, fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', background: styles.bg, color: styles.color, border: `1px solid ${styles.border}`, display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
+                        <i className={`fa-solid ${styles.icon}`}></i> {ann.type || "Normal"}
+                      </span>
+                      <span style={{ fontSize: '0.75rem', color: 'var(--mdt-text-muted)' }}>
+                        <i className="fa-regular fa-clock" style={{ marginRight: '0.4rem' }}></i>{new Date(ann.createdAt).toLocaleString('tr-TR')}
+                      </span>
                     </div>
-                    <div>
-                      <h3 style={{ fontSize: '1.25rem', fontWeight: 900, textTransform: 'uppercase', margin: '0 0 0.5rem 0', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-                        {ann.title}
-                        <span style={{ fontSize: '0.7rem', padding: '0.2rem 0.6rem', borderRadius: '4px', backgroundColor: styles.bg, color: styles.color, border: `1px solid ${styles.border}` }}>
-                          {ann.type || "Normal"}
-                        </span>
-                      </h3>
-                      <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '1rem', fontWeight: 700, flexWrap: 'wrap' }}>
-                        <span style={{ color: 'var(--text-primary)' }}><i className="fa-solid fa-user-shield" style={{ marginRight: '0.4rem', color: 'var(--lapd-blue-dark)' }}></i>#{ann.author?.badge} {ann.author?.name} ({ann.author?.rank})</span>
-                        <span><i className="fa-regular fa-clock" style={{ marginRight: '0.4rem' }}></i>{new Date(ann.createdAt).toLocaleString('tr-TR')}</span>
-                      </div>
+                    <h3 style={{ fontSize: '1.25rem', fontWeight: 900, margin: '0 0 0.25rem 0', color: 'var(--mdt-text-primary)' }}>
+                      {ann.title}
+                    </h3>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--mdt-text-muted)', fontWeight: 600 }}>
+                      <i className="fa-solid fa-user-shield" style={{ marginRight: '0.4rem', color: 'var(--mdt-accent)' }}></i>#{ann.author?.badge} {ann.author?.name} ({ann.author?.rank})
                     </div>
                   </div>
                   {user?.role === 'admin' && (
                     <div style={{ display: 'flex', gap: '0.5rem' }}>
-                      <button onClick={() => handleEdit(ann)} title="Düzenle" style={{ width: '36px', height: '36px', borderRadius: '4px', backgroundColor: 'var(--lapd-blue-dark)', border: 'none', color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <button onClick={() => handleEdit(ann)} title="Düzenle" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 0.75rem', borderRadius: 8, border: '1px solid var(--mdt-border)', background: 'transparent', color: 'var(--mdt-text-secondary)', fontSize: '0.82rem', cursor: 'pointer', transition: 'all 0.15s' }}
+                        onMouseOver={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-accent)'; (e.currentTarget as HTMLElement).style.color = 'var(--mdt-accent)'; }}
+                        onMouseOut={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)'; }}>
                         <i className="fa-solid fa-pen"></i>
                       </button>
-                      <button onClick={() => handleDelete(ann.id)} title="Sil" style={{ width: '36px', height: '36px', borderRadius: '4px', backgroundColor: 'var(--color-danger)', border: 'none', color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <button onClick={() => handleDelete(ann.id)} title="Sil" style={{ padding: '0.5rem 0.75rem', borderRadius: 8, border: '1px solid rgba(239,68,68,0.25)', background: 'rgba(239,68,68,0.08)', color: '#ef4444', fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.12s' }}>
                         <i className="fa-solid fa-trash"></i>
                       </button>
                     </div>
                   )}
                 </div>
                 
-                <div style={{ backgroundColor: 'var(--bg-tertiary)', padding: '1.5rem', borderRadius: '4px', border: `1px solid var(--border-light)` }}>
-                  <p style={{ lineHeight: '1.8', whiteSpace: 'pre-wrap', fontSize: '0.95rem', margin: 0, color: 'var(--text-primary)' }}>
+                <div style={{ background: 'var(--mdt-bg-main)', padding: '1.25rem', borderRadius: 8, border: `1px solid var(--mdt-border)` }}>
+                  <p style={{ lineHeight: '1.7', whiteSpace: 'pre-wrap', fontSize: '0.9rem', margin: 0, color: 'var(--mdt-text-secondary)' }}>
                     {ann.content}
                   </p>
                 </div>
@@ -227,6 +196,69 @@ export default function Duyurular() {
           })
         )}
       </div>
+
+      {/* Admin Form Modal */}
+      {showAddForm && user?.role === 'admin' && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.72)', backdropFilter: 'blur(4px)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
+          <div style={{ background: 'var(--mdt-card-bg)', border: '1px solid var(--mdt-border)', borderRadius: 14, padding: '1.75rem', width: '100%', maxWidth: 560, boxShadow: '0 24px 60px rgba(0,0,0,0.55)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 800, margin: 0, color: 'var(--mdt-text-primary)' }}>
+                {editingId ? "Duyuruyu Düzenle" : "Yeni Duyuru Yayınla"}
+              </h3>
+              <button onClick={() => setShowAddForm(false)} style={{ background: 'transparent', border: 'none', color: 'var(--mdt-text-muted)', cursor: 'pointer', fontSize: '1.2rem' }}>
+                <i className="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)', marginBottom: '0.45rem' }}>Duyuru Başlığı</label>
+                <input name="title" type="text" 
+                  style={{ width: '100%', background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', borderRadius: 8, padding: '0.65rem 0.9rem', color: 'var(--mdt-text-primary)', fontSize: '0.875rem', outline: 'none', fontFamily: "'Inter', sans-serif", transition: 'border-color 0.15s, box-shadow 0.15s', boxSizing: 'border-box' }}
+                  onFocus={e => { e.target.style.borderColor = 'var(--mdt-accent)'; e.target.style.boxShadow = '0 0 0 3px var(--mdt-accent-alpha)'; }}
+                  onBlur={e => { e.target.style.borderColor = 'var(--mdt-border)'; e.target.style.boxShadow = 'none'; }}
+                  value={formData.title} onChange={handleChange} required 
+                />
+              </div>
+              
+              <div>
+                <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)', marginBottom: '0.45rem' }}>Önem Derecesi</label>
+                <select name="type" 
+                  style={{ width: '100%', background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', borderRadius: 8, padding: '0.65rem 0.9rem', color: 'var(--mdt-text-primary)', fontSize: '0.875rem', outline: 'none', fontFamily: "'Inter', sans-serif", transition: 'border-color 0.15s, box-shadow 0.15s', boxSizing: 'border-box' }}
+                  onFocus={e => { e.target.style.borderColor = 'var(--mdt-accent)'; e.target.style.boxShadow = '0 0 0 3px var(--mdt-accent-alpha)'; }}
+                  onBlur={e => { e.target.style.borderColor = 'var(--mdt-border)'; e.target.style.boxShadow = 'none'; }}
+                  value={formData.type} onChange={handleChange} required>
+                  <option value="Normal">Normal</option>
+                  <option value="Dikkat">Dikkat</option>
+                  <option value="Acil">Acil</option>
+                </select>
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)', marginBottom: '0.45rem' }}>İçerik</label>
+                <textarea name="content" 
+                  style={{ width: '100%', background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', borderRadius: 8, padding: '0.65rem 0.9rem', color: 'var(--mdt-text-primary)', fontSize: '0.875rem', outline: 'none', fontFamily: "'Inter', sans-serif", transition: 'border-color 0.15s, box-shadow 0.15s', minHeight: '120px', resize: 'vertical', boxSizing: 'border-box' }}
+                  onFocus={e => { e.target.style.borderColor = 'var(--mdt-accent)'; e.target.style.boxShadow = '0 0 0 3px var(--mdt-accent-alpha)'; }}
+                  onBlur={e => { e.target.style.borderColor = 'var(--mdt-border)'; e.target.style.boxShadow = 'none'; }}
+                  value={formData.content} onChange={handleChange} required></textarea>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '0.5rem' }}>
+                <button type="button" onClick={() => setShowAddForm(false)} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 1.1rem', borderRadius: 8, border: '1px solid var(--mdt-border)', background: 'transparent', color: 'var(--mdt-text-secondary)', fontWeight: 600, fontSize: '0.82rem', cursor: 'pointer', transition: 'border-color 0.15s, color 0.15s' }}
+                  onMouseOver={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-text-primary)'; (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)'; }}
+                  onMouseOut={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)'; }}>
+                  İptal
+                </button>
+                <button type="submit" disabled={submitting} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.65rem 1.35rem', borderRadius: 8, border: '1px solid var(--mdt-accent)', background: 'var(--mdt-accent)', color: '#fff', fontWeight: 700, fontSize: '0.85rem', cursor: submitting ? 'not-allowed' : 'pointer', transition: 'opacity 0.15s', opacity: submitting ? 0.7 : 1 }}
+                  onMouseOver={e => { if(!submitting) (e.currentTarget as HTMLElement).style.opacity = '0.85'} }
+                  onMouseOut={e => { if(!submitting) (e.currentTarget as HTMLElement).style.opacity = '1'} }>
+                  {submitting ? <><i className="fa-solid fa-spinner fa-spin"></i> İŞLENİYOR...</> : <><i className="fa-solid fa-paper-plane"></i> {editingId ? "GÜNCELLE" : "YAYINLA"}</>}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

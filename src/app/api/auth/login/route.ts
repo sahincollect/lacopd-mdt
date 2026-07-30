@@ -1,4 +1,4 @@
-export const dynamic = 'force-dynamic';
+﻿export const dynamic = 'force-dynamic';
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
@@ -70,7 +70,7 @@ export async function POST(req: Request) {
       data: { badge, ipAddress, success: true }
     });
 
-    const secretString = process.env.JWT_SECRET || "cok-gizli-lapd-anahtari-123";
+    const secretString = process.env.JWT_SECRET || "cok-gizli-LAC-anahtari-123";
     const secret = new TextEncoder().encode(secretString);
     
     // Set token expiration (internal JWT expiration)

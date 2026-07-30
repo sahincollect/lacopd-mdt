@@ -1,11 +1,18 @@
+// src/app/mdt/mazeretler/page.tsx
 "use client";
 import { useState, useEffect } from 'react';
 
 const statusColor: Record<string, string> = {
-  'Bekliyor': 'var(--lapd-orange)',
-  'Onaylandı': 'var(--color-success)',
-  'Reddedildi': 'var(--color-danger)',
+  'Bekliyor': 'var(--mdt-warning)',
+  'Onaylandı': 'var(--mdt-success)',
+  'Reddedildi': 'var(--mdt-danger)',
 };
+
+const statusBadgeStyles: Record<string, any> = {
+  'Bekliyor': { bg: 'rgba(245,158,11,0.14)', color: '#f59e0b', border: 'rgba(245,158,11,0.25)' },
+  'Onaylandı': { bg: 'rgba(34,197,94,0.12)', color: '#22c55e', border: 'rgba(34,197,94,0.22)' },
+  'Reddedildi': { bg: 'rgba(239,68,68,0.12)', color: '#ef4444', border: 'rgba(239,68,68,0.22)' },
+}
 
 export default function MazeretlerPage() {
   const [form, setForm] = useState({ badge: '', fullName: '', reason: '', startDate: '', endDate: '', dayCount: '' });
@@ -72,36 +79,33 @@ export default function MazeretlerPage() {
 
   const formatDate = (d: string) => new Date(d).toLocaleDateString('tr-TR', { day: '2-digit', month: 'short', year: 'numeric' });
 
-  const inputStyle: React.CSSProperties = {
-    width: '100%', padding: '0.85rem', backgroundColor: 'var(--bg-tertiary)', border: '1px solid var(--border-light)',
-    borderRadius: '4px', color: 'var(--text-primary)', fontSize: '0.95rem', outline: 'none', boxSizing: "border-box"
-  };
-
-  const labelStyle: React.CSSProperties = {
-    fontSize: '0.85rem', color: 'var(--text-primary)', textTransform: 'uppercase', fontWeight: 900, marginBottom: '0.5rem', display: 'block'
-  };
-
   return (
-    <div style={{ fontFamily: "var(--font-inter)", display: "flex", flexDirection: "column", gap: "2rem" }}>
-      {/* Başlık */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', borderBottom: '2px solid var(--border-light)', paddingBottom: '1rem', flexWrap: 'wrap', gap: '1rem' }}>
+    <div style={{ fontFamily: "'Inter', sans-serif" }}>
+      {/* Page Header */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem', paddingBottom: '1.5rem', borderBottom: '1px solid var(--mdt-border)', marginBottom: '2rem' }}>
         <div>
-          <h1 style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--lapd-blue-dark)', margin: 0, textTransform: 'uppercase', letterSpacing: '-0.03em' }}>
-            MAZERET YÖNETİMİ
+          <p style={{ fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)', margin: '0 0 0.3rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            L.A.C.P.D. · İNSAN KAYNAKLARI
+            <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "var(--mdt-text-muted)" }} />
+            <span style={{ color: "var(--mdt-accent)" }}>HR SYS</span>
+          </p>
+          <h1 style={{ fontSize: '1.75rem', fontWeight: 900, margin: 0, color: 'var(--mdt-text-primary)', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+            Mazeret Yönetimi
           </h1>
-          <p style={{ color: 'var(--text-muted)', fontSize: '1rem', marginTop: '0.2rem', fontWeight: 600 }}>
+          <p style={{ color: 'var(--mdt-text-muted)', fontSize: '0.82rem', marginTop: '0.35rem', fontWeight: 400 }}>
             İzin ve mazeret taleplerini buradan oluşturabilir ve takip edebilirsiniz.
           </p>
         </div>
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
+        <div style={{ display: 'flex', background: 'var(--mdt-bg-main)', padding: '0.25rem', borderRadius: 10, border: '1px solid var(--mdt-border)' }}>
           {(['form', 'list'] as const).map(t => (
             <button key={t} onClick={() => setTab(t)} style={{
-              padding: '0.75rem 1.25rem', borderRadius: '4px', border: t === tab ? '1px solid var(--lapd-blue-dark)' : '1px solid var(--border-light)', cursor: 'pointer', fontWeight: 900, fontSize: '0.85rem',
-              backgroundColor: tab === t ? 'var(--bg-tertiary)' : 'var(--bg-primary)',
-              color: tab === t ? 'var(--lapd-blue-dark)' : 'var(--text-muted)',
-              transition: 'all 0.2s', textTransform: 'uppercase'
+              padding: '0.5rem 1rem', borderRadius: 6, border: 'none', cursor: 'pointer', fontWeight: 600, fontSize: '0.8rem',
+              backgroundColor: tab === t ? 'var(--mdt-card-bg)' : 'transparent',
+              color: tab === t ? 'var(--mdt-text-primary)' : 'var(--mdt-text-muted)',
+              transition: 'all 0.2s',
+              boxShadow: tab === t ? '0 2px 4px rgba(0,0,0,0.2)' : 'none'
             }}>
-              {t === 'form' ? '+ Yeni Mazeret' : `📋 Talepler (${requests.length})`}
+              {t === 'form' ? 'Yeni Mazeret' : `Başvurular (${requests.length})`}
             </button>
           ))}
         </div>
@@ -109,66 +113,83 @@ export default function MazeretlerPage() {
 
       <>
         {tab === 'form' ? (
-          <div key="form">
-            <div style={{ backgroundColor: 'var(--bg-secondary)', borderRadius: '8px', border: '1px solid var(--border-light)', padding: '2rem' }}>
-              <h2 style={{ margin: '0 0 1.5rem', fontSize: '1.25rem', fontWeight: 900, color: 'var(--lapd-blue-dark)', textTransform: 'uppercase' }}>
-                MAZERET TALEBİ OLUŞTUR
-              </h2>
+          <div key="form" style={{ display: 'flex', justifyContent: 'center' }}>
+            <div style={{ background: 'var(--mdt-card-bg)', border: '1px solid var(--mdt-border)', borderRadius: 10, padding: '2rem', width: '100%', maxWidth: 640 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
+                <i className="fa-solid fa-file-signature" style={{ color: 'var(--mdt-accent)', fontSize: '1.2rem' }} />
+                <h2 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 800, color: 'var(--mdt-text-primary)' }}>
+                  Mazeret Talebi Oluştur
+                </h2>
+              </div>
               
               {success && (
-                <div style={{ backgroundColor: 'var(--bg-tertiary)', border: '1px solid var(--color-success)', borderRadius: '4px', padding: '1rem', marginBottom: '1.5rem', color: 'var(--color-success)', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700 }}>
+                <div style={{ background: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.2)', borderRadius: 8, padding: '1rem', marginBottom: '1.5rem', color: '#22c55e', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600 }}>
                   <i className="fa-solid fa-check-circle"></i> {success}
                 </div>
               )}
               {error && (
-                <div style={{ backgroundColor: 'var(--bg-tertiary)', border: '1px solid var(--color-danger)', borderRadius: '4px', padding: '1rem', marginBottom: '1.5rem', color: 'var(--color-danger)', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700 }}>
+                <div style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: 8, padding: '1rem', marginBottom: '1.5rem', color: '#ef4444', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600 }}>
                   <i className="fa-solid fa-circle-exclamation"></i> {error}
                 </div>
               )}
 
-              <form onSubmit={handleSubmit}>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '1.5rem' }}>
+              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
                   <div>
-                    <label style={labelStyle}>Rozet Numarası *</label>
-                    <input style={inputStyle} placeholder="Örn: 042" value={form.badge} onChange={e => setForm(f => ({ ...f, badge: e.target.value }))} required />
+                    <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)', marginBottom: '0.45rem' }}>Rozet Numarası *</label>
+                    <input style={{ width: '100%', background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', borderRadius: 8, padding: '0.65rem 0.9rem', color: 'var(--mdt-text-primary)', fontSize: '0.875rem', outline: 'none', fontFamily: "'Inter', sans-serif", transition: 'border-color 0.15s, box-shadow 0.15s', boxSizing: 'border-box' }}
+                      onFocus={e => { e.target.style.borderColor = 'var(--mdt-accent)'; e.target.style.boxShadow = '0 0 0 3px var(--mdt-accent-alpha)'; }}
+                      onBlur={e => { e.target.style.borderColor = 'var(--mdt-border)'; e.target.style.boxShadow = 'none'; }}
+                      placeholder="Örn: 042" value={form.badge} onChange={e => setForm(f => ({ ...f, badge: e.target.value }))} required />
                   </div>
                   <div>
-                    <label style={labelStyle}>İsim Soyisim *</label>
-                    <input style={inputStyle} placeholder="Tam adınız" value={form.fullName} onChange={e => setForm(f => ({ ...f, fullName: e.target.value }))} required />
+                    <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)', marginBottom: '0.45rem' }}>İsim Soyisim *</label>
+                    <input style={{ width: '100%', background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', borderRadius: 8, padding: '0.65rem 0.9rem', color: 'var(--mdt-text-primary)', fontSize: '0.875rem', outline: 'none', fontFamily: "'Inter', sans-serif", transition: 'border-color 0.15s, box-shadow 0.15s', boxSizing: 'border-box' }}
+                      onFocus={e => { e.target.style.borderColor = 'var(--mdt-accent)'; e.target.style.boxShadow = '0 0 0 3px var(--mdt-accent-alpha)'; }}
+                      onBlur={e => { e.target.style.borderColor = 'var(--mdt-border)'; e.target.style.boxShadow = 'none'; }}
+                      placeholder="Tam adınız" value={form.fullName} onChange={e => setForm(f => ({ ...f, fullName: e.target.value }))} required />
+                  </div>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)', marginBottom: '0.45rem' }}>Başlangıç Tarihi *</label>
+                    <input type="date" style={{ width: '100%', background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', borderRadius: 8, padding: '0.65rem 0.9rem', color: 'var(--mdt-text-primary)', fontSize: '0.875rem', outline: 'none', fontFamily: "'Inter', sans-serif", transition: 'border-color 0.15s, box-shadow 0.15s', boxSizing: 'border-box', colorScheme: 'dark' }}
+                      onFocus={e => { e.target.style.borderColor = 'var(--mdt-accent)'; e.target.style.boxShadow = '0 0 0 3px var(--mdt-accent-alpha)'; }}
+                      onBlur={e => { e.target.style.borderColor = 'var(--mdt-border)'; e.target.style.boxShadow = 'none'; }}
+                      value={form.startDate} onChange={e => setForm(f => ({ ...f, startDate: e.target.value }))} required />
                   </div>
                   <div>
-                    <label style={labelStyle}>Başlangıç Tarihi *</label>
-                    <input type="date" style={{ ...inputStyle, colorScheme: 'dark' }} value={form.startDate} onChange={e => setForm(f => ({ ...f, startDate: e.target.value }))} required />
-                  </div>
-                  <div>
-                    <label style={labelStyle}>Bitiş Tarihi *</label>
-                    <input type="date" style={{ ...inputStyle, colorScheme: 'dark' }} value={form.endDate} onChange={e => setForm(f => ({ ...f, endDate: e.target.value }))} required />
+                    <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)', marginBottom: '0.45rem' }}>Bitiş Tarihi *</label>
+                    <input type="date" style={{ width: '100%', background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', borderRadius: 8, padding: '0.65rem 0.9rem', color: 'var(--mdt-text-primary)', fontSize: '0.875rem', outline: 'none', fontFamily: "'Inter', sans-serif", transition: 'border-color 0.15s, box-shadow 0.15s', boxSizing: 'border-box', colorScheme: 'dark' }}
+                      onFocus={e => { e.target.style.borderColor = 'var(--mdt-accent)'; e.target.style.boxShadow = '0 0 0 3px var(--mdt-accent-alpha)'; }}
+                      onBlur={e => { e.target.style.borderColor = 'var(--mdt-border)'; e.target.style.boxShadow = 'none'; }}
+                      value={form.endDate} onChange={e => setForm(f => ({ ...f, endDate: e.target.value }))} required />
                   </div>
                 </div>
 
                 {form.dayCount && (
-                  <div style={{ backgroundColor: 'var(--bg-tertiary)', border: '1px solid var(--border-light)', borderRadius: '4px', padding: '1rem', marginBottom: '1.5rem', color: 'var(--lapd-blue-dark)', fontSize: '0.9rem', fontWeight: 800 }}>
-                    <i className="fa-solid fa-calendar-days" style={{ marginRight: '0.5rem' }}></i>
-                    TOPLAM GÜN SAYISI: <strong>{form.dayCount} GÜN</strong>
+                  <div style={{ background: 'rgba(29, 110, 247, 0.08)', border: '1px dashed var(--mdt-accent)', borderRadius: 8, padding: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', color: 'var(--mdt-accent)', fontSize: '0.9rem', fontWeight: 700 }}>
+                    <i className="fa-solid fa-calendar-days"></i>
+                    Toplam Gün Sayısı: {form.dayCount} GÜN
                   </div>
                 )}
 
-                <div style={{ marginBottom: '1.5rem' }}>
-                  <label style={labelStyle}>Mazeret Nedeni *</label>
-                  <textarea style={{ ...inputStyle, minHeight: '120px', resize: 'vertical', fontFamily: 'inherit' }}
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)', marginBottom: '0.45rem' }}>Mazeret Nedeni *</label>
+                  <textarea style={{ width: '100%', background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', borderRadius: 8, padding: '0.65rem 0.9rem', color: 'var(--mdt-text-primary)', fontSize: '0.875rem', outline: 'none', fontFamily: "'Inter', sans-serif", transition: 'border-color 0.15s, box-shadow 0.15s', boxSizing: 'border-box', minHeight: '100px', resize: 'vertical' }}
+                    onFocus={e => { e.target.style.borderColor = 'var(--mdt-accent)'; e.target.style.boxShadow = '0 0 0 3px var(--mdt-accent-alpha)'; }}
+                    onBlur={e => { e.target.style.borderColor = 'var(--mdt-border)'; e.target.style.boxShadow = 'none'; }}
                     placeholder="Mazeret nedeninizi açıklayınız..."
                     value={form.reason}
                     onChange={e => setForm(f => ({ ...f, reason: e.target.value }))} required
                   />
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                  <button type="submit" disabled={loading} style={{
-                    backgroundColor: 'var(--lapd-blue-dark)', color: '#fff', padding: '0.85rem 2.5rem', borderRadius: '4px', border: 'none',
-                    fontWeight: 900, fontSize: '0.95rem', cursor: loading ? 'not-allowed' : 'pointer',
-                    display: 'flex', alignItems: 'center', gap: '0.5rem'
-                  }}>
-                    {loading ? <><i className="fa-solid fa-circle-notch fa-spin"></i> GÖNDERİLİYOR...</> : <><i className="fa-solid fa-paper-plane"></i> MAZERET GÖNDER</>}
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '0.5rem' }}>
+                  <button type="submit" disabled={loading} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.65rem 1.35rem', borderRadius: 8, border: '1px solid var(--mdt-accent)', background: 'var(--mdt-accent)', color: '#fff', fontWeight: 700, fontSize: '0.85rem', cursor: loading ? 'not-allowed' : 'pointer', transition: 'opacity 0.15s', opacity: loading ? 0.7 : 1 }}
+                    onMouseOver={e => { if(!loading) (e.currentTarget as HTMLElement).style.opacity = '0.85'} }
+                    onMouseOut={e => { if(!loading) (e.currentTarget as HTMLElement).style.opacity = '1'} }>
+                    {loading ? <><i className="fa-solid fa-spinner fa-spin"></i> GÖNDERİLİYOR...</> : <><i className="fa-solid fa-paper-plane"></i> TALEBİ GÖNDER</>}
                   </button>
                 </div>
               </form>
@@ -177,57 +198,82 @@ export default function MazeretlerPage() {
         ) : (
           <div key="list">
             {requests.length === 0 ? (
-              <div style={{ backgroundColor: 'var(--bg-secondary)', borderRadius: '8px', padding: '4rem 2rem', textAlign: 'center', border: '1px solid var(--border-light)' }}>
-                <i className="fa-solid fa-calendar-xmark" style={{ fontSize: '3rem', display: 'block', marginBottom: '1rem', color: 'var(--text-muted)' }}></i>
-                <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', margin: 0, fontWeight: 700 }}>
-                  Henüz mazeret talebi bulunmuyor.
-                </p>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '4rem 2rem', gap: '1rem', color: 'var(--mdt-text-muted)', textAlign: 'center' }}>
+                <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'var(--mdt-accent-alpha)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <i className="fa-solid fa-calendar-xmark" style={{ fontSize: '1.5rem', color: 'var(--mdt-accent)', opacity: 0.6 }} />
+                </div>
+                <div>
+                  <div style={{ fontWeight: 700, color: 'var(--mdt-text-secondary)', marginBottom: '0.3rem' }}>Talep bulunamadı</div>
+                  <div style={{ fontSize: '0.82rem' }}>Henüz mazeret talebi bulunmuyor.</div>
+                </div>
               </div>
             ) : (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                {requests.map(r => (
-                  <div key={r.id}
-                    style={{ backgroundColor: 'var(--bg-secondary)', borderRadius: '8px', border: `1px solid var(--border-light)`, padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
-                    
-                    <div style={{ width: '4px', height: '60px', borderRadius: '4px', backgroundColor: statusColor[r.status] || 'var(--text-muted)', flexShrink: 0 }}></div>
-
-                    <div style={{ flex: 1, minWidth: '200px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
-                        <span style={{ fontWeight: 900, color: 'var(--text-primary)', fontSize: '1.1rem', textTransform: 'uppercase' }}>{r.fullName}</span>
-                        <span style={{ backgroundColor: 'var(--bg-tertiary)', borderRadius: '4px', padding: '0.2rem 0.6rem', fontSize: '0.8rem', color: 'var(--lapd-blue-dark)', fontWeight: 800, border: '1px solid var(--border-light)' }}>#{r.badge}</span>
-                        <span style={{ marginLeft: 'auto', fontSize: '0.75rem', fontWeight: 900, color: '#fff', backgroundColor: statusColor[r.status] || 'var(--text-muted)', padding: '0.4rem 1rem', borderRadius: '4px', textTransform: 'uppercase' }}>
-                          {r.status}
-                        </span>
-                      </div>
-                      <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.5rem', fontWeight: 700 }}>
-                        <i className="fa-solid fa-calendar-range" style={{ marginRight: '0.4rem' }}></i>
-                        {formatDate(r.startDate)} – {formatDate(r.endDate)}
-                        <span style={{ marginLeft: '1rem', color: 'var(--lapd-blue-dark)', fontWeight: 900 }}>{r.dayCount} GÜN</span>
-                      </div>
-                      <div style={{ fontSize: '0.95rem', color: 'var(--text-primary)', backgroundColor: 'var(--bg-tertiary)', padding: '1rem', borderRadius: '4px', border: '1px solid var(--border-light)', marginTop: '0.5rem' }}>
-                        {r.reason}
-                      </div>
-                    </div>
-
-                    {user?.role === 'admin' && (
-                      <div style={{ display: 'flex', gap: '0.5rem', flexShrink: 0, flexDirection: 'column' }}>
-                        {r.status === 'Bekliyor' && (
-                          <div style={{ display: 'flex', gap: '0.5rem' }}>
-                            <button onClick={() => handleStatus(r.id, 'Onaylandı')} style={{ padding: '0.6rem 1rem', borderRadius: '4px', border: 'none', backgroundColor: 'var(--color-success)', color: '#fff', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                              <i className="fa-solid fa-check"></i> Onayla
-                            </button>
-                            <button onClick={() => handleStatus(r.id, 'Reddedildi')} style={{ padding: '0.6rem 1rem', borderRadius: '4px', border: 'none', backgroundColor: 'var(--lapd-orange)', color: '#fff', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                              <i className="fa-solid fa-xmark"></i> Reddet
-                            </button>
-                          </div>
-                        )}
-                        <button onClick={() => handleDelete(r.id)} style={{ padding: '0.6rem 1rem', borderRadius: '4px', border: 'none', backgroundColor: 'var(--color-danger)', color: '#fff', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.4rem', justifyContent: 'center' }}>
-                          <i className="fa-solid fa-trash"></i> SİL
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                ))}
+              <div style={{ background: 'var(--mdt-card-bg)', border: '1px solid var(--mdt-border)', borderRadius: 10, overflow: 'hidden' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <thead>
+                    <tr>
+                      <th style={{ padding: '0.75rem 1.25rem', textAlign: 'left', fontSize: '0.62rem', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)', borderBottom: '1px solid var(--mdt-border)', background: 'var(--mdt-bg-main)' }}>Personel</th>
+                      <th style={{ padding: '0.75rem 1.25rem', textAlign: 'left', fontSize: '0.62rem', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)', borderBottom: '1px solid var(--mdt-border)', background: 'var(--mdt-bg-main)' }}>Tarih Aralığı</th>
+                      <th style={{ padding: '0.75rem 1.25rem', textAlign: 'left', fontSize: '0.62rem', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)', borderBottom: '1px solid var(--mdt-border)', background: 'var(--mdt-bg-main)' }}>Gerekçe</th>
+                      <th style={{ padding: '0.75rem 1.25rem', textAlign: 'center', fontSize: '0.62rem', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)', borderBottom: '1px solid var(--mdt-border)', background: 'var(--mdt-bg-main)' }}>Durum</th>
+                      {user?.role === 'admin' && (
+                        <th style={{ padding: '0.75rem 1.25rem', textAlign: 'right', fontSize: '0.62rem', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)', borderBottom: '1px solid var(--mdt-border)', background: 'var(--mdt-bg-main)' }}>İşlemler</th>
+                      )}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {requests.map(r => {
+                      const badgeSt = statusBadgeStyles[r.status] || { bg: 'rgba(255,255,255,0.1)', color: 'var(--mdt-text-secondary)', border: 'rgba(255,255,255,0.2)' };
+                      return (
+                        <tr key={r.id} style={{ transition: 'background 0.1s', borderBottom: '1px solid rgba(255,255,255,0.03)' }}
+                          onMouseOver={e => (e.currentTarget as HTMLElement).style.background = 'var(--mdt-hover)'}
+                          onMouseOut={e => (e.currentTarget as HTMLElement).style.background = 'transparent'}>
+                          <td style={{ padding: '1rem 1.25rem' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+                              <span style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--mdt-text-primary)' }}>{r.fullName}</span>
+                              <span style={{ fontSize: '0.75rem', color: 'var(--mdt-text-muted)' }}>#{r.badge}</span>
+                            </div>
+                          </td>
+                          <td style={{ padding: '1rem 1.25rem' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+                              <span style={{ fontSize: '0.8rem', color: 'var(--mdt-text-secondary)' }}>{formatDate(r.startDate)} - {formatDate(r.endDate)}</span>
+                              <span style={{ fontSize: '0.75rem', color: 'var(--mdt-accent)', fontWeight: 600 }}>{r.dayCount} Gün</span>
+                            </div>
+                          </td>
+                          <td style={{ padding: '1rem 1.25rem', maxWidth: '300px' }}>
+                            <div style={{ fontSize: '0.8rem', color: 'var(--mdt-text-secondary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                              {r.reason}
+                            </div>
+                          </td>
+                          <td style={{ padding: '1rem 1.25rem', textAlign: 'center' }}>
+                            <span style={{ padding: '3px 10px', borderRadius: 20, fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', background: badgeSt.bg, color: badgeSt.color, border: `1px solid ${badgeSt.border}` }}>
+                              {r.status}
+                            </span>
+                          </td>
+                          {user?.role === 'admin' && (
+                            <td style={{ padding: '1rem 1.25rem', textAlign: 'right' }}>
+                              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
+                                {r.status === 'Bekliyor' && (
+                                  <>
+                                    <button onClick={() => handleStatus(r.id, 'Onaylandı')} title="Onayla" style={{ width: 28, height: 28, borderRadius: 6, border: '1px solid rgba(34,197,94,0.25)', background: 'rgba(34,197,94,0.1)', color: '#22c55e', fontSize: '0.75rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                      <i className="fa-solid fa-check"></i>
+                                    </button>
+                                    <button onClick={() => handleStatus(r.id, 'Reddedildi')} title="Reddet" style={{ width: 28, height: 28, borderRadius: 6, border: '1px solid rgba(245,158,11,0.25)', background: 'rgba(245,158,11,0.1)', color: '#f59e0b', fontSize: '0.75rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                      <i className="fa-solid fa-xmark"></i>
+                                    </button>
+                                  </>
+                                )}
+                                <button onClick={() => handleDelete(r.id)} title="Sil" style={{ width: 28, height: 28, borderRadius: 6, border: '1px solid rgba(239,68,68,0.25)', background: 'rgba(239,68,68,0.08)', color: '#ef4444', fontSize: '0.75rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                  <i className="fa-solid fa-trash"></i>
+                                </button>
+                              </div>
+                            </td>
+                          )}
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
               </div>
             )}
           </div>

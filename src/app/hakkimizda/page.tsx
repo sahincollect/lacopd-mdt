@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from 'next/link';
 
@@ -26,7 +26,7 @@ export default function Hakkimizda() {
   const hierarchy = [
     {
       tier: "LİDERLİK KADEMESİ",
-      color: "var(--lapd-blue-dark)",
+      color: "var(--LAC-blue-dark)",
       bg: "var(--bg-tertiary)",
       ranks: [
         { title: "Sergeant II", icon: "fa-star", desc: "Topluluk Lideri (Community Lead) - Departmanın kurucusu ve nihai karar mercii." }
@@ -34,7 +34,7 @@ export default function Hakkimizda() {
     },
     {
       tier: "ÜST DÜZEY YÖNETİM",
-      color: "var(--lapd-blue)",
+      color: "var(--LAC-blue)",
       bg: "var(--bg-tertiary)",
       ranks: [
         { title: "Detective III", icon: "fa-user-shield", desc: "Büro yöneticileri ve üst düzey operasyon amirleri." }
@@ -42,7 +42,7 @@ export default function Hakkimizda() {
     },
     {
       tier: "DENETLEYİCİ KADEME",
-      color: "var(--lapd-orange)",
+      color: "var(--LAC-orange)",
       bg: "var(--bg-tertiary)",
       ranks: [
         { title: "Sergeant I", icon: "fa-chevron-up", desc: "Vardiya amirleri ve sahadaki doğrudan denetleyiciler." }
@@ -50,7 +50,7 @@ export default function Hakkimizda() {
     },
     {
       tier: "SORUŞTURMA & UZMAN PERSONEL",
-      color: "var(--lapd-text-dark)",
+      color: "var(--LAC-text-dark)",
       bg: "var(--bg-tertiary)",
       ranks: [
         { title: "Detective II", icon: "fa-magnifying-glass", desc: "Kıdemli dedektifler ve uzman soruşturmacılar." },
@@ -59,7 +59,7 @@ export default function Hakkimizda() {
     },
     {
       tier: "SAHA PERSONELİ (PATROL)",
-      color: "var(--lapd-text-muted)",
+      color: "var(--LAC-text-muted)",
       bg: "var(--bg-tertiary)",
       ranks: [
         { title: "Officer III", icon: "fa-shield-halved", desc: "Kıdemli devriye memurları ve saha eğitmenleri." },
@@ -70,18 +70,18 @@ export default function Hakkimizda() {
   ];
 
   return (
-    <div style={{ backgroundColor: 'var(--lapd-bg)', color: 'var(--lapd-text-dark)', fontFamily: 'var(--font-inter)', minHeight: '100vh', paddingBottom: '5rem' }}>
+    <div style={{ backgroundColor: 'var(--LAC-bg)', color: 'var(--LAC-text-dark)', fontFamily: 'var(--font-inter)', minHeight: '100vh', paddingBottom: '5rem' }}>
       
       {/* ── HEADER BREADCRUMB ── */}
-      <div style={{ backgroundColor: 'var(--bg-secondary)', padding: '1rem 2rem', borderBottom: '1px solid var(--lapd-border)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', fontSize: '0.85rem', color: 'var(--lapd-text-muted)' }}>
-          <Link href="/" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Ana Sayfa</Link> &nbsp;&gt;&nbsp; 
-          <span style={{ color: 'var(--lapd-orange)' }}>Biz Kimiz?</span>
+      <div style={{ backgroundColor: 'var(--bg-secondary)', padding: '1rem 2rem', borderBottom: '1px solid var(--LAC-border)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', fontSize: '0.85rem', color: 'var(--LAC-text-muted)' }}>
+          <Link href="/" style={{ color: 'var(--LAC-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Ana Sayfa</Link> &nbsp;&gt;&nbsp; 
+          <span style={{ color: 'var(--LAC-orange)' }}>Biz Kimiz?</span>
         </div>
       </div>
 
       {/* ── Hero ── */}
-      <section style={{ position: 'relative', minHeight: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', borderBottom: '1px solid var(--lapd-border)', backgroundImage: 'url("/gallery/saspbenz.png")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <section style={{ position: 'relative', minHeight: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', borderBottom: '1px solid var(--LAC-border)', backgroundImage: 'url("/gallery/saspbenz.png")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.65)' }} />
         <div style={{ position: 'relative', zIndex: 1, maxWidth: '900px', padding: '4rem 2rem' }}>
           <h1 style={{ fontFamily: 'var(--font-inter)', fontSize: '3.5rem', fontWeight: 800, color: '#ffffff', marginBottom: '1.5rem', letterSpacing: '-0.02em', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
@@ -95,11 +95,11 @@ export default function Hakkimizda() {
 
       {/* ── Birimler ── */}
       <section style={{ maxWidth: '1200px', margin: '5rem auto 0', padding: '0 2rem' }}>
-        <div style={{ borderLeft: '4px solid var(--lapd-orange)', paddingLeft: '1.5rem', marginBottom: '3rem' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', lineHeight: 1 }}>
+        <div style={{ borderLeft: '4px solid var(--LAC-orange)', paddingLeft: '1.5rem', marginBottom: '3rem' }}>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--LAC-blue-dark)', lineHeight: 1 }}>
             DEPARTMAN BİRİMLERİ
           </h2>
-          <p style={{ color: 'var(--lapd-text-muted)', fontSize: '1rem', marginTop: '1rem', maxWidth: '800px' }}>
+          <p style={{ color: 'var(--LAC-text-muted)', fontSize: '1rem', marginTop: '1rem', maxWidth: '800px' }}>
             Los Angeles gibi devasa bir metropolün güvenliği, uzmanlaşmış ve senkronize çalışan birimlerin varlığıyla mümkündür.
           </p>
         </div>
@@ -107,19 +107,19 @@ export default function Hakkimizda() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
           {divisions.map(div => (
             <div key={div.id} style={{ 
-              backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--lapd-border)', padding: '2rem', display: 'flex', flexDirection: 'column',
+              backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--LAC-border)', padding: '2rem', display: 'flex', flexDirection: 'column',
               boxShadow: '0 4px 6px rgba(0,0,0,0.02)', transition: 'transform 0.2s, box-shadow 0.2s', cursor: 'default'
             }}
             onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.boxShadow = '0 10px 20px rgba(0,0,0,0.08)'; }}
             onMouseOut={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.02)'; }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
-                <div style={{ width: '50px', height: '50px', backgroundColor: 'var(--lapd-gray-bg)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--lapd-blue-dark)', fontSize: '1.2rem' }}>
+                <div style={{ width: '50px', height: '50px', backgroundColor: 'var(--LAC-gray-bg)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--LAC-blue-dark)', fontSize: '1.2rem' }}>
                   <i className={`fa-solid ${div.icon}`} />
                 </div>
-                <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', margin: 0 }}>{div.name}</h3>
+                <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--LAC-blue-dark)', margin: 0 }}>{div.name}</h3>
               </div>
-              <p style={{ color: 'var(--lapd-text-dark)', fontSize: '0.95rem', lineHeight: '1.6', margin: 0 }}>{div.desc}</p>
+              <p style={{ color: 'var(--LAC-text-dark)', fontSize: '0.95rem', lineHeight: '1.6', margin: 0 }}>{div.desc}</p>
             </div>
           ))}
         </div>
@@ -127,14 +127,14 @@ export default function Hakkimizda() {
 
       {/* ── Komuta Kademesi Org Chart ── */}
       <section style={{ maxWidth: '1000px', margin: '5rem auto 0', padding: '0 2rem' }}>
-        <div style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--lapd-border)', padding: '3rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+        <div style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--LAC-border)', padding: '3rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
 
           <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-            <h2 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', lineHeight: 1, marginBottom: '1rem' }}>
+            <h2 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--LAC-blue-dark)', lineHeight: 1, marginBottom: '1rem' }}>
               KOMUTA KADEMESİ
             </h2>
-            <div style={{ width: '60px', height: '4px', backgroundColor: 'var(--lapd-orange)', margin: '0 auto 1.5rem' }}></div>
-            <p style={{ color: 'var(--lapd-text-muted)', fontSize: '1.1rem', lineHeight: '1.8', maxWidth: '800px', margin: '0 auto' }}>
+            <div style={{ width: '60px', height: '4px', backgroundColor: 'var(--LAC-orange)', margin: '0 auto 1.5rem' }}></div>
+            <p style={{ color: 'var(--LAC-text-muted)', fontSize: '1.1rem', lineHeight: '1.8', maxWidth: '800px', margin: '0 auto' }}>
               Los Angeles Community Police Department, operasyonel başarıyı sağlamak adına katı bir emir-komuta zinciriyle yönetilir.
             </p>
           </div>
@@ -142,7 +142,7 @@ export default function Hakkimizda() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             {hierarchy.map((tier, idx) => (
               <div key={idx} style={{ 
-                border: '1px solid var(--lapd-border)', 
+                border: '1px solid var(--LAC-border)', 
                 borderLeft: `4px solid ${tier.color}`,
                 backgroundColor: tier.bg,
                 padding: '2rem'
@@ -157,8 +157,8 @@ export default function Hakkimizda() {
                         <i className={`fa-solid ${rank.icon}`} />
                       </div>
                       <div>
-                        <h4 style={{ margin: '0 0 0.3rem', fontSize: '1.1rem', fontWeight: 700, color: 'var(--lapd-text-dark)' }}>{rank.title}</h4>
-                        <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--lapd-text-muted)', lineHeight: 1.4 }}>{rank.desc}</p>
+                        <h4 style={{ margin: '0 0 0.3rem', fontSize: '1.1rem', fontWeight: 700, color: 'var(--LAC-text-dark)' }}>{rank.title}</h4>
+                        <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--LAC-text-muted)', lineHeight: 1.4 }}>{rank.desc}</p>
                       </div>
                     </div>
                   ))}
@@ -173,17 +173,17 @@ export default function Hakkimizda() {
 
       {/* ── CTA ── */}
       <section style={{ textAlign: 'center', marginTop: '6rem', padding: '0 2rem' }}>
-        <h2 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', marginBottom: '1rem' }}>
+        <h2 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--LAC-blue-dark)', marginBottom: '1rem' }}>
           HEMEN ARAMIZA KATILIN
         </h2>
-        <div style={{ width: '60px', height: '4px', backgroundColor: 'var(--lapd-orange)', margin: '0 auto 1.5rem' }}></div>
-        <p style={{ color: 'var(--lapd-text-muted)', fontSize: '1.1rem', margin: '0 auto 2.5rem', maxWidth: '600px' }}>
+        <div style={{ width: '60px', height: '4px', backgroundColor: 'var(--LAC-orange)', margin: '0 auto 1.5rem' }}></div>
+        <p style={{ color: 'var(--LAC-text-muted)', fontSize: '1.1rem', margin: '0 auto 2.5rem', maxWidth: '600px' }}>
           Süreç zorlu, standartlar yüksek, ancak şehrinize hizmet etmenin ödülü eşsizdir.
         </p>
         <a href="https://discord.com/invite/laco" target="_blank" rel="noopener noreferrer"
-          style={{ backgroundColor: 'var(--lapd-orange)', color: 'white', fontSize: '1rem', padding: '1.2rem 3.5rem', fontWeight: 800, display: 'inline-flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none', transition: 'background-color 0.2s' }}
-          onMouseOver={e => e.currentTarget.style.backgroundColor = 'var(--lapd-orange-hover)'}
-          onMouseOut={e => e.currentTarget.style.backgroundColor = 'var(--lapd-orange)'}>
+          style={{ backgroundColor: 'var(--LAC-orange)', color: 'white', fontSize: '1rem', padding: '1.2rem 3.5rem', fontWeight: 800, display: 'inline-flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none', transition: 'background-color 0.2s' }}
+          onMouseOver={e => e.currentTarget.style.backgroundColor = 'var(--LAC-orange-hover)'}
+          onMouseOut={e => e.currentTarget.style.backgroundColor = 'var(--LAC-orange)'}>
           <i className="fa-brands fa-discord" />
           DISCORD SUNUCUMUZA KATIL
         </a>

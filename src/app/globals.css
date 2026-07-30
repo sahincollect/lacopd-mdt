@@ -1,4 +1,4 @@
-/* Font Awesome is loaded via <link> in layout.tsx */
+﻿/* Font Awesome is loaded via <link> in layout.tsx */
 
 /* =====================================================
    ANIMATION OVERRIDE â Force animations for all users
@@ -57,8 +57,8 @@ html {
   --border-light: #e2e8f0;
   --border-strong: #cbd5e1;
 
-  --accent-primary: #041632;      /* LAPD Dark Blue */
-  --accent-secondary: #E84F2A;    /* LAPD Orange */
+  --accent-primary: #041632;      /* LAC Dark Blue */
+  --accent-secondary: #E84F2A;    /* LAC Orange */
   
   /* Shared standard accents */
   --color-success: #10B981;
@@ -82,12 +82,12 @@ html {
   --bg-panel: var(--bg-secondary);
   --bg-hover: var(--bg-tertiary);
   --border-color: var(--border-light);
-  --lapd-bg: var(--bg-primary);
-  --lapd-text-dark: var(--text-primary);
-  --lapd-text-muted: var(--text-muted);
-  --lapd-blue-dark: var(--accent-primary);
-  --lapd-orange: var(--accent-secondary);
-  --lapd-border: var(--border-light);
+  --LAC-bg: var(--bg-primary);
+  --LAC-text-dark: var(--text-primary);
+  --LAC-text-muted: var(--text-muted);
+  --LAC-blue-dark: var(--accent-primary);
+  --LAC-orange: var(--accent-secondary);
+  --LAC-border: var(--border-light);
 }
 
 .dark {
@@ -105,7 +105,7 @@ html {
   --border-strong: rgba(255, 255, 255, 0.2);
 
   --accent-primary: #FFFFFF;      /* Pure White */
-  --accent-secondary: #E84F2A;    /* LAPD Orange */
+  --accent-secondary: #E84F2A;    /* LAC Orange */
   
   /* Shared standard accents */
   --color-success: #34D399;
@@ -129,12 +129,12 @@ html {
   --bg-panel: var(--bg-secondary);
   --bg-hover: var(--bg-tertiary);
   --border-color: var(--border-light);
-  --lapd-bg: var(--bg-primary);
-  --lapd-text-dark: var(--text-primary);
-  --lapd-text-muted: var(--text-muted);
-  --lapd-blue-dark: var(--accent-primary);
-  --lapd-orange: var(--accent-secondary);
-  --lapd-border: var(--border-light);
+  --LAC-bg: var(--bg-primary);
+  --LAC-text-dark: var(--text-primary);
+  --LAC-text-muted: var(--text-muted);
+  --LAC-blue-dark: var(--accent-primary);
+  --LAC-orange: var(--accent-secondary);
+  --LAC-border: var(--border-light);
 }
 
 /* ═══════════════════════════════════════════════
@@ -155,13 +155,13 @@ html {
   --mdt-text-secondary: #7c8494;
   --mdt-text-muted:     #444c5e;
 
-  /* MDT accent – LAPD Badge Blue (Pantone 286 / Royal Blue) */
+  /* MDT accent – LAC Badge Blue (Pantone 286 / Royal Blue) */
   --mdt-accent:         #1D6EF7;
   --mdt-accent-alpha:   rgba(29,110,247,0.13);
   --mdt-accent-hover:   #4A8EFA;
   --mdt-accent-glow:    rgba(29,110,247,0.28);
 
-  /* LAPD orange kept for warnings / alerts */
+  /* LAC orange kept for warnings / alerts */
   --mdt-orange:         #E84F2A;
 
   /* Status */
@@ -310,12 +310,12 @@ body {
   --text-muted:       #444c5e;
   --border-light:     rgba(255,255,255,0.06);
   --border-strong:    rgba(255,255,255,0.11);
-  --lapd-bg:          #0d0f14;
-  --lapd-blue-dark:   #1D6EF7;
-  --lapd-orange:      #E84F2A;
-  --lapd-border:      rgba(255,255,255,0.06);
-  --lapd-text-dark:   #eef0f6;
-  --lapd-text-muted:  #444c5e;
+  --LAC-bg:          #0d0f14;
+  --LAC-blue-dark:   #1D6EF7;
+  --LAC-orange:      #E84F2A;
+  --LAC-border:      rgba(255,255,255,0.06);
+  --LAC-text-dark:   #eef0f6;
+  --LAC-text-muted:  #444c5e;
   --bg-dark:          #0d0f14;
   --bg-panel:         #13161d;
   --bg-hover:         #1a1e28;

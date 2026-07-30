@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap');
 
 :root {
@@ -9,7 +9,7 @@
   --border-glow: rgba(0, 168, 255, 0.2);
   
   --color-primary: #00a8ff;
-  --color-secondary: #d4af37; /* LAPD Gold */
+  --color-secondary: #d4af37; /* LAC Gold */
   --color-success: #00e676;
   --color-danger: #ff3d00;
   --color-warning: #ffb300;

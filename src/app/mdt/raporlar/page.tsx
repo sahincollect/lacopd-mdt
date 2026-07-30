@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 
@@ -310,7 +310,7 @@ export default function RaporPortali() {
   });
 
   return (
-    <div className="app-root" style={{ width: '100%', fontFamily: "var(--font-inter)" }}>
+    <div className="app-root" style={{ width: '100%', fontFamily: "'Inter', sans-serif" }}>
       <style dangerouslySetInnerHTML={{ __html: `
         @media print {
           @page { size: portrait; margin: 15mm; }
@@ -361,31 +361,44 @@ export default function RaporPortali() {
           .print-doc .doc-footer { border-top: 2px solid #000 !important; margin: 20px 0 0 0 !important; padding: 10px 0 !important; }
           .print-doc .doc-footer * { font-family: 'Arial', sans-serif !important; }
         }
+
+        .scroll-custom::-webkit-scrollbar { width: 6px; }
+        .scroll-custom::-webkit-scrollbar-track { background: transparent; }
+        .scroll-custom::-webkit-scrollbar-thumb { background: var(--mdt-border); border-radius: 4px; }
       `}} />
 
-      {/* ── HEADER TABS (Replaces sticky navbar) ── */}
-      <div className="no-print" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', borderBottom: '2px solid var(--border-light)', paddingBottom: '1rem' }}>
+      {/* ── HEADER TABS ── */}
+      <div className="no-print" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2rem', borderBottom: '1px solid var(--mdt-border)', paddingBottom: '1.5rem', flexWrap: "wrap", gap: "1rem" }}>
         <div>
-          <h1 style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--lapd-blue-dark)', margin: 0, textTransform: 'uppercase' }}>RAPOR SİSTEMİ</h1>
-          <p style={{ margin: '0.2rem 0 0', color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: 500 }}>Sistem üzerinde resmi belgeler oluşturun ve arşivleyin.</p>
+          <p style={{ fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)', margin: '0 0 0.3rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            L.A.C.P.D. · RAPOR SİSTEMİ
+            <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "var(--mdt-text-muted)" }} />
+            <span style={{ color: "var(--mdt-accent)" }}>OFFICIAL DOCUMENTATION</span>
+          </p>
+          <h1 style={{ fontSize: "1.75rem", fontWeight: 900, color: "var(--mdt-text-primary)", margin: 0, letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+            Resmi Evrak Portalı
+          </h1>
+          <p style={{ color: 'var(--mdt-text-muted)', fontSize: '0.82rem', marginTop: '0.35rem', fontWeight: 400 }}>
+            Sistem üzerinde resmi belgeler oluşturun ve arşivleyin.
+          </p>
         </div>
         
-        <div style={{ display: 'flex', gap: '0.5rem', background: 'var(--bg-secondary)', padding: '0.3rem', borderRadius: '8px', border: '1px solid var(--border-light)' }}>
+        <div style={{ display: 'flex', gap: '0.5rem', background: 'var(--mdt-card-bg)', padding: '0.5rem', borderRadius: '8px', border: '1px solid var(--mdt-border)' }}>
           <button 
             onClick={() => setView("home")} 
             style={{ 
-              background: view === "home" || view === "editor" ? 'var(--lapd-blue-dark)' : 'transparent', 
-              color: view === "home" || view === "editor" ? '#fff' : 'var(--text-muted)', 
-              border: 'none', padding: '0.5rem 1.5rem', borderRadius: '4px', fontWeight: 700, cursor: 'pointer', transition: 'all 0.2s' 
+              background: view === "home" || view === "editor" ? 'var(--mdt-accent)' : 'transparent', 
+              color: view === "home" || view === "editor" ? '#fff' : 'var(--mdt-text-secondary)', 
+              border: 'none', padding: '0.5rem 1.5rem', borderRadius: '6px', fontWeight: 700, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.15s' 
             }}>
             YENİ RAPOR
           </button>
           <button 
             onClick={() => setView("saved")} 
             style={{ 
-              background: view === "saved" ? 'var(--lapd-blue-dark)' : 'transparent', 
-              color: view === "saved" ? '#fff' : 'var(--text-muted)', 
-              border: 'none', padding: '0.5rem 1.5rem', borderRadius: '4px', fontWeight: 700, cursor: 'pointer', transition: 'all 0.2s' 
+              background: view === "saved" ? 'var(--mdt-accent)' : 'transparent', 
+              color: view === "saved" ? '#fff' : 'var(--mdt-text-secondary)', 
+              border: 'none', padding: '0.5rem 1.5rem', borderRadius: '6px', fontWeight: 700, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.15s' 
             }}>
             ARŞİV ({savedReports.length})
           </button>
@@ -403,16 +416,19 @@ export default function RaporPortali() {
                   key={cat.id}
                   onClick={() => setActiveCat(cat.id)}
                   style={{
-                    background: activeCat === cat.id ? 'var(--lapd-orange)' : 'var(--bg-secondary)',
-                    border: '1px solid var(--border-light)',
-                    color: activeCat === cat.id ? '#fff' : 'var(--text-primary)',
+                    background: activeCat === cat.id ? 'var(--mdt-accent)' : 'var(--mdt-card-bg)',
+                    border: activeCat === cat.id ? '1px solid var(--mdt-accent)' : '1px solid var(--mdt-border)',
+                    color: activeCat === cat.id ? '#fff' : 'var(--mdt-text-secondary)',
                     padding: '0.5rem 1rem',
-                    borderRadius: '4px',
+                    borderRadius: '6px',
                     fontSize: '0.8rem',
                     fontWeight: 700,
                     cursor: 'pointer',
-                    display: 'flex', alignItems: 'center', gap: '0.4rem',
+                    display: 'flex', alignItems: 'center', gap: '0.5rem',
+                    transition: 'all 0.15s'
                   }}
+                  onMouseOver={e => { if (activeCat !== cat.id) { (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-text-muted)'; (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)'; } }}
+                  onMouseOut={e => { if (activeCat !== cat.id) { (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)'; } }}
                 >
                   <i className={`fa-solid ${cat.icon}`} />
                   {cat.label}
@@ -425,7 +441,9 @@ export default function RaporPortali() {
               placeholder="Şablon ara..."
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
-              style={{ padding: '0.5rem 1rem', background: 'var(--bg-secondary)', border: '1px solid var(--border-light)', borderRadius: '4px', color: 'var(--text-primary)', fontSize: '0.85rem', width: '250px' }}
+              style={{ padding: '0.65rem 1rem', background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', borderRadius: '6px', color: 'var(--mdt-text-primary)', fontSize: '0.85rem', width: '250px', outline: 'none', transition: 'border-color 0.15s' }}
+              onFocus={e => e.target.style.borderColor = 'var(--mdt-accent)'}
+              onBlur={e => e.target.style.borderColor = 'var(--mdt-border)'}
             />
           </div>
 
@@ -437,43 +455,48 @@ export default function RaporPortali() {
                   key={tmpl.id}
                   onClick={() => openTemplate(tmpl)}
                   style={{
-                    background: 'var(--bg-secondary)',
-                    border: '1px solid var(--border-light)',
+                    background: 'var(--mdt-card-bg)',
+                    border: '1px solid var(--mdt-border)',
                     padding: '1.5rem',
                     cursor: 'pointer',
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '1rem',
                     position: 'relative',
-                    transition: 'border-color 0.2s',
+                    transition: 'all 0.15s',
+                    borderRadius: '10px'
                   }}
-                  onMouseOver={e => e.currentTarget.style.borderColor = 'var(--lapd-orange)'}
-                  onMouseOut={e => e.currentTarget.style.borderColor = 'var(--border-light)'}
+                  onMouseOver={e => { e.currentTarget.style.borderColor = 'var(--mdt-accent)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+                  onMouseOut={e => { e.currentTarget.style.borderColor = 'var(--mdt-border)'; e.currentTarget.style.transform = 'none'; }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                    <div style={{ width: '40px', height: '40px', background: 'var(--bg-tertiary)', border: '1px solid var(--border-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--lapd-blue-dark)', fontSize: '1.2rem', borderRadius: '4px' }}>
+                    <div style={{ width: '45px', height: '45px', background: 'color-mix(in srgb, var(--mdt-accent) 15%, transparent)', border: '1px solid color-mix(in srgb, var(--mdt-accent) 30%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--mdt-accent)', fontSize: '1.25rem', borderRadius: '8px' }}>
                       <i className={`fa-solid ${tmpl.icon}`} />
                     </div>
-                    <div style={{ fontFamily: 'monospace', fontSize: '0.7rem', color: 'var(--lapd-orange)', fontWeight: 800, background: 'rgba(232, 79, 42, 0.1)', padding: '0.2rem 0.5rem', borderRadius: '4px' }}>
+                    <div style={{ fontFamily: 'monospace', fontSize: '0.7rem', color: 'var(--mdt-warning)', fontWeight: 800, background: 'color-mix(in srgb, var(--mdt-warning) 10%, transparent)', padding: '0.25rem 0.6rem', borderRadius: '6px', border: '1px solid color-mix(in srgb, var(--mdt-warning) 20%, transparent)' }}>
                       LAC {tmpl.code}
                     </div>
                   </div>
 
                   <div>
-                    <div style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', marginBottom: '0.35rem' }}>{tmpl.name}</div>
-                    <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>{tmpl.description}</div>
+                    <div style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--mdt-text-primary)', marginBottom: '0.35rem' }}>{tmpl.name}</div>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--mdt-text-secondary)', lineHeight: 1.5 }}>{tmpl.description}</div>
                   </div>
 
-                  <div style={{ marginTop: 'auto', display: 'flex', gap: '0.5rem' }}>
+                  <div style={{ marginTop: 'auto', display: 'flex', gap: '0.5rem', paddingTop: '1rem' }}>
                     <button
                       onClick={(e) => { e.stopPropagation(); setPreviewTemplate(tmpl); }}
-                      style={{ flex: 1, background: 'var(--bg-tertiary)', border: '1px solid var(--border-light)', color: 'var(--text-primary)', padding: '0.6rem', borderRadius: '4px', fontSize: '0.8rem', fontWeight: 700, cursor: 'pointer' }}
+                      style={{ flex: 1, background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', padding: '0.6rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', transition: 'all 0.15s' }}
+                      onMouseOver={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-text-primary)'; }}
+                      onMouseOut={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; }}
                     >
                       ÖNİZLE
                     </button>
                     <button
                       onClick={(e) => { e.stopPropagation(); openTemplate(tmpl); }}
-                      style={{ flex: 2, background: 'var(--lapd-blue-dark)', border: 'none', color: '#fff', padding: '0.6rem', borderRadius: '4px', fontSize: '0.8rem', fontWeight: 700, cursor: 'pointer' }}
+                      style={{ flex: 2, background: 'var(--mdt-accent)', border: '1px solid var(--mdt-accent)', color: '#fff', padding: '0.6rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', transition: 'all 0.15s' }}
+                      onMouseOver={e => (e.currentTarget as HTMLElement).style.opacity = '0.85'}
+                      onMouseOut={e => (e.currentTarget as HTMLElement).style.opacity = '1'}
                     >
                       DOLDUR
                     </button>
@@ -487,35 +510,37 @@ export default function RaporPortali() {
 
       {/* ── PREVIEW MODAL ── */}
       {previewTemplate && (
-        <div onClick={() => setPreviewTemplate(null)} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
-          <div onClick={e => e.stopPropagation()} style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-light)', borderRadius: '8px', width: '100%', maxWidth: '700px', maxHeight: '85vh', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--border-light)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg-secondary)' }}>
+        <div onClick={() => setPreviewTemplate(null)} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
+          <div onClick={e => e.stopPropagation()} style={{ background: 'var(--mdt-card-bg)', border: '1px solid var(--mdt-border)', borderRadius: '12px', width: '100%', maxWidth: '750px', maxHeight: '85vh', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>
+            <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--mdt-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--mdt-bg-main)' }}>
               <div>
-                <div style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-muted)' }}>ÖNİZLEME</div>
-                <div style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--lapd-blue-dark)' }}>{previewTemplate.name}</div>
+                <div style={{ fontSize: '0.65rem', fontWeight: 700, color: 'var(--mdt-text-muted)', letterSpacing: '0.1em' }}>ŞABLON ÖNİZLEME</div>
+                <div style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--mdt-text-primary)' }}>{previewTemplate.name}</div>
               </div>
-              <button onClick={() => setPreviewTemplate(null)} style={{ background: 'transparent', border: 'none', fontSize: '1.2rem', cursor: 'pointer', color: 'var(--text-muted)' }}>
+              <button onClick={() => setPreviewTemplate(null)} style={{ background: 'transparent', border: 'none', fontSize: '1.2rem', cursor: 'pointer', color: 'var(--mdt-text-muted)', transition: 'color 0.15s' }} onMouseOver={e => e.currentTarget.style.color = '#fff'} onMouseOut={e => e.currentTarget.style.color = 'var(--mdt-text-muted)'}>
                 <i className="fa-solid fa-xmark" />
               </button>
             </div>
-            <div style={{ overflowY: 'auto', padding: '2rem' }}>
+            <div className="scroll-custom" style={{ overflowY: 'auto', padding: '2rem' }}>
               {previewTemplate.sections.map((sec: any, si: number) => (
-                <div key={si} style={{ marginBottom: '1.5rem', border: '1px solid var(--border-light)', borderRadius: '4px' }}>
-                  <div style={{ padding: '0.75rem 1rem', background: 'var(--bg-tertiary)', borderBottom: '1px solid var(--border-light)', fontSize: '0.8rem', fontWeight: 800 }}>{sec.title}</div>
-                  <div style={{ padding: '1rem', display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '1rem' }}>
+                <div key={si} style={{ marginBottom: '1.5rem', border: '1px solid var(--mdt-border)', borderRadius: '8px', overflow: 'hidden' }}>
+                  <div style={{ padding: '0.75rem 1rem', background: 'var(--mdt-bg-main)', borderBottom: '1px solid var(--mdt-border)', fontSize: '0.75rem', fontWeight: 800, color: 'var(--mdt-text-primary)' }}>{sec.title}</div>
+                  <div style={{ padding: '1.25rem', display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '1rem', background: 'var(--mdt-card-bg)' }}>
                     {sec.fields.map((f: any) => (
                       <div key={f.id} style={{ gridColumn: `span ${f.width || 12}` }}>
-                        <div style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--text-muted)', marginBottom: '0.3rem' }}>{f.label}</div>
-                        <div style={{ height: f.type === 'textarea' ? '60px' : '35px', background: 'var(--bg-tertiary)', border: '1px solid var(--border-light)', borderRadius: '4px' }}></div>
+                        <div style={{ fontSize: '0.65rem', fontWeight: 700, color: 'var(--mdt-text-muted)', marginBottom: '0.4rem', letterSpacing: '0.05em', textTransform: 'uppercase' }}>{f.label}</div>
+                        <div style={{ height: f.type === 'textarea' ? '60px' : '38px', background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', borderRadius: '6px' }}></div>
                       </div>
                     ))}
                   </div>
                 </div>
               ))}
             </div>
-            <div style={{ padding: '1rem', borderTop: '1px solid var(--border-light)', textAlign: 'right', background: 'var(--bg-secondary)' }}>
-              <button onClick={() => { openTemplate(previewTemplate); setPreviewTemplate(null); }} style={{ background: 'var(--lapd-orange)', color: '#fff', border: 'none', padding: '0.75rem 1.5rem', fontWeight: 800, borderRadius: '4px', cursor: 'pointer' }}>
-                BU ŞABLONU KULLAN
+            <div style={{ padding: '1.25rem', borderTop: '1px solid var(--mdt-border)', textAlign: 'right', background: 'var(--mdt-bg-main)' }}>
+              <button onClick={() => { openTemplate(previewTemplate); setPreviewTemplate(null); }} style={{ background: 'var(--mdt-accent)', color: '#fff', border: '1px solid var(--mdt-accent)', padding: '0.75rem 1.5rem', fontWeight: 700, borderRadius: '6px', cursor: 'pointer', transition: 'all 0.15s', fontSize: '0.8rem' }}
+                onMouseOver={e => (e.currentTarget as HTMLElement).style.opacity = '0.85'}
+                onMouseOut={e => (e.currentTarget as HTMLElement).style.opacity = '1'}>
+                BU ŞABLONU DOLDUR
               </button>
             </div>
           </div>
@@ -526,58 +551,64 @@ export default function RaporPortali() {
       {view === "editor" && template && (
         <div className="editor-wrapper" style={{ margin: '0 auto' }}>
           
-          <div className="no-print" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 1.5rem', background: 'var(--bg-secondary)', border: '1px solid var(--border-light)', marginBottom: '2rem', borderRadius: '4px' }}>
+          <div className="no-print" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 1.5rem', background: 'var(--mdt-card-bg)', border: '1px solid var(--mdt-border)', marginBottom: '2rem', borderRadius: '10px' }}>
             <div>
-              <div style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-muted)' }}>DÜZENLENİYOR</div>
-              <div style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--lapd-blue-dark)' }}>{template.name} <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>#{reportCode}</span></div>
+              <div style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--mdt-text-muted)', letterSpacing: '0.1em' }}>DÜZENLENİYOR</div>
+              <div style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--mdt-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                {template.name} <span style={{ color: 'var(--mdt-text-muted)', fontSize: '0.85rem', fontWeight: 600, background: 'var(--mdt-bg-main)', padding: '0.1rem 0.5rem', borderRadius: '4px', border: '1px solid var(--mdt-border)' }}>#{reportCode}</span>
+              </div>
             </div>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <button onClick={() => window.print()} style={{ background: 'var(--bg-tertiary)', border: '1px solid var(--border-light)', color: 'var(--text-primary)', padding: '0.6rem 1rem', borderRadius: '4px', fontWeight: 700, cursor: 'pointer' }}>
-                <i className="fa-solid fa-print" /> YAZDIR
+              <button onClick={() => window.print()} style={{ background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', padding: '0.6rem 1.25rem', borderRadius: '6px', fontWeight: 700, cursor: 'pointer', fontSize: '0.8rem', transition: 'all 0.15s' }}
+                onMouseOver={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-text-primary)'; }}
+                onMouseOut={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; }}>
+                <i className="fa-solid fa-print" style={{ marginRight: '0.3rem' }} /> YAZDIR
               </button>
-              <button onClick={handleSave} disabled={saving} style={{ background: 'var(--color-success)', border: 'none', color: '#fff', padding: '0.6rem 1rem', borderRadius: '4px', fontWeight: 700, cursor: saving ? 'not-allowed' : 'pointer' }}>
-                <i className="fa-solid fa-floppy-disk" /> {saving ? "KAYDEDİLİYOR..." : "KAYDET"}
+              <button onClick={handleSave} disabled={saving} style={{ background: 'var(--mdt-success)', border: '1px solid var(--mdt-success)', color: '#fff', padding: '0.6rem 1.25rem', borderRadius: '6px', fontWeight: 700, cursor: saving ? 'not-allowed' : 'pointer', fontSize: '0.8rem', transition: 'all 0.15s', opacity: saving ? 0.7 : 1 }}
+                onMouseOver={e => !saving && ((e.currentTarget as HTMLElement).style.opacity = '0.85')}
+                onMouseOut={e => !saving && ((e.currentTarget as HTMLElement).style.opacity = '1')}>
+                <i className="fa-solid fa-floppy-disk" style={{ marginRight: '0.3rem' }} /> {saving ? "KAYDEDİLİYOR..." : "KAYDET"}
               </button>
             </div>
           </div>
 
-          <div className="print-doc" style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-light)', padding: '2rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '2px solid var(--border-light)', paddingBottom: '1rem', marginBottom: '2rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <img src="/tahsis-portali/lapd-badge-logo-pngseeklogo-214481.png" alt="LAPD" style={{ width: '50px' }} />
+          <div className="print-doc" style={{ background: 'var(--mdt-card-bg)', border: '1px solid var(--mdt-border)', padding: '2rem', borderRadius: '10px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--mdt-border)', paddingBottom: '1.5rem', marginBottom: '2rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+                <img src="/tahsis-portali/LAC-badge-logo-pngseeklogo-214481.png" alt="LAC" style={{ width: '55px', filter: 'drop-shadow(0 0 10px rgba(0,0,0,0.5))' }} />
                 <div>
-                  <div style={{ fontSize: '1.2rem', fontWeight: 900, color: 'var(--lapd-blue-dark)' }}>LOS ANGELES POLICE DEPARTMENT</div>
-                  <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-muted)' }}>{template.name}</div>
+                  <div style={{ fontSize: '1.15rem', fontWeight: 900, color: 'var(--mdt-text-primary)', letterSpacing: '0.02em' }}>LOS ANGELES POLICE DEPARTMENT</div>
+                  <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--mdt-text-muted)' }}>{template.name}</div>
                 </div>
               </div>
-              <div style={{ textAlign: 'right', fontFamily: 'monospace', color: 'var(--lapd-orange)', fontWeight: 800 }}>
-                <div>LAC {template.code}</div>
-                <div style={{ color: 'var(--text-muted)' }}>{reportCode}</div>
+              <div style={{ textAlign: 'right', fontFamily: 'monospace', color: 'var(--mdt-warning)', fontWeight: 800 }}>
+                <div style={{ fontSize: '0.9rem' }}>LAC {template.code}</div>
+                <div style={{ color: 'var(--mdt-text-muted)', fontSize: '0.8rem' }}>{reportCode}</div>
               </div>
             </div>
 
             <div>
               {template.sections.map((sec: any, si: number) => (
-                <div key={si} className="section-box" style={{ marginBottom: '1.5rem', border: '1px solid var(--border-light)' }}>
-                  <div className="section-title" style={{ padding: '0.5rem 1rem', background: 'var(--bg-tertiary)', borderBottom: '1px solid var(--border-light)', fontSize: '0.8rem', fontWeight: 800 }}>
+                <div key={si} className="section-box" style={{ marginBottom: '1.5rem', border: '1px solid var(--mdt-border)', borderRadius: '8px', overflow: 'hidden' }}>
+                  <div className="section-title" style={{ padding: '0.65rem 1rem', background: 'var(--mdt-bg-main)', borderBottom: '1px solid var(--mdt-border)', fontSize: '0.75rem', fontWeight: 800, color: 'var(--mdt-text-primary)', letterSpacing: '0.05em' }}>
                     {sec.title}
                   </div>
-                  <div className="field-grid" style={{ padding: '1rem', display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '1rem' }}>
+                  <div className="field-grid" style={{ padding: '1.25rem', display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '1rem', background: 'var(--mdt-card-bg)' }}>
                     {sec.fields.map((f: any) => (
                       <div key={f.id} className="field-wrap" style={{ gridColumn: `span ${f.width || 12}` }}>
-                        <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-muted)', marginBottom: '0.4rem' }}>{f.label}</label>
+                        <label style={{ display: 'block', fontSize: '0.65rem', fontWeight: 700, color: 'var(--mdt-text-muted)', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{f.label}</label>
                         {f.type === "textarea" ? (
                           <>
                             <div className="print-only-text" style={{ display: 'none' }}>{formData[f.id] || ""}</div>
-                            <textarea className="no-print-textarea" rows={f.rows || 4} style={{ width: '100%', padding: '0.75rem', background: 'var(--bg-tertiary)', border: '1px solid var(--border-light)', borderRadius: '4px', color: 'var(--text-primary)', fontFamily: 'inherit' }} value={formData[f.id] || ""} onChange={e => setFormData(p => ({ ...p, [f.id]: e.target.value }))} />
+                            <textarea className="no-print-textarea" rows={f.rows || 4} style={{ width: '100%', padding: '0.75rem', background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', borderRadius: '6px', color: 'var(--mdt-text-primary)', fontFamily: 'inherit', fontSize: '0.85rem', resize: 'vertical', outline: 'none', transition: 'border-color 0.15s' }} value={formData[f.id] || ""} onChange={e => setFormData(p => ({ ...p, [f.id]: e.target.value }))} onFocus={e => e.target.style.borderColor = 'var(--mdt-accent)'} onBlur={e => e.target.style.borderColor = 'var(--mdt-border)'} />
                           </>
                         ) : f.type === "select" ? (
-                          <select style={{ width: '100%', padding: '0.75rem', background: 'var(--bg-tertiary)', border: '1px solid var(--border-light)', borderRadius: '4px', color: 'var(--text-primary)', fontFamily: 'inherit' }} value={formData[f.id] || ""} onChange={e => setFormData(p => ({ ...p, [f.id]: e.target.value }))}>
+                          <select style={{ width: '100%', padding: '0.75rem', background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', borderRadius: '6px', color: 'var(--mdt-text-primary)', fontFamily: 'inherit', fontSize: '0.85rem', outline: 'none', transition: 'border-color 0.15s' }} value={formData[f.id] || ""} onChange={e => setFormData(p => ({ ...p, [f.id]: e.target.value }))} onFocus={e => e.target.style.borderColor = 'var(--mdt-accent)'} onBlur={e => e.target.style.borderColor = 'var(--mdt-border)'}>
                             <option value="">— Seçiniz —</option>
                             {f.options?.map((o: string, i: number) => <option key={i} value={o}>{o}</option>)}
                           </select>
                         ) : (
-                          <input type={f.type || "text"} style={{ width: '100%', padding: '0.75rem', background: 'var(--bg-tertiary)', border: '1px solid var(--border-light)', borderRadius: '4px', color: 'var(--text-primary)', fontFamily: 'inherit' }} value={formData[f.id] || ""} onChange={e => setFormData(p => ({ ...p, [f.id]: e.target.value }))} />
+                          <input type={f.type || "text"} style={{ width: '100%', padding: '0.75rem', background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', borderRadius: '6px', color: 'var(--mdt-text-primary)', fontFamily: 'inherit', fontSize: '0.85rem', outline: 'none', transition: 'border-color 0.15s' }} value={formData[f.id] || ""} onChange={e => setFormData(p => ({ ...p, [f.id]: e.target.value }))} onFocus={e => e.target.style.borderColor = 'var(--mdt-accent)'} onBlur={e => e.target.style.borderColor = 'var(--mdt-border)'} />
                         )}
                       </div>
                     ))}
@@ -586,15 +617,15 @@ export default function RaporPortali() {
               ))}
             </div>
 
-            <div className="doc-footer" style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '2px solid var(--border-light)', display: 'flex', justifyContent: 'space-between' }}>
+            <div className="doc-footer" style={{ marginTop: '2.5rem', paddingTop: '1.5rem', borderTop: '1px solid var(--mdt-border)', display: 'flex', justifyContent: 'space-between' }}>
               <div>
-                <div style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-muted)' }}>HAZIRLAYAN MEMUR</div>
-                <div style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--lapd-blue-dark)' }}>{user ? user.name : "L. COOPER"} <span style={{ color: 'var(--lapd-orange)' }}>#{user?.badge || "101"}</span></div>
+                <div style={{ fontSize: '0.65rem', fontWeight: 700, color: 'var(--mdt-text-muted)', letterSpacing: '0.1em' }}>HAZIRLAYAN MEMUR</div>
+                <div style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--mdt-text-primary)', marginTop: '0.2rem' }}>{user ? user.name : "L. COOPER"} <span style={{ color: 'var(--mdt-warning)' }}>#{user?.badge || "101"}</span></div>
               </div>
               <div style={{ textAlign: 'right' }}>
-                <div style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-muted)' }}>DİJİTAL İMZA</div>
-                <div style={{ fontFamily: 'monospace', color: 'var(--lapd-blue-dark)', fontWeight: 800 }}>Signed · #{user?.badge || "101"}</div>
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{new Date().toLocaleString('tr-TR')}</div>
+                <div style={{ fontSize: '0.65rem', fontWeight: 700, color: 'var(--mdt-text-muted)', letterSpacing: '0.1em' }}>DİJİTAL İMZA</div>
+                <div style={{ fontFamily: 'monospace', color: 'var(--mdt-accent)', fontWeight: 800, marginTop: '0.2rem', fontSize: '0.9rem' }}>Signed · #{user?.badge || "101"}</div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--mdt-text-muted)', marginTop: '0.2rem' }}>{new Date().toLocaleString('tr-TR')}</div>
               </div>
             </div>
           </div>
@@ -611,40 +642,48 @@ export default function RaporPortali() {
                 placeholder="Arşivde ara..."
                 value={archiveSearch}
                 onChange={e => setArchiveSearch(e.target.value)}
-                style={{ padding: '0.5rem 1rem', background: 'var(--bg-secondary)', border: '1px solid var(--border-light)', borderRadius: '4px', width: '300px' }}
+                style={{ padding: '0.65rem 1rem', background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', borderRadius: '6px', width: '300px', color: 'var(--mdt-text-primary)', fontSize: '0.85rem', outline: 'none', transition: 'border-color 0.15s' }}
+                onFocus={e => e.target.style.borderColor = 'var(--mdt-accent)'}
+                onBlur={e => e.target.style.borderColor = 'var(--mdt-border)'}
               />
-              <button onClick={fetchSaved} style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-light)', padding: '0.5rem 1rem', borderRadius: '4px', cursor: 'pointer' }}>
+              <button onClick={fetchSaved} style={{ background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', padding: '0.5rem 1rem', borderRadius: '6px', cursor: 'pointer', transition: 'all 0.15s' }}
+                onMouseOver={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-text-primary)'; }}
+                onMouseOut={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; }}>
                 <i className="fa-solid fa-rotate" />
               </button>
             </div>
           </div>
 
-          <div style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-light)', borderRadius: '4px', overflow: 'hidden' }}>
+          <div style={{ background: 'var(--mdt-card-bg)', border: '1px solid var(--mdt-border)', borderRadius: '10px', overflow: 'hidden' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
-                <tr style={{ background: 'var(--bg-tertiary)', borderBottom: '1px solid var(--border-light)' }}>
-                  <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-muted)' }}>RAPOR KODU</th>
-                  <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-muted)' }}>ŞABLON</th>
-                  <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-muted)' }}>MEMUR</th>
-                  <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-muted)' }}>TARİH</th>
-                  <th style={{ padding: '1rem', textAlign: 'right', fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-muted)' }}>İŞLEMLER</th>
+                <tr style={{ background: 'var(--mdt-bg-main)', borderBottom: '1px solid var(--mdt-border)' }}>
+                  <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: 800, color: 'var(--mdt-text-muted)', letterSpacing: '0.05em' }}>RAPOR KODU</th>
+                  <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: 800, color: 'var(--mdt-text-muted)', letterSpacing: '0.05em' }}>ŞABLON</th>
+                  <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: 800, color: 'var(--mdt-text-muted)', letterSpacing: '0.05em' }}>MEMUR</th>
+                  <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: 800, color: 'var(--mdt-text-muted)', letterSpacing: '0.05em' }}>TARİH</th>
+                  <th style={{ padding: '1rem', textAlign: 'right', fontSize: '0.7rem', fontWeight: 800, color: 'var(--mdt-text-muted)', letterSpacing: '0.05em' }}>İŞLEMLER</th>
                 </tr>
               </thead>
               <tbody>
                 {savedReports.filter(r => r.id.includes(archiveSearch) || (r.officerName && r.officerName.includes(archiveSearch))).map((r, i) => {
                   const tmpl = REPORT_TEMPLATES.find(t => t.id === r.formId);
                   return (
-                    <tr key={i} style={{ borderBottom: '1px solid var(--border-light)' }}>
-                      <td style={{ padding: '1rem', fontFamily: 'monospace', color: 'var(--lapd-orange)', fontWeight: 800 }}>#{r.id}</td>
-                      <td style={{ padding: '1rem', fontWeight: 700, color: 'var(--lapd-blue-dark)' }}>{tmpl?.name || r.formId}</td>
-                      <td style={{ padding: '1rem', color: 'var(--text-secondary)' }}>{r.officerName || "—"}</td>
-                      <td style={{ padding: '1rem', color: 'var(--text-muted)' }}>{r.timestamp ? new Date(r.timestamp).toLocaleString('tr-TR') : '—'}</td>
+                    <tr key={i} style={{ borderBottom: '1px solid var(--mdt-border)', transition: 'background 0.15s' }} onMouseOver={e => (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.02)'} onMouseOut={e => (e.currentTarget as HTMLElement).style.background = 'transparent'}>
+                      <td style={{ padding: '1rem', fontFamily: 'monospace', color: 'var(--mdt-warning)', fontWeight: 800, fontSize: '0.85rem' }}>#{r.id}</td>
+                      <td style={{ padding: '1rem', fontWeight: 700, color: 'var(--mdt-text-primary)', fontSize: '0.85rem' }}>{tmpl?.name || r.formId}</td>
+                      <td style={{ padding: '1rem', color: 'var(--mdt-text-secondary)', fontSize: '0.85rem' }}>{r.officerName || "—"}</td>
+                      <td style={{ padding: '1rem', color: 'var(--mdt-text-muted)', fontSize: '0.8rem' }}>{r.timestamp ? new Date(r.timestamp).toLocaleString('tr-TR') : '—'}</td>
                       <td style={{ padding: '1rem', textAlign: 'right' }}>
                         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
-                          <button onClick={() => openSaved(r)} style={{ background: 'var(--lapd-blue-dark)', color: '#fff', border: 'none', padding: '0.4rem 0.8rem', borderRadius: '4px', cursor: 'pointer', fontWeight: 700, fontSize: '0.75rem' }}>
-                            AÇ
+                          <button onClick={() => openSaved(r)} style={{ background: 'var(--mdt-bg-main)', color: 'var(--mdt-text-primary)', border: '1px solid var(--mdt-border)', padding: '0.4rem 0.8rem', borderRadius: '4px', cursor: 'pointer', fontWeight: 700, fontSize: '0.7rem', transition: 'all 0.15s' }}
+                            onMouseOver={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-text-primary)'; }}
+                            onMouseOut={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; }}>
+                            GÖRÜNTÜLE
                           </button>
-                          <button onClick={() => handleDelete(r.id)} style={{ background: 'var(--color-danger)', color: '#fff', border: 'none', padding: '0.4rem 0.8rem', borderRadius: '4px', cursor: 'pointer', fontWeight: 700, fontSize: '0.75rem' }}>
+                          <button onClick={() => handleDelete(r.id)} style={{ background: 'rgba(239,68,68,0.1)', color: 'var(--mdt-danger)', border: '1px solid rgba(239,68,68,0.2)', padding: '0.4rem 0.8rem', borderRadius: '4px', cursor: 'pointer', fontWeight: 700, fontSize: '0.7rem', transition: 'all 0.15s' }}
+                            onMouseOver={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(239,68,68,0.2)'; }}
+                            onMouseOut={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(239,68,68,0.1)'; }}>
                             SİL
                           </button>
                         </div>
@@ -655,7 +694,7 @@ export default function RaporPortali() {
               </tbody>
             </table>
             {savedReports.length === 0 && (
-              <div style={{ padding: '3rem', textAlign: 'center', color: 'var(--text-muted)' }}>Arşiv boş.</div>
+              <div style={{ padding: '4rem 2rem', textAlign: 'center', color: 'var(--mdt-text-muted)', fontWeight: 600 }}>Arşivde kayıtlı rapor bulunamadı.</div>
             )}
           </div>
         </div>

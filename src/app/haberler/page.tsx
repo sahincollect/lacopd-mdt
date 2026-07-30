@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from 'next/link';
 
@@ -9,7 +9,7 @@ export default function HaberlerPage() {
       tag: "GANG UNIT",
       title: "Los Angeles Sokaklarında Dev Çete Operasyonu",
       date: "August 12, 2026",
-      desc: "LAPD Gang Unit (GED) ekiplerinin aylardır sürdürdüğü teknik ve fiziki takip sonucu, Güney Los Angeles bölgesinde çok sayıda adrese eş zamanlı şafak baskını düzenlendi. Operasyonda yüksek miktarda yasadışı madde ve ruhsatsız silah ele geçirilirken, 15 şüpheli gözaltına alındı. Yetkililer, sokaklardaki çete şiddetine karşı sıfır tolerans politikasının devam edeceğini vurguladı.",
+      desc: "LAC Gang Unit (GED) ekiplerinin aylardır sürdürdüğü teknik ve fiziki takip sonucu, Güney Los Angeles bölgesinde çok sayıda adrese eş zamanlı şafak baskını düzenlendi. Operasyonda yüksek miktarda yasadışı madde ve ruhsatsız silah ele geçirilirken, 15 şüpheli gözaltına alındı. Yetkililer, sokaklardaki çete şiddetine karşı sıfır tolerans politikasının devam edeceğini vurguladı.",
       img: "/news/1.jpg",
       featured: true
     },
@@ -34,7 +34,7 @@ export default function HaberlerPage() {
     {
       id: 4,
       tag: "FLEET",
-      title: "LAPD Filosuna Yeni Nesil Devriye Araçları",
+      title: "LAC Filosuna Yeni Nesil Devriye Araçları",
       date: "August 01, 2026",
       desc: "Departmanın araç filosu modernize ediliyor. Arreolas Grafix tarafından özel olarak tasarlanan yeni 'livery' kaplamalarına sahip devriye araçları sokaklarda yerini almaya başladı.",
       img: "/news/4.jpg",
@@ -67,10 +67,10 @@ export default function HaberlerPage() {
     <div style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)', fontFamily: 'var(--font-inter)', minHeight: '100vh', overflowX: 'hidden' }}>
       
       {/* ── HEADER BREADCRUMB ── */}
-      <div style={{ backgroundColor: 'var(--bg-secondary)', padding: '1rem 2rem', borderBottom: '1px solid var(--lapd-border)' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', fontSize: '0.85rem', color: 'var(--lapd-text-muted)' }}>
+      <div style={{ backgroundColor: 'var(--bg-secondary)', padding: '1rem 2rem', borderBottom: '1px solid var(--LAC-border)' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', fontSize: '0.85rem', color: 'var(--LAC-text-muted)' }}>
           <Link href="/" style={{ color: 'var(--text-primary)', textDecoration: 'none', fontWeight: 600, transition: 'color 0.2s' }}>Ana Sayfa</Link> &nbsp;&gt;&nbsp; 
-          <span style={{ color: 'var(--lapd-orange)' }}>Haberler</span>
+          <span style={{ color: 'var(--LAC-orange)' }}>Haberler</span>
         </div>
       </div>
 
@@ -82,14 +82,14 @@ export default function HaberlerPage() {
         </div>
         <div style={{ height: '20px', width: '2px', backgroundColor: 'rgba(0,0,0,0.2)' }}></div>
         <div style={{ fontWeight: 600, fontSize: '0.95rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-          LAPD Şefi, şehir genelinde çete faaliyetlerine karşı sıfır tolerans politikasının devreye sokulduğunu açıkladı.
+          LAC Şefi, şehir genelinde çete faaliyetlerine karşı sıfır tolerans politikasının devreye sokulduğunu açıkladı.
         </div>
       </div>
 
       <main style={{ maxWidth: '1400px', margin: '0 auto', padding: '4rem 2rem' }}>
         
         {/* ── PAGE TITLE ── */}
-        <div style={{ marginBottom: '3rem', borderLeft: '4px solid var(--lapd-orange)', paddingLeft: '1.5rem' }}>
+        <div style={{ marginBottom: '3rem', borderLeft: '4px solid var(--LAC-orange)', paddingLeft: '1.5rem' }}>
           <h1 style={{ fontSize: '3rem', fontWeight: 900, letterSpacing: '-0.03em', margin: 0, textTransform: 'uppercase' }}>Haber Merkezi</h1>
           <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', marginTop: '0.5rem' }}>Los Angeles Polis Departmanı'ndan en güncel gelişmeler ve operasyonel duyurular.</p>
         </div>
@@ -125,7 +125,7 @@ export default function HaberlerPage() {
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)' }}></div>
                 
                 <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '3rem 2.5rem' }}>
-                  <div style={{ display: 'inline-block', backgroundColor: 'var(--lapd-orange)', color: 'var(--bg-primary)', padding: '0.4rem 1rem', fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.1em', marginBottom: '1rem', borderRadius: '4px' }}>
+                  <div style={{ display: 'inline-block', backgroundColor: 'var(--LAC-orange)', color: 'var(--bg-primary)', padding: '0.4rem 1rem', fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.1em', marginBottom: '1rem', borderRadius: '4px' }}>
                     {featuredNews.tag}
                   </div>
                   <h2 style={{ fontSize: '2.8rem', fontWeight: 800, lineHeight: 1.1, margin: '0 0 1rem', color: '#ffffff', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
@@ -142,7 +142,7 @@ export default function HaberlerPage() {
                     <div style={{ width: '4px', height: '4px', backgroundColor: '#6b7280', borderRadius: '50%' }}></div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                       <i className="fa-solid fa-pen-nib"></i>
-                      LAPD Medya İlişkileri
+                      LAC Medya İlişkileri
                     </div>
                   </div>
                 </div>
@@ -154,7 +154,7 @@ export default function HaberlerPage() {
           <div style={{ gridColumn: 'span 4', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '2px solid var(--border-strong)', paddingBottom: '0.8rem' }}>
               <h3 style={{ fontSize: '1.3rem', fontWeight: 800, margin: 0, textTransform: 'uppercase', letterSpacing: '1px' }}>Öne Çıkanlar</h3>
-              <i className="fa-solid fa-bolt" style={{ color: 'var(--lapd-orange)' }}></i>
+              <i className="fa-solid fa-bolt" style={{ color: 'var(--LAC-orange)' }}></i>
             </div>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -164,7 +164,7 @@ export default function HaberlerPage() {
                   style={{ display: 'flex', gap: '1rem', paddingBottom: index !== 2 ? '1.5rem' : '0', borderBottom: index !== 2 ? '1px solid var(--border-light)' : 'none', cursor: 'pointer', group: 'true' }}
                   onMouseOver={e => {
                     const title = e.currentTarget.querySelector('h4');
-                    if (title) title.style.color = 'var(--lapd-orange)';
+                    if (title) title.style.color = 'var(--LAC-orange)';
                     const img = e.currentTarget.querySelector('img');
                     if (img) img.style.transform = 'scale(1.1)';
                   }}
@@ -179,7 +179,7 @@ export default function HaberlerPage() {
                     <img src={news.img} alt={news.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }} />
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                    <span style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--lapd-orange)', letterSpacing: '1px', marginBottom: '0.3rem' }}>{news.tag}</span>
+                    <span style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--LAC-orange)', letterSpacing: '1px', marginBottom: '0.3rem' }}>{news.tag}</span>
                     <h4 style={{ fontSize: '1.05rem', fontWeight: 700, margin: '0 0 0.5rem', lineHeight: 1.3, color: 'var(--text-primary)', transition: 'color 0.2s' }}>
                       {news.title}
                     </h4>
@@ -219,7 +219,7 @@ export default function HaberlerPage() {
                 style={{ display: 'flex', flexDirection: 'column', cursor: 'pointer' }}
                 onMouseOver={e => {
                   const title = e.currentTarget.querySelector('h3');
-                  if (title) title.style.color = 'var(--lapd-orange)';
+                  if (title) title.style.color = 'var(--LAC-orange)';
                   const img = e.currentTarget.querySelector('img');
                   if (img) img.style.transform = 'scale(1.05)';
                 }}

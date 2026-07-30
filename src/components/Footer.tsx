@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
@@ -37,7 +37,7 @@ export default function Footer() {
         </div>
         <div style={{ textAlign: 'right', lineHeight: 1.6, flexShrink: 0 }}>
           Bu web sitesi sadece <strong>FiveM Roleplay</strong> amaçlı geliştirilmiştir.<br/>
-          <span style={{ color: 'var(--accent-secondary)' }}>Gerçek kurumlar veya LAPD ile hiçbir ilgisi yoktur.</span>
+          <span style={{ color: 'var(--accent-secondary)' }}>Gerçek kurumlar veya LAC ile hiçbir ilgisi yoktur.</span>
         </div>
       </div>
     </footer>

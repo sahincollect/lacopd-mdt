@@ -1,11 +1,11 @@
-"use client";
+﻿"use client";
 
 import { useState } from 'react';
 import Link from 'next/link';
 
 const searchIndex = [
   { title: 'Personel Girişi', keywords: ['giriş', 'login', 'personel', 'admin', 'panel'], path: '/login' },
-  { title: 'Biz Kimiz?', keywords: ['biz kimiz', 'hakkımızda', 'about', 'lapd', 'tarihçe', 'şef', 'vizyon', 'misyon'], path: '/hakkimizda' },
+  { title: 'Biz Kimiz?', keywords: ['biz kimiz', 'hakkımızda', 'about', 'LAC', 'tarihçe', 'şef', 'vizyon', 'misyon'], path: '/hakkimizda' },
   { title: 'Galeri', keywords: ['galeri', 'fotoğraflar', 'medya', 'resimler', 'operasyonlar'], path: '/galeri' },
   { title: 'Haberler', keywords: ['haberler', 'news', 'duyurular', 'son dakika', 'bülten'], path: '/haberler' },
   { title: 'Kariyer Olanakları', keywords: ['kariyer', 'iş', 'başvuru', 'olanaklar', 'maaş', 'şartlar'], path: '/kariyer' },
@@ -35,18 +35,18 @@ export default function Home() {
   };
 
   return (
-    <div style={{ backgroundColor: 'var(--lapd-bg)', color: 'var(--lapd-text-dark)', fontFamily: 'var(--font-inter)' }}>
+    <div style={{ backgroundColor: 'var(--LAC-bg)', color: 'var(--LAC-text-dark)', fontFamily: 'var(--font-inter)' }}>
       
       {/* ── HERO TITLE SECTION ── */}
       <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '3rem 2rem 1.5rem', position: 'relative' }}>
-        <p style={{ fontSize: '1rem', color: 'var(--lapd-text-muted)', marginBottom: '0.2rem', fontWeight: 500 }}>
+        <p style={{ fontSize: '1rem', color: 'var(--LAC-text-muted)', marginBottom: '0.2rem', fontWeight: 500 }}>
           Los Angeles Community Polis Departmanı Resmi Web Sitesi
         </p>
         <h1 style={{ 
           fontFamily: 'var(--font-inter)', 
           fontSize: '3.5rem', 
           fontWeight: 800, 
-          color: 'var(--lapd-blue-dark)', 
+          color: 'var(--LAC-blue-dark)', 
           margin: 0,
           letterSpacing: '-0.02em'
         }}>
@@ -112,10 +112,10 @@ export default function Home() {
         
         {/* Left Big Image */}
         <div style={{ flex: 2, position: 'relative' }}>
-          <img src="/news/1.jpg" alt="LAPD Memurları" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <img src="/news/1.jpg" alt="LAC Memurları" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           <div style={{
             position: 'absolute', left: 0, right: 0, bottom: 0,
-            backgroundColor: 'var(--lapd-blue)', padding: '1rem 2rem',
+            backgroundColor: 'var(--LAC-blue)', padding: '1rem 2rem',
             color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center'
           }}>
             <span style={{ fontWeight: 600, fontSize: '0.9rem' }}>Liderliğe Adanmışlık</span>
@@ -141,7 +141,7 @@ export default function Home() {
           onMouseOver={e => e.currentTarget.style.background = 'linear-gradient(to top, rgba(0,0,0,1), transparent)'}
           onMouseOut={e => e.currentTarget.style.background = 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)'}
           >
-            <div style={{ backgroundColor: 'var(--lapd-orange)', color: 'white', padding: '0.5rem 1rem', fontSize: '0.8rem', fontWeight: 700, borderRadius: '4px', flexShrink: 0 }}>
+            <div style={{ backgroundColor: 'var(--LAC-orange)', color: 'white', padding: '0.5rem 1rem', fontSize: '0.8rem', fontWeight: 700, borderRadius: '4px', flexShrink: 0 }}>
               Mesajı Oku
             </div>
             <div>
@@ -155,7 +155,7 @@ export default function Home() {
       {/* ── QUICKLINKS ── */}
       <section style={{ maxWidth: '1200px', margin: '4rem auto', padding: '0 2rem' }}>
         <h3 style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '1rem' }}>HIZLI BAĞLANTILAR</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', border: '1px solid var(--lapd-border)', backgroundColor: 'var(--bg-secondary)' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', border: '1px solid var(--LAC-border)', backgroundColor: 'var(--bg-secondary)' }}>
           {[
             { icon: 'fa-users', label: 'Biz Kimiz?', href: '/hakkimizda' },
             { icon: 'fa-images', label: 'Galeri', href: '/galeri' },
@@ -166,13 +166,13 @@ export default function Home() {
           ].map((item, idx) => (
             <Link href={item.href} key={idx} style={{ 
               display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', 
-              padding: '2rem 1rem', borderRight: idx !== 5 ? '1px solid var(--lapd-border)' : 'none',
+              padding: '2rem 1rem', borderRight: idx !== 5 ? '1px solid var(--LAC-border)' : 'none',
               textAlign: 'center', cursor: 'pointer', transition: 'background-color 0.2s', textDecoration: 'none', color: 'var(--text-primary)'
             }}
             onMouseOver={e => e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)'}
             onMouseOut={e => e.currentTarget.style.backgroundColor = 'transparent'}
             >
-              <i className={`fa-solid ${item.icon}`} style={{ fontSize: '1.8rem', color: 'var(--lapd-blue-dark)', marginBottom: '1rem' }}></i>
+              <i className={`fa-solid ${item.icon}`} style={{ fontSize: '1.8rem', color: 'var(--LAC-blue-dark)', marginBottom: '1rem' }}></i>
               <span style={{ fontSize: '0.8rem', fontWeight: 500 }}>{item.label}</span>
             </Link>
           ))}
@@ -181,9 +181,9 @@ export default function Home() {
 
       {/* ── NEWSROOM ── */}
       <section style={{ maxWidth: '1200px', margin: '4rem auto', padding: '0 2rem' }}>
-        <div style={{ display: 'flex', borderBottom: '1px solid var(--lapd-orange)', marginBottom: '2rem' }}>
-          <div style={{ padding: '0.5rem 1rem', color: 'var(--lapd-orange)', fontWeight: 800, fontSize: '0.85rem', borderBottom: '3px solid var(--lapd-orange)', textTransform: 'uppercase' }}>HABER ODASI</div>
-          <div style={{ padding: '0.5rem 1rem', color: 'var(--lapd-text-dark)', fontWeight: 800, fontSize: '0.85rem', textTransform: 'uppercase', cursor: 'pointer' }}>ETKİNLİKLER</div>
+        <div style={{ display: 'flex', borderBottom: '1px solid var(--LAC-orange)', marginBottom: '2rem' }}>
+          <div style={{ padding: '0.5rem 1rem', color: 'var(--LAC-orange)', fontWeight: 800, fontSize: '0.85rem', borderBottom: '3px solid var(--LAC-orange)', textTransform: 'uppercase' }}>HABER ODASI</div>
+          <div style={{ padding: '0.5rem 1rem', color: 'var(--LAC-text-dark)', fontWeight: 800, fontSize: '0.85rem', textTransform: 'uppercase', cursor: 'pointer' }}>ETKİNLİKLER</div>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
@@ -193,7 +193,7 @@ export default function Home() {
               <img src="/news/1.jpg" alt="Main News" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)' }}></div>
               <div style={{ position: 'absolute', bottom: '2rem', left: '2rem', right: '2rem' }}>
-                <span style={{ backgroundColor: 'var(--lapd-orange)', color: '#fff', padding: '0.3rem 0.8rem', fontSize: '0.75rem', fontWeight: 800, borderRadius: '4px', marginBottom: '0.5rem', display: 'inline-block' }}>GANG UNIT</span>
+                <span style={{ backgroundColor: 'var(--LAC-orange)', color: '#fff', padding: '0.3rem 0.8rem', fontSize: '0.75rem', fontWeight: 800, borderRadius: '4px', marginBottom: '0.5rem', display: 'inline-block' }}>GANG UNIT</span>
                 <h2 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#fff', lineHeight: 1.2, margin: '0.5rem 0' }}>
                   Los Angeles Sokaklarında Dev Çete Operasyonu
                 </h2>
@@ -207,7 +207,7 @@ export default function Home() {
             {[
               { title: 'Organize Suç Örgütlerine Büyük Darbe', date: 'August 09, 2026', img: '/news/2.jpg' },
               { title: 'Crash Night: Hafta Sonu Trafik Denetimleri', date: 'August 05, 2026', img: '/news/3.jpg' },
-              { title: 'LAPD Filosuna Yeni Nesil Devriye Araçları', date: 'August 01, 2026', img: '/news/4.jpg' },
+              { title: 'LAC Filosuna Yeni Nesil Devriye Araçları', date: 'August 01, 2026', img: '/news/4.jpg' },
               { title: 'Şafak Operasyonu: Ağır Silahlar Ele Geçirildi', date: 'July 25, 2026', img: '/news/6.jpg' }
             ].map((n, i) => (
               <Link key={i} href="/haberler" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column' }}>
@@ -248,7 +248,7 @@ export default function Home() {
           <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
             <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '0.5rem', color: 'var(--text-primary)' }}>Kritik Olay Videoları</h3>
             <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '1.5rem', lineHeight: 1.5 }}>
-              LAPD memurlarının dahil olduğu kritik olayları yakalayan, kamuya açıklanmış video kayıtlarını izleyin.
+              LAC memurlarının dahil olduğu kritik olayları yakalayan, kamuya açıklanmış video kayıtlarını izleyin.
             </p>
             <div style={{ marginTop: 'auto' }}>
               <Link href="/" style={{ color: 'var(--accent-secondary)', textDecoration: 'none', fontWeight: 600, fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
@@ -267,11 +267,11 @@ export default function Home() {
           </div>
           <div style={{ marginBottom: '1.5rem' }}>
             <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Acil Olmayan Polis Yanıtı:</div>
-            <div style={{ fontSize: '1.5rem', fontWeight: 800 }}>1-877-ASK-LAPD</div>
+            <div style={{ fontSize: '1.5rem', fontWeight: 800 }}>1-877-ASK-LAC</div>
           </div>
           <div style={{ marginBottom: '2.5rem' }}>
             <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>E-Posta Soru & Yorumlar:</div>
-            <div style={{ fontSize: '1rem', fontWeight: 600 }}>contact.lapdonline@gmail.com</div>
+            <div style={{ fontSize: '1rem', fontWeight: 600 }}>contact.LAConline@gmail.com</div>
           </div>
 
           <div style={{ marginTop: 'auto' }}>
@@ -301,10 +301,10 @@ export default function Home() {
             <a href="https://discord.com/invite/laco" target="_blank" style={{ color: 'var(--text-secondary)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', fontWeight: 500 }}>
               <i className="fa-brands fa-discord"></i> Discord Sunucusu
             </a>
-            <a href="https://www.youtube.com/@Thelapd-7" target="_blank" style={{ color: 'var(--text-secondary)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', fontWeight: 500 }}>
+            <a href="https://www.youtube.com/@TheLAC-7" target="_blank" style={{ color: 'var(--text-secondary)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', fontWeight: 500 }}>
               <i className="fa-brands fa-youtube"></i> YouTube Resmi
             </a>
-            <a href="https://www.tiktok.com/@thelapdfivem?lang=tr-TR" target="_blank" style={{ color: 'var(--text-secondary)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', fontWeight: 500 }}>
+            <a href="https://www.tiktok.com/@theLACfivem?lang=tr-TR" target="_blank" style={{ color: 'var(--text-secondary)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', fontWeight: 500 }}>
               <i className="fa-brands fa-tiktok"></i> TikTok Hesabı
             </a>
           </div>

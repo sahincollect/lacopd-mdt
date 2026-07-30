@@ -1,6 +1,6 @@
-// LAPD Duty Manual - Application State
-let currentLang = localStorage.getItem('lapd_lang') || 'EN';
-let currentTheme = localStorage.getItem('lapd_theme') || 'dark-theme';
+﻿// LAC Duty Manual - Application State
+let currentLang = localStorage.getItem('LAC_lang') || 'EN';
+let currentTheme = localStorage.getItem('LAC_theme') || 'dark-theme';
 
 // Initialize Page
 document.addEventListener("DOMContentLoaded", () => {
@@ -75,7 +75,7 @@ function toggleTheme() {
 function applyTheme(theme) {
     document.body.className = theme;
     currentTheme = theme;
-    localStorage.setItem('lapd_theme', theme);
+    localStorage.setItem('LAC_theme', theme);
     
     const themeBtnIcon = document.querySelector("#themeToggle i");
     if (theme === 'dark-theme') {
@@ -88,7 +88,7 @@ function applyTheme(theme) {
 // Language Controls
 function applyLanguage(lang) {
     currentLang = lang;
-    localStorage.setItem('lapd_lang', lang);
+    localStorage.setItem('LAC_lang', lang);
     
     // Update segmented buttons active state
     const btnEN = document.getElementById("langBtnEN");

@@ -1,4 +1,4 @@
-export default function GizlilikPage() {
+﻿export default function GizlilikPage() {
   return (
     <div style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)', minHeight: '80vh', padding: '4rem 2rem' }}>
       <div style={{ maxWidth: '800px', margin: '0 auto', backgroundColor: 'var(--bg-secondary)', padding: '3rem', borderRadius: '12px', border: '1px solid var(--border-light)' }}>
@@ -21,7 +21,7 @@ export default function GizlilikPage() {
           Toplanan bilgiler yalnızca departman içi iletişim, rütbe atamaları, ceza/rapor sistemleri ve genel sunucu içi (in-character) işleyişin devamlılığı için kullanılmaktadır. Hiçbir bilgi üçüncü şahıslarla reklam veya ticari amaçlarla paylaşılmaz.
         </p>
         <p style={{ marginTop: '3rem', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-          Son Güncelleme: {new Date().getFullYear()} - Bu web sitesi tamamen kurgusaldır ve gerçek Los Angeles Police Department (LAPD) ile bir ilgisi yoktur.
+          Son Güncelleme: {new Date().getFullYear()} - Bu web sitesi tamamen kurgusaldır ve gerçek Los Angeles Community (LAC) ile bir ilgisi yoktur.
         </p>
       </div>
     </div>

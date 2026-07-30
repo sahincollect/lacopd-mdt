@@ -1,4 +1,4 @@
-// Mock data to populate on first load
+﻿// Mock data to populate on first load
 const MOCK_OFFICERS = [
   {
     id: "1",
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Load from LocalStorage
 function loadData() {
-  const storedOfficers = localStorage.getItem("lapd_officers");
+  const storedOfficers = localStorage.getItem("LAC_officers");
   if (storedOfficers) {
     officers = JSON.parse(storedOfficers);
     
@@ -103,7 +103,7 @@ function loadData() {
     saveOfficers();
   }
 
-  const storedSettings = localStorage.getItem("lapd_settings");
+  const storedSettings = localStorage.getItem("LAC_settings");
   if (storedSettings) {
     settings = JSON.parse(storedSettings);
   }
@@ -111,11 +111,11 @@ function loadData() {
 
 // Save to LocalStorage
 function saveOfficers() {
-  localStorage.setItem("lapd_officers", JSON.stringify(officers));
+  localStorage.setItem("LAC_officers", JSON.stringify(officers));
 }
 
 function saveSettings() {
-  localStorage.setItem("lapd_settings", JSON.stringify(settings));
+  localStorage.setItem("LAC_settings", JSON.stringify(settings));
 }
 
 // Setup Event Listeners
@@ -447,7 +447,7 @@ window.copyToClipboard = function(id) {
 };
 
 function formatDiscordMarkdown(officer) {
-  let msg = `**🚨 LAPD | EKİPMAN & ARAÇ TAHSİS KAYDI 🚨**\n`;
+  let msg = `**🚨 LAC | EKİPMAN & ARAÇ TAHSİS KAYDI 🚨**\n`;
   msg += `──────────────────────────────\n`;
   msg += `**👮 Memur:** ${officer.name} (Rozet: #${officer.badge})\n`;
   msg += `**⭐ Rütbe:** ${officer.rank}\n`;
@@ -498,8 +498,8 @@ function sendWebhook(officer) {
   const payload = {
     embeds: [
       {
-        title: "🚨 LAPD | Ekipman & Araç Tahsis Kaydı",
-        color: 13938487, // LAPD Gold Color (HEX d4af37 -> DEC 13938487)
+        title: "🚨 LAC | Ekipman & Araç Tahsis Kaydı",
+        color: 13938487, // LAC Gold Color (HEX d4af37 -> DEC 13938487)
         fields: [
           {
             name: "👮 Memur Detayları",
@@ -520,7 +520,7 @@ function sendWebhook(officer) {
           }
         ],
         footer: {
-          text: "LAPD Quartermaster Registry System"
+          text: "LAC Quartermaster Registry System"
         },
         timestamp: new Date().toISOString()
       }
@@ -555,7 +555,7 @@ function testWebhook() {
   }
 
   const payload = {
-    content: "🔔 **LAPD Quartermaster Sistemi**: Webhook bağlantı testi başarılı!"
+    content: "🔔 **LAC Quartermaster Sistemi**: Webhook bağlantı testi başarılı!"
   };
 
   fetch(url, {
@@ -583,7 +583,7 @@ function exportData() {
   const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(officers, null, 2));
   const downloadAnchor = document.createElement('a');
   downloadAnchor.setAttribute("href", dataStr);
-  downloadAnchor.setAttribute("download", `lapd_tahsis_yedek_${new Date().toISOString().split('T')[0]}.json`);
+  downloadAnchor.setAttribute("download", `LAC_tahsis_yedek_${new Date().toISOString().split('T')[0]}.json`);
   document.body.appendChild(downloadAnchor);
   downloadAnchor.click();
   downloadAnchor.remove();

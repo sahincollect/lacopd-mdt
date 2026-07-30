@@ -60,9 +60,14 @@ export default function Yonetmelikler() {
               letterSpacing: "0.2em",
               textTransform: "uppercase",
               margin: "0 0 0.3rem",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem"
             }}
           >
-            L.A.C.P.D. · Resmi Belgeler
+            L.A.C.P.D. · RESMİ BELGELER
+            <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "var(--mdt-text-muted)" }} />
+            <span style={{ color: "var(--mdt-accent)" }}>REGULATIONS</span>
           </p>
           <h1
             style={{

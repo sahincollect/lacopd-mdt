@@ -1,16 +1,16 @@
-"use client";
+﻿"use client";
 
 import Link from 'next/link';
 
 export default function MessagePage() {
   return (
-    <div style={{ backgroundColor: 'var(--lapd-bg)', color: 'var(--lapd-text-dark)', fontFamily: 'var(--font-inter)', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ backgroundColor: 'var(--LAC-bg)', color: 'var(--LAC-text-dark)', fontFamily: 'var(--font-inter)', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       
       {/* ── HEADER BREADCRUMB ── */}
-      <div style={{ backgroundColor: 'var(--bg-secondary)', padding: '1rem 2rem', borderBottom: '1px solid var(--lapd-border)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', fontSize: '0.85rem', color: 'var(--lapd-text-muted)' }}>
-          <Link href="/" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Ana Sayfa</Link> &nbsp;&gt;&nbsp; 
-          <span style={{ color: 'var(--lapd-orange)' }}>Community Lead'den Mesaj</span>
+      <div style={{ backgroundColor: 'var(--bg-secondary)', padding: '1rem 2rem', borderBottom: '1px solid var(--LAC-border)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', fontSize: '0.85rem', color: 'var(--LAC-text-muted)' }}>
+          <Link href="/" style={{ color: 'var(--LAC-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Ana Sayfa</Link> &nbsp;&gt;&nbsp; 
+          <span style={{ color: 'var(--LAC-orange)' }}>Community Lead'den Mesaj</span>
         </div>
       </div>
 
@@ -19,27 +19,27 @@ export default function MessagePage() {
         
         {/* Left Side: Photo & Info */}
         <div style={{ flex: '0 0 350px' }}>
-          <img src="/chief.png" alt="Community Lead" style={{ width: '100%', border: '1px solid var(--lapd-border)', boxShadow: '0 10px 20px rgba(0,0,0,0.05)' }} />
+          <img src="/chief.png" alt="Community Lead" style={{ width: '100%', border: '1px solid var(--LAC-border)', boxShadow: '0 10px 20px rgba(0,0,0,0.05)' }} />
           <div style={{ backgroundColor: 'var(--accent-primary)', color: 'var(--bg-primary)', padding: '1.5rem', marginTop: '-5px' }}>
             <h3 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 800 }}>Ador Vance</h3>
             <p style={{ margin: '0.5rem 0 0', fontSize: '0.9rem', color: 'var(--bg-primary)', opacity: 0.7 }}>Community Lead, Los Angeles Community</p>
           </div>
           
-          <div style={{ border: '1px solid var(--lapd-border)', padding: '1.5rem', marginTop: '2rem' }}>
-            <h4 style={{ fontSize: '0.9rem', fontWeight: 800, textTransform: 'uppercase', borderBottom: '2px solid var(--lapd-orange)', paddingBottom: '0.5rem', marginBottom: '1rem' }}>İLETİŞİM</h4>
-            <div style={{ fontSize: '0.9rem', color: 'var(--lapd-text-muted)' }}>
-              <p style={{ marginBottom: '0.5rem' }}><i className="fa-solid fa-envelope" style={{ marginRight: '10px', color: 'var(--lapd-orange)' }}></i> lead@lapd.com</p>
-              <p><i className="fa-brands fa-discord" style={{ marginRight: '10px', color: 'var(--lapd-orange)' }}></i> <a href="https://discord.com/invite/laco" style={{ color: 'var(--lapd-text-muted)', textDecoration: 'none' }}>Sunucumuz</a></p>
+          <div style={{ border: '1px solid var(--LAC-border)', padding: '1.5rem', marginTop: '2rem' }}>
+            <h4 style={{ fontSize: '0.9rem', fontWeight: 800, textTransform: 'uppercase', borderBottom: '2px solid var(--LAC-orange)', paddingBottom: '0.5rem', marginBottom: '1rem' }}>İLETİŞİM</h4>
+            <div style={{ fontSize: '0.9rem', color: 'var(--LAC-text-muted)' }}>
+              <p style={{ marginBottom: '0.5rem' }}><i className="fa-solid fa-envelope" style={{ marginRight: '10px', color: 'var(--LAC-orange)' }}></i> lead@LAC.com</p>
+              <p><i className="fa-brands fa-discord" style={{ marginRight: '10px', color: 'var(--LAC-orange)' }}></i> <a href="https://discord.com/invite/laco" style={{ color: 'var(--LAC-text-muted)', textDecoration: 'none' }}>Sunucumuz</a></p>
             </div>
           </div>
         </div>
 
         {/* Right Side: Message Content */}
         <div style={{ flex: 1 }}>
-          <h1 style={{ fontSize: '3rem', fontWeight: 800, color: 'var(--lapd-blue-dark)', marginBottom: '1rem', lineHeight: 1.1 }}>Community Lead'den Mesaj</h1>
-          <div style={{ width: '60px', height: '4px', backgroundColor: 'var(--lapd-orange)', marginBottom: '2rem' }}></div>
+          <h1 style={{ fontSize: '3rem', fontWeight: 800, color: 'var(--LAC-blue-dark)', marginBottom: '1rem', lineHeight: 1.1 }}>Community Lead'den Mesaj</h1>
+          <div style={{ width: '60px', height: '4px', backgroundColor: 'var(--LAC-orange)', marginBottom: '2rem' }}></div>
           
-          <div style={{ fontSize: '1.1rem', lineHeight: 1.8, color: 'var(--lapd-text-dark)', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <div style={{ fontSize: '1.1rem', lineHeight: 1.8, color: 'var(--LAC-text-dark)', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             <p>
               <strong>Değerli Los Angeles Sakinleri ve Topluluk Üyeleri,</strong>
             </p>
@@ -57,7 +57,7 @@ export default function MessagePage() {
             </p>
             <p style={{ marginTop: '1rem', fontStyle: 'italic', fontWeight: 600 }}>
               Saygılarımla,<br/><br/>
-              <span style={{ color: 'var(--lapd-blue-dark)', fontStyle: 'normal', fontSize: '1.2rem' }}>Ador Vance<br/><span style={{ fontSize: '0.9rem', color: 'var(--lapd-text-muted)' }}>Community Lead</span></span>
+              <span style={{ color: 'var(--LAC-blue-dark)', fontStyle: 'normal', fontSize: '1.2rem' }}>Ador Vance<br/><span style={{ fontSize: '0.9rem', color: 'var(--LAC-text-muted)' }}>Community Lead</span></span>
             </p>
           </div>
         </div>

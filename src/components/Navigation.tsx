@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -71,8 +71,8 @@ export default function Navigation() {
 
       {/* ── MAIN WHITE HEADER ── */}
       <div style={{
-        backgroundColor: 'var(--lapd-bg)',
-        borderBottom: '1px solid var(--lapd-border)',
+        backgroundColor: 'var(--LAC-bg)',
+        borderBottom: '1px solid var(--LAC-border)',
         padding: '1rem 2rem',
         display: 'flex',
         alignItems: 'center',
@@ -90,8 +90,8 @@ export default function Navigation() {
             flexShrink: 0
           }}>
             <img 
-              src="/lapd-logo.png" 
-              alt="LAPD Logo" 
+              src="/LAC-logo.png" 
+              alt="LAC Logo" 
               style={{ width: '100%', height: '100%', objectFit: 'cover', backgroundColor: 'var(--accent-primary)' }} 
             />
           </div>
@@ -119,7 +119,7 @@ export default function Navigation() {
               >
                 {menu.path ? (
                   <Link href={menu.path} style={{ 
-                    color: 'var(--lapd-text-dark)', 
+                    color: 'var(--LAC-text-dark)', 
                     textDecoration: 'none', 
                     fontSize: '0.85rem', 
                     fontWeight: 700, 
@@ -133,7 +133,7 @@ export default function Navigation() {
                   </Link>
                 ) : (
                   <div style={{ 
-                    color: 'var(--lapd-text-dark)', 
+                    color: 'var(--LAC-text-dark)', 
                     textDecoration: 'none', 
                     fontSize: '0.85rem', 
                     fontWeight: 700, 
@@ -148,7 +148,7 @@ export default function Navigation() {
                       width: 0, height: 0, 
                       borderLeft: '4px solid transparent', 
                       borderRight: '4px solid transparent', 
-                      borderTop: `4px solid ${activeMenu === menu.name ? 'var(--lapd-orange)' : 'var(--lapd-text-dark)'}`,
+                      borderTop: `4px solid ${activeMenu === menu.name ? 'var(--LAC-orange)' : 'var(--LAC-text-dark)'}`,
                       marginTop: '2px',
                       transition: 'border-top-color 0.2s'
                     }}></span>
@@ -162,8 +162,8 @@ export default function Navigation() {
                     top: '100%',
                     left: '0',
                     backgroundColor: 'var(--bg-secondary)',
-                    border: '1px solid var(--lapd-border)',
-                    borderTop: '3px solid var(--lapd-orange)',
+                    border: '1px solid var(--LAC-border)',
+                    borderTop: '3px solid var(--LAC-orange)',
                     boxShadow: '0 10px 25px rgba(0,0,0,0.5)',
                     minWidth: '250px',
                     zIndex: 200,
@@ -176,7 +176,7 @@ export default function Navigation() {
                         style={{
                           display: 'block',
                           padding: '0.8rem 1.5rem',
-                          color: 'var(--lapd-text-dark)',
+                          color: 'var(--LAC-text-dark)',
                           textDecoration: 'none',
                           fontSize: '0.85rem',
                           fontWeight: 500,
@@ -184,11 +184,11 @@ export default function Navigation() {
                         }}
                         onMouseOver={e => {
                           e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)';
-                          e.currentTarget.style.color = 'var(--lapd-orange)';
+                          e.currentTarget.style.color = 'var(--LAC-orange)';
                         }}
                         onMouseOut={e => {
                           e.currentTarget.style.backgroundColor = 'transparent';
-                          e.currentTarget.style.color = 'var(--lapd-text-dark)';
+                          e.currentTarget.style.color = 'var(--LAC-text-dark)';
                         }}
                         onClick={() => setActiveMenu(null)}
                       >
@@ -207,7 +207,7 @@ export default function Navigation() {
             <Link 
               href="/giris" 
               style={{
-                backgroundColor: 'var(--lapd-orange)',
+                backgroundColor: 'var(--LAC-orange)',
                 color: 'white',
                 padding: '0.6rem 1.25rem',
                 fontSize: '0.8rem',

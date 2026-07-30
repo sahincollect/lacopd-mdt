@@ -153,12 +153,17 @@ export default function MDTDashboard() {
               fontSize: "0.8rem",
               color: "var(--mdt-text-muted)",
               margin: "0 0 0.2rem",
-              fontWeight: 500,
-              letterSpacing: "0.04em",
+              fontWeight: 700,
+              letterSpacing: "0.2em",
               textTransform: "uppercase",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem"
             }}
           >
-            Los Angeles Community Police Department
+            L.A.C.P.D. · MERKEZ
+            <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "var(--mdt-text-muted)" }} />
+            <span style={{ color: "var(--mdt-accent)" }}>DASHBOARD</span>
           </p>
           <h1
             style={{

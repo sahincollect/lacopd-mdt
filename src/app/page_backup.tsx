@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
@@ -30,7 +30,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const lastSeen = localStorage.getItem('lapdIntroLastSeen');
+    const lastSeen = localStorage.getItem('LACIntroLastSeen');
     const now = Date.now();
     const twelveHours = 12 * 60 * 60 * 1000; // 12 hours in milliseconds
 
@@ -38,7 +38,7 @@ export default function Home() {
       setIsInstantlyHidden(true);
       setShowIntro(false);
     } else {
-      localStorage.setItem('lapdIntroLastSeen', now.toString());
+      localStorage.setItem('LACIntroLastSeen', now.toString());
       const timer = setTimeout(() => { setShowIntro(false); }, 3200);
       return () => clearTimeout(timer);
     }
@@ -60,10 +60,10 @@ export default function Home() {
   const staggerContainer: any = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.1 } } };
 
   const row1Text = Array.from({ length: 30 }).map((_, idx) => (
-    <span key={idx} style={{ marginRight: '4rem' }}>THE LAPD</span>
+    <span key={idx} style={{ marginRight: '4rem' }}>THE LAC</span>
   ));
   const row2Text = Array.from({ length: 30 }).map((_, idx) => (
-    <span key={idx} style={{ marginRight: '4rem' }}>THE LAPD</span>
+    <span key={idx} style={{ marginRight: '4rem' }}>THE LAC</span>
   ));
 
   const units = [
@@ -112,7 +112,7 @@ export default function Home() {
                   Güvenli Bağlantı Doğrulanıyor
                 </h2>
                 <p style={{ fontSize: '0.95rem', color: '#94a3b8', lineHeight: 1.6, margin: '0 0 2.5rem 0' }}>
-                  Lütfen bekleyin, <strong>thelapd.online</strong> adresine erişiminiz denetleniyor. Bu işlem ağ güvenliğinizi sağlamak içindir.
+                  Lütfen bekleyin, <strong>theLAC.online</strong> adresine erişiminiz denetleniyor. Bu işlem ağ güvenliğinizi sağlamak içindir.
                 </p>
 
                 {/* Progress/Status line */}
@@ -150,8 +150,8 @@ export default function Home() {
         @keyframes scrollLeft { from { transform: translateX(0); } to { transform: translateX(-50%); } }
         @keyframes scrollRight { from { transform: translateX(-50%); } to { transform: translateX(0); } }
         @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.7); } 70% { box-shadow: 0 0 0 6px rgba(34,197,94,0); } 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); } }
-        .lapd-scroll-left { display: flex; white-space: nowrap; width: max-content; animation: scrollLeft var(--dur) linear infinite; }
-        .lapd-scroll-right { display: flex; white-space: nowrap; width: max-content; animation: scrollRight var(--dur) linear infinite; }
+        .LAC-scroll-left { display: flex; white-space: nowrap; width: max-content; animation: scrollLeft var(--dur) linear infinite; }
+        .LAC-scroll-right { display: flex; white-space: nowrap; width: max-content; animation: scrollRight var(--dur) linear infinite; }
         .btn-modern { transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
         .btn-modern:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(14, 165, 233, 0.2); }
       `}</style>
@@ -166,7 +166,7 @@ export default function Home() {
           const strokeColor = isAlt ? `rgba(14, 165, 233, ${opacity})` : `rgba(148, 163, 255, ${opacity})`;
           return (
             <div key={i} style={{ lineHeight: '1.2' }}>
-              <div className={isEven ? 'lapd-scroll-left' : 'lapd-scroll-right'} style={{ '--dur': dur, fontSize: i % 3 === 0 ? '6rem' : i % 3 === 1 ? '4rem' : '3rem', fontFamily: "'Oswald', sans-serif", fontWeight: 700, color: 'transparent', WebkitTextStroke: `1px ${strokeColor}`, letterSpacing: '0.05em', userSelect: 'none' } as any}>
+              <div className={isEven ? 'LAC-scroll-left' : 'LAC-scroll-right'} style={{ '--dur': dur, fontSize: i % 3 === 0 ? '6rem' : i % 3 === 1 ? '4rem' : '3rem', fontFamily: "'Oswald', sans-serif", fontWeight: 700, color: 'transparent', WebkitTextStroke: `1px ${strokeColor}`, letterSpacing: '0.05em', userSelect: 'none' } as any}>
                 {isAlt ? [...row1Text, ...row1Text] : [...row2Text, ...row2Text]}
               </div>
             </div>
@@ -217,13 +217,13 @@ export default function Home() {
                   <i className="fa-solid fa-file-pen"></i> BAŞVURULAR
                 </a>
               </Link>
-              <a href="https://discord.gg/thelapd" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '45px', height: '45px', borderRadius: '50%', border: '1px solid rgba(88, 101, 242, 0.5)', color: '#5865F2', backgroundColor: 'transparent', transition: 'all 0.3s ease' }} onMouseOver={e => { e.currentTarget.style.backgroundColor = 'rgba(88, 101, 242, 0.1)'; e.currentTarget.style.borderColor = '#5865F2'; e.currentTarget.style.boxShadow = '0 0 15px rgba(88, 101, 242, 0.3)'; }} onMouseOut={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.borderColor = 'rgba(88, 101, 242, 0.5)'; e.currentTarget.style.boxShadow = 'none'; }} title="Discord">
+              <a href="https://discord.gg/theLAC" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '45px', height: '45px', borderRadius: '50%', border: '1px solid rgba(88, 101, 242, 0.5)', color: '#5865F2', backgroundColor: 'transparent', transition: 'all 0.3s ease' }} onMouseOver={e => { e.currentTarget.style.backgroundColor = 'rgba(88, 101, 242, 0.1)'; e.currentTarget.style.borderColor = '#5865F2'; e.currentTarget.style.boxShadow = '0 0 15px rgba(88, 101, 242, 0.3)'; }} onMouseOut={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.borderColor = 'rgba(88, 101, 242, 0.5)'; e.currentTarget.style.boxShadow = 'none'; }} title="Discord">
                 <i className="fa-brands fa-discord" style={{ fontSize: '1.2rem' }}></i>
               </a>
-              <a href="https://www.youtube.com/@Thelapd-7" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '45px', height: '45px', borderRadius: '50%', border: '1px solid rgba(255, 0, 0, 0.5)', color: '#FF0000', backgroundColor: 'transparent', transition: 'all 0.3s ease' }} onMouseOver={e => { e.currentTarget.style.backgroundColor = 'rgba(255, 0, 0, 0.1)'; e.currentTarget.style.borderColor = '#FF0000'; e.currentTarget.style.boxShadow = '0 0 15px rgba(255, 0, 0, 0.3)'; }} onMouseOut={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.borderColor = 'rgba(255, 0, 0, 0.5)'; e.currentTarget.style.boxShadow = 'none'; }} title="YouTube">
+              <a href="https://www.youtube.com/@TheLAC-7" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '45px', height: '45px', borderRadius: '50%', border: '1px solid rgba(255, 0, 0, 0.5)', color: '#FF0000', backgroundColor: 'transparent', transition: 'all 0.3s ease' }} onMouseOver={e => { e.currentTarget.style.backgroundColor = 'rgba(255, 0, 0, 0.1)'; e.currentTarget.style.borderColor = '#FF0000'; e.currentTarget.style.boxShadow = '0 0 15px rgba(255, 0, 0, 0.3)'; }} onMouseOut={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.borderColor = 'rgba(255, 0, 0, 0.5)'; e.currentTarget.style.boxShadow = 'none'; }} title="YouTube">
                 <i className="fa-brands fa-youtube" style={{ fontSize: '1.2rem' }}></i>
               </a>
-              <a href="https://www.tiktok.com/@thelapdfivem?lang=tr-TR" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '45px', height: '45px', borderRadius: '50%', border: '1px solid rgba(255, 255, 255, 0.3)', color: '#fff', backgroundColor: 'transparent', transition: 'all 0.3s ease' }} onMouseOver={e => { e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.05)'; e.currentTarget.style.borderColor = '#fff'; e.currentTarget.style.boxShadow = '0 0 15px rgba(255, 255, 255, 0.2)'; }} onMouseOut={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)'; e.currentTarget.style.boxShadow = 'none'; }} title="TikTok">
+              <a href="https://www.tiktok.com/@theLACfivem?lang=tr-TR" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '45px', height: '45px', borderRadius: '50%', border: '1px solid rgba(255, 255, 255, 0.3)', color: '#fff', backgroundColor: 'transparent', transition: 'all 0.3s ease' }} onMouseOver={e => { e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.05)'; e.currentTarget.style.borderColor = '#fff'; e.currentTarget.style.boxShadow = '0 0 15px rgba(255, 255, 255, 0.2)'; }} onMouseOut={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)'; e.currentTarget.style.boxShadow = 'none'; }} title="TikTok">
                 <i className="fa-brands fa-tiktok" style={{ fontSize: '1.2rem' }}></i>
               </a>
             </div>

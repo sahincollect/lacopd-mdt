@@ -178,12 +178,8 @@ export default function ProfilPage() {
     }
   };
 
-  const handlePhotoClick = () => {
-    const newUrl = window.prompt("Yeni profil fotoğrafınızın URL'sini girin (Imgur/Discord vs.):", imgUrl || "");
-    if (newUrl !== null) {
-      setImgUrl(newUrl);
-      updateProfileImage(newUrl);
-    }
+  const handleUpdateUrl = () => {
+    updateProfileImage(imgUrl);
   };
 
   const removePhoto = () => {
@@ -195,19 +191,26 @@ export default function ProfilPage() {
 
   if (loading) {
     return (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', flexDirection: 'column', gap: '1rem', color: 'var(--text-muted)' }}>
-        <i className="fa-solid fa-circle-notch fa-spin" style={{ fontSize: '2rem' }}></i>
-        <span style={{ fontSize: '0.9rem', fontWeight: 700 }}>VERİLER YÜKLENİYOR...</span>
+      <div style={{ display: "flex", flexDirection: "column", gap: "1rem", padding: "1rem" }}>
+        <div style={{ height: 150, borderRadius: 12, background: 'var(--mdt-card-bg)', border: '1px solid var(--mdt-border)', opacity: 0.5 }} className="pulse-anim" />
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+          <div style={{ height: 300, borderRadius: 12, background: 'var(--mdt-card-bg)', border: '1px solid var(--mdt-border)', opacity: 0.5 }} className="pulse-anim" />
+          <div style={{ height: 300, borderRadius: 12, background: 'var(--mdt-card-bg)', border: '1px solid var(--mdt-border)', opacity: 0.5 }} className="pulse-anim" />
+        </div>
       </div>
     );
   }
 
   if (!user) {
     return (
-      <div style={{ textAlign: 'center', padding: '4rem', color: 'var(--text-muted)' }}>
-        <i className="fa-solid fa-triangle-exclamation" style={{ fontSize: '3rem', color: 'var(--color-danger)', marginBottom: '1.5rem' }} />
-        <h2 style={{ fontWeight: 900, color: 'var(--text-primary)', margin: '0 0 0.5rem 0' }}>KİMLİK DOĞRULAMA HATASI</h2>
-        <p style={{ margin: 0 }}>Kullanıcı verisi okunamadı. Lütfen tekrar giriş yapın.</p>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', minHeight: '400px', gap: '1.5rem', color: 'var(--mdt-text-muted)', textAlign: 'center' }}>
+        <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(239,68,68,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(239,68,68,0.2)' }}>
+          <i className="fa-solid fa-triangle-exclamation" style={{ fontSize: '2rem', color: 'var(--mdt-danger)' }} />
+        </div>
+        <div>
+          <div style={{ fontSize: '1.25rem', fontWeight: 900, color: 'var(--mdt-text-primary)', marginBottom: '0.5rem', letterSpacing: '0.05em' }}>KİMLİK DOĞRULAMA HATASI</div>
+          <div style={{ fontSize: '0.9rem', color: 'var(--mdt-text-secondary)' }}>Kullanıcı verisi okunamadı. Lütfen tekrar giriş yapın.</div>
+        </div>
       </div>
     );
   }
@@ -217,240 +220,279 @@ export default function ProfilPage() {
   const reportCount = reports.filter((r) => r.officer?.badge === user.badge).length;
 
   const inputStyle: React.CSSProperties = {
-    width: "100%", padding: "0.85rem", background: 'var(--bg-tertiary)', border: "1px solid var(--border-light)",
-    borderRadius: '4px', color: 'var(--text-primary)', fontSize: "0.95rem", outline: "none", boxSizing: "border-box"
+    width: "100%", padding: "0.85rem 1rem", background: 'var(--mdt-bg-main)', border: "1px solid var(--mdt-border)",
+    borderRadius: '6px', color: 'var(--mdt-text-primary)', fontSize: "0.85rem", outline: "none", boxSizing: "border-box",
+    transition: "border-color 0.15s, box-shadow 0.15s"
   };
 
   return (
-    <div style={{ fontFamily: "var(--font-inter)", display: "flex", flexDirection: "column", gap: "2rem" }}>
+    <div style={{ fontFamily: "'Inter', sans-serif", display: "flex", flexDirection: "column", gap: "2rem" }}>
       
-      {/* HEADER */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', borderBottom: "2px solid var(--border-light)", paddingBottom: "1rem", flexWrap: "wrap", gap: "1rem" }}>
+      {/* ── HEADER ── */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", borderBottom: "1px solid var(--mdt-border)", paddingBottom: "1.5rem", flexWrap: "wrap", gap: "1rem" }}>
         <div>
-          <h1 style={{ fontSize: '2.5rem', fontWeight: 900, margin: 0, color: 'var(--lapd-blue-dark)', letterSpacing: '-0.03em', textTransform: 'uppercase' }}>
-            PERSONEL PROFİLİ
+          <p style={{ fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)', margin: '0 0 0.3rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            L.A.C.P.D. · YÖNETİM
+            <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "var(--mdt-text-muted)" }} />
+            <span style={{ color: "var(--mdt-accent)" }}>AUTHORIZED ONLY</span>
+          </p>
+          <h1 style={{ fontSize: "1.75rem", fontWeight: 900, color: "var(--mdt-text-primary)", margin: 0, letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+            Personel Profili
           </h1>
-          <p style={{ color: 'var(--text-muted)', fontSize: '1rem', marginTop: '0.2rem', fontWeight: 600 }}>
+          <p style={{ color: 'var(--mdt-text-muted)', fontSize: '0.82rem', marginTop: '0.35rem', fontWeight: 400 }}>
             Kimlik Kartı ve Sistem Konfigürasyonu
           </p>
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(350px, 400px) 1fr', gap: '2rem', alignItems: 'start' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(350px, 1fr) minmax(300px, 350px)', gap: '1.5rem', alignItems: 'start' }}>
         
-        {/* ================= LEFT COLUMN: ID & DUTY ================= */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', position: 'sticky', top: '2rem' }}>
+        {/* ================= LEFT COLUMN: HERO & STATS ================= */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           
-          {/* ID CARD */}
-          <div style={{ backgroundColor: 'var(--bg-secondary)', borderRadius: '8px', border: '1px solid var(--border-light)', overflow: 'hidden' }}>
-            {/* Header */}
-            <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--border-light)', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', backgroundColor: 'var(--bg-tertiary)' }}>
-              <img src="/lapd-logo.png" alt="LAC" style={{ width: '50px', height: '50px' }} />
-              <div style={{ textAlign: 'right' }}>
-                <div style={{ color: 'var(--lapd-blue-dark)', fontSize: '1.4rem', fontWeight: 900, letterSpacing: '0.05em' }}>L.A.C.P.D.</div>
-                <div style={{ color: 'var(--text-muted)', fontSize: '0.7rem', fontWeight: 800 }}>KİMLİK KARTI</div>
-              </div>
-            </div>
-
-            {/* Content */}
-            <div style={{ padding: '2rem 1.5rem', display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-              <div style={{ position: 'relative' }}>
-                <div 
-                  onClick={handlePhotoClick}
-                  style={{ 
-                    width: '110px', height: '110px', borderRadius: '4px',
-                    backgroundColor: 'var(--bg-tertiary)', border: `1px solid var(--border-light)`,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden',
-                    cursor: 'pointer', position: 'relative'
-                  }}>
-                  {user.profileImage ? (
-                    <img src={user.profileImage} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  ) : (
-                    <img src="/lapd-logo.png" alt="LAC Logo" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.2, filter: 'grayscale(100%)' }} />
-                  )}
-                  <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0, transition: 'opacity 0.2s' }} onMouseOver={e => e.currentTarget.style.opacity = '1'} onMouseOut={e => e.currentTarget.style.opacity = '0'}>
-                    <i className="fa-solid fa-camera" style={{ fontSize: '1.5rem', color: '#fff' }}></i>
-                  </div>
-                </div>
-                <div style={{ position: 'absolute', top: '-6px', right: '-6px', width: '18px', height: '18px', backgroundColor: isOnDuty ? 'var(--color-success)' : 'var(--text-muted)', borderRadius: '50%', border: '4px solid var(--bg-secondary)' }}></div>
-              </div>
-
-              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-                <div style={{ paddingBottom: '0.75rem', borderBottom: '1px solid var(--border-light)' }}>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 800 }}>PERSONEL ADI</div>
-                  <div style={{ fontSize: '1.3rem', color: 'var(--text-primary)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.1 }}>{user.name}</div>
-                </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                  <div>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 800 }}>RÜTBE</div>
-                    <div style={{ fontSize: '0.9rem', color: 'var(--text-primary)', fontWeight: 800 }}>{user.rank.toUpperCase()}</div>
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 800 }}>ROZET</div>
-                    <div style={{ fontSize: '1rem', color: 'var(--lapd-blue-dark)', fontWeight: 900, fontFamily: 'monospace' }}>#{user.badge}</div>
-                  </div>
-                </div>
-                {user.specialRoles && (
-                  <div style={{ marginTop: '0.2rem' }}>
-                    <div style={{ fontSize: '0.7rem', color: 'var(--lapd-blue-dark)', fontWeight: 900, marginBottom: '0.4rem' }}>ÖZEL ROLLER</div>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
-                      {user.specialRoles.split(',').filter(Boolean).map((sr: string, idx: number) => (
-                        <span key={idx} style={{
-                          fontSize: '0.7rem', fontWeight: 800, color: 'var(--text-primary)',
-                          backgroundColor: 'var(--bg-tertiary)', border: '1px solid var(--border-light)',
-                          padding: '2px 6px', borderRadius: '4px', display: 'inline-flex', alignItems: 'center'
-                        }}>
-                          {sr.trim()}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+          {/* HERO CARD */}
+          <div style={{ 
+            background: 'var(--mdt-card-bg)',
+            border: '1px solid var(--mdt-border)',
+            borderRadius: '12px',
+            overflow: 'hidden',
+            position: 'relative',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+          }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '120px', background: 'linear-gradient(to bottom, var(--mdt-accent-alpha), transparent)', opacity: 0.2 }} />
+            
+            <div style={{ padding: '2.5rem 2rem 2rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+              
+              <div style={{ 
+                width: 100, height: 100, borderRadius: '50%', background: 'var(--mdt-bg-main)', border: '2px solid var(--mdt-accent)', 
+                display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', marginBottom: '1.25rem',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
+              }}>
+                {user.profileImage ? (
+                  <img src={user.profileImage} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                ) : (
+                  <i className="fa-solid fa-user-tie" style={{ fontSize: '3rem', color: 'var(--mdt-text-muted)' }}></i>
                 )}
               </div>
+
+              <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', marginBottom: '0.75rem' }}>
+                <span style={{ 
+                  padding: '4px 12px', borderRadius: '20px', fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase',
+                  background: isOnDuty ? 'rgba(34,197,94,0.1)' : 'rgba(239,68,68,0.1)',
+                  color: isOnDuty ? 'var(--mdt-success)' : 'var(--mdt-danger)',
+                  border: `1px solid ${isOnDuty ? 'rgba(34,197,94,0.3)' : 'rgba(239,68,68,0.3)'}`
+                }}>
+                  {isOnDuty ? 'MESAİDE' : 'MESAİ DIŞI'}
+                </span>
+                <span style={{ padding: '4px 12px', borderRadius: '20px', fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', background: 'rgba(29,110,247,0.1)', color: 'var(--mdt-accent)', border: '1px solid rgba(29,110,247,0.3)' }}>
+                  #{user.badge}
+                </span>
+              </div>
+
+              <h2 style={{ fontSize: '1.85rem', fontWeight: 900, color: 'var(--mdt-text-primary)', margin: '0 0 0.35rem 0', letterSpacing: '-0.02em' }}>{user.name}</h2>
+              <div style={{ fontSize: '0.95rem', color: 'var(--mdt-text-secondary)', fontWeight: 600 }}>{user.rank} • {user.department || 'L.A.C.P.D.'}</div>
+
+              {user.specialRoles && (
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'center', marginTop: '1.25rem' }}>
+                  {user.specialRoles.split(',').filter(Boolean).map((sr: string, idx: number) => (
+                    <span key={idx} style={{
+                      fontSize: '0.7rem', fontWeight: 700, color: 'var(--mdt-text-primary)',
+                      backgroundColor: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)',
+                      padding: '4px 10px', borderRadius: '6px', letterSpacing: '0.05em'
+                    }}>
+                      {sr.trim()}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
-            {/* ID Footer Line */}
-            <div style={{ height: '4px', backgroundColor: 'var(--lapd-blue-dark)' }}></div>
+            
+            <div style={{ display: 'flex', borderTop: '1px solid var(--mdt-border)', background: 'var(--mdt-bg-main)' }}>
+              <div style={{ flex: 1, padding: '1.25rem', textAlign: 'center', borderRight: '1px solid var(--mdt-border)' }}>
+                <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', color: 'var(--mdt-text-muted)', marginBottom: '0.35rem' }}>TOPLAM MESAİ</div>
+                <div style={{ fontSize: '1.25rem', fontWeight: 900, color: 'var(--mdt-text-primary)', fontFamily: 'monospace' }}>{formatTime(liveSeconds)}</div>
+              </div>
+              <div style={{ flex: 1, padding: '1.25rem', textAlign: 'center', borderRight: '1px solid var(--mdt-border)' }}>
+                <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', color: 'var(--mdt-text-muted)', marginBottom: '0.35rem' }}>RAPOR SAYISI</div>
+                <div style={{ fontSize: '1.25rem', fontWeight: 900, color: 'var(--mdt-text-primary)' }}>{reportCount}</div>
+              </div>
+              <div style={{ flex: 1, padding: '1.25rem', textAlign: 'center' }}>
+                <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', color: 'var(--mdt-text-muted)', marginBottom: '0.35rem' }}>LİDERBOARD</div>
+                <div style={{ fontSize: '1.25rem', fontWeight: 900, color: 'var(--mdt-accent)' }}>#{userRank}</div>
+              </div>
+            </div>
           </div>
 
-          {/* DUTY BUTTON */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', margin: '0.5rem 0' }}>
+            <i className="fa-solid fa-power-off" style={{ color: 'var(--mdt-accent)', fontSize: '0.8rem', opacity: 0.8 }} />
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)' }}>MESAİ KONTROLÜ</span>
+            <div style={{ flex: 1, height: 1, background: 'var(--mdt-border)' }} />
+          </div>
+
           <button
             onClick={toggleDuty}
             disabled={dutyLoading}
             style={{
-              width: '100%', padding: '1.5rem', borderRadius: '8px',
-              border: isOnDuty ? '2px solid var(--color-success)' : '1px solid var(--border-light)',
-              backgroundColor: isOnDuty ? 'rgba(16, 185, 129, 0.1)' : 'var(--bg-secondary)',
+              width: '100%', padding: '1.25rem', borderRadius: '10px',
+              border: isOnDuty ? '1px solid rgba(34,197,94,0.4)' : '1px solid rgba(239,68,68,0.4)',
+              backgroundColor: isOnDuty ? 'rgba(34,197,94,0.1)' : 'rgba(239,68,68,0.1)',
               cursor: dutyLoading ? 'not-allowed' : 'pointer',
-              display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem',
-              transition: 'all 0.2s', opacity: dutyLoading ? 0.7 : 1
+              display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.75rem',
+              transition: 'all 0.15s', opacity: dutyLoading ? 0.7 : 1,
+              boxShadow: isOnDuty ? '0 0 20px rgba(34,197,94,0.1)' : 'none'
             }}
+            onMouseOver={e => !dutyLoading && ((e.currentTarget as HTMLElement).style.background = isOnDuty ? 'rgba(34,197,94,0.15)' : 'rgba(239,68,68,0.15)')}
+            onMouseOut={e => !dutyLoading && ((e.currentTarget as HTMLElement).style.background = isOnDuty ? 'rgba(34,197,94,0.1)' : 'rgba(239,68,68,0.1)')}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <i className={`fa-solid ${isOnDuty ? 'fa-satellite-dish' : 'fa-power-off'}`} style={{ fontSize: '1.5rem', color: isOnDuty ? 'var(--color-success)' : 'var(--text-muted)' }} />
-              <span style={{ fontSize: '1.2rem', fontWeight: 900, color: isOnDuty ? 'var(--color-success)' : 'var(--text-primary)' }}>
-                {isOnDuty ? 'MESAİDE (AKTİF)' : 'MESAİYE BAŞLA'}
-              </span>
-            </div>
+            <i className={`fa-solid ${isOnDuty ? 'fa-satellite-dish' : 'fa-power-off'}`} style={{ fontSize: '1.35rem', color: isOnDuty ? 'var(--mdt-success)' : 'var(--mdt-danger)' }} />
+            <span style={{ fontSize: '1.05rem', fontWeight: 800, letterSpacing: '0.05em', color: isOnDuty ? 'var(--mdt-success)' : 'var(--mdt-danger)' }}>
+              {isOnDuty ? 'MESAİDEN ÇIK' : 'MESAİYE BAŞLA'}
+            </span>
           </button>
         </div>
 
-        {/* ================= RIGHT COLUMN: PANELS ================= */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.5rem' }}>
+        {/* ================= RIGHT COLUMN: FORMS ================= */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           
-          {/* PERFORMANCE */}
-          <div style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-light)', borderRadius: '8px', padding: '2rem' }}>
-            <h3 style={{ margin: '0 0 1.5rem 0', color: 'var(--lapd-blue-dark)', fontSize: '1.2rem', fontWeight: 900, display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <i className="fa-solid fa-chart-line"></i>
-              PERFORMANS METRİKLERİ
-            </h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '1.5rem' }}>
-              {[
-                { label: 'TOPLAM SÜRE', value: formatTime(liveSeconds), icon: 'fa-clock' },
-                { label: 'BİRİM SIRASI', value: `#${userRank}`, icon: 'fa-ranking-star' },
-                { label: 'RAPORLAR', value: String(reportCount), icon: 'fa-file-signature' }
-              ].map((stat, i) => (
-                <div key={i} style={{ backgroundColor: 'var(--bg-tertiary)', border: '1px solid var(--border-light)', borderRadius: '4px', padding: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', textAlign: 'center' }}>
-                  <i className={`fa-solid ${stat.icon}`} style={{ fontSize: '1.5rem', color: 'var(--lapd-blue-dark)', marginBottom: '0.5rem' }}></i>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 800 }}>{stat.label}</div>
-                  <div style={{ fontSize: '1.75rem', color: 'var(--text-primary)', fontWeight: 900 }}>{stat.value}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* QUICK LINKS */}
-          <div style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-light)', borderRadius: '8px', padding: '2rem' }}>
-            <h3 style={{ margin: '0 0 1.5rem 0', color: 'var(--lapd-blue-dark)', fontSize: '1.2rem', fontWeight: 900, display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <i className="fa-solid fa-bolt"></i> HIZLI ERİŞİM
-            </h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '1rem' }}>
-              {[
-                { href: '/raporlar-app/index.html', icon: 'fa-pen-to-square', label: 'Rapor Yaz', targetBlank: true },
-                { href: '/mdt/kriminal', icon: 'fa-fingerprint', label: 'Suçlular' },
-                { href: '/mdt/mesai', icon: 'fa-business-time', label: 'Mesailer' },
-                { href: '/mdt/duyurular', icon: 'fa-bullhorn', label: 'Duyurular' },
-              ].map((btn, i) => {
-                const inner = (
-                  <div style={{ backgroundColor: 'var(--bg-tertiary)', border: '1px solid var(--border-light)', borderRadius: '4px', padding: '1.25rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', transition: 'all 0.15s', cursor: 'pointer' }}>
-                    <i className={`fa-solid ${btn.icon}`} style={{ fontSize: '1.5rem', color: 'var(--lapd-blue-dark)' }} />
-                    <span style={{ color: 'var(--text-primary)', fontSize: '0.85rem', fontWeight: 800 }}>{btn.label}</span>
-                  </div>
-                );
-                return btn.targetBlank ? (
-                  <a key={i} href={btn.href} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>{inner}</a>
-                ) : (
-                  <Link key={i} href={btn.href} style={{ textDecoration: 'none' }}>{inner}</Link>
-                );
-              })}
-            </div>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
-            {/* SYSTEM STATUS */}
-            <div style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-light)', borderRadius: '8px', padding: '2rem' }}>
-              <h3 style={{ margin: '0 0 1.5rem 0', color: 'var(--lapd-blue-dark)', fontSize: '1.2rem', fontWeight: 900, display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <i className="fa-solid fa-network-wired"></i> SİSTEM DURUMU
-              </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-light)', paddingBottom: '0.75rem' }}>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 800 }}>AĞ GÜVENLİĞİ</span>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--color-success)', fontWeight: 900, backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '0.2rem 0.6rem', borderRadius: '4px' }}>AKTİF & GÜVENLİ</span>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-light)', paddingBottom: '0.75rem' }}>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 800 }}>ERİŞİM YETKİSİ</span>
-                  <span style={{ fontSize: '0.85rem', color: 'var(--text-primary)', fontWeight: 800 }}>{user.role === 'admin' ? 'YÖNETİCİ (ADMIN)' : 'STANDART'}</span>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-light)', paddingBottom: '0.75rem' }}>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 800 }}>MDT VERSİYON</span>
-                  <span style={{ fontSize: '0.85rem', color: 'var(--text-primary)', fontWeight: 800, fontFamily: 'monospace' }}>v3.1</span>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 800 }}>KAYIT TARİHİ</span>
-                  <span style={{ fontSize: '0.85rem', color: 'var(--text-primary)', fontWeight: 800 }}>{formatDate(user.createdAt)}</span>
-                </div>
+          <div style={{ 
+            background: 'var(--mdt-card-bg)',
+            border: '1px solid var(--mdt-border)',
+            borderRadius: '10px',
+            padding: '1.5rem',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
+          }}>
+            <h3 style={{ margin: '0 0 1.25rem 0', color: 'var(--mdt-text-primary)', fontSize: '1.05rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+              <div style={{ width: '32px', height: '32px', borderRadius: '6px', background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <i className="fa-solid fa-image" style={{ color: 'var(--mdt-accent)', fontSize: '0.9rem' }}></i>
               </div>
-            </div>
-
-            {/* PASSWORD CONFIG */}
-            <div style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-light)', borderRadius: '8px', padding: '2rem' }}>
-              <h3 style={{ margin: '0 0 1.5rem 0', color: 'var(--lapd-blue-dark)', fontSize: '1.2rem', fontWeight: 900, display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <i className="fa-solid fa-key"></i> GÜVENLİK ANAHTARI
-              </h3>
+              Profil Fotoğrafı
+            </h3>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)', marginBottom: '0.5rem' }}>
+                  FOTOĞRAF URL (IMGUR/DİSCORD VB.)
+                </label>
+                <input 
+                  type="text" 
+                  placeholder="https://..." 
+                  value={imgUrl} 
+                  onChange={e => setImgUrl(e.target.value)} 
+                  style={inputStyle}
+                  onFocus={e => { e.target.style.borderColor = 'var(--mdt-accent)'; e.target.style.boxShadow = '0 0 0 3px var(--mdt-accent-alpha)'; }}
+                  onBlur={e => { e.target.style.borderColor = 'var(--mdt-border)'; e.target.style.boxShadow = 'none'; }}
+                />
+              </div>
               
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <input type="password" placeholder="Mevcut Şifre" value={pwForm.current} onChange={e => setPwForm(f => ({ ...f, current: e.target.value }))} style={inputStyle} />
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                  <input type="password" placeholder="Yeni Şifre" value={pwForm.newPw} onChange={e => setPwForm(f => ({ ...f, newPw: e.target.value }))} style={inputStyle} />
-                  <input type="password" placeholder="Yeni Şifre (Tekrar)" value={pwForm.confirm} onChange={e => setPwForm(f => ({ ...f, confirm: e.target.value }))} style={inputStyle} />
-                </div>
-                
-                {pwMessage && (
-                  <div style={{ fontSize: '0.85rem', fontWeight: 700, padding: '0.5rem', borderRadius: '4px', backgroundColor: pwMessage.type === 'success' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)', color: pwMessage.type === 'success' ? 'var(--color-success)' : 'var(--color-danger)' }}>
-                    {pwMessage.text}
-                  </div>
-                )}
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <button 
+                  onClick={handleUpdateUrl} 
+                  disabled={imgLoading} 
+                  style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', padding: '0.7rem 1rem', borderRadius: '6px', border: '1px solid var(--mdt-accent)', background: 'var(--mdt-accent)', color: '#fff', fontWeight: 800, fontSize: '0.8rem', cursor: imgLoading ? 'not-allowed' : 'pointer', transition: 'opacity 0.15s', opacity: imgLoading ? 0.7 : 1 }}
+                  onMouseOver={e => !imgLoading && ((e.currentTarget as HTMLElement).style.opacity = '0.85')}
+                  onMouseOut={e => !imgLoading && ((e.currentTarget as HTMLElement).style.opacity = '1')}
+                >
+                  {imgLoading ? 'KAYDEDİLİYOR...' : 'GÜNCELLE'}
+                </button>
+                <button 
+                  onClick={removePhoto} 
+                  disabled={imgLoading || !user.profileImage} 
+                  style={{ padding: '0.7rem 1.2rem', borderRadius: '6px', border: '1px solid rgba(239,68,68,0.3)', background: 'rgba(239,68,68,0.1)', color: 'var(--mdt-danger)', fontSize: '0.8rem', fontWeight: 800, cursor: (imgLoading || !user.profileImage) ? 'not-allowed' : 'pointer', transition: 'all 0.15s', opacity: (!user.profileImage) ? 0.5 : 1 }}
+                  onMouseOver={e => { if (!imgLoading && user.profileImage) { (e.currentTarget as HTMLElement).style.background = 'rgba(239,68,68,0.15)'; } }}
+                  onMouseOut={e => { if (!imgLoading && user.profileImage) { (e.currentTarget as HTMLElement).style.background = 'rgba(239,68,68,0.1)'; } }}
+                >
+                  <i className="fa-solid fa-trash"></i>
+                </button>
+              </div>
 
-                <button onClick={changePassword} disabled={pwLoading} style={{ padding: '0.85rem', backgroundColor: 'var(--lapd-blue-dark)', color: '#fff', border: 'none', borderRadius: '4px', fontWeight: 900, cursor: 'pointer', marginTop: '0.5rem' }}>
+              {imgMessage && (
+                <div style={{ fontSize: '0.75rem', fontWeight: 700, padding: '0.6rem 0.85rem', borderRadius: '6px', backgroundColor: imgMessage.type === 'success' ? 'rgba(34,197,94,0.1)' : 'rgba(239, 68, 68, 0.1)', color: imgMessage.type === 'success' ? 'var(--mdt-success)' : 'var(--mdt-danger)', border: `1px solid ${imgMessage.type === 'success' ? 'rgba(34,197,94,0.2)' : 'rgba(239, 68, 68, 0.2)'}`, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <i className={`fa-solid ${imgMessage.type === 'success' ? 'fa-check-circle' : 'fa-circle-exclamation'}`}></i>
+                  {imgMessage.text}
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div style={{ 
+            background: 'var(--mdt-card-bg)',
+            border: '1px solid var(--mdt-border)',
+            borderRadius: '10px',
+            padding: '1.5rem',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
+          }}>
+            <h3 style={{ margin: '0 0 1.25rem 0', color: 'var(--mdt-text-primary)', fontSize: '1.05rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+              <div style={{ width: '32px', height: '32px', borderRadius: '6px', background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <i className="fa-solid fa-lock" style={{ color: 'var(--mdt-warning)', fontSize: '0.9rem' }}></i>
+              </div>
+              Güvenlik Anahtarı
+            </h3>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)', marginBottom: '0.5rem' }}>
+                  MEVCUT ŞİFRE
+                </label>
+                <input 
+                  type="password" 
+                  value={pwForm.current} 
+                  onChange={e => setPwForm(f => ({ ...f, current: e.target.value }))} 
+                  style={inputStyle}
+                  onFocus={e => { e.target.style.borderColor = 'var(--mdt-warning)'; e.target.style.boxShadow = '0 0 0 3px rgba(245,158,11,0.1)'; }}
+                  onBlur={e => { e.target.style.borderColor = 'var(--mdt-border)'; e.target.style.boxShadow = 'none'; }}
+                />
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)', marginBottom: '0.5rem' }}>
+                  YENİ ŞİFRE
+                </label>
+                <input 
+                  type="password" 
+                  value={pwForm.newPw} 
+                  onChange={e => setPwForm(f => ({ ...f, newPw: e.target.value }))} 
+                  style={inputStyle}
+                  onFocus={e => { e.target.style.borderColor = 'var(--mdt-warning)'; e.target.style.boxShadow = '0 0 0 3px rgba(245,158,11,0.1)'; }}
+                  onBlur={e => { e.target.style.borderColor = 'var(--mdt-border)'; e.target.style.boxShadow = 'none'; }}
+                />
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)', marginBottom: '0.5rem' }}>
+                  YENİ ŞİFRE (TEKRAR)
+                </label>
+                <input 
+                  type="password" 
+                  value={pwForm.confirm} 
+                  onChange={e => setPwForm(f => ({ ...f, confirm: e.target.value }))} 
+                  style={inputStyle}
+                  onFocus={e => { e.target.style.borderColor = 'var(--mdt-warning)'; e.target.style.boxShadow = '0 0 0 3px rgba(245,158,11,0.1)'; }}
+                  onBlur={e => { e.target.style.borderColor = 'var(--mdt-border)'; e.target.style.boxShadow = 'none'; }}
+                />
+              </div>
+              
+              {pwMessage && (
+                <div style={{ fontSize: '0.75rem', fontWeight: 700, padding: '0.6rem 0.85rem', borderRadius: '6px', backgroundColor: pwMessage.type === 'success' ? 'rgba(34,197,94,0.1)' : 'rgba(239, 68, 68, 0.1)', color: pwMessage.type === 'success' ? 'var(--mdt-success)' : 'var(--mdt-danger)', border: `1px solid ${pwMessage.type === 'success' ? 'rgba(34,197,94,0.2)' : 'rgba(239, 68, 68, 0.2)'}`, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <i className={`fa-solid ${pwMessage.type === 'success' ? 'fa-check-circle' : 'fa-circle-exclamation'}`}></i>
+                  {pwMessage.text}
+                </div>
+              )}
+
+              <div style={{ marginTop: '0.25rem' }}>
+                <button 
+                  onClick={changePassword} 
+                  disabled={pwLoading} 
+                  style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 1.35rem', borderRadius: '6px', border: '1px solid var(--mdt-border)', background: 'transparent', color: 'var(--mdt-text-secondary)', fontWeight: 800, fontSize: '0.8rem', cursor: pwLoading ? 'not-allowed' : 'pointer', transition: 'border-color 0.15s, color 0.15s' }}
+                  onMouseOver={e => !pwLoading && ((e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-warning)', (e.currentTarget as HTMLElement).style.color = 'var(--mdt-warning)')}
+                  onMouseOut={e => !pwLoading && ((e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)', (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)')}
+                >
                   {pwLoading ? 'İŞLENİYOR...' : 'ŞİFREYİ GÜNCELLE'}
                 </button>
               </div>
-
-              <div style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid var(--border-light)' }}>
-                <h4 style={{ margin: '0 0 1rem 0', fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 800 }}>FOTOĞRAF KONTROLÜ</h4>
-                <button onClick={removePhoto} disabled={imgLoading} style={{ width: '100%', padding: '0.85rem', backgroundColor: 'var(--bg-tertiary)', border: '1px solid var(--border-light)', color: 'var(--text-primary)', borderRadius: '4px', fontWeight: 800, cursor: 'pointer' }}>
-                  {imgLoading ? 'İŞLENİYOR...' : 'FOTOĞRAFI KALDIR'}
-                </button>
-                {imgMessage && (
-                  <div style={{ fontSize: '0.85rem', fontWeight: 700, padding: '0.5rem', borderRadius: '4px', marginTop: '1rem', backgroundColor: imgMessage.type === 'success' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)', color: imgMessage.type === 'success' ? 'var(--color-success)' : 'var(--color-danger)' }}>
-                    {imgMessage.text}
-                  </div>
-                )}
-              </div>
-
             </div>
           </div>
-
         </div>
+
       </div>
     </div>
   );

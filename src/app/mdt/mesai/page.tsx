@@ -1,3 +1,4 @@
+// src/app/mdt/mesai/page.tsx
 "use client";
 
 import { useEffect, useState, useMemo, useCallback } from "react";
@@ -22,7 +23,6 @@ export default function MesaiSistemi() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterMode, setFilterMode] = useState<"ALL" | "ACTIVE" | "OFF_DUTY" | "TOP10">("ALL");
   const [selectedDept, setSelectedDept] = useState<string>("ALL");
-  const [viewMode, setViewMode] = useState<"TABLE" | "GRID">("TABLE");
   const [currentTime, setCurrentTime] = useState<string>("");
 
   const { data: shiftsData, mutate: mutateShifts } = useSWR('/api/shifts', fetcher);
@@ -159,54 +159,63 @@ export default function MesaiSistemi() {
   }, [leaderboard, searchTerm, selectedDept, filterMode]);
 
   if (loading) {
-    return <div style={{ padding: '5rem', textAlign: 'center', color: 'var(--text-muted)' }}>MESAİ VERİLERİ YÜKLENİYOR...</div>;
+    return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "60vh", color: "var(--mdt-text-muted)", flexDirection: "column", gap: "1rem" }}>
+      <i className="fa-solid fa-circle-notch fa-spin" style={{ fontSize: "2rem" }} />
+      <span style={{ fontSize: "0.9rem", fontWeight: 700 }}>MESAİ VERİLERİ YÜKLENİYOR...</span>
+    </div>;
   }
 
   return (
-    <div style={{ fontFamily: "var(--font-inter)", display: "flex", flexDirection: "column", gap: "3rem" }}>
+    <div style={{ fontFamily: "'Inter', sans-serif", display: "flex", flexDirection: "column", gap: "2rem" }}>
       
       {/* ── HEADER ── */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", borderBottom: "2px solid var(--border-light)", paddingBottom: "1rem" }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem', paddingBottom: '1.5rem', borderBottom: '1px solid var(--mdt-border)' }}>
         <div>
-          <div style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--lapd-orange)", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-            L.A.C.P.D. MESAİ TAKİP SİSTEMİ
-          </div>
-          <h1 style={{ fontSize: "2.5rem", fontWeight: 900, color: "var(--lapd-blue-dark)", margin: "0.5rem 0 0", letterSpacing: "-0.03em" }}>
-            MESAİ & DEVRİYE LİSTESİ
+          <p style={{ fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)', margin: '0 0 0.3rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            L.A.C.P.D. · OPERASYON
+            <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "var(--mdt-text-muted)" }} />
+            <span style={{ color: "var(--mdt-accent)" }}>DUTY LOGS</span>
+          </p>
+          <h1 style={{ fontSize: '1.75rem', fontWeight: 900, margin: 0, color: 'var(--mdt-text-primary)', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+            Mesai Takip Sistemi
           </h1>
+          <p style={{ color: 'var(--mdt-text-muted)', fontSize: '0.82rem', marginTop: '0.35rem', fontWeight: 400 }}>
+            Personel devriye durumları ve aktif operasyon gücü.
+          </p>
         </div>
 
-        <div style={{ textAlign: "right", display: "flex", gap: "2rem" }}>
+        <div style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
           <div>
-            <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)" }}>SAHADA AKTİF</div>
-            <div style={{ fontSize: "1.5rem", fontWeight: 900, color: "var(--lapd-blue-dark)" }}>{activeCount} <span style={{ fontSize: "1rem", color: "var(--text-muted)" }}>/ {leaderboard.length}</span></div>
+            <div style={{ fontSize: "0.65rem", fontWeight: 700, color: "var(--mdt-text-muted)", letterSpacing: '0.1em' }}>SAHADA AKTİF</div>
+            <div style={{ fontSize: "1.25rem", fontWeight: 900, color: "var(--mdt-accent)" }}>{activeCount} <span style={{ fontSize: "0.85rem", color: "var(--mdt-text-muted)" }}>/ {leaderboard.length}</span></div>
           </div>
-          <div style={{ width: "2px", backgroundColor: "var(--border-light)" }}></div>
+          <div style={{ width: "1px", height: "30px", backgroundColor: "var(--mdt-border)" }}></div>
           <div>
-            <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)" }}>DEPARTMAN EFORU</div>
-            <div style={{ fontSize: "1.5rem", fontWeight: 900, color: "var(--lapd-orange)" }}>{formatHoursMinimal(totalDepartmentSeconds)}</div>
+            <div style={{ fontSize: "0.65rem", fontWeight: 700, color: "var(--mdt-text-muted)", letterSpacing: '0.1em' }}>DEPARTMAN EFORU</div>
+            <div style={{ fontSize: "1.25rem", fontWeight: 900, color: "var(--mdt-warning)" }}>{formatHoursMinimal(totalDepartmentSeconds)}</div>
           </div>
         </div>
       </div>
 
       {/* ── MY SHIFT CONSOLE ── */}
       <div style={{ 
-        display: "flex", justifyContent: "space-between", alignItems: "center", 
-        background: user?.isOnDuty ? 'rgba(16, 185, 129, 0.1)' : 'var(--bg-secondary)', 
-        border: `2px solid ${user?.isOnDuty ? 'var(--color-success)' : 'var(--border-light)'}`,
-        padding: "2rem", borderRadius: "8px"
+        display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1.5rem",
+        background: user?.isOnDuty ? 'rgba(34, 197, 94, 0.08)' : 'var(--mdt-card-bg)', 
+        border: `1px solid ${user?.isOnDuty ? 'rgba(34, 197, 94, 0.4)' : 'var(--mdt-border)'}`,
+        padding: "2rem", borderRadius: "10px",
+        boxShadow: user?.isOnDuty ? '0 0 20px rgba(34,197,94,0.05)' : 'none'
       }}>
         
-        <div style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
-          <div style={{ width: "80px", height: "80px", borderRadius: "50%", background: "var(--lapd-blue-dark)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "2rem", fontWeight: 900 }}>
+        <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
+          <div style={{ width: "64px", height: "64px", borderRadius: "50%", background: "var(--mdt-accent)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.5rem", fontWeight: 900 }}>
             {user?.name.charAt(0) || "U"}
           </div>
           
           <div>
-            <div style={{ fontSize: "0.85rem", fontWeight: 800, color: "var(--text-muted)", textTransform: "uppercase" }}>KÜMÜLATİF ŞAHSİ SÜRE</div>
-            <div style={{ fontFamily: "monospace", fontSize: "3rem", fontWeight: 900, color: "var(--lapd-blue-dark)", lineHeight: 1 }}>{formatTime(mySeconds)}</div>
-            <div style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--text-primary)", marginTop: "0.5rem" }}>
-              Departman Sıranız: <strong style={{ color: "var(--lapd-orange)" }}>{myRankIndex >= 0 ? `#${myRankIndex + 1}` : "Yok"}</strong>
+            <div style={{ fontSize: "0.75rem", fontWeight: 800, color: "var(--mdt-text-muted)", textTransform: "uppercase", letterSpacing: "0.1em" }}>KÜMÜLATİF ŞAHSİ SÜRE</div>
+            <div style={{ fontFamily: "monospace", fontSize: "2.5rem", fontWeight: 900, color: "var(--mdt-text-primary)", lineHeight: 1, margin: "0.25rem 0" }}>{formatTime(mySeconds)}</div>
+            <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--mdt-text-secondary)" }}>
+              Departman Sıranız: <strong style={{ color: "var(--mdt-warning)" }}>{myRankIndex >= 0 ? `#${myRankIndex + 1}` : "Yok"}</strong>
             </div>
           </div>
         </div>
@@ -216,27 +225,35 @@ export default function MesaiSistemi() {
             onClick={toggleDuty}
             disabled={toggling}
             style={{
-              padding: "1.5rem 3rem",
-              background: user?.isOnDuty ? "var(--color-danger)" : "var(--lapd-blue-dark)",
+              padding: "1rem 2rem",
+              background: user?.isOnDuty ? "var(--mdt-danger)" : "var(--mdt-accent)",
               color: "#fff",
               border: "none",
-              borderRadius: "4px",
-              fontSize: "1.2rem",
+              borderRadius: "8px",
+              fontSize: "1rem",
               fontWeight: 900,
               cursor: toggling ? "not-allowed" : "pointer",
-              transition: "opacity 0.2s"
+              transition: "opacity 0.2s, transform 0.1s",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.75rem"
             }}
+            onMouseOver={e => !toggling && ((e.currentTarget as HTMLElement).style.opacity = '0.9')}
+            onMouseOut={e => !toggling && ((e.currentTarget as HTMLElement).style.opacity = '1')}
+            onMouseDown={e => !toggling && ((e.currentTarget as HTMLElement).style.transform = 'scale(0.97)')}
+            onMouseUp={e => !toggling && ((e.currentTarget as HTMLElement).style.transform = 'scale(1)')}
           >
+            <i className={`fa-solid ${user?.isOnDuty ? 'fa-power-off' : 'fa-satellite-dish'}`}></i>
             {user?.isOnDuty ? "MESAİYİ BİTİR" : "MESAİYE BAŞLA"}
           </button>
         </div>
       </div>
 
       {/* ── FILTERS AND TABLE ── */}
-      <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-light)", borderRadius: "8px", padding: "2rem" }}>
+      <div style={{ background: "var(--mdt-card-bg)", border: "1px solid var(--mdt-border)", borderRadius: "10px", padding: "1.5rem" }}>
         
         {/* Toolbar */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem", flexWrap: "wrap", gap: "1rem" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem", flexWrap: "wrap", gap: "1rem" }}>
           
           <div style={{ display: "flex", gap: "0.5rem" }}>
             {[
@@ -249,14 +266,15 @@ export default function MesaiSistemi() {
                 key={tab.id}
                 onClick={() => setFilterMode(tab.id as any)}
                 style={{
-                  background: filterMode === tab.id ? "var(--lapd-blue-dark)" : "var(--bg-tertiary)",
-                  color: filterMode === tab.id ? "#fff" : "var(--text-primary)",
-                  border: "1px solid var(--border-light)",
-                  padding: "0.5rem 1rem",
-                  borderRadius: "4px",
-                  fontWeight: 700,
-                  fontSize: "0.85rem",
-                  cursor: "pointer"
+                  background: filterMode === tab.id ? "var(--mdt-accent)" : "transparent",
+                  color: filterMode === tab.id ? "#fff" : "var(--mdt-text-secondary)",
+                  border: filterMode === tab.id ? "1px solid var(--mdt-accent)" : "1px solid var(--mdt-border)",
+                  padding: "0.4rem 0.85rem",
+                  borderRadius: "6px",
+                  fontWeight: 600,
+                  fontSize: "0.8rem",
+                  cursor: "pointer",
+                  transition: "all 0.15s"
                 }}
               >
                 {tab.label}
@@ -264,85 +282,102 @@ export default function MesaiSistemi() {
             ))}
           </div>
 
-          <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+          <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
             <select
               value={selectedDept}
               onChange={e => setSelectedDept(e.target.value)}
-              style={{ padding: "0.5rem 1rem", background: "var(--bg-tertiary)", border: "1px solid var(--border-light)", borderRadius: "4px", fontWeight: 700, color: "var(--text-primary)" }}
+              style={{ 
+                padding: "0.5rem 0.75rem", background: "var(--mdt-bg-main)", border: "1px solid var(--mdt-border)", 
+                borderRadius: "6px", fontWeight: 600, color: "var(--mdt-text-primary)", fontSize: "0.85rem", outline: "none" 
+              }}
             >
               {departments.map(d => <option key={d} value={d}>{d === "ALL" ? "Tüm Departmanlar" : d}</option>)}
             </select>
 
-            <input
-              type="text"
-              placeholder="Ara..."
-              value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
-              style={{ padding: "0.5rem 1rem", background: "var(--bg-tertiary)", border: "1px solid var(--border-light)", borderRadius: "4px", width: "200px" }}
-            />
+            <div style={{ position: "relative" }}>
+              <i className="fa-solid fa-search" style={{ position: "absolute", left: "0.75rem", top: "50%", transform: "translateY(-50%)", color: "var(--mdt-text-muted)", fontSize: "0.8rem" }}></i>
+              <input
+                type="text"
+                placeholder="Ara..."
+                value={searchTerm}
+                onChange={e => setSearchTerm(e.target.value)}
+                style={{ 
+                  padding: "0.5rem 0.75rem 0.5rem 2rem", background: "var(--mdt-bg-main)", border: "1px solid var(--mdt-border)", 
+                  borderRadius: "6px", width: "200px", color: "var(--mdt-text-primary)", fontSize: "0.85rem", outline: "none"
+                }}
+              />
+            </div>
           </div>
         </div>
 
         {/* Data List */}
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
-          <thead>
-            <tr style={{ borderBottom: "2px solid var(--lapd-blue-dark)", textAlign: "left" }}>
-              <th style={{ padding: "1rem", fontSize: "0.8rem", fontWeight: 800, color: "var(--lapd-blue-dark)" }}>SIRA</th>
-              <th style={{ padding: "1rem", fontSize: "0.8rem", fontWeight: 800, color: "var(--lapd-blue-dark)" }}>PERSONEL</th>
-              <th style={{ padding: "1rem", fontSize: "0.8rem", fontWeight: 800, color: "var(--lapd-blue-dark)" }}>BİRİM / RÜTBE</th>
-              <th style={{ padding: "1rem", fontSize: "0.8rem", fontWeight: 800, color: "var(--lapd-blue-dark)" }}>DURUM</th>
-              <th style={{ padding: "1rem", fontSize: "0.8rem", fontWeight: 800, color: "var(--lapd-blue-dark)", textAlign: "right" }}>SÜRE</th>
-              {user?.role === "admin" && <th style={{ padding: "1rem", textAlign: "right" }}>YÖNET</th>}
-            </tr>
-          </thead>
-          <tbody>
-            {filteredList.map((off) => {
-              const idx = leaderboard.indexOf(off);
-              const secs = liveTicks[off.id] !== undefined ? liveTicks[off.id] : off.totalSeconds;
+        <div style={{ overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            <thead>
+              <tr style={{ borderBottom: "1px solid var(--mdt-border)", textAlign: "left" }}>
+                <th style={{ padding: "0.75rem 1rem", fontSize: "0.62rem", fontWeight: 700, letterSpacing: '0.18em', color: "var(--mdt-text-muted)", textTransform: "uppercase" }}>SIRA</th>
+                <th style={{ padding: "0.75rem 1rem", fontSize: "0.62rem", fontWeight: 700, letterSpacing: '0.18em', color: "var(--mdt-text-muted)", textTransform: "uppercase" }}>PERSONEL</th>
+                <th style={{ padding: "0.75rem 1rem", fontSize: "0.62rem", fontWeight: 700, letterSpacing: '0.18em', color: "var(--mdt-text-muted)", textTransform: "uppercase" }}>BİRİM / RÜTBE</th>
+                <th style={{ padding: "0.75rem 1rem", fontSize: "0.62rem", fontWeight: 700, letterSpacing: '0.18em', color: "var(--mdt-text-muted)", textTransform: "uppercase" }}>DURUM</th>
+                <th style={{ padding: "0.75rem 1rem", fontSize: "0.62rem", fontWeight: 700, letterSpacing: '0.18em', color: "var(--mdt-text-muted)", textTransform: "uppercase", textAlign: "right" }}>SÜRE</th>
+                {user?.role === "admin" && <th style={{ padding: "0.75rem 1rem", textAlign: "right" }}></th>}
+              </tr>
+            </thead>
+            <tbody>
+              {filteredList.map((off) => {
+                const idx = leaderboard.indexOf(off);
+                const secs = liveTicks[off.id] !== undefined ? liveTicks[off.id] : off.totalSeconds;
 
-              return (
-                <tr key={off.id} style={{ borderBottom: "1px solid var(--border-light)", background: off.id === user?.id ? "rgba(232, 79, 42, 0.05)" : "transparent" }}>
-                  <td style={{ padding: "1rem", fontWeight: 900, color: idx < 3 ? "var(--lapd-orange)" : "var(--text-muted)", fontSize: "1.1rem" }}>
-                    #{idx + 1}
-                  </td>
-                  <td style={{ padding: "1rem" }}>
-                    <div style={{ fontWeight: 800, color: "var(--text-primary)" }}>{off.name}</div>
-                    <div style={{ fontSize: "0.8rem", color: "var(--text-muted)", fontFamily: "monospace" }}>#{off.badge}</div>
-                  </td>
-                  <td style={{ padding: "1rem" }}>
-                    <div style={{ fontWeight: 700 }}>{off.rank}</div>
-                    <div style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>{off.department}</div>
-                  </td>
-                  <td style={{ padding: "1rem" }}>
-                    {off.isOnDuty ? (
-                      <span style={{ background: "var(--color-success)", color: "#fff", padding: "0.2rem 0.6rem", borderRadius: "4px", fontSize: "0.75rem", fontWeight: 800 }}>AKTİF</span>
-                    ) : (
-                      <span style={{ background: "var(--bg-tertiary)", color: "var(--text-muted)", padding: "0.2rem 0.6rem", borderRadius: "4px", fontSize: "0.75rem", fontWeight: 800 }}>PASİF</span>
-                    )}
-                  </td>
-                  <td style={{ padding: "1rem", textAlign: "right", fontFamily: "monospace", fontWeight: 900, fontSize: "1.1rem", color: off.isOnDuty ? "var(--color-success)" : "var(--text-primary)" }}>
-                    {formatTime(secs)}
-                  </td>
-                  {user?.role === "admin" && (
-                    <td style={{ padding: "1rem", textAlign: "right" }}>
-                      {off.isOnDuty && off.id !== user?.id && (
-                        <button onClick={() => forceEndShift(off)} style={{ background: "var(--color-danger)", color: "#fff", border: "none", padding: "0.4rem 0.8rem", borderRadius: "4px", fontSize: "0.75rem", fontWeight: 800, cursor: "pointer" }}>
-                          KAPAT
-                        </button>
+                return (
+                  <tr key={off.id} style={{ borderBottom: "1px solid rgba(255,255,255,0.03)", transition: "background 0.15s" }}
+                    onMouseOver={e => (e.currentTarget as HTMLElement).style.background = 'var(--mdt-hover)'}
+                    onMouseOut={e => (e.currentTarget as HTMLElement).style.background = 'transparent'}>
+                    <td style={{ padding: "1rem", fontWeight: 900, color: idx < 3 ? "var(--mdt-warning)" : "var(--mdt-text-secondary)", fontSize: "1rem" }}>
+                      #{idx + 1}
+                    </td>
+                    <td style={{ padding: "1rem" }}>
+                      <div style={{ fontWeight: 700, color: "var(--mdt-text-primary)", fontSize: "0.95rem" }}>{off.name}</div>
+                      <div style={{ fontSize: "0.75rem", color: "var(--mdt-text-muted)", fontFamily: "monospace" }}>#{off.badge}</div>
+                    </td>
+                    <td style={{ padding: "1rem" }}>
+                      <div style={{ fontWeight: 600, fontSize: "0.85rem", color: "var(--mdt-text-primary)" }}>{off.rank}</div>
+                      <div style={{ fontSize: "0.75rem", color: "var(--mdt-text-muted)" }}>{off.department}</div>
+                    </td>
+                    <td style={{ padding: "1rem" }}>
+                      {off.isOnDuty ? (
+                        <span style={{ background: "rgba(34,197,94,0.12)", color: "var(--mdt-success)", border: "1px solid rgba(34,197,94,0.22)", padding: "0.2rem 0.5rem", borderRadius: "4px", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.05em" }}>AKTİF</span>
+                      ) : (
+                        <span style={{ background: "rgba(255,255,255,0.05)", color: "var(--mdt-text-muted)", border: "1px solid rgba(255,255,255,0.1)", padding: "0.2rem 0.5rem", borderRadius: "4px", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.05em" }}>PASİF</span>
                       )}
                     </td>
-                  )}
+                    <td style={{ padding: "1rem", textAlign: "right", fontFamily: "monospace", fontWeight: 800, fontSize: "1rem", color: off.isOnDuty ? "var(--mdt-success)" : "var(--mdt-text-secondary)" }}>
+                      {formatTime(secs)}
+                    </td>
+                    {user?.role === "admin" && (
+                      <td style={{ padding: "1rem", textAlign: "right" }}>
+                        {off.isOnDuty && off.id !== user?.id && (
+                          <button onClick={() => forceEndShift(off)} title="Mesaiyi Kapat" style={{ background: "rgba(239,68,68,0.1)", color: "var(--mdt-danger)", border: "1px solid rgba(239,68,68,0.2)", width: "32px", height: "32px", borderRadius: "6px", fontSize: "0.85rem", fontWeight: 800, cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", transition: "all 0.15s" }}
+                            onMouseOver={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(239,68,68,0.2)'; }}
+                            onMouseOut={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(239,68,68,0.1)'; }}>
+                            <i className="fa-solid fa-power-off"></i>
+                          </button>
+                        )}
+                      </td>
+                    )}
+                  </tr>
+                );
+              })}
+              {filteredList.length === 0 && (
+                <tr>
+                  <td colSpan={6} style={{ padding: "3rem", textAlign: "center", color: "var(--mdt-text-muted)" }}>
+                    <i className="fa-solid fa-ghost" style={{ fontSize: "2rem", marginBottom: "1rem", opacity: 0.5 }}></i>
+                    <div>Kayıt bulunamadı.</div>
+                  </td>
                 </tr>
-              );
-            })}
-            {filteredList.length === 0 && (
-              <tr>
-                <td colSpan={6} style={{ padding: "2rem", textAlign: "center", color: "var(--text-muted)" }}>Kayıt bulunamadı.</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -114,13 +114,36 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
           to   { transform: translateX(0);    opacity: 1; }
         }
         .mdt-nav-item {
-          transition: background 0.15s ease, color 0.15s ease, padding-left 0.15s ease;
+          transition: background 0.2s ease, color 0.2s ease;
+          position: relative;
+          overflow: hidden;
         }
-        .mdt-nav-item:hover {
-          padding-left: calc(0.75rem + 3px) !important;
+        .mdt-nav-item::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 100%;
+          width: 3px;
+          background: var(--mdt-accent);
+          transform: scaleY(0);
+          transform-origin: left;
+          transition: transform 0.2s ease;
+          border-radius: 0 4px 4px 0;
+        }
+        .mdt-nav-item:hover::before {
+          transform: scaleY(0.4);
+          opacity: 0.5;
+        }
+        .mdt-nav-item.active::before {
+          transform: scaleY(1);
+          opacity: 1;
         }
         .mdt-nav-item.active {
           animation: mdt-slide-in 0.2s ease;
+        }
+        .mdt-nav-item:hover .mdt-nav-icon {
+          transform: scale(1.1);
         }
         .mdt-profile-card {
           animation: mdt-fadeInDown 0.18s cubic-bezier(.4,0,.2,1);
@@ -183,7 +206,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
               }}
             >
               <img
-                src="/lapd-logo.png"
+                src="/LAC-logo.png"
                 alt="LACPD"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />

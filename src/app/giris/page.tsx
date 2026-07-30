@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -116,7 +116,7 @@ export default function GirisPage() {
     <>
       <style>{`
         html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
-        .lapd-input:focus { border-color: var(--accent-primary) !important; box-shadow: 0 0 0 3px rgba(4,22,50,0.08) !important; }
+        .LAC-input:focus { border-color: var(--accent-primary) !important; box-shadow: 0 0 0 3px rgba(4,22,50,0.08) !important; }
         .login-btn:hover { background-color: var(--accent-secondary) !important; }
         .tab-btn { transition: all 0.2s; }
         .tab-btn:hover { color: var(--accent-primary) !important; }
@@ -172,7 +172,7 @@ export default function GirisPage() {
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
               }}>
-                <img src="/lapd-logo.png" alt="LAPD" style={{ width: 34, height: 34, objectFit: 'contain' }} />
+                <img src="/LAC-logo.png" alt="LAC" style={{ width: 34, height: 34, objectFit: 'contain' }} />
               </div>
               <div>
                 <div style={{ color: '#FFFFFF', fontWeight: 800, fontSize: '1rem', letterSpacing: '0.06em' }}>
@@ -345,7 +345,7 @@ export default function GirisPage() {
                     <div>
                       <label style={labelStyle}>Sicil / Rozet Numarası <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
                       <input
-                        className="lapd-input"
+                        className="LAC-input"
                         type="text"
                         placeholder="Örn: 1222 veya 04-1234"
                         value={badge}
@@ -358,7 +358,7 @@ export default function GirisPage() {
                     <div>
                       <label style={labelStyle}>Güvenlik Şifresi <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
                       <input
-                        className="lapd-input"
+                        className="LAC-input"
                         type="password"
                         placeholder="••••••••"
                         value={password}
@@ -465,31 +465,31 @@ export default function GirisPage() {
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                           <div>
                             <label style={labelStyle}>Rozet No <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
-                            <input className="lapd-input" type="text" placeholder="1234" value={regBadge} onChange={e => setRegBadge(e.target.value)} required style={inputStyle} />
+                            <input className="LAC-input" type="text" placeholder="1234" value={regBadge} onChange={e => setRegBadge(e.target.value)} required style={inputStyle} />
                           </div>
                           <div>
                             <label style={labelStyle}>İsim Soyisim <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
-                            <input className="lapd-input" type="text" placeholder="John Doe" value={regName} onChange={e => setRegName(e.target.value)} required style={inputStyle} />
+                            <input className="LAC-input" type="text" placeholder="John Doe" value={regName} onChange={e => setRegName(e.target.value)} required style={inputStyle} />
                           </div>
                         </div>
 
                         <div>
                           <label style={labelStyle}>Birim / Departman <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
-                          <select value={regDept} onChange={e => setRegDept(e.target.value)} className="lapd-input" style={{ ...inputStyle, cursor: 'pointer' }}>
+                          <select value={regDept} onChange={e => setRegDept(e.target.value)} className="LAC-input" style={{ ...inputStyle, cursor: 'pointer' }}>
                             {DEPARTMENTS.map(d => <option key={d}>{d}</option>)}
                           </select>
                         </div>
 
                         <div>
                           <label style={labelStyle}>Rütbe <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
-                          <select value={regRank} onChange={e => setRegRank(e.target.value)} className="lapd-input" style={{ ...inputStyle, cursor: 'pointer' }}>
+                          <select value={regRank} onChange={e => setRegRank(e.target.value)} className="LAC-input" style={{ ...inputStyle, cursor: 'pointer' }}>
                             {RANKS.map(r => <option key={r}>{r}</option>)}
                           </select>
                         </div>
 
                         <div>
                           <label style={labelStyle}>Şifre <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
-                          <input className="lapd-input" type="password" placeholder="••••••••" value={regPassword} onChange={e => setRegPassword(e.target.value)} required style={inputStyle} />
+                          <input className="LAC-input" type="password" placeholder="••••••••" value={regPassword} onChange={e => setRegPassword(e.target.value)} required style={inputStyle} />
                         </div>
 
                         <button

@@ -1,18 +1,18 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
 
-const ACCENT = "var(--lapd-orange)";
+const ACCENT = "var(--LAC-orange)";
 const ACCENT_BG = "var(--bg-tertiary)";
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
   padding: "0.9rem 1.25rem",
   backgroundColor: "var(--bg-secondary)",
-  border: "1px solid var(--lapd-border)",
+  border: "1px solid var(--LAC-border)",
   borderRadius: "4px",
-  color: "var(--lapd-text-dark)",
+  color: "var(--LAC-text-dark)",
   fontSize: "0.95rem",
   outline: "none",
   boxSizing: "border-box",
@@ -24,7 +24,7 @@ const labelStyle: React.CSSProperties = {
   display: "block",
   fontSize: "0.75rem",
   fontWeight: 800,
-  color: "var(--lapd-text-muted)",
+  color: "var(--LAC-text-muted)",
   textTransform: "uppercase",
   letterSpacing: "0.08em",
   marginBottom: "0.6rem",
@@ -93,65 +93,65 @@ export default function SikayetBasvurusu() {
   };
 
   return (
-    <div style={{ backgroundColor: "var(--lapd-bg)", minHeight: "100vh", color: "var(--lapd-text-dark)", fontFamily: "var(--font-inter)", paddingBottom: '5rem' }}>
+    <div style={{ backgroundColor: "var(--LAC-bg)", minHeight: "100vh", color: "var(--LAC-text-dark)", fontFamily: "var(--font-inter)", paddingBottom: '5rem' }}>
       
       {/* ── HEADER BREADCRUMB ── */}
-      <div style={{ backgroundColor: 'var(--bg-tertiary)', padding: '1rem 2rem', borderBottom: '1px solid var(--lapd-border)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', fontSize: '0.85rem', color: 'var(--lapd-text-muted)' }}>
-          <Link href="/" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Ana Sayfa</Link> &nbsp;&gt;&nbsp; 
-          <Link href="/basvurular" style={{ color: 'var(--lapd-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Başvurular</Link> &nbsp;&gt;&nbsp; 
-          <span style={{ color: 'var(--lapd-orange)' }}>Şikayet Formu</span>
+      <div style={{ backgroundColor: 'var(--bg-tertiary)', padding: '1rem 2rem', borderBottom: '1px solid var(--LAC-border)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', fontSize: '0.85rem', color: 'var(--LAC-text-muted)' }}>
+          <Link href="/" style={{ color: 'var(--LAC-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Ana Sayfa</Link> &nbsp;&gt;&nbsp; 
+          <Link href="/basvurular" style={{ color: 'var(--LAC-text-dark)', textDecoration: 'none', fontWeight: 600 }}>Başvurular</Link> &nbsp;&gt;&nbsp; 
+          <span style={{ color: 'var(--LAC-orange)' }}>Şikayet Formu</span>
         </div>
       </div>
 
       <main style={{ position: "relative", zIndex: 10, padding: "5rem 2rem 4rem", maxWidth: "800px", margin: "0 auto" }}>
         <>
           {submitted ? (
-            <div key="success" style={{ textAlign: "center", padding: "4rem 2rem", backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--lapd-border)' }}>
-              <div style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "var(--bg-tertiary)", border: `2px solid var(--lapd-border)`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 2rem" }}>
+            <div key="success" style={{ textAlign: "center", padding: "4rem 2rem", backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--LAC-border)' }}>
+              <div style={{ width: "80px", height: "80px", borderRadius: "50%", backgroundColor: "var(--bg-tertiary)", border: `2px solid var(--LAC-border)`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 2rem" }}>
                 <i className="fa-solid fa-check" style={{ fontSize: "1.8rem", color: ACCENT }} />
               </div>
-              <h2 style={{ fontSize: "2rem", fontWeight: 800, color: "var(--lapd-blue-dark)", marginBottom: "1rem" }}>Şikayetiniz Alındı</h2>
-              <p style={{ color: "var(--lapd-text-dark)", fontSize: "1.05rem", lineHeight: 1.7, marginBottom: "1rem" }}>
+              <h2 style={{ fontSize: "2rem", fontWeight: 800, color: "var(--LAC-blue-dark)", marginBottom: "1rem" }}>Şikayetiniz Alındı</h2>
+              <p style={{ color: "var(--LAC-text-dark)", fontSize: "1.05rem", lineHeight: 1.7, marginBottom: "1rem" }}>
                 Şikayet başvurunuz İç İşler Büromuz'a iletildi ve kayıt altına alındı. Gizlilik ilkelerimiz doğrultusunda inceleme yapılacaktır.
               </p>
-              <p style={{ color: "var(--lapd-text-muted)", fontSize: "0.9rem", marginBottom: "2.5rem" }}>
+              <p style={{ color: "var(--LAC-text-muted)", fontSize: "0.9rem", marginBottom: "2.5rem" }}>
                 Anonim başvurular da kabul edilmekte olup süreç hakkında e-posta ile bilgilendirilmek isterseniz e-posta adresinizi belirtmeniz gerekmektedir.
               </p>
               <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
                 <Link href="/basvurular" style={{ padding: "0.85rem 2rem", backgroundColor: ACCENT, color: "var(--bg-primary)", textDecoration: "none", fontWeight: 700 }}>Başvurulara Dön</Link>
-                <Link href="/" style={{ padding: "0.85rem 2rem", backgroundColor: "var(--bg-tertiary)", border: "1px solid var(--lapd-border)", color: "var(--lapd-text-dark)", textDecoration: "none", fontWeight: 600 }}>Ana Sayfa</Link>
+                <Link href="/" style={{ padding: "0.85rem 2rem", backgroundColor: "var(--bg-tertiary)", border: "1px solid var(--LAC-border)", color: "var(--LAC-text-dark)", textDecoration: "none", fontWeight: 600 }}>Ana Sayfa</Link>
               </div>
             </div>
           ) : (
             <div key="form">
               <div style={{ marginBottom: "3rem", textAlign: "center" }}>
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", backgroundColor: "var(--bg-tertiary)", border: `1px solid var(--lapd-border)`, padding: "0.4rem 1.25rem", marginBottom: "1.5rem" }}>
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", backgroundColor: "var(--bg-tertiary)", border: `1px solid var(--LAC-border)`, padding: "0.4rem 1.25rem", marginBottom: "1.5rem" }}>
                   <i className="fa-solid fa-triangle-exclamation" style={{ color: ACCENT, fontSize: "0.85rem" }} />
-                  <span style={{ fontSize: "0.8rem", color: "var(--lapd-blue-dark)", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase" }}>İç İşler Bürosu</span>
+                  <span style={{ fontSize: "0.8rem", color: "var(--LAC-blue-dark)", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase" }}>İç İşler Bürosu</span>
                 </div>
-                <h1 style={{ fontSize: "2.5rem", fontWeight: 800, color: "var(--lapd-blue-dark)", marginBottom: "1rem", letterSpacing: "-0.02em" }}>
+                <h1 style={{ fontSize: "2.5rem", fontWeight: 800, color: "var(--LAC-blue-dark)", marginBottom: "1rem", letterSpacing: "-0.02em" }}>
                   Memur Şikayet Formu
                 </h1>
                 <div style={{ width: '60px', height: '4px', backgroundColor: ACCENT, margin: '0 auto 1.5rem' }}></div>
-                <p style={{ color: "var(--lapd-text-dark)", fontSize: "1rem", lineHeight: 1.7, marginBottom: "1.5rem" }}>
-                  Bir LAPD görevlisiyle ilgili şikayetinizi buradan iletebilirsiniz. Tüm başvurular gizli tutulur ve İç İşler Bürosu tarafından titizlikle incelenir.
+                <p style={{ color: "var(--LAC-text-dark)", fontSize: "1rem", lineHeight: 1.7, marginBottom: "1.5rem" }}>
+                  Bir LAC görevlisiyle ilgili şikayetinizi buradan iletebilirsiniz. Tüm başvurular gizli tutulur ve İç İşler Bürosu tarafından titizlikle incelenir.
                 </p>
 
                 {/* Warning */}
                 <div style={{ backgroundColor: "var(--color-warning-bg)", border: "1px solid var(--color-warning-border)", padding: "1.25rem 1.5rem", display: "flex", gap: "1rem", alignItems: "flex-start", textAlign: "left" }}>
                   <i className="fa-solid fa-circle-info" style={{ color: ACCENT, fontSize: "1rem", marginTop: "2px", flexShrink: 0 }} />
-                  <div style={{ fontSize: "0.875rem", color: "var(--lapd-text-dark)", lineHeight: 1.6 }}>
+                  <div style={{ fontSize: "0.875rem", color: "var(--LAC-text-dark)", lineHeight: 1.6 }}>
                     <strong style={{ color: "var(--color-warning)" }}>Önemli Bilgi:</strong> Asılsız veya kötü niyetle yapılan şikayetler kendi başına disiplin süreci başlatılmasına neden olabilir. Lütfen yalnızca gerçek olayları bildirin.
                   </div>
                 </div>
               </div>
 
               <form onSubmit={handleSubmit}>
-                <div style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--lapd-border)", overflow: "hidden" }}>
+                <div style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--LAC-border)", overflow: "hidden" }}>
                   {/* Section: Şikayet Eden */}
-                  <div style={{ padding: "2rem 2.5rem", borderBottom: "1px solid var(--lapd-border)", backgroundColor: 'var(--bg-tertiary)' }}>
-                    <h3 style={{ fontSize: "0.85rem", color: "var(--lapd-blue-dark)", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <div style={{ padding: "2rem 2.5rem", borderBottom: "1px solid var(--LAC-border)", backgroundColor: 'var(--bg-tertiary)' }}>
+                    <h3 style={{ fontSize: "0.85rem", color: "var(--LAC-blue-dark)", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
                       <i className="fa-solid fa-user" style={{ color: ACCENT }} /> Şikayetçi Bilgileri
                     </h3>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem" }}>
@@ -171,8 +171,8 @@ export default function SikayetBasvurusu() {
                   </div>
 
                   {/* Section: Şikayet Edilen */}
-                  <div style={{ padding: "2rem 2.5rem", borderBottom: "1px solid var(--lapd-border)" }}>
-                    <h3 style={{ fontSize: "0.85rem", color: "var(--lapd-blue-dark)", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <div style={{ padding: "2rem 2.5rem", borderBottom: "1px solid var(--LAC-border)" }}>
+                    <h3 style={{ fontSize: "0.85rem", color: "var(--LAC-blue-dark)", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
                       <i className="fa-solid fa-badge" style={{ color: ACCENT }} /> Şikayet Edilen Görevli
                     </h3>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem" }}>
@@ -197,7 +197,7 @@ export default function SikayetBasvurusu() {
 
                   {/* Section: Olay Detayı */}
                   <div style={{ padding: "2rem 2.5rem" }}>
-                    <h3 style={{ fontSize: "0.85rem", color: "var(--lapd-blue-dark)", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <h3 style={{ fontSize: "0.85rem", color: "var(--LAC-blue-dark)", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
                       <i className="fa-solid fa-file-lines" style={{ color: ACCENT }} /> Olay Detayları
                     </h3>
                     <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
@@ -223,10 +223,10 @@ export default function SikayetBasvurusu() {
                         <textarea style={{ ...inputStyle, minHeight: "80px", resize: "vertical" }} placeholder="Ekran görüntüsü, video veya ses kaydı linkleri (Imgur, YouTube, vb.)" value={form.evidence} onChange={e => set("evidence", e.target.value)} />
                       </div>
 
-                      <div style={{ borderTop: "1px solid var(--lapd-border)", paddingTop: "1.5rem" }}>
+                      <div style={{ borderTop: "1px solid var(--LAC-border)", paddingTop: "1.5rem" }}>
                         <label style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start", cursor: "pointer" }}>
                           <input type="checkbox" checked={form.agreeHonest} onChange={e => set("agreeHonest", e.target.checked)} style={{ width: "16px", height: "16px", marginTop: "3px", accentColor: ACCENT, flexShrink: 0 }} />
-                          <span style={{ color: "var(--lapd-text-dark)", fontSize: "0.875rem", lineHeight: 1.6 }}>
+                          <span style={{ color: "var(--LAC-text-dark)", fontSize: "0.875rem", lineHeight: 1.6 }}>
                             Yukarıdaki bilgilerin doğru ve gerçeği yansıttığını, kasten yanıltıcı veya asılsız bir şikayette bulunmadığımı beyan eder, aksinin tespiti durumunda disiplin işlemi uygulanabileceğini kabul ediyorum.
                           </span>
                         </label>
@@ -239,7 +239,7 @@ export default function SikayetBasvurusu() {
                       )}
 
                       <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                        <button type="submit" disabled={submitting} style={{ padding: "1rem 2.5rem", background: submitting ? `var(--bg-tertiary)` : ACCENT, border: "none", color: submitting ? "var(--lapd-text-muted)" : "white", fontWeight: 800, cursor: submitting ? "not-allowed" : "pointer", fontSize: "0.95rem", transition: "all 0.2s" }}>
+                        <button type="submit" disabled={submitting} style={{ padding: "1rem 2.5rem", background: submitting ? `var(--bg-tertiary)` : ACCENT, border: "none", color: submitting ? "var(--LAC-text-muted)" : "white", fontWeight: 800, cursor: submitting ? "not-allowed" : "pointer", fontSize: "0.95rem", transition: "all 0.2s" }}>
                           {submitting ? <><i className="fa-solid fa-circle-notch fa-spin" style={{ marginRight: "0.5rem" }} />Gönderiliyor...</> : <><i className="fa-solid fa-paper-plane" style={{ marginRight: "0.5rem" }} />Şikayeti Gönder</>}
                         </button>
                       </div>
