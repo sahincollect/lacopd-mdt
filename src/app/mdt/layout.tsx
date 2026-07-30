@@ -262,38 +262,37 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                         fontWeight: isActive ? 600 : 400,
                         fontSize: '0.83rem',
                         letterSpacing: '0.005em',
+                        userSelect: 'none',
+                      }}
+                      onMouseOver={e => {
+                        if (!isActive) {
+                          (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--mdt-hover)';
+                          (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)';
+                        }
+                      }}
+                      onMouseOut={e => {
+                        if (!isActive) {
+                          (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent';
+                          (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)';
+                        }
                       }}
                     >
-                      {/* Active bar */}
-                      {isActive && (
-                        <span
-                          style={{
-                            position: 'absolute',
-                            left: 0,
-                            top: '20%',
-                            bottom: '20%',
-                            width: 3,
-                            borderRadius: '0 3px 3px 0',
-                            backgroundColor: 'var(--mdt-accent)',
-                            boxShadow: '2px 0 10px var(--mdt-accent-glow)',
-                          }}
-                        />
-                      )}
+                      {/* Active bar now rendered via CSS ::after on .mdt-nav-item.active */}
 
                       <i
-                        className={`fa-solid ${item.icon}`}
+                        className={`fa-solid ${item.icon} mdt-nav-icon`}
                         style={{
                           fontSize: '0.88rem',
                           width: 18,
                           textAlign: 'center',
                           flexShrink: 0,
-                          opacity: isActive ? 1 : 0.65,
-                          transition: 'opacity 0.15s',
+                          opacity: isActive ? 1 : 0.6,
+                          transition: 'opacity 0.18s, transform 0.18s',
                         }}
                       />
 
                       {!collapsed && (
-                        <span style={{ flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        <span style={{ flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', pointerEvents: 'none' }}>
                           {item.label}
                         </span>
                       )}
