@@ -43,13 +43,13 @@ function formatSecs(secs: number) {
   return `${h}s ${m}d`;
 }
 
-/* ─── Shared card base ─── */
 const card: React.CSSProperties = {
-  background: "rgba(8,14,28,0.75)",
+  background: "linear-gradient(145deg, rgba(16,22,36,0.9) 0%, rgba(10,14,26,0.85) 100%)",
   backdropFilter: "blur(24px)",
-  border: "1px solid rgba(29,110,247,0.12)",
+  border: "1px solid rgba(29,110,247,0.25)",
   borderRadius: 14,
   overflow: "hidden",
+  boxShadow: "0 12px 40px -10px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05)",
 };
 
 const CARD_HDR: React.CSSProperties = {
