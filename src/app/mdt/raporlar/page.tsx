@@ -240,11 +240,13 @@ const glassCard: React.CSSProperties = {
 };
 
 const inputBase: React.CSSProperties = {
-  width: "100%", background: "rgba(29,110,247,0.04)",
-  border: "1px solid rgba(29,110,247,0.12)", borderRadius: 8,
-  padding: "0.58rem 0.9rem", color: "#e8ecf5",
-  fontSize: "0.83rem", outline: "none", fontFamily: "'Inter', sans-serif",
-  transition: "all 0.18s ease", boxSizing: "border-box",
+  width: "100%", background: "rgba(6,10,18,0.7)",
+  border: "1px solid rgba(29,110,247,0.15)",
+  borderBottom: "2px solid rgba(29,110,247,0.4)",
+  borderRadius: 4,
+  padding: "0.6rem 0.85rem", color: "#e8ecf5",
+  fontSize: "0.83rem", outline: "none", fontFamily: "'JetBrains Mono', monospace",
+  transition: "all 0.2s ease", boxSizing: "border-box",
 };
 
 export default function RaporPortali() {
@@ -480,78 +482,88 @@ export default function RaporPortali() {
 
       {/* ─── EDITOR VIEW (Printable Area inside here) ─── */}
       {view === "editor" && template && (
-        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
           
           <div className="no-print" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1rem 1.5rem", ...glassCard, marginBottom: "1.5rem" }}>
             <div>
               <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(29,110,247,0.5)", letterSpacing: "0.15em", textTransform: "uppercase" }}>DÜZENLENİYOR</div>
               <div style={{ fontSize: "1.1rem", fontWeight: 800, color: "#e8ecf5", display: "flex", alignItems: "center", gap: "0.5rem", marginTop: "0.2rem" }}>
                 {template.name}
-                <span style={{ fontFamily: "'JetBrains Mono', monospace", color: "rgba(29,110,247,0.6)", fontSize: "0.8rem", background: "rgba(29,110,247,0.08)", padding: "0.2rem 0.6rem", borderRadius: 6 }}>#{reportCode}</span>
+                <span style={{ fontFamily: "'JetBrains Mono', monospace", color: "rgba(29,110,247,0.6)", fontSize: "0.8rem", background: "rgba(29,110,247,0.08)", padding: "0.2rem 0.6rem", borderRadius: 4 }}>#{reportCode}</span>
               </div>
             </div>
             <div style={{ display: "flex", gap: "0.5rem" }}>
-              <button onClick={() => setView("home")} style={{ background: "transparent", border: "1px solid rgba(29,110,247,0.2)", color: "rgba(200,208,230,0.5)", padding: "0.6rem 1rem", borderRadius: 8, fontWeight: 700, fontSize: "0.75rem", cursor: "pointer" }}>İPTAL</button>
-              <button onClick={() => window.print()} style={{ background: "rgba(29,110,247,0.08)", border: "1px solid rgba(29,110,247,0.2)", color: "#1D6EF7", padding: "0.6rem 1.25rem", borderRadius: 8, fontWeight: 700, cursor: "pointer", fontSize: "0.75rem" }}>
+              <button onClick={() => setView("home")} style={{ background: "transparent", border: "1px solid rgba(29,110,247,0.2)", color: "rgba(200,208,230,0.5)", padding: "0.6rem 1rem", borderRadius: 6, fontWeight: 700, fontSize: "0.75rem", cursor: "pointer" }}>İPTAL</button>
+              <button onClick={() => window.print()} style={{ background: "rgba(29,110,247,0.08)", border: "1px solid rgba(29,110,247,0.2)", color: "#1D6EF7", padding: "0.6rem 1.25rem", borderRadius: 6, fontWeight: 700, cursor: "pointer", fontSize: "0.75rem" }}>
                 <i className="fa-solid fa-print" style={{ marginRight: "0.4rem" }} /> YAZDIR (PDF)
               </button>
-              <button onClick={handleSave} disabled={saving} style={{ background: "linear-gradient(135deg, #22c55e 0%, #16a34a 100%)", border: "1px solid rgba(34,197,94,0.4)", color: "#fff", padding: "0.6rem 1.25rem", borderRadius: 8, fontWeight: 700, cursor: saving ? "not-allowed" : "pointer", fontSize: "0.75rem", boxShadow: "0 4px 16px rgba(34,197,94,0.25)", opacity: saving ? 0.7 : 1 }}>
+              <button onClick={handleSave} disabled={saving} style={{ background: "linear-gradient(135deg, #22c55e 0%, #16a34a 100%)", border: "1px solid rgba(34,197,94,0.4)", color: "#fff", padding: "0.6rem 1.25rem", borderRadius: 6, fontWeight: 700, cursor: saving ? "not-allowed" : "pointer", fontSize: "0.75rem", boxShadow: "0 4px 16px rgba(34,197,94,0.25)", opacity: saving ? 0.7 : 1 }}>
                 <i className="fa-solid fa-floppy-disk" style={{ marginRight: "0.4rem" }} /> {saving ? "KAYDEDİLİYOR..." : "KAYDET"}
               </button>
             </div>
           </div>
 
-          <div className="print-doc" style={{ ...glassCard, padding: "2.5rem 3rem" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "2px solid rgba(29,110,247,0.2)", paddingBottom: "1.5rem", marginBottom: "2rem" }}>
+          <div className="print-doc" style={{ ...glassCard, padding: "3rem", borderRadius: 8, borderTop: "4px solid #1D6EF7" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid rgba(29,110,247,0.2)", paddingBottom: "1.5rem", marginBottom: "2.5rem" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
-                <img src="/logom.png" alt="LACPD" style={{ width: 64 }} />
+                <img src="/logom.png" alt="LACPD" style={{ width: 68 }} />
                 <div>
-                  <div style={{ fontSize: "1.25rem", fontWeight: 900, color: "#e8ecf5", letterSpacing: "0.02em" }}>LOS ANGELES POLICE DEPARTMENT</div>
-                  <div style={{ fontSize: "0.9rem", fontWeight: 700, color: "rgba(29,110,247,0.6)", marginTop: "0.15rem" }}>{template.name}</div>
+                  <div style={{ fontSize: "1.35rem", fontWeight: 900, color: "#e8ecf5", letterSpacing: "0.03em", fontFamily: "'Oswald', sans-serif" }}>LOS ANGELES POLICE DEPARTMENT</div>
+                  <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "rgba(200,208,230,0.6)", marginTop: "0.15rem", letterSpacing: "0.05em", textTransform: "uppercase" }}>{template.name}</div>
                 </div>
               </div>
               <div style={{ textAlign: "right", fontFamily: "'JetBrains Mono', monospace", fontWeight: 800 }}>
-                <div style={{ fontSize: "0.95rem", color: "rgba(200,208,230,0.5)" }}>LAC {template.code}</div>
-                <div style={{ color: "#1D6EF7", fontSize: "0.85rem", marginTop: "0.2rem" }}>#{reportCode}</div>
+                <div style={{ fontSize: "0.95rem", color: "rgba(200,208,230,0.4)" }}>LAC-{template.code}</div>
+                <div style={{ color: "#1D6EF7", fontSize: "0.85rem", marginTop: "0.3rem", background: "rgba(29,110,247,0.08)", padding: "0.2rem 0.5rem", borderRadius: 4 }}>#{reportCode}</div>
               </div>
             </div>
 
-            <div>
-              {template.sections.map((sec: any, si: number) => (
-                <div key={si} style={{ marginBottom: "2rem", border: "1px solid rgba(29,110,247,0.15)", borderRadius: 10, overflow: "hidden" }}>
-                  <div style={{ padding: "0.8rem 1.25rem", background: "rgba(29,110,247,0.06)", borderBottom: "1px solid rgba(29,110,247,0.15)", fontSize: "0.75rem", fontWeight: 800, color: "#e8ecf5", letterSpacing: "0.05em", textTransform: "uppercase" }}>
-                    {sec.title}
+            {/* Tactical 2-Column Grid for Sections */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
+              {template.sections.map((sec: any, si: number) => {
+                // If a section has a large textarea (width 12), make the whole section span both columns
+                const hasFullWidthField = sec.fields.some((f: any) => f.width === "12" || !f.width);
+                const colSpan = hasFullWidthField ? "1 / -1" : "auto";
+                
+                return (
+                  <div key={si} style={{ gridColumn: colSpan, marginBottom: "0.5rem", background: "rgba(8,12,20,0.6)", border: "1px solid rgba(29,110,247,0.15)", borderLeft: "3px solid #1D6EF7", borderRadius: 6, overflow: "hidden" }}>
+                    <div style={{ padding: "0.75rem 1.25rem", background: "linear-gradient(90deg, rgba(29,110,247,0.1) 0%, transparent 100%)", borderBottom: "1px solid rgba(29,110,247,0.1)", fontSize: "0.75rem", fontWeight: 800, color: "#e8ecf5", letterSpacing: "0.08em", textTransform: "uppercase", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                      <span style={{ color: "#1D6EF7" }}>{String(si + 1).padStart(2, "0")}</span> {sec.title}
+                    </div>
+                    <div style={{ padding: "1.25rem", display: "grid", gridTemplateColumns: "repeat(12, 1fr)", gap: "1rem" }}>
+                      {sec.fields.map((f: any) => (
+                        <div key={f.id} style={{ gridColumn: `span ${f.width || 12}` }}>
+                          <label style={{ display: "flex", justifyContent: "space-between", fontSize: "0.58rem", fontWeight: 800, color: "rgba(200,208,230,0.5)", marginBottom: "0.35rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                            <span>{f.label}</span>
+                            {f.type === "textarea" && <i className="fa-solid fa-pen-clip" style={{ color: "rgba(29,110,247,0.3)" }} />}
+                          </label>
+                          {f.type === "textarea" ? (
+                            <textarea className="mdt-inp" value={formData[f.id] || ""} onChange={e => setFormData({ ...formData, [f.id]: e.target.value })} placeholder={f.placeholder} rows={f.rows || 3} style={{ ...inputBase, resize: "vertical" }} />
+                          ) : f.type === "select" ? (
+                            <select className="mdt-inp" value={formData[f.id] || ""} onChange={e => setFormData({ ...formData, [f.id]: e.target.value })} style={inputBase}>
+                              <option value="">Seçiniz...</option>
+                              {f.options?.map((opt: string, i: number) => <option key={i} value={opt}>{opt}</option>)}
+                            </select>
+                          ) : (
+                            <input className="mdt-inp" type={f.type} value={formData[f.id] || ""} onChange={e => setFormData({ ...formData, [f.id]: e.target.value })} placeholder={f.placeholder} style={inputBase} />
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                  <div style={{ padding: "1.25rem", display: "grid", gridTemplateColumns: "repeat(12, 1fr)", gap: "1.25rem", background: "rgba(13,18,32,0.4)" }}>
-                    {sec.fields.map((f: any) => (
-                      <div key={f.id} style={{ gridColumn: `span ${f.width || 12}` }}>
-                        <label style={{ display: "block", fontSize: "0.6rem", fontWeight: 800, color: "rgba(29,110,247,0.5)", marginBottom: "0.45rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>{f.label}</label>
-                        {f.type === "textarea" ? (
-                          <textarea className="mdt-inp" value={formData[f.id] || ""} onChange={e => setFormData({ ...formData, [f.id]: e.target.value })} placeholder={f.placeholder} rows={f.rows || 3} style={{ ...inputBase, resize: "vertical" }} />
-                        ) : f.type === "select" ? (
-                          <select className="mdt-inp" value={formData[f.id] || ""} onChange={e => setFormData({ ...formData, [f.id]: e.target.value })} style={inputBase}>
-                            <option value="">Seçiniz...</option>
-                            {f.options?.map((opt: string, i: number) => <option key={i} value={opt}>{opt}</option>)}
-                          </select>
-                        ) : (
-                          <input className="mdt-inp" type={f.type} value={formData[f.id] || ""} onChange={e => setFormData({ ...formData, [f.id]: e.target.value })} placeholder={f.placeholder} style={inputBase} />
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
-            <div style={{ marginTop: "3rem", paddingTop: "1.5rem", borderTop: "2px solid rgba(29,110,247,0.1)", display: "flex", justifyContent: "space-between" }}>
+            <div style={{ marginTop: "3rem", paddingTop: "1.5rem", borderTop: "2px solid rgba(29,110,247,0.2)", display: "flex", justifyContent: "space-between" }}>
               <div>
-                <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(200,208,230,0.3)", letterSpacing: "0.1em" }}>HAZIRLAYAN MEMUR</div>
-                <div style={{ fontSize: "1rem", fontWeight: 800, color: "#e8ecf5", marginTop: "0.2rem" }}>{user ? user.name : "—"} <span style={{ color: "#1D6EF7" }}>#{user?.badge || "—"}</span></div>
+                <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(200,208,230,0.4)", letterSpacing: "0.1em" }}>HAZIRLAYAN MEMUR</div>
+                <div style={{ fontSize: "1rem", fontWeight: 800, color: "#e8ecf5", marginTop: "0.3rem" }}>{user ? user.name : "—"} <span style={{ color: "#1D6EF7" }}>#{user?.badge || "—"}</span></div>
               </div>
               <div style={{ textAlign: "right" }}>
-                <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(200,208,230,0.3)", letterSpacing: "0.1em" }}>DİJİTAL İMZA & ZAMAN DAMGASI</div>
-                <div style={{ fontFamily: "'JetBrains Mono', monospace", color: "#1D6EF7", fontWeight: 800, marginTop: "0.2rem", fontSize: "0.9rem" }}>SIGNED · #{user?.badge || "SYS"}</div>
-                <div style={{ fontSize: "0.75rem", color: "rgba(200,208,230,0.4)", marginTop: "0.2rem" }}>{new Date().toLocaleString("tr-TR")}</div>
+                <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(200,208,230,0.4)", letterSpacing: "0.1em" }}>DİJİTAL İMZA & ZAMAN DAMGASI</div>
+                <div style={{ fontFamily: "'JetBrains Mono', monospace", color: "#1D6EF7", fontWeight: 800, marginTop: "0.3rem", fontSize: "0.9rem", background: "rgba(29,110,247,0.06)", padding: "0.2rem 0.5rem", borderRadius: 4, display: "inline-block" }}>SIGNED · #{user?.badge || "SYS"}</div>
+                <div style={{ fontSize: "0.7rem", color: "rgba(200,208,230,0.5)", marginTop: "0.35rem", fontFamily: "'JetBrains Mono', monospace" }}>{new Date().toLocaleString("tr-TR")}</div>
               </div>
             </div>
           </div>
