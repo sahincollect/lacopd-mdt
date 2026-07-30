@@ -6,8 +6,8 @@ import { useState, useEffect, useRef } from 'react';
 import useSWR from 'swr';
 import { fetcher } from '@/lib/fetcher';
 
-const SIDEBAR_W = 256;
-const SIDEBAR_COLLAPSED = 68;
+const SIDEBAR_W = 260;
+const SIDEBAR_COLLAPSED = 72;
 
 const NAV_SECTIONS = [
   {
@@ -63,7 +63,6 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
     return () => clearInterval(id);
   }, []);
 
-  // Close profile card on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (profileRef.current && !profileRef.current.contains(e.target as Node)) {
@@ -95,81 +94,144 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      {/* ── Global MDT animation keyframes ── */}
       <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+        /* ── Keyframes ── */
         @keyframes mdt-fadeInDown {
-          from { opacity: 0; transform: translateY(-8px) scale(0.97); }
-          to   { opacity: 1; transform: translateY(0)   scale(1);    }
+          from { opacity: 0; transform: translateY(-10px) scale(0.96); }
+          to   { opacity: 1; transform: translateY(0) scale(1); }
         }
-        @keyframes mdt-pulse-dot {
+        @keyframes mdt-pulse-green {
           0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
-          50%       { box-shadow: 0 0 0 5px rgba(34,197,94,0);  }
+          50%       { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
         }
-        @keyframes mdt-glow-badge {
-          0%, 100% { box-shadow: 0 0 8px var(--mdt-accent-glow); }
-          50%       { box-shadow: 0 0 18px var(--mdt-accent-glow);}
+        @keyframes mdt-logo-glow {
+          0%, 100% { box-shadow: 0 0 10px rgba(29,110,247,0.4), 0 0 20px rgba(29,110,247,0.15); }
+          50%       { box-shadow: 0 0 18px rgba(29,110,247,0.7), 0 0 35px rgba(29,110,247,0.25); }
+        }
+        @keyframes mdt-scanline {
+          0%   { background-position: 0 0; }
+          100% { background-position: 0 4px; }
         }
         @keyframes mdt-slide-in {
-          from { transform: translateX(-6px); opacity: 0; }
-          to   { transform: translateX(0);    opacity: 1; }
+          from { opacity: 0; transform: translateX(-8px); }
+          to   { opacity: 1; transform: translateX(0); }
         }
+        @keyframes mdt-badge-pulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50%       { opacity: 0.8; transform: scale(0.95); }
+        }
+
+        /* ── Sidebar nav items ── */
         .mdt-nav-item {
-          transition: background 0.2s ease, color 0.2s ease;
           position: relative;
+          transition: all 0.18s cubic-bezier(0.4,0,0.2,1);
           overflow: hidden;
         }
         .mdt-nav-item::before {
-          content: "";
+          content: '';
           position: absolute;
-          left: 0;
-          top: 0;
-          height: 100%;
+          left: 0; top: 50%;
+          transform: translateY(-50%) scaleY(0);
           width: 3px;
-          background: var(--mdt-accent);
-          transform: scaleY(0);
-          transform-origin: left;
-          transition: transform 0.2s ease;
-          border-radius: 0 4px 4px 0;
-        }
-        .mdt-nav-item:hover::before {
-          transform: scaleY(0.4);
-          opacity: 0.5;
+          height: 60%;
+          background: linear-gradient(180deg, #1D6EF7 0%, rgba(29,110,247,0.4) 100%);
+          border-radius: 0 3px 3px 0;
+          transition: transform 0.22s cubic-bezier(0.4,0,0.2,1);
+          box-shadow: 2px 0 10px rgba(29,110,247,0.4);
         }
         .mdt-nav-item.active::before {
-          transform: scaleY(1);
-          opacity: 1;
+          transform: translateY(-50%) scaleY(1);
         }
         .mdt-nav-item.active {
           animation: mdt-slide-in 0.2s ease;
         }
-        .mdt-nav-item:hover .mdt-nav-icon {
-          transform: scale(1.1);
+        .mdt-nav-item .mdt-icon {
+          transition: transform 0.18s ease, color 0.18s ease;
+        }
+        .mdt-nav-item:hover .mdt-icon,
+        .mdt-nav-item.active .mdt-icon {
+          transform: scale(1.15);
         }
         .mdt-profile-card {
-          animation: mdt-fadeInDown 0.18s cubic-bezier(.4,0,.2,1);
+          animation: mdt-fadeInDown 0.2s cubic-bezier(0.4,0,0.2,1);
         }
-        .mdt-sidebar-logo {
-          animation: mdt-glow-badge 3s ease-in-out infinite;
+        .mdt-logo-wrap {
+          animation: mdt-logo-glow 3s ease-in-out infinite;
         }
+        .mdt-sidebar-scanline {
+          background-image: repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 3px,
+            rgba(0,0,0,0.08) 3px,
+            rgba(0,0,0,0.08) 4px
+          );
+          pointer-events: none;
+        }
+        .mdt-topbar-time {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.7rem;
+          font-weight: 600;
+          letter-spacing: 0.1em;
+          color: rgba(29,110,247,0.7);
+        }
+        .mdt-collapse-btn {
+          transition: all 0.18s ease;
+          border: 1px solid transparent;
+        }
+        .mdt-collapse-btn:hover {
+          border-color: rgba(29,110,247,0.2);
+          background: rgba(29,110,247,0.06) !important;
+          color: #1D6EF7 !important;
+        }
+        .mdt-search-input:focus {
+          border-color: rgba(29,110,247,0.5) !important;
+          box-shadow: 0 0 0 3px rgba(29,110,247,0.12) !important;
+        }
+        .mdt-icon-btn {
+          transition: all 0.15s ease;
+        }
+        .mdt-icon-btn:hover {
+          background: rgba(29,110,247,0.08) !important;
+          color: #1D6EF7 !important;
+        }
+        .mdt-avatar-btn {
+          transition: all 0.18s ease;
+        }
+        .mdt-avatar-btn:hover {
+          border-color: rgba(29,110,247,0.6) !important;
+          box-shadow: 0 0 0 4px rgba(29,110,247,0.15) !important;
+        }
+        /* Scrollbar */
+        .mdt-sidebar::-webkit-scrollbar { width: 3px; }
+        .mdt-sidebar::-webkit-scrollbar-track { background: transparent; }
+        .mdt-sidebar::-webkit-scrollbar-thumb { background: rgba(29,110,247,0.2); border-radius: 4px; }
+        .mdt-sidebar::-webkit-scrollbar-thumb:hover { background: rgba(29,110,247,0.4); }
+        .mdt-main::-webkit-scrollbar { width: 5px; }
+        .mdt-main::-webkit-scrollbar-track { background: transparent; }
+        .mdt-main::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.07); border-radius: 4px; }
       `}</style>
 
       <div
-        className="mdt-zone"
         style={{
           display: 'flex',
           minHeight: '100vh',
-          background: 'var(--mdt-bg-main)',
-          color: 'var(--mdt-text-primary)',
+          background: '#080c14',
+          color: '#e8ecf5',
           fontFamily: "'Inter', -apple-system, sans-serif",
+          position: 'relative',
         }}
       >
         {/* ═══════════ SIDEBAR ═══════════ */}
         <aside
+          className="mdt-sidebar"
           style={{
             width: sideW,
             minWidth: sideW,
-            background: 'var(--mdt-sidebar-bg)',
-            borderRight: '1px solid var(--mdt-border)',
+            background: 'linear-gradient(180deg, #060a12 0%, #080d18 100%)',
+            borderRight: '1px solid rgba(29,110,247,0.12)',
             display: 'flex',
             flexDirection: 'column',
             height: '100vh',
@@ -177,36 +239,50 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
             top: 0,
             overflowY: 'auto',
             overflowX: 'hidden',
-            transition: 'width 0.25s cubic-bezier(.4,0,.2,1)',
+            transition: 'width 0.28s cubic-bezier(0.4,0,0.2,1)',
             zIndex: 50,
             flexShrink: 0,
           }}
         >
-          {/* ── Logo ── */}
+          {/* Scanline overlay */}
+          <div
+            className="mdt-sidebar-scanline"
+            style={{
+              position: 'absolute', inset: 0,
+              opacity: 0.4,
+              pointerEvents: 'none',
+              zIndex: 0,
+            }}
+          />
+
+          {/* ── Logo Area ── */}
           <div
             style={{
-              padding: collapsed ? '1.35rem 0' : '1.35rem 1.1rem',
-              borderBottom: '1px solid var(--mdt-border)',
+              padding: collapsed ? '1.4rem 0' : '1.25rem 1.1rem',
+              borderBottom: '1px solid rgba(29,110,247,0.1)',
               display: 'flex',
               alignItems: 'center',
               gap: '0.85rem',
               justifyContent: collapsed ? 'center' : 'flex-start',
               flexShrink: 0,
+              position: 'relative',
+              zIndex: 1,
+              background: 'linear-gradient(135deg, rgba(29,110,247,0.05) 0%, transparent 60%)',
             }}
           >
             <div
-              className="mdt-sidebar-logo"
+              className="mdt-logo-wrap"
               style={{
-                width: 38,
-                height: 38,
+                width: 40,
+                height: 40,
                 borderRadius: '50%',
                 overflow: 'hidden',
-                border: '1.5px solid var(--mdt-accent)',
+                border: '1.5px solid rgba(29,110,247,0.6)',
                 flexShrink: 0,
               }}
             >
               <img
-                src="/lac-logo.png"
+                src="/lac-logo.jpg"
                 alt="LACPD"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
@@ -215,10 +291,10 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
               <div style={{ overflow: 'hidden' }}>
                 <div
                   style={{
-                    fontSize: '1rem',
+                    fontSize: '0.92rem',
                     fontWeight: 800,
-                    color: 'var(--mdt-text-primary)',
-                    letterSpacing: '0.07em',
+                    color: '#e8ecf5',
+                    letterSpacing: '0.08em',
                     lineHeight: 1.1,
                   }}
                 >
@@ -226,13 +302,12 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                 </div>
                 <div
                   style={{
-                    fontSize: '0.58rem',
-                    color: 'var(--mdt-accent)',
+                    fontSize: '0.55rem',
+                    color: '#1D6EF7',
                     fontWeight: 700,
-                    letterSpacing: '0.2em',
+                    letterSpacing: '0.25em',
                     textTransform: 'uppercase',
-                    marginTop: 2,
-                    opacity: 0.85,
+                    marginTop: 3,
                   }}
                 >
                   MDT Terminal
@@ -242,21 +317,29 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
           </div>
 
           {/* ── Nav ── */}
-          <nav style={{ flex: 1, padding: '0.6rem 0.45rem', overflowY: 'auto' }}>
+          <nav style={{ flex: 1, padding: '0.75rem 0.5rem', overflowY: 'auto', position: 'relative', zIndex: 1 }}>
             {allSections.map((section) => (
-              <div key={section.label} style={{ marginBottom: '0.2rem' }}>
+              <div key={section.label} style={{ marginBottom: '0.5rem' }}>
                 {!collapsed && (
                   <div
                     style={{
-                      fontSize: '0.58rem',
-                      fontWeight: 700,
-                      color: 'var(--mdt-text-muted)',
-                      letterSpacing: '0.22em',
+                      fontSize: '0.55rem',
+                      fontWeight: 800,
+                      color: 'rgba(29,110,247,0.45)',
+                      letterSpacing: '0.28em',
                       textTransform: 'uppercase',
-                      padding: '0.9rem 0.75rem 0.3rem',
-                      opacity: 0.7,
+                      padding: '1rem 0.7rem 0.4rem',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
                     }}
                   >
+                    <span style={{
+                      flex: 1,
+                      height: '1px',
+                      background: 'linear-gradient(90deg, rgba(29,110,247,0.2) 0%, transparent 100%)',
+                      display: 'inline-block',
+                    }} />
                     {section.label}
                   </div>
                 )}
@@ -273,49 +356,48 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                       style={{
                         display: 'flex',
                         alignItems: 'center',
-                        gap: collapsed ? 0 : '0.72rem',
-                        padding: collapsed ? '0.78rem 0' : '0.65rem 0.75rem',
-                        borderRadius: 8,
-                        marginBottom: '0.08rem',
+                        gap: collapsed ? 0 : '0.8rem',
+                        padding: collapsed ? '0.82rem 0' : '0.68rem 0.85rem',
+                        borderRadius: 10,
+                        marginBottom: '0.12rem',
                         textDecoration: 'none',
-                        position: 'relative',
                         justifyContent: collapsed ? 'center' : 'flex-start',
-                        backgroundColor: isActive ? 'var(--mdt-accent-alpha)' : 'transparent',
-                        color: isActive ? 'var(--mdt-accent)' : 'var(--mdt-text-secondary)',
+                        backgroundColor: isActive
+                          ? 'rgba(29,110,247,0.1)'
+                          : 'transparent',
+                        color: isActive ? '#1D6EF7' : 'rgba(200,208,230,0.55)',
                         fontWeight: isActive ? 600 : 400,
-                        fontSize: '0.83rem',
-                        letterSpacing: '0.005em',
+                        fontSize: '0.82rem',
+                        letterSpacing: '0.01em',
                         userSelect: 'none',
+                        position: 'relative',
                       }}
                       onMouseOver={e => {
                         if (!isActive) {
-                          (e.currentTarget as HTMLElement).style.backgroundColor = 'var(--mdt-hover)';
-                          (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)';
+                          (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(29,110,247,0.06)';
+                          (e.currentTarget as HTMLElement).style.color = '#c8d0e6';
                         }
                       }}
                       onMouseOut={e => {
                         if (!isActive) {
                           (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent';
-                          (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)';
+                          (e.currentTarget as HTMLElement).style.color = 'rgba(200,208,230,0.55)';
                         }
                       }}
                     >
-                      {/* Active bar now rendered via CSS ::after on .mdt-nav-item.active */}
-
                       <i
-                        className={`fa-solid ${item.icon} mdt-nav-icon`}
+                        className={`fa-solid ${item.icon} mdt-icon`}
                         style={{
-                          fontSize: '0.88rem',
+                          fontSize: '0.9rem',
                           width: 18,
                           textAlign: 'center',
                           flexShrink: 0,
-                          opacity: isActive ? 1 : 0.6,
-                          transition: 'opacity 0.18s, transform 0.18s',
+                          color: isActive ? '#1D6EF7' : 'inherit',
                         }}
                       />
 
                       {!collapsed && (
-                        <span style={{ flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', pointerEvents: 'none' }}>
+                        <span style={{ flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                           {item.label}
                         </span>
                       )}
@@ -323,13 +405,15 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                       {hasUnread && !collapsed && (
                         <span
                           style={{
-                            backgroundColor: 'var(--mdt-accent)',
+                            background: 'linear-gradient(135deg, #1D6EF7 0%, #4A8EFA 100%)',
                             color: '#fff',
-                            fontSize: '0.58rem',
+                            fontSize: '0.6rem',
                             fontWeight: 800,
-                            padding: '2px 6px',
+                            padding: '2px 7px',
                             borderRadius: 10,
                             flexShrink: 0,
+                            fontFamily: "'JetBrains Mono', monospace",
+                            boxShadow: '0 0 8px rgba(29,110,247,0.4)',
                           }}
                         >
                           {unreadCount}
@@ -339,13 +423,13 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                         <span
                           style={{
                             position: 'absolute',
-                            top: 8,
-                            right: 8,
+                            top: 9,
+                            right: 10,
                             width: 7,
                             height: 7,
                             borderRadius: '50%',
-                            backgroundColor: 'var(--mdt-accent)',
-                            boxShadow: '0 0 6px var(--mdt-accent)',
+                            background: '#1D6EF7',
+                            boxShadow: '0 0 6px rgba(29,110,247,0.8)',
                           }}
                         />
                       )}
@@ -356,15 +440,49 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
             ))}
           </nav>
 
-          {/* ── Collapse button at bottom ── */}
+          {/* ── Divider + System Info ── */}
+          {!collapsed && (
+            <div
+              style={{
+                margin: '0 0.75rem',
+                padding: '0.75rem',
+                borderRadius: 8,
+                background: 'rgba(29,110,247,0.04)',
+                border: '1px solid rgba(29,110,247,0.08)',
+                marginBottom: '0.5rem',
+                position: 'relative',
+                zIndex: 1,
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.35rem' }}>
+                <span style={{ fontSize: '0.6rem', color: 'rgba(29,110,247,0.5)', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+                  Sistem Durumu
+                </span>
+                <span style={{
+                  width: 6, height: 6, borderRadius: '50%',
+                  background: '#22c55e',
+                  boxShadow: '0 0 6px rgba(34,197,94,0.6)',
+                  display: 'inline-block',
+                }} />
+              </div>
+              <div style={{ fontSize: '0.62rem', color: 'rgba(200,208,230,0.4)', fontFamily: "'JetBrains Mono', monospace" }}>
+                MDT v3.2 — ONLINE
+              </div>
+            </div>
+          )}
+
+          {/* ── Collapse button ── */}
           <div
             style={{
-              padding: '0.75rem 0.45rem',
-              borderTop: '1px solid var(--mdt-border)',
+              padding: '0.6rem 0.5rem',
+              borderTop: '1px solid rgba(29,110,247,0.08)',
               flexShrink: 0,
+              position: 'relative',
+              zIndex: 1,
             }}
           >
             <button
+              className="mdt-collapse-btn"
               onClick={() => setCollapsed(c => !c)}
               style={{
                 width: '100%',
@@ -372,28 +490,19 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                 alignItems: 'center',
                 justifyContent: collapsed ? 'center' : 'flex-start',
                 gap: '0.65rem',
-                padding: collapsed ? '0.65rem 0' : '0.65rem 0.75rem',
+                padding: collapsed ? '0.65rem 0' : '0.65rem 0.85rem',
                 borderRadius: 8,
-                border: 'none',
+                border: '1px solid transparent',
                 background: 'none',
                 cursor: 'pointer',
-                color: 'var(--mdt-text-muted)',
-                fontSize: '0.8rem',
+                color: 'rgba(200,208,230,0.3)',
+                fontSize: '0.78rem',
                 fontWeight: 500,
-                transition: 'color 0.15s, background 0.15s',
-              }}
-              onMouseOver={e => {
-                (e.currentTarget).style.color = 'var(--mdt-text-primary)';
-                (e.currentTarget).style.background = 'var(--mdt-hover)';
-              }}
-              onMouseOut={e => {
-                (e.currentTarget).style.color = 'var(--mdt-text-muted)';
-                (e.currentTarget).style.background = 'none';
               }}
             >
               <i
                 className={`fa-solid ${collapsed ? 'fa-chevron-right' : 'fa-chevron-left'}`}
-                style={{ fontSize: '0.78rem', width: 18, textAlign: 'center', transition: 'transform 0.25s' }}
+                style={{ fontSize: '0.72rem', width: 18, textAlign: 'center', transition: 'transform 0.25s' }}
               />
               {!collapsed && <span>Daralt</span>}
             </button>
@@ -401,19 +510,19 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
         </aside>
 
         {/* ═══════════ MAIN ═══════════ */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, minHeight: '100vh' }}>
+        <div className="mdt-main" style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, minHeight: '100vh' }}>
 
           {/* ── Top Header ── */}
-          <div
-            role="banner"
+          <header
             style={{
               height: 60,
-              borderBottom: '1px solid var(--mdt-border)',
+              borderBottom: '1px solid rgba(29,110,247,0.1)',
               display: 'flex',
               alignItems: 'center',
-              padding: '0 1.75rem',
+              padding: '0 1.5rem',
               gap: '1.25rem',
-              background: 'var(--mdt-sidebar-bg)',
+              background: 'linear-gradient(90deg, rgba(6,10,18,0.98) 0%, rgba(8,12,20,0.98) 100%)',
+              backdropFilter: 'blur(16px)',
               position: 'sticky',
               top: 0,
               zIndex: 40,
@@ -425,81 +534,68 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.4rem',
-                fontSize: '0.78rem',
-                color: 'var(--mdt-text-muted)',
+                gap: '0.45rem',
+                fontSize: '0.75rem',
+                color: 'rgba(200,208,230,0.4)',
                 flexShrink: 0,
               }}
             >
-              <i className="fa-solid fa-shield-halved" style={{ fontSize: '0.7rem', color: 'var(--mdt-accent)', opacity: 0.7 }} />
-              <span>MDT</span>
-              <i className="fa-solid fa-chevron-right" style={{ fontSize: '0.5rem', opacity: 0.35 }} />
-              <span style={{ color: 'var(--mdt-text-primary)', fontWeight: 600 }}>{currentLabel}</span>
+              <i className="fa-solid fa-shield-halved" style={{ fontSize: '0.72rem', color: 'rgba(29,110,247,0.6)' }} />
+              <span style={{ fontWeight: 500 }}>MDT</span>
+              <i className="fa-solid fa-chevron-right" style={{ fontSize: '0.45rem', opacity: 0.3 }} />
+              <span style={{ color: '#e8ecf5', fontWeight: 600 }}>{currentLabel}</span>
             </div>
 
             {/* Search */}
-            <div style={{ flex: 1, maxWidth: 380, position: 'relative', marginLeft: '0.5rem' }}>
+            <div style={{ flex: 1, maxWidth: 360, position: 'relative', marginLeft: '0.25rem' }}>
               <i
                 className="fa-solid fa-magnifying-glass"
                 style={{
                   position: 'absolute',
-                  left: '0.8rem',
+                  left: '0.85rem',
                   top: '50%',
                   transform: 'translateY(-50%)',
-                  color: 'var(--mdt-text-muted)',
-                  fontSize: '0.72rem',
+                  color: 'rgba(29,110,247,0.4)',
+                  fontSize: '0.7rem',
                   pointerEvents: 'none',
                 }}
               />
               <input
                 type="text"
                 placeholder="Ara..."
+                className="mdt-search-input"
                 style={{
                   width: '100%',
-                  background: 'var(--mdt-card-bg)',
-                  border: '1px solid var(--mdt-border)',
+                  background: 'rgba(29,110,247,0.04)',
+                  border: '1px solid rgba(29,110,247,0.12)',
                   borderRadius: 8,
-                  padding: '0.46rem 1rem 0.46rem 2rem',
-                  color: 'var(--mdt-text-primary)',
-                  fontSize: '0.8rem',
+                  padding: '0.48rem 1rem 0.48rem 2.2rem',
+                  color: '#e8ecf5',
+                  fontSize: '0.78rem',
                   outline: 'none',
-                  transition: 'border-color 0.15s, box-shadow 0.15s',
-                }}
-                onFocus={e  => {
-                  e.target.style.borderColor = 'var(--mdt-accent)';
-                  e.target.style.boxShadow   = '0 0 0 3px var(--mdt-accent-alpha)';
-                }}
-                onBlur={e => {
-                  e.target.style.borderColor = 'var(--mdt-border)';
-                  e.target.style.boxShadow   = 'none';
+                  transition: 'all 0.18s ease',
                 }}
               />
             </div>
 
             {/* Right actions */}
-            <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
 
               {/* Notification bell */}
               <Link
                 href="/mdt/mesajlar"
+                className="mdt-icon-btn"
                 style={{
                   position: 'relative',
-                  color: 'var(--mdt-text-muted)',
-                  fontSize: '0.9rem',
+                  color: 'rgba(200,208,230,0.4)',
+                  fontSize: '0.88rem',
                   textDecoration: 'none',
-                  padding: '0.45rem 0.55rem',
+                  padding: '0.5rem 0.6rem',
                   borderRadius: 8,
-                  transition: 'color 0.15s, background 0.15s',
                   display: 'flex',
                   alignItems: 'center',
-                }}
-                onMouseOver={e => {
-                  (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)';
-                  (e.currentTarget as HTMLElement).style.background = 'var(--mdt-hover)';
-                }}
-                onMouseOut={e => {
-                  (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-muted)';
-                  (e.currentTarget as HTMLElement).style.background = 'transparent';
+                  justifyContent: 'center',
+                  transition: 'all 0.15s ease',
                 }}
               >
                 <i className="fa-solid fa-bell" />
@@ -507,18 +603,21 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                   <span
                     style={{
                       position: 'absolute',
-                      top: 6,
-                      right: 6,
+                      top: 7,
+                      right: 7,
                       width: 7,
                       height: 7,
                       borderRadius: '50%',
-                      backgroundColor: 'var(--mdt-accent)',
-                      boxShadow: '0 0 6px var(--mdt-accent)',
-                      border: '1.5px solid var(--mdt-sidebar-bg)',
+                      background: '#1D6EF7',
+                      boxShadow: '0 0 8px rgba(29,110,247,0.7)',
+                      border: '1.5px solid #060a12',
                     }}
                   />
                 )}
               </Link>
+
+              {/* Separator */}
+              <div style={{ width: 1, height: 20, background: 'rgba(29,110,247,0.12)', margin: '0 0.25rem' }} />
 
               {/* Duty chip */}
               {user && (
@@ -526,40 +625,43 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '0.42rem',
-                    padding: '0.36rem 0.85rem',
+                    gap: '0.45rem',
+                    padding: '0.38rem 0.9rem',
                     borderRadius: 20,
-                    border: `1px solid ${user.isOnDuty ? 'rgba(34,197,94,0.28)' : 'var(--mdt-border)'}`,
-                    background: user.isOnDuty ? 'rgba(34,197,94,0.07)' : 'transparent',
-                    fontSize: '0.7rem',
+                    border: `1px solid ${user.isOnDuty ? 'rgba(34,197,94,0.3)' : 'rgba(29,110,247,0.1)'}`,
+                    background: user.isOnDuty ? 'rgba(34,197,94,0.07)' : 'rgba(29,110,247,0.04)',
+                    fontSize: '0.68rem',
                     fontWeight: 700,
-                    color: user.isOnDuty ? '#22c55e' : 'var(--mdt-text-muted)',
+                    color: user.isOnDuty ? '#4ade80' : 'rgba(200,208,230,0.4)',
                     letterSpacing: '0.04em',
+                    textTransform: 'uppercase',
                   }}
                 >
                   <span
                     style={{
-                      width: 7,
-                      height: 7,
+                      width: 6,
+                      height: 6,
                       borderRadius: '50%',
-                      backgroundColor: user.isOnDuty ? '#22c55e' : 'var(--mdt-text-muted)',
-                      animation: user.isOnDuty ? 'mdt-pulse-dot 2s infinite' : 'none',
+                      backgroundColor: user.isOnDuty ? '#4ade80' : 'rgba(200,208,230,0.3)',
+                      animation: user.isOnDuty ? 'mdt-pulse-green 2s infinite' : 'none',
+                      flexShrink: 0,
                     }}
                   />
                   {user.isOnDuty ? 'Görevde' : 'Görev Dışı'}
                 </div>
               )}
 
-              {/* ── Profile avatar + dropdown card ── */}
-              <div ref={profileRef} style={{ position: 'relative' }}>
+              {/* Profile avatar */}
+              <div ref={profileRef} style={{ position: 'relative', marginLeft: '0.1rem' }}>
                 <button
+                  className="mdt-avatar-btn"
                   onClick={() => setProfileOpen(o => !o)}
                   style={{
-                    width: 34,
-                    height: 34,
+                    width: 36,
+                    height: 36,
                     borderRadius: '50%',
-                    background: 'var(--mdt-accent-alpha)',
-                    border: `2px solid ${profileOpen ? 'var(--mdt-accent)' : 'rgba(255,255,255,0.1)'}`,
+                    background: 'rgba(29,110,247,0.1)',
+                    border: `2px solid ${profileOpen ? 'rgba(29,110,247,0.7)' : 'rgba(29,110,247,0.2)'}`,
                     overflow: 'hidden',
                     display: 'flex',
                     alignItems: 'center',
@@ -567,28 +669,18 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                     flexShrink: 0,
                     cursor: 'pointer',
                     padding: 0,
-                    transition: 'border-color 0.15s, box-shadow 0.15s',
-                    boxShadow: profileOpen ? '0 0 0 3px var(--mdt-accent-alpha)' : 'none',
-                  }}
-                  onMouseOver={e => {
-                    (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-accent)';
-                    (e.currentTarget as HTMLElement).style.boxShadow = '0 0 0 3px var(--mdt-accent-alpha)';
-                  }}
-                  onMouseOut={e => {
-                    if (!profileOpen) {
-                      (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.1)';
-                      (e.currentTarget as HTMLElement).style.boxShadow = 'none';
-                    }
+                    transition: 'all 0.18s ease',
+                    boxShadow: profileOpen ? '0 0 0 4px rgba(29,110,247,0.15)' : 'none',
                   }}
                 >
                   {user?.profileImage ? (
                     <img src={user.profileImage} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   ) : (
-                    <i className="fa-solid fa-user" style={{ color: 'var(--mdt-accent)', fontSize: '0.78rem' }} />
+                    <i className="fa-solid fa-user" style={{ color: '#1D6EF7', fontSize: '0.8rem' }} />
                   )}
                 </button>
 
-                {/* Dropdown Card */}
+                {/* Profile Dropdown */}
                 {profileOpen && (
                   <div
                     className="mdt-profile-card"
@@ -596,103 +688,93 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                       position: 'absolute',
                       top: 'calc(100% + 10px)',
                       right: 0,
-                      width: 240,
-                      background: 'var(--mdt-card-bg)',
-                      border: '1px solid var(--mdt-border)',
-                      borderRadius: 12,
-                      boxShadow: '0 16px 40px rgba(0,0,0,0.5)',
+                      width: 248,
+                      background: 'linear-gradient(160deg, #0d1220 0%, #0a0e1a 100%)',
+                      border: '1px solid rgba(29,110,247,0.2)',
+                      borderRadius: 14,
+                      boxShadow: '0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(29,110,247,0.05)',
                       zIndex: 200,
                       overflow: 'hidden',
                     }}
                   >
-                    {/* Card header */}
+                    {/* Header */}
                     <div
                       style={{
-                        padding: '1.1rem 1.1rem 0.9rem',
-                        borderBottom: '1px solid var(--mdt-border)',
+                        padding: '1.1rem',
+                        borderBottom: '1px solid rgba(29,110,247,0.1)',
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '0.8rem',
-                        background: 'linear-gradient(135deg, var(--mdt-accent-alpha) 0%, transparent 100%)',
+                        gap: '0.85rem',
+                        background: 'linear-gradient(135deg, rgba(29,110,247,0.08) 0%, transparent 100%)',
                       }}
                     >
                       <div
                         style={{
-                          width: 44,
-                          height: 44,
+                          width: 46,
+                          height: 46,
                           borderRadius: '50%',
-                          border: '2px solid var(--mdt-accent)',
+                          border: '2px solid rgba(29,110,247,0.5)',
                           overflow: 'hidden',
                           flexShrink: 0,
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          background: 'var(--mdt-accent-alpha)',
+                          background: 'rgba(29,110,247,0.1)',
+                          boxShadow: '0 0 12px rgba(29,110,247,0.2)',
                         }}
                       >
                         {user?.profileImage ? (
                           <img src={user.profileImage} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                         ) : (
-                          <i className="fa-solid fa-user" style={{ color: 'var(--mdt-accent)', fontSize: '1rem' }} />
+                          <i className="fa-solid fa-user" style={{ color: '#1D6EF7', fontSize: '1rem' }} />
                         )}
                       </div>
                       <div style={{ minWidth: 0 }}>
-                        <div style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--mdt-text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#e8ecf5', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                           {user?.name ?? '—'}
                         </div>
-                        <div style={{ fontSize: '0.68rem', color: 'var(--mdt-text-muted)', marginTop: 2 }}>
+                        <div style={{ fontSize: '0.65rem', color: 'rgba(200,208,230,0.45)', marginTop: 3, fontFamily: "'JetBrains Mono', monospace" }}>
                           #{user?.badge ?? '—'} · {user?.rank ?? '—'}
                         </div>
                       </div>
                     </div>
 
                     {/* Status row */}
-                    <div style={{ padding: '0.7rem 1.1rem', borderBottom: '1px solid var(--mdt-border)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <div style={{ padding: '0.7rem 1.1rem', borderBottom: '1px solid rgba(29,110,247,0.08)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                       <span
                         style={{
-                          width: 8,
-                          height: 8,
-                          borderRadius: '50%',
-                          backgroundColor: user?.isOnDuty ? '#22c55e' : 'var(--mdt-text-muted)',
-                          animation: user?.isOnDuty ? 'mdt-pulse-dot 2s infinite' : 'none',
+                          width: 8, height: 8, borderRadius: '50%',
+                          backgroundColor: user?.isOnDuty ? '#4ade80' : 'rgba(200,208,230,0.2)',
+                          animation: user?.isOnDuty ? 'mdt-pulse-green 2s infinite' : 'none',
                           flexShrink: 0,
                         }}
                       />
-                      <span style={{ fontSize: '0.75rem', color: user?.isOnDuty ? '#22c55e' : 'var(--mdt-text-muted)', fontWeight: 600 }}>
+                      <span style={{ fontSize: '0.72rem', color: user?.isOnDuty ? '#4ade80' : 'rgba(200,208,230,0.35)', fontWeight: 600 }}>
                         {user?.isOnDuty ? 'Görevde' : 'Görev Dışı'}
                       </span>
                     </div>
 
                     {/* Actions */}
                     <div style={{ padding: '0.5rem' }}>
-                      <Link
-                        href="/mdt/profil"
-                        onClick={() => setProfileOpen(false)}
-                        style={{ textDecoration: 'none' }}
-                      >
+                      <Link href="/mdt/profil" onClick={() => setProfileOpen(false)} style={{ textDecoration: 'none' }}>
                         <div
                           style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '0.7rem',
-                            padding: '0.6rem 0.75rem',
-                            borderRadius: 7,
-                            cursor: 'pointer',
-                            color: 'var(--mdt-text-secondary)',
-                            fontSize: '0.82rem',
-                            fontWeight: 500,
-                            transition: 'background 0.12s, color 0.12s',
+                            display: 'flex', alignItems: 'center', gap: '0.7rem',
+                            padding: '0.6rem 0.8rem', borderRadius: 8,
+                            cursor: 'pointer', color: 'rgba(200,208,230,0.55)',
+                            fontSize: '0.82rem', fontWeight: 500,
+                            transition: 'all 0.12s ease',
                           }}
                           onMouseOver={e => {
-                            (e.currentTarget as HTMLElement).style.background = 'var(--mdt-hover)';
-                            (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)';
+                            (e.currentTarget as HTMLElement).style.background = 'rgba(29,110,247,0.08)';
+                            (e.currentTarget as HTMLElement).style.color = '#e8ecf5';
                           }}
                           onMouseOut={e => {
                             (e.currentTarget as HTMLElement).style.background = 'transparent';
-                            (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)';
+                            (e.currentTarget as HTMLElement).style.color = 'rgba(200,208,230,0.55)';
                           }}
                         >
-                          <i className="fa-solid fa-circle-user" style={{ width: 16, textAlign: 'center', color: 'var(--mdt-accent)', opacity: 0.8 }} />
+                          <i className="fa-solid fa-circle-user" style={{ width: 16, textAlign: 'center', color: 'rgba(29,110,247,0.7)' }} />
                           Profilim
                         </div>
                       </Link>
@@ -700,16 +782,11 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                       <div
                         onClick={handleLogout}
                         style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '0.7rem',
-                          padding: '0.6rem 0.75rem',
-                          borderRadius: 7,
-                          cursor: 'pointer',
-                          color: 'var(--mdt-text-secondary)',
-                          fontSize: '0.82rem',
-                          fontWeight: 500,
-                          transition: 'background 0.12s, color 0.12s',
+                          display: 'flex', alignItems: 'center', gap: '0.7rem',
+                          padding: '0.6rem 0.8rem', borderRadius: 8,
+                          cursor: 'pointer', color: 'rgba(200,208,230,0.55)',
+                          fontSize: '0.82rem', fontWeight: 500,
+                          transition: 'all 0.12s ease',
                         }}
                         onMouseOver={e => {
                           (e.currentTarget as HTMLElement).style.background = 'rgba(239,68,68,0.08)';
@@ -717,10 +794,10 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                         }}
                         onMouseOut={e => {
                           (e.currentTarget as HTMLElement).style.background = 'transparent';
-                          (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)';
+                          (e.currentTarget as HTMLElement).style.color = 'rgba(200,208,230,0.55)';
                         }}
                       >
-                        <i className="fa-solid fa-arrow-right-from-bracket" style={{ width: 16, textAlign: 'center', color: '#ef4444', opacity: 0.8 }} />
+                        <i className="fa-solid fa-arrow-right-from-bracket" style={{ width: 16, textAlign: 'center', color: 'rgba(239,68,68,0.6)' }} />
                         Çıkış Yap
                       </div>
                     </div>
@@ -728,18 +805,35 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                 )}
               </div>
             </div>
-          </div>
+          </header>
 
           {/* ── Page Content ── */}
           <main
             style={{
               flex: 1,
-              padding: '2rem',
+              padding: '2rem 2rem',
               overflowY: 'auto',
-              background: 'var(--mdt-bg-main)',
+              background: 'linear-gradient(160deg, #080c14 0%, #060a12 100%)',
+              position: 'relative',
             }}
           >
-            {children}
+            {/* Subtle grid texture */}
+            <div
+              style={{
+                position: 'fixed',
+                inset: 0,
+                backgroundImage: `
+                  linear-gradient(rgba(29,110,247,0.02) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(29,110,247,0.02) 1px, transparent 1px)
+                `,
+                backgroundSize: '40px 40px',
+                pointerEvents: 'none',
+                zIndex: 0,
+              }}
+            />
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              {children}
+            </div>
           </main>
         </div>
       </div>

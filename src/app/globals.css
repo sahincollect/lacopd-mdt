@@ -1,4 +1,4 @@
-﻿/* Font Awesome is loaded via <link> in layout.tsx */
+/* Font Awesome is loaded via <link> in layout.tsx */
 
 /* =====================================================
    ANIMATION OVERRIDE â Force animations for all users
@@ -139,35 +139,39 @@ html {
 
 /* ═══════════════════════════════════════════════
    MDT ZONE – Always-dark premium dashboard tokens
-   Black & Police Blue Edition
+   Tactical Black & LACPD Blue Edition v2
    ═══════════════════════════════════════════════ */
 :root,
 .dark {
-  /* MDT backgrounds – pure black spectrum */
-  --mdt-sidebar-bg:     #080a0e;
-  --mdt-bg-main:        #0d0f14;
-  --mdt-card-bg:        #13161d;
-  --mdt-border:         rgba(255,255,255,0.06);
-  --mdt-hover:          rgba(255,255,255,0.04);
+  /* MDT backgrounds – deep navy-black spectrum */
+  --mdt-sidebar-bg:     #060a12;
+  --mdt-bg-main:        #080c14;
+  --mdt-card-bg:        #0d1220;
+  --mdt-border:         rgba(29,110,247,0.1);
+  --mdt-border-subtle:  rgba(29,110,247,0.06);
+  --mdt-hover:          rgba(29,110,247,0.05);
 
   /* MDT text */
-  --mdt-text-primary:   #eef0f6;
-  --mdt-text-secondary: #7c8494;
-  --mdt-text-muted:     #444c5e;
+  --mdt-text-primary:   #e8ecf5;
+  --mdt-text-secondary: #7c8faa;
+  --mdt-text-muted:     #3d4d65;
 
-  /* MDT accent – LAC Badge Blue (Pantone 286 / Royal Blue) */
+  /* MDT accent – LACPD Royal Blue */
   --mdt-accent:         #1D6EF7;
-  --mdt-accent-alpha:   rgba(29,110,247,0.13);
+  --mdt-accent-alpha:   rgba(29,110,247,0.1);
   --mdt-accent-hover:   #4A8EFA;
-  --mdt-accent-glow:    rgba(29,110,247,0.28);
+  --mdt-accent-glow:    rgba(29,110,247,0.35);
 
-  /* LAC orange kept for warnings / alerts */
+  /* LAC orange – warnings / high-priority */
   --mdt-orange:         #E84F2A;
 
-  /* Status */
+  /* Status colors */
   --mdt-success:        #22c55e;
   --mdt-warning:        #f59e0b;
   --mdt-danger:         #ef4444;
+
+  /* Glass card base */
+  --mdt-glass-bg:       linear-gradient(145deg, rgba(13,18,32,0.9) 0%, rgba(10,14,26,0.8) 100%);
 }
 
 * {
