@@ -1,6 +1,9 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import useSWR from "swr";
+import { fetcher } from "@/lib/fetcher";
 
 const REPORT_TEMPLATES = [
   {
@@ -218,36 +221,50 @@ const REPORT_TEMPLATES = [
 ];
 
 const CATEGORIES = [
-  { id: "ALL",      label: "Tümü",      icon: "fa-border-all" },
-  { id: "CRIME",    label: "Suç & Olay",icon: "fa-handcuffs" },
-  { id: "TRAFFIC",  label: "Trafik",    icon: "fa-car-on" },
-  { id: "DETECTIVE",label: "Dedektif",  icon: "fa-magnifying-glass" },
-  { id: "WARRANT",  label: "Mahkeme",   icon: "fa-scale-balanced" },
-  { id: "FIELD",    label: "Saha",      icon: "fa-user-shield" },
+  { id: "ALL",      label: "Tümü",      icon: "fa-border-all",       color: "rgba(200,208,230,0.5)" },
+  { id: "CRIME",    label: "Suç & Olay",icon: "fa-handcuffs",        color: "#E84F2A" },
+  { id: "TRAFFIC",  label: "Trafik",    icon: "fa-car-on",           color: "#f59e0b" },
+  { id: "DETECTIVE",label: "Dedektif",  icon: "fa-magnifying-glass", color: "#8b5cf6" },
+  { id: "WARRANT",  label: "Mahkeme",   icon: "fa-scale-balanced",   color: "#1D6EF7" },
+  { id: "FIELD",    label: "Saha",      icon: "fa-user-shield",      color: "#22c55e" },
 ];
 
-function fieldCount(tmpl: any) {
-  return tmpl.sections.reduce((acc: number, s: any) => acc + s.fields.length, 0);
-}
+/* ─── Premium Glass UI ─── */
+const glassCard: React.CSSProperties = {
+  background: "linear-gradient(145deg, rgba(16,22,36,0.9) 0%, rgba(10,14,26,0.85) 100%)",
+  backdropFilter: "blur(24px)",
+  border: "1px solid rgba(29,110,247,0.25)",
+  borderRadius: 14,
+  overflow: "hidden",
+  boxShadow: "0 12px 40px -10px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05)",
+};
+
+const inputBase: React.CSSProperties = {
+  width: "100%", background: "rgba(29,110,247,0.04)",
+  border: "1px solid rgba(29,110,247,0.12)", borderRadius: 8,
+  padding: "0.58rem 0.9rem", color: "#e8ecf5",
+  fontSize: "0.83rem", outline: "none", fontFamily: "'Inter', sans-serif",
+  transition: "all 0.18s ease", boxSizing: "border-box",
+};
 
 export default function RaporPortali() {
+  const { data: meData } = useSWR("/api/auth/me", fetcher);
+  const user = meData?.user ?? null;
+
   const [view, setView] = useState<"home" | "editor" | "saved">("home");
   const [activeCat, setActiveCat] = useState("ALL");
   const [searchTerm, setSearchTerm] = useState("");
+  
   const [template, setTemplate] = useState<any>(null);
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [reportCode, setReportCode] = useState("");
+  
   const [savedReports, setSavedReports] = useState<any[]>([]);
   const [archiveSearch, setArchiveSearch] = useState("");
-  const [user, setUser] = useState<any>(null);
-  const [saving, setSaving] = useState(false);
   const [loadingReports, setLoadingReports] = useState(false);
-  const [previewTemplate, setPreviewTemplate] = useState<any>(null);
+  const [saving, setSaving] = useState(false);
 
-  useEffect(() => {
-    fetch('/api/auth/me').then(r => r.json()).then(d => d.user && setUser(d.user)).catch(() => {});
-    fetchSaved();
-  }, []);
+  useEffect(() => { fetchSaved(); }, []);
 
   const fetchSaved = async () => {
     setLoadingReports(true);
@@ -281,12 +298,16 @@ export default function RaporPortali() {
       const r = await fetch('/api/forms-reports', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: reportCode, formId: template.id, officerName: user ? `${user.name} (#${user.badge})` : "L. COOPER (#101)", data: formData, diagram: [] })
+        body: JSON.stringify({
+          id: reportCode, formId: template.id,
+          officerName: user ? `${user.name} (#${user.badge})` : "Bilinmiyor",
+          data: formData, diagram: []
+        })
       });
       if (r.ok) { await fetchSaved(); setView("saved"); }
       else alert("Kaydetme hatası.");
     } catch { alert("Sunucu hatası."); }
-    setSaving(false);
+    finally { setSaving(false); }
   };
 
   const handleDelete = async (id: string) => {
@@ -303,312 +324,217 @@ export default function RaporPortali() {
     setView("editor");
   };
 
-  const filtered = REPORT_TEMPLATES.filter(t => {
-    const catOk = activeCat === "ALL" || t.category === activeCat;
-    const searchOk = !searchTerm || t.name.toLowerCase().includes(searchTerm.toLowerCase()) || t.description.toLowerCase().includes(searchTerm.toLowerCase());
-    return catOk && searchOk;
-  });
+  const filtered = REPORT_TEMPLATES.filter(t => 
+    (activeCat === "ALL" || t.category === activeCat) &&
+    (t.name.toLowerCase().includes(searchTerm.toLowerCase()) || t.code.includes(searchTerm))
+  );
 
   return (
-    <div className="app-root" style={{ width: '100%', fontFamily: "'Inter', sans-serif" }}>
-      <style dangerouslySetInnerHTML={{ __html: `
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
+        .mdt-inp:focus { border-color: rgba(29,110,247,0.5) !important; box-shadow: 0 0 0 3px rgba(29,110,247,0.1) !important; }
+        .rep-card { transition: all 0.2s ease; cursor: pointer; }
+        .rep-card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(29,110,247,0.15) !important; border-color: rgba(29,110,247,0.4) !important; }
+        .archive-row { transition: background 0.15s; }
+        .archive-row:hover { background: rgba(29,110,247,0.05) !important; }
+
+        /* Print styles to hide sidebar and layout */
         @media print {
           @page { size: portrait; margin: 15mm; }
-          .no-print { display: none !important; }
-          .app-root { background: #fff !important; min-height: auto !important; }
-          .editor-wrapper { padding: 0 !important; margin: 0 !important; max-width: none !important; }
-          
+          body * { visibility: hidden; }
+          aside, header, .no-print, .mdt-sidebar { display: none !important; }
+          .mdt-main { background: white !important; padding: 0 !important; }
+          .print-doc, .print-doc * { visibility: visible; }
           .print-doc {
-            background:#fff !important; color:#000 !important;
-            padding: 0 !important; font-family: 'Times New Roman', Times, serif !important;
-            border: none !important; box-shadow: none !important;
+            position: absolute; left: 0; top: 0; width: 100%;
+            background: white !important; color: black !important;
+            border: none !important; box-shadow: none !important; padding: 0 !important;
           }
-
-          .print-doc * { color: #000 !important; border-color: #000 !important; }
-          .print-doc .doc-header-title { font-family: 'Arial', sans-serif !important; font-size: 16pt !important; font-weight: bold !important; letter-spacing: 1px !important; }
-          .print-doc .section-box { border: 2px solid #000 !important; border-radius: 0 !important; margin: 0 0 15px 0 !important; break-inside: avoid; }
-          .print-doc .section-title {
-            background: #e2e2e2 !important; border-bottom: 2px solid #000 !important;
-            color: #000 !important; font-family: 'Arial', sans-serif !important;
-            font-size: 9pt !important; font-weight: bold !important;
-            -webkit-print-color-adjust: exact; print-color-adjust: exact;
-            padding: 4px 8px !important;
-          }
-          .print-doc .field-grid { gap: 0 !important; padding: 0 !important; }
-          .print-doc .field-wrap { border: 1px solid #000 !important; border-top: none !important; border-left: none !important; padding: 4px 6px !important; margin: 0 !important; }
-          .print-doc .field-wrap:last-child { border-right: none !important; }
-          .print-doc label { font-family: 'Arial', sans-serif !important; font-size: 7pt !important; text-transform: uppercase !important; display: block !important; margin-bottom: 2px !important; }
-
-          .print-doc input, .print-doc select {
-            background: transparent !important;
-            border: none !important; border-radius: 0 !important;
-            padding: 0 !important;
-            font-family: 'Times New Roman', serif !important; font-size: 10pt !important;
-            color: #000 !important; box-shadow: none !important;
-            -webkit-appearance: none; width: 100% !important; height: auto !important;
-          }
-          
-          .print-doc .no-print-textarea { display: none !important; }
-          .print-doc .print-only-text {
-            display: block !important; white-space: pre-wrap !important; word-break: break-word !important;
-            font-family: 'Times New Roman', serif !important; font-size: 10pt !important; color: #000 !important; width: 100% !important;
-          }
-
-          .print-doc ::-webkit-input-placeholder { color: transparent !important; }
-          .print-doc i { display: none !important; }
-          .print-doc select { padding-right: 0 !important; background-image: none !important; }
-          
-          .print-doc .doc-footer { border-top: 2px solid #000 !important; margin: 20px 0 0 0 !important; padding: 10px 0 !important; }
-          .print-doc .doc-footer * { font-family: 'Arial', sans-serif !important; }
+          .print-doc * { color: black !important; background: transparent !important; }
+          .print-doc img { filter: none !important; }
         }
+      `}</style>
 
-        .scroll-custom::-webkit-scrollbar { width: 6px; }
-        .scroll-custom::-webkit-scrollbar-track { background: transparent; }
-        .scroll-custom::-webkit-scrollbar-thumb { background: var(--mdt-border); border-radius: 4px; }
-      `}} />
+      <div className="no-print" style={{ display: "flex", flexDirection: "column", gap: "1.75rem", maxWidth: 1200, margin: "0 auto", paddingBottom: "2rem" }}>
 
-      {/* ── HEADER TABS ── */}
-      <div className="no-print" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2rem', borderBottom: '1px solid var(--mdt-border)', paddingBottom: '1.5rem', flexWrap: "wrap", gap: "1rem" }}>
-        <div>
-          <p style={{ fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)', margin: '0 0 0.3rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            L.A.C.P.D. · RAPOR SİSTEMİ
-            <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "var(--mdt-text-muted)" }} />
-            <span style={{ color: "var(--mdt-accent)" }}>OFFICIAL DOCUMENTATION</span>
-          </p>
-          <h1 style={{ fontSize: "1.75rem", fontWeight: 900, color: "var(--mdt-text-primary)", margin: 0, letterSpacing: "-0.02em", lineHeight: 1.1 }}>
-            Resmi Evrak Portalı
-          </h1>
-          <p style={{ color: 'var(--mdt-text-muted)', fontSize: '0.82rem', marginTop: '0.35rem', fontWeight: 400 }}>
-            Sistem üzerinde resmi belgeler oluşturun ve arşivleyin.
-          </p>
+        {/* ─── Header & Tabs ─── */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1rem" }}>
+          <div>
+            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(29,110,247,0.4)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.45rem" }}>
+              L.A.C.P.D. · ARŞİV
+            </div>
+            <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "#e8ecf5", margin: 0, letterSpacing: "-0.02em" }}>
+              Rapor ve Belge Portalı
+            </h1>
+          </div>
+          <div style={{ display: "flex", gap: "0.5rem", background: "rgba(13,18,32,0.8)", border: "1px solid rgba(29,110,247,0.15)", borderRadius: 10, padding: "0.4rem" }}>
+            <button onClick={() => setView("home")} style={{
+              background: view === "home" || view === "editor" ? "rgba(29,110,247,0.15)" : "transparent",
+              color: view === "home" || view === "editor" ? "#1D6EF7" : "rgba(200,208,230,0.4)",
+              border: "none", padding: "0.5rem 1.25rem", borderRadius: 8, fontWeight: 700, fontSize: "0.8rem", cursor: "pointer", transition: "all 0.15s"
+            }}>Şablonlar</button>
+            <button onClick={() => setView("saved")} style={{
+              background: view === "saved" ? "rgba(29,110,247,0.15)" : "transparent",
+              color: view === "saved" ? "#1D6EF7" : "rgba(200,208,230,0.4)",
+              border: "none", padding: "0.5rem 1.25rem", borderRadius: 8, fontWeight: 700, fontSize: "0.8rem", cursor: "pointer", transition: "all 0.15s"
+            }}>Arşiv ({savedReports.length})</button>
+          </div>
         </div>
-        
-        <div style={{ display: 'flex', gap: '0.5rem', background: 'var(--mdt-card-bg)', padding: '0.5rem', borderRadius: '8px', border: '1px solid var(--mdt-border)' }}>
-          <button 
-            onClick={() => setView("home")} 
-            style={{ 
-              background: view === "home" || view === "editor" ? 'var(--mdt-accent)' : 'transparent', 
-              color: view === "home" || view === "editor" ? '#fff' : 'var(--mdt-text-secondary)', 
-              border: 'none', padding: '0.5rem 1.5rem', borderRadius: '6px', fontWeight: 700, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.15s' 
-            }}>
-            YENİ RAPOR
-          </button>
-          <button 
-            onClick={() => setView("saved")} 
-            style={{ 
-              background: view === "saved" ? 'var(--mdt-accent)' : 'transparent', 
-              color: view === "saved" ? '#fff' : 'var(--mdt-text-secondary)', 
-              border: 'none', padding: '0.5rem 1.5rem', borderRadius: '6px', fontWeight: 700, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.15s' 
-            }}>
-            ARŞİV ({savedReports.length})
-          </button>
-        </div>
+
+        {/* ─── HOME: TEMPLATE GALLERY ─── */}
+        {view === "home" && (
+          <div>
+            {/* Filters */}
+            <div style={{ display: "flex", gap: "1.5rem", alignItems: "center", marginBottom: "1.5rem", flexWrap: "wrap", justifyContent: "space-between" }}>
+              <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+                {CATEGORIES.map(cat => (
+                  <button key={cat.id} onClick={() => setActiveCat(cat.id)} style={{
+                    background: activeCat === cat.id ? `${cat.color}20` : "rgba(13,18,32,0.6)",
+                    border: `1px solid ${activeCat === cat.id ? cat.color : "rgba(29,110,247,0.1)"}`,
+                    color: activeCat === cat.id ? cat.color : "rgba(200,208,230,0.4)",
+                    padding: "0.5rem 1rem", borderRadius: 8, fontSize: "0.75rem", fontWeight: 700, cursor: "pointer",
+                    display: "flex", alignItems: "center", gap: "0.5rem", transition: "all 0.15s"
+                  }}>
+                    <i className={`fa-solid ${cat.icon}`} /> {cat.label}
+                  </button>
+                ))}
+              </div>
+              <input className="mdt-inp" type="text" placeholder="Şablon ara..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} style={{ ...inputBase, width: 250 }} />
+            </div>
+
+            {/* Template Grid */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "1.25rem" }}>
+              {filtered.map(tmpl => {
+                const catInfo = CATEGORIES.find(c => c.id === tmpl.category) || CATEGORIES[0];
+                return (
+                  <div key={tmpl.id} className="rep-card" onClick={() => openTemplate(tmpl)} style={{ ...glassCard, padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                      <div style={{ width: 42, height: 42, borderRadius: 10, background: `${catInfo.color}15`, border: `1px solid ${catInfo.color}30`, display: "flex", alignItems: "center", justifyContent: "center", color: catInfo.color, fontSize: "1.2rem" }}>
+                        <i className={`fa-solid ${tmpl.icon}`} />
+                      </div>
+                      <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.7rem", fontWeight: 800, color: "rgba(29,110,247,0.6)", background: "rgba(29,110,247,0.06)", padding: "0.25rem 0.6rem", borderRadius: 6, border: "1px solid rgba(29,110,247,0.15)" }}>
+                        LAC {tmpl.code}
+                      </div>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: "1.05rem", fontWeight: 800, color: "#e8ecf5", marginBottom: "0.35rem" }}>{tmpl.name}</div>
+                      <div style={{ fontSize: "0.8rem", color: "rgba(200,208,230,0.4)", lineHeight: 1.5 }}>{tmpl.description}</div>
+                    </div>
+                    <div style={{ marginTop: "auto", paddingTop: "1rem" }}>
+                      <button style={{ width: "100%", background: "linear-gradient(135deg, #1D6EF7 0%, #1558d6 100%)", border: "1px solid rgba(29,110,247,0.4)", color: "#fff", padding: "0.65rem", borderRadius: 8, fontSize: "0.78rem", fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 16px rgba(29,110,247,0.25)" }}>
+                        DOLDUR
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* ─── SAVED REPORTS (ARCHIVE) ─── */}
+        {view === "saved" && (
+          <div style={glassCard}>
+            <div style={{ padding: "1.25rem 1.5rem", borderBottom: "1px solid rgba(29,110,247,0.08)", background: "rgba(29,110,247,0.02)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div>
+                <h3 style={{ margin: 0, fontWeight: 800, fontSize: "1.05rem", color: "#e8ecf5" }}>Arşivlenmiş Raporlar</h3>
+                <p style={{ margin: "0.2rem 0 0", fontSize: "0.75rem", color: "rgba(200,208,230,0.4)" }}>Önceki rapor kayıtlarını görüntüleyin veya düzenleyin.</p>
+              </div>
+              <div style={{ display: "flex", gap: "0.5rem" }}>
+                <input className="mdt-inp" type="text" placeholder="Arşivde ara..." value={archiveSearch} onChange={e => setArchiveSearch(e.target.value)} style={{ ...inputBase, width: 250 }} />
+                <button onClick={fetchSaved} style={{ background: "rgba(29,110,247,0.08)", border: "1px solid rgba(29,110,247,0.2)", color: "#1D6EF7", padding: "0.5rem 1rem", borderRadius: 8, cursor: "pointer" }}><i className="fa-solid fa-rotate" /></button>
+              </div>
+            </div>
+            <div>
+              {loadingReports ? (
+                <div style={{ padding: "4rem", textAlign: "center", color: "rgba(200,208,230,0.3)", fontSize: "0.85rem" }}><i className="fa-solid fa-circle-notch fa-spin" style={{ marginRight: "0.5rem" }} />Yükleniyor...</div>
+              ) : savedReports.length === 0 ? (
+                <div style={{ padding: "4rem", textAlign: "center", color: "rgba(200,208,230,0.3)", fontSize: "0.85rem" }}>Arşivde kayıt bulunamadı.</div>
+              ) : (
+                savedReports.filter(r => r.id.includes(archiveSearch) || (r.officerName && r.officerName.includes(archiveSearch))).map(r => {
+                  const tmpl = REPORT_TEMPLATES.find(t => t.id === r.formId) || REPORT_TEMPLATES[0];
+                  return (
+                    <div key={r.id} className="archive-row" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1rem 1.5rem", borderBottom: "1px solid rgba(29,110,247,0.05)" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "1.25rem" }}>
+                        <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.75rem", fontWeight: 700, color: "rgba(29,110,247,0.6)", background: "rgba(29,110,247,0.08)", padding: "0.3rem 0.6rem", borderRadius: 6 }}>
+                          #{r.id}
+                        </div>
+                        <div>
+                          <div style={{ fontSize: "0.9rem", fontWeight: 700, color: "#e8ecf5" }}>{tmpl.name}</div>
+                          <div style={{ fontSize: "0.7rem", color: "rgba(200,208,230,0.4)", marginTop: "0.2rem" }}>{r.officerName || "—"} · {r.timestamp ? new Date(r.timestamp).toLocaleString("tr-TR") : "—"}</div>
+                        </div>
+                      </div>
+                      <div style={{ display: "flex", gap: "0.5rem" }}>
+                        <button onClick={() => openSaved(r)} style={{ background: "rgba(29,110,247,0.08)", color: "#1D6EF7", border: "1px solid rgba(29,110,247,0.2)", padding: "0.4rem 0.8rem", borderRadius: 6, fontSize: "0.7rem", fontWeight: 700, cursor: "pointer" }}>GÖRÜNTÜLE</button>
+                        <button onClick={() => handleDelete(r.id)} style={{ background: "rgba(239,68,68,0.08)", color: "#ef4444", border: "1px solid rgba(239,68,68,0.2)", padding: "0.4rem 0.8rem", borderRadius: 6, fontSize: "0.7rem", fontWeight: 700, cursor: "pointer" }}>SİL</button>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+            </div>
+          </div>
+        )}
       </div>
 
-      {/* ── HOME: TEMPLATE GALLERY ── */}
-      {view === "home" && (
-        <div>
-          {/* Filters */}
-          <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-              {CATEGORIES.map(cat => (
-                <button
-                  key={cat.id}
-                  onClick={() => setActiveCat(cat.id)}
-                  style={{
-                    background: activeCat === cat.id ? 'var(--mdt-accent)' : 'var(--mdt-card-bg)',
-                    border: activeCat === cat.id ? '1px solid var(--mdt-accent)' : '1px solid var(--mdt-border)',
-                    color: activeCat === cat.id ? '#fff' : 'var(--mdt-text-secondary)',
-                    padding: '0.5rem 1rem',
-                    borderRadius: '6px',
-                    fontSize: '0.8rem',
-                    fontWeight: 700,
-                    cursor: 'pointer',
-                    display: 'flex', alignItems: 'center', gap: '0.5rem',
-                    transition: 'all 0.15s'
-                  }}
-                  onMouseOver={e => { if (activeCat !== cat.id) { (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-text-muted)'; (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)'; } }}
-                  onMouseOut={e => { if (activeCat !== cat.id) { (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)'; } }}
-                >
-                  <i className={`fa-solid ${cat.icon}`} />
-                  {cat.label}
-                </button>
-              ))}
-            </div>
-
-            <input
-              type="text"
-              placeholder="Şablon ara..."
-              value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
-              style={{ padding: '0.65rem 1rem', background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', borderRadius: '6px', color: 'var(--mdt-text-primary)', fontSize: '0.85rem', width: '250px', outline: 'none', transition: 'border-color 0.15s' }}
-              onFocus={e => e.target.style.borderColor = 'var(--mdt-accent)'}
-              onBlur={e => e.target.style.borderColor = 'var(--mdt-border)'}
-            />
-          </div>
-
-          {/* Template Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.5rem' }}>
-            {filtered.map((tmpl) => {
-              return (
-                <div
-                  key={tmpl.id}
-                  onClick={() => openTemplate(tmpl)}
-                  style={{
-                    background: 'var(--mdt-card-bg)',
-                    border: '1px solid var(--mdt-border)',
-                    padding: '1.5rem',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '1rem',
-                    position: 'relative',
-                    transition: 'all 0.15s',
-                    borderRadius: '10px'
-                  }}
-                  onMouseOver={e => { e.currentTarget.style.borderColor = 'var(--mdt-accent)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
-                  onMouseOut={e => { e.currentTarget.style.borderColor = 'var(--mdt-border)'; e.currentTarget.style.transform = 'none'; }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                    <div style={{ width: '45px', height: '45px', background: 'color-mix(in srgb, var(--mdt-accent) 15%, transparent)', border: '1px solid color-mix(in srgb, var(--mdt-accent) 30%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--mdt-accent)', fontSize: '1.25rem', borderRadius: '8px' }}>
-                      <i className={`fa-solid ${tmpl.icon}`} />
-                    </div>
-                    <div style={{ fontFamily: 'monospace', fontSize: '0.7rem', color: 'var(--mdt-warning)', fontWeight: 800, background: 'color-mix(in srgb, var(--mdt-warning) 10%, transparent)', padding: '0.25rem 0.6rem', borderRadius: '6px', border: '1px solid color-mix(in srgb, var(--mdt-warning) 20%, transparent)' }}>
-                      LAC {tmpl.code}
-                    </div>
-                  </div>
-
-                  <div>
-                    <div style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--mdt-text-primary)', marginBottom: '0.35rem' }}>{tmpl.name}</div>
-                    <div style={{ fontSize: '0.8rem', color: 'var(--mdt-text-secondary)', lineHeight: 1.5 }}>{tmpl.description}</div>
-                  </div>
-
-                  <div style={{ marginTop: 'auto', display: 'flex', gap: '0.5rem', paddingTop: '1rem' }}>
-                    <button
-                      onClick={(e) => { e.stopPropagation(); setPreviewTemplate(tmpl); }}
-                      style={{ flex: 1, background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', padding: '0.6rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', transition: 'all 0.15s' }}
-                      onMouseOver={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-text-primary)'; }}
-                      onMouseOut={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; }}
-                    >
-                      ÖNİZLE
-                    </button>
-                    <button
-                      onClick={(e) => { e.stopPropagation(); openTemplate(tmpl); }}
-                      style={{ flex: 2, background: 'var(--mdt-accent)', border: '1px solid var(--mdt-accent)', color: '#fff', padding: '0.6rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', transition: 'all 0.15s' }}
-                      onMouseOver={e => (e.currentTarget as HTMLElement).style.opacity = '0.85'}
-                      onMouseOut={e => (e.currentTarget as HTMLElement).style.opacity = '1'}
-                    >
-                      DOLDUR
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* ── PREVIEW MODAL ── */}
-      {previewTemplate && (
-        <div onClick={() => setPreviewTemplate(null)} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
-          <div onClick={e => e.stopPropagation()} style={{ background: 'var(--mdt-card-bg)', border: '1px solid var(--mdt-border)', borderRadius: '12px', width: '100%', maxWidth: '750px', maxHeight: '85vh', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>
-            <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--mdt-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--mdt-bg-main)' }}>
-              <div>
-                <div style={{ fontSize: '0.65rem', fontWeight: 700, color: 'var(--mdt-text-muted)', letterSpacing: '0.1em' }}>ŞABLON ÖNİZLEME</div>
-                <div style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--mdt-text-primary)' }}>{previewTemplate.name}</div>
-              </div>
-              <button onClick={() => setPreviewTemplate(null)} style={{ background: 'transparent', border: 'none', fontSize: '1.2rem', cursor: 'pointer', color: 'var(--mdt-text-muted)', transition: 'color 0.15s' }} onMouseOver={e => e.currentTarget.style.color = '#fff'} onMouseOut={e => e.currentTarget.style.color = 'var(--mdt-text-muted)'}>
-                <i className="fa-solid fa-xmark" />
-              </button>
-            </div>
-            <div className="scroll-custom" style={{ overflowY: 'auto', padding: '2rem' }}>
-              {previewTemplate.sections.map((sec: any, si: number) => (
-                <div key={si} style={{ marginBottom: '1.5rem', border: '1px solid var(--mdt-border)', borderRadius: '8px', overflow: 'hidden' }}>
-                  <div style={{ padding: '0.75rem 1rem', background: 'var(--mdt-bg-main)', borderBottom: '1px solid var(--mdt-border)', fontSize: '0.75rem', fontWeight: 800, color: 'var(--mdt-text-primary)' }}>{sec.title}</div>
-                  <div style={{ padding: '1.25rem', display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '1rem', background: 'var(--mdt-card-bg)' }}>
-                    {sec.fields.map((f: any) => (
-                      <div key={f.id} style={{ gridColumn: `span ${f.width || 12}` }}>
-                        <div style={{ fontSize: '0.65rem', fontWeight: 700, color: 'var(--mdt-text-muted)', marginBottom: '0.4rem', letterSpacing: '0.05em', textTransform: 'uppercase' }}>{f.label}</div>
-                        <div style={{ height: f.type === 'textarea' ? '60px' : '38px', background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', borderRadius: '6px' }}></div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div style={{ padding: '1.25rem', borderTop: '1px solid var(--mdt-border)', textAlign: 'right', background: 'var(--mdt-bg-main)' }}>
-              <button onClick={() => { openTemplate(previewTemplate); setPreviewTemplate(null); }} style={{ background: 'var(--mdt-accent)', color: '#fff', border: '1px solid var(--mdt-accent)', padding: '0.75rem 1.5rem', fontWeight: 700, borderRadius: '6px', cursor: 'pointer', transition: 'all 0.15s', fontSize: '0.8rem' }}
-                onMouseOver={e => (e.currentTarget as HTMLElement).style.opacity = '0.85'}
-                onMouseOut={e => (e.currentTarget as HTMLElement).style.opacity = '1'}>
-                BU ŞABLONU DOLDUR
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ── EDITOR VIEW ── */}
+      {/* ─── EDITOR VIEW (Printable Area inside here) ─── */}
       {view === "editor" && template && (
-        <div className="editor-wrapper" style={{ margin: '0 auto' }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
           
-          <div className="no-print" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 1.5rem', background: 'var(--mdt-card-bg)', border: '1px solid var(--mdt-border)', marginBottom: '2rem', borderRadius: '10px' }}>
+          <div className="no-print" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1rem 1.5rem", ...glassCard, marginBottom: "1.5rem" }}>
             <div>
-              <div style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--mdt-text-muted)', letterSpacing: '0.1em' }}>DÜZENLENİYOR</div>
-              <div style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--mdt-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                {template.name} <span style={{ color: 'var(--mdt-text-muted)', fontSize: '0.85rem', fontWeight: 600, background: 'var(--mdt-bg-main)', padding: '0.1rem 0.5rem', borderRadius: '4px', border: '1px solid var(--mdt-border)' }}>#{reportCode}</span>
+              <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(29,110,247,0.5)", letterSpacing: "0.15em", textTransform: "uppercase" }}>DÜZENLENİYOR</div>
+              <div style={{ fontSize: "1.1rem", fontWeight: 800, color: "#e8ecf5", display: "flex", alignItems: "center", gap: "0.5rem", marginTop: "0.2rem" }}>
+                {template.name}
+                <span style={{ fontFamily: "'JetBrains Mono', monospace", color: "rgba(29,110,247,0.6)", fontSize: "0.8rem", background: "rgba(29,110,247,0.08)", padding: "0.2rem 0.6rem", borderRadius: 6 }}>#{reportCode}</span>
               </div>
             </div>
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <button onClick={() => window.print()} style={{ background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', padding: '0.6rem 1.25rem', borderRadius: '6px', fontWeight: 700, cursor: 'pointer', fontSize: '0.8rem', transition: 'all 0.15s' }}
-                onMouseOver={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-text-primary)'; }}
-                onMouseOut={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; }}>
-                <i className="fa-solid fa-print" style={{ marginRight: '0.3rem' }} /> YAZDIR
+            <div style={{ display: "flex", gap: "0.5rem" }}>
+              <button onClick={() => setView("home")} style={{ background: "transparent", border: "1px solid rgba(29,110,247,0.2)", color: "rgba(200,208,230,0.5)", padding: "0.6rem 1rem", borderRadius: 8, fontWeight: 700, fontSize: "0.75rem", cursor: "pointer" }}>İPTAL</button>
+              <button onClick={() => window.print()} style={{ background: "rgba(29,110,247,0.08)", border: "1px solid rgba(29,110,247,0.2)", color: "#1D6EF7", padding: "0.6rem 1.25rem", borderRadius: 8, fontWeight: 700, cursor: "pointer", fontSize: "0.75rem" }}>
+                <i className="fa-solid fa-print" style={{ marginRight: "0.4rem" }} /> YAZDIR (PDF)
               </button>
-              <button onClick={handleSave} disabled={saving} style={{ background: 'var(--mdt-success)', border: '1px solid var(--mdt-success)', color: '#fff', padding: '0.6rem 1.25rem', borderRadius: '6px', fontWeight: 700, cursor: saving ? 'not-allowed' : 'pointer', fontSize: '0.8rem', transition: 'all 0.15s', opacity: saving ? 0.7 : 1 }}
-                onMouseOver={e => !saving && ((e.currentTarget as HTMLElement).style.opacity = '0.85')}
-                onMouseOut={e => !saving && ((e.currentTarget as HTMLElement).style.opacity = '1')}>
-                <i className="fa-solid fa-floppy-disk" style={{ marginRight: '0.3rem' }} /> {saving ? "KAYDEDİLİYOR..." : "KAYDET"}
+              <button onClick={handleSave} disabled={saving} style={{ background: "linear-gradient(135deg, #22c55e 0%, #16a34a 100%)", border: "1px solid rgba(34,197,94,0.4)", color: "#fff", padding: "0.6rem 1.25rem", borderRadius: 8, fontWeight: 700, cursor: saving ? "not-allowed" : "pointer", fontSize: "0.75rem", boxShadow: "0 4px 16px rgba(34,197,94,0.25)", opacity: saving ? 0.7 : 1 }}>
+                <i className="fa-solid fa-floppy-disk" style={{ marginRight: "0.4rem" }} /> {saving ? "KAYDEDİLİYOR..." : "KAYDET"}
               </button>
             </div>
           </div>
 
-          <div className="print-doc" style={{ background: 'var(--mdt-card-bg)', border: '1px solid var(--mdt-border)', padding: '2rem', borderRadius: '10px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--mdt-border)', paddingBottom: '1.5rem', marginBottom: '2rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-                <img src="/tahsis-portali/LAC-badge-logo-pngseeklogo-214481.png" alt="LAC" style={{ width: '55px', filter: 'drop-shadow(0 0 10px rgba(0,0,0,0.5))' }} />
+          <div className="print-doc" style={{ ...glassCard, padding: "2.5rem 3rem" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "2px solid rgba(29,110,247,0.2)", paddingBottom: "1.5rem", marginBottom: "2rem" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
+                <img src="/logom.png" alt="LACPD" style={{ width: 64 }} />
                 <div>
-                  <div style={{ fontSize: '1.15rem', fontWeight: 900, color: 'var(--mdt-text-primary)', letterSpacing: '0.02em' }}>LOS ANGELES POLICE DEPARTMENT</div>
-                  <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--mdt-text-muted)' }}>{template.name}</div>
+                  <div style={{ fontSize: "1.25rem", fontWeight: 900, color: "#e8ecf5", letterSpacing: "0.02em" }}>LOS ANGELES POLICE DEPARTMENT</div>
+                  <div style={{ fontSize: "0.9rem", fontWeight: 700, color: "rgba(29,110,247,0.6)", marginTop: "0.15rem" }}>{template.name}</div>
                 </div>
               </div>
-              <div style={{ textAlign: 'right', fontFamily: 'monospace', color: 'var(--mdt-warning)', fontWeight: 800 }}>
-                <div style={{ fontSize: '0.9rem' }}>LAC {template.code}</div>
-                <div style={{ color: 'var(--mdt-text-muted)', fontSize: '0.8rem' }}>{reportCode}</div>
+              <div style={{ textAlign: "right", fontFamily: "'JetBrains Mono', monospace", fontWeight: 800 }}>
+                <div style={{ fontSize: "0.95rem", color: "rgba(200,208,230,0.5)" }}>LAC {template.code}</div>
+                <div style={{ color: "#1D6EF7", fontSize: "0.85rem", marginTop: "0.2rem" }}>#{reportCode}</div>
               </div>
             </div>
 
             <div>
               {template.sections.map((sec: any, si: number) => (
-                <div key={si} className="section-box" style={{ marginBottom: '1.5rem', border: '1px solid var(--mdt-border)', borderRadius: '8px', overflow: 'hidden' }}>
-                  <div className="section-title" style={{ padding: '0.65rem 1rem', background: 'var(--mdt-bg-main)', borderBottom: '1px solid var(--mdt-border)', fontSize: '0.75rem', fontWeight: 800, color: 'var(--mdt-text-primary)', letterSpacing: '0.05em' }}>
+                <div key={si} style={{ marginBottom: "2rem", border: "1px solid rgba(29,110,247,0.15)", borderRadius: 10, overflow: "hidden" }}>
+                  <div style={{ padding: "0.8rem 1.25rem", background: "rgba(29,110,247,0.06)", borderBottom: "1px solid rgba(29,110,247,0.15)", fontSize: "0.75rem", fontWeight: 800, color: "#e8ecf5", letterSpacing: "0.05em", textTransform: "uppercase" }}>
                     {sec.title}
                   </div>
-                  <div className="field-grid" style={{ padding: '1.25rem', display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '1rem', background: 'var(--mdt-card-bg)' }}>
+                  <div style={{ padding: "1.25rem", display: "grid", gridTemplateColumns: "repeat(12, 1fr)", gap: "1.25rem", background: "rgba(13,18,32,0.4)" }}>
                     {sec.fields.map((f: any) => (
-                      <div key={f.id} className="field-wrap" style={{ gridColumn: `span ${f.width || 12}` }}>
-                        <label style={{ display: 'block', fontSize: '0.65rem', fontWeight: 700, color: 'var(--mdt-text-muted)', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{f.label}</label>
+                      <div key={f.id} style={{ gridColumn: `span ${f.width || 12}` }}>
+                        <label style={{ display: "block", fontSize: "0.6rem", fontWeight: 800, color: "rgba(29,110,247,0.5)", marginBottom: "0.45rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>{f.label}</label>
                         {f.type === "textarea" ? (
-                          <>
-                            <div className="print-only-text" style={{ display: 'none' }}>{formData[f.id] || ""}</div>
-                            <textarea className="no-print-textarea" rows={f.rows || 4} style={{ width: '100%', padding: '0.75rem', background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', borderRadius: '6px', color: 'var(--mdt-text-primary)', fontFamily: 'inherit', fontSize: '0.85rem', resize: 'vertical', outline: 'none', transition: 'border-color 0.15s' }} value={formData[f.id] || ""} onChange={e => setFormData(p => ({ ...p, [f.id]: e.target.value }))} onFocus={e => e.target.style.borderColor = 'var(--mdt-accent)'} onBlur={e => e.target.style.borderColor = 'var(--mdt-border)'} />
-                          </>
+                          <textarea className="mdt-inp" value={formData[f.id] || ""} onChange={e => setFormData({ ...formData, [f.id]: e.target.value })} placeholder={f.placeholder} rows={f.rows || 3} style={{ ...inputBase, resize: "vertical" }} />
                         ) : f.type === "select" ? (
-                          <select style={{ width: '100%', padding: '0.75rem', background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', borderRadius: '6px', color: 'var(--mdt-text-primary)', fontFamily: 'inherit', fontSize: '0.85rem', outline: 'none', transition: 'border-color 0.15s' }} value={formData[f.id] || ""} onChange={e => setFormData(p => ({ ...p, [f.id]: e.target.value }))} onFocus={e => e.target.style.borderColor = 'var(--mdt-accent)'} onBlur={e => e.target.style.borderColor = 'var(--mdt-border)'}>
-                            <option value="">— Seçiniz —</option>
-                            {f.options?.map((o: string, i: number) => <option key={i} value={o}>{o}</option>)}
+                          <select className="mdt-inp" value={formData[f.id] || ""} onChange={e => setFormData({ ...formData, [f.id]: e.target.value })} style={inputBase}>
+                            <option value="">Seçiniz...</option>
+                            {f.options?.map((opt: string, i: number) => <option key={i} value={opt}>{opt}</option>)}
                           </select>
                         ) : (
-                          <input type={f.type || "text"} style={{ width: '100%', padding: '0.75rem', background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', borderRadius: '6px', color: 'var(--mdt-text-primary)', fontFamily: 'inherit', fontSize: '0.85rem', outline: 'none', transition: 'border-color 0.15s' }} value={formData[f.id] || ""} onChange={e => setFormData(p => ({ ...p, [f.id]: e.target.value }))} onFocus={e => e.target.style.borderColor = 'var(--mdt-accent)'} onBlur={e => e.target.style.borderColor = 'var(--mdt-border)'} />
+                          <input className="mdt-inp" type={f.type} value={formData[f.id] || ""} onChange={e => setFormData({ ...formData, [f.id]: e.target.value })} placeholder={f.placeholder} style={inputBase} />
                         )}
                       </div>
                     ))}
@@ -617,89 +543,20 @@ export default function RaporPortali() {
               ))}
             </div>
 
-            <div className="doc-footer" style={{ marginTop: '2.5rem', paddingTop: '1.5rem', borderTop: '1px solid var(--mdt-border)', display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ marginTop: "3rem", paddingTop: "1.5rem", borderTop: "2px solid rgba(29,110,247,0.1)", display: "flex", justifyContent: "space-between" }}>
               <div>
-                <div style={{ fontSize: '0.65rem', fontWeight: 700, color: 'var(--mdt-text-muted)', letterSpacing: '0.1em' }}>HAZIRLAYAN MEMUR</div>
-                <div style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--mdt-text-primary)', marginTop: '0.2rem' }}>{user ? user.name : "L. COOPER"} <span style={{ color: 'var(--mdt-warning)' }}>#{user?.badge || "101"}</span></div>
+                <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(200,208,230,0.3)", letterSpacing: "0.1em" }}>HAZIRLAYAN MEMUR</div>
+                <div style={{ fontSize: "1rem", fontWeight: 800, color: "#e8ecf5", marginTop: "0.2rem" }}>{user ? user.name : "—"} <span style={{ color: "#1D6EF7" }}>#{user?.badge || "—"}</span></div>
               </div>
-              <div style={{ textAlign: 'right' }}>
-                <div style={{ fontSize: '0.65rem', fontWeight: 700, color: 'var(--mdt-text-muted)', letterSpacing: '0.1em' }}>DİJİTAL İMZA</div>
-                <div style={{ fontFamily: 'monospace', color: 'var(--mdt-accent)', fontWeight: 800, marginTop: '0.2rem', fontSize: '0.9rem' }}>Signed · #{user?.badge || "101"}</div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--mdt-text-muted)', marginTop: '0.2rem' }}>{new Date().toLocaleString('tr-TR')}</div>
+              <div style={{ textAlign: "right" }}>
+                <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(200,208,230,0.3)", letterSpacing: "0.1em" }}>DİJİTAL İMZA & ZAMAN DAMGASI</div>
+                <div style={{ fontFamily: "'JetBrains Mono', monospace", color: "#1D6EF7", fontWeight: 800, marginTop: "0.2rem", fontSize: "0.9rem" }}>SIGNED · #{user?.badge || "SYS"}</div>
+                <div style={{ fontSize: "0.75rem", color: "rgba(200,208,230,0.4)", marginTop: "0.2rem" }}>{new Date().toLocaleString("tr-TR")}</div>
               </div>
             </div>
           </div>
         </div>
       )}
-
-      {/* ── SAVED REPORTS (ARCHIVE) ── */}
-      {view === "saved" && (
-        <div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <input
-                type="text"
-                placeholder="Arşivde ara..."
-                value={archiveSearch}
-                onChange={e => setArchiveSearch(e.target.value)}
-                style={{ padding: '0.65rem 1rem', background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', borderRadius: '6px', width: '300px', color: 'var(--mdt-text-primary)', fontSize: '0.85rem', outline: 'none', transition: 'border-color 0.15s' }}
-                onFocus={e => e.target.style.borderColor = 'var(--mdt-accent)'}
-                onBlur={e => e.target.style.borderColor = 'var(--mdt-border)'}
-              />
-              <button onClick={fetchSaved} style={{ background: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', padding: '0.5rem 1rem', borderRadius: '6px', cursor: 'pointer', transition: 'all 0.15s' }}
-                onMouseOver={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-text-primary)'; }}
-                onMouseOut={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; }}>
-                <i className="fa-solid fa-rotate" />
-              </button>
-            </div>
-          </div>
-
-          <div style={{ background: 'var(--mdt-card-bg)', border: '1px solid var(--mdt-border)', borderRadius: '10px', overflow: 'hidden' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-              <thead>
-                <tr style={{ background: 'var(--mdt-bg-main)', borderBottom: '1px solid var(--mdt-border)' }}>
-                  <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: 800, color: 'var(--mdt-text-muted)', letterSpacing: '0.05em' }}>RAPOR KODU</th>
-                  <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: 800, color: 'var(--mdt-text-muted)', letterSpacing: '0.05em' }}>ŞABLON</th>
-                  <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: 800, color: 'var(--mdt-text-muted)', letterSpacing: '0.05em' }}>MEMUR</th>
-                  <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: 800, color: 'var(--mdt-text-muted)', letterSpacing: '0.05em' }}>TARİH</th>
-                  <th style={{ padding: '1rem', textAlign: 'right', fontSize: '0.7rem', fontWeight: 800, color: 'var(--mdt-text-muted)', letterSpacing: '0.05em' }}>İŞLEMLER</th>
-                </tr>
-              </thead>
-              <tbody>
-                {savedReports.filter(r => r.id.includes(archiveSearch) || (r.officerName && r.officerName.includes(archiveSearch))).map((r, i) => {
-                  const tmpl = REPORT_TEMPLATES.find(t => t.id === r.formId);
-                  return (
-                    <tr key={i} style={{ borderBottom: '1px solid var(--mdt-border)', transition: 'background 0.15s' }} onMouseOver={e => (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.02)'} onMouseOut={e => (e.currentTarget as HTMLElement).style.background = 'transparent'}>
-                      <td style={{ padding: '1rem', fontFamily: 'monospace', color: 'var(--mdt-warning)', fontWeight: 800, fontSize: '0.85rem' }}>#{r.id}</td>
-                      <td style={{ padding: '1rem', fontWeight: 700, color: 'var(--mdt-text-primary)', fontSize: '0.85rem' }}>{tmpl?.name || r.formId}</td>
-                      <td style={{ padding: '1rem', color: 'var(--mdt-text-secondary)', fontSize: '0.85rem' }}>{r.officerName || "—"}</td>
-                      <td style={{ padding: '1rem', color: 'var(--mdt-text-muted)', fontSize: '0.8rem' }}>{r.timestamp ? new Date(r.timestamp).toLocaleString('tr-TR') : '—'}</td>
-                      <td style={{ padding: '1rem', textAlign: 'right' }}>
-                        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
-                          <button onClick={() => openSaved(r)} style={{ background: 'var(--mdt-bg-main)', color: 'var(--mdt-text-primary)', border: '1px solid var(--mdt-border)', padding: '0.4rem 0.8rem', borderRadius: '4px', cursor: 'pointer', fontWeight: 700, fontSize: '0.7rem', transition: 'all 0.15s' }}
-                            onMouseOver={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-text-primary)'; }}
-                            onMouseOut={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; }}>
-                            GÖRÜNTÜLE
-                          </button>
-                          <button onClick={() => handleDelete(r.id)} style={{ background: 'rgba(239,68,68,0.1)', color: 'var(--mdt-danger)', border: '1px solid rgba(239,68,68,0.2)', padding: '0.4rem 0.8rem', borderRadius: '4px', cursor: 'pointer', fontWeight: 700, fontSize: '0.7rem', transition: 'all 0.15s' }}
-                            onMouseOver={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(239,68,68,0.2)'; }}
-                            onMouseOut={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(239,68,68,0.1)'; }}>
-                            SİL
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-            {savedReports.length === 0 && (
-              <div style={{ padding: '4rem 2rem', textAlign: 'center', color: 'var(--mdt-text-muted)', fontWeight: 600 }}>Arşivde kayıtlı rapor bulunamadı.</div>
-            )}
-          </div>
-        </div>
-      )}
-
-    </div>
+    </>
   );
 }
