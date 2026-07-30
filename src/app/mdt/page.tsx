@@ -1,516 +1,288 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
-import { motion, AnimatePresence } from "framer-motion";
-
-/* ─── Mini Sparkline ─────────────────────────────── */
-function SparkLine({ color = "#1D6EF7" }: { color?: string }) {
-  const pts = [28, 40, 33, 52, 38, 58, 45, 50, 62, 54, 68, 58];
-  const max = Math.max(...pts), min = Math.min(...pts);
-  const norm = (v: number) => 100 - ((v - min) / (max - min)) * 70 - 15;
-  const pathD = pts.map((v, i) => `${(i / (pts.length - 1)) * 100},${norm(v)}`).join(" L ");
-  const id = `sg${color.replace(/[^a-z0-9]/gi, "")}`;
-  return (
-    <svg viewBox="0 0 100 100" preserveAspectRatio="none" style={{ width: "100%", height: 44, display: "block" }}>
-      <defs>
-        <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={color} stopOpacity="0.35" />
-          <stop offset="100%" stopColor={color} stopOpacity="0" />
-        </linearGradient>
-      </defs>
-      <polygon points={`0,100 ${pathD} 100,100`} fill={`url(#${id})`} />
-      <motion.polyline
-        initial={{ pathLength: 0, opacity: 0 }}
-        animate={{ pathLength: 1, opacity: 1 }}
-        transition={{ duration: 1.8, ease: "easeInOut" }}
-        points={pathD}
-        fill="none"
-        stroke={color}
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
 
 /* ─── Live clock ─── */
 function LiveClock() {
-  const [time, setTime] = useState("");
+  const [t, setT] = useState({ time: "", date: "" });
   useEffect(() => {
-    const fmt = () => {
+    const tick = () => {
       const d = new Date();
-      setTime(d.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false }));
+      setT({
+        time: d.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false }),
+        date: d.toLocaleDateString("tr-TR", { weekday: "short", day: "2-digit", month: "short", year: "numeric" }),
+      });
     };
-    fmt();
-    const id = setInterval(fmt, 1000);
+    tick();
+    const id = setInterval(tick, 1000);
     return () => clearInterval(id);
   }, []);
   return (
-    <span style={{
-      fontFamily: "'JetBrains Mono', monospace",
-      fontSize: "0.78rem",
-      fontWeight: 600,
-      color: "rgba(29,110,247,0.7)",
-      letterSpacing: "0.12em",
-    }}>{time}</span>
+    <div style={{ textAlign: "right", lineHeight: 1.2 }}>
+      <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "1.35rem", fontWeight: 700, color: "#e8ecf5", letterSpacing: "0.08em" }}>{t.time}</div>
+      <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.62rem", color: "rgba(29,110,247,0.55)", letterSpacing: "0.1em", textTransform: "uppercase" }}>{t.date}</div>
+    </div>
   );
 }
 
-/* ─── Helpers ─── */
-function timeAgo(dateStr: string): string {
-  const diff = Date.now() - new Date(dateStr).getTime();
-  const mins = Math.floor(diff / 60000);
-  if (mins < 1) return "Az önce";
-  if (mins < 60) return `${mins} dk önce`;
-  const hrs = Math.floor(mins / 60);
-  if (hrs < 24) return `${hrs} sa önce`;
-  return `${Math.floor(hrs / 24)} gün önce`;
+function timeAgo(d: string) {
+  const s = Math.floor((Date.now() - new Date(d).getTime()) / 1000);
+  if (s < 60) return "Az önce";
+  if (s < 3600) return `${Math.floor(s / 60)} dk`;
+  if (s < 86400) return `${Math.floor(s / 3600)} sa`;
+  return `${Math.floor(s / 86400)} gün`;
 }
 
-/* ─── Quick links ─── */
-const QUICK_LINKS = [
-  { icon: "fa-pen-to-square",  label: "Yeni Rapor",     href: "/mdt/raporlar",      color: "#E84F2A" },
-  { icon: "fa-users",          label: "Personel",       href: "/mdt/personel",      color: "#1D6EF7" },
-  { icon: "fa-fingerprint",    label: "Kriminal",       href: "/mdt/kriminal",      color: "#8b5cf6" },
-  { icon: "fa-scale-balanced", label: "Yönetmelik",     href: "/mdt/yonetmelikler", color: "#f59e0b" },
-  { icon: "fa-bullhorn",       label: "Duyurular",      href: "/mdt/duyurular",     color: "#06b6d4" },
-  { icon: "fa-calendar-xmark", label: "İzin / Mazeret", href: "/mdt/mazeretler",    color: "#ec4899" },
+function formatSecs(secs: number) {
+  const h = Math.floor(secs / 3600);
+  const m = Math.floor((secs % 3600) / 60);
+  return `${h}s ${m}d`;
+}
+
+/* ─── Shared card base ─── */
+const card: React.CSSProperties = {
+  background: "rgba(8,14,28,0.75)",
+  backdropFilter: "blur(24px)",
+  border: "1px solid rgba(29,110,247,0.12)",
+  borderRadius: 14,
+  overflow: "hidden",
+};
+
+const CARD_HDR: React.CSSProperties = {
+  display: "flex", justifyContent: "space-between", alignItems: "center",
+  padding: "0.85rem 1.1rem",
+  borderBottom: "1px solid rgba(29,110,247,0.08)",
+  background: "rgba(29,110,247,0.03)",
+};
+
+const SECT_LABEL: React.CSSProperties = {
+  fontSize: "0.58rem", fontWeight: 800,
+  color: "rgba(29,110,247,0.45)", letterSpacing: "0.22em", textTransform: "uppercase",
+};
+
+const ICON_BOX = (color: string): React.CSSProperties => ({
+  width: 28, height: 28, borderRadius: 7, flexShrink: 0,
+  background: `${color}12`,
+  border: `1px solid ${color}28`,
+  display: "flex", alignItems: "center", justifyContent: "center",
+});
+
+const QUICK = [
+  { icon: "fa-pen-to-square", label: "Rapor Yaz",   href: "/mdt/raporlar",      color: "#E84F2A" },
+  { icon: "fa-fingerprint",   label: "Kriminal",     href: "/mdt/kriminal",      color: "#8b5cf6" },
+  { icon: "fa-users",         label: "Personel",     href: "/mdt/personel",      color: "#1D6EF7" },
+  { icon: "fa-clock",         label: "Mesai",        href: "/mdt/mesai",         color: "#22c55e" },
+  { icon: "fa-bullhorn",      label: "Duyurular",    href: "/mdt/duyurular",     color: "#06b6d4" },
+  { icon: "fa-scale-balanced",label: "Yönetmelik",   href: "/mdt/yonetmelikler", color: "#f59e0b" },
+  { icon: "fa-calendar-xmark",label: "Mazeret/İzin", href: "/mdt/mazeretler",    color: "#ec4899" },
+  { icon: "fa-envelope",      label: "Mesajlar",     href: "/mdt/mesajlar",      color: "#34d399" },
 ];
 
-/* ─── Glassmorphism card base ─── */
-const glassCard: React.CSSProperties = {
-  background: "linear-gradient(145deg, rgba(13,18,32,0.9) 0%, rgba(10,14,26,0.8) 100%)",
-  backdropFilter: "blur(20px)",
-  border: "1px solid rgba(29,110,247,0.1)",
-  borderRadius: 16,
-  overflow: "hidden",
-  boxShadow: "0 8px 32px -8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03)",
-};
+const RANK_COLORS = ["#f59e0b", "#94a3b8", "#cd7f32", "#6366f1", "#6366f1"];
 
-/* ─── Stat card accent map ─── */
-const ACCENT_MAP: Record<string, string> = {
-  "#1D6EF7": "29,110,247",
-  "#22c55e": "34,197,94",
-  "#f59e0b": "245,158,11",
-  "#8b5cf6": "139,92,246",
-};
-
-/* ─── Page ─── */
 export default function MDTDashboard() {
-  const { data: meData, mutate: mutateMe }            = useSWR("/api/auth/me", fetcher);
+  const { data: meData, mutate: mutateMe }             = useSWR("/api/auth/me", fetcher);
   const { data: officersData, mutate: mutateOfficers } = useSWR("/api/officers", fetcher);
   const { data: reportsData }                          = useSWR("/api/reports", fetcher);
   const { data: shiftsData }                           = useSWR("/api/shifts", fetcher);
 
-  const loading       = !officersData || !reportsData || !meData;
-  const user          = meData?.user ?? null;
-  const officers      = officersData?.officers ?? [];
-  const allReports    = reportsData?.reports ?? [];
-  const recentReports = allReports.slice(0, 6);
-  const onDuty        = officers.filter((o: any) => o.isOnDuty);
-  const myEntry       = shiftsData?.leaderboard?.find((e: any) => e.id === user?.id);
-  const myHours       = ((myEntry?.totalSeconds ?? 0) / 3600).toFixed(1);
+  const user       = meData?.user ?? null;
+  const officers   = officersData?.officers ?? [];
+  const allReports = reportsData?.reports ?? [];
+  const onDuty     = officers.filter((o: any) => o.isOnDuty);
+  const topShift   = [...(shiftsData?.leaderboard ?? [])].sort((a: any, b: any) => b.totalSeconds - a.totalSeconds).slice(0, 5);
+  const myEntry    = shiftsData?.leaderboard?.find((e: any) => e.id === user?.id);
+  const myRank     = (shiftsData?.leaderboard ?? []).sort((a: any, b: any) => b.totalSeconds - a.totalSeconds).findIndex((e: any) => e.id === user?.id) + 1;
 
   const [toggling, setToggling] = useState(false);
+  const [tick, setTick]         = useState(0);
+  const dutyStart = useRef<number | null>(null);
+
+  useEffect(() => { const id = setInterval(() => setTick(t => t + 1), 1000); return () => clearInterval(id); }, []);
 
   const toggleDuty = useCallback(async () => {
     if (!user || toggling) return;
     const next = !user.isOnDuty;
+    if (next) dutyStart.current = Date.now();
+    else dutyStart.current = null;
     mutateMe({ user: { ...user, isOnDuty: next } }, false);
     if (officersData?.officers)
       mutateOfficers({ officers: officersData.officers.map((o: any) => o.id === user.id ? { ...o, isOnDuty: next } : o) }, false);
     setToggling(true);
     try {
-      const res = await fetch(`/api/officers/${user.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ isOnDuty: next }),
-      });
-      if (!res.ok) throw new Error();
-      toast.success(next ? "Devriye başlatıldı." : "Devriye sonlandırıldı.", {
-        style: { background: "#0d1220", color: "#e8ecf5", border: "1px solid rgba(29,110,247,0.2)" },
-        id: "duty-toast",
-      });
+      await fetch(`/api/officers/${user.id}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ isOnDuty: next }) });
+      toast.success(next ? "Devriye başlatıldı." : "Devriye sonlandırıldı.", { style: { background: "#0d1220", color: "#e8ecf5", border: "1px solid rgba(29,110,247,0.2)" } });
       mutateMe(); mutateOfficers();
-    } catch {
-      mutateMe({ user }, false); mutateOfficers(officersData, false);
-      toast.error("Görev durumu güncellenemedi.");
-    } finally { setToggling(false); }
+    } catch { toast.error("Bağlantı hatası."); }
+    finally  { setToggling(false); }
   }, [user, toggling, mutateMe, mutateOfficers, officersData]);
 
-  const STATS = [
-    { label: "Toplam Personel", value: loading ? "—" : String(officers.length), sub: "kayıtlı memur",    icon: "fa-users",      color: "#1D6EF7" },
-    { label: "Sahada Birim",    value: loading ? "—" : String(onDuty.length),    sub: `${officers.length > 0 ? Math.round(onDuty.length / officers.length * 100) : 0}% aktif`, icon: "fa-car-side",   color: "#22c55e" },
-    { label: "Toplam Rapor",    value: loading ? "—" : String(allReports.length), sub: "sisteme girilmiş", icon: "fa-file-lines", color: "#f59e0b" },
-    { label: "Mesaim",          value: loading ? "—" : `${myHours}s`,            sub: "toplam saat",      icon: "fa-clock",      color: "#8b5cf6" },
-  ];
+  const loading = !meData || !officersData || !reportsData;
 
-  const containerVar = {
-    hidden: { opacity: 0 },
-    show:   { opacity: 1, transition: { staggerChildren: 0.08 } },
-  };
-  const itemVar = {
-    hidden: { opacity: 0, y: 18 },
-    show:   { opacity: 1, y: 0, transition: { type: "spring", stiffness: 280, damping: 22 } },
-  };
+  const STATS = [
+    { label: "Toplam Personel", value: officers.length,  sub: "kayıtlı memur",    icon: "fa-users",      color: "#1D6EF7", pct: null },
+    { label: "Sahada Birim",    value: onDuty.length,    sub: `${officers.length ? Math.round(onDuty.length/officers.length*100) : 0}% aktif`, icon: "fa-car-side",   color: "#22c55e", pct: officers.length ? onDuty.length/officers.length : 0 },
+    { label: "Toplam Rapor",    value: allReports.length, sub: "sisteme girilmiş", icon: "fa-file-lines", color: "#f59e0b", pct: null },
+    { label: "Mesai Sıram",     value: myRank > 0 ? `#${myRank}` : "—", sub: formatSecs(myEntry?.totalSeconds ?? 0), icon: "fa-trophy", color: "#8b5cf6", pct: null },
+  ];
 
   return (
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
-        .stat-card { transition: all 0.22s cubic-bezier(0.4,0,0.2,1); }
-        .stat-card:hover { transform: translateY(-4px); }
-        .report-row { transition: all 0.18s ease; }
-        .report-row:hover { background: rgba(29,110,247,0.04) !important; padding-left: 1.5rem !important; }
-        .quick-btn { transition: all 0.2s cubic-bezier(0.4,0,0.2,1); }
-        .quick-btn:hover { transform: translateY(-3px) scale(1.02); }
-        .patrol-row { transition: all 0.15s ease; }
-        .patrol-row:hover { background: rgba(34,197,94,0.04) !important; border-color: rgba(34,197,94,0.15) !important; }
+        .dash-ql:hover { background: rgba(255,255,255,0.06) !important; transform: translateY(-2px) !important; }
+        .dash-stat:hover { border-color: rgba(29,110,247,0.25) !important; transform: translateY(-2px) !important; }
+        .rep-row:hover { background: rgba(29,110,247,0.04) !important; }
+        .patrol-row:hover { background: rgba(34,197,94,0.04) !important; }
+        .duty-btn:hover:not(:disabled) { filter: brightness(1.15) !important; transform: scale(1.02) !important; }
+        .view-link:hover { color: #4A8EFA !important; }
       `}</style>
 
-      <motion.div
-        initial="hidden"
-        animate="show"
-        variants={containerVar}
-        style={{ display: "flex", flexDirection: "column", gap: "1.75rem", maxWidth: 1400, margin: "0 auto" }}
-      >
-        {/* ─────────────── HERO HEADER ─────────────── */}
-        <motion.div
-          variants={itemVar}
-          style={{
-            ...glassCard,
-            padding: "2rem 2.25rem",
-            background: "linear-gradient(135deg, rgba(29,110,247,0.08) 0%, rgba(13,18,32,0.95) 50%, rgba(10,14,26,0.9) 100%)",
-            position: "relative",
-            overflow: "hidden",
-          }}
-        >
-          {/* Corner glow */}
-          <div style={{
-            position: "absolute", top: -60, right: -60,
-            width: 220, height: 220,
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(29,110,247,0.12) 0%, transparent 70%)",
-            pointerEvents: "none",
-          }} />
-          {/* Bottom accent line */}
-          <div style={{
-            position: "absolute", bottom: 0, left: 0, right: 0,
-            height: 1,
-            background: "linear-gradient(90deg, transparent 0%, rgba(29,110,247,0.4) 40%, rgba(29,110,247,0.4) 60%, transparent 100%)",
-          }} />
+      <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", maxWidth: 1440, margin: "0 auto" }}>
 
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1.5rem", position: "relative", zIndex: 1 }}>
-            <div>
-              {/* Top label */}
-              <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.75rem" }}>
-                <div style={{
-                  display: "flex", alignItems: "center", gap: "0.45rem",
-                  fontSize: "0.62rem", fontWeight: 700,
-                  color: "rgba(29,110,247,0.55)",
-                  letterSpacing: "0.28em", textTransform: "uppercase",
-                }}>
-                  <i className="fa-solid fa-shield-halved" style={{ fontSize: "0.6rem" }} />
-                  L.A.C.P.D. · Merkez · Dashboard
-                </div>
-                <div style={{ width: 1, height: 12, background: "rgba(29,110,247,0.2)" }} />
-                <LiveClock />
-              </div>
-
-              {/* Name */}
-              <h1 style={{
-                fontSize: "2.4rem",
-                fontWeight: 900,
-                margin: 0,
-                color: "#e8ecf5",
-                letterSpacing: "-0.03em",
-                lineHeight: 1.1,
-              }}>
-                Hoş Geldin,{" "}
-                <span style={{
-                  background: "linear-gradient(90deg, #4A8EFA 0%, #1D6EF7 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                }}>
-                  {user?.name?.split(" ")[0] ?? "Memur"}
-                </span>
-              </h1>
-
-              {/* Badge row */}
-              <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginTop: "0.8rem", flexWrap: "wrap" }}>
-                <div style={{
-                  display: "flex", alignItems: "center", gap: "0.4rem",
-                  padding: "0.3rem 0.75rem",
-                  borderRadius: 20,
-                  background: "rgba(29,110,247,0.08)",
-                  border: "1px solid rgba(29,110,247,0.18)",
-                  fontSize: "0.72rem", fontWeight: 700,
-                  color: "rgba(200,208,230,0.7)",
-                  fontFamily: "'JetBrains Mono', monospace",
-                }}>
-                  <i className="fa-solid fa-id-badge" style={{ color: "rgba(29,110,247,0.6)", fontSize: "0.62rem" }} />
-                  #{user?.badge ?? "—"}
-                </div>
-                <div style={{
-                  padding: "0.3rem 0.75rem",
-                  borderRadius: 20,
-                  background: "rgba(29,110,247,0.05)",
-                  border: "1px solid rgba(29,110,247,0.12)",
-                  fontSize: "0.72rem", fontWeight: 600,
-                  color: "rgba(200,208,230,0.6)",
-                }}>
-                  {user?.rank ?? "—"}
-                </div>
-                <div style={{
-                  padding: "0.3rem 0.75rem",
-                  borderRadius: 20,
-                  background: "rgba(232,79,42,0.08)",
-                  border: "1px solid rgba(232,79,42,0.2)",
-                  fontSize: "0.68rem", fontWeight: 700,
-                  color: "#E84F2A",
-                  letterSpacing: "0.05em",
-                }}>
-                  MDT v3.2
-                </div>
-              </div>
+        {/* ═══════════ ROW 1 — HERO BANNER ═══════════ */}
+        <div style={{
+          ...card,
+          display: "grid",
+          gridTemplateColumns: "1fr auto",
+          gap: "2rem",
+          alignItems: "center",
+          padding: "1.5rem 2rem",
+          borderTop: "2px solid rgba(29,110,247,0.35)",
+          background: "rgba(6,10,18,0.85)",
+          boxShadow: "0 0 60px rgba(29,110,247,0.05)",
+        }}>
+          {/* Left */}
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.6rem" }}>
+              <i className="fa-solid fa-shield-halved" style={{ color: "rgba(29,110,247,0.45)", fontSize: "0.65rem" }} />
+              <span style={{ ...SECT_LABEL }}>L.A.C.P.D. · KOMUTA MERKEZİ · MDT v3.2</span>
+              {/* Live status dot */}
+              <span style={{ display: "flex", alignItems: "center", gap: "0.35rem", marginLeft: "0.5rem", padding: "0.18rem 0.6rem", borderRadius: 20, background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.2)" }}>
+                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#22c55e", boxShadow: "0 0 8px #22c55e", display: "inline-block", animation: "mdt-pulse-green 2s infinite" }} />
+                <span style={{ fontSize: "0.6rem", fontWeight: 800, color: "#22c55e", letterSpacing: "0.1em" }}>CANLI</span>
+              </span>
             </div>
 
-            {/* Duty toggle */}
-            <motion.button
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
+            <h1 style={{ margin: 0, fontSize: "2rem", fontWeight: 900, color: "#e8ecf5", letterSpacing: "-0.03em", lineHeight: 1.1 }}>
+              Hoş Geldin,{" "}
+              <span style={{ background: "linear-gradient(90deg, #4A8EFA, #1D6EF7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                {loading ? "—" : user?.name?.split(" ")[0] ?? "Memur"}
+              </span>
+            </h1>
+
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginTop: "0.65rem", flexWrap: "wrap" }}>
+              <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.72rem", fontWeight: 700, color: "rgba(29,110,247,0.6)", background: "rgba(29,110,247,0.06)", padding: "0.22rem 0.65rem", borderRadius: 20, border: "1px solid rgba(29,110,247,0.15)" }}>
+                #{user?.badge ?? "—"}
+              </span>
+              <span style={{ fontSize: "0.72rem", color: "rgba(200,208,230,0.45)", padding: "0.22rem 0.65rem", borderRadius: 20, border: "1px solid rgba(29,110,247,0.08)" }}>
+                {user?.rank ?? "—"}
+              </span>
+              <span style={{ fontSize: "0.72rem", color: "rgba(200,208,230,0.35)", padding: "0.22rem 0.65rem", borderRadius: 20, border: "1px solid rgba(29,110,247,0.06)" }}>
+                {user?.department ?? "—"}
+              </span>
+            </div>
+          </div>
+
+          {/* Right — clock + duty */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "1rem" }}>
+            <LiveClock />
+            <button
+              className="duty-btn"
               onClick={toggleDuty}
               disabled={toggling || !user}
               style={{
-                display: "flex", alignItems: "center", gap: "0.85rem",
-                padding: "0.9rem 2rem",
-                borderRadius: 12,
+                display: "flex", alignItems: "center", gap: "0.65rem",
+                padding: "0.75rem 1.5rem", borderRadius: 10,
                 border: user?.isOnDuty ? "1px solid rgba(34,197,94,0.35)" : "1px solid rgba(29,110,247,0.2)",
-                background: user?.isOnDuty
-                  ? "linear-gradient(135deg, rgba(34,197,94,0.12) 0%, rgba(34,197,94,0.04) 100%)"
-                  : "linear-gradient(135deg, rgba(29,110,247,0.1) 0%, rgba(29,110,247,0.03) 100%)",
-                color: user?.isOnDuty ? "#4ade80" : "rgba(200,208,230,0.6)",
-                fontWeight: 700, fontSize: "0.88rem",
+                background: user?.isOnDuty ? "rgba(34,197,94,0.1)" : "rgba(29,110,247,0.08)",
+                color: user?.isOnDuty ? "#4ade80" : "rgba(200,208,230,0.55)",
+                fontWeight: 700, fontSize: "0.82rem",
                 cursor: toggling || !user ? "not-allowed" : "pointer",
                 opacity: toggling ? 0.6 : 1,
+                transition: "all 0.2s ease",
+                boxShadow: user?.isOnDuty ? "0 0 20px rgba(34,197,94,0.15)" : "none",
                 letterSpacing: "0.03em",
-                boxShadow: user?.isOnDuty
-                  ? "0 4px 20px -5px rgba(34,197,94,0.25), 0 0 0 1px rgba(34,197,94,0.1)"
-                  : "0 4px 20px -5px rgba(29,110,247,0.2), 0 0 0 1px rgba(29,110,247,0.05)",
-                transition: "all 0.22s ease",
-                backdropFilter: "blur(10px)",
               }}
             >
-              <motion.span
-                animate={user?.isOnDuty ? { scale: [1, 1.3, 1], opacity: [0.8, 1, 0.8] } : {}}
-                transition={{ repeat: Infinity, duration: 2 }}
-                style={{
-                  width: 10, height: 10, borderRadius: "50%",
-                  backgroundColor: user?.isOnDuty ? "#4ade80" : "rgba(200,208,230,0.25)",
-                  boxShadow: user?.isOnDuty ? "0 0 12px rgba(74,222,128,0.7)" : "none",
-                  flexShrink: 0,
-                }}
-              />
-              <i className={`fa-solid ${user?.isOnDuty ? "fa-stop" : "fa-play"}`} style={{ fontSize: "0.78rem" }} />
+              <span style={{ width: 8, height: 8, borderRadius: "50%", background: user?.isOnDuty ? "#4ade80" : "rgba(200,208,230,0.2)", boxShadow: user?.isOnDuty ? "0 0 10px #4ade80" : "none", flexShrink: 0 }} />
+              <i className={`fa-solid ${user?.isOnDuty ? "fa-stop" : "fa-play"}`} style={{ fontSize: "0.72rem" }} />
               {user?.isOnDuty ? "Görevi Sonlandır" : "Göreve Başla"}
-            </motion.button>
+            </button>
           </div>
-        </motion.div>
+        </div>
 
-        {/* ─────────────── STAT CARDS ─────────────── */}
-        <motion.div
-          variants={itemVar}
-          style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))", gap: "1.1rem" }}
-        >
-          {STATS.map((s, i) => {
-            const rgb = ACCENT_MAP[s.color] ?? "29,110,247";
-            return (
-              <div
-                key={i}
-                className="stat-card"
-                style={{
-                  ...glassCard,
-                  padding: "1.4rem 1.4rem 0",
-                  position: "relative",
-                  border: `1px solid rgba(${rgb},0.15)`,
-                }}
-              >
-                {/* Top glow border */}
-                <div style={{
-                  position: "absolute", top: 0, left: 0, right: 0,
-                  height: 2,
-                  background: `linear-gradient(90deg, transparent 0%, ${s.color} 40%, ${s.color} 60%, transparent 100%)`,
-                  opacity: 0.7,
-                }} />
-                {/* Ambient glow */}
-                <div style={{
-                  position: "absolute", top: -20, right: -20,
-                  width: 120, height: 120,
-                  borderRadius: "50%",
-                  background: `radial-gradient(circle, rgba(${rgb},0.08) 0%, transparent 70%)`,
-                  pointerEvents: "none",
-                }} />
-
-                <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "1rem", position: "relative" }}>
-                  <span style={{
-                    fontSize: "0.62rem", fontWeight: 800,
-                    color: "rgba(200,208,230,0.4)",
-                    textTransform: "uppercase", letterSpacing: "0.2em",
-                    lineHeight: 1.3,
-                  }}>
-                    {s.label}
-                  </span>
-                  <div style={{
-                    width: 36, height: 36, borderRadius: 10,
-                    background: `rgba(${rgb},0.08)`,
-                    border: `1px solid rgba(${rgb},0.2)`,
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    flexShrink: 0,
-                    boxShadow: `0 0 16px rgba(${rgb},0.1)`,
-                  }}>
-                    <i className={`fa-solid ${s.icon}`} style={{ color: s.color, fontSize: "0.9rem" }} />
-                  </div>
+        {/* ═══════════ ROW 2 — 4 STAT CARDS ═══════════ */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0.9rem" }}>
+          {STATS.map((s, i) => (
+            <div
+              key={i}
+              className="dash-stat"
+              style={{
+                ...card,
+                padding: "1.1rem",
+                display: "flex", flexDirection: "column", gap: "0.5rem",
+                borderTop: `2px solid ${s.color}40`,
+                transition: "all 0.2s ease",
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                <span style={{ ...SECT_LABEL }}>{s.label}</span>
+                <div style={ICON_BOX(s.color)}>
+                  <i className={`fa-solid ${s.icon}`} style={{ fontSize: "0.75rem", color: s.color }} />
                 </div>
-
-                <div style={{
-                  fontSize: "2.6rem", fontWeight: 900,
-                  color: "#e8ecf5",
-                  lineHeight: 1,
-                  letterSpacing: "-0.04em",
-                  fontFamily: "'JetBrains Mono', monospace",
-                  position: "relative",
-                }}>
-                  {s.value}
-                </div>
-                <div style={{
-                  fontSize: "0.72rem", color: s.color, fontWeight: 600,
-                  marginTop: "0.4rem", paddingBottom: "0.85rem", opacity: 0.85,
-                }}>
-                  {s.sub}
-                </div>
-
-                <SparkLine color={s.color} />
               </div>
-            );
-          })}
-        </motion.div>
-
-        {/* ─────────────── MAIN GRID ─────────────── */}
-        <motion.div
-          variants={itemVar}
-          style={{ display: "grid", gridTemplateColumns: "1fr 340px", gap: "1.25rem", alignItems: "start" }}
-        >
-          {/* LEFT — Son Raporlar */}
-          <div style={glassCard}>
-            {/* Card header */}
-            <div style={{
-              display: "flex", justifyContent: "space-between", alignItems: "center",
-              padding: "1.15rem 1.4rem",
-              borderBottom: "1px solid rgba(29,110,247,0.08)",
-              background: "linear-gradient(90deg, rgba(29,110,247,0.04) 0%, transparent 100%)",
-            }}>
-              <h3 style={{
-                margin: 0, fontSize: "0.88rem", fontWeight: 700, color: "#e8ecf5",
-                display: "flex", alignItems: "center", gap: "0.65rem",
-              }}>
-                <div style={{
-                  width: 30, height: 30, borderRadius: 8,
-                  background: "rgba(29,110,247,0.1)",
-                  border: "1px solid rgba(29,110,247,0.2)",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  boxShadow: "0 0 10px rgba(29,110,247,0.1)",
-                }}>
-                  <i className="fa-solid fa-file-lines" style={{ color: "#1D6EF7", fontSize: "0.8rem" }} />
+              <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "2.2rem", fontWeight: 900, color: "#e8ecf5", lineHeight: 1, letterSpacing: "-0.04em" }}>
+                {loading ? <span style={{ opacity: 0.2 }}>—</span> : s.value}
+              </div>
+              {s.pct !== null && s.pct !== undefined && (
+                <div style={{ height: 3, borderRadius: 2, background: "rgba(29,110,247,0.1)", overflow: "hidden" }}>
+                  <div style={{ height: "100%", width: `${Math.round(s.pct * 100)}%`, background: `linear-gradient(90deg, ${s.color}80, ${s.color})`, borderRadius: 2, transition: "width 0.8s ease" }} />
                 </div>
-                Son Eklenen Raporlar
-              </h3>
-              <Link
-                href="/mdt/raporlar"
-                style={{
-                  fontSize: "0.72rem", color: "#1D6EF7", fontWeight: 600,
-                  textDecoration: "none", display: "flex", alignItems: "center", gap: "0.4rem",
-                  padding: "0.38rem 0.8rem", borderRadius: 8,
-                  background: "rgba(29,110,247,0.06)",
-                  border: "1px solid rgba(29,110,247,0.15)",
-                  transition: "all 0.18s ease",
-                }}
-                onMouseOver={e => {
-                  (e.currentTarget as HTMLElement).style.background = "rgba(29,110,247,0.12)";
-                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(29,110,247,0.3)";
-                }}
-                onMouseOut={e => {
-                  (e.currentTarget as HTMLElement).style.background = "rgba(29,110,247,0.06)";
-                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(29,110,247,0.15)";
-                }}
-              >
-                Tümünü Gör <i className="fa-solid fa-arrow-right" style={{ fontSize: "0.65rem" }} />
+              )}
+              <div style={{ fontSize: "0.7rem", color: s.color, fontWeight: 600, opacity: 0.8 }}>{s.sub}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* ═══════════ ROW 3 — 3-COL MAIN GRID ═══════════ */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 300px", gap: "0.9rem", alignItems: "start" }}>
+
+          {/* ─── COL 1: Son Raporlar ─── */}
+          <div style={card}>
+            <div style={CARD_HDR}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                <div style={ICON_BOX("#1D6EF7")}><i className="fa-solid fa-file-lines" style={{ fontSize: "0.72rem", color: "#1D6EF7" }} /></div>
+                <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#e8ecf5" }}>Son Raporlar</span>
+              </div>
+              <Link href="/mdt/raporlar" className="view-link" style={{ fontSize: "0.68rem", color: "rgba(29,110,247,0.5)", fontWeight: 600, textDecoration: "none", display: "flex", alignItems: "center", gap: "0.3rem", transition: "color 0.15s" }}>
+                Tümü <i className="fa-solid fa-arrow-right" style={{ fontSize: "0.55rem" }} />
               </Link>
             </div>
-
-            {/* Report list */}
-            <div style={{ padding: "0.5rem 0.75rem" }}>
+            <div style={{ padding: "0.4rem 0" }}>
               {loading ? (
-                <div style={{ padding: "4rem", textAlign: "center", color: "rgba(200,208,230,0.3)" }}>
-                  <i className="fa-solid fa-circle-notch fa-spin" style={{ display: "block", fontSize: "1.6rem", marginBottom: "0.75rem", color: "rgba(29,110,247,0.5)" }} />
-                  <span style={{ fontSize: "0.82rem" }}>Veriler yükleniyor...</span>
+                <div style={{ padding: "2.5rem", textAlign: "center", color: "rgba(200,208,230,0.2)", fontSize: "0.78rem" }}>
+                  <i className="fa-solid fa-circle-notch fa-spin" style={{ marginRight: "0.5rem" }} />Yükleniyor...
                 </div>
-              ) : recentReports.length === 0 ? (
-                <div style={{ padding: "5rem 2rem", textAlign: "center" }}>
-                  <div style={{
-                    width: 60, height: 60, borderRadius: "50%",
-                    background: "rgba(29,110,247,0.05)", border: "1px solid rgba(29,110,247,0.1)",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    margin: "0 auto 1rem",
-                  }}>
-                    <i className="fa-solid fa-folder-open" style={{ color: "rgba(29,110,247,0.25)", fontSize: "1.4rem" }} />
-                  </div>
-                  <div style={{ fontSize: "0.85rem", color: "rgba(200,208,230,0.35)", fontWeight: 500 }}>
-                    Sistemde henüz rapor bulunmuyor.
-                  </div>
-                </div>
+              ) : allReports.length === 0 ? (
+                <div style={{ padding: "2.5rem", textAlign: "center", color: "rgba(200,208,230,0.2)", fontSize: "0.78rem" }}>Henüz rapor girilmemiş.</div>
               ) : (
-                recentReports.map((rep: any) => (
-                  <Link key={rep.id} href="/mdt/raporlar" style={{ textDecoration: "none", display: "block" }}>
-                    <div
-                      className="report-row"
-                      style={{
-                        display: "flex", alignItems: "center", gap: "1rem",
-                        padding: "0.9rem 1rem",
-                        borderRadius: 10,
-                        borderBottom: "1px solid rgba(29,110,247,0.05)",
-                        cursor: "pointer",
-                        transition: "all 0.18s ease",
-                      }}
-                    >
-                      <div style={{
-                        width: 38, height: 38, borderRadius: 9,
-                        background: "rgba(29,110,247,0.06)",
-                        border: "1px solid rgba(29,110,247,0.12)",
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        flexShrink: 0,
-                      }}>
-                        <i className="fa-solid fa-file-alt" style={{ color: "#1D6EF7", fontSize: "0.85rem" }} />
-                      </div>
+                allReports.slice(0, 7).map((r: any) => (
+                  <Link key={r.id} href="/mdt/raporlar" style={{ textDecoration: "none", display: "block" }}>
+                    <div className="rep-row" style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.65rem 1.1rem", transition: "background 0.15s", borderBottom: "1px solid rgba(29,110,247,0.04)" }}>
+                      <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#1D6EF7", flexShrink: 0, opacity: 0.5 }} />
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{
-                          fontSize: "0.86rem", fontWeight: 600, color: "#e8ecf5",
-                          whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
-                          marginBottom: "0.18rem",
-                        }}>
-                          {rep.title}
-                        </div>
-                        <div style={{ fontSize: "0.7rem", color: "rgba(200,208,230,0.38)", display: "flex", alignItems: "center", gap: "0.4rem" }}>
-                          <span style={{ color: "rgba(200,208,230,0.55)", fontWeight: 500 }}>#{rep.officer?.badge ?? "—"} {rep.officer?.name}</span>
-                          <span style={{ width: 3, height: 3, borderRadius: "50%", background: "rgba(29,110,247,0.3)", display: "inline-block" }} />
-                          {timeAgo(rep.createdAt)}
+                        <div style={{ fontSize: "0.82rem", fontWeight: 600, color: "#e8ecf5", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{r.title}</div>
+                        <div style={{ fontSize: "0.65rem", color: "rgba(200,208,230,0.35)", marginTop: 2 }}>
+                          <span style={{ fontFamily: "'JetBrains Mono', monospace" }}>#{r.officer?.badge}</span>
+                          {" · "}{timeAgo(r.createdAt)}
                         </div>
                       </div>
-                      <i className="fa-solid fa-chevron-right" style={{ color: "rgba(29,110,247,0.3)", fontSize: "0.65rem" }} />
+                      <i className="fa-solid fa-chevron-right" style={{ color: "rgba(29,110,247,0.2)", fontSize: "0.55rem", flexShrink: 0 }} />
                     </div>
                   </Link>
                 ))
@@ -518,193 +290,116 @@ export default function MDTDashboard() {
             </div>
           </div>
 
-          {/* RIGHT column */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-
-            {/* Canlı Devriye */}
-            <div style={glassCard}>
-              <div style={{
-                display: "flex", justifyContent: "space-between", alignItems: "center",
-                padding: "1.15rem 1.4rem",
-                borderBottom: "1px solid rgba(34,197,94,0.08)",
-                background: "linear-gradient(90deg, rgba(34,197,94,0.04) 0%, transparent 100%)",
-              }}>
-                <h3 style={{
-                  margin: 0, fontSize: "0.88rem", fontWeight: 700, color: "#e8ecf5",
-                  display: "flex", alignItems: "center", gap: "0.6rem",
-                }}>
-                  <motion.span
-                    animate={{ opacity: [1, 0.3, 1], scale: [1, 0.9, 1] }}
-                    transition={{ repeat: Infinity, duration: 1.6 }}
-                    style={{
-                      width: 9, height: 9, borderRadius: "50%",
-                      backgroundColor: "#4ade80",
-                      boxShadow: "0 0 10px rgba(74,222,128,0.7)",
-                      display: "inline-block",
-                    }}
-                  />
-                  Canlı Devriye
-                </h3>
-                <span style={{
-                  fontSize: "0.65rem", fontWeight: 800,
-                  color: onDuty.length > 0 ? "#4ade80" : "rgba(200,208,230,0.4)",
-                  background: onDuty.length > 0 ? "rgba(74,222,128,0.08)" : "rgba(29,110,247,0.04)",
-                  padding: "0.28rem 0.75rem", borderRadius: 20,
-                  border: `1px solid ${onDuty.length > 0 ? "rgba(74,222,128,0.25)" : "rgba(29,110,247,0.1)"}`,
-                  fontFamily: "'JetBrains Mono', monospace",
-                }}>
-                  {onDuty.length} AKTİF
-                </span>
+          {/* ─── COL 2: Canlı Devriye ─── */}
+          <div style={card}>
+            <div style={CARD_HDR}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                <div style={ICON_BOX("#22c55e")}><i className="fa-solid fa-car-side" style={{ fontSize: "0.72rem", color: "#22c55e" }} /></div>
+                <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#e8ecf5" }}>Canlı Devriye</span>
               </div>
-
-              <div style={{ padding: "0.5rem" }}>
-                {loading ? (
-                  <div style={{ padding: "2.5rem", textAlign: "center", color: "rgba(200,208,230,0.3)", fontSize: "0.8rem" }}>Yükleniyor...</div>
-                ) : onDuty.length === 0 ? (
-                  <div style={{ padding: "2.5rem 1rem", textAlign: "center" }}>
-                    <i className="fa-solid fa-car-side" style={{ display: "block", fontSize: "1.6rem", marginBottom: "0.6rem", color: "rgba(29,110,247,0.15)" }} />
-                    <div style={{ fontSize: "0.8rem", color: "rgba(200,208,230,0.3)" }}>Sahada aktif birim yok.</div>
-                  </div>
-                ) : (
-                  <AnimatePresence>
-                    {onDuty.slice(0, 5).map((o: any, idx: number) => (
-                      <motion.div
-                        key={o.id}
-                        initial={{ opacity: 0, x: -8 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: idx * 0.06 }}
-                        className="patrol-row"
-                        style={{
-                          display: "flex", alignItems: "center", gap: "0.85rem",
-                          padding: "0.75rem 0.9rem",
-                          borderRadius: 9,
-                          margin: "0.2rem",
-                          border: "1px solid transparent",
-                          cursor: "default",
-                          transition: "all 0.15s ease",
-                        }}
-                      >
-                        <div style={{
-                          width: 34, height: 34, borderRadius: "50%",
-                          background: "rgba(34,197,94,0.08)",
-                          border: "1.5px solid rgba(34,197,94,0.25)",
-                          display: "flex", alignItems: "center", justifyContent: "center",
-                          overflow: "hidden", flexShrink: 0,
-                          boxShadow: "0 0 10px rgba(34,197,94,0.08)",
-                        }}>
-                          {o.profileImage
-                            ? <img src={o.profileImage} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                            : <i className="fa-solid fa-user" style={{ fontSize: "0.75rem", color: "#4ade80" }} />
-                          }
-                        </div>
-                        <div style={{ flex: 1, minWidth: 0 }}>
-                          <div style={{ fontSize: "0.82rem", fontWeight: 600, color: "#e8ecf5", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                            {o.name}
-                          </div>
-                          <div style={{ fontSize: "0.65rem", color: "rgba(200,208,230,0.38)", marginTop: 2, fontFamily: "'JetBrains Mono', monospace" }}>
-                            #{o.badge} · {o.rank}
-                          </div>
-                        </div>
-                        <div style={{
-                          width: 22, height: 22, borderRadius: "50%",
-                          background: "rgba(34,197,94,0.08)",
-                          display: "flex", alignItems: "center", justifyContent: "center",
-                        }}>
-                          <i className="fa-solid fa-location-dot" style={{ color: "#4ade80", fontSize: "0.6rem" }} />
-                        </div>
-                      </motion.div>
-                    ))}
-                  </AnimatePresence>
-                )}
-              </div>
-
-              <div style={{ padding: "0.8rem 1.4rem", borderTop: "1px solid rgba(34,197,94,0.06)", background: "rgba(34,197,94,0.02)" }}>
-                <Link
-                  href="/mdt/mesai"
-                  style={{
-                    fontSize: "0.72rem", color: "rgba(200,208,230,0.4)", fontWeight: 600,
-                    textDecoration: "none", display: "flex", alignItems: "center",
-                    justifyContent: "center", gap: "0.4rem", transition: "color 0.18s ease",
-                  }}
-                  onMouseOver={e => (e.currentTarget.style.color = "#4ade80")}
-                  onMouseOut={e => (e.currentTarget.style.color = "rgba(200,208,230,0.4)")}
-                >
-                  Tüm Mesai Verilerini Gör
-                  <i className="fa-solid fa-arrow-right" style={{ fontSize: "0.65rem" }} />
-                </Link>
-              </div>
+              <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.65rem", fontWeight: 800, color: onDuty.length > 0 ? "#22c55e" : "rgba(200,208,230,0.25)", padding: "0.18rem 0.6rem", borderRadius: 20, background: onDuty.length > 0 ? "rgba(34,197,94,0.08)" : "rgba(29,110,247,0.03)", border: `1px solid ${onDuty.length > 0 ? "rgba(34,197,94,0.2)" : "rgba(29,110,247,0.06)"}` }}>
+                {onDuty.length} AKTİF
+              </span>
             </div>
+            <div style={{ padding: "0.4rem 0" }}>
+              {loading ? (
+                <div style={{ padding: "2.5rem", textAlign: "center", color: "rgba(200,208,230,0.2)", fontSize: "0.78rem" }}>Yükleniyor...</div>
+              ) : onDuty.length === 0 ? (
+                <div style={{ padding: "2.5rem", textAlign: "center" }}>
+                  <i className="fa-solid fa-car-side" style={{ display: "block", fontSize: "1.4rem", marginBottom: "0.5rem", color: "rgba(29,110,247,0.1)" }} />
+                  <span style={{ fontSize: "0.78rem", color: "rgba(200,208,230,0.2)" }}>Sahada aktif birim yok.</span>
+                </div>
+              ) : (
+                onDuty.map((o: any) => (
+                  <div key={o.id} className="patrol-row" style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.65rem 1.1rem", transition: "background 0.15s", borderBottom: "1px solid rgba(34,197,94,0.04)" }}>
+                    <div style={{ width: 32, height: 32, borderRadius: "50%", background: "rgba(34,197,94,0.08)", border: "1.5px solid rgba(34,197,94,0.2)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", flexShrink: 0 }}>
+                      {o.profileImage
+                        ? <img src={o.profileImage} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                        : <i className="fa-solid fa-user" style={{ fontSize: "0.7rem", color: "#22c55e" }} />
+                      }
+                    </div>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontSize: "0.82rem", fontWeight: 600, color: "#e8ecf5", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{o.name}</div>
+                      <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.62rem", color: "rgba(34,197,94,0.45)", marginTop: 2 }}>#{o.badge} · {o.rank}</div>
+                    </div>
+                    <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#22c55e", boxShadow: "0 0 8px #22c55e", flexShrink: 0 }} />
+                  </div>
+                ))
+              )}
+            </div>
+            <div style={{ padding: "0.6rem 1.1rem", borderTop: "1px solid rgba(34,197,94,0.06)" }}>
+              <Link href="/mdt/mesai" className="view-link" style={{ fontSize: "0.68rem", color: "rgba(200,208,230,0.3)", textDecoration: "none", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.35rem", transition: "color 0.15s" }}>
+                Tüm Mesai Listesi <i className="fa-solid fa-arrow-right" style={{ fontSize: "0.55rem" }} />
+              </Link>
+            </div>
+          </div>
+
+          {/* ─── COL 3: Hızlı Erişim + Mesai Sıralaması ─── */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.9rem" }}>
 
             {/* Hızlı Erişim */}
-            <div style={glassCard}>
-              <div style={{
-                padding: "1.15rem 1.4rem",
-                borderBottom: "1px solid rgba(232,79,42,0.08)",
-                background: "linear-gradient(90deg, rgba(232,79,42,0.04) 0%, transparent 100%)",
-              }}>
-                <h3 style={{
-                  margin: 0, fontSize: "0.88rem", fontWeight: 700, color: "#e8ecf5",
-                  display: "flex", alignItems: "center", gap: "0.6rem",
-                }}>
-                  <div style={{
-                    width: 30, height: 30, borderRadius: 8,
-                    background: "rgba(232,79,42,0.08)", border: "1px solid rgba(232,79,42,0.2)",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                  }}>
-                    <i className="fa-solid fa-bolt" style={{ color: "#E84F2A", fontSize: "0.78rem" }} />
-                  </div>
-                  Hızlı Erişim
-                </h3>
+            <div style={card}>
+              <div style={CARD_HDR}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                  <div style={ICON_BOX("#E84F2A")}><i className="fa-solid fa-bolt" style={{ fontSize: "0.72rem", color: "#E84F2A" }} /></div>
+                  <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#e8ecf5" }}>Hızlı Erişim</span>
+                </div>
               </div>
-
-              <div style={{ padding: "1rem", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.7rem" }}>
-                {QUICK_LINKS.map((ql, i) => (
-                  <Link key={i} href={ql.href} style={{ textDecoration: "none" }}>
+              <div style={{ padding: "0.6rem", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.5rem" }}>
+                {QUICK.map((q, i) => (
+                  <Link key={i} href={q.href} style={{ textDecoration: "none" }}>
                     <div
-                      className="quick-btn"
+                      className="dash-ql"
                       style={{
-                        display: "flex", flexDirection: "column", alignItems: "center",
-                        justifyContent: "center", gap: "0.5rem",
-                        padding: "1.15rem 0.5rem",
-                        borderRadius: 11,
-                        border: "1px solid rgba(255,255,255,0.05)",
-                        background: "rgba(255,255,255,0.02)",
-                        cursor: "pointer",
-                        textAlign: "center",
-                        transition: "all 0.2s cubic-bezier(0.4,0,0.2,1)",
-                      }}
-                      onMouseOver={e => {
-                        const el = e.currentTarget as HTMLElement;
-                        el.style.background = `linear-gradient(135deg, ${ql.color}10 0%, transparent 100%)`;
-                        el.style.borderColor = `${ql.color}35`;
-                        el.style.boxShadow = `0 4px 20px ${ql.color}15`;
-                      }}
-                      onMouseOut={e => {
-                        const el = e.currentTarget as HTMLElement;
-                        el.style.background = "rgba(255,255,255,0.02)";
-                        el.style.borderColor = "rgba(255,255,255,0.05)";
-                        el.style.boxShadow = "none";
+                        display: "flex", alignItems: "center", gap: "0.5rem",
+                        padding: "0.6rem 0.7rem", borderRadius: 9,
+                        background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.04)",
+                        cursor: "pointer", transition: "all 0.18s ease",
                       }}
                     >
-                      <div style={{
-                        width: 36, height: 36, borderRadius: 9,
-                        background: `${ql.color}12`,
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        transition: "all 0.2s ease",
-                      }}>
-                        <i className={`fa-solid ${ql.icon}`} style={{ fontSize: "1rem", color: ql.color }} />
-                      </div>
-                      <span style={{ fontSize: "0.7rem", fontWeight: 600, color: "rgba(200,208,230,0.65)", lineHeight: 1.2 }}>
-                        {ql.label}
-                      </span>
+                      <i className={`fa-solid ${q.icon}`} style={{ fontSize: "0.75rem", color: q.color, width: 16, textAlign: "center" }} />
+                      <span style={{ fontSize: "0.7rem", fontWeight: 600, color: "rgba(200,208,230,0.55)", lineHeight: 1.2 }}>{q.label}</span>
                     </div>
                   </Link>
                 ))}
               </div>
             </div>
+
+            {/* Mesai Sıralaması */}
+            <div style={card}>
+              <div style={CARD_HDR}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                  <div style={ICON_BOX("#f59e0b")}><i className="fa-solid fa-ranking-star" style={{ fontSize: "0.72rem", color: "#f59e0b" }} /></div>
+                  <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#e8ecf5" }}>Top Mesai</span>
+                </div>
+                <Link href="/mdt/mesai" className="view-link" style={{ fontSize: "0.65rem", color: "rgba(29,110,247,0.4)", textDecoration: "none", transition: "color 0.15s" }}>
+                  Tümü <i className="fa-solid fa-arrow-right" style={{ fontSize: "0.5rem" }} />
+                </Link>
+              </div>
+              <div style={{ padding: "0.4rem 0" }}>
+                {!shiftsData ? (
+                  <div style={{ padding: "1.5rem", textAlign: "center", color: "rgba(200,208,230,0.2)", fontSize: "0.75rem" }}>Yükleniyor...</div>
+                ) : topShift.length === 0 ? (
+                  <div style={{ padding: "1.5rem", textAlign: "center", color: "rgba(200,208,230,0.2)", fontSize: "0.75rem" }}>Henüz mesai kaydı yok.</div>
+                ) : (
+                  topShift.map((e: any, i: number) => (
+                    <div key={e.id} style={{ display: "flex", alignItems: "center", gap: "0.65rem", padding: "0.55rem 1.1rem", borderBottom: "1px solid rgba(29,110,247,0.04)" }}>
+                      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.7rem", fontWeight: 800, color: RANK_COLORS[i] ?? "rgba(200,208,230,0.3)", width: 18, textAlign: "center" }}>
+                        {i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : `#${i + 1}`}
+                      </span>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontSize: "0.75rem", fontWeight: 600, color: "#e8ecf5", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{e.name}</div>
+                      </div>
+                      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.65rem", fontWeight: 700, color: "rgba(29,110,247,0.5)" }}>{formatSecs(e.totalSeconds)}</span>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+
+      </div>
     </>
   );
 }

@@ -122,6 +122,25 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
           0%, 100% { opacity: 1; transform: scale(1); }
           50%       { opacity: 0.8; transform: scale(0.95); }
         }
+        /* Aurora breathing animations */
+        @keyframes aurora-1 {
+          0%, 100% { transform: translate(0,0) scale(1); opacity: 0.55; }
+          33%       { transform: translate(60px,-40px) scale(1.15); opacity: 0.7; }
+          66%       { transform: translate(-30px,50px) scale(0.92); opacity: 0.45; }
+        }
+        @keyframes aurora-2 {
+          0%, 100% { transform: translate(0,0) scale(1); opacity: 0.4; }
+          40%       { transform: translate(-70px,30px) scale(1.2); opacity: 0.6; }
+          70%       { transform: translate(40px,-60px) scale(0.88); opacity: 0.35; }
+        }
+        @keyframes aurora-3 {
+          0%, 100% { transform: translate(0,0) scale(1); opacity: 0.3; }
+          50%       { transform: translate(50px,70px) scale(1.1); opacity: 0.5; }
+        }
+        @keyframes grid-drift {
+          0%   { background-position: 0 0; }
+          100% { background-position: 40px 40px; }
+        }
 
         /* ── Sidebar nav items ── */
         .mdt-nav-item {
@@ -817,23 +836,67 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
               position: 'relative',
             }}
           >
-            {/* Subtle grid texture */}
-            <div
-              style={{
-                position: 'fixed',
-                inset: 0,
-                backgroundImage: `
-                  linear-gradient(rgba(29,110,247,0.02) 1px, transparent 1px),
-                  linear-gradient(90deg, rgba(29,110,247,0.02) 1px, transparent 1px)
-                `,
-                backgroundSize: '40px 40px',
-                pointerEvents: 'none',
-                zIndex: 0,
-              }}
-            />
-            <div style={{ position: 'relative', zIndex: 1 }}>
-              {children}
-            </div>
+          {/* ── Futuristic Background ── */}
+          <div
+            style={{
+              position: 'fixed',
+              inset: 0,
+              zIndex: 0,
+              overflow: 'hidden',
+              pointerEvents: 'none',
+              background: 'radial-gradient(ellipse at 20% 50%, #050810 0%, #080c14 40%, #06091a 100%)',
+            }}
+          >
+            {/* Aurora blob 1 — deep blue */}
+            <div style={{
+              position: 'absolute',
+              top: '-10%', left: '-5%',
+              width: '55vw', height: '55vw',
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(29,110,247,0.13) 0%, rgba(29,110,247,0.04) 45%, transparent 70%)',
+              animation: 'aurora-1 18s ease-in-out infinite',
+              filter: 'blur(40px)',
+            }} />
+            {/* Aurora blob 2 — indigo */}
+            <div style={{
+              position: 'absolute',
+              bottom: '5%', right: '-10%',
+              width: '50vw', height: '50vw',
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(99,60,230,0.1) 0%, rgba(99,60,230,0.03) 45%, transparent 70%)',
+              animation: 'aurora-2 22s ease-in-out infinite',
+              filter: 'blur(50px)',
+            }} />
+            {/* Aurora blob 3 — teal accent */}
+            <div style={{
+              position: 'absolute',
+              top: '40%', left: '35%',
+              width: '35vw', height: '35vw',
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(6,182,212,0.06) 0%, transparent 65%)',
+              animation: 'aurora-3 26s ease-in-out infinite',
+              filter: 'blur(35px)',
+            }} />
+            {/* Dot grid */}
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              backgroundImage: 'radial-gradient(circle, rgba(29,110,247,0.18) 1px, transparent 1px)',
+              backgroundSize: '32px 32px',
+              opacity: 0.35,
+              animation: 'grid-drift 12s linear infinite',
+            }} />
+            {/* Horizontal scan-line fade */}
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px)',
+            }} />
+          </div>
+
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            {children}
+          </div>
           </main>
         </div>
       </div>
