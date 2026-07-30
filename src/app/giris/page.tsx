@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -133,7 +133,7 @@ export default function GirisPage() {
         fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
         overflow: 'hidden',
       }}>
-        {/* II LEFT PANEL: BRANDING II */}
+        {/* ── LEFT PANEL: BRANDING ── */}
         <div style={{
           flex: '0 0 52%',
           position: 'relative',
@@ -228,7 +228,7 @@ export default function GirisPage() {
             {/* Bottom: Security badges */}
             <div style={{ display: 'flex', gap: '20px', paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.12)' }}>
               {[
-                { icon: 'fa-lock', text: 'AES-256 şifreli' },
+                { icon: 'fa-lock', text: 'AES-256 Şifreli' },
                 { icon: 'fa-shield-check', text: 'TLS 1.3' },
                 { icon: 'fa-user-shield', text: 'İki Katmanlı Güvenlik' },
               ].map((item, i) => (
@@ -241,7 +241,7 @@ export default function GirisPage() {
           </div>
         </div>
 
-        {/* II RIGHT PANEL: FORM II */}
+        {/* ── RIGHT PANEL: FORM ── */}
         <div style={{
           flex: 1,
           backgroundColor: 'var(--bg-primary)',
@@ -356,11 +356,11 @@ export default function GirisPage() {
                     </div>
 
                     <div>
-                      <label style={labelStyle}>Güvenlik şifresi <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
+                      <label style={labelStyle}>Güvenlik Şifresi <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
                       <input
                         className="LAC-input"
                         type="password"
-                        placeholder="IIIIIIII"
+                        placeholder="••••••••"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                         required
@@ -377,7 +377,7 @@ export default function GirisPage() {
                         style={{ width: 16, height: 16, cursor: 'pointer', accentColor: 'var(--accent-primary)' }}
                       />
                       <label htmlFor="remember" style={{ fontSize: '0.82rem', color: 'var(--text-muted)', cursor: 'pointer', userSelect: 'none' }}>
-                        Oturumu 24 saat boyunca aIIk tut
+                        Oturumu 24 saat boyunca açık tut
                       </label>
                     </div>
 
@@ -408,7 +408,7 @@ export default function GirisPage() {
                     >
                       {loading
                         ? <><i className="fa-solid fa-circle-notch fa-spin"></i> Doğrulanıyor...</>
-                        : <><i className="fa-solid fa-right-to-bracket"></i> SİSTEME GKRII YAP</>
+                        : <><i className="fa-solid fa-right-to-bracket"></i> SİSTEME GİRİŞ YAP</>
                       }
                     </button>
                   </form>
@@ -488,8 +488,8 @@ export default function GirisPage() {
                         </div>
 
                         <div>
-                          <label style={labelStyle}>şifre <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
-                          <input className="LAC-input" type="password" placeholder="IIIIIIII" value={regPassword} onChange={e => setRegPassword(e.target.value)} required style={inputStyle} />
+                          <label style={labelStyle}>Şifre <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
+                          <input className="LAC-input" type="password" placeholder="••••••••" value={regPassword} onChange={e => setRegPassword(e.target.value)} required style={inputStyle} />
                         </div>
 
                         <button
@@ -529,7 +529,7 @@ export default function GirisPage() {
                 color: 'var(--text-muted)',
               }}>
                 <span><i className="fa-solid fa-lock" style={{ marginRight: '5px' }}></i>AES-256 TLS 1.3</span>
-                <span>K 2026 LAC Police Department</span>
+                <span>© 2026 LAC Police Department</span>
               </div>
             </div>
           </div>

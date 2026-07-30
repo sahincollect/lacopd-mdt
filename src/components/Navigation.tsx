@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -54,7 +54,7 @@ export default function Navigation() {
   return (
     <div style={{ width: "100%", zIndex: 100, position: "relative" }}>
       
-      {/* ve TOP ALERT BAR ve */}
+      {/* ── TOP ALERT BAR ── */}
       <div style={{ 
         backgroundColor: 'var(--bg-tertiary)', 
         borderBottom: '1px solid var(--border-light)', 
@@ -69,7 +69,7 @@ export default function Navigation() {
         </Link>
       </div>
 
-      {/* ve MAIN WHITE HEADER ve */}
+      {/* ── MAIN WHITE HEADER ── */}
       <div style={{
         backgroundColor: 'var(--LAC-bg)',
         borderBottom: '1px solid var(--LAC-border)',
@@ -214,7 +214,6 @@ export default function Navigation() {
                 fontWeight: 700,
                 textDecoration: 'none',
                 fontFamily: 'var(--font-inter)',
-                letterSpacing: '0.05em',
                 transition: 'opacity 0.2s',
                 display: 'inline-block'
               }}
