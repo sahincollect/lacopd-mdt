@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -17,17 +17,17 @@ const NAV_SECTIONS = [
       { label: "Raporlar",          path: "/mdt/raporlar",     icon: "fa-file-lines" },
       { label: "Mesai Sistemi",     path: "/mdt/mesai",        icon: "fa-clock" },
       { label: "Personel Listesi",  path: "/mdt/personel",     icon: "fa-users" },
-      { label: "Kriminal Kayıt",   path: "/mdt/kriminal",     icon: "fa-fingerprint" },
+      { label: "Kriminal Kay�t",   path: "/mdt/kriminal",     icon: "fa-fingerprint" },
     ],
   },
   {
     label: "Birim",
     items: [
-      { label: "Birim Başvuruları", path: "/mdt/basvuru",       icon: "fa-id-badge" },
+      { label: "Birim Ba�vurular�", path: "/mdt/basvuru",       icon: "fa-id-badge" },
       { label: "Duyurular",         path: "/mdt/duyurular",     icon: "fa-bullhorn" },
-      { label: "İç Haberleşme",    path: "/mdt/mesajlar",      icon: "fa-message", hasUnread: true },
-      { label: "Mazeret / İzin",   path: "/mdt/mazeretler",    icon: "fa-calendar-xmark" },
-      { label: "Yönetmelikler",    path: "/mdt/yonetmelikler", icon: "fa-scale-balanced" },
+      { label: "�� Haberle�me",    path: "/mdt/mesajlar",      icon: "fa-message", hasUnread: true },
+      { label: "Mazeret / �zin",   path: "/mdt/mazeretler",    icon: "fa-calendar-xmark" },
+      { label: "Y�netmelikler",    path: "/mdt/yonetmelikler", icon: "fa-scale-balanced" },
     ],
   },
 ];
@@ -82,7 +82,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
   const allSections = [...NAV_SECTIONS];
   if (user?.role === 'admin') {
     allSections.push({
-      label: "Yönetim",
+      label: "Y�netim",
       items: [{ label: "Admin Paneli", path: "/mdt/admin", icon: "fa-shield-halved" }],
     });
   }
@@ -95,7 +95,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      {/* ── Global MDT animation keyframes ── */}
+      {/* �� Global MDT animation keyframes �� */}
       <style>{`
         @keyframes mdt-fadeInDown {
           from { opacity: 0; transform: translateY(-8px) scale(0.97); }
@@ -163,7 +163,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
           fontFamily: "'Inter', -apple-system, sans-serif",
         }}
       >
-        {/* ═══════════ SIDEBAR ═══════════ */}
+        {/* =========== SIDEBAR =========== */}
         <aside
           style={{
             width: sideW,
@@ -182,7 +182,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
             flexShrink: 0,
           }}
         >
-          {/* ── Logo ── */}
+          {/* �� Logo �� */}
           <div
             style={{
               padding: collapsed ? '1.35rem 0' : '1.35rem 1.1rem',
@@ -206,7 +206,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
               }}
             >
               <img
-                src="/LAC-logo.png"
+                src="/lac-logo.png"
                 alt="LACPD"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
@@ -241,7 +241,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
             )}
           </div>
 
-          {/* ── Nav ── */}
+          {/* �� Nav �� */}
           <nav style={{ flex: 1, padding: '0.6rem 0.45rem', overflowY: 'auto' }}>
             {allSections.map((section) => (
               <div key={section.label} style={{ marginBottom: '0.2rem' }}>
@@ -356,7 +356,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
             ))}
           </nav>
 
-          {/* ── Collapse button at bottom ── */}
+          {/* �� Collapse button at bottom �� */}
           <div
             style={{
               padding: '0.75rem 0.45rem',
@@ -400,10 +400,10 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
           </div>
         </aside>
 
-        {/* ═══════════ MAIN ═══════════ */}
+        {/* =========== MAIN =========== */}
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, minHeight: '100vh' }}>
 
-          {/* ── Top Header ── */}
+          {/* �� Top Header �� */}
           <div
             role="banner"
             style={{
@@ -546,11 +546,11 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                       animation: user.isOnDuty ? 'mdt-pulse-dot 2s infinite' : 'none',
                     }}
                   />
-                  {user.isOnDuty ? 'Görevde' : 'Görev Dışı'}
+                  {user.isOnDuty ? 'G�revde' : 'G�rev D���'}
                 </div>
               )}
 
-              {/* ── Profile avatar + dropdown card ── */}
+              {/* �� Profile avatar + dropdown card �� */}
               <div ref={profileRef} style={{ position: 'relative' }}>
                 <button
                   onClick={() => setProfileOpen(o => !o)}
@@ -638,10 +638,10 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                       </div>
                       <div style={{ minWidth: 0 }}>
                         <div style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--mdt-text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                          {user?.name ?? '—'}
+                          {user?.name ?? '�'}
                         </div>
                         <div style={{ fontSize: '0.68rem', color: 'var(--mdt-text-muted)', marginTop: 2 }}>
-                          #{user?.badge ?? '—'} · {user?.rank ?? '—'}
+                          #{user?.badge ?? '�'} � {user?.rank ?? '�'}
                         </div>
                       </div>
                     </div>
@@ -659,7 +659,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                         }}
                       />
                       <span style={{ fontSize: '0.75rem', color: user?.isOnDuty ? '#22c55e' : 'var(--mdt-text-muted)', fontWeight: 600 }}>
-                        {user?.isOnDuty ? 'Görevde' : 'Görev Dışı'}
+                        {user?.isOnDuty ? 'G�revde' : 'G�rev D���'}
                       </span>
                     </div>
 
@@ -721,7 +721,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                         }}
                       >
                         <i className="fa-solid fa-arrow-right-from-bracket" style={{ width: 16, textAlign: 'center', color: '#ef4444', opacity: 0.8 }} />
-                        Çıkış Yap
+                        ��k�� Yap
                       </div>
                     </div>
                   </div>
@@ -730,7 +730,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
             </div>
           </div>
 
-          {/* ── Page Content ── */}
+          {/* �� Page Content �� */}
           <main
             style={{
               flex: 1,

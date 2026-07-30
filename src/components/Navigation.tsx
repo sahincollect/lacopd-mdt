@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -9,7 +9,7 @@ export default function Navigation() {
   const pathname = usePathname();
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
-  // Memur paneli ve giriş sayfasında genel navigasyonu gizle
+  // Memur paneli ve giri� sayfas�nda genel navigasyonu gizle
   if (pathname === '/giris' || pathname?.startsWith('/mdt') || pathname?.startsWith('/rapor-portali')) {
     return null;
   }
@@ -27,7 +27,7 @@ export default function Navigation() {
       ]
     },
     { 
-      name: "GALERİ", 
+      name: "GALER�", 
       path: "/galeri"
     },
     { 
@@ -35,18 +35,18 @@ export default function Navigation() {
       path: "/haberler"
     },
     { 
-      name: "KARİYER", 
+      name: "KAR�YER", 
       items: [
-        { label: "Akademi Başvurusu", path: "/basvurular/memur" },
-        { label: "Ride-Along Programı", path: "/basvurular/ride-along" },
-        { label: "Kariyer Olanakları", path: "/kariyer" }
+        { label: "Akademi Ba�vurusu", path: "/basvurular/memur" },
+        { label: "Ride-Along Program�", path: "/basvurular/ride-along" },
+        { label: "Kariyer Olanaklar�", path: "/kariyer" }
       ]
     },
     { 
-      name: "İLETİŞİM", 
+      name: "�LET���M", 
       items: [
-        { label: "Memur Şikayet Formu", path: "/basvurular/sikayet" },
-        { label: "Departman İletişimi", path: "/iletisim" }
+        { label: "Memur �ikayet Formu", path: "/basvurular/sikayet" },
+        { label: "Departman �leti�imi", path: "/iletisim" }
       ]
     }
   ];
@@ -54,7 +54,7 @@ export default function Navigation() {
   return (
     <div style={{ width: "100%", zIndex: 100, position: "relative" }}>
       
-      {/* ── TOP ALERT BAR ── */}
+      {/* �� TOP ALERT BAR �� */}
       <div style={{ 
         backgroundColor: 'var(--bg-tertiary)', 
         borderBottom: '1px solid var(--border-light)', 
@@ -63,13 +63,13 @@ export default function Navigation() {
         fontSize: '0.75rem', 
         color: 'var(--text-primary)' 
       }}>
-        <strong style={{ fontWeight: 800 }}>DUYURU!</strong> Los Angeles Polis Akademisi (Season 1) başvuruları başlamıştır. 
+        <strong style={{ fontWeight: 800 }}>DUYURU!</strong> Los Angeles Polis Akademisi (Season 1) ba�vurular� ba�lam��t�r. 
         <Link href="https://discord.com/invite/laco" target="_blank" style={{ color: 'var(--accent-secondary)', marginLeft: '10px', textDecoration: 'none', fontWeight: 600 }}>
-          — Detaylı Bilgi Alın
+          � Detayl� Bilgi Al�n
         </Link>
       </div>
 
-      {/* ── MAIN WHITE HEADER ── */}
+      {/* �� MAIN WHITE HEADER �� */}
       <div style={{
         backgroundColor: 'var(--LAC-bg)',
         borderBottom: '1px solid var(--LAC-border)',
@@ -90,7 +90,7 @@ export default function Navigation() {
             flexShrink: 0
           }}>
             <img 
-              src="/LAC-logo.png" 
+              src="/lac-logo.png" 
               alt="LAC Logo" 
               style={{ width: '100%', height: '100%', objectFit: 'cover', backgroundColor: 'var(--accent-primary)' }} 
             />
@@ -100,7 +100,7 @@ export default function Navigation() {
               LOS ANGELES C.P.D.
             </div>
             <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginTop: '0.25rem' }}>
-              RESMİ WEB PORTALI
+              RESM� WEB PORTALI
             </div>
           </div>
         </Link>
@@ -220,7 +220,7 @@ export default function Navigation() {
               onMouseOver={e => e.currentTarget.style.opacity = '0.85'}
               onMouseOut={e => e.currentTarget.style.opacity = '1'}
             >
-              PERSONEL GİRİŞİ
+              PERSONEL G�R���
             </Link>
           </div>
 

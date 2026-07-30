@@ -26,6 +26,7 @@ const oswald = Oswald({
 export const metadata: Metadata = {
   title: "LAC Portal - Los Angeles Community",
   description: "Los Angeles Community Memur Paneli ve Veritabanı Sistemi",
+  icons: { icon: '/lac-logo.png' }
 };
 
 export default function RootLayout({
