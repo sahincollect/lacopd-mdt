@@ -1,7 +1,6 @@
-// src/app/mdt/mesai/page.tsx
 "use client";
 
-import { useEffect, useState, useMemo, useCallback } from "react";
+import { useEffect, useState, useMemo } from "react";
 import toast from "react-hot-toast";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
@@ -16,6 +15,28 @@ interface OfficerShift {
   totalSeconds: number;
   activeLogStart?: string | null;
 }
+
+const glassCard: React.CSSProperties = {
+  background: "linear-gradient(145deg, rgba(13,18,32,0.9) 0%, rgba(10,14,26,0.8) 100%)",
+  backdropFilter: "blur(20px)",
+  border: "1px solid rgba(29,110,247,0.1)",
+  borderRadius: 16,
+  overflow: "hidden",
+  boxShadow: "0 8px 32px -8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03)",
+};
+
+const inputStyle: React.CSSProperties = {
+  width: "100%",
+  background: "rgba(29,110,247,0.04)",
+  border: "1px solid rgba(29,110,247,0.12)",
+  borderRadius: 8,
+  padding: "0.55rem 0.9rem",
+  color: "#e8ecf5",
+  fontSize: "0.83rem",
+  outline: "none",
+  transition: "all 0.18s ease",
+  fontFamily: "'Inter', sans-serif",
+};
 
 export default function MesaiSistemi() {
   const [toggling, setToggling] = useState(false);
@@ -158,64 +179,158 @@ export default function MesaiSistemi() {
     });
   }, [leaderboard, searchTerm, selectedDept, filterMode]);
 
+  const getRankBadge = (idx: number) => {
+    if (idx === 0) return { bg: "rgba(245,158,11,0.1)", color: "#f59e0b", border: "1px solid rgba(245,158,11,0.3)", icon: "fa-trophy" }; // Gold
+    if (idx === 1) return { bg: "rgba(200,208,230,0.1)", color: "#e8ecf5", border: "1px solid rgba(200,208,230,0.3)", icon: "fa-medal" }; // Silver
+    if (idx === 2) return { bg: "rgba(232,79,42,0.1)", color: "#E84F2A", border: "1px solid rgba(232,79,42,0.3)", icon: "fa-award" }; // Bronze
+    return { bg: "transparent", color: "rgba(200,208,230,0.3)", border: "1px solid transparent", icon: "fa-hashtag" };
+  };
+
   if (loading) {
-    return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "60vh", color: "var(--mdt-text-muted)", flexDirection: "column", gap: "1rem" }}>
-      <i className="fa-solid fa-circle-notch fa-spin" style={{ fontSize: "2rem" }} />
-      <span style={{ fontSize: "0.9rem", fontWeight: 700 }}>MESAİ VERİLERİ YÜKLENİYOR...</span>
-    </div>;
+    return (
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "50vh", flexDirection: "column", gap: "1rem" }}>
+        <style>{`
+          @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
+        `}</style>
+        <i className="fa-solid fa-circle-notch fa-spin" style={{ fontSize: "1.8rem", color: "rgba(29,110,247,0.5)" }} />
+        <span style={{ fontSize: "0.82rem", color: "rgba(200,208,230,0.35)", fontWeight: 600, letterSpacing: "0.1em" }}>YÜKLENİYOR...</span>
+      </div>
+    );
   }
 
   return (
-    <div style={{ fontFamily: "'Inter', sans-serif", display: "flex", flexDirection: "column", gap: "2rem" }}>
-      
-      {/* ── HEADER ── */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem', paddingBottom: '1.5rem', borderBottom: '1px solid var(--mdt-border)' }}>
+    <div style={{ fontFamily: "'Inter', sans-serif", color: "#e8ecf5", paddingBottom: "3rem" }}>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
+        
+        .pulse-dot {
+          width: 8px;
+          height: 8px;
+          background-color: #22c55e;
+          border-radius: 50%;
+          display: inline-block;
+          box-shadow: 0 0 0 rgba(34, 197, 94, 0.4);
+          animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+          0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+          70% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+          100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+
+        .filter-btn {
+          background: transparent;
+          color: rgba(200,208,230,0.55);
+          border: 1px solid rgba(29,110,247,0.1);
+          padding: 0.55rem 1rem;
+          border-radius: 8px;
+          font-weight: 600;
+          font-size: 0.75rem;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        .filter-btn:hover {
+          background: rgba(29,110,247,0.05);
+          color: #e8ecf5;
+        }
+        .filter-btn.active {
+          background: rgba(29,110,247,0.15);
+          color: #1D6EF7;
+          border-color: rgba(29,110,247,0.4);
+        }
+
+        .custom-input:focus {
+          border-color: rgba(29,110,247,0.4) !important;
+          background: rgba(29,110,247,0.08) !important;
+        }
+
+        .leaderboard-row {
+          transition: all 0.2s ease;
+        }
+        .leaderboard-row:hover {
+          background: rgba(29,110,247,0.04) !important;
+        }
+
+        .action-btn {
+          background: rgba(239,68,68,0.1);
+          color: #ef4444;
+          border: 1px solid rgba(239,68,68,0.2);
+          width: 32px;
+          height: 32px;
+          border-radius: 6px;
+          font-size: 0.85rem;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.15s;
+        }
+        .action-btn:hover {
+          background: rgba(239,68,68,0.2);
+        }
+      `}</style>
+
+      {/* PAGE HEADER */}
+      <div style={{ marginBottom: "2rem", display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1rem" }}>
         <div>
-          <p style={{ fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--mdt-text-muted)', margin: '0 0 0.3rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(29,110,247,0.4)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.5rem" }}>
             L.A.C.P.D. · OPERASYON
-            <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "var(--mdt-text-muted)" }} />
-            <span style={{ color: "var(--mdt-accent)" }}>DUTY LOGS</span>
-          </p>
-          <h1 style={{ fontSize: '1.75rem', fontWeight: 900, margin: 0, color: 'var(--mdt-text-primary)', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+          </div>
+          <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "#e8ecf5", margin: 0, letterSpacing: "-0.02em" }}>
             Mesai Takip Sistemi
           </h1>
-          <p style={{ color: 'var(--mdt-text-muted)', fontSize: '0.82rem', marginTop: '0.35rem', fontWeight: 400 }}>
-            Personel devriye durumları ve aktif operasyon gücü.
+          <p style={{ color: "rgba(200,208,230,0.4)", fontSize: "0.8rem", margin: "0.4rem 0 0", fontWeight: 400 }}>
+            Personel devriye durumları ve aktif operasyon gücü
           </p>
         </div>
 
-        <div style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
+        <div style={{ display: "flex", gap: "2rem", alignItems: "center", background: "rgba(13,18,32,0.6)", padding: "1rem 1.5rem", borderRadius: "12px", border: "1px solid rgba(29,110,247,0.1)" }}>
           <div>
-            <div style={{ fontSize: "0.65rem", fontWeight: 700, color: "var(--mdt-text-muted)", letterSpacing: '0.1em' }}>SAHADA AKTİF</div>
-            <div style={{ fontSize: "1.25rem", fontWeight: 900, color: "var(--mdt-accent)" }}>{activeCount} <span style={{ fontSize: "0.85rem", color: "var(--mdt-text-muted)" }}>/ {leaderboard.length}</span></div>
+            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(200,208,230,0.4)", letterSpacing: '0.1em' }}>SAHADA AKTİF</div>
+            <div style={{ fontSize: "1.4rem", fontWeight: 900, color: "#22c55e", fontFamily: "'JetBrains Mono', monospace" }}>{activeCount} <span style={{ fontSize: "0.9rem", color: "rgba(200,208,230,0.3)" }}>/ {leaderboard.length}</span></div>
           </div>
-          <div style={{ width: "1px", height: "30px", backgroundColor: "var(--mdt-border)" }}></div>
+          <div style={{ width: "1px", height: "30px", backgroundColor: "rgba(200,208,230,0.1)" }}></div>
           <div>
-            <div style={{ fontSize: "0.65rem", fontWeight: 700, color: "var(--mdt-text-muted)", letterSpacing: '0.1em' }}>DEPARTMAN EFORU</div>
-            <div style={{ fontSize: "1.25rem", fontWeight: 900, color: "var(--mdt-warning)" }}>{formatHoursMinimal(totalDepartmentSeconds)}</div>
+            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(200,208,230,0.4)", letterSpacing: '0.1em' }}>DEPARTMAN EFORU</div>
+            <div style={{ fontSize: "1.4rem", fontWeight: 900, color: "#1D6EF7", fontFamily: "'JetBrains Mono', monospace" }}>{formatHoursMinimal(totalDepartmentSeconds)}</div>
+          </div>
+          <div style={{ width: "1px", height: "30px", backgroundColor: "rgba(200,208,230,0.1)" }}></div>
+          <div>
+            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(200,208,230,0.4)", letterSpacing: '0.1em' }}>SAAT</div>
+            <div style={{ fontSize: "1.2rem", fontWeight: 900, color: "#e8ecf5", fontFamily: "'JetBrains Mono', monospace" }}>{currentTime || "--:--:--"}</div>
           </div>
         </div>
       </div>
 
-      {/* ── MY SHIFT CONSOLE ── */}
+      {/* MY SHIFT CONSOLE */}
       <div style={{ 
+        ...glassCard,
+        padding: "2rem",
+        marginBottom: "2rem",
         display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1.5rem",
-        background: user?.isOnDuty ? 'rgba(34, 197, 94, 0.08)' : 'var(--mdt-card-bg)', 
-        border: `1px solid ${user?.isOnDuty ? 'rgba(34, 197, 94, 0.4)' : 'var(--mdt-border)'}`,
-        padding: "2rem", borderRadius: "10px",
-        boxShadow: user?.isOnDuty ? '0 0 20px rgba(34,197,94,0.05)' : 'none'
+        border: user?.isOnDuty ? "1px solid rgba(34,197,94,0.3)" : "1px solid rgba(29,110,247,0.1)",
+        boxShadow: user?.isOnDuty ? "0 8px 32px -8px rgba(34,197,94,0.15), inset 0 1px 0 rgba(255,255,255,0.03)" : glassCard.boxShadow
       }}>
         
         <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
-          <div style={{ width: "64px", height: "64px", borderRadius: "50%", background: "var(--mdt-accent)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.5rem", fontWeight: 900 }}>
+          <div style={{ 
+            width: "64px", height: "64px", borderRadius: "16px", 
+            background: user?.isOnDuty ? "rgba(34,197,94,0.1)" : "rgba(29,110,247,0.1)", 
+            color: user?.isOnDuty ? "#22c55e" : "#1D6EF7", 
+            border: user?.isOnDuty ? "1px solid rgba(34,197,94,0.2)" : "1px solid rgba(29,110,247,0.2)",
+            display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.5rem", fontWeight: 900 
+          }}>
             {user?.name.charAt(0) || "U"}
           </div>
           
           <div>
-            <div style={{ fontSize: "0.75rem", fontWeight: 800, color: "var(--mdt-text-muted)", textTransform: "uppercase", letterSpacing: "0.1em" }}>KÜMÜLATİF ŞAHSİ SÜRE</div>
-            <div style={{ fontFamily: "monospace", fontSize: "2.5rem", fontWeight: 900, color: "var(--mdt-text-primary)", lineHeight: 1, margin: "0.25rem 0" }}>{formatTime(mySeconds)}</div>
-            <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--mdt-text-secondary)" }}>
-              Departman Sıranız: <strong style={{ color: "var(--mdt-warning)" }}>{myRankIndex >= 0 ? `#${myRankIndex + 1}` : "Yok"}</strong>
+            <div style={{ fontSize: "0.65rem", fontWeight: 800, color: "rgba(200,208,230,0.55)", textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "0.25rem" }}>KÜMÜLATİF ŞAHSİ SÜRE</div>
+            <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "2.5rem", fontWeight: 700, color: user?.isOnDuty ? "#22c55e" : "#e8ecf5", lineHeight: 1, margin: "0.25rem 0" }}>
+              {formatTime(mySeconds)}
+            </div>
+            <div style={{ fontSize: "0.85rem", fontWeight: 600, color: "rgba(200,208,230,0.4)", marginTop: "0.5rem" }}>
+              Departman Sıranız: <strong style={{ color: myRankIndex < 3 ? "#f59e0b" : "#1D6EF7", marginLeft: "0.25rem" }}>{myRankIndex >= 0 ? `#${myRankIndex + 1}` : "Yok"}</strong>
             </div>
           </div>
         </div>
@@ -226,22 +341,23 @@ export default function MesaiSistemi() {
             disabled={toggling}
             style={{
               padding: "1rem 2rem",
-              background: user?.isOnDuty ? "var(--mdt-danger)" : "var(--mdt-accent)",
-              color: "#fff",
-              border: "none",
-              borderRadius: "8px",
-              fontSize: "1rem",
-              fontWeight: 900,
+              background: user?.isOnDuty ? "rgba(239,68,68,0.1)" : "linear-gradient(135deg, #1D6EF7 0%, #1558d6 100%)",
+              color: user?.isOnDuty ? "#ef4444" : "#fff",
+              border: user?.isOnDuty ? "1px solid rgba(239,68,68,0.3)" : "1px solid rgba(29,110,247,0.4)",
+              borderRadius: "12px",
+              fontSize: "0.95rem",
+              fontWeight: 800,
               cursor: toggling ? "not-allowed" : "pointer",
-              transition: "opacity 0.2s, transform 0.1s",
+              transition: "all 0.2s ease",
               display: "flex",
               alignItems: "center",
-              gap: "0.75rem"
+              gap: "0.75rem",
+              boxShadow: user?.isOnDuty ? "none" : "0 4px 12px rgba(29,110,247,0.3)"
             }}
-            onMouseOver={e => !toggling && ((e.currentTarget as HTMLElement).style.opacity = '0.9')}
-            onMouseOut={e => !toggling && ((e.currentTarget as HTMLElement).style.opacity = '1')}
+            onMouseOver={e => !toggling && ((e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)')}
+            onMouseOut={e => !toggling && ((e.currentTarget as HTMLElement).style.transform = 'translateY(0)')}
             onMouseDown={e => !toggling && ((e.currentTarget as HTMLElement).style.transform = 'scale(0.97)')}
-            onMouseUp={e => !toggling && ((e.currentTarget as HTMLElement).style.transform = 'scale(1)')}
+            onMouseUp={e => !toggling && ((e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)')}
           >
             <i className={`fa-solid ${user?.isOnDuty ? 'fa-power-off' : 'fa-satellite-dish'}`}></i>
             {user?.isOnDuty ? "MESAİYİ BİTİR" : "MESAİYE BAŞLA"}
@@ -249,11 +365,11 @@ export default function MesaiSistemi() {
         </div>
       </div>
 
-      {/* ── FILTERS AND TABLE ── */}
-      <div style={{ background: "var(--mdt-card-bg)", border: "1px solid var(--mdt-border)", borderRadius: "10px", padding: "1.5rem" }}>
+      {/* FILTERS AND TABLE */}
+      <div style={glassCard}>
         
         {/* Toolbar */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem", flexWrap: "wrap", gap: "1rem" }}>
+        <div style={{ padding: "1.5rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem", borderBottom: "1px solid rgba(29,110,247,0.1)", background: "rgba(10,14,26,0.5)" }}>
           
           <div style={{ display: "flex", gap: "0.5rem" }}>
             {[
@@ -265,17 +381,7 @@ export default function MesaiSistemi() {
               <button
                 key={tab.id}
                 onClick={() => setFilterMode(tab.id as any)}
-                style={{
-                  background: filterMode === tab.id ? "var(--mdt-accent)" : "transparent",
-                  color: filterMode === tab.id ? "#fff" : "var(--mdt-text-secondary)",
-                  border: filterMode === tab.id ? "1px solid var(--mdt-accent)" : "1px solid var(--mdt-border)",
-                  padding: "0.4rem 0.85rem",
-                  borderRadius: "6px",
-                  fontWeight: 600,
-                  fontSize: "0.8rem",
-                  cursor: "pointer",
-                  transition: "all 0.15s"
-                }}
+                className={`filter-btn ${filterMode === tab.id ? 'active' : ''}`}
               >
                 {tab.label}
               </button>
@@ -286,97 +392,120 @@ export default function MesaiSistemi() {
             <select
               value={selectedDept}
               onChange={e => setSelectedDept(e.target.value)}
+              className="custom-input"
               style={{ 
-                padding: "0.5rem 0.75rem", background: "var(--mdt-bg-main)", border: "1px solid var(--mdt-border)", 
-                borderRadius: "6px", fontWeight: 600, color: "var(--mdt-text-primary)", fontSize: "0.85rem", outline: "none" 
+                ...inputStyle,
+                width: "auto",
+                cursor: "pointer",
               }}
             >
-              {departments.map(d => <option key={d} value={d}>{d === "ALL" ? "Tüm Departmanlar" : d}</option>)}
+              {departments.map(d => <option key={d} value={d} style={{ background: "#060a12", color: "#e8ecf5" }}>{d === "ALL" ? "Tüm Departmanlar" : d}</option>)}
             </select>
 
             <div style={{ position: "relative" }}>
-              <i className="fa-solid fa-search" style={{ position: "absolute", left: "0.75rem", top: "50%", transform: "translateY(-50%)", color: "var(--mdt-text-muted)", fontSize: "0.8rem" }}></i>
+              <i className="fa-solid fa-search" style={{ position: "absolute", left: "0.9rem", top: "50%", transform: "translateY(-50%)", color: "rgba(200,208,230,0.3)", fontSize: "0.8rem" }}></i>
               <input
                 type="text"
-                placeholder="Ara..."
+                placeholder="Personel ara..."
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
+                className="custom-input"
                 style={{ 
-                  padding: "0.5rem 0.75rem 0.5rem 2rem", background: "var(--mdt-bg-main)", border: "1px solid var(--mdt-border)", 
-                  borderRadius: "6px", width: "200px", color: "var(--mdt-text-primary)", fontSize: "0.85rem", outline: "none"
+                  ...inputStyle,
+                  paddingLeft: "2.2rem",
+                  width: "220px",
                 }}
               />
             </div>
           </div>
         </div>
 
-        {/* Data List */}
-        <div style={{ overflowX: "auto" }}>
-          <table style={{ width: "100%", borderCollapse: "collapse" }}>
-            <thead>
-              <tr style={{ borderBottom: "1px solid var(--mdt-border)", textAlign: "left" }}>
-                <th style={{ padding: "0.75rem 1rem", fontSize: "0.62rem", fontWeight: 700, letterSpacing: '0.18em', color: "var(--mdt-text-muted)", textTransform: "uppercase" }}>SIRA</th>
-                <th style={{ padding: "0.75rem 1rem", fontSize: "0.62rem", fontWeight: 700, letterSpacing: '0.18em', color: "var(--mdt-text-muted)", textTransform: "uppercase" }}>PERSONEL</th>
-                <th style={{ padding: "0.75rem 1rem", fontSize: "0.62rem", fontWeight: 700, letterSpacing: '0.18em', color: "var(--mdt-text-muted)", textTransform: "uppercase" }}>BİRİM / RÜTBE</th>
-                <th style={{ padding: "0.75rem 1rem", fontSize: "0.62rem", fontWeight: 700, letterSpacing: '0.18em', color: "var(--mdt-text-muted)", textTransform: "uppercase" }}>DURUM</th>
-                <th style={{ padding: "0.75rem 1rem", fontSize: "0.62rem", fontWeight: 700, letterSpacing: '0.18em', color: "var(--mdt-text-muted)", textTransform: "uppercase", textAlign: "right" }}>SÜRE</th>
-                {user?.role === "admin" && <th style={{ padding: "0.75rem 1rem", textAlign: "right" }}></th>}
-              </tr>
-            </thead>
-            <tbody>
-              {filteredList.map((off) => {
-                const idx = leaderboard.indexOf(off);
-                const secs = liveTicks[off.id] !== undefined ? liveTicks[off.id] : off.totalSeconds;
+        {/* Data List Header */}
+        <div style={{ display: "flex", padding: "1rem 1.5rem", fontSize: "0.65rem", fontWeight: 800, color: "rgba(200,208,230,0.4)", letterSpacing: "0.15em", textTransform: "uppercase", borderBottom: "1px solid rgba(255,255,255,0.02)" }}>
+          <div style={{ flex: "0 0 80px" }}>SIRA</div>
+          <div style={{ flex: "2" }}>PERSONEL</div>
+          <div style={{ flex: "1.5" }}>BİRİM / RÜTBE</div>
+          <div style={{ flex: "1" }}>DURUM</div>
+          <div style={{ flex: "1", textAlign: "right" }}>SÜRE</div>
+          {user?.role === "admin" && <div style={{ flex: "0 0 60px" }}></div>}
+        </div>
 
-                return (
-                  <tr key={off.id} style={{ borderBottom: "1px solid rgba(255,255,255,0.03)", transition: "background 0.15s" }}
-                    onMouseOver={e => (e.currentTarget as HTMLElement).style.background = 'var(--mdt-hover)'}
-                    onMouseOut={e => (e.currentTarget as HTMLElement).style.background = 'transparent'}>
-                    <td style={{ padding: "1rem", fontWeight: 900, color: idx < 3 ? "var(--mdt-warning)" : "var(--mdt-text-secondary)", fontSize: "1rem" }}>
-                      #{idx + 1}
-                    </td>
-                    <td style={{ padding: "1rem" }}>
-                      <div style={{ fontWeight: 700, color: "var(--mdt-text-primary)", fontSize: "0.95rem" }}>{off.name}</div>
-                      <div style={{ fontSize: "0.75rem", color: "var(--mdt-text-muted)", fontFamily: "monospace" }}>#{off.badge}</div>
-                    </td>
-                    <td style={{ padding: "1rem" }}>
-                      <div style={{ fontWeight: 600, fontSize: "0.85rem", color: "var(--mdt-text-primary)" }}>{off.rank}</div>
-                      <div style={{ fontSize: "0.75rem", color: "var(--mdt-text-muted)" }}>{off.department}</div>
-                    </td>
-                    <td style={{ padding: "1rem" }}>
-                      {off.isOnDuty ? (
-                        <span style={{ background: "rgba(34,197,94,0.12)", color: "var(--mdt-success)", border: "1px solid rgba(34,197,94,0.22)", padding: "0.2rem 0.5rem", borderRadius: "4px", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.05em" }}>AKTİF</span>
-                      ) : (
-                        <span style={{ background: "rgba(255,255,255,0.05)", color: "var(--mdt-text-muted)", border: "1px solid rgba(255,255,255,0.1)", padding: "0.2rem 0.5rem", borderRadius: "4px", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.05em" }}>PASİF</span>
-                      )}
-                    </td>
-                    <td style={{ padding: "1rem", textAlign: "right", fontFamily: "monospace", fontWeight: 800, fontSize: "1rem", color: off.isOnDuty ? "var(--mdt-success)" : "var(--mdt-text-secondary)" }}>
-                      {formatTime(secs)}
-                    </td>
-                    {user?.role === "admin" && (
-                      <td style={{ padding: "1rem", textAlign: "right" }}>
-                        {off.isOnDuty && off.id !== user?.id && (
-                          <button onClick={() => forceEndShift(off)} title="Mesaiyi Kapat" style={{ background: "rgba(239,68,68,0.1)", color: "var(--mdt-danger)", border: "1px solid rgba(239,68,68,0.2)", width: "32px", height: "32px", borderRadius: "6px", fontSize: "0.85rem", fontWeight: 800, cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", transition: "all 0.15s" }}
-                            onMouseOver={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(239,68,68,0.2)'; }}
-                            onMouseOut={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(239,68,68,0.1)'; }}>
-                            <i className="fa-solid fa-power-off"></i>
-                          </button>
-                        )}
-                      </td>
+        {/* Data List Rows */}
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          {filteredList.map((off) => {
+            const idx = leaderboard.indexOf(off);
+            const secs = liveTicks[off.id] !== undefined ? liveTicks[off.id] : off.totalSeconds;
+            const rankStyle = getRankBadge(idx);
+
+            return (
+              <div key={off.id} className="leaderboard-row" style={{ display: "flex", alignItems: "center", padding: "1rem 1.5rem", borderBottom: "1px solid rgba(255,255,255,0.02)", background: idx % 2 === 0 ? "rgba(29,110,247,0.01)" : "transparent" }}>
+                
+                {/* SIRA */}
+                <div style={{ flex: "0 0 80px", display: "flex", alignItems: "center" }}>
+                  <div style={{ 
+                    width: "36px", height: "36px", borderRadius: "10px", 
+                    background: rankStyle.bg, color: rankStyle.color, border: rankStyle.border,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    fontSize: "0.9rem", fontWeight: 800, fontFamily: "'JetBrains Mono', monospace"
+                  }}>
+                    {idx < 3 ? <i className={`fa-solid ${rankStyle.icon}`}></i> : `#${idx + 1}`}
+                  </div>
+                </div>
+
+                {/* PERSONEL */}
+                <div style={{ flex: "2", display: "flex", flexDirection: "column" }}>
+                  <div style={{ fontWeight: 700, color: "#e8ecf5", fontSize: "0.95rem" }}>{off.name}</div>
+                  <div style={{ fontSize: "0.75rem", color: "rgba(200,208,230,0.4)", fontFamily: "'JetBrains Mono', monospace", marginTop: "0.15rem" }}>#{off.badge}</div>
+                </div>
+
+                {/* BİRİM / RÜTBE */}
+                <div style={{ flex: "1.5", display: "flex", flexDirection: "column" }}>
+                  <div style={{ fontWeight: 600, fontSize: "0.85rem", color: "rgba(200,208,230,0.8)" }}>{off.rank}</div>
+                  <div style={{ fontSize: "0.75rem", color: "rgba(200,208,230,0.4)", marginTop: "0.15rem" }}>{off.department || "-"}</div>
+                </div>
+
+                {/* DURUM */}
+                <div style={{ flex: "1" }}>
+                  {off.isOnDuty ? (
+                    <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", background: "rgba(34,197,94,0.08)", color: "#22c55e", border: "1px solid rgba(34,197,94,0.2)", padding: "0.3rem 0.6rem", borderRadius: "20px", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.08em" }}>
+                      <span className="pulse-dot"></span>
+                      AKTİF
+                    </div>
+                  ) : (
+                    <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", background: "rgba(255,255,255,0.03)", color: "rgba(200,208,230,0.4)", border: "1px solid rgba(255,255,255,0.05)", padding: "0.3rem 0.6rem", borderRadius: "20px", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.08em" }}>
+                      <i className="fa-solid fa-moon"></i>
+                      PASİF
+                    </div>
+                  )}
+                </div>
+
+                {/* SÜRE */}
+                <div style={{ flex: "1", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", fontWeight: 700, fontSize: "1.1rem", color: off.isOnDuty ? "#22c55e" : "rgba(200,208,230,0.55)" }}>
+                  {formatTime(secs)}
+                </div>
+
+                {/* ACTION */}
+                {user?.role === "admin" && (
+                  <div style={{ flex: "0 0 60px", display: "flex", justifyContent: "flex-end" }}>
+                    {off.isOnDuty && off.id !== user?.id && (
+                      <button onClick={() => forceEndShift(off)} title="Mesaiyi Kapat" className="action-btn">
+                        <i className="fa-solid fa-power-off"></i>
+                      </button>
                     )}
-                  </tr>
-                );
-              })}
-              {filteredList.length === 0 && (
-                <tr>
-                  <td colSpan={6} style={{ padding: "3rem", textAlign: "center", color: "var(--mdt-text-muted)" }}>
-                    <i className="fa-solid fa-ghost" style={{ fontSize: "2rem", marginBottom: "1rem", opacity: 0.5 }}></i>
-                    <div>Kayıt bulunamadı.</div>
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+          
+          {filteredList.length === 0 && (
+            <div style={{ padding: "4rem 2rem", textAlign: "center" }}>
+              <div style={{ width: 56, height: 56, borderRadius: "50%", background: "rgba(29,110,247,0.05)", border: "1px solid rgba(29,110,247,0.1)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1rem" }}>
+                <i className="fa-solid fa-ghost" style={{ color: "rgba(29,110,247,0.25)", fontSize: "1.3rem" }} />
+              </div>
+              <div style={{ fontSize: "0.85rem", color: "rgba(200,208,230,0.3)", fontWeight: 500 }}>Kayıt bulunamadı.</div>
+            </div>
+          )}
         </div>
       </div>
     </div>
