@@ -27,8 +27,9 @@ export const metadata: Metadata = {
   title: "LAC Portal - Los Angeles Community",
   description: "Los Angeles Community Memur Paneli ve Veritabanı Sistemi",
   icons: {
-    icon: '/lac-logo.png',
-    apple: '/lac-logo.png',
+    icon: [{ url: '/logom.png', type: 'image/png' }],
+    apple: '/logom.png',
+    shortcut: '/logom.png',
   },
 };
 

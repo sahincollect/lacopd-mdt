@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -90,7 +90,7 @@ export default function Navigation() {
             flexShrink: 0
           }}>
             <img 
-              src="/lac-logo.png" 
+              src="/logom.png" 
               alt="LAC Logo" 
               style={{ width: '100%', height: '100%', objectFit: 'cover', backgroundColor: 'var(--accent-primary)' }} 
             />

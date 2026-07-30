@@ -282,7 +282,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
               }}
             >
               <img
-                src="/lac-logo.jpg"
+                src="/logom.png"
                 alt="LACPD"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
