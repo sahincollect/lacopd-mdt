@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from 'react';
 import Link from 'next/link';
@@ -275,7 +275,7 @@ export default function Home() {
           </div>
 
           <div style={{ marginTop: 'auto' }}>
-            <Link href="/" style={{ color: 'var(--accent-secondary)', textDecoration: 'none', fontWeight: 600, fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+            <Link href="/iletisim" style={{ color: 'var(--accent-secondary)', textDecoration: 'none', fontWeight: 600, fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
               <span style={{ width: '15px', height: '2px', backgroundColor: 'var(--accent-secondary)' }}></span>
               Tüm İletişim Bilgilerini Görüntüle
             </Link>

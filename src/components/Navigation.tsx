@@ -63,9 +63,9 @@ export default function Navigation() {
         fontSize: '0.75rem', 
         color: 'var(--text-primary)' 
       }}>
-        <strong style={{ fontWeight: 800 }}>DUYURU!</strong> Los Angeles Polis Akademisi (Season 1) başvuruları baClamvetCr. 
+        <strong style={{ fontWeight: 800 }}>DUYURU!</strong> Los Angeles Polis Akademisi (Season 1) başvuruları başlamıştır. 
         <Link href="https://discord.com/invite/laco" target="_blank" style={{ color: 'var(--accent-secondary)', marginLeft: '10px', textDecoration: 'none', fontWeight: 600 }}>
-          C DetaylC Bilgi AlCn
+          — Detaylı Bilgi Alın
         </Link>
       </div>
 
@@ -100,7 +100,7 @@ export default function Navigation() {
               LOS ANGELES C.P.D.
             </div>
             <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginTop: '0.25rem' }}>
-              RESMC WEB PORTALI
+              RESMİ WEB PORTALI
             </div>
           </div>
         </Link>
@@ -214,13 +214,14 @@ export default function Navigation() {
                 fontWeight: 700,
                 textDecoration: 'none',
                 fontFamily: 'var(--font-inter)',
+                letterSpacing: '0.05em',
                 transition: 'opacity 0.2s',
                 display: 'inline-block'
               }}
               onMouseOver={e => e.currentTarget.style.opacity = '0.85'}
               onMouseOut={e => e.currentTarget.style.opacity = '1'}
             >
-              PERSONEL GCRveC
+              PERSONEL GİRİŞİ
             </Link>
           </div>
 
