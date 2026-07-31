@@ -82,7 +82,7 @@ model CriminalRecord {
   name      String
   crimes    String   @db.Text
   notes     String?  @db.Text
-  image     String?
+  image     String?  @db.Text
   officerId Int
   officer   Officer  @relation(fields: [officerId], references: [id])
   createdAt DateTime @default(now())

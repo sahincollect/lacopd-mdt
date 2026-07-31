@@ -47,6 +47,11 @@ export default function SuçluVeritabanı() {
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    const currentUrls = formData.image ? formData.image.split(",") : [];
+    if (currentUrls.length >= 5) {
+      toast.error("En fazla 5 adet sabıka fotoğrafı ekleyebilirsiniz.");
+      return;
+    }
     setUploadingImg(true);
     const fd = new FormData();
     fd.append("file", file);
@@ -54,8 +59,8 @@ export default function SuçluVeritabanı() {
       const res = await fetch("/api/upload", { method: "POST", body: fd });
       const data = await res.json();
       if (res.ok) {
-        setFormData(prev => ({ ...prev, image: data.url }));
-        toast.success("Fotoğraf yüklendi.");
+        setFormData(prev => ({ ...prev, image: prev.image ? prev.image + "," + data.url : data.url }));
+        toast.success("Fotoğraf eklendi.");
       } else toast.error(data.error || "Yükleme başarısız.");
     } catch { toast.error("Sunucu hatası."); }
     finally { setUploadingImg(false); }
@@ -262,9 +267,13 @@ export default function SuçluVeritabanı() {
 
                         {/* Image Right */}
                         {c.image && (
-                          <div style={{ width: 140, flexShrink: 0 }}>
-                             <div style={{ fontSize: "0.58rem", fontWeight: 800, color: "rgba(239,68,68,0.45)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.6rem", textAlign: "center" }}>MUGSHOT</div>
-                             <img src={c.image} alt="Sabıka" style={{ width: "100%", borderRadius: 8, border: "1px solid rgba(239,68,68,0.2)", background: "rgba(239,68,68,0.05)" }} />
+                          <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", justifyContent: "flex-end", maxWidth: 300, flexShrink: 0 }}>
+                            {c.image.split(",").map((url: string, i: number) => (
+                              <div key={i} style={{ width: 140 }}>
+                                 <div style={{ fontSize: "0.58rem", fontWeight: 800, color: "rgba(239,68,68,0.45)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.6rem", textAlign: "center" }}>MUGSHOT {i + 1}</div>
+                                 <img src={url} alt={`Sabıka ${i + 1}`} style={{ width: "100%", borderRadius: 8, border: "1px solid rgba(239,68,68,0.2)", background: "rgba(239,68,68,0.05)", display: "block" }} />
+                              </div>
+                            ))}
                           </div>
                         )}
                       </div>
@@ -341,17 +350,24 @@ export default function SuçluVeritabanı() {
                 <input className="mdt-inp" name="crimes" type="text" value={formData.crimes} onChange={handleChange} required placeholder="Silahlı Soygun, Polise Mukavemet..." style={inputStyle} />
               </div>
               <div>
-                <label style={{ display: "block", fontSize: "0.58rem", fontWeight: 800, color: "rgba(29,110,247,0.5)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.45rem" }}>Sabıka Fotoğrafı (Opsiyonel)</label>
-                <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-                  <label style={{ ...inputStyle, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", background: "rgba(29,110,247,0.08)", color: "rgba(29,110,247,0.8)", fontWeight: 600, width: "auto", padding: "0.6rem 1rem" }}>
+                <label style={{ display: "block", fontSize: "0.58rem", fontWeight: 800, color: "rgba(29,110,247,0.5)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.45rem" }}>Sabıka Fotoğrafı (En fazla 5 adet)</label>
+                <div style={{ display: "flex", gap: "1rem", alignItems: "flex-start", flexWrap: "wrap" }}>
+                  <label style={{ ...inputStyle, cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", background: "rgba(29,110,247,0.08)", color: "rgba(29,110,247,0.8)", fontWeight: 600, width: "auto", padding: "0.6rem 1rem" }}>
                     <i className={uploadingImg ? "fa-solid fa-spinner fa-spin" : "fa-solid fa-camera"} /> 
-                    {uploadingImg ? "Yükleniyor..." : formData.image ? "Değiştir" : "Fotoğraf Seç"}
-                    <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: "none" }} disabled={uploadingImg} />
+                    {uploadingImg ? "Yükleniyor..." : "Fotoğraf Ekle"}
+                    <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: "none" }} disabled={uploadingImg || (formData.image && formData.image.split(",").length >= 5)} />
                   </label>
                   {formData.image && (
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.75rem", color: "#22c55e", fontWeight: 600 }}>
-                      <i className="fa-solid fa-check-circle" /> Yüklendi
-                      <button type="button" onClick={() => setFormData(prev => ({...prev, image: ""}))} style={{ background: "none", border: "none", color: "rgba(239,68,68,0.7)", cursor: "pointer", padding: "0 0.2rem" }}>Sil</button>
+                    <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", width: "100%", marginTop: "0.5rem" }}>
+                      {formData.image.split(",").map((url: string, i: number) => (
+                        <div key={i} style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.75rem", color: "#22c55e", fontWeight: 600, background: "rgba(34,197,94,0.1)", padding: "0.3rem 0.6rem", borderRadius: 6, border: "1px solid rgba(34,197,94,0.2)" }}>
+                          <i className="fa-solid fa-check-circle" /> Foto {i + 1}
+                          <button type="button" onClick={() => {
+                            const newUrls = formData.image.split(",").filter((_: any, idx: number) => idx !== i).join(",");
+                            setFormData(prev => ({...prev, image: newUrls}));
+                          }} style={{ background: "none", border: "none", color: "rgba(239,68,68,0.7)", cursor: "pointer", padding: "0 0.2rem", marginLeft: "0.25rem" }}>Sil</button>
+                        </div>
+                      ))}
                     </div>
                   )}
                 </div>

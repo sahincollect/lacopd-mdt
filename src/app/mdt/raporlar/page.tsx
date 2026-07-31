@@ -283,6 +283,11 @@ export default function RaporPortali() {
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    const currentUrls = formData.evidenceUrl ? formData.evidenceUrl.split(",") : [];
+    if (currentUrls.length >= 5) {
+      toast.error("En fazla 5 adet görsel yükleyebilirsiniz.");
+      return;
+    }
     setUploadingImg(true);
     const fd = new FormData();
     fd.append("file", file);
@@ -290,8 +295,8 @@ export default function RaporPortali() {
       const res = await fetch("/api/upload", { method: "POST", body: fd });
       const data = await res.json();
       if (res.ok) {
-        setFormData(prev => ({ ...prev, evidenceUrl: data.url }));
-        toast.success("Delil görseli yüklendi.");
+        setFormData(prev => ({ ...prev, evidenceUrl: prev.evidenceUrl ? prev.evidenceUrl + "," + data.url : data.url }));
+        toast.success("Delil görseli eklendi.");
       } else toast.error(data.error || "Yükleme başarısız.");
     } catch { toast.error("Sunucu hatası."); }
     finally { setUploadingImg(false); }
@@ -579,30 +584,34 @@ export default function RaporPortali() {
               <div style={{ padding: "0.75rem 1.25rem", background: "linear-gradient(90deg, rgba(29,110,247,0.1) 0%, transparent 100%)", borderBottom: "1px solid rgba(29,110,247,0.1)", fontSize: "0.75rem", fontWeight: 800, color: "#e8ecf5", letterSpacing: "0.08em", textTransform: "uppercase", display: "flex", alignItems: "center", gap: "0.5rem" }}>
                 <i className="fa-solid fa-camera" style={{ color: "#1D6EF7" }} /> Görsel Delil / Belge Eki
               </div>
-              <div style={{ padding: "1.25rem", display: "flex", gap: "2rem", alignItems: "flex-start", flexWrap: "wrap" }}>
-                <div style={{ flex: 1, minWidth: 250 }}>
+              <div style={{ padding: "1.25rem" }}>
+                <div>
                   <label style={{ display: "flex", justifyContent: "space-between", fontSize: "0.58rem", fontWeight: 800, color: "rgba(200,208,230,0.5)", marginBottom: "0.6rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                    Fotoğraf Yükle (Opsiyonel)
+                    Fotoğraf Yükle (En fazla 5 adet)
                   </label>
-                  <label className="no-print" style={{ ...inputBase, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", background: "rgba(29,110,247,0.08)", color: "rgba(29,110,247,0.8)", fontWeight: 600, padding: "0.8rem" }}>
+                  <label className="no-print" style={{ ...inputBase, cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", background: "rgba(29,110,247,0.08)", color: "rgba(29,110,247,0.8)", fontWeight: 600, padding: "0.8rem 1.5rem", width: "auto" }}>
                     <i className={uploadingImg ? "fa-solid fa-spinner fa-spin" : "fa-solid fa-upload"} /> 
-                    {uploadingImg ? "Yükleniyor..." : formData.evidenceUrl ? "Görseli Değiştir" : "Görsel Seç / Çek"}
-                    <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: "none" }} disabled={uploadingImg} />
+                    {uploadingImg ? "Yükleniyor..." : "Görsel Seç / Çek"}
+                    <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: "none" }} disabled={uploadingImg || (formData.evidenceUrl && formData.evidenceUrl.split(",").length >= 5)} />
                   </label>
-                  {formData.evidenceUrl && (
-                    <div className="no-print" style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.75rem", color: "#22c55e", fontWeight: 600, marginTop: "0.75rem" }}>
-                      <i className="fa-solid fa-check-circle" /> Yüklendi
-                      <button type="button" onClick={() => setFormData(prev => ({...prev, evidenceUrl: ""}))} style={{ background: "none", border: "none", color: "rgba(239,68,68,0.7)", cursor: "pointer", padding: "0 0.2rem" }}>Sil</button>
-                    </div>
-                  )}
-                  <p style={{ fontSize: "0.75rem", color: "rgba(200,208,230,0.4)", marginTop: "0.75rem", lineHeight: 1.5 }}>
-                    Olay yerinden veya delillerden elde edilen JPG/PNG formatlı görselleri yükleyebilirsiniz. Sisteme güvenli şekilde şifrelenerek kaydedilir.
+                  <p style={{ fontSize: "0.75rem", color: "rgba(200,208,230,0.4)", marginTop: "0.75rem", lineHeight: 1.5, maxWidth: 600 }}>
+                    Olay yerinden veya delillerden elde edilen JPG/PNG formatlı görselleri yükleyebilirsiniz. Maksimum 5 adet görsel eklenebilir.
                   </p>
                 </div>
                 {formData.evidenceUrl && (
-                  <div style={{ width: 300, flexShrink: 0, padding: "0.5rem", background: "rgba(29,110,247,0.05)", border: "1px solid rgba(29,110,247,0.15)", borderRadius: 8 }}>
-                    <div style={{ fontSize: "0.58rem", fontWeight: 800, color: "rgba(29,110,247,0.5)", marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.1em", textAlign: "center" }}>EKLENEN GÖRSEL</div>
-                    <img src={formData.evidenceUrl} alt="Delil" style={{ width: "100%", borderRadius: 4, display: "block" }} />
+                  <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginTop: "1.25rem" }}>
+                    {formData.evidenceUrl.split(",").map((url: string, i: number) => (
+                      <div key={i} style={{ width: 140, flexShrink: 0, padding: "0.5rem", background: "rgba(29,110,247,0.05)", border: "1px solid rgba(29,110,247,0.15)", borderRadius: 8, position: "relative" }}>
+                        <div style={{ fontSize: "0.5rem", fontWeight: 800, color: "rgba(29,110,247,0.5)", marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.1em", textAlign: "center" }}>GÖRSEL {i + 1}</div>
+                        <img src={url} alt={`Delil ${i + 1}`} style={{ width: "100%", borderRadius: 4, display: "block" }} />
+                        <button type="button" onClick={() => {
+                          const newUrls = formData.evidenceUrl.split(",").filter((_: any, idx: number) => idx !== i).join(",");
+                          setFormData(prev => ({...prev, evidenceUrl: newUrls}));
+                        }} className="no-print" style={{ position: "absolute", top: 4, right: 4, background: "rgba(239,68,68,0.9)", color: "white", border: "none", borderRadius: "50%", width: 22, height: 22, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.6rem" }}>
+                          <i className="fa-solid fa-xmark" />
+                        </button>
+                      </div>
+                    ))}
                   </div>
                 )}
               </div>
