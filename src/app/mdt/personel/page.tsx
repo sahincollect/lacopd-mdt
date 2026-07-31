@@ -247,7 +247,7 @@ export default function PersonelListesi() {
             onClick={() => { setShowModal(true); setEditingOfficer(null); setFormError(""); setForm({ ...EMPTY_FORM }); }}
             style={{
               padding: "0.65rem 1.35rem", borderRadius: '8px', border: "1px solid var(--mdt-accent)",
-              background: "var(--mdt-accent)", color: "#fff",
+              background: "var(--mdt-accent)", color: "#111",
               fontWeight: 700, fontSize: "0.85rem", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.5rem",
               transition: "opacity 0.15s"
             }}
@@ -541,7 +541,7 @@ export default function PersonelListesi() {
                   onMouseOut={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)'; }}>
                   İPTAL
                 </button>
-                <button type="submit" disabled={submitting} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.65rem 1.35rem', borderRadius: '8px', border: '1px solid var(--mdt-accent)', background: 'var(--mdt-accent)', color: '#fff', fontWeight: 700, fontSize: '0.85rem', cursor: submitting ? 'not-allowed' : 'pointer', transition: 'opacity 0.15s', opacity: submitting ? 0.7 : 1 }}
+                <button type="submit" disabled={submitting} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.65rem 1.35rem', borderRadius: '8px', border: '1px solid var(--mdt-accent)', background: 'var(--mdt-accent)', color: '#111', fontWeight: 700, fontSize: '0.85rem', cursor: submitting ? 'not-allowed' : 'pointer', transition: 'opacity 0.15s', opacity: submitting ? 0.7 : 1 }}
                   onMouseOver={e => { if(!submitting) (e.currentTarget as HTMLElement).style.opacity = '0.85'} }
                   onMouseOut={e => { if(!submitting) (e.currentTarget as HTMLElement).style.opacity = '1'} }>
                   {submitting ? <><i className="fa-solid fa-spinner fa-spin"></i> İŞLENİYOR...</> : <><i className="fa-solid fa-save"></i> {editingOfficer ? "GÜNCELLE" : "KAYDET"}</>}

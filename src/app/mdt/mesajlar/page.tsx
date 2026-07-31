@@ -424,7 +424,7 @@ export default function MailBoxPage() {
             <i className={`fa-solid fa-rotate-right ${loading ? 'fa-spin' : ''}`}></i> YENİLE
           </button>
 
-          <button onClick={() => { setActiveFolder('compose'); setComposeSubject(''); setComposeBody(''); setTargetMode('single'); }} style={{ padding: '0.75rem 1.25rem', borderRadius: '6px', backgroundColor: 'var(--mdt-accent)', border: '1px solid var(--mdt-accent)', color: '#fff', fontWeight: 800, fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', transition: 'all 0.15s' }}
+          <button onClick={() => { setActiveFolder('compose'); setComposeSubject(''); setComposeBody(''); setTargetMode('single'); }} style={{ padding: '0.75rem 1.25rem', borderRadius: '6px', backgroundColor: 'var(--mdt-accent)', border: '1px solid var(--mdt-accent)', color: '#111', fontWeight: 800, fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', transition: 'all 0.15s' }}
             onMouseOver={e => (e.currentTarget as HTMLElement).style.opacity = '0.85'}
             onMouseOut={e => (e.currentTarget as HTMLElement).style.opacity = '1'}>
             <i className="fa-solid fa-plus"></i> YENİ POSTA
@@ -563,7 +563,7 @@ export default function MailBoxPage() {
               <button type="button" onClick={() => setActiveFolder('inbox')} style={{ padding: '0.85rem 1.75rem', borderRadius: '6px', backgroundColor: 'transparent', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', fontWeight: 800, cursor: 'pointer', transition: 'all 0.15s', fontSize: '0.85rem' }}
                 onMouseOver={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-text-primary)'; }}
                 onMouseOut={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; }}>İptal</button>
-              <button type="submit" disabled={submitting} style={{ padding: '0.85rem 2.5rem', borderRadius: '6px', backgroundColor: 'var(--mdt-accent)', border: '1px solid var(--mdt-accent)', color: '#fff', fontWeight: 800, cursor: submitting ? 'not-allowed' : 'pointer', fontSize: '0.85rem', transition: 'opacity 0.15s', opacity: submitting ? 0.7 : 1 }}
+              <button type="submit" disabled={submitting} style={{ padding: '0.85rem 2.5rem', borderRadius: '6px', backgroundColor: 'var(--mdt-accent)', border: '1px solid var(--mdt-accent)', color: '#111', fontWeight: 800, cursor: submitting ? 'not-allowed' : 'pointer', fontSize: '0.85rem', transition: 'opacity 0.15s', opacity: submitting ? 0.7 : 1 }}
                 onMouseOver={e => !submitting && ((e.currentTarget as HTMLElement).style.opacity = '0.85')}
                 onMouseOut={e => !submitting && ((e.currentTarget as HTMLElement).style.opacity = '1')}>
                 {submitting ? "GÖNDERİLİYOR..." : "MESAJI GÖNDER"}
@@ -656,7 +656,7 @@ export default function MailBoxPage() {
                         {parsed.priority.toUpperCase()}
                       </div>
                       <div style={{ display: 'flex', gap: '0.5rem' }}>
-                        <button onClick={() => handleReply(selectedMail)} style={{ padding: '0.5rem 1rem', borderRadius: '6px', backgroundColor: 'var(--mdt-accent)', border: '1px solid var(--mdt-accent)', color: '#fff', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer', transition: 'all 0.15s' }}
+                        <button onClick={() => handleReply(selectedMail)} style={{ padding: '0.5rem 1rem', borderRadius: '6px', backgroundColor: 'var(--mdt-accent)', border: '1px solid var(--mdt-accent)', color: '#111', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer', transition: 'all 0.15s' }}
                           onMouseOver={e => (e.currentTarget as HTMLElement).style.opacity = '0.85'}
                           onMouseOut={e => (e.currentTarget as HTMLElement).style.opacity = '1'}><i className="fa-solid fa-reply" style={{ marginRight: '0.3rem' }}/> Yanıtla</button>
                         <button onClick={() => handleForward(selectedMail)} style={{ padding: '0.5rem 1rem', borderRadius: '6px', backgroundColor: 'transparent', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer', transition: 'all 0.15s' }}

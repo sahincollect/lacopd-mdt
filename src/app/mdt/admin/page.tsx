@@ -253,7 +253,7 @@ export default function AdminOptionsPage() {
                       <option value="GIRIS">Giriş Arkaplanı</option>
                     </select>
                   </div>
-                  <button type="submit" disabled={isSubmitting} style={{ background: "var(--mdt-accent)", color: "#fff", border: "1px solid var(--mdt-accent)", padding: "0.85rem 2rem", borderRadius: "8px", fontWeight: 700, cursor: isSubmitting ? "not-allowed" : "pointer", opacity: isSubmitting ? 0.7 : 1, transition: "opacity 0.15s" }}
+                  <button type="submit" disabled={isSubmitting} style={{ background: "var(--mdt-accent)", color: "#111", border: "1px solid var(--mdt-accent)", padding: "0.85rem 2rem", borderRadius: "8px", fontWeight: 700, cursor: isSubmitting ? "not-allowed" : "pointer", opacity: isSubmitting ? 0.7 : 1, transition: "opacity 0.15s" }}
                     onMouseOver={e => !isSubmitting && ((e.currentTarget as HTMLElement).style.opacity = '0.85')}
                     onMouseOut={e => !isSubmitting && ((e.currentTarget as HTMLElement).style.opacity = '1')}>
                     {isSubmitting ? "YÜKLENİYOR..." : "SİSTEME YÜKLE"}

@@ -282,7 +282,7 @@ export default function BirimBasvuruPage() {
                 <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '0.5rem' }}>
                   <button 
                     type="submit" disabled={submitting}
-                    style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.65rem 1.35rem', borderRadius: 8, border: '1px solid var(--mdt-accent)', background: 'var(--mdt-accent)', color: '#fff', fontWeight: 700, fontSize: '0.85rem', cursor: submitting ? 'not-allowed' : 'pointer', transition: 'opacity 0.15s', opacity: submitting ? 0.7 : 1 }}
+                    style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.65rem 1.35rem', borderRadius: 8, border: '1px solid var(--mdt-accent)', background: 'var(--mdt-accent)', color: '#111', fontWeight: 700, fontSize: '0.85rem', cursor: submitting ? 'not-allowed' : 'pointer', transition: 'opacity 0.15s', opacity: submitting ? 0.7 : 1 }}
                     onMouseOver={e => !submitting && ((e.currentTarget as HTMLElement).style.opacity = '0.85')}
                     onMouseOut={e => !submitting && ((e.currentTarget as HTMLElement).style.opacity = '1')}
                   >
