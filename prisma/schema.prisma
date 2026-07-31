@@ -10,7 +10,8 @@ datasource db {
 model Officer {
   id             Int              @id @default(autoincrement())
   badge          String           @unique
-  password       String
+  password       String?
+  discordId      String?          @unique
   name           String
   rank           String           @default("Memur")
   department     String           @default("Genel Devriye")

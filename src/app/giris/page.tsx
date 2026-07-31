@@ -1,9 +1,10 @@
-﻿"use client";
+"use client";
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import ThemeToggle from '@/components/ThemeToggle';
+import { Suspense, useEffect } from 'react';
 
 const DEPARTMENTS = [
   "Patrol Division",
@@ -27,6 +28,14 @@ const RANKS = [
 ];
 
 export default function GirisPage() {
+  return (
+    <Suspense fallback={<div>Yükleniyor...</div>}>
+      <GirisPageContent />
+    </Suspense>
+  );
+}
+
+function GirisPageContent() {
   const [activeTab, setActiveTab] = useState<'login' | 'register'>('login');
   const [badge, setBadge] = useState('');
   const [password, setPassword] = useState('');
@@ -44,6 +53,18 @@ export default function GirisPage() {
   const [regLoading, setRegLoading] = useState(false);
 
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const errorParam = searchParams.get('error');
+    if (errorParam) {
+      if (errorParam === 'discord_denied') setError('Discord ile giriş reddedildi.');
+      else if (errorParam === 'not_in_server') setError('LA COMMUNITY sunucusunda bulunmuyorsunuz.');
+      else if (errorParam === 'missing_role') setError('Los Angeles Police Department rolüne sahip değilsiniz.');
+      else if (errorParam === 'invalid_nickname_format') setError('Sunucudaki takma adınız hatalı. (Örn: [101] Ador Vance) olmalıdır.');
+      else setError('Discord ile giriş yapılırken bir hata oluştu.');
+    }
+  }, [searchParams]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -118,6 +139,7 @@ export default function GirisPage() {
         html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
         .LAC-input:focus { border-color: var(--accent-primary) !important; box-shadow: 0 0 0 3px rgba(4,22,50,0.08) !important; }
         .login-btn:hover { background-color: var(--accent-secondary) !important; }
+        .discord-btn:hover { opacity: 0.9 !important; transform: translateY(-1px); }
         .tab-btn { transition: all 0.2s; }
         .tab-btn:hover { color: var(--accent-primary) !important; }
         .back-link:hover { color: var(--accent-secondary) !important; }
@@ -412,6 +434,29 @@ export default function GirisPage() {
                       }
                     </button>
                   </form>
+
+                  <div style={{ display: 'flex', alignItems: 'center', margin: '1.5rem 0' }}>
+                    <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--border-light)' }}></div>
+                    <span style={{ padding: '0 10px', fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600 }}>VEYA</span>
+                    <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--border-light)' }}></div>
+                  </div>
+
+                  <a
+                    href="/api/auth/discord/login"
+                    className="discord-btn"
+                    style={{
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
+                      width: '100%', padding: '12px',
+                      backgroundColor: '#5865F2', color: '#FFF',
+                      border: 'none', borderRadius: '8px',
+                      fontSize: '0.9rem', fontWeight: 700,
+                      textDecoration: 'none',
+                      transition: 'all 0.2s',
+                    }}
+                  >
+                    <i className="fa-brands fa-discord" style={{ fontSize: '1.2rem' }}></i>
+                    Discord ile Giriş Yap
+                  </a>
 
                   <p style={{ textAlign: 'center', fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '1.5rem' }}>
                     Hesabınız yok mu?{' '}
