@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, Suspense, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import ThemeToggle from '@/components/ThemeToggle';
 
 export default function GirisPage() {
   return (
-    <Suspense fallback={<div>Yükleniyor...</div>}>
+    <Suspense fallback={<div>YÃ¼kleniyor...</div>}>
       <GirisPageContent />
     </Suspense>
   );
@@ -20,23 +20,23 @@ function GirisPageContent() {
   useEffect(() => {
     const errorParam = searchParams.get('error');
     if (errorParam) {
-      if (errorParam === 'discord_denied') setError('Discord ile giriþ reddedildi.');
+      if (errorParam === 'discord_denied') setError('Discord ile giriÅŸ reddedildi.');
       else if (errorParam === 'not_in_server') setError('LA COMMUNITY sunucusunda bulunmuyorsunuz.');
-      else if (errorParam === 'missing_role') setError('Los Angeles Police Department rolüne sahip deðilsiniz.');
-      else if (errorParam === 'invalid_nickname_format') setError('Sunucudaki takma adýnýz hatalý. (Örn: [101] Ador Vance) olmalýdýr.');
-      else setError('Discord ile giriþ yapýlýrken bir hata oluþtu.');
+      else if (errorParam === 'missing_role') setError('Los Angeles Police Department rolÃ¼ne sahip deÄŸilsiniz.');
+      else if (errorParam === 'invalid_nickname_format') setError('Sunucudaki takma adÄ±nÄ±z hatalÄ±. (Ã–rn: [101] Ador Vance) olmalÄ±dÄ±r.');
+      else setError('Discord ile giriÅŸ yapÄ±lÄ±rken bir hata oluÅŸtu.');
     }
   }, [searchParams]);
 
   return (
     <>
-      <style>{
+      <style>{`
         html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
         .discord-btn:hover { opacity: 0.9 !important; transform: translateY(-1px); box-shadow: 0 4px 15px rgba(88,101,242,0.3) !important; }
         .back-link:hover { color: var(--accent-secondary) !important; }
         .academy-link:hover { text-decoration: underline !important; color: var(--accent-primary) !important; }
         .support-link:hover { text-decoration: underline !important; color: #5865F2 !important; }
-      }</style>
+      `}</style>
 
       <div style={{
         display: 'flex',
@@ -45,7 +45,7 @@ function GirisPageContent() {
         fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
         overflow: 'hidden',
       }}>
-        {/* ¦¦ LEFT PANEL: BRANDING ¦¦ */}
+        {/* â”€â”€ LEFT PANEL: BRANDING â”€â”€ */}
         <div style={{
           flex: '0 0 52%',
           position: 'relative',
@@ -68,8 +68,8 @@ function GirisPageContent() {
           {/* Subtle grid pattern overlay */}
           <div style={{
             position: 'absolute', inset: 0,
-            backgroundImage: epeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,0.025) 59px, rgba(255,255,255,0.025) 60px),
-              repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.025) 59px, rgba(255,255,255,0.025) 60px),
+            backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,0.025) 59px, rgba(255,255,255,0.025) 60px),
+              repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.025) 59px, rgba(255,255,255,0.025) 60px)`,
           }} />
 
           {/* Content */}
@@ -133,19 +133,19 @@ function GirisPageContent() {
                 margin: 0,
                 maxWidth: '420px',
               }}>
-                Yetkili personele özel komuta, dispeç ve koordinasyon platformu. Eriþim yalnýzca aktif personeller için açýktýr.
+                Yetkili personele Ã¶zel komuta, dispeÃ§ ve koordinasyon platformu. EriÅŸim yalnÄ±zca aktif personeller iÃ§in aÃ§Ä±ktÄ±r.
               </p>
             </div>
 
             {/* Bottom: Security badges */}
             <div style={{ display: 'flex', gap: '20px', paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.12)' }}>
               {[
-                { icon: 'fa-lock', text: 'AES-256 Þifreli' },
+                { icon: 'fa-lock', text: 'AES-256 Åžifreli' },
                 { icon: 'fa-shield-check', text: 'TLS 1.3' },
-                { icon: 'fa-user-shield', text: 'OAuth2 Güvenliði' },
+                { icon: 'fa-user-shield', text: 'OAuth2 GÃ¼venliÄŸi' },
               ].map((item, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '7px', color: 'rgba(255,255,255,0.5)', fontSize: '0.72rem', fontWeight: 600 }}>
-                  <i className={a-solid }></i>
+                  <i className={`fa-solid ${item.icon}`}></i>
                   {item.text}
                 </div>
               ))}
@@ -153,7 +153,7 @@ function GirisPageContent() {
           </div>
         </div>
 
-        {/* ¦¦ RIGHT PANEL: FORM ¦¦ */}
+        {/* â”€â”€ RIGHT PANEL: FORM â”€â”€ */}
         <div style={{
           flex: 1,
           backgroundColor: 'var(--bg-primary)',
@@ -181,7 +181,7 @@ function GirisPageContent() {
                 textDecoration: 'none', transition: 'color 0.2s',
               }}>
                 <i className="fa-solid fa-arrow-left"></i>
-                Ana Sayfaya Dön
+                Ana Sayfaya DÃ¶n
               </Link>
             </div>
           </div>
@@ -199,10 +199,10 @@ function GirisPageContent() {
 
               <div style={{ marginBottom: '2rem' }}>
                 <h2 style={{ margin: '0 0 10px', fontSize: '1.8rem', fontWeight: 800, color: 'var(--accent-primary)', letterSpacing: '-0.02em' }}>
-                  Sisteme Giriþ
+                  Sisteme GiriÅŸ
                 </h2>
                 <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
-                  MDT veritabanýna eriþmek için Discord hesabýnýzý kullanarak kimliðinizi doðrulayýn.
+                  MDT veritabanÄ±na eriÅŸmek iÃ§in Discord hesabÄ±nÄ±zÄ± kullanarak kimliÄŸinizi doÄŸrulayÄ±n.
                 </p>
               </div>
 
@@ -230,10 +230,11 @@ function GirisPageContent() {
                   textDecoration: 'none',
                   transition: 'all 0.2s',
                   boxShadow: '0 2px 10px rgba(88,101,242,0.2)',
+                  boxSizing: 'border-box'
                 }}
               >
                 <i className="fa-brands fa-discord" style={{ fontSize: '1.4rem' }}></i>
-                Discord ile Giriþ Yap
+                Discord ile GiriÅŸ Yap
               </a>
 
               {/* Trust Badge / Security Info */}
@@ -251,9 +252,9 @@ function GirisPageContent() {
                   <i className="fa-solid fa-shield-check"></i>
                 </div>
                 <div>
-                  <h4 style={{ margin: '0 0 6px', fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)' }}>Güvenli Doðrulama</h4>
+                  <h4 style={{ margin: '0 0 6px', fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)' }}>GÃ¼venli DoÄŸrulama</h4>
                   <p style={{ margin: 0, fontSize: '0.75rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
-                    MDT sistemi yalnýzca <strong style={{ color: 'var(--text-primary)' }}>Genel Profil Bilgilerinize (Kullanýcý Adý, Profil Fotoðrafý)</strong> ve sunucudaki <strong style={{ color: 'var(--text-primary)' }}>Rollerinize</strong> eriþim saðlar. Mesajlarýnýz, arkadaþlarýnýz veya özel verileriniz <u>kesinlikle görüntülenemez.</u> Endiþe etmenize gerek yoktur.
+                    MDT sistemi yalnÄ±zca <strong style={{ color: 'var(--text-primary)' }}>Genel Profil Bilgilerinize (KullanÄ±cÄ± AdÄ±, Profil FotoÄŸrafÄ±)</strong> ve sunucudaki <strong style={{ color: 'var(--text-primary)' }}>Rollerinize</strong> eriÅŸim saÄŸlar. MesajlarÄ±nÄ±z, arkadaÅŸlarÄ±nÄ±z veya Ã¶zel verileriniz <u>kesinlikle gÃ¶rÃ¼ntÃ¼lenemez.</u> EndiÅŸe etmenize gerek yoktur.
                   </p>
                 </div>
               </div>
@@ -269,16 +270,16 @@ function GirisPageContent() {
                 borderRadius: '10px',
                 border: '1px solid var(--border-light)'
               }}>
-                <h4 style={{ margin: '0 0 0.5rem', fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)' }}>Faydalý Baðlantýlar</h4>
+                <h4 style={{ margin: '0 0 0.5rem', fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)' }}>FaydalÄ± BaÄŸlantÄ±lar</h4>
                 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.85rem' }}>
                   <div style={{ width: 28, height: 28, backgroundColor: 'rgba(29,110,247,0.1)', color: 'var(--accent-primary)', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <i className="fa-solid fa-file-signature"></i>
                   </div>
                   <div>
-                    <span style={{ color: 'var(--text-muted)' }}>MDT'de kaydýnýz yok mu? </span>
+                    <span style={{ color: 'var(--text-muted)' }}>MDT'de kaydÄ±nÄ±z yok mu? </span>
                     <a href="https://discord.gg/lacommunity" target="_blank" rel="noreferrer" className="academy-link" style={{ color: 'var(--text-primary)', fontWeight: 600, textDecoration: 'none' }}>
-                      Akademi Baþvuru formunu doldurun.
+                      Akademi BaÅŸvuru formunu doldurun.
                     </a>
                   </div>
                 </div>
@@ -288,9 +289,9 @@ function GirisPageContent() {
                     <i className="fa-brands fa-discord"></i>
                   </div>
                   <div>
-                    <span style={{ color: 'var(--text-muted)' }}>Giriþ yapamýyor musunuz? </span>
+                    <span style={{ color: 'var(--text-muted)' }}>GiriÅŸ yapamÄ±yor musunuz? </span>
                     <a href="https://discord.gg/lacommunity" target="_blank" rel="noreferrer" className="support-link" style={{ color: 'var(--text-primary)', fontWeight: 600, textDecoration: 'none' }}>
-                      Destek Talebi açýn.
+                      Destek Talebi aÃ§Ä±n.
                     </a>
                   </div>
                 </div>
@@ -307,7 +308,7 @@ function GirisPageContent() {
                 color: 'var(--text-muted)',
               }}>
                 <span><i className="fa-solid fa-code" style={{ marginRight: '5px' }}></i>v2.0.0</span>
-                <span>© 2026 LAC Police Department</span>
+                <span>Â© 2026 LAC Police Department</span>
               </div>
             </div>
           </div>
