@@ -86,7 +86,7 @@ function GirisPageContent() {
                 overflow: 'hidden',
                 border: '1px solid rgba(255,255,255,0.1)'
               }}>
-                <img src="/lac-logo.png" alt="LAC" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src="/logom.png" alt="LAC" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div>
                 <div style={{ color: '#FFFFFF', fontWeight: 800, fontSize: '1rem', letterSpacing: '0.06em' }}>
