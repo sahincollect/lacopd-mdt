@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
+import { toast } from "react-hot-toast";
 
 const REPORT_TEMPLATES = [
   {
@@ -265,6 +266,7 @@ export default function RaporPortali() {
   const [archiveSearch, setArchiveSearch] = useState("");
   const [loadingReports, setLoadingReports] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [uploadingImg, setUploadingImg] = useState(false);
 
   useEffect(() => { fetchSaved(); }, []);
 
@@ -276,6 +278,23 @@ export default function RaporPortali() {
       if (d.reports) setSavedReports(d.reports);
     } catch {}
     setLoadingReports(false);
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingImg(true);
+    const fd = new FormData();
+    fd.append("file", file);
+    try {
+      const res = await fetch("/api/upload", { method: "POST", body: fd });
+      const data = await res.json();
+      if (res.ok) {
+        setFormData(prev => ({ ...prev, evidenceUrl: data.url }));
+        toast.success("Delil görseli yüklendi.");
+      } else toast.error(data.error || "Yükleme başarısız.");
+    } catch { toast.error("Sunucu hatası."); }
+    finally { setUploadingImg(false); }
   };
 
   const openTemplate = (tmpl: any) => {
@@ -306,9 +325,9 @@ export default function RaporPortali() {
           data: formData, diagram: []
         })
       });
-      if (r.ok) { await fetchSaved(); setView("saved"); }
-      else alert("Kaydetme hatası.");
-    } catch { alert("Sunucu hatası."); }
+      if (r.ok) { await fetchSaved(); setView("saved"); toast.success("Rapor kaydedildi."); }
+      else toast.error("Kaydetme hatası.");
+    } catch { toast.error("Sunucu hatası."); }
     finally { setSaving(false); }
   };
 
@@ -553,6 +572,40 @@ export default function RaporPortali() {
                   </div>
                 );
               })}
+            </div>
+
+            {/* Evidence Image Section */}
+            <div style={{ marginTop: "1.5rem", background: "rgba(8,12,20,0.6)", border: "1px solid rgba(29,110,247,0.15)", borderLeft: "3px solid #1D6EF7", borderRadius: 6, overflow: "hidden" }}>
+              <div style={{ padding: "0.75rem 1.25rem", background: "linear-gradient(90deg, rgba(29,110,247,0.1) 0%, transparent 100%)", borderBottom: "1px solid rgba(29,110,247,0.1)", fontSize: "0.75rem", fontWeight: 800, color: "#e8ecf5", letterSpacing: "0.08em", textTransform: "uppercase", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <i className="fa-solid fa-camera" style={{ color: "#1D6EF7" }} /> Görsel Delil / Belge Eki
+              </div>
+              <div style={{ padding: "1.25rem", display: "flex", gap: "2rem", alignItems: "flex-start", flexWrap: "wrap" }}>
+                <div style={{ flex: 1, minWidth: 250 }}>
+                  <label style={{ display: "flex", justifyContent: "space-between", fontSize: "0.58rem", fontWeight: 800, color: "rgba(200,208,230,0.5)", marginBottom: "0.6rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                    Fotoğraf Yükle (Opsiyonel)
+                  </label>
+                  <label className="no-print" style={{ ...inputBase, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", background: "rgba(29,110,247,0.08)", color: "rgba(29,110,247,0.8)", fontWeight: 600, padding: "0.8rem" }}>
+                    <i className={uploadingImg ? "fa-solid fa-spinner fa-spin" : "fa-solid fa-upload"} /> 
+                    {uploadingImg ? "Yükleniyor..." : formData.evidenceUrl ? "Görseli Değiştir" : "Görsel Seç / Çek"}
+                    <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: "none" }} disabled={uploadingImg} />
+                  </label>
+                  {formData.evidenceUrl && (
+                    <div className="no-print" style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.75rem", color: "#22c55e", fontWeight: 600, marginTop: "0.75rem" }}>
+                      <i className="fa-solid fa-check-circle" /> Yüklendi
+                      <button type="button" onClick={() => setFormData(prev => ({...prev, evidenceUrl: ""}))} style={{ background: "none", border: "none", color: "rgba(239,68,68,0.7)", cursor: "pointer", padding: "0 0.2rem" }}>Sil</button>
+                    </div>
+                  )}
+                  <p style={{ fontSize: "0.75rem", color: "rgba(200,208,230,0.4)", marginTop: "0.75rem", lineHeight: 1.5 }}>
+                    Olay yerinden veya delillerden elde edilen JPG/PNG formatlı görselleri yükleyebilirsiniz. Sisteme güvenli şekilde şifrelenerek kaydedilir.
+                  </p>
+                </div>
+                {formData.evidenceUrl && (
+                  <div style={{ width: 300, flexShrink: 0, padding: "0.5rem", background: "rgba(29,110,247,0.05)", border: "1px solid rgba(29,110,247,0.15)", borderRadius: 8 }}>
+                    <div style={{ fontSize: "0.58rem", fontWeight: 800, color: "rgba(29,110,247,0.5)", marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.1em", textAlign: "center" }}>EKLENEN GÖRSEL</div>
+                    <img src={formData.evidenceUrl} alt="Delil" style={{ width: "100%", borderRadius: 4, display: "block" }} />
+                  </div>
+                )}
+              </div>
             </div>
 
             <div style={{ marginTop: "3rem", paddingTop: "1.5rem", borderTop: "2px solid rgba(29,110,247,0.2)", display: "flex", justifyContent: "space-between" }}>

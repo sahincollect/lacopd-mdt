@@ -28,7 +28,8 @@ export default function SuçluVeritabanı() {
   const [editingId, setEditingId]     = useState<number | null>(null);
   const [submitting, setSubmitting]   = useState(false);
   const [expandedIds, setExpandedIds] = useState<number[]>([]);
-  const [formData, setFormData]       = useState({ name: "", crimes: "", notes: "" });
+  const [formData, setFormData]       = useState({ name: "", crimes: "", notes: "", image: "" });
+  const [uploadingImg, setUploadingImg] = useState(false);
 
   const { data: criminalsData, mutate } = useSWR("/api/criminals", fetcher);
   const { data: meData }                = useSWR("/api/auth/me", fetcher);
@@ -43,6 +44,23 @@ export default function SuçluVeritabanı() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingImg(true);
+    const fd = new FormData();
+    fd.append("file", file);
+    try {
+      const res = await fetch("/api/upload", { method: "POST", body: fd });
+      const data = await res.json();
+      if (res.ok) {
+        setFormData(prev => ({ ...prev, image: data.url }));
+        toast.success("Fotoğraf yüklendi.");
+      } else toast.error(data.error || "Yükleme başarısız.");
+    } catch { toast.error("Sunucu hatası."); }
+    finally { setUploadingImg(false); }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); setSubmitting(true);
     try {
@@ -50,7 +68,7 @@ export default function SuçluVeritabanı() {
       const method = editingId ? "PUT" : "POST";
       const res    = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(formData) });
       if (res.ok) {
-        setFormData({ name: "", crimes: "", notes: "" });
+        setFormData({ name: "", crimes: "", notes: "", image: "" });
         setShowAddForm(false); setEditingId(null); mutate();
         toast.success(editingId ? "Kayıt güncellendi." : "Yeni kayıt işlendi.");
       } else toast.error("İşlem başarısız.");
@@ -59,7 +77,7 @@ export default function SuçluVeritabanı() {
   };
 
   const handleEdit = (c: any) => {
-    setFormData({ name: c.name, crimes: c.crimes, notes: c.notes || "" });
+    setFormData({ name: c.name, crimes: c.crimes, notes: c.notes || "", image: c.image || "" });
     setEditingId(c.id); setShowAddForm(true);
   };
 
@@ -115,7 +133,7 @@ export default function SuçluVeritabanı() {
           </div>
           <button
             className="hdr-btn"
-            onClick={() => { setShowAddForm(true); setEditingId(null); setFormData({ name: "", crimes: "", notes: "" }); }}
+            onClick={() => { setShowAddForm(true); setEditingId(null); setFormData({ name: "", crimes: "", notes: "", image: "" }); }}
             style={{
               display: "flex", alignItems: "center", gap: "0.55rem",
               padding: "0.65rem 1.35rem", borderRadius: 9,
@@ -208,35 +226,48 @@ export default function SuçluVeritabanı() {
                   {/* Expanded detail */}
                   {isExp && (
                     <div style={{ padding: "1.25rem", background: "rgba(8,12,20,0.5)" }}>
-                      {/* Crimes */}
-                      <div style={{ marginBottom: "1.1rem" }}>
-                        <div style={{ fontSize: "0.58rem", fontWeight: 800, color: "rgba(239,68,68,0.45)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.6rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                          <i className="fa-solid fa-gavel" style={{ fontSize: "0.55rem" }} /> İşlenen Suçlar
-                        </div>
-                        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.45rem" }}>
-                          {crimeList.map((crime: string, idx: number) => (
-                            <span key={idx} style={{
-                              padding: "0.25rem 0.7rem", borderRadius: 20,
-                              background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.15)",
-                              color: "rgba(239,68,68,0.7)", fontSize: "0.72rem", fontWeight: 600,
-                            }}>
-                              {crime}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Notes */}
-                      {c.notes && (
-                        <div style={{ marginBottom: "1.1rem" }}>
-                          <div style={{ fontSize: "0.58rem", fontWeight: 800, color: "rgba(29,110,247,0.45)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.6rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                            <i className="fa-solid fa-align-left" style={{ fontSize: "0.55rem" }} /> Ek Notlar
+                      <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}>
+                        {/* Info Left */}
+                        <div style={{ flex: 1, minWidth: 200 }}>
+                          {/* Crimes */}
+                          <div style={{ marginBottom: "1.1rem" }}>
+                            <div style={{ fontSize: "0.58rem", fontWeight: 800, color: "rgba(239,68,68,0.45)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.6rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                              <i className="fa-solid fa-gavel" style={{ fontSize: "0.55rem" }} /> İşlenen Suçlar
+                            </div>
+                            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.45rem" }}>
+                              {crimeList.map((crime: string, idx: number) => (
+                                <span key={idx} style={{
+                                  padding: "0.25rem 0.7rem", borderRadius: 20,
+                                  background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.15)",
+                                  color: "rgba(239,68,68,0.7)", fontSize: "0.72rem", fontWeight: 600,
+                                }}>
+                                  {crime}
+                                </span>
+                              ))}
+                            </div>
                           </div>
-                          <p style={{ margin: 0, lineHeight: 1.7, fontSize: "0.83rem", color: "rgba(200,208,230,0.55)", whiteSpace: "pre-wrap", background: "rgba(29,110,247,0.03)", padding: "0.8rem 1rem", borderRadius: 8, border: "1px solid rgba(29,110,247,0.08)" }}>
-                            {c.notes}
-                          </p>
+
+                          {/* Notes */}
+                          {c.notes && (
+                            <div style={{ marginBottom: "1.1rem" }}>
+                              <div style={{ fontSize: "0.58rem", fontWeight: 800, color: "rgba(29,110,247,0.45)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.6rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                                <i className="fa-solid fa-align-left" style={{ fontSize: "0.55rem" }} /> Ek Notlar
+                              </div>
+                              <p style={{ margin: 0, lineHeight: 1.7, fontSize: "0.83rem", color: "rgba(200,208,230,0.55)", whiteSpace: "pre-wrap", background: "rgba(29,110,247,0.03)", padding: "0.8rem 1rem", borderRadius: 8, border: "1px solid rgba(29,110,247,0.08)" }}>
+                                {c.notes}
+                              </p>
+                            </div>
+                          )}
                         </div>
-                      )}
+
+                        {/* Image Right */}
+                        {c.image && (
+                          <div style={{ width: 140, flexShrink: 0 }}>
+                             <div style={{ fontSize: "0.58rem", fontWeight: 800, color: "rgba(239,68,68,0.45)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.6rem", textAlign: "center" }}>MUGSHOT</div>
+                             <img src={c.image} alt="Sabıka" style={{ width: "100%", borderRadius: 8, border: "1px solid rgba(239,68,68,0.2)", background: "rgba(239,68,68,0.05)" }} />
+                          </div>
+                        )}
+                      </div>
 
                       {/* Footer */}
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "0.9rem", borderTop: "1px solid rgba(29,110,247,0.07)" }}>
@@ -308,6 +339,22 @@ export default function SuçluVeritabanı() {
               <div>
                 <label style={{ display: "block", fontSize: "0.58rem", fontWeight: 800, color: "rgba(29,110,247,0.5)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.45rem" }}>İşlenen Suçlar <span style={{ color: "rgba(200,208,230,0.3)", fontWeight: 400, letterSpacing: 0 }}>(virgülle ayırın)</span></label>
                 <input className="mdt-inp" name="crimes" type="text" value={formData.crimes} onChange={handleChange} required placeholder="Silahlı Soygun, Polise Mukavemet..." style={inputStyle} />
+              </div>
+              <div>
+                <label style={{ display: "block", fontSize: "0.58rem", fontWeight: 800, color: "rgba(29,110,247,0.5)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.45rem" }}>Sabıka Fotoğrafı (Opsiyonel)</label>
+                <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+                  <label style={{ ...inputStyle, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", background: "rgba(29,110,247,0.08)", color: "rgba(29,110,247,0.8)", fontWeight: 600, width: "auto", padding: "0.6rem 1rem" }}>
+                    <i className={uploadingImg ? "fa-solid fa-spinner fa-spin" : "fa-solid fa-camera"} /> 
+                    {uploadingImg ? "Yükleniyor..." : formData.image ? "Değiştir" : "Fotoğraf Seç"}
+                    <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: "none" }} disabled={uploadingImg} />
+                  </label>
+                  {formData.image && (
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.75rem", color: "#22c55e", fontWeight: 600 }}>
+                      <i className="fa-solid fa-check-circle" /> Yüklendi
+                      <button type="button" onClick={() => setFormData(prev => ({...prev, image: ""}))} style={{ background: "none", border: "none", color: "rgba(239,68,68,0.7)", cursor: "pointer", padding: "0 0.2rem" }}>Sil</button>
+                    </div>
+                  )}
+                </div>
               </div>
               <div>
                 <label style={{ display: "block", fontSize: "0.58rem", fontWeight: 800, color: "rgba(29,110,247,0.5)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.45rem" }}>Ek Notlar <span style={{ color: "rgba(200,208,230,0.3)", fontWeight: 400, letterSpacing: 0 }}>(opsiyonel)</span></label>

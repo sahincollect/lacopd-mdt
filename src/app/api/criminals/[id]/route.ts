@@ -47,13 +47,18 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
     }
 
     const body = await req.json();
+    const updateData: any = {
+      name: body.name,
+      crimes: body.crimes,
+      notes: body.notes
+    };
+    if (body.image !== undefined) {
+      updateData.image = body.image || null;
+    }
+
     const updatedCriminal = await prisma.criminalRecord.update({
       where: { id },
-      data: {
-        name: body.name,
-        crimes: body.crimes,
-        notes: body.notes
-      }
+      data: updateData
     });
     
     return NextResponse.json({ success: true, criminal: updatedCriminal });
