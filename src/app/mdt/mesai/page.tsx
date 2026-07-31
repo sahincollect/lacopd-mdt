@@ -399,7 +399,7 @@ export default function MesaiSistemi() {
                 cursor: "pointer",
               }}
             >
-              {departments.map(d => <option key={d} value={d} style={{ background: "#060a12", color: "#ededed" }}>{d === "ALL" ? "Tüm Departmanlar" : d}</option>)}
+              {departments.map(d => <option key={d} value={d} style={{ background: "#0a0a0a", color: "#ededed" }}>{d === "ALL" ? "Tüm Departmanlar" : d}</option>)}
             </select>
 
             <div style={{ position: "relative" }}>
