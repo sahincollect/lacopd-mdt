@@ -103,8 +103,8 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
           to   { opacity: 1; transform: translateY(0) scale(1); }
         }
         @keyframes mdt-pulse-green {
-          0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
-          50%       { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+          0%, 100% { box-shadow: 0 0 0 0 rgba(0,210,106,0.5); }
+          50%       { box-shadow: 0 0 0 6px rgba(0,210,106,0); }
         }
         @keyframes mdt-logo-glow {
           0%, 100% { box-shadow: 0 0 10px rgba(29,110,247,0.4), 0 0 20px rgba(29,110,247,0.15); }
@@ -194,16 +194,16 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
           font-size: 0.7rem;
           font-weight: 600;
           letter-spacing: 0.1em;
-          color: rgba(29,110,247,0.7);
+          color: #555;
         }
         .mdt-collapse-btn {
           transition: all 0.18s ease;
           border: 1px solid transparent;
         }
         .mdt-collapse-btn:hover {
-          border-color: rgba(29,110,247,0.2);
-          background: rgba(29,110,247,0.06) !important;
-          color: #1D6EF7 !important;
+          border-color: rgba(255,255,255,0.1);
+          background: rgba(255,255,255,0.05) !important;
+          color: #888 !important;
         }
         .mdt-search-input:focus {
           border-color: rgba(29,110,247,0.5) !important;
@@ -213,32 +213,32 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
           transition: all 0.15s ease;
         }
         .mdt-icon-btn:hover {
-          background: rgba(29,110,247,0.08) !important;
-          color: #1D6EF7 !important;
+          background: rgba(255,255,255,0.06) !important;
+          color: #888 !important;
         }
         .mdt-avatar-btn {
           transition: all 0.18s ease;
         }
         .mdt-avatar-btn:hover {
-          border-color: rgba(29,110,247,0.6) !important;
+          border-color: rgba(255,255,255,0.25) !important;
           box-shadow: 0 0 0 4px rgba(29,110,247,0.15) !important;
         }
         /* Scrollbar */
         .mdt-sidebar::-webkit-scrollbar { width: 3px; }
         .mdt-sidebar::-webkit-scrollbar-track { background: transparent; }
-        .mdt-sidebar::-webkit-scrollbar-thumb { background: rgba(29,110,247,0.2); border-radius: 4px; }
-        .mdt-sidebar::-webkit-scrollbar-thumb:hover { background: rgba(29,110,247,0.4); }
+        .mdt-sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 4px; }
+        .mdt-sidebar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.12); }
         .mdt-main::-webkit-scrollbar { width: 5px; }
         .mdt-main::-webkit-scrollbar-track { background: transparent; }
-        .mdt-main::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.07); border-radius: 4px; }
+        .mdt-main::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 4px; }
       `}</style>
 
       <div
         style={{
           display: 'flex',
           minHeight: '100vh',
-          background: '#080c14',
-          color: '#e8ecf5',
+          background: '#0a0a0a',
+          color: '#ededed',
           fontFamily: "'Inter', -apple-system, sans-serif",
           position: 'relative',
         }}
@@ -314,7 +314,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                   style={{
                     fontSize: '0.92rem',
                     fontWeight: 800,
-                    color: '#e8ecf5',
+                    color: '#ededed',
                     letterSpacing: '0.08em',
                     lineHeight: 1.1,
                   }}
@@ -354,8 +354,8 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.5rem',
-                      background: 'rgba(29,110,247,0.04)',
-                      borderLeft: '2px solid #1D6EF7',
+                      background: 'rgba(29,110,247,0.02)',
+                      borderLeft: '2px solid rgba(255,255,255,0.15)',
                       borderRadius: '4px',
                       fontFamily: "'JetBrains Mono', monospace",
                     }}
@@ -386,7 +386,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                           ? 'linear-gradient(90deg, rgba(29,110,247,0.15) 0%, rgba(29,110,247,0.02) 100%)'
                           : 'transparent',
                         border: isActive ? '1px solid rgba(29,110,247,0.2)' : '1px solid transparent',
-                        color: isActive ? '#e8ecf5' : 'rgba(200,208,230,0.5)',
+                        color: isActive ? '#ededed' : 'rgba(200,208,230,0.5)',
                         fontWeight: isActive ? 700 : 500,
                         fontSize: '0.82rem',
                         letterSpacing: '0.01em',
@@ -397,7 +397,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                       onMouseOver={e => {
                         if (!isActive) {
                           (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(29,110,247,0.06)';
-                          (e.currentTarget as HTMLElement).style.color = '#c8d0e6';
+                          (e.currentTarget as HTMLElement).style.color = '#888';
                         }
                       }}
                       onMouseOut={e => {
@@ -470,7 +470,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                 margin: '0 0.75rem',
                 padding: '0.75rem',
                 borderRadius: 8,
-                background: 'rgba(29,110,247,0.04)',
+                background: 'rgba(29,110,247,0.02)',
                 border: '1px solid rgba(29,110,247,0.08)',
                 marginBottom: '0.5rem',
                 position: 'relative',
@@ -483,7 +483,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                 </span>
                 <span style={{
                   width: 6, height: 6, borderRadius: '50%',
-                  background: '#22c55e',
+                  background: '#00d26a',
                   boxShadow: '0 0 6px rgba(34,197,94,0.6)',
                   display: 'inline-block',
                 }} />
@@ -566,7 +566,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
               <i className="fa-solid fa-shield-halved" style={{ fontSize: '0.72rem', color: 'rgba(29,110,247,0.6)' }} />
               <span style={{ fontWeight: 500 }}>MDT</span>
               <i className="fa-solid fa-chevron-right" style={{ fontSize: '0.45rem', opacity: 0.3 }} />
-              <span style={{ color: '#e8ecf5', fontWeight: 600 }}>{currentLabel}</span>
+              <span style={{ color: '#ededed', fontWeight: 600 }}>{currentLabel}</span>
             </div>
 
             {/* Search */}
@@ -589,11 +589,11 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                 className="mdt-search-input"
                 style={{
                   width: '100%',
-                  background: 'rgba(29,110,247,0.04)',
+                  background: 'rgba(29,110,247,0.02)',
                   border: '1px solid rgba(29,110,247,0.12)',
                   borderRadius: 8,
                   padding: '0.48rem 1rem 0.48rem 2.2rem',
-                  color: '#e8ecf5',
+                  color: '#ededed',
                   fontSize: '0.78rem',
                   outline: 'none',
                   transition: 'all 0.18s ease',
@@ -651,11 +651,11 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                     gap: '0.45rem',
                     padding: '0.38rem 0.9rem',
                     borderRadius: 20,
-                    border: `1px solid ${user.isOnDuty ? 'rgba(34,197,94,0.3)' : 'rgba(29,110,247,0.1)'}`,
-                    background: user.isOnDuty ? 'rgba(34,197,94,0.07)' : 'rgba(29,110,247,0.04)',
+                    border: `1px solid ${user.isOnDuty ? 'rgba(0,210,106,0.3)' : 'rgba(29,110,247,0.1)'}`,
+                    background: user.isOnDuty ? 'rgba(0,210,106,0.07)' : 'rgba(29,110,247,0.02)',
                     fontSize: '0.68rem',
                     fontWeight: 700,
-                    color: user.isOnDuty ? '#4ade80' : 'rgba(200,208,230,0.4)',
+                    color: user.isOnDuty ? '#00d26a' : 'rgba(200,208,230,0.4)',
                     letterSpacing: '0.04em',
                     textTransform: 'uppercase',
                   }}
@@ -665,7 +665,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                       width: 6,
                       height: 6,
                       borderRadius: '50%',
-                      backgroundColor: user.isOnDuty ? '#4ade80' : 'rgba(200,208,230,0.3)',
+                      backgroundColor: user.isOnDuty ? '#00d26a' : 'rgba(200,208,230,0.3)',
                       animation: user.isOnDuty ? 'mdt-pulse-green 2s infinite' : 'none',
                       flexShrink: 0,
                     }}
@@ -753,7 +753,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                         )}
                       </div>
                       <div style={{ minWidth: 0 }}>
-                        <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#e8ecf5', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#ededed', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                           {user?.name ?? '—'}
                         </div>
                         <div style={{ fontSize: '0.65rem', color: 'rgba(200,208,230,0.45)', marginTop: 3, fontFamily: "'JetBrains Mono', monospace" }}>
@@ -767,12 +767,12 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                       <span
                         style={{
                           width: 8, height: 8, borderRadius: '50%',
-                          backgroundColor: user?.isOnDuty ? '#4ade80' : 'rgba(200,208,230,0.2)',
+                          backgroundColor: user?.isOnDuty ? '#00d26a' : 'rgba(200,208,230,0.2)',
                           animation: user?.isOnDuty ? 'mdt-pulse-green 2s infinite' : 'none',
                           flexShrink: 0,
                         }}
                       />
-                      <span style={{ fontSize: '0.72rem', color: user?.isOnDuty ? '#4ade80' : 'rgba(200,208,230,0.35)', fontWeight: 600 }}>
+                      <span style={{ fontSize: '0.72rem', color: user?.isOnDuty ? '#00d26a' : 'rgba(200,208,230,0.35)', fontWeight: 600 }}>
                         {user?.isOnDuty ? 'Görevde' : 'Görev Dışı'}
                       </span>
                     </div>
@@ -790,7 +790,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                           }}
                           onMouseOver={e => {
                             (e.currentTarget as HTMLElement).style.background = 'rgba(29,110,247,0.08)';
-                            (e.currentTarget as HTMLElement).style.color = '#e8ecf5';
+                            (e.currentTarget as HTMLElement).style.color = '#ededed';
                           }}
                           onMouseOut={e => {
                             (e.currentTarget as HTMLElement).style.background = 'transparent';
@@ -857,7 +857,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
               top: '-10%', left: '-5%',
               width: '55vw', height: '55vw',
               borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(29,110,247,0.13) 0%, rgba(29,110,247,0.04) 45%, transparent 70%)',
+              background: 'radial-gradient(circle, rgba(29,110,247,0.05) 0%, rgba(29,110,247,0.02) 45%, transparent 70%)',
               animation: 'aurora-1 18s ease-in-out infinite',
               filter: 'blur(40px)',
             }} />
@@ -867,7 +867,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
               bottom: '5%', right: '-10%',
               width: '50vw', height: '50vw',
               borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(99,60,230,0.1) 0%, rgba(99,60,230,0.03) 45%, transparent 70%)',
+              background: 'radial-gradient(circle, rgba(99,60,230,0.04) 0%, rgba(99,60,230,0.01) 45%, transparent 70%)',
               animation: 'aurora-2 22s ease-in-out infinite',
               filter: 'blur(50px)',
             }} />
@@ -877,7 +877,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
               top: '40%', left: '35%',
               width: '35vw', height: '35vw',
               borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(6,182,212,0.06) 0%, transparent 65%)',
+              background: 'radial-gradient(circle, rgba(6,182,212,0.02) 0%, transparent 65%)',
               animation: 'aurora-3 26s ease-in-out infinite',
               filter: 'blur(35px)',
             }} />

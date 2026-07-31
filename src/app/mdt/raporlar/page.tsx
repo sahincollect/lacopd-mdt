@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -222,7 +222,7 @@ const REPORT_TEMPLATES = [
 ];
 
 const CATEGORIES = [
-  { id: "ALL",      label: "Tümü",      icon: "fa-border-all",       color: "rgba(200,208,230,0.5)" },
+  { id: "ALL",      label: "Tümü",      icon: "fa-border-all",       color: "#888" },
   { id: "CRIME",    label: "Suç & Olay",icon: "fa-handcuffs",        color: "#E84F2A" },
   { id: "TRAFFIC",  label: "Trafik",    icon: "fa-car-on",           color: "#f59e0b" },
   { id: "DETECTIVE",label: "Dedektif",  icon: "fa-magnifying-glass", color: "#8b5cf6" },
@@ -234,18 +234,18 @@ const CATEGORIES = [
 const glassCard: React.CSSProperties = {
   background: "linear-gradient(145deg, rgba(16,22,36,0.9) 0%, rgba(10,14,26,0.85) 100%)",
   backdropFilter: "blur(24px)",
-  border: "1px solid rgba(29,110,247,0.25)",
+  border: "1px solid rgba(255,255,255,0.12)",
   borderRadius: 14,
   overflow: "hidden",
   boxShadow: "0 12px 40px -10px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05)",
 };
 
 const inputBase: React.CSSProperties = {
-  width: "100%", background: "rgba(6,10,18,0.7)",
-  border: "1px solid rgba(29,110,247,0.15)",
-  borderBottom: "2px solid rgba(29,110,247,0.4)",
+  width: "100%", background: "#0f0f0f",
+  border: "1px solid rgba(255,255,255,0.08)",
+  borderBottom: "2px solid rgba(255,255,255,0.16)",
   borderRadius: 4,
-  padding: "0.6rem 0.85rem", color: "#e8ecf5",
+  padding: "0.6rem 0.85rem", color: "#ededed",
   fontSize: "0.83rem", outline: "none", fontFamily: "'JetBrains Mono', monospace",
   transition: "all 0.2s ease", boxSizing: "border-box",
 };
@@ -359,11 +359,11 @@ export default function RaporPortali() {
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
-        .mdt-inp:focus { border-color: rgba(29,110,247,0.5) !important; box-shadow: 0 0 0 3px rgba(29,110,247,0.1) !important; }
+        .mdt-inp:focus { border-color: #555 !important; box-shadow: 0 0 0 3px rgba(255,255,255,0.08) !important; }
         .rep-card { transition: all 0.2s ease; cursor: pointer; }
-        .rep-card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(29,110,247,0.15) !important; border-color: rgba(29,110,247,0.4) !important; }
+        .rep-card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(255,255,255,0.08) !important; border-color: rgba(255,255,255,0.16) !important; }
         .archive-row { transition: background 0.15s; }
-        .archive-row:hover { background: rgba(29,110,247,0.05) !important; }
+        .archive-row:hover { background: #161616 !important; }
 
         /* Print styles to hide sidebar and layout */
         @media print {
@@ -387,22 +387,22 @@ export default function RaporPortali() {
         {/* ─── Header & Tabs ─── */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1rem" }}>
           <div>
-            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(29,110,247,0.4)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.45rem" }}>
+            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(255,255,255,0.16)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.45rem" }}>
               L.A.C.P.D. · ARŞİV
             </div>
-            <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "#e8ecf5", margin: 0, letterSpacing: "-0.02em" }}>
+            <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "#ededed", margin: 0, letterSpacing: "-0.02em" }}>
               Rapor ve Belge Portalı
             </h1>
           </div>
-          <div style={{ display: "flex", gap: "0.5rem", background: "rgba(13,18,32,0.8)", border: "1px solid rgba(29,110,247,0.15)", borderRadius: 10, padding: "0.4rem" }}>
+          <div style={{ display: "flex", gap: "0.5rem", background: "rgba(13,18,32,0.8)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 10, padding: "0.4rem" }}>
             <button onClick={() => setView("home")} style={{
-              background: view === "home" || view === "editor" ? "rgba(29,110,247,0.15)" : "transparent",
-              color: view === "home" || view === "editor" ? "#1D6EF7" : "rgba(200,208,230,0.4)",
+              background: view === "home" || view === "editor" ? "rgba(255,255,255,0.08)" : "transparent",
+              color: view === "home" || view === "editor" ? "#1D6EF7" : "#666",
               border: "none", padding: "0.5rem 1.25rem", borderRadius: 8, fontWeight: 700, fontSize: "0.8rem", cursor: "pointer", transition: "all 0.15s"
             }}>Şablonlar</button>
             <button onClick={() => setView("saved")} style={{
-              background: view === "saved" ? "rgba(29,110,247,0.15)" : "transparent",
-              color: view === "saved" ? "#1D6EF7" : "rgba(200,208,230,0.4)",
+              background: view === "saved" ? "rgba(255,255,255,0.08)" : "transparent",
+              color: view === "saved" ? "#1D6EF7" : "#666",
               border: "none", padding: "0.5rem 1.25rem", borderRadius: 8, fontWeight: 700, fontSize: "0.8rem", cursor: "pointer", transition: "all 0.15s"
             }}>Arşiv ({savedReports.length})</button>
           </div>
@@ -417,8 +417,8 @@ export default function RaporPortali() {
                 {CATEGORIES.map(cat => (
                   <button key={cat.id} onClick={() => setActiveCat(cat.id)} style={{
                     background: activeCat === cat.id ? `${cat.color}20` : "rgba(13,18,32,0.6)",
-                    border: `1px solid ${activeCat === cat.id ? cat.color : "rgba(29,110,247,0.1)"}`,
-                    color: activeCat === cat.id ? cat.color : "rgba(200,208,230,0.4)",
+                    border: `1px solid ${activeCat === cat.id ? cat.color : "rgba(255,255,255,0.08)"}`,
+                    color: activeCat === cat.id ? cat.color : "#666",
                     padding: "0.5rem 1rem", borderRadius: 8, fontSize: "0.75rem", fontWeight: 700, cursor: "pointer",
                     display: "flex", alignItems: "center", gap: "0.5rem", transition: "all 0.15s"
                   }}>
@@ -439,16 +439,16 @@ export default function RaporPortali() {
                       <div style={{ width: 42, height: 42, borderRadius: 10, background: `${catInfo.color}15`, border: `1px solid ${catInfo.color}30`, display: "flex", alignItems: "center", justifyContent: "center", color: catInfo.color, fontSize: "1.2rem" }}>
                         <i className={`fa-solid ${tmpl.icon}`} />
                       </div>
-                      <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.7rem", fontWeight: 800, color: "rgba(29,110,247,0.6)", background: "rgba(29,110,247,0.06)", padding: "0.25rem 0.6rem", borderRadius: 6, border: "1px solid rgba(29,110,247,0.15)" }}>
+                      <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.7rem", fontWeight: 800, color: "#555", background: "#161616", padding: "0.25rem 0.6rem", borderRadius: 6, border: "1px solid rgba(255,255,255,0.08)" }}>
                         LAC {tmpl.code}
                       </div>
                     </div>
                     <div>
-                      <div style={{ fontSize: "1.05rem", fontWeight: 800, color: "#e8ecf5", marginBottom: "0.35rem" }}>{tmpl.name}</div>
-                      <div style={{ fontSize: "0.8rem", color: "rgba(200,208,230,0.4)", lineHeight: 1.5 }}>{tmpl.description}</div>
+                      <div style={{ fontSize: "1.05rem", fontWeight: 800, color: "#ededed", marginBottom: "0.35rem" }}>{tmpl.name}</div>
+                      <div style={{ fontSize: "0.8rem", color: "#666", lineHeight: 1.5 }}>{tmpl.description}</div>
                     </div>
                     <div style={{ marginTop: "auto", paddingTop: "1rem" }}>
-                      <button style={{ width: "100%", background: "linear-gradient(135deg, #1D6EF7 0%, #1558d6 100%)", border: "1px solid rgba(29,110,247,0.4)", color: "#fff", padding: "0.65rem", borderRadius: 8, fontSize: "0.78rem", fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 16px rgba(29,110,247,0.25)" }}>
+                      <button style={{ width: "100%", background: "linear-gradient(135deg, #1D6EF7 0%, #1558d6 100%)", border: "1px solid rgba(255,255,255,0.16)", color: "#fff", padding: "0.65rem", borderRadius: 8, fontSize: "0.78rem", fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 16px rgba(255,255,255,0.12)" }}>
                         DOLDUR
                       </button>
                     </div>
@@ -462,37 +462,37 @@ export default function RaporPortali() {
         {/* ─── SAVED REPORTS (ARCHIVE) ─── */}
         {view === "saved" && (
           <div style={glassCard}>
-            <div style={{ padding: "1.25rem 1.5rem", borderBottom: "1px solid rgba(29,110,247,0.08)", background: "rgba(29,110,247,0.02)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div style={{ padding: "1.25rem 1.5rem", borderBottom: "1px solid #161616", background: "rgba(29,110,247,0.02)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <div>
-                <h3 style={{ margin: 0, fontWeight: 800, fontSize: "1.05rem", color: "#e8ecf5" }}>Arşivlenmiş Raporlar</h3>
-                <p style={{ margin: "0.2rem 0 0", fontSize: "0.75rem", color: "rgba(200,208,230,0.4)" }}>Önceki rapor kayıtlarını görüntüleyin veya düzenleyin.</p>
+                <h3 style={{ margin: 0, fontWeight: 800, fontSize: "1.05rem", color: "#ededed" }}>Arşivlenmiş Raporlar</h3>
+                <p style={{ margin: "0.2rem 0 0", fontSize: "0.75rem", color: "#666" }}>Önceki rapor kayıtlarını görüntüleyin veya düzenleyin.</p>
               </div>
               <div style={{ display: "flex", gap: "0.5rem" }}>
                 <input className="mdt-inp" type="text" placeholder="Arşivde ara..." value={archiveSearch} onChange={e => setArchiveSearch(e.target.value)} style={{ ...inputBase, width: 250 }} />
-                <button onClick={fetchSaved} style={{ background: "rgba(29,110,247,0.08)", border: "1px solid rgba(29,110,247,0.2)", color: "#1D6EF7", padding: "0.5rem 1rem", borderRadius: 8, cursor: "pointer" }}><i className="fa-solid fa-rotate" /></button>
+                <button onClick={fetchSaved} style={{ background: "#161616", border: "1px solid rgba(255,255,255,0.1)", color: "#1D6EF7", padding: "0.5rem 1rem", borderRadius: 8, cursor: "pointer" }}><i className="fa-solid fa-rotate" /></button>
               </div>
             </div>
             <div>
               {loadingReports ? (
-                <div style={{ padding: "4rem", textAlign: "center", color: "rgba(200,208,230,0.3)", fontSize: "0.85rem" }}><i className="fa-solid fa-circle-notch fa-spin" style={{ marginRight: "0.5rem" }} />Yükleniyor...</div>
+                <div style={{ padding: "4rem", textAlign: "center", color: "#555", fontSize: "0.85rem" }}><i className="fa-solid fa-circle-notch fa-spin" style={{ marginRight: "0.5rem" }} />Yükleniyor...</div>
               ) : savedReports.length === 0 ? (
-                <div style={{ padding: "4rem", textAlign: "center", color: "rgba(200,208,230,0.3)", fontSize: "0.85rem" }}>Arşivde kayıt bulunamadı.</div>
+                <div style={{ padding: "4rem", textAlign: "center", color: "#555", fontSize: "0.85rem" }}>Arşivde kayıt bulunamadı.</div>
               ) : (
                 savedReports.filter(r => r.id.includes(archiveSearch) || (r.officerName && r.officerName.includes(archiveSearch))).map(r => {
                   const tmpl = REPORT_TEMPLATES.find(t => t.id === r.formId) || REPORT_TEMPLATES[0];
                   return (
-                    <div key={r.id} className="archive-row" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1rem 1.5rem", borderBottom: "1px solid rgba(29,110,247,0.05)" }}>
+                    <div key={r.id} className="archive-row" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1rem 1.5rem", borderBottom: "1px solid #161616" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "1.25rem" }}>
-                        <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.75rem", fontWeight: 700, color: "rgba(29,110,247,0.6)", background: "rgba(29,110,247,0.08)", padding: "0.3rem 0.6rem", borderRadius: 6 }}>
+                        <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.75rem", fontWeight: 700, color: "#555", background: "#161616", padding: "0.3rem 0.6rem", borderRadius: 6 }}>
                           #{r.id}
                         </div>
                         <div>
-                          <div style={{ fontSize: "0.9rem", fontWeight: 700, color: "#e8ecf5" }}>{tmpl.name}</div>
-                          <div style={{ fontSize: "0.7rem", color: "rgba(200,208,230,0.4)", marginTop: "0.2rem" }}>{r.officerName || "—"} · {r.timestamp ? new Date(r.timestamp).toLocaleString("tr-TR") : "—"}</div>
+                          <div style={{ fontSize: "0.9rem", fontWeight: 700, color: "#ededed" }}>{tmpl.name}</div>
+                          <div style={{ fontSize: "0.7rem", color: "#666", marginTop: "0.2rem" }}>{r.officerName || "—"} · {r.timestamp ? new Date(r.timestamp).toLocaleString("tr-TR") : "—"}</div>
                         </div>
                       </div>
                       <div style={{ display: "flex", gap: "0.5rem" }}>
-                        <button onClick={() => openSaved(r)} style={{ background: "rgba(29,110,247,0.08)", color: "#1D6EF7", border: "1px solid rgba(29,110,247,0.2)", padding: "0.4rem 0.8rem", borderRadius: 6, fontSize: "0.7rem", fontWeight: 700, cursor: "pointer" }}>GÖRÜNTÜLE</button>
+                        <button onClick={() => openSaved(r)} style={{ background: "#161616", color: "#1D6EF7", border: "1px solid rgba(255,255,255,0.1)", padding: "0.4rem 0.8rem", borderRadius: 6, fontSize: "0.7rem", fontWeight: 700, cursor: "pointer" }}>GÖRÜNTÜLE</button>
                         <button onClick={() => handleDelete(r.id)} style={{ background: "rgba(239,68,68,0.08)", color: "#ef4444", border: "1px solid rgba(239,68,68,0.2)", padding: "0.4rem 0.8rem", borderRadius: 6, fontSize: "0.7rem", fontWeight: 700, cursor: "pointer" }}>SİL</button>
                       </div>
                     </div>
@@ -510,15 +510,15 @@ export default function RaporPortali() {
           
           <div className="no-print" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1rem 1.5rem", ...glassCard, marginBottom: "1.5rem" }}>
             <div>
-              <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(29,110,247,0.5)", letterSpacing: "0.15em", textTransform: "uppercase" }}>DÜZENLENİYOR</div>
-              <div style={{ fontSize: "1.1rem", fontWeight: 800, color: "#e8ecf5", display: "flex", alignItems: "center", gap: "0.5rem", marginTop: "0.2rem" }}>
+              <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "#555", letterSpacing: "0.15em", textTransform: "uppercase" }}>DÜZENLENİYOR</div>
+              <div style={{ fontSize: "1.1rem", fontWeight: 800, color: "#ededed", display: "flex", alignItems: "center", gap: "0.5rem", marginTop: "0.2rem" }}>
                 {template.name}
-                <span style={{ fontFamily: "'JetBrains Mono', monospace", color: "rgba(29,110,247,0.6)", fontSize: "0.8rem", background: "rgba(29,110,247,0.08)", padding: "0.2rem 0.6rem", borderRadius: 4 }}>#{reportCode}</span>
+                <span style={{ fontFamily: "'JetBrains Mono', monospace", color: "#555", fontSize: "0.8rem", background: "#161616", padding: "0.2rem 0.6rem", borderRadius: 4 }}>#{reportCode}</span>
               </div>
             </div>
             <div style={{ display: "flex", gap: "0.5rem" }}>
-              <button onClick={() => setView("home")} style={{ background: "transparent", border: "1px solid rgba(29,110,247,0.2)", color: "rgba(200,208,230,0.5)", padding: "0.6rem 1rem", borderRadius: 6, fontWeight: 700, fontSize: "0.75rem", cursor: "pointer" }}>İPTAL</button>
-              <button onClick={() => window.print()} style={{ background: "rgba(29,110,247,0.08)", border: "1px solid rgba(29,110,247,0.2)", color: "#1D6EF7", padding: "0.6rem 1.25rem", borderRadius: 6, fontWeight: 700, cursor: "pointer", fontSize: "0.75rem" }}>
+              <button onClick={() => setView("home")} style={{ background: "transparent", border: "1px solid rgba(255,255,255,0.1)", color: "#888", padding: "0.6rem 1rem", borderRadius: 6, fontWeight: 700, fontSize: "0.75rem", cursor: "pointer" }}>İPTAL</button>
+              <button onClick={() => window.print()} style={{ background: "#161616", border: "1px solid rgba(255,255,255,0.1)", color: "#1D6EF7", padding: "0.6rem 1.25rem", borderRadius: 6, fontWeight: 700, cursor: "pointer", fontSize: "0.75rem" }}>
                 <i className="fa-solid fa-print" style={{ marginRight: "0.4rem" }} /> YAZDIR (PDF)
               </button>
               <button onClick={handleSave} disabled={saving} style={{ background: "linear-gradient(135deg, #22c55e 0%, #16a34a 100%)", border: "1px solid rgba(34,197,94,0.4)", color: "#fff", padding: "0.6rem 1.25rem", borderRadius: 6, fontWeight: 700, cursor: saving ? "not-allowed" : "pointer", fontSize: "0.75rem", boxShadow: "0 4px 16px rgba(34,197,94,0.25)", opacity: saving ? 0.7 : 1 }}>
@@ -528,17 +528,17 @@ export default function RaporPortali() {
           </div>
 
           <div className="print-doc" style={{ ...glassCard, padding: "3rem", borderRadius: 8, borderTop: "4px solid #1D6EF7" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid rgba(29,110,247,0.2)", paddingBottom: "1.5rem", marginBottom: "2.5rem" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid rgba(255,255,255,0.1)", paddingBottom: "1.5rem", marginBottom: "2.5rem" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
                 <img src="/logom.png" alt="LACPD" style={{ width: 68 }} />
                 <div>
-                  <div style={{ fontSize: "1.35rem", fontWeight: 900, color: "#e8ecf5", letterSpacing: "0.03em", fontFamily: "'Oswald', sans-serif" }}>LOS ANGELES POLICE DEPARTMENT</div>
-                  <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "rgba(200,208,230,0.6)", marginTop: "0.15rem", letterSpacing: "0.05em", textTransform: "uppercase" }}>{template.name}</div>
+                  <div style={{ fontSize: "1.35rem", fontWeight: 900, color: "#ededed", letterSpacing: "0.03em", fontFamily: "'Oswald', sans-serif" }}>LOS ANGELES POLICE DEPARTMENT</div>
+                  <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#aaa", marginTop: "0.15rem", letterSpacing: "0.05em", textTransform: "uppercase" }}>{template.name}</div>
                 </div>
               </div>
               <div style={{ textAlign: "right", fontFamily: "'JetBrains Mono', monospace", fontWeight: 800 }}>
-                <div style={{ fontSize: "0.95rem", color: "rgba(200,208,230,0.4)" }}>LAC-{template.code}</div>
-                <div style={{ color: "#1D6EF7", fontSize: "0.85rem", marginTop: "0.3rem", background: "rgba(29,110,247,0.08)", padding: "0.2rem 0.5rem", borderRadius: 4 }}>#{reportCode}</div>
+                <div style={{ fontSize: "0.95rem", color: "#666" }}>LAC-{template.code}</div>
+                <div style={{ color: "#1D6EF7", fontSize: "0.85rem", marginTop: "0.3rem", background: "#161616", padding: "0.2rem 0.5rem", borderRadius: 4 }}>#{reportCode}</div>
               </div>
             </div>
 
@@ -550,16 +550,16 @@ export default function RaporPortali() {
                 const colSpan = hasFullWidthField ? "1 / -1" : "auto";
                 
                 return (
-                  <div key={si} style={{ gridColumn: colSpan, marginBottom: "0.5rem", background: "rgba(8,12,20,0.6)", border: "1px solid rgba(29,110,247,0.15)", borderLeft: "3px solid #1D6EF7", borderRadius: 6, overflow: "hidden" }}>
-                    <div style={{ padding: "0.75rem 1.25rem", background: "linear-gradient(90deg, rgba(29,110,247,0.1) 0%, transparent 100%)", borderBottom: "1px solid rgba(29,110,247,0.1)", fontSize: "0.75rem", fontWeight: 800, color: "#e8ecf5", letterSpacing: "0.08em", textTransform: "uppercase", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <div key={si} style={{ gridColumn: colSpan, marginBottom: "0.5rem", background: "rgba(8,12,20,0.6)", border: "1px solid rgba(255,255,255,0.08)", borderLeft: "3px solid #1D6EF7", borderRadius: 6, overflow: "hidden" }}>
+                    <div style={{ padding: "0.75rem 1.25rem", background: "rgba(255,255,255,0.02)", borderBottom: "1px solid rgba(255,255,255,0.08)", fontSize: "0.75rem", fontWeight: 800, color: "#ededed", letterSpacing: "0.08em", textTransform: "uppercase", display: "flex", alignItems: "center", gap: "0.5rem" }}>
                       <span style={{ color: "#1D6EF7" }}>{String(si + 1).padStart(2, "0")}</span> {sec.title}
                     </div>
                     <div style={{ padding: "1.25rem", display: "grid", gridTemplateColumns: "repeat(12, 1fr)", gap: "1rem" }}>
                       {sec.fields.map((f: any) => (
                         <div key={f.id} style={{ gridColumn: `span ${f.width || 12}` }}>
-                          <label style={{ display: "flex", justifyContent: "space-between", fontSize: "0.58rem", fontWeight: 800, color: "rgba(200,208,230,0.5)", marginBottom: "0.35rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                          <label style={{ display: "flex", justifyContent: "space-between", fontSize: "0.58rem", fontWeight: 800, color: "#888", marginBottom: "0.35rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>
                             <span>{f.label}</span>
-                            {f.type === "textarea" && <i className="fa-solid fa-pen-clip" style={{ color: "rgba(29,110,247,0.3)" }} />}
+                            {f.type === "textarea" && <i className="fa-solid fa-pen-clip" style={{ color: "rgba(255,255,255,0.14)" }} />}
                           </label>
                           {f.type === "textarea" ? (
                             <textarea className="mdt-inp" value={formData[f.id] || ""} onChange={e => setFormData({ ...formData, [f.id]: e.target.value })} placeholder={f.placeholder} rows={f.rows || 3} style={{ ...inputBase, resize: "vertical" }} />
@@ -580,29 +580,29 @@ export default function RaporPortali() {
             </div>
 
             {/* Evidence Image Section */}
-            <div style={{ marginTop: "1.5rem", background: "rgba(8,12,20,0.6)", border: "1px solid rgba(29,110,247,0.15)", borderLeft: "3px solid #1D6EF7", borderRadius: 6, overflow: "hidden" }}>
-              <div style={{ padding: "0.75rem 1.25rem", background: "linear-gradient(90deg, rgba(29,110,247,0.1) 0%, transparent 100%)", borderBottom: "1px solid rgba(29,110,247,0.1)", fontSize: "0.75rem", fontWeight: 800, color: "#e8ecf5", letterSpacing: "0.08em", textTransform: "uppercase", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <div style={{ marginTop: "1.5rem", background: "rgba(8,12,20,0.6)", border: "1px solid rgba(255,255,255,0.08)", borderLeft: "3px solid #1D6EF7", borderRadius: 6, overflow: "hidden" }}>
+              <div style={{ padding: "0.75rem 1.25rem", background: "rgba(255,255,255,0.02)", borderBottom: "1px solid rgba(255,255,255,0.08)", fontSize: "0.75rem", fontWeight: 800, color: "#ededed", letterSpacing: "0.08em", textTransform: "uppercase", display: "flex", alignItems: "center", gap: "0.5rem" }}>
                 <i className="fa-solid fa-camera" style={{ color: "#1D6EF7" }} /> Görsel Delil / Belge Eki
               </div>
               <div style={{ padding: "1.25rem" }}>
                 <div>
-                  <label style={{ display: "flex", justifyContent: "space-between", fontSize: "0.58rem", fontWeight: 800, color: "rgba(200,208,230,0.5)", marginBottom: "0.6rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                  <label style={{ display: "flex", justifyContent: "space-between", fontSize: "0.58rem", fontWeight: 800, color: "#888", marginBottom: "0.6rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>
                     Fotoğraf Yükle (En fazla 5 adet)
                   </label>
-                  <label className="no-print" style={{ ...inputBase, cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", background: "rgba(29,110,247,0.08)", color: "rgba(29,110,247,0.8)", fontWeight: 600, padding: "0.8rem 1.5rem", width: "auto" }}>
+                  <label className="no-print" style={{ ...inputBase, cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", background: "#161616", color: "rgba(29,110,247,0.8)", fontWeight: 600, padding: "0.8rem 1.5rem", width: "auto" }}>
                     <i className={uploadingImg ? "fa-solid fa-spinner fa-spin" : "fa-solid fa-upload"} /> 
                     {uploadingImg ? "Yükleniyor..." : "Görsel Seç / Çek"}
                     <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: "none" }} disabled={uploadingImg || (formData.evidenceUrl && formData.evidenceUrl.split(",").length >= 5)} />
                   </label>
-                  <p style={{ fontSize: "0.75rem", color: "rgba(200,208,230,0.4)", marginTop: "0.75rem", lineHeight: 1.5, maxWidth: 600 }}>
+                  <p style={{ fontSize: "0.75rem", color: "#666", marginTop: "0.75rem", lineHeight: 1.5, maxWidth: 600 }}>
                     Olay yerinden veya delillerden elde edilen JPG/PNG formatlı görselleri yükleyebilirsiniz. Maksimum 5 adet görsel eklenebilir.
                   </p>
                 </div>
                 {formData.evidenceUrl && (
                   <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginTop: "1.25rem" }}>
                     {formData.evidenceUrl.split(",").map((url: string, i: number) => (
-                      <div key={i} style={{ width: 140, flexShrink: 0, padding: "0.5rem", background: "rgba(29,110,247,0.05)", border: "1px solid rgba(29,110,247,0.15)", borderRadius: 8, position: "relative" }}>
-                        <div style={{ fontSize: "0.5rem", fontWeight: 800, color: "rgba(29,110,247,0.5)", marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.1em", textAlign: "center" }}>GÖRSEL {i + 1}</div>
+                      <div key={i} style={{ width: 140, flexShrink: 0, padding: "0.5rem", background: "#161616", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 8, position: "relative" }}>
+                        <div style={{ fontSize: "0.5rem", fontWeight: 800, color: "#555", marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.1em", textAlign: "center" }}>GÖRSEL {i + 1}</div>
                         <img src={url} alt={`Delil ${i + 1}`} style={{ width: "100%", borderRadius: 4, display: "block" }} />
                         <button type="button" onClick={() => {
                           const newUrls = formData.evidenceUrl.split(",").filter((_: any, idx: number) => idx !== i).join(",");
@@ -617,15 +617,15 @@ export default function RaporPortali() {
               </div>
             </div>
 
-            <div style={{ marginTop: "3rem", paddingTop: "1.5rem", borderTop: "2px solid rgba(29,110,247,0.2)", display: "flex", justifyContent: "space-between" }}>
+            <div style={{ marginTop: "3rem", paddingTop: "1.5rem", borderTop: "2px solid rgba(255,255,255,0.1)", display: "flex", justifyContent: "space-between" }}>
               <div>
-                <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(200,208,230,0.4)", letterSpacing: "0.1em" }}>HAZIRLAYAN MEMUR</div>
-                <div style={{ fontSize: "1rem", fontWeight: 800, color: "#e8ecf5", marginTop: "0.3rem" }}>{user ? user.name : "—"} <span style={{ color: "#1D6EF7" }}>#{user?.badge || "—"}</span></div>
+                <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "#666", letterSpacing: "0.1em" }}>HAZIRLAYAN MEMUR</div>
+                <div style={{ fontSize: "1rem", fontWeight: 800, color: "#ededed", marginTop: "0.3rem" }}>{user ? user.name : "—"} <span style={{ color: "#1D6EF7" }}>#{user?.badge || "—"}</span></div>
               </div>
               <div style={{ textAlign: "right" }}>
-                <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(200,208,230,0.4)", letterSpacing: "0.1em" }}>DİJİTAL İMZA & ZAMAN DAMGASI</div>
-                <div style={{ fontFamily: "'JetBrains Mono', monospace", color: "#1D6EF7", fontWeight: 800, marginTop: "0.3rem", fontSize: "0.9rem", background: "rgba(29,110,247,0.06)", padding: "0.2rem 0.5rem", borderRadius: 4, display: "inline-block" }}>SIGNED · #{user?.badge || "SYS"}</div>
-                <div style={{ fontSize: "0.7rem", color: "rgba(200,208,230,0.5)", marginTop: "0.35rem", fontFamily: "'JetBrains Mono', monospace" }}>{new Date().toLocaleString("tr-TR")}</div>
+                <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "#666", letterSpacing: "0.1em" }}>DİJİTAL İMZA & ZAMAN DAMGASI</div>
+                <div style={{ fontFamily: "'JetBrains Mono', monospace", color: "#1D6EF7", fontWeight: 800, marginTop: "0.3rem", fontSize: "0.9rem", background: "#161616", padding: "0.2rem 0.5rem", borderRadius: 4, display: "inline-block" }}>SIGNED · #{user?.badge || "SYS"}</div>
+                <div style={{ fontSize: "0.7rem", color: "#888", marginTop: "0.35rem", fontFamily: "'JetBrains Mono', monospace" }}>{new Date().toLocaleString("tr-TR")}</div>
               </div>
             </div>
           </div>

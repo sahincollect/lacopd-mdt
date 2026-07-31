@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState, useMemo } from 'react';
 import useSWR from 'swr';
@@ -191,7 +191,7 @@ export default function ProfilPage() {
   const glassCard: React.CSSProperties = {
     background: "linear-gradient(145deg, rgba(13,18,32,0.9) 0%, rgba(10,14,26,0.8) 100%)",
     backdropFilter: "blur(20px)",
-    border: "1px solid rgba(29,110,247,0.1)",
+    border: "1px solid rgba(255,255,255,0.08)",
     borderRadius: 16,
     overflow: "hidden",
     boxShadow: "0 8px 32px -8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03)",
@@ -199,11 +199,11 @@ export default function ProfilPage() {
 
   const inputStyle: React.CSSProperties = {
     width: "100%",
-    background: "rgba(29,110,247,0.04)",
-    border: "1px solid rgba(29,110,247,0.12)",
+    background: "rgba(255,255,255,0.03)",
+    border: "1px solid rgba(255,255,255,0.08)",
     borderRadius: 8,
     padding: "0.55rem 0.9rem",
-    color: "#e8ecf5",
+    color: "#ededed",
     fontSize: "0.83rem",
     outline: "none",
     transition: "all 0.18s ease",
@@ -214,7 +214,7 @@ export default function ProfilPage() {
     display: "block",
     fontSize: "0.6rem",
     fontWeight: 800,
-    color: "rgba(29,110,247,0.5)",
+    color: "#555",
     letterSpacing: "0.22em",
     textTransform: "uppercase",
     marginBottom: "0.45rem",
@@ -223,7 +223,7 @@ export default function ProfilPage() {
   const btnPrimary: React.CSSProperties = {
     padding: "0.6rem 1.25rem", borderRadius: 8,
     background: "linear-gradient(135deg, #1D6EF7 0%, #1558d6 100%)",
-    border: "1px solid rgba(29,110,247,0.4)",
+    border: "1px solid rgba(255,255,255,0.16)",
     color: "#fff", fontWeight: 700, fontSize: "0.82rem", cursor: "pointer",
     transition: "all 0.2s"
   };
@@ -231,8 +231,8 @@ export default function ProfilPage() {
   if (loading) {
     return (
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "50vh", flexDirection: "column", gap: "1rem" }}>
-        <i className="fa-solid fa-circle-notch fa-spin" style={{ fontSize: "1.8rem", color: "rgba(29,110,247,0.5)" }} />
-        <span style={{ fontSize: "0.82rem", color: "rgba(200,208,230,0.35)", fontWeight: 600, letterSpacing: "0.1em" }}>YÜKLENİYOR...</span>
+        <i className="fa-solid fa-circle-notch fa-spin" style={{ fontSize: "1.8rem", color: "#555" }} />
+        <span style={{ fontSize: "0.82rem", color: "#555", fontWeight: 600, letterSpacing: "0.1em" }}>YÜKLENİYOR...</span>
       </div>
     );
   }
@@ -243,7 +243,7 @@ export default function ProfilPage() {
         <div style={{ width: 56, height: 56, borderRadius: "50%", background: "rgba(239,68,68,0.05)", border: "1px solid rgba(239,68,68,0.1)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1rem" }}>
           <i className="fa-solid fa-triangle-exclamation" style={{ color: "rgba(239,68,68,0.5)", fontSize: "1.3rem" }} />
         </div>
-        <div style={{ fontSize: "0.85rem", color: "rgba(200,208,230,0.3)", fontWeight: 500 }}>Kimlik doğrulama hatası</div>
+        <div style={{ fontSize: "0.85rem", color: "#555", fontWeight: 500 }}>Kimlik doğrulama hatası</div>
       </div>
     );
   }
@@ -257,8 +257,8 @@ export default function ProfilPage() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
         .custom-input:focus {
-          border-color: rgba(29,110,247,0.4) !important;
-          background: rgba(29,110,247,0.08) !important;
+          border-color: rgba(255,255,255,0.16) !important;
+          background: #161616 !important;
         }
         .custom-btn:hover {
           filter: brightness(1.1);
@@ -287,13 +287,13 @@ export default function ProfilPage() {
       `}</style>
       
       <div style={{ marginBottom: "2rem" }}>
-        <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(29,110,247,0.4)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.5rem" }}>
+        <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(255,255,255,0.16)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.5rem" }}>
           L.A.C.P.D. · YÖNETİM
         </div>
-        <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "#e8ecf5", margin: 0, letterSpacing: "-0.02em" }}>
+        <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "#ededed", margin: 0, letterSpacing: "-0.02em" }}>
           Personel Profili
         </h1>
-        <p style={{ color: "rgba(200,208,230,0.4)", fontSize: "0.8rem", margin: "0.4rem 0 0", fontWeight: 400 }}>
+        <p style={{ color: "#666", fontSize: "0.8rem", margin: "0.4rem 0 0", fontWeight: 400 }}>
           Kimlik Kartı ve Sistem Konfigürasyonu
         </p>
       </div>
@@ -305,19 +305,19 @@ export default function ProfilPage() {
           
           {/* HERO PROFILE CARD */}
           <div style={{ ...glassCard, position: 'relative', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '140px', background: 'linear-gradient(to bottom, rgba(29,110,247,0.1), transparent)' }} />
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '140px', background: 'linear-gradient(to bottom, rgba(255,255,255,0.08), transparent)' }} />
             
             <div style={{ padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', position: 'relative', zIndex: 1 }}>
               
               <div style={{ 
-                width: 110, height: 110, borderRadius: '50%', background: 'rgba(10,14,26,0.8)', border: '2px solid rgba(29,110,247,0.5)', 
+                width: 110, height: 110, borderRadius: '50%', background: 'rgba(10,14,26,0.8)', border: '2px solid #555', 
                 display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', marginBottom: '1.5rem',
-                boxShadow: '0 0 30px rgba(29,110,247,0.2)'
+                boxShadow: '0 0 30px rgba(255,255,255,0.1)'
               }}>
                 {user.profileImage ? (
                   <img src={user.profileImage} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 ) : (
-                  <i className="fa-solid fa-user-tie" style={{ fontSize: '3rem', color: "rgba(200,208,230,0.3)" }}></i>
+                  <i className="fa-solid fa-user-tie" style={{ fontSize: '3rem', color: "#555" }}></i>
                 )}
               </div>
 
@@ -333,22 +333,22 @@ export default function ProfilPage() {
                 </span>
                 <span className="mono" style={{ 
                   padding: "0.25rem 0.7rem", borderRadius: 20,
-                  background: "rgba(29,110,247,0.08)", border: "1px solid rgba(29,110,247,0.2)",
+                  background: "#161616", border: "1px solid rgba(255,255,255,0.1)",
                   color: "#1D6EF7", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.08em",
                 }}>
                   #{user.badge}
                 </span>
               </div>
 
-              <h2 style={{ fontSize: '2rem', fontWeight: 900, color: '#e8ecf5', margin: '0 0 0.5rem 0', letterSpacing: '-0.02em' }}>{user.name}</h2>
-              <div style={{ fontSize: '0.9rem', color: 'rgba(200,208,230,0.55)', fontWeight: 500 }}>{user.rank} • {user.department || 'L.A.C.P.D.'}</div>
+              <h2 style={{ fontSize: '2rem', fontWeight: 900, color: '#ededed', margin: '0 0 0.5rem 0', letterSpacing: '-0.02em' }}>{user.name}</h2>
+              <div style={{ fontSize: '0.9rem', color: '#888', fontWeight: 500 }}>{user.rank} • {user.department || 'L.A.C.P.D.'}</div>
 
               {user.specialRoles && (
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'center', marginTop: '1.5rem' }}>
                   {user.specialRoles.split(',').filter(Boolean).map((sr: string, idx: number) => (
                     <span key={idx} style={{
-                      fontSize: '0.65rem', fontWeight: 700, color: 'rgba(200,208,230,0.8)',
-                      backgroundColor: 'rgba(29,110,247,0.05)', border: '1px solid rgba(29,110,247,0.1)',
+                      fontSize: '0.65rem', fontWeight: 700, color: '#ededed',
+                      backgroundColor: '#161616', border: '1px solid rgba(255,255,255,0.08)',
                       padding: '4px 10px', borderRadius: '6px', letterSpacing: '0.05em', textTransform: 'uppercase'
                     }}>
                       {sr.trim()}
@@ -357,7 +357,7 @@ export default function ProfilPage() {
                 </div>
               )}
               
-              <div style={{ marginTop: '2rem', fontSize: '0.75rem', color: 'rgba(200,208,230,0.3)', fontWeight: 500 }}>
+              <div style={{ marginTop: '2rem', fontSize: '0.75rem', color: '#555', fontWeight: 500 }}>
                 Kayıt Tarihi: {formatDate(user.createdAt)}
               </div>
             </div>
@@ -367,11 +367,11 @@ export default function ProfilPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
             <div style={{ ...glassCard, padding: '1.25rem', textAlign: 'center' }}>
               <div style={labelStyle}>TOPLAM MESAİ</div>
-              <div className="mono" style={{ fontSize: '1.4rem', fontWeight: 700, color: '#e8ecf5' }}>{formatTime(liveSeconds)}</div>
+              <div className="mono" style={{ fontSize: '1.4rem', fontWeight: 700, color: '#ededed' }}>{formatTime(liveSeconds)}</div>
             </div>
             <div style={{ ...glassCard, padding: '1.25rem', textAlign: 'center' }}>
               <div style={labelStyle}>RAPOR SAYISI</div>
-              <div className="mono" style={{ fontSize: '1.4rem', fontWeight: 700, color: '#e8ecf5' }}>{reportCount}</div>
+              <div className="mono" style={{ fontSize: '1.4rem', fontWeight: 700, color: '#ededed' }}>{reportCount}</div>
             </div>
             <div style={{ ...glassCard, padding: '1.25rem', textAlign: 'center' }}>
               <div style={labelStyle}>LİDERBOARD</div>
@@ -403,10 +403,10 @@ export default function ProfilPage() {
           {/* PROFILE IMAGE CARD */}
           <div style={{ ...glassCard, padding: '1.5rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
-              <div style={{ width: 32, height: 32, borderRadius: 8, background: 'rgba(29,110,247,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(29,110,247,0.2)' }}>
+              <div style={{ width: 32, height: 32, borderRadius: 8, background: 'rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.1)' }}>
                 <i className="fa-solid fa-image" style={{ color: '#1D6EF7', fontSize: '0.9rem' }}></i>
               </div>
-              <h3 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 700, color: '#e8ecf5' }}>Profil Fotoğrafı</h3>
+              <h3 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 700, color: '#ededed' }}>Profil Fotoğrafı</h3>
             </div>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -456,7 +456,7 @@ export default function ProfilPage() {
               <div style={{ width: 32, height: 32, borderRadius: 8, background: 'rgba(245,158,11,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(245,158,11,0.2)' }}>
                 <i className="fa-solid fa-lock" style={{ color: '#f59e0b', fontSize: '0.9rem' }}></i>
               </div>
-              <h3 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 700, color: '#e8ecf5' }}>Güvenlik Anahtarı</h3>
+              <h3 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 700, color: '#ededed' }}>Güvenlik Anahtarı</h3>
             </div>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
