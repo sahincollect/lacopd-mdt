@@ -1,152 +1,42 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, Suspense, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import ThemeToggle from '@/components/ThemeToggle';
-import { Suspense, useEffect } from 'react';
-
-const DEPARTMENTS = [
-  "Patrol Division",
-  "Detective Bureau",
-  "SWAT",
-  "Metro K-9",
-  "Dive Unit",
-  "Traffic Division",
-  "GND (Gangs & Narcotics)",
-];
-
-const RANKS = [
-  "Cadet",
-  "Officer II",
-  "Officer III",
-  "Detective I",
-  "Sergeant I",
-  "Sergeant II",
-  "Lieutenant I",
-  "Captain",
-];
 
 export default function GirisPage() {
   return (
-    <Suspense fallback={<div>YÃ¼kleniyor...</div>}>
+    <Suspense fallback={<div>Yükleniyor...</div>}>
       <GirisPageContent />
     </Suspense>
   );
 }
 
 function GirisPageContent() {
-  const [activeTab, setActiveTab] = useState<'login' | 'register'>('login');
-  const [badge, setBadge] = useState('');
-  const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(true);
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const [regBadge, setRegBadge] = useState('');
-  const [regName, setRegName] = useState('');
-  const [regPassword, setRegPassword] = useState('');
-  const [regRank, setRegRank] = useState('Cadet');
-  const [regDept, setRegDept] = useState('Patrol Division');
-  const [regSuccess, setRegSuccess] = useState(false);
-  const [regError, setRegError] = useState('');
-  const [regLoading, setRegLoading] = useState(false);
-
-  const router = useRouter();
   const searchParams = useSearchParams();
 
   useEffect(() => {
     const errorParam = searchParams.get('error');
     if (errorParam) {
-      if (errorParam === 'discord_denied') setError('Discord ile giriÅŸ reddedildi.');
+      if (errorParam === 'discord_denied') setError('Discord ile giriþ reddedildi.');
       else if (errorParam === 'not_in_server') setError('LA COMMUNITY sunucusunda bulunmuyorsunuz.');
-      else if (errorParam === 'missing_role') setError('Los Angeles Police Department rolÃ¼ne sahip deÄŸilsiniz.');
-      else if (errorParam === 'invalid_nickname_format') setError('Sunucudaki takma adÄ±nÄ±z hatalÄ±. (Ã–rn: [101] Ador Vance) olmalÄ±dÄ±r.');
-      else setError('Discord ile giriÅŸ yapÄ±lÄ±rken bir hata oluÅŸtu.');
+      else if (errorParam === 'missing_role') setError('Los Angeles Police Department rolüne sahip deðilsiniz.');
+      else if (errorParam === 'invalid_nickname_format') setError('Sunucudaki takma adýnýz hatalý. (Örn: [101] Ador Vance) olmalýdýr.');
+      else setError('Discord ile giriþ yapýlýrken bir hata oluþtu.');
     }
   }, [searchParams]);
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
-    try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ badge, password, rememberMe }),
-      });
-      if (res.ok) {
-        router.push('/mdt');
-      } else {
-        const data = await res.json();
-        setError(data.message || 'Sicil numarasÄ± veya ÅŸifre hatalÄ±.');
-      }
-    } catch {
-      setError('Sunucuya baÄŸlanÄ±lamadÄ±. LÃ¼tfen tekrar deneyin.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setRegError('');
-    setRegLoading(true);
-    try {
-      const res = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ badge: regBadge, name: regName, password: regPassword, rank: regRank, department: regDept }),
-      });
-      const data = await res.json();
-      if (res.ok) setRegSuccess(true);
-      else setRegError(data.message || 'BaÅŸvuru kaydedilemedi.');
-    } catch {
-      setRegError('BaÄŸlantÄ± hatasÄ±. LÃ¼tfen tekrar deneyin.');
-    } finally {
-      setRegLoading(false);
-    }
-  };
-
-  const inputStyle: React.CSSProperties = {
-    width: '100%',
-    padding: '11px 14px',
-    border: '1.5px solid var(--border-strong)',
-    borderRadius: '8px',
-    fontSize: '0.9rem',
-    color: 'var(--text-primary)',
-    backgroundColor: 'var(--bg-secondary)',
-    outline: 'none',
-    boxSizing: 'border-box',
-    transition: 'border-color 0.2s, box-shadow 0.2s',
-    fontFamily: 'inherit',
-  };
-
-  const labelStyle: React.CSSProperties = {
-    display: 'block',
-    fontSize: '0.75rem',
-    fontWeight: 700,
-    color: 'var(--text-secondary)',
-    marginBottom: '6px',
-    letterSpacing: '0.04em',
-    textTransform: 'uppercase',
-  };
-
   return (
     <>
-      <style>{`
+      <style>{
         html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
-        .LAC-input:focus { border-color: var(--accent-primary) !important; box-shadow: 0 0 0 3px rgba(4,22,50,0.08) !important; }
-        .login-btn:hover { background-color: var(--accent-secondary) !important; }
-        .discord-btn:hover { opacity: 0.9 !important; transform: translateY(-1px); }
-        .tab-btn { transition: all 0.2s; }
-        .tab-btn:hover { color: var(--accent-primary) !important; }
+        .discord-btn:hover { opacity: 0.9 !important; transform: translateY(-1px); box-shadow: 0 4px 15px rgba(88,101,242,0.3) !important; }
         .back-link:hover { color: var(--accent-secondary) !important; }
-        .reg-btn:hover { background-color: var(--accent-secondary) !important; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-        .form-fade { animation: fadeIn 0.25s ease; }
-      `}</style>
+        .academy-link:hover { text-decoration: underline !important; color: var(--accent-primary) !important; }
+        .support-link:hover { text-decoration: underline !important; color: #5865F2 !important; }
+      }</style>
 
       <div style={{
         display: 'flex',
@@ -155,7 +45,7 @@ function GirisPageContent() {
         fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
         overflow: 'hidden',
       }}>
-        {/* â”€â”€ LEFT PANEL: BRANDING â”€â”€ */}
+        {/* ¦¦ LEFT PANEL: BRANDING ¦¦ */}
         <div style={{
           flex: '0 0 52%',
           position: 'relative',
@@ -178,8 +68,8 @@ function GirisPageContent() {
           {/* Subtle grid pattern overlay */}
           <div style={{
             position: 'absolute', inset: 0,
-            backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,0.025) 59px, rgba(255,255,255,0.025) 60px),
-              repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.025) 59px, rgba(255,255,255,0.025) 60px)`,
+            backgroundImage: epeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,0.025) 59px, rgba(255,255,255,0.025) 60px),
+              repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.025) 59px, rgba(255,255,255,0.025) 60px),
           }} />
 
           {/* Content */}
@@ -243,19 +133,19 @@ function GirisPageContent() {
                 margin: 0,
                 maxWidth: '420px',
               }}>
-                Yetkili personele Ã¶zel komuta, dispeÃ§ ve koordinasyon platformu. EriÅŸim yalnÄ±zca aktif badge numarasÄ± ile mÃ¼mkÃ¼ndÃ¼r.
+                Yetkili personele özel komuta, dispeç ve koordinasyon platformu. Eriþim yalnýzca aktif personeller için açýktýr.
               </p>
             </div>
 
             {/* Bottom: Security badges */}
             <div style={{ display: 'flex', gap: '20px', paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.12)' }}>
               {[
-                { icon: 'fa-lock', text: 'AES-256 Åžifreli' },
+                { icon: 'fa-lock', text: 'AES-256 Þifreli' },
                 { icon: 'fa-shield-check', text: 'TLS 1.3' },
-                { icon: 'fa-user-shield', text: 'Ä°ki KatmanlÄ± GÃ¼venlik' },
+                { icon: 'fa-user-shield', text: 'OAuth2 Güvenliði' },
               ].map((item, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '7px', color: 'rgba(255,255,255,0.5)', fontSize: '0.72rem', fontWeight: 600 }}>
-                  <i className={`fa-solid ${item.icon}`}></i>
+                  <i className={a-solid }></i>
                   {item.text}
                 </div>
               ))}
@@ -263,7 +153,7 @@ function GirisPageContent() {
           </div>
         </div>
 
-        {/* â”€â”€ RIGHT PANEL: FORM â”€â”€ */}
+        {/* ¦¦ RIGHT PANEL: FORM ¦¦ */}
         <div style={{
           flex: 1,
           backgroundColor: 'var(--bg-primary)',
@@ -291,7 +181,7 @@ function GirisPageContent() {
                 textDecoration: 'none', transition: 'color 0.2s',
               }}>
                 <i className="fa-solid fa-arrow-left"></i>
-                Ana Sayfaya DÃ¶n
+                Ana Sayfaya Dön
               </Link>
             </div>
           </div>
@@ -307,265 +197,108 @@ function GirisPageContent() {
           }}>
             <div style={{ width: '100%', maxWidth: '420px' }}>
 
-              {/* Tabs */}
-              <div style={{
-                display: 'flex',
-                backgroundColor: 'var(--border-light)',
-                padding: '4px',
-                borderRadius: '10px',
-                marginBottom: '2rem',
-              }}>
-                {(['login', 'register'] as const).map(tab => (
-                  <button
-                    key={tab}
-                    type="button"
-                    className="tab-btn"
-                    onClick={() => { setActiveTab(tab); setError(''); setRegError(''); }}
-                    style={{
-                      flex: 1,
-                      padding: '9px',
-                      border: 'none',
-                      borderRadius: '8px',
-                      backgroundColor: activeTab === tab ? 'var(--bg-secondary)' : 'transparent',
-                      color: activeTab === tab ? 'var(--accent-primary)' : 'var(--text-muted)',
-                      fontWeight: 700,
-                      fontSize: '0.85rem',
-                      cursor: 'pointer',
-                      boxShadow: activeTab === tab ? '0 1px 4px rgba(0,0,0,0.1)' : 'none',
-                      fontFamily: 'inherit',
-                    }}
-                  >
-                    {tab === 'login' ? 'GiriÅŸ Yap' : 'KayÄ±t Ol'}
-                  </button>
-                ))}
+              <div style={{ marginBottom: '2rem' }}>
+                <h2 style={{ margin: '0 0 10px', fontSize: '1.8rem', fontWeight: 800, color: 'var(--accent-primary)', letterSpacing: '-0.02em' }}>
+                  Sisteme Giriþ
+                </h2>
+                <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+                  MDT veritabanýna eriþmek için Discord hesabýnýzý kullanarak kimliðinizi doðrulayýn.
+                </p>
               </div>
 
-              {activeTab === 'login' ? (
-                <div className="form-fade">
-                  <div style={{ marginBottom: '1.75rem' }}>
-                    <h2 style={{ margin: '0 0 6px', fontSize: '1.6rem', fontWeight: 800, color: 'var(--accent-primary)', letterSpacing: '-0.02em' }}>
-                      HoÅŸ Geldiniz
-                    </h2>
-                    <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-                      MDT sistemine eriÅŸmek iÃ§in giriÅŸ yapÄ±n.
-                    </p>
-                  </div>
-
-                  {error && (
-                    <div style={{
-                      display: 'flex', alignItems: 'center', gap: '10px',
-                      backgroundColor: '#FEF2F2', border: '1px solid #FECACA',
-                      color: '#DC2626', padding: '12px 14px', borderRadius: '8px',
-                      fontSize: '0.82rem', fontWeight: 600, marginBottom: '1.25rem',
-                    }}>
-                      <i className="fa-solid fa-circle-exclamation"></i>
-                      {error}
-                    </div>
-                  )}
-
-                  <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
-                    <div>
-                      <label style={labelStyle}>Sicil / Rozet NumarasÄ± <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
-                      <input
-                        className="LAC-input"
-                        type="text"
-                        placeholder="Ã–rn: 1222 veya 04-1234"
-                        value={badge}
-                        onChange={e => setBadge(e.target.value)}
-                        required
-                        style={inputStyle}
-                      />
-                    </div>
-
-                    <div>
-                      <label style={labelStyle}>GÃ¼venlik Åžifresi <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
-                      <input
-                        className="LAC-input"
-                        type="password"
-                        placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                        required
-                        style={inputStyle}
-                      />
-                    </div>
-
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <input
-                        type="checkbox"
-                        id="remember"
-                        checked={rememberMe}
-                        onChange={e => setRememberMe(e.target.checked)}
-                        style={{ width: 16, height: 16, cursor: 'pointer', accentColor: 'var(--accent-primary)' }}
-                      />
-                      <label htmlFor="remember" style={{ fontSize: '0.82rem', color: 'var(--text-muted)', cursor: 'pointer', userSelect: 'none' }}>
-                        Oturumu 24 saat boyunca aÃ§Ä±k tut
-                      </label>
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={loading}
-                      className="login-btn"
-                      style={{
-                        width: '100%',
-                        padding: '13px',
-                        backgroundColor: 'var(--accent-primary)',
-                        color: 'var(--bg-secondary)',
-                        border: 'none',
-                        borderRadius: '8px',
-                        fontSize: '0.9rem',
-                        fontWeight: 800,
-                        cursor: loading ? 'not-allowed' : 'pointer',
-                        opacity: loading ? 0.7 : 1,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '8px',
-                        letterSpacing: '0.03em',
-                        transition: 'background-color 0.2s',
-                        fontFamily: 'inherit',
-                        marginTop: '0.5rem',
-                      }}
-                    >
-                      {loading
-                        ? <><i className="fa-solid fa-circle-notch fa-spin"></i> DoÄŸrulanÄ±yor...</>
-                        : <><i className="fa-solid fa-right-to-bracket"></i> SÄ°STEME GÄ°RÄ°Åž YAP</>
-                      }
-                    </button>
-                  </form>
-
-                  <div style={{ display: 'flex', alignItems: 'center', margin: '1.5rem 0' }}>
-                    <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--border-light)' }}></div>
-                    <span style={{ padding: '0 10px', fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600 }}>VEYA</span>
-                    <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--border-light)' }}></div>
-                  </div>
-
-                  <a
-                    href="/api/auth/discord/login"
-                    className="discord-btn"
-                    style={{
-                      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
-                      width: '100%', padding: '12px',
-                      backgroundColor: '#5865F2', color: '#FFF',
-                      border: 'none', borderRadius: '8px',
-                      fontSize: '0.9rem', fontWeight: 700,
-                      textDecoration: 'none',
-                      transition: 'all 0.2s',
-                    }}
-                  >
-                    <i className="fa-brands fa-discord" style={{ fontSize: '1.2rem' }}></i>
-                    Discord ile GiriÅŸ Yap
-                  </a>
-
-                  <p style={{ textAlign: 'center', fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '1.5rem' }}>
-                    HesabÄ±nÄ±z yok mu?{' '}
-                    <button onClick={() => setActiveTab('register')} style={{ background: 'none', border: 'none', color: 'var(--accent-primary)', fontWeight: 700, cursor: 'pointer', fontSize: 'inherit', padding: 0, fontFamily: 'inherit' }}>
-                      BaÅŸvuru YapÄ±n
-                    </button>
-                  </p>
-                </div>
-              ) : (
-                <div className="form-fade" style={{ overflowY: 'auto', maxHeight: 'calc(100vh - 200px)' }}>
-                  {regSuccess ? (
-                    <div style={{ textAlign: 'center', padding: '2rem 0' }}>
-                      <div style={{ width: 64, height: 64, backgroundColor: '#DCFCE7', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', fontSize: '1.8rem', color: '#16A34A' }}>
-                        <i className="fa-solid fa-check"></i>
-                      </div>
-                      <h3 style={{ margin: '0 0 8px', color: 'var(--accent-primary)', fontWeight: 800, fontSize: '1.3rem' }}>BaÅŸvuru AlÄ±ndÄ±!</h3>
-                      <p style={{ margin: '0 0 1.5rem', color: 'var(--text-muted)', fontSize: '0.88rem', lineHeight: 1.6 }}>
-                        Yetki talebiniz yÃ¶netime iletildi.<br />OnaylandÄ±ktan sonra giriÅŸ yapabilirsiniz.
-                      </p>
-                      <button
-                        onClick={() => { setActiveTab('login'); setRegSuccess(false); }}
-                        style={{ padding: '10px 24px', backgroundColor: 'var(--accent-primary)', color: 'var(--bg-secondary)', border: 'none', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}
-                      >
-                        GiriÅŸ EkranÄ±na DÃ¶n
-                      </button>
-                    </div>
-                  ) : (
-                    <>
-                      <div style={{ marginBottom: '1.75rem' }}>
-                        <h2 style={{ margin: '0 0 6px', fontSize: '1.6rem', fontWeight: 800, color: 'var(--accent-primary)', letterSpacing: '-0.02em' }}>
-                          Personel BaÅŸvurusu
-                        </h2>
-                        <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-                          MDT eriÅŸimi iÃ§in bilgilerinizi eksiksiz doldurun.
-                        </p>
-                      </div>
-
-                      {regError && (
-                        <div style={{
-                          display: 'flex', alignItems: 'center', gap: '10px',
-                          backgroundColor: '#FEF2F2', border: '1px solid #FECACA',
-                          color: '#DC2626', padding: '12px 14px', borderRadius: '8px',
-                          fontSize: '0.82rem', fontWeight: 600, marginBottom: '1.25rem',
-                        }}>
-                          <i className="fa-solid fa-circle-exclamation"></i>
-                          {regError}
-                        </div>
-                      )}
-
-                      <form onSubmit={handleRegister} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                          <div>
-                            <label style={labelStyle}>Rozet No <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
-                            <input className="LAC-input" type="text" placeholder="1234" value={regBadge} onChange={e => setRegBadge(e.target.value)} required style={inputStyle} />
-                          </div>
-                          <div>
-                            <label style={labelStyle}>Ä°sim Soyisim <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
-                            <input className="LAC-input" type="text" placeholder="John Doe" value={regName} onChange={e => setRegName(e.target.value)} required style={inputStyle} />
-                          </div>
-                        </div>
-
-                        <div>
-                          <label style={labelStyle}>Birim / Departman <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
-                          <select value={regDept} onChange={e => setRegDept(e.target.value)} className="LAC-input" style={{ ...inputStyle, cursor: 'pointer' }}>
-                            {DEPARTMENTS.map(d => <option key={d}>{d}</option>)}
-                          </select>
-                        </div>
-
-                        <div>
-                          <label style={labelStyle}>RÃ¼tbe <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
-                          <select value={regRank} onChange={e => setRegRank(e.target.value)} className="LAC-input" style={{ ...inputStyle, cursor: 'pointer' }}>
-                            {RANKS.map(r => <option key={r}>{r}</option>)}
-                          </select>
-                        </div>
-
-                        <div>
-                          <label style={labelStyle}>Åžifre <span style={{ color: 'var(--accent-secondary)' }}>*</span></label>
-                          <input className="LAC-input" type="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" value={regPassword} onChange={e => setRegPassword(e.target.value)} required style={inputStyle} />
-                        </div>
-
-                        <button
-                          type="submit"
-                          disabled={regLoading}
-                          className="reg-btn"
-                          style={{
-                            width: '100%', padding: '13px',
-                            backgroundColor: 'var(--accent-primary)', color: 'var(--bg-secondary)',
-                            border: 'none', borderRadius: '8px',
-                            fontSize: '0.9rem', fontWeight: 800,
-                            cursor: regLoading ? 'not-allowed' : 'pointer',
-                            opacity: regLoading ? 0.7 : 1,
-                            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-                            transition: 'background-color 0.2s', fontFamily: 'inherit', marginTop: '0.25rem',
-                          }}
-                        >
-                          {regLoading
-                            ? <><i className="fa-solid fa-circle-notch fa-spin"></i> GÃ¶nderiliyor...</>
-                            : <><i className="fa-solid fa-user-plus"></i> BAÅžVURUYU TAMAMLA</>
-                          }
-                        </button>
-                      </form>
-                    </>
-                  )}
+              {error && (
+                <div style={{
+                  display: 'flex', alignItems: 'center', gap: '10px',
+                  backgroundColor: '#FEF2F2', border: '1px solid #FECACA',
+                  color: '#DC2626', padding: '12px 14px', borderRadius: '8px',
+                  fontSize: '0.85rem', fontWeight: 600, marginBottom: '1.5rem',
+                }}>
+                  <i className="fa-solid fa-circle-exclamation"></i>
+                  {error}
                 </div>
               )}
 
+              <a
+                href="/api/auth/discord/login"
+                className="discord-btn"
+                style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px',
+                  width: '100%', padding: '16px',
+                  backgroundColor: '#5865F2', color: '#FFF',
+                  border: 'none', borderRadius: '10px',
+                  fontSize: '1rem', fontWeight: 700,
+                  textDecoration: 'none',
+                  transition: 'all 0.2s',
+                  boxShadow: '0 2px 10px rgba(88,101,242,0.2)',
+                }}
+              >
+                <i className="fa-brands fa-discord" style={{ fontSize: '1.4rem' }}></i>
+                Discord ile Giriþ Yap
+              </a>
+
+              {/* Trust Badge / Security Info */}
+              <div style={{
+                marginTop: '1.5rem',
+                padding: '1rem',
+                backgroundColor: 'var(--bg-secondary)',
+                border: '1px solid var(--border-light)',
+                borderRadius: '8px',
+                display: 'flex',
+                gap: '12px',
+                alignItems: 'flex-start'
+              }}>
+                <div style={{ color: '#00d26a', fontSize: '1.2rem', marginTop: '2px' }}>
+                  <i className="fa-solid fa-shield-check"></i>
+                </div>
+                <div>
+                  <h4 style={{ margin: '0 0 6px', fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)' }}>Güvenli Doðrulama</h4>
+                  <p style={{ margin: 0, fontSize: '0.75rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+                    MDT sistemi yalnýzca <strong style={{ color: 'var(--text-primary)' }}>Genel Profil Bilgilerinize (Kullanýcý Adý, Profil Fotoðrafý)</strong> ve sunucudaki <strong style={{ color: 'var(--text-primary)' }}>Rollerinize</strong> eriþim saðlar. Mesajlarýnýz, arkadaþlarýnýz veya özel verileriniz <u>kesinlikle görüntülenemez.</u> Endiþe etmenize gerek yoktur.
+                  </p>
+                </div>
+              </div>
+
+              {/* Helpful Links */}
+              <div style={{ 
+                marginTop: '2.5rem', 
+                display: 'flex', 
+                flexDirection: 'column', 
+                gap: '1rem',
+                backgroundColor: 'var(--bg-secondary)',
+                padding: '1.25rem',
+                borderRadius: '10px',
+                border: '1px solid var(--border-light)'
+              }}>
+                <h4 style={{ margin: '0 0 0.5rem', fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)' }}>Faydalý Baðlantýlar</h4>
+                
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.85rem' }}>
+                  <div style={{ width: 28, height: 28, backgroundColor: 'rgba(29,110,247,0.1)', color: 'var(--accent-primary)', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <i className="fa-solid fa-file-signature"></i>
+                  </div>
+                  <div>
+                    <span style={{ color: 'var(--text-muted)' }}>MDT'de kaydýnýz yok mu? </span>
+                    <a href="https://discord.gg/lacommunity" target="_blank" rel="noreferrer" className="academy-link" style={{ color: 'var(--text-primary)', fontWeight: 600, textDecoration: 'none' }}>
+                      Akademi Baþvuru formunu doldurun.
+                    </a>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.85rem' }}>
+                  <div style={{ width: 28, height: 28, backgroundColor: 'rgba(88,101,242,0.1)', color: '#5865F2', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <i className="fa-brands fa-discord"></i>
+                  </div>
+                  <div>
+                    <span style={{ color: 'var(--text-muted)' }}>Giriþ yapamýyor musunuz? </span>
+                    <a href="https://discord.gg/lacommunity" target="_blank" rel="noreferrer" className="support-link" style={{ color: 'var(--text-primary)', fontWeight: 600, textDecoration: 'none' }}>
+                      Destek Talebi açýn.
+                    </a>
+                  </div>
+                </div>
+              </div>
+
               {/* Footer */}
               <div style={{
-                marginTop: '2rem',
+                marginTop: '3rem',
                 paddingTop: '1.25rem',
                 borderTop: '1px solid var(--border-light)',
                 display: 'flex',
@@ -573,8 +306,8 @@ function GirisPageContent() {
                 fontSize: '0.7rem',
                 color: 'var(--text-muted)',
               }}>
-                <span><i className="fa-solid fa-lock" style={{ marginRight: '5px' }}></i>AES-256 TLS 1.3</span>
-                <span>Â© 2026 LAC Police Department</span>
+                <span><i className="fa-solid fa-code" style={{ marginRight: '5px' }}></i>v2.0.0</span>
+                <span>© 2026 LAC Police Department</span>
               </div>
             </div>
           </div>
