@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState, useMemo } from 'react';
 import useSWR from 'swr';
@@ -12,6 +12,7 @@ interface User {
   rank: string;
   role: string;
   specialRoles?: string;
+  discordRoles?: string;
   isOnDuty: boolean;
   profileImage?: string;
   createdAt: string;
@@ -342,15 +343,33 @@ export default function ProfilPage() {
               <h2 style={{ fontSize: '2rem', fontWeight: 900, color: '#ededed', margin: '0 0 0.5rem 0', letterSpacing: '-0.02em' }}>{user.name}</h2>
               <div style={{ fontSize: '0.9rem', color: '#888', fontWeight: 500 }}>{user.rank} • {user.department || 'L.A.C.P.D.'}</div>
 
+              {/* MDT Özel Rolleri */}
               {user.specialRoles && (
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'center', marginTop: '1.5rem' }}>
                   {user.specialRoles.split(',').filter(Boolean).map((sr: string, idx: number) => (
-                    <span key={idx} style={{
+                    <span key={`sr-${idx}`} style={{
                       fontSize: '0.65rem', fontWeight: 700, color: '#ededed',
                       backgroundColor: '#161616', border: '1px solid rgba(255,255,255,0.08)',
                       padding: '4px 10px', borderRadius: '6px', letterSpacing: '0.05em', textTransform: 'uppercase'
                     }}>
                       {sr.trim()}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {/* Discord Sunucu Rolleri */}
+              {user.discordRoles && (
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'center', marginTop: user.specialRoles ? '0.5rem' : '1.5rem' }}>
+                  {user.discordRoles.split(',').filter(Boolean).map((dr: string, idx: number) => (
+                    <span key={`dr-${idx}`} style={{
+                      fontSize: '0.65rem', fontWeight: 700, color: '#FFF',
+                      backgroundColor: '#5865F2', border: '1px solid rgba(88,101,242,0.4)',
+                      padding: '4px 10px', borderRadius: '6px', letterSpacing: '0.05em', textTransform: 'uppercase',
+                      boxShadow: '0 2px 8px rgba(88,101,242,0.2)'
+                    }}>
+                      <i className="fa-brands fa-discord" style={{ marginRight: '4px' }}></i>
+                      {dr.trim()}
                     </span>
                   ))}
                 </div>

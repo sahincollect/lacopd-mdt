@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
 
     const officer = await prisma.officer.findUnique({
       where: { id: payload.id as number },
-      select: { id: true, badge: true, name: true, rank: true, department: true, role: true, isOnDuty: true, createdAt: true }
+      select: { id: true, badge: true, name: true, rank: true, department: true, role: true, isOnDuty: true, specialRoles: true, discordRoles: true, profileImage: true, createdAt: true }
     });
 
     if (!officer) {

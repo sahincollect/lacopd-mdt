@@ -21,6 +21,7 @@ model Officer {
   failedLoginAttempts Int         @default(0)
   isOnDuty       Boolean          @default(false)
   profileImage   String?          @db.Text
+  discordRoles   String?          @db.Text // Discord'dan otomatik çekilen roller
   createdAt      DateTime         @default(now())
   TimeLogs       TimeLog[]
   Reports        Report[]

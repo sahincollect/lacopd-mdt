@@ -74,6 +74,30 @@ export async function GET(req: Request) {
       return NextResponse.redirect(`${appUrl}/?error=missing_role`);
     }
 
+    // 4.2 Sunucudaki tüm rolleri çekip eşleştirme yapalım
+    let discordRolesString = "";
+    try {
+      const rolesRes = await fetch(`https://discord.com/api/guilds/${process.env.DISCORD_GUILD_ID}/roles`, {
+        headers: {
+          Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}`,
+        },
+      });
+      if (rolesRes.ok) {
+        const guildRoles = await rolesRes.json();
+        // Kullanıcının sahip olduğu rol ID'lerini isimleriyle eşleştir
+        const userRoleNames = memberData.roles
+          .map((roleId: string) => {
+            const r = guildRoles.find((gr: any) => gr.id === roleId);
+            return r ? r.name : null;
+          })
+          .filter((name: string | null) => name && name !== '@everyone'); // Everyone vb. gizle
+        
+        discordRolesString = userRoleNames.join(', ');
+      }
+    } catch (err) {
+      console.error("Discord roles fetch hatası:", err);
+    }
+
     // 5. Parse Nickname (e.g. "[101] Ador Vance")
     const nickname = memberData.nick || discordUser.global_name || discordUser.username;
     const badgeMatch = nickname.match(/^\[(.*?)\]\s*(.*)$/);
@@ -106,7 +130,8 @@ export async function GET(req: Request) {
         data: {
           discordId: discordUser.id,
           profileImage: avatarUrl,
-          name: nameStr, // Optionally update name to match Discord
+          name: nameStr,
+          discordRoles: discordRolesString,
         }
       });
     } else {
@@ -117,6 +142,7 @@ export async function GET(req: Request) {
           badge: badgeStr,
           name: nameStr,
           profileImage: avatarUrl,
+          discordRoles: discordRolesString,
           rank: "Memur",
           department: "Genel Devriye",
           role: "user",
