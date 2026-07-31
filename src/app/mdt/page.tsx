@@ -38,9 +38,11 @@ function timeAgo(d: string) {
 }
 
 function formatSecs(secs: number) {
-  const h = Math.floor(secs / 3600);
-  const m = Math.floor((secs % 3600) / 60);
-  return `${h}s ${m}d`;
+  const s = Math.max(0, Math.floor(secs));
+  const h = Math.floor(s / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const sc = s % 60;
+  return `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}:${sc.toString().padStart(2, "0")}`;
 }
 
 const card: React.CSSProperties = {
@@ -100,10 +102,37 @@ export default function MDTDashboard() {
   const myRank     = (shiftsData?.leaderboard ?? []).sort((a: any, b: any) => b.totalSeconds - a.totalSeconds).findIndex((e: any) => e.id === user?.id) + 1;
 
   const [toggling, setToggling] = useState(false);
-  const [tick, setTick]         = useState(0);
+  const [liveTicks, setLiveTicks] = useState<Record<number, number>>({});
   const dutyStart = useRef<number | null>(null);
 
-  useEffect(() => { const id = setInterval(() => setTick(t => t + 1), 1000); return () => clearInterval(id); }, []);
+  // Initialize live ticks from API data
+  useEffect(() => {
+    if (shiftsData?.leaderboard) {
+      const ticks: Record<number, number> = {};
+      shiftsData.leaderboard.forEach((off: any) => {
+        ticks[off.id] = off.totalSeconds;
+      });
+      setLiveTicks(ticks);
+    }
+  }, [shiftsData]);
+
+  // Tick every second for active officers
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setLiveTicks(prev => {
+        const next = { ...prev };
+        if (shiftsData?.leaderboard) {
+          shiftsData.leaderboard.forEach((off: any) => {
+            if (off.isOnDuty) {
+              next[off.id] = (next[off.id] !== undefined ? next[off.id] : off.totalSeconds) + 1;
+            }
+          });
+        }
+        return next;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [shiftsData]);
 
   const toggleDuty = useCallback(async () => {
     if (!user || toggling) return;
@@ -128,7 +157,7 @@ export default function MDTDashboard() {
     { label: "Toplam Personel", value: officers.length,  sub: "kayıtlı memur",    icon: "fa-users",      color: "#1D6EF7", pct: null },
     { label: "Sahada Birim",    value: onDuty.length,    sub: `${officers.length ? Math.round(onDuty.length/officers.length*100) : 0}% aktif`, icon: "fa-car-side",   color: "#22c55e", pct: officers.length ? onDuty.length/officers.length : 0 },
     { label: "Toplam Rapor",    value: allReports.length, sub: "sisteme girilmiş", icon: "fa-file-lines", color: "#f59e0b", pct: null },
-    { label: "Mesai Sıram",     value: myRank > 0 ? `#${myRank}` : "—", sub: formatSecs(myEntry?.totalSeconds ?? 0), icon: "fa-trophy", color: "#8b5cf6", pct: null },
+    { label: "Mesai Sıram",     value: myRank > 0 ? `#${myRank}` : "—", sub: formatSecs(liveTicks[user?.id] ?? myEntry?.totalSeconds ?? 0), icon: "fa-trophy", color: "#8b5cf6", pct: null },
   ];
 
   return (
@@ -394,17 +423,22 @@ export default function MDTDashboard() {
                 ) : topShift.length === 0 ? (
                   <div style={{ padding: "1.5rem", textAlign: "center", color: "rgba(200,208,230,0.2)", fontSize: "0.75rem" }}>Henüz mesai kaydı yok.</div>
                 ) : (
-                  topShift.map((e: any, i: number) => (
-                    <div key={e.id} style={{ display: "flex", alignItems: "center", gap: "0.65rem", padding: "0.55rem 1.1rem", borderBottom: "1px solid rgba(29,110,247,0.04)" }}>
-                      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.7rem", fontWeight: 800, color: RANK_COLORS[i] ?? "rgba(200,208,230,0.3)", width: 18, textAlign: "center" }}>
-                        {i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : `#${i + 1}`}
-                      </span>
-                      <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#e8ecf5", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{e.name}</div>
+                  topShift.map((e: any, i: number) => {
+                    const currentSecs = liveTicks[e.id] ?? e.totalSeconds;
+                    return (
+                      <div key={e.id} style={{ display: "flex", alignItems: "center", gap: "0.65rem", padding: "0.55rem 1.1rem", borderBottom: "1px solid rgba(29,110,247,0.04)" }}>
+                        <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.7rem", fontWeight: 800, color: RANK_COLORS[i] ?? "rgba(200,208,230,0.3)", width: 18, textAlign: "center" }}>
+                          {i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : `#${i + 1}`}
+                        </span>
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#e8ecf5", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{e.name}</div>
+                        </div>
+                        <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.65rem", fontWeight: 800, color: e.isOnDuty ? "#22c55e" : "rgba(29,110,247,0.6)", background: e.isOnDuty ? "rgba(34,197,94,0.1)" : "rgba(29,110,247,0.08)", padding: "0.1rem 0.35rem", borderRadius: 2, border: `1px solid ${e.isOnDuty ? "rgba(34,197,94,0.3)" : "transparent"}` }}>
+                          {formatSecs(currentSecs)}
+                        </span>
                       </div>
-                      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.65rem", fontWeight: 700, color: "rgba(29,110,247,0.6)", background: "rgba(29,110,247,0.08)", padding: "0.1rem 0.35rem", borderRadius: 2 }}>{formatSecs(e.totalSeconds)}</span>
-                    </div>
-                  ))
+                    );
+                  })
                 )}
               </div>
             </div>
