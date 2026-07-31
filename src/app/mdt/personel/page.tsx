@@ -279,7 +279,7 @@ export default function PersonelListesi() {
               cursor: "pointer", transition: "all 0.15s",
               border: activeDeptFilter === "Tümü" ? "1px solid var(--mdt-accent)" : "1px solid var(--mdt-border)",
               background: activeDeptFilter === "Tümü" ? "var(--mdt-accent)" : "transparent",
-              color: activeDeptFilter === "Tümü" ? "#fff" : "var(--mdt-text-secondary)"
+              color: activeDeptFilter === "Tümü" ? "#111" : "var(--mdt-text-secondary)"
             }}
           >
             TÜMÜ
@@ -293,7 +293,7 @@ export default function PersonelListesi() {
                 cursor: "pointer", transition: "all 0.15s",
                 border: activeDeptFilter === dept.key ? "1px solid var(--mdt-accent)" : "1px solid var(--mdt-border)",
                 background: activeDeptFilter === dept.key ? "var(--mdt-accent)" : "transparent",
-                color: activeDeptFilter === dept.key ? "#fff" : "var(--mdt-text-secondary)"
+                color: activeDeptFilter === dept.key ? "#111" : "var(--mdt-text-secondary)"
               }}
             >
               {dept.label.toUpperCase()}
