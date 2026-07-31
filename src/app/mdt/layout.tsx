@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -881,14 +881,20 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
               animation: 'aurora-3 26s ease-in-out infinite',
               filter: 'blur(35px)',
             }} />
-            {/* Vercel-style Dot grid */}
+            {/* Dot grid */}
             <div style={{
               position: 'absolute',
               inset: 0,
-              backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px)',
-              backgroundSize: '24px 24px',
-              maskImage: 'linear-gradient(to bottom, black 5%, transparent 80%)',
-              WebkitMaskImage: 'linear-gradient(to bottom, black 5%, transparent 80%)',
+              backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)',
+              backgroundSize: '32px 32px',
+              opacity: 0.35,
+              animation: 'grid-drift 12s linear infinite',
+            }} />
+            {/* Horizontal scan-line fade */}
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px)',
             }} />
           </div>
 
