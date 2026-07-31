@@ -7,8 +7,15 @@ export async function POST(req: Request) {
     const botToken = process.env.DISCORD_BOT_TOKEN;
 
     // Sadece bot token'ına sahip olanlar (yani bizim Discord botumuz) bu uç noktaya istek atabilir.
-    if (!authHeader || authHeader !== `Bearer ${botToken}`) {
-      return NextResponse.json({ error: 'Yetkisiz erişim' }, { status: 401 });
+    if (!authHeader) {
+      console.error('Bot mesai API: Authorization header eksik.');
+      return NextResponse.json({ error: 'Yetkisiz erişim (Header eksik)' }, { status: 401 });
+    }
+
+    const providedToken = authHeader.replace(/^Bearer\s+/i, '').trim();
+    if (providedToken !== botToken) {
+      console.error(`Bot mesai API: Token uyumsuzluğu. Gelen: ${providedToken.substring(0, 5)}... Beklenen: ${botToken?.substring(0, 5)}...`);
+      return NextResponse.json({ error: 'Yetkisiz erişim (Geçersiz token)' }, { status: 401 });
     }
 
     const body = await req.json();
