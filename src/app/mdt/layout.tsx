@@ -249,8 +249,10 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
           style={{
             width: sideW,
             minWidth: sideW,
-            background: 'linear-gradient(180deg, #060a12 0%, #080d18 100%)',
-            borderRight: '1px solid rgba(29,110,247,0.12)',
+            background: 'rgba(6,10,18,0.7)',
+            backdropFilter: 'blur(32px)',
+            borderRight: '1px solid rgba(29,110,247,0.2)',
+            boxShadow: '4px 0 24px -10px rgba(29,110,247,0.2)',
             display: 'flex',
             flexDirection: 'column',
             height: '100vh',
@@ -342,23 +344,22 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                 {!collapsed && (
                   <div
                     style={{
-                      fontSize: '0.55rem',
+                      fontSize: '0.6rem',
                       fontWeight: 800,
-                      color: 'rgba(29,110,247,0.45)',
-                      letterSpacing: '0.28em',
+                      color: 'rgba(29,110,247,0.6)',
+                      letterSpacing: '0.15em',
                       textTransform: 'uppercase',
-                      padding: '1rem 0.7rem 0.4rem',
+                      padding: '0.4rem 0.6rem',
+                      margin: '1rem 0.5rem 0.5rem 0.5rem',
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.5rem',
+                      background: 'rgba(29,110,247,0.04)',
+                      borderLeft: '2px solid #1D6EF7',
+                      borderRadius: '4px',
+                      fontFamily: "'JetBrains Mono', monospace",
                     }}
                   >
-                    <span style={{
-                      flex: 1,
-                      height: '1px',
-                      background: 'linear-gradient(90deg, rgba(29,110,247,0.2) 0%, transparent 100%)',
-                      display: 'inline-block',
-                    }} />
                     {section.label}
                   </div>
                 )}
@@ -376,20 +377,22 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                         display: 'flex',
                         alignItems: 'center',
                         gap: collapsed ? 0 : '0.8rem',
-                        padding: collapsed ? '0.82rem 0' : '0.68rem 0.85rem',
-                        borderRadius: 10,
-                        marginBottom: '0.12rem',
+                        padding: collapsed ? '0.82rem 0' : '0.65rem 0.85rem',
+                        borderRadius: 8,
+                        marginBottom: '0.2rem',
                         textDecoration: 'none',
                         justifyContent: collapsed ? 'center' : 'flex-start',
-                        backgroundColor: isActive
-                          ? 'rgba(29,110,247,0.1)'
+                        background: isActive
+                          ? 'linear-gradient(90deg, rgba(29,110,247,0.15) 0%, rgba(29,110,247,0.02) 100%)'
                           : 'transparent',
-                        color: isActive ? '#1D6EF7' : 'rgba(200,208,230,0.55)',
-                        fontWeight: isActive ? 600 : 400,
+                        border: isActive ? '1px solid rgba(29,110,247,0.2)' : '1px solid transparent',
+                        color: isActive ? '#e8ecf5' : 'rgba(200,208,230,0.5)',
+                        fontWeight: isActive ? 700 : 500,
                         fontSize: '0.82rem',
                         letterSpacing: '0.01em',
                         userSelect: 'none',
                         position: 'relative',
+                        boxShadow: isActive ? 'inset 2px 0 0 #1D6EF7' : 'none',
                       }}
                       onMouseOver={e => {
                         if (!isActive) {
@@ -408,10 +411,11 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                         className={`fa-solid ${item.icon} mdt-icon`}
                         style={{
                           fontSize: '0.9rem',
-                          width: 18,
+                          width: 20,
                           textAlign: 'center',
                           flexShrink: 0,
                           color: isActive ? '#1D6EF7' : 'inherit',
+                          filter: isActive ? 'drop-shadow(0 0 6px rgba(29,110,247,0.8))' : 'none',
                         }}
                       />
 
