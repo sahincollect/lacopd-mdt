@@ -178,12 +178,35 @@ export default function MDTDashboard() {
         .vlink:hover { color: #ededed !important; }
         .lb-row { transition: background 0.14s; }
         .lb-row:hover { background: rgba(255,255,255,0.03) !important; }
+        
+        @keyframes police-sweep {
+          0% { background-position: 0% 50%; }
+          100% { background-position: 200% 50%; }
+        }
+        .police-flasher {
+          position: relative;
+          overflow: hidden;
+        }
+        .police-flasher::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background: linear-gradient(90deg, rgba(239,68,68,0.07) 0%, transparent 30%, transparent 70%, rgba(29,110,247,0.07) 100%);
+          background-size: 200% 100%;
+          animation: police-sweep 3s linear infinite;
+          z-index: 0;
+        }
+        .police-flasher > * {
+          position: relative;
+          z-index: 1;
+        }
       `}</style>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "1rem", maxWidth: 1440, margin: "0 auto", paddingBottom: "2rem" }}>
 
         {/* ═══ ROW 1 — HERO ═══ */}
-        <div style={{
+        <div className="police-flasher" style={{
           ...card,
           display: "grid",
           gridTemplateColumns: "1fr auto",
