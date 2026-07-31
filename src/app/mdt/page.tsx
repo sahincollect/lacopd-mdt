@@ -179,35 +179,23 @@ export default function MDTDashboard() {
         .lb-row { transition: background 0.14s; }
         .lb-row:hover { background: rgba(255,255,255,0.03) !important; }
         
-        @keyframes police-sweep {
-          0% { background-position: 0% 50%; }
-          100% { background-position: 200% 50%; }
-        }
-        .police-flasher {
+        .premium-pattern {
           position: relative;
           overflow: hidden;
         }
-        .police-flasher::before {
+        .premium-pattern::before {
           content: "";
           position: absolute;
           inset: 0;
           pointer-events: none;
-          background: linear-gradient(90deg, rgba(239,68,68,0.18) 0%, transparent 20%, transparent 80%, rgba(29,110,247,0.18) 100%);
-          background-size: 200% 100%;
-          animation: police-sweep 3s linear infinite;
+          background-image: radial-gradient(rgba(255,255,255,0.12) 1px, transparent 1px);
+          background-position: -1px -1px;
+          background-size: 20px 20px;
+          mask-image: linear-gradient(135deg, black 0%, transparent 70%);
+          -webkit-mask-image: linear-gradient(135deg, black 0%, transparent 70%);
           z-index: 0;
         }
-        .police-flasher::after {
-          content: "";
-          position: absolute;
-          top: 0; left: 0; right: 0; height: 2px;
-          background: linear-gradient(90deg, #ef4444 0%, #111 20%, #111 80%, #1D6EF7 100%);
-          background-size: 200% 100%;
-          animation: police-sweep 1.5s linear infinite;
-          z-index: 2;
-          box-shadow: 0 0 15px rgba(239,68,68,0.5), 0 0 15px rgba(29,110,247,0.5);
-        }
-        .police-flasher > * {
+        .premium-pattern > * {
           position: relative;
           z-index: 1;
         }
@@ -216,7 +204,7 @@ export default function MDTDashboard() {
       <div style={{ display: "flex", flexDirection: "column", gap: "1rem", maxWidth: 1440, margin: "0 auto", paddingBottom: "2rem" }}>
 
         {/* ═══ ROW 1 — HERO ═══ */}
-        <div className="police-flasher" style={{
+        <div className="premium-pattern" style={{
           ...card,
           display: "grid",
           gridTemplateColumns: "1fr auto",
