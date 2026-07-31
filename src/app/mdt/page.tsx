@@ -44,19 +44,20 @@ function formatSecs(secs: number) {
 }
 
 const card: React.CSSProperties = {
-  background: "linear-gradient(145deg, rgba(16,22,36,0.9) 0%, rgba(10,14,26,0.85) 100%)",
-  backdropFilter: "blur(24px)",
-  border: "1px solid rgba(29,110,247,0.25)",
-  borderRadius: 14,
+  background: "rgba(6,10,18,0.7)",
+  backdropFilter: "blur(32px)",
+  border: "1px solid rgba(29,110,247,0.15)",
+  borderTop: "2px solid rgba(29,110,247,0.3)",
+  borderRadius: 8,
   overflow: "hidden",
-  boxShadow: "0 12px 40px -10px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05)",
+  boxShadow: "0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(29,110,247,0.1)",
 };
 
 const CARD_HDR: React.CSSProperties = {
   display: "flex", justifyContent: "space-between", alignItems: "center",
   padding: "0.85rem 1.1rem",
-  borderBottom: "1px solid rgba(29,110,247,0.08)",
-  background: "rgba(29,110,247,0.03)",
+  borderBottom: "1px solid rgba(29,110,247,0.15)",
+  background: "linear-gradient(90deg, rgba(29,110,247,0.08) 0%, transparent 100%)",
 };
 
 const SECT_LABEL: React.CSSProperties = {
@@ -134,12 +135,18 @@ export default function MDTDashboard() {
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
-        .dash-ql:hover { background: rgba(255,255,255,0.06) !important; transform: translateY(-2px) !important; }
-        .dash-stat:hover { border-color: rgba(29,110,247,0.25) !important; transform: translateY(-2px) !important; }
-        .rep-row:hover { background: rgba(29,110,247,0.04) !important; }
-        .patrol-row:hover { background: rgba(34,197,94,0.04) !important; }
-        .duty-btn:hover:not(:disabled) { filter: brightness(1.15) !important; transform: scale(1.02) !important; }
-        .view-link:hover { color: #4A8EFA !important; }
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
+        .dash-ql { position: relative; overflow: hidden; }
+        .dash-ql::before { content: ''; position: absolute; left: 0; top: 0; width: 2px; height: 100%; background: transparent; transition: all 0.2s ease; }
+        .dash-ql:hover { background: rgba(29,110,247,0.08) !important; border-color: rgba(29,110,247,0.3) !important; }
+        .dash-ql:hover::before { background: #1D6EF7; }
+        .dash-stat { position: relative; overflow: hidden; }
+        .dash-stat::after { content: ''; position: absolute; right: -20px; top: -20px; width: 100px; height: 100px; background: radial-gradient(circle, rgba(29,110,247,0.1) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
+        .dash-stat:hover { border-color: rgba(29,110,247,0.4) !important; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(29,110,247,0.1); }
+        .rep-row:hover { background: linear-gradient(90deg, rgba(29,110,247,0.1) 0%, transparent 100%) !important; border-left: 2px solid #1D6EF7; padding-left: calc(1.1rem - 2px) !important; }
+        .patrol-row:hover { background: linear-gradient(90deg, rgba(34,197,94,0.1) 0%, transparent 100%) !important; border-left: 2px solid #22c55e; padding-left: calc(1.1rem - 2px) !important; }
+        .duty-btn:hover:not(:disabled) { filter: brightness(1.2) !important; transform: scale(1.03) !important; box-shadow: 0 0 25px rgba(34,197,94,0.3) !important; }
+        .view-link:hover { color: #1D6EF7 !important; letter-spacing: 0.05em; }
       `}</style>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", maxWidth: 1440, margin: "0 auto" }}>
@@ -197,21 +204,22 @@ export default function MDTDashboard() {
               disabled={toggling || !user}
               style={{
                 display: "flex", alignItems: "center", gap: "0.65rem",
-                padding: "0.75rem 1.5rem", borderRadius: 10,
-                border: user?.isOnDuty ? "1px solid rgba(34,197,94,0.35)" : "1px solid rgba(29,110,247,0.2)",
-                background: user?.isOnDuty ? "rgba(34,197,94,0.1)" : "rgba(29,110,247,0.08)",
-                color: user?.isOnDuty ? "#4ade80" : "rgba(200,208,230,0.55)",
-                fontWeight: 700, fontSize: "0.82rem",
+                padding: "0.75rem 1.5rem", borderRadius: 6,
+                border: user?.isOnDuty ? "1px solid rgba(34,197,94,0.4)" : "1px solid rgba(29,110,247,0.3)",
+                background: user?.isOnDuty ? "linear-gradient(135deg, rgba(34,197,94,0.2) 0%, rgba(34,197,94,0.05) 100%)" : "linear-gradient(135deg, rgba(29,110,247,0.15) 0%, rgba(29,110,247,0.05) 100%)",
+                color: user?.isOnDuty ? "#4ade80" : "#e8ecf5",
+                fontWeight: 800, fontSize: "0.82rem", textTransform: "uppercase",
                 cursor: toggling || !user ? "not-allowed" : "pointer",
                 opacity: toggling ? 0.6 : 1,
-                transition: "all 0.2s ease",
-                boxShadow: user?.isOnDuty ? "0 0 20px rgba(34,197,94,0.15)" : "none",
-                letterSpacing: "0.03em",
+                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                boxShadow: user?.isOnDuty ? "0 0 20px rgba(34,197,94,0.2), inset 0 0 10px rgba(34,197,94,0.1)" : "inset 0 0 10px rgba(29,110,247,0.1)",
+                letterSpacing: "0.08em",
+                fontFamily: "'JetBrains Mono', monospace",
               }}
             >
-              <span style={{ width: 8, height: 8, borderRadius: "50%", background: user?.isOnDuty ? "#4ade80" : "rgba(200,208,230,0.2)", boxShadow: user?.isOnDuty ? "0 0 10px #4ade80" : "none", flexShrink: 0 }} />
+              <span style={{ width: 8, height: 8, borderRadius: "50%", background: user?.isOnDuty ? "#4ade80" : "rgba(200,208,230,0.3)", boxShadow: user?.isOnDuty ? "0 0 10px #4ade80" : "none", flexShrink: 0 }} />
               <i className={`fa-solid ${user?.isOnDuty ? "fa-stop" : "fa-play"}`} style={{ fontSize: "0.72rem" }} />
-              {user?.isOnDuty ? "Görevi Sonlandır" : "Göreve Başla"}
+              {user?.isOnDuty ? "GÖREVİ BİTİR" : "GÖREVE BAŞLA"}
             </button>
           </div>
         </div>
@@ -273,16 +281,17 @@ export default function MDTDashboard() {
               ) : (
                 allReports.slice(0, 7).map((r: any) => (
                   <Link key={r.id} href="/mdt/raporlar" style={{ textDecoration: "none", display: "block" }}>
-                    <div className="rep-row" style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.65rem 1.1rem", transition: "background 0.15s", borderBottom: "1px solid rgba(29,110,247,0.04)" }}>
-                      <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#1D6EF7", flexShrink: 0, opacity: 0.5 }} />
+                    <div className="rep-row" style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.65rem 1.1rem", transition: "all 0.2s", borderBottom: "1px solid rgba(29,110,247,0.04)" }}>
+                      <div style={{ width: 6, height: 6, background: "#1D6EF7", flexShrink: 0, boxShadow: "0 0 8px rgba(29,110,247,0.8)" }} />
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontSize: "0.82rem", fontWeight: 600, color: "#e8ecf5", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{r.title}</div>
-                        <div style={{ fontSize: "0.65rem", color: "rgba(200,208,230,0.35)", marginTop: 2 }}>
-                          <span style={{ fontFamily: "'JetBrains Mono', monospace" }}>#{r.officer?.badge}</span>
-                          {" · "}{timeAgo(r.createdAt)}
+                        <div style={{ fontSize: "0.82rem", fontWeight: 700, color: "#e8ecf5", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", letterSpacing: "0.02em" }}>{r.title}</div>
+                        <div style={{ fontSize: "0.65rem", color: "rgba(200,208,230,0.4)", marginTop: 4, display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                          <span style={{ fontFamily: "'JetBrains Mono', monospace", color: "rgba(29,110,247,0.7)", background: "rgba(29,110,247,0.08)", padding: "0.1rem 0.3rem", borderRadius: 2 }}>#{r.officer?.badge}</span>
+                          <span style={{ color: "rgba(200,208,230,0.2)" }}>/</span>
+                          <span style={{ fontFamily: "'JetBrains Mono', monospace" }}>{timeAgo(r.createdAt)}</span>
                         </div>
                       </div>
-                      <i className="fa-solid fa-chevron-right" style={{ color: "rgba(29,110,247,0.2)", fontSize: "0.55rem", flexShrink: 0 }} />
+                      <i className="fa-solid fa-chevron-right" style={{ color: "rgba(29,110,247,0.3)", fontSize: "0.55rem", flexShrink: 0 }} />
                     </div>
                   </Link>
                 ))
@@ -311,18 +320,21 @@ export default function MDTDashboard() {
                 </div>
               ) : (
                 onDuty.map((o: any) => (
-                  <div key={o.id} className="patrol-row" style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.65rem 1.1rem", transition: "background 0.15s", borderBottom: "1px solid rgba(34,197,94,0.04)" }}>
-                    <div style={{ width: 32, height: 32, borderRadius: "50%", background: "rgba(34,197,94,0.08)", border: "1.5px solid rgba(34,197,94,0.2)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", flexShrink: 0 }}>
+                  <div key={o.id} className="patrol-row" style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.65rem 1.1rem", transition: "all 0.2s", borderBottom: "1px solid rgba(34,197,94,0.04)" }}>
+                    <div style={{ width: 32, height: 32, borderRadius: "4px", background: "rgba(34,197,94,0.05)", border: "1px solid rgba(34,197,94,0.2)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", flexShrink: 0 }}>
                       {o.profileImage
                         ? <img src={o.profileImage} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                        : <i className="fa-solid fa-user" style={{ fontSize: "0.7rem", color: "#22c55e" }} />
+                        : <i className="fa-solid fa-user-shield" style={{ fontSize: "0.8rem", color: "rgba(34,197,94,0.6)" }} />
                       }
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontSize: "0.82rem", fontWeight: 600, color: "#e8ecf5", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{o.name}</div>
-                      <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.62rem", color: "rgba(34,197,94,0.45)", marginTop: 2 }}>#{o.badge} · {o.rank}</div>
+                      <div style={{ fontSize: "0.82rem", fontWeight: 700, color: "#e8ecf5", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", letterSpacing: "0.02em" }}>{o.name}</div>
+                      <div style={{ fontSize: "0.62rem", color: "rgba(200,208,230,0.4)", marginTop: 4, display: "flex", gap: "0.4rem", alignItems: "center" }}>
+                        <span style={{ fontFamily: "'JetBrains Mono', monospace", color: "rgba(34,197,94,0.7)", background: "rgba(34,197,94,0.08)", padding: "0.1rem 0.3rem", borderRadius: 2 }}>#{o.badge}</span>
+                        <span style={{ textTransform: "uppercase" }}>{o.rank}</span>
+                      </div>
                     </div>
-                    <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#22c55e", boxShadow: "0 0 8px #22c55e", flexShrink: 0 }} />
+                    <span style={{ width: 6, height: 6, background: "#22c55e", boxShadow: "0 0 10px #22c55e", flexShrink: 0 }} />
                   </div>
                 ))
               )}
@@ -351,14 +363,14 @@ export default function MDTDashboard() {
                     <div
                       className="dash-ql"
                       style={{
-                        display: "flex", alignItems: "center", gap: "0.5rem",
-                        padding: "0.6rem 0.7rem", borderRadius: 9,
-                        background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.04)",
-                        cursor: "pointer", transition: "all 0.18s ease",
+                        display: "flex", alignItems: "center", gap: "0.6rem",
+                        padding: "0.6rem 0.8rem", borderRadius: 4,
+                        background: "rgba(29,110,247,0.03)", border: "1px solid rgba(29,110,247,0.1)",
+                        cursor: "pointer", transition: "all 0.2s ease",
                       }}
                     >
-                      <i className={`fa-solid ${q.icon}`} style={{ fontSize: "0.75rem", color: q.color, width: 16, textAlign: "center" }} />
-                      <span style={{ fontSize: "0.7rem", fontWeight: 600, color: "rgba(200,208,230,0.55)", lineHeight: 1.2 }}>{q.label}</span>
+                      <i className={`fa-solid ${q.icon}`} style={{ fontSize: "0.8rem", color: q.color, width: 16, textAlign: "center" }} />
+                      <span style={{ fontSize: "0.7rem", fontWeight: 700, color: "rgba(200,208,230,0.7)", letterSpacing: "0.02em" }}>{q.label}</span>
                     </div>
                   </Link>
                 ))}
@@ -388,9 +400,9 @@ export default function MDTDashboard() {
                         {i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : `#${i + 1}`}
                       </span>
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontSize: "0.75rem", fontWeight: 600, color: "#e8ecf5", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{e.name}</div>
+                        <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#e8ecf5", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{e.name}</div>
                       </div>
-                      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.65rem", fontWeight: 700, color: "rgba(29,110,247,0.5)" }}>{formatSecs(e.totalSeconds)}</span>
+                      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.65rem", fontWeight: 700, color: "rgba(29,110,247,0.6)", background: "rgba(29,110,247,0.08)", padding: "0.1rem 0.35rem", borderRadius: 2 }}>{formatSecs(e.totalSeconds)}</span>
                     </div>
                   ))
                 )}
