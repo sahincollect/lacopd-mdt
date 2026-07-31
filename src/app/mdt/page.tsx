@@ -192,10 +192,20 @@ export default function MDTDashboard() {
           position: absolute;
           inset: 0;
           pointer-events: none;
-          background: linear-gradient(90deg, rgba(239,68,68,0.07) 0%, transparent 30%, transparent 70%, rgba(29,110,247,0.07) 100%);
+          background: linear-gradient(90deg, rgba(239,68,68,0.18) 0%, transparent 20%, transparent 80%, rgba(29,110,247,0.18) 100%);
           background-size: 200% 100%;
           animation: police-sweep 3s linear infinite;
           z-index: 0;
+        }
+        .police-flasher::after {
+          content: "";
+          position: absolute;
+          top: 0; left: 0; right: 0; height: 2px;
+          background: linear-gradient(90deg, #ef4444 0%, #111 20%, #111 80%, #1D6EF7 100%);
+          background-size: 200% 100%;
+          animation: police-sweep 1.5s linear infinite;
+          z-index: 2;
+          box-shadow: 0 0 15px rgba(239,68,68,0.5), 0 0 15px rgba(29,110,247,0.5);
         }
         .police-flasher > * {
           position: relative;
