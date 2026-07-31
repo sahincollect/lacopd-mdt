@@ -355,18 +355,19 @@ a {
   scrollbar-color: rgba(14, 165, 233, 0.25) transparent;
 }
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
   background: transparent; 
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(14, 165, 233, 0.25); 
+  background: rgba(255, 255, 255, 0.15); 
   border-radius: 10px;
+  border: 2px solid #0a0a0a; /* Creates a padded look */
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(14, 165, 233, 0.5); 
+  background: rgba(255, 255, 255, 0.25); 
 }
 ::-webkit-scrollbar-corner {
   background: transparent;

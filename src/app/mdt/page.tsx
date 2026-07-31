@@ -179,23 +179,20 @@ export default function MDTDashboard() {
         .lb-row { transition: background 0.14s; }
         .lb-row:hover { background: rgba(255,255,255,0.03) !important; }
         
-        .premium-pattern {
+        .premium-glow {
           position: relative;
           overflow: hidden;
         }
-        .premium-pattern::before {
+        .premium-glow::before {
           content: "";
           position: absolute;
           inset: 0;
           pointer-events: none;
-          background-image: radial-gradient(rgba(255,255,255,0.12) 1px, transparent 1px);
-          background-position: -1px -1px;
-          background-size: 20px 20px;
-          mask-image: linear-gradient(135deg, black 0%, transparent 70%);
-          -webkit-mask-image: linear-gradient(135deg, black 0%, transparent 70%);
+          background: radial-gradient(circle at 10% 50%, rgba(29, 110, 247, 0.15), transparent 45%),
+                      radial-gradient(circle at 90% 50%, rgba(239, 68, 68, 0.08), transparent 45%);
           z-index: 0;
         }
-        .premium-pattern > * {
+        .premium-glow > * {
           position: relative;
           z-index: 1;
         }
@@ -204,7 +201,7 @@ export default function MDTDashboard() {
       <div style={{ display: "flex", flexDirection: "column", gap: "1rem", maxWidth: 1440, margin: "0 auto", paddingBottom: "2rem" }}>
 
         {/* ═══ ROW 1 — HERO ═══ */}
-        <div className="premium-pattern" style={{
+        <div className="premium-glow" style={{
           ...card,
           display: "grid",
           gridTemplateColumns: "1fr auto",
