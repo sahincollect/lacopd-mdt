@@ -1,16 +1,20 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
 import { toast } from "react-hot-toast";
+
+/* ─── Palette tokens ─── */
+// bg: #0a0a0a  card: #111  elevated: #161616
+// border: rgba(255,255,255,0.08)   text: #ededed  sec: #888  muted: #555
+// blue: #1D6EF7   green: #00d26a   red: #ef4444
 
 const REPORT_TEMPLATES = [
   {
     id: "incident", category: "CRIME", categoryName: "Suç & Olay",
     name: "Olay Yeri Raporu", code: "3.14", icon: "fa-shield-halved",
-    description: "Devriye sırasında genel suçlar ve olay yeri ön soruşturması için temel rapor.",
+    description: "Genel suçlar ve olay yeri ön soruşturması için temel rapor.",
     sections: [
       { title: "Olay Bilgileri", fields: [
         { id: "incident_type", label: "Olay Türü", type: "text", placeholder: "Silahlı Soygun, Haneye Tecavüz...", width: "6" },
@@ -44,7 +48,7 @@ const REPORT_TEMPLATES = [
         { id: "booking_num", label: "Booking #", type: "text", placeholder: "BK-2026-xxxx", width: "6" },
       ]},
       { title: "Suçlamalar & Miranda", fields: [
-        { id: "charges_list", label: "Suçlamalar", type: "textarea", placeholder: "1. PC 245(a)(1) - Assault with Deadly Weapon\n2. PC 148(a)(1) - Resisting Arrest", width: "12", rows: 3 },
+        { id: "charges_list", label: "Suçlamalar", type: "textarea", placeholder: "1. PC 245(a)(1) - Assault with Deadly Weapon", width: "12", rows: 3 },
         { id: "miranda_read", label: "Miranda Hakları Okundu mu?", type: "select", options: ["Evet — Haklar okundu ve anlaşıldı", "Hayır — Soru sorulmadı", "Şahıs avukat istiyor"], width: "6" },
         { id: "bail_amount", label: "Kefalet", type: "text", placeholder: "$50,000 veya Kefaletsiz", width: "6" },
       ]},
@@ -144,7 +148,7 @@ const REPORT_TEMPLATES = [
         { id: "lead_detectives", label: "Sorumlu Dedektifler", type: "text", placeholder: "Det. Smith #1024, Det. Johnson #1105", width: "12" },
       ]},
       { title: "Bulgular & İlerleme", fields: [
-        { id: "case_summary", label: "Dava Özeti", type: "textarea", placeholder: "Soruşturmanın başlangıç noktası, şüphelilerin bağlantıları...", width: "12", rows: 5 },
+        { id: "case_summary", label: "Dava Özeti", type: "textarea", placeholder: "Soruşturmanın başlangıç noktası...", width: "12", rows: 5 },
         { id: "witness_statements", label: "Tanık İfadeleri", type: "textarea", placeholder: "Tanık A: Olay günü şüphelileri siyah SUV içinde gördüğünü belirtti...", width: "12", rows: 4 },
         { id: "next_steps", label: "Sonraki Adımlar", type: "textarea", placeholder: "1. HTS kayıtları incelemesi\n2. Mahkemeden arama kararı talebi", width: "12", rows: 3 },
       ]},
@@ -172,7 +176,7 @@ const REPORT_TEMPLATES = [
       { title: "Hedef Konum & Deliller", fields: [
         { id: "target_address", label: "Aranacak Adres", type: "text", placeholder: "1424 Eclipse Towers, Apt #12", width: "8" },
         { id: "target_owner", label: "Şüpheli Sahibi", type: "text", placeholder: "Şüpheli Adı", width: "4" },
-        { id: "items_to_seize", label: "Aranacak Nesneler", type: "textarea", placeholder: "1. Yasadışı silahlar\n2. Uyuşturucu madde\n3. Suç geliri nakit", width: "12", rows: 4 },
+        { id: "items_to_seize", label: "Aranacak Nesneler", type: "textarea", placeholder: "1. Yasadışı silahlar\n2. Uyuşturucu madde", width: "12", rows: 4 },
         { id: "probable_cause", label: "Makul Şüphe Beyanı", type: "textarea", placeholder: "Delillerin bu mülkte bulunduğuna dair memur beyanı...", width: "12", rows: 6 },
         { id: "judge_name", label: "Onaylayan Yargıç", type: "text", placeholder: "Yargıç Adı / Mahkeme", width: "6" },
         { id: "warrant_status", label: "Karar Durumu", type: "select", options: ["Mahkemeden Onay Bekliyor", "ONAYLANDI — Aktif", "İnfaz Edildi — Tamamlandı"], width: "6" },
@@ -222,32 +226,34 @@ const REPORT_TEMPLATES = [
 ];
 
 const CATEGORIES = [
-  { id: "ALL",      label: "Tümü",      icon: "fa-border-all",       color: "#888" },
-  { id: "CRIME",    label: "Suç & Olay",icon: "fa-handcuffs",        color: "#E84F2A" },
-  { id: "TRAFFIC",  label: "Trafik",    icon: "fa-car-on",           color: "#f59e0b" },
-  { id: "DETECTIVE",label: "Dedektif",  icon: "fa-magnifying-glass", color: "#8b5cf6" },
-  { id: "WARRANT",  label: "Mahkeme",   icon: "fa-scale-balanced",   color: "#1D6EF7" },
-  { id: "FIELD",    label: "Saha",      icon: "fa-user-shield",      color: "#22c55e" },
+  { id: "ALL",       label: "Tümü",       icon: "fa-border-all",        color: "#888",    dot: "#555" },
+  { id: "CRIME",     label: "Suç & Olay", icon: "fa-handcuffs",         color: "#ef4444", dot: "#ef4444" },
+  { id: "TRAFFIC",   label: "Trafik",     icon: "fa-car-on",            color: "#f59e0b", dot: "#f59e0b" },
+  { id: "DETECTIVE", label: "Dedektif",   icon: "fa-magnifying-glass",  color: "#8b5cf6", dot: "#8b5cf6" },
+  { id: "WARRANT",   label: "Mahkeme",    icon: "fa-scale-balanced",    color: "#1D6EF7", dot: "#1D6EF7" },
+  { id: "FIELD",     label: "Saha",       icon: "fa-user-shield",       color: "#00d26a", dot: "#00d26a" },
 ];
 
-/* ─── Premium Glass UI ─── */
-const glassCard: React.CSSProperties = {
-  background: "linear-gradient(145deg, rgba(16,22,36,0.9) 0%, rgba(10,14,26,0.85) 100%)",
-  backdropFilter: "blur(24px)",
-  border: "1px solid rgba(255,255,255,0.12)",
-  borderRadius: 14,
+const card: React.CSSProperties = {
+  background: "#111111",
+  border: "1px solid rgba(255,255,255,0.08)",
+  borderRadius: 8,
   overflow: "hidden",
-  boxShadow: "0 12px 40px -10px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05)",
 };
 
 const inputBase: React.CSSProperties = {
-  width: "100%", background: "#0f0f0f",
+  width: "100%",
+  background: "#161616",
   border: "1px solid rgba(255,255,255,0.08)",
-  borderBottom: "2px solid rgba(255,255,255,0.16)",
+  borderBottom: "2px solid rgba(255,255,255,0.14)",
   borderRadius: 4,
-  padding: "0.6rem 0.85rem", color: "#ededed",
-  fontSize: "0.83rem", outline: "none", fontFamily: "'JetBrains Mono', monospace",
-  transition: "all 0.2s ease", boxSizing: "border-box",
+  padding: "0.6rem 0.85rem",
+  color: "#ededed",
+  fontSize: "0.83rem",
+  outline: "none",
+  fontFamily: "inherit",
+  transition: "border-color 0.15s, box-shadow 0.15s",
+  boxSizing: "border-box" as const,
 };
 
 export default function RaporPortali() {
@@ -257,11 +263,11 @@ export default function RaporPortali() {
   const [view, setView] = useState<"home" | "editor" | "saved">("home");
   const [activeCat, setActiveCat] = useState("ALL");
   const [searchTerm, setSearchTerm] = useState("");
-  
+
   const [template, setTemplate] = useState<any>(null);
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [reportCode, setReportCode] = useState("");
-  
+
   const [savedReports, setSavedReports] = useState<any[]>([]);
   const [archiveSearch, setArchiveSearch] = useState("");
   const [loadingReports, setLoadingReports] = useState(false);
@@ -284,10 +290,7 @@ export default function RaporPortali() {
     const file = e.target.files?.[0];
     if (!file) return;
     const currentUrls = formData.evidenceUrl ? formData.evidenceUrl.split(",") : [];
-    if (currentUrls.length >= 5) {
-      toast.error("En fazla 5 adet görsel yükleyebilirsiniz.");
-      return;
-    }
+    if (currentUrls.length >= 5) { toast.error("En fazla 5 adet görsel yükleyebilirsiniz."); return; }
     setUploadingImg(true);
     const fd = new FormData();
     fd.append("file", file);
@@ -350,108 +353,181 @@ export default function RaporPortali() {
     setView("editor");
   };
 
-  const filtered = REPORT_TEMPLATES.filter(t => 
+  const filtered = REPORT_TEMPLATES.filter(t =>
     (activeCat === "ALL" || t.category === activeCat) &&
     (t.name.toLowerCase().includes(searchTerm.toLowerCase()) || t.code.includes(searchTerm))
   );
+
+  const sectionLabel: React.CSSProperties = {
+    fontSize: "0.55rem", fontWeight: 700, color: "#555",
+    letterSpacing: "0.2em", textTransform: "uppercase",
+  };
 
   return (
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
-        .mdt-inp:focus { border-color: #555 !important; box-shadow: 0 0 0 3px rgba(255,255,255,0.08) !important; }
-        .rep-card { transition: all 0.2s ease; cursor: pointer; }
-        .rep-card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(255,255,255,0.08) !important; border-color: rgba(255,255,255,0.16) !important; }
-        .archive-row { transition: background 0.15s; }
-        .archive-row:hover { background: #161616 !important; }
-
-        /* Print styles to hide sidebar and layout */
+        .rp-inp:focus { border-color: rgba(29,110,247,0.5) !important; box-shadow: 0 0 0 3px rgba(29,110,247,0.1) !important; outline: none; }
+        .rp-inp option { background: #161616; color: #ededed; }
+        .tmpl-row { transition: background 0.14s, border-color 0.14s; cursor: pointer; }
+        .tmpl-row:hover { background: rgba(255,255,255,0.04) !important; border-color: rgba(255,255,255,0.12) !important; }
+        .cat-btn { transition: all 0.15s ease; }
+        .arch-row { transition: background 0.13s; }
+        .arch-row:hover { background: rgba(255,255,255,0.04) !important; }
+        .tab-btn { transition: all 0.15s ease; border: none; cursor: pointer; }
+        .tab-btn:hover { color: #ededed !important; }
         @media print {
           @page { size: portrait; margin: 15mm; }
           body * { visibility: hidden; }
-          aside, header, .no-print, .mdt-sidebar { display: none !important; }
-          .mdt-main { background: white !important; padding: 0 !important; }
+          aside, header, .no-print { display: none !important; }
           .print-doc, .print-doc * { visibility: visible; }
-          .print-doc {
-            position: absolute; left: 0; top: 0; width: 100%;
-            background: white !important; color: black !important;
-            border: none !important; box-shadow: none !important; padding: 0 !important;
-          }
+          .print-doc { position: absolute; left: 0; top: 0; width: 100%; background: white !important; color: black !important; border: none !important; padding: 0 !important; }
           .print-doc * { color: black !important; background: transparent !important; }
-          .print-doc img { filter: none !important; }
         }
       `}</style>
 
-      <div className="no-print" style={{ display: "flex", flexDirection: "column", gap: "1.75rem", maxWidth: 1200, margin: "0 auto", paddingBottom: "2rem" }}>
+      <div className="no-print" style={{ maxWidth: 1100, margin: "0 auto", paddingBottom: "2rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
 
-        {/* ─── Header & Tabs ─── */}
+        {/* ─── Header ─── */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1rem" }}>
           <div>
-            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(255,255,255,0.16)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.45rem" }}>
-              L.A.C.P.D. · ARŞİV
-            </div>
-            <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "#ededed", margin: 0, letterSpacing: "-0.02em" }}>
-              Rapor ve Belge Portalı
+            <div style={{ ...sectionLabel, marginBottom: "0.4rem" }}>L.A.C.P.D. · DOKÜMAN ARŞİVİ</div>
+            <h1 style={{ fontSize: "1.75rem", fontWeight: 800, color: "#ededed", margin: 0, letterSpacing: "-0.025em" }}>
+              Rapor & Belge Portalı
             </h1>
           </div>
-          <div style={{ display: "flex", gap: "0.5rem", background: "rgba(13,18,32,0.8)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 10, padding: "0.4rem" }}>
-            <button onClick={() => setView("home")} style={{
-              background: view === "home" || view === "editor" ? "rgba(255,255,255,0.08)" : "transparent",
-              color: view === "home" || view === "editor" ? "#1D6EF7" : "#666",
-              border: "none", padding: "0.5rem 1.25rem", borderRadius: 8, fontWeight: 700, fontSize: "0.8rem", cursor: "pointer", transition: "all 0.15s"
-            }}>Şablonlar</button>
-            <button onClick={() => setView("saved")} style={{
-              background: view === "saved" ? "rgba(255,255,255,0.08)" : "transparent",
-              color: view === "saved" ? "#1D6EF7" : "#666",
-              border: "none", padding: "0.5rem 1.25rem", borderRadius: 8, fontWeight: 700, fontSize: "0.8rem", cursor: "pointer", transition: "all 0.15s"
-            }}>Arşiv ({savedReports.length})</button>
+
+          {/* Tab switcher */}
+          <div style={{ display: "flex", background: "#161616", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 6, padding: "0.25rem", gap: "0.25rem" }}>
+            {[
+              { id: "home",  label: "Şablonlar",              icon: "fa-layer-group" },
+              { id: "saved", label: `Arşiv (${savedReports.length})`, icon: "fa-box-archive" },
+            ].map(tab => {
+              const isActive = view === tab.id || (tab.id === "home" && view === "editor");
+              return (
+                <button key={tab.id} className="tab-btn" onClick={() => setView(tab.id as any)} style={{
+                  background: isActive ? "#111111" : "transparent",
+                  color: isActive ? "#ededed" : "#555",
+                  padding: "0.45rem 1.1rem", borderRadius: 4,
+                  fontWeight: 700, fontSize: "0.76rem",
+                  border: isActive ? "1px solid rgba(255,255,255,0.1)" : "1px solid transparent",
+                  display: "flex", alignItems: "center", gap: "0.5rem",
+                }}>
+                  <i className={`fa-solid ${tab.icon}`} style={{ fontSize: "0.65rem" }} />
+                  {tab.label}
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* ─── HOME: TEMPLATE GALLERY ─── */}
+        {/* ─── HOME: TEMPLATE LIST ─── */}
         {view === "home" && (
-          <div>
-            {/* Filters */}
-            <div style={{ display: "flex", gap: "1.5rem", alignItems: "center", marginBottom: "1.5rem", flexWrap: "wrap", justifyContent: "space-between" }}>
-              <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-                {CATEGORIES.map(cat => (
-                  <button key={cat.id} onClick={() => setActiveCat(cat.id)} style={{
-                    background: activeCat === cat.id ? `${cat.color}20` : "rgba(13,18,32,0.6)",
-                    border: `1px solid ${activeCat === cat.id ? cat.color : "rgba(255,255,255,0.08)"}`,
-                    color: activeCat === cat.id ? cat.color : "#666",
-                    padding: "0.5rem 1rem", borderRadius: 8, fontSize: "0.75rem", fontWeight: 700, cursor: "pointer",
-                    display: "flex", alignItems: "center", gap: "0.5rem", transition: "all 0.15s"
-                  }}>
-                    <i className={`fa-solid ${cat.icon}`} /> {cat.label}
-                  </button>
-                ))}
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+            {/* Filter bar */}
+            <div style={{ ...card, padding: "0.75rem 1rem", display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap", justifyContent: "space-between" }}>
+              <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
+                {CATEGORIES.map(cat => {
+                  const isActive = activeCat === cat.id;
+                  return (
+                    <button key={cat.id} className="cat-btn" onClick={() => setActiveCat(cat.id)} style={{
+                      background: isActive ? "rgba(255,255,255,0.08)" : "transparent",
+                      border: isActive ? `1px solid rgba(255,255,255,0.12)` : "1px solid rgba(255,255,255,0.06)",
+                      color: isActive ? "#ededed" : "#555",
+                      padding: "0.35rem 0.85rem",
+                      borderRadius: 4, fontSize: "0.72rem", fontWeight: 700,
+                      cursor: "pointer", display: "flex", alignItems: "center", gap: "0.4rem",
+                    }}>
+                      <span style={{ width: 5, height: 5, borderRadius: "50%", background: isActive ? cat.dot : "#333", display: "inline-block", flexShrink: 0 }} />
+                      {cat.label}
+                    </button>
+                  );
+                })}
               </div>
-              <input className="mdt-inp" type="text" placeholder="Şablon ara..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} style={{ ...inputBase, width: 250 }} />
+              <input
+                className="rp-inp"
+                type="text"
+                placeholder="Şablon ara..."
+                value={searchTerm}
+                onChange={e => setSearchTerm(e.target.value)}
+                style={{ ...inputBase, width: 220, borderRadius: 4 }}
+              />
             </div>
 
-            {/* Template Grid */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "1.25rem" }}>
-              {filtered.map(tmpl => {
+            {/* Template rows — list style, not big cards */}
+            <div style={card}>
+              {filtered.length === 0 ? (
+                <div style={{ padding: "3rem", textAlign: "center", color: "#333", fontSize: "0.8rem" }}>Eşleşen şablon bulunamadı.</div>
+              ) : filtered.map((tmpl, idx) => {
                 const catInfo = CATEGORIES.find(c => c.id === tmpl.category) || CATEGORIES[0];
                 return (
-                  <div key={tmpl.id} className="rep-card" onClick={() => openTemplate(tmpl)} style={{ ...glassCard, padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                      <div style={{ width: 42, height: 42, borderRadius: 10, background: `${catInfo.color}15`, border: `1px solid ${catInfo.color}30`, display: "flex", alignItems: "center", justifyContent: "center", color: catInfo.color, fontSize: "1.2rem" }}>
-                        <i className={`fa-solid ${tmpl.icon}`} />
-                      </div>
-                      <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.7rem", fontWeight: 800, color: "#555", background: "#161616", padding: "0.25rem 0.6rem", borderRadius: 6, border: "1px solid rgba(255,255,255,0.08)" }}>
-                        LAC {tmpl.code}
-                      </div>
+                  <div
+                    key={tmpl.id}
+                    className="tmpl-row"
+                    onClick={() => openTemplate(tmpl)}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "1rem",
+                      padding: "0.85rem 1.1rem",
+                      borderBottom: idx < filtered.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
+                      background: "transparent",
+                      border: "none",
+                    }}
+                  >
+                    {/* Icon */}
+                    <div style={{
+                      width: 36, height: 36, borderRadius: 6, flexShrink: 0,
+                      background: `${catInfo.color}12`,
+                      border: `1px solid ${catInfo.color}25`,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      color: catInfo.color, fontSize: "0.82rem",
+                    }}>
+                      <i className={`fa-solid ${tmpl.icon}`} />
                     </div>
-                    <div>
-                      <div style={{ fontSize: "1.05rem", fontWeight: 800, color: "#ededed", marginBottom: "0.35rem" }}>{tmpl.name}</div>
-                      <div style={{ fontSize: "0.8rem", color: "#666", lineHeight: 1.5 }}>{tmpl.description}</div>
+
+                    {/* Name & description */}
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontSize: "0.9rem", fontWeight: 700, color: "#ededed" }}>{tmpl.name}</div>
+                      <div style={{ fontSize: "0.72rem", color: "#555", marginTop: 3, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{tmpl.description}</div>
                     </div>
-                    <div style={{ marginTop: "auto", paddingTop: "1rem" }}>
-                      <button style={{ width: "100%", background: "linear-gradient(135deg, #1D6EF7 0%, #1558d6 100%)", border: "1px solid rgba(255,255,255,0.16)", color: "#fff", padding: "0.65rem", borderRadius: 8, fontSize: "0.78rem", fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 16px rgba(255,255,255,0.12)" }}>
-                        DOLDUR
-                      </button>
+
+                    {/* Category badge */}
+                    <div style={{ flexShrink: 0 }}>
+                      <span style={{
+                        fontSize: "0.6rem", fontWeight: 700, padding: "0.2rem 0.55rem",
+                        borderRadius: 4, background: `${catInfo.color}10`,
+                        border: `1px solid ${catInfo.color}20`,
+                        color: catInfo.color, letterSpacing: "0.06em",
+                        display: "flex", alignItems: "center", gap: "0.35rem",
+                      }}>
+                        <i className={`fa-solid ${catInfo.icon}`} style={{ fontSize: "0.55rem" }} />
+                        {tmpl.categoryName}
+                      </span>
                     </div>
+
+                    {/* Code */}
+                    <div style={{
+                      fontFamily: "'JetBrains Mono', monospace", fontSize: "0.65rem",
+                      fontWeight: 700, color: "#444", background: "#1a1a1a",
+                      padding: "0.2rem 0.55rem", borderRadius: 4,
+                      border: "1px solid rgba(255,255,255,0.06)", flexShrink: 0,
+                    }}>
+                      LAC {tmpl.code}
+                    </div>
+
+                    {/* Fill button */}
+                    <button
+                      onClick={e => { e.stopPropagation(); openTemplate(tmpl); }}
+                      style={{
+                        background: "#1D6EF7", border: "none", color: "#fff",
+                        padding: "0.4rem 0.9rem", borderRadius: 4,
+                        fontSize: "0.68rem", fontWeight: 700, cursor: "pointer",
+                        flexShrink: 0, letterSpacing: "0.06em",
+                      }}
+                    >
+                      DOLDUR
+                    </button>
                   </div>
                 );
               })}
@@ -459,117 +535,136 @@ export default function RaporPortali() {
           </div>
         )}
 
-        {/* ─── SAVED REPORTS (ARCHIVE) ─── */}
+        {/* ─── ARCHIVE ─── */}
         {view === "saved" && (
-          <div style={glassCard}>
-            <div style={{ padding: "1.25rem 1.5rem", borderBottom: "1px solid #161616", background: "rgba(29,110,247,0.02)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <div style={card}>
+            <div style={{ padding: "0.85rem 1.1rem", borderBottom: "1px solid rgba(255,255,255,0.06)", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>
               <div>
-                <h3 style={{ margin: 0, fontWeight: 800, fontSize: "1.05rem", color: "#ededed" }}>Arşivlenmiş Raporlar</h3>
-                <p style={{ margin: "0.2rem 0 0", fontSize: "0.75rem", color: "#666" }}>Önceki rapor kayıtlarını görüntüleyin veya düzenleyin.</p>
+                <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#ededed" }}>Arşivlenmiş Raporlar</div>
+                <div style={{ fontSize: "0.68rem", color: "#555", marginTop: 2 }}>Kaydedilmiş rapor kayıtlarını görüntüle veya düzenle</div>
               </div>
               <div style={{ display: "flex", gap: "0.5rem" }}>
-                <input className="mdt-inp" type="text" placeholder="Arşivde ara..." value={archiveSearch} onChange={e => setArchiveSearch(e.target.value)} style={{ ...inputBase, width: 250 }} />
-                <button onClick={fetchSaved} style={{ background: "#161616", border: "1px solid rgba(255,255,255,0.1)", color: "#1D6EF7", padding: "0.5rem 1rem", borderRadius: 8, cursor: "pointer" }}><i className="fa-solid fa-rotate" /></button>
+                <input
+                  className="rp-inp"
+                  type="text"
+                  placeholder="Arşivde ara..."
+                  value={archiveSearch}
+                  onChange={e => setArchiveSearch(e.target.value)}
+                  style={{ ...inputBase, width: 220 }}
+                />
+                <button onClick={fetchSaved} style={{ background: "#161616", border: "1px solid rgba(255,255,255,0.08)", color: "#888", padding: "0.5rem 0.8rem", borderRadius: 4, cursor: "pointer" }}>
+                  <i className="fa-solid fa-rotate" style={{ fontSize: "0.75rem" }} />
+                </button>
               </div>
             </div>
             <div>
               {loadingReports ? (
-                <div style={{ padding: "4rem", textAlign: "center", color: "#555", fontSize: "0.85rem" }}><i className="fa-solid fa-circle-notch fa-spin" style={{ marginRight: "0.5rem" }} />Yükleniyor...</div>
+                <div style={{ padding: "3rem", textAlign: "center", color: "#333", fontSize: "0.8rem" }}>
+                  <i className="fa-solid fa-circle-notch fa-spin" style={{ marginRight: "0.5rem" }} />Yükleniyor...
+                </div>
               ) : savedReports.length === 0 ? (
-                <div style={{ padding: "4rem", textAlign: "center", color: "#555", fontSize: "0.85rem" }}>Arşivde kayıt bulunamadı.</div>
-              ) : (
-                savedReports.filter(r => r.id.includes(archiveSearch) || (r.officerName && r.officerName.includes(archiveSearch))).map(r => {
+                <div style={{ padding: "3rem", textAlign: "center", color: "#333", fontSize: "0.8rem" }}>Arşivde kayıt bulunamadı.</div>
+              ) : savedReports
+                .filter(r => r.id.toLowerCase().includes(archiveSearch.toLowerCase()) || (r.officerName && r.officerName.toLowerCase().includes(archiveSearch.toLowerCase())))
+                .map((r, idx, arr) => {
                   const tmpl = REPORT_TEMPLATES.find(t => t.id === r.formId) || REPORT_TEMPLATES[0];
+                  const catInfo = CATEGORIES.find(c => c.id === tmpl.category) || CATEGORIES[0];
                   return (
-                    <div key={r.id} className="archive-row" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1rem 1.5rem", borderBottom: "1px solid #161616" }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "1.25rem" }}>
-                        <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.75rem", fontWeight: 700, color: "#555", background: "#161616", padding: "0.3rem 0.6rem", borderRadius: 6 }}>
-                          #{r.id}
-                        </div>
+                    <div key={r.id} className="arch-row" style={{
+                      display: "flex", alignItems: "center", justifyContent: "space-between",
+                      padding: "0.85rem 1.1rem",
+                      borderBottom: idx < arr.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
+                    }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                        <div style={{ width: 5, height: 5, borderRadius: "50%", background: catInfo.dot, flexShrink: 0 }} />
                         <div>
-                          <div style={{ fontSize: "0.9rem", fontWeight: 700, color: "#ededed" }}>{tmpl.name}</div>
-                          <div style={{ fontSize: "0.7rem", color: "#666", marginTop: "0.2rem" }}>{r.officerName || "—"} · {r.timestamp ? new Date(r.timestamp).toLocaleString("tr-TR") : "—"}</div>
+                          <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                            <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "#ededed" }}>{tmpl.name}</span>
+                            <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.6rem", color: "#444", background: "#1a1a1a", padding: "0.15rem 0.45rem", borderRadius: 3, border: "1px solid rgba(255,255,255,0.06)" }}>#{r.id}</span>
+                          </div>
+                          <div style={{ fontSize: "0.68rem", color: "#555", marginTop: 3 }}>
+                            {r.officerName || "—"} · {r.timestamp ? new Date(r.timestamp).toLocaleString("tr-TR") : "—"}
+                          </div>
                         </div>
                       </div>
-                      <div style={{ display: "flex", gap: "0.5rem" }}>
-                        <button onClick={() => openSaved(r)} style={{ background: "#161616", color: "#1D6EF7", border: "1px solid rgba(255,255,255,0.1)", padding: "0.4rem 0.8rem", borderRadius: 6, fontSize: "0.7rem", fontWeight: 700, cursor: "pointer" }}>GÖRÜNTÜLE</button>
-                        <button onClick={() => handleDelete(r.id)} style={{ background: "rgba(239,68,68,0.08)", color: "#ef4444", border: "1px solid rgba(239,68,68,0.2)", padding: "0.4rem 0.8rem", borderRadius: 6, fontSize: "0.7rem", fontWeight: 700, cursor: "pointer" }}>SİL</button>
+                      <div style={{ display: "flex", gap: "0.4rem" }}>
+                        <button onClick={() => openSaved(r)} style={{ background: "#161616", color: "#1D6EF7", border: "1px solid rgba(255,255,255,0.08)", padding: "0.35rem 0.75rem", borderRadius: 4, fontSize: "0.68rem", fontWeight: 700, cursor: "pointer" }}>GÖRÜNTÜLE</button>
+                        <button onClick={() => handleDelete(r.id)} style={{ background: "rgba(239,68,68,0.08)", color: "#ef4444", border: "1px solid rgba(239,68,68,0.15)", padding: "0.35rem 0.75rem", borderRadius: 4, fontSize: "0.68rem", fontWeight: 700, cursor: "pointer" }}>SİL</button>
                       </div>
                     </div>
                   );
-                })
-              )}
+                })}
             </div>
           </div>
         )}
       </div>
 
-      {/* ─── EDITOR VIEW (Printable Area inside here) ─── */}
+      {/* ─── EDITOR ─── */}
       {view === "editor" && template && (
-        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
-          
-          <div className="no-print" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1rem 1.5rem", ...glassCard, marginBottom: "1.5rem" }}>
+        <div style={{ maxWidth: 980, margin: "0 auto" }}>
+
+          {/* Editor toolbar */}
+          <div className="no-print" style={{ ...card, display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.85rem 1.1rem", marginBottom: "1rem" }}>
             <div>
-              <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "#555", letterSpacing: "0.15em", textTransform: "uppercase" }}>DÜZENLENİYOR</div>
-              <div style={{ fontSize: "1.1rem", fontWeight: 800, color: "#ededed", display: "flex", alignItems: "center", gap: "0.5rem", marginTop: "0.2rem" }}>
+              <div style={{ fontSize: "0.55rem", fontWeight: 700, color: "#555", letterSpacing: "0.18em", textTransform: "uppercase" }}>DÜZENLENİYOR</div>
+              <div style={{ fontSize: "1rem", fontWeight: 800, color: "#ededed", display: "flex", alignItems: "center", gap: "0.5rem", marginTop: "0.15rem" }}>
                 {template.name}
-                <span style={{ fontFamily: "'JetBrains Mono', monospace", color: "#555", fontSize: "0.8rem", background: "#161616", padding: "0.2rem 0.6rem", borderRadius: 4 }}>#{reportCode}</span>
+                <span style={{ fontFamily: "'JetBrains Mono', monospace", color: "#444", fontSize: "0.72rem", background: "#1a1a1a", padding: "0.15rem 0.5rem", borderRadius: 4, border: "1px solid rgba(255,255,255,0.06)" }}>#{reportCode}</span>
               </div>
             </div>
             <div style={{ display: "flex", gap: "0.5rem" }}>
-              <button onClick={() => setView("home")} style={{ background: "transparent", border: "1px solid rgba(255,255,255,0.1)", color: "#888", padding: "0.6rem 1rem", borderRadius: 6, fontWeight: 700, fontSize: "0.75rem", cursor: "pointer" }}>İPTAL</button>
-              <button onClick={() => window.print()} style={{ background: "#161616", border: "1px solid rgba(255,255,255,0.1)", color: "#1D6EF7", padding: "0.6rem 1.25rem", borderRadius: 6, fontWeight: 700, cursor: "pointer", fontSize: "0.75rem" }}>
-                <i className="fa-solid fa-print" style={{ marginRight: "0.4rem" }} /> YAZDIR (PDF)
+              <button onClick={() => setView("home")} style={{ background: "transparent", border: "1px solid rgba(255,255,255,0.08)", color: "#555", padding: "0.5rem 0.9rem", borderRadius: 4, fontWeight: 700, fontSize: "0.72rem", cursor: "pointer" }}>İPTAL</button>
+              <button onClick={() => window.print()} style={{ background: "#161616", border: "1px solid rgba(255,255,255,0.08)", color: "#888", padding: "0.5rem 1rem", borderRadius: 4, fontWeight: 700, cursor: "pointer", fontSize: "0.72rem", display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                <i className="fa-solid fa-print" style={{ fontSize: "0.65rem" }} /> YAZDIR
               </button>
-              <button onClick={handleSave} disabled={saving} style={{ background: "linear-gradient(135deg, #22c55e 0%, #16a34a 100%)", border: "1px solid rgba(34,197,94,0.4)", color: "#fff", padding: "0.6rem 1.25rem", borderRadius: 6, fontWeight: 700, cursor: saving ? "not-allowed" : "pointer", fontSize: "0.75rem", boxShadow: "0 4px 16px rgba(34,197,94,0.25)", opacity: saving ? 0.7 : 1 }}>
-                <i className="fa-solid fa-floppy-disk" style={{ marginRight: "0.4rem" }} /> {saving ? "KAYDEDİLİYOR..." : "KAYDET"}
+              <button onClick={handleSave} disabled={saving} style={{ background: "#00d26a", border: "none", color: "#000", padding: "0.5rem 1.1rem", borderRadius: 4, fontWeight: 800, cursor: saving ? "not-allowed" : "pointer", fontSize: "0.72rem", opacity: saving ? 0.65 : 1, display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                <i className="fa-solid fa-floppy-disk" style={{ fontSize: "0.65rem" }} /> {saving ? "KAYDEDİLİYOR..." : "KAYDET"}
               </button>
             </div>
           </div>
 
-          <div className="print-doc" style={{ ...glassCard, padding: "3rem", borderRadius: 8, borderTop: "4px solid #1D6EF7" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid rgba(255,255,255,0.1)", paddingBottom: "1.5rem", marginBottom: "2.5rem" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
-                <img src="/logom.png" alt="LACPD" style={{ width: 68 }} />
+          {/* Print document */}
+          <div className="print-doc" style={{ ...card, padding: "2.5rem", borderTop: "3px solid #1D6EF7" }}>
+            {/* Doc header */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.08)", paddingBottom: "1.25rem", marginBottom: "2rem" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                <img src="/logom.png" alt="LACPD" style={{ width: 52 }} />
                 <div>
-                  <div style={{ fontSize: "1.35rem", fontWeight: 900, color: "#ededed", letterSpacing: "0.03em", fontFamily: "'Oswald', sans-serif" }}>LOS ANGELES POLICE DEPARTMENT</div>
-                  <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#aaa", marginTop: "0.15rem", letterSpacing: "0.05em", textTransform: "uppercase" }}>{template.name}</div>
+                  <div style={{ fontSize: "1.1rem", fontWeight: 900, color: "#ededed", letterSpacing: "0.04em" }}>LOS ANGELES POLICE DEPARTMENT</div>
+                  <div style={{ fontSize: "0.72rem", fontWeight: 700, color: "#888", marginTop: "0.1rem", letterSpacing: "0.08em", textTransform: "uppercase" }}>{template.name}</div>
                 </div>
               </div>
-              <div style={{ textAlign: "right", fontFamily: "'JetBrains Mono', monospace", fontWeight: 800 }}>
-                <div style={{ fontSize: "0.95rem", color: "#666" }}>LAC-{template.code}</div>
-                <div style={{ color: "#1D6EF7", fontSize: "0.85rem", marginTop: "0.3rem", background: "#161616", padding: "0.2rem 0.5rem", borderRadius: 4 }}>#{reportCode}</div>
+              <div style={{ textAlign: "right" }}>
+                <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.65rem", color: "#444" }}>LAC-{template.code}</div>
+                <div style={{ fontFamily: "'JetBrains Mono', monospace", color: "#1D6EF7", fontSize: "0.78rem", marginTop: "0.25rem", background: "#161616", padding: "0.2rem 0.5rem", borderRadius: 4, border: "1px solid rgba(255,255,255,0.08)", display: "inline-block" }}>#{reportCode}</div>
               </div>
             </div>
 
-            {/* Tactical 2-Column Grid for Sections */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
+            {/* Sections */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
               {template.sections.map((sec: any, si: number) => {
-                // If a section has a large textarea (width 12), make the whole section span both columns
-                const hasFullWidthField = sec.fields.some((f: any) => f.width === "12" || !f.width);
-                const colSpan = hasFullWidthField ? "1 / -1" : "auto";
-                
+                const hasFullWidth = sec.fields.some((f: any) => f.width === "12" || !f.width);
                 return (
-                  <div key={si} style={{ gridColumn: colSpan, marginBottom: "0.5rem", background: "rgba(8,12,20,0.6)", border: "1px solid rgba(255,255,255,0.08)", borderLeft: "3px solid #1D6EF7", borderRadius: 6, overflow: "hidden" }}>
-                    <div style={{ padding: "0.75rem 1.25rem", background: "rgba(255,255,255,0.02)", borderBottom: "1px solid rgba(255,255,255,0.08)", fontSize: "0.75rem", fontWeight: 800, color: "#ededed", letterSpacing: "0.08em", textTransform: "uppercase", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                      <span style={{ color: "#1D6EF7" }}>{String(si + 1).padStart(2, "0")}</span> {sec.title}
+                  <div key={si} style={{ gridColumn: hasFullWidth ? "1 / -1" : "auto", border: "1px solid rgba(255,255,255,0.07)", borderLeft: "2px solid #1D6EF7", borderRadius: 6, overflow: "hidden" }}>
+                    <div style={{ padding: "0.6rem 1rem", background: "rgba(255,255,255,0.02)", borderBottom: "1px solid rgba(255,255,255,0.06)", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.58rem", fontWeight: 800, color: "#1D6EF7" }}>{String(si + 1).padStart(2, "0")}</span>
+                      <span style={{ fontSize: "0.68rem", fontWeight: 800, color: "#ededed", letterSpacing: "0.1em", textTransform: "uppercase" }}>{sec.title}</span>
                     </div>
-                    <div style={{ padding: "1.25rem", display: "grid", gridTemplateColumns: "repeat(12, 1fr)", gap: "1rem" }}>
+                    <div style={{ padding: "1rem", display: "grid", gridTemplateColumns: "repeat(12, 1fr)", gap: "0.75rem" }}>
                       {sec.fields.map((f: any) => (
                         <div key={f.id} style={{ gridColumn: `span ${f.width || 12}` }}>
-                          <label style={{ display: "flex", justifyContent: "space-between", fontSize: "0.58rem", fontWeight: 800, color: "#888", marginBottom: "0.35rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                            <span>{f.label}</span>
-                            {f.type === "textarea" && <i className="fa-solid fa-pen-clip" style={{ color: "rgba(255,255,255,0.14)" }} />}
+                          <label style={{ display: "block", fontSize: "0.56rem", fontWeight: 700, color: "#555", marginBottom: "0.3rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                            {f.label}
                           </label>
                           {f.type === "textarea" ? (
-                            <textarea className="mdt-inp" value={formData[f.id] || ""} onChange={e => setFormData({ ...formData, [f.id]: e.target.value })} placeholder={f.placeholder} rows={f.rows || 3} style={{ ...inputBase, resize: "vertical" }} />
+                            <textarea className="rp-inp" value={formData[f.id] || ""} onChange={e => setFormData({ ...formData, [f.id]: e.target.value })} placeholder={f.placeholder} rows={f.rows || 3} style={{ ...inputBase, resize: "vertical" }} />
                           ) : f.type === "select" ? (
-                            <select className="mdt-inp" value={formData[f.id] || ""} onChange={e => setFormData({ ...formData, [f.id]: e.target.value })} style={inputBase}>
+                            <select className="rp-inp" value={formData[f.id] || ""} onChange={e => setFormData({ ...formData, [f.id]: e.target.value })} style={inputBase}>
                               <option value="">Seçiniz...</option>
                               {f.options?.map((opt: string, i: number) => <option key={i} value={opt}>{opt}</option>)}
                             </select>
                           ) : (
-                            <input className="mdt-inp" type={f.type} value={formData[f.id] || ""} onChange={e => setFormData({ ...formData, [f.id]: e.target.value })} placeholder={f.placeholder} style={inputBase} />
+                            <input className="rp-inp" type={f.type} value={formData[f.id] || ""} onChange={e => setFormData({ ...formData, [f.id]: e.target.value })} placeholder={f.placeholder} style={inputBase} />
                           )}
                         </div>
                       ))}
@@ -579,37 +674,31 @@ export default function RaporPortali() {
               })}
             </div>
 
-            {/* Evidence Image Section */}
-            <div style={{ marginTop: "1.5rem", background: "rgba(8,12,20,0.6)", border: "1px solid rgba(255,255,255,0.08)", borderLeft: "3px solid #1D6EF7", borderRadius: 6, overflow: "hidden" }}>
-              <div style={{ padding: "0.75rem 1.25rem", background: "rgba(255,255,255,0.02)", borderBottom: "1px solid rgba(255,255,255,0.08)", fontSize: "0.75rem", fontWeight: 800, color: "#ededed", letterSpacing: "0.08em", textTransform: "uppercase", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <i className="fa-solid fa-camera" style={{ color: "#1D6EF7" }} /> Görsel Delil / Belge Eki
+            {/* Evidence images */}
+            <div style={{ marginTop: "1rem", border: "1px solid rgba(255,255,255,0.07)", borderLeft: "2px solid #1D6EF7", borderRadius: 6, overflow: "hidden" }}>
+              <div style={{ padding: "0.6rem 1rem", background: "rgba(255,255,255,0.02)", borderBottom: "1px solid rgba(255,255,255,0.06)", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <i className="fa-solid fa-camera" style={{ fontSize: "0.6rem", color: "#1D6EF7" }} />
+                <span style={{ fontSize: "0.68rem", fontWeight: 800, color: "#ededed", letterSpacing: "0.1em", textTransform: "uppercase" }}>Görsel Delil / Belge Eki</span>
+                <span style={{ marginLeft: "auto", fontSize: "0.6rem", color: "#444" }}>{formData.evidenceUrl ? formData.evidenceUrl.split(",").filter(Boolean).length : 0}/5</span>
               </div>
-              <div style={{ padding: "1.25rem" }}>
-                <div>
-                  <label style={{ display: "flex", justifyContent: "space-between", fontSize: "0.58rem", fontWeight: 800, color: "#888", marginBottom: "0.6rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                    Fotoğraf Yükle (En fazla 5 adet)
-                  </label>
-                  <label className="no-print" style={{ ...inputBase, cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", background: "#161616", color: "rgba(29,110,247,0.8)", fontWeight: 600, padding: "0.8rem 1.5rem", width: "auto" }}>
-                    <i className={uploadingImg ? "fa-solid fa-spinner fa-spin" : "fa-solid fa-upload"} /> 
-                    {uploadingImg ? "Yükleniyor..." : "Görsel Seç / Çek"}
-                    <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: "none" }} disabled={uploadingImg || (formData.evidenceUrl && formData.evidenceUrl.split(",").length >= 5)} />
-                  </label>
-                  <p style={{ fontSize: "0.75rem", color: "#666", marginTop: "0.75rem", lineHeight: 1.5, maxWidth: 600 }}>
-                    Olay yerinden veya delillerden elde edilen JPG/PNG formatlı görselleri yükleyebilirsiniz. Maksimum 5 adet görsel eklenebilir.
-                  </p>
-                </div>
+              <div style={{ padding: "1rem" }}>
+                <label className="no-print" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", background: "#161616", border: "1px solid rgba(255,255,255,0.08)", color: "#888", padding: "0.5rem 1rem", borderRadius: 4, cursor: "pointer", fontSize: "0.72rem", fontWeight: 700 }}>
+                  <i className={uploadingImg ? "fa-solid fa-spinner fa-spin" : "fa-solid fa-upload"} style={{ fontSize: "0.65rem" }} />
+                  {uploadingImg ? "Yükleniyor..." : "Görsel Seç"}
+                  <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: "none" }} disabled={uploadingImg || (formData.evidenceUrl ? formData.evidenceUrl.split(",").filter(Boolean).length >= 5 : false)} />
+                </label>
                 {formData.evidenceUrl && (
-                  <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginTop: "1.25rem" }}>
-                    {formData.evidenceUrl.split(",").map((url: string, i: number) => (
-                      <div key={i} style={{ width: 140, flexShrink: 0, padding: "0.5rem", background: "#161616", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 8, position: "relative" }}>
-                        <div style={{ fontSize: "0.5rem", fontWeight: 800, color: "#555", marginBottom: "0.4rem", textTransform: "uppercase", letterSpacing: "0.1em", textAlign: "center" }}>GÖRSEL {i + 1}</div>
-                        <img src={url} alt={`Delil ${i + 1}`} style={{ width: "100%", borderRadius: 4, display: "block" }} />
+                  <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginTop: "0.85rem" }}>
+                    {formData.evidenceUrl.split(",").filter(Boolean).map((url: string, i: number) => (
+                      <div key={i} style={{ width: 120, flexShrink: 0, background: "#161616", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 6, overflow: "hidden", position: "relative" }}>
+                        <img src={url} alt={`Delil ${i + 1}`} style={{ width: "100%", display: "block", objectFit: "cover", aspectRatio: "4/3" }} />
                         <button type="button" onClick={() => {
                           const newUrls = formData.evidenceUrl.split(",").filter((_: any, idx: number) => idx !== i).join(",");
-                          setFormData(prev => ({...prev, evidenceUrl: newUrls}));
-                        }} className="no-print" style={{ position: "absolute", top: 4, right: 4, background: "rgba(239,68,68,0.9)", color: "white", border: "none", borderRadius: "50%", width: 22, height: 22, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.6rem" }}>
+                          setFormData(prev => ({ ...prev, evidenceUrl: newUrls }));
+                        }} className="no-print" style={{ position: "absolute", top: 4, right: 4, background: "rgba(0,0,0,0.8)", color: "#ef4444", border: "1px solid rgba(239,68,68,0.3)", borderRadius: "50%", width: 20, height: 20, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.55rem" }}>
                           <i className="fa-solid fa-xmark" />
                         </button>
+                        <div style={{ padding: "0.3rem 0.4rem", fontSize: "0.5rem", color: "#444", fontFamily: "'JetBrains Mono', monospace", fontWeight: 700 }}>GÖRSEL {i + 1}</div>
                       </div>
                     ))}
                   </div>
@@ -617,15 +706,20 @@ export default function RaporPortali() {
               </div>
             </div>
 
-            <div style={{ marginTop: "3rem", paddingTop: "1.5rem", borderTop: "2px solid rgba(255,255,255,0.1)", display: "flex", justifyContent: "space-between" }}>
+            {/* Signature footer */}
+            <div style={{ marginTop: "2rem", paddingTop: "1.25rem", borderTop: "1px solid rgba(255,255,255,0.08)", display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
               <div>
-                <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "#666", letterSpacing: "0.1em" }}>HAZIRLAYAN MEMUR</div>
-                <div style={{ fontSize: "1rem", fontWeight: 800, color: "#ededed", marginTop: "0.3rem" }}>{user ? user.name : "—"} <span style={{ color: "#1D6EF7" }}>#{user?.badge || "—"}</span></div>
+                <div style={{ fontSize: "0.55rem", fontWeight: 700, color: "#444", letterSpacing: "0.12em", textTransform: "uppercase" }}>HAZIRLAYAN MEMUR</div>
+                <div style={{ fontSize: "0.9rem", fontWeight: 800, color: "#ededed", marginTop: "0.25rem" }}>
+                  {user ? user.name : "—"} <span style={{ color: "#1D6EF7", fontFamily: "'JetBrains Mono', monospace" }}>#{user?.badge || "—"}</span>
+                </div>
               </div>
               <div style={{ textAlign: "right" }}>
-                <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "#666", letterSpacing: "0.1em" }}>DİJİTAL İMZA & ZAMAN DAMGASI</div>
-                <div style={{ fontFamily: "'JetBrains Mono', monospace", color: "#1D6EF7", fontWeight: 800, marginTop: "0.3rem", fontSize: "0.9rem", background: "#161616", padding: "0.2rem 0.5rem", borderRadius: 4, display: "inline-block" }}>SIGNED · #{user?.badge || "SYS"}</div>
-                <div style={{ fontSize: "0.7rem", color: "#888", marginTop: "0.35rem", fontFamily: "'JetBrains Mono', monospace" }}>{new Date().toLocaleString("tr-TR")}</div>
+                <div style={{ fontSize: "0.55rem", fontWeight: 700, color: "#444", letterSpacing: "0.12em", textTransform: "uppercase" }}>DİJİTAL İMZA</div>
+                <div style={{ fontFamily: "'JetBrains Mono', monospace", color: "#1D6EF7", fontWeight: 700, marginTop: "0.25rem", fontSize: "0.78rem", background: "#161616", padding: "0.15rem 0.5rem", borderRadius: 4, border: "1px solid rgba(255,255,255,0.08)", display: "inline-block" }}>
+                  SIGNED · #{user?.badge || "SYS"}
+                </div>
+                <div style={{ fontSize: "0.65rem", color: "#555", marginTop: "0.25rem", fontFamily: "'JetBrains Mono', monospace" }}>{new Date().toLocaleString("tr-TR")}</div>
               </div>
             </div>
           </div>
