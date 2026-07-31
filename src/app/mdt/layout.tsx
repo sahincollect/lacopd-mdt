@@ -155,7 +155,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
           transform: translateY(-50%) scaleY(0);
           width: 3px;
           height: 60%;
-          background: linear-gradient(180deg, #1D6EF7 0%, rgba(255,255,255,0.16) 100%);
+          background: linear-gradient(180deg, #ededed 0%, rgba(255,255,255,0.16) 100%);
           border-radius: 0 3px 3px 0;
           transition: transform 0.22s cubic-bezier(0.4,0,0.2,1);
           box-shadow: 2px 0 10px rgba(255,255,255,0.16);
@@ -324,7 +324,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                 <div
                   style={{
                     fontSize: '0.55rem',
-                    color: '#1D6EF7',
+                    color: '#ededed',
                     fontWeight: 700,
                     letterSpacing: '0.25em',
                     textTransform: 'uppercase',
@@ -354,7 +354,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.5rem',
-                      background: 'rgba(29,110,247,0.02)',
+                      background: 'transparent',
                       borderLeft: '2px solid rgba(255,255,255,0.15)',
                       borderRadius: '4px',
                       fontFamily: "'JetBrains Mono', monospace",
@@ -383,7 +383,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                         textDecoration: 'none',
                         justifyContent: collapsed ? 'center' : 'flex-start',
                         background: isActive
-                          ? 'linear-gradient(90deg, rgba(255,255,255,0.08) 0%, rgba(29,110,247,0.02) 100%)'
+                          ? 'linear-gradient(90deg, rgba(255,255,255,0.08) 0%, transparent 100%)'
                           : 'transparent',
                         border: isActive ? '1px solid rgba(255,255,255,0.1)' : '1px solid transparent',
                         color: isActive ? '#ededed' : '#888',
@@ -392,7 +392,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                         letterSpacing: '0.01em',
                         userSelect: 'none',
                         position: 'relative',
-                        boxShadow: isActive ? 'inset 2px 0 0 #1D6EF7' : 'none',
+                        boxShadow: isActive ? 'inset 2px 0 0 #ededed' : 'none',
                       }}
                       onMouseOver={e => {
                         if (!isActive) {
@@ -414,8 +414,8 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                           width: 20,
                           textAlign: 'center',
                           flexShrink: 0,
-                          color: isActive ? '#1D6EF7' : 'inherit',
-                          filter: isActive ? 'drop-shadow(0 0 6px rgba(29,110,247,0.8))' : 'none',
+                          color: isActive ? '#ededed' : 'inherit',
+                          filter: isActive ? 'drop-shadow(0 0 6px rgba(255,255,255,0.3))' : 'none',
                         }}
                       />
 
@@ -428,7 +428,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                       {hasUnread && !collapsed && (
                         <span
                           style={{
-                            background: 'linear-gradient(135deg, #1D6EF7 0%, #4A8EFA 100%)',
+                            background: '#ededed',
                             color: '#fff',
                             fontSize: '0.6rem',
                             fontWeight: 800,
@@ -451,8 +451,8 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                             width: 7,
                             height: 7,
                             borderRadius: '50%',
-                            background: '#1D6EF7',
-                            boxShadow: '0 0 6px rgba(29,110,247,0.8)',
+                            background: '#ededed',
+                            boxShadow: '0 0 6px rgba(255,255,255,0.3)',
                           }}
                         />
                       )}
@@ -470,7 +470,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                 margin: '0 0.75rem',
                 padding: '0.75rem',
                 borderRadius: 8,
-                background: 'rgba(29,110,247,0.02)',
+                background: 'transparent',
                 border: '1px solid #161616',
                 marginBottom: '0.5rem',
                 position: 'relative',
@@ -589,7 +589,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                 className="mdt-search-input"
                 style={{
                   width: '100%',
-                  background: 'rgba(29,110,247,0.02)',
+                  background: 'transparent',
                   border: '1px solid rgba(255,255,255,0.08)',
                   borderRadius: 8,
                   padding: '0.48rem 1rem 0.48rem 2.2rem',
@@ -631,7 +631,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                       width: 7,
                       height: 7,
                       borderRadius: '50%',
-                      background: '#1D6EF7',
+                      background: '#ededed',
                       boxShadow: '0 0 8px #555',
                       border: '1.5px solid #0a0a0a',
                     }}
@@ -652,7 +652,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                     padding: '0.38rem 0.9rem',
                     borderRadius: 20,
                     border: `1px solid ${user.isOnDuty ? 'rgba(0,210,106,0.3)' : 'rgba(255,255,255,0.08)'}`,
-                    background: user.isOnDuty ? 'rgba(0,210,106,0.07)' : 'rgba(29,110,247,0.02)',
+                    background: user.isOnDuty ? 'rgba(0,210,106,0.07)' : 'transparent',
                     fontSize: '0.68rem',
                     fontWeight: 700,
                     color: user.isOnDuty ? '#00d26a' : '#666',
@@ -699,7 +699,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                   {user?.profileImage ? (
                     <img src={user.profileImage} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   ) : (
-                    <i className="fa-solid fa-user" style={{ color: '#1D6EF7', fontSize: '0.8rem' }} />
+                    <i className="fa-solid fa-user" style={{ color: '#ededed', fontSize: '0.8rem' }} />
                   )}
                 </button>
 
@@ -749,7 +749,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                         {user?.profileImage ? (
                           <img src={user.profileImage} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                         ) : (
-                          <i className="fa-solid fa-user" style={{ color: '#1D6EF7', fontSize: '1rem' }} />
+                          <i className="fa-solid fa-user" style={{ color: '#ededed', fontSize: '1rem' }} />
                         )}
                       </div>
                       <div style={{ minWidth: 0 }}>
@@ -857,7 +857,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
               top: '-10%', left: '-5%',
               width: '55vw', height: '55vw',
               borderRadius: '50%',
-              background: 'radial-gradient(circle, #161616 0%, rgba(29,110,247,0.02) 45%, transparent 70%)',
+              background: 'radial-gradient(circle, #161616 0%, transparent 45%, transparent 70%)',
               animation: 'aurora-1 18s ease-in-out infinite',
               filter: 'blur(40px)',
             }} />
@@ -885,7 +885,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
             <div style={{
               position: 'absolute',
               inset: 0,
-              backgroundImage: 'radial-gradient(circle, rgba(29,110,247,0.18) 1px, transparent 1px)',
+              backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)',
               backgroundSize: '32px 32px',
               opacity: 0.35,
               animation: 'grid-drift 12s linear infinite',
