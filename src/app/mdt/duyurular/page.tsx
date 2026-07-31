@@ -13,15 +13,15 @@ const TYPE_CONFIG: Record<string, { color: string; bg: string; border: string; i
 };
 
 const glassCard: React.CSSProperties = {
-  background: "linear-gradient(145deg, rgba(13,18,32,0.9) 0%, rgba(10,14,26,0.8) 100%)",
+  background: "#111111",
   border: "1px solid rgba(255,255,255,0.08)",
-  borderRadius: 16,
+  borderRadius: 8,
   overflow: "hidden",
-  boxShadow: "0 8px 32px -8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03)",
+  boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
 };
 
 const inputStyle: React.CSSProperties = {
-  width: "100%", background: "rgba(255,255,255,0.03)",
+  width: "100%", background: "#161616",
   border: "1px solid rgba(255,255,255,0.08)", borderRadius: 8,
   padding: "0.58rem 0.9rem", color: "#ededed",
   fontSize: "0.83rem", outline: "none", fontFamily: "'Inter', sans-serif",
@@ -102,7 +102,7 @@ export default function Duyurular() {
         {/* ─── Page Header ─── */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1rem" }}>
           <div>
-            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(255,255,255,0.16)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.45rem" }}>
+            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "#333", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.45rem" }}>
               L.A.C.P.D. · İÇ İLETİŞİM
             </div>
             <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "#ededed", margin: 0, letterSpacing: "-0.02em" }}>
@@ -118,10 +118,10 @@ export default function Duyurular() {
               style={{
                 display: "flex", alignItems: "center", gap: "0.55rem",
                 padding: "0.65rem 1.35rem", borderRadius: 9,
-                background: "linear-gradient(135deg, #1D6EF7 0%, #1558d6 100%)",
+                background: "#1D6EF7",
                 border: "1px solid rgba(255,255,255,0.16)",
                 color: "#fff", fontWeight: 700, fontSize: "0.82rem", cursor: "pointer",
-                boxShadow: "0 4px 16px rgba(255,255,255,0.12)",
+                boxShadow: "none",
                 transition: "all 0.18s ease",
               }}
               onMouseOver={e => { (e.currentTarget as HTMLElement).style.boxShadow = "0 6px 24px rgba(255,255,255,0.16)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)"; }}
@@ -151,7 +151,7 @@ export default function Duyurular() {
                   style={{
                     ...glassCard,
                     borderLeft: `3px solid ${cfg.color}`,
-                    borderRadius: 14,
+                    borderRadius: 8,
                   }}
                 >
                   {/* Card header */}
@@ -180,11 +180,11 @@ export default function Duyurular() {
                       {/* Title */}
                       <h3 style={{ fontSize: "1.05rem", fontWeight: 800, margin: 0, color: "#ededed", lineHeight: 1.3 }}>{ann.title}</h3>
                       {/* Author */}
-                      <div style={{ fontSize: "0.7rem", color: "rgba(200,208,230,0.38)", display: "flex", alignItems: "center", gap: "0.4rem" }}>
-                        <i className="fa-solid fa-user-shield" style={{ color: "rgba(255,255,255,0.16)", fontSize: "0.62rem" }} />
+                      <div style={{ fontSize: "0.7rem", color: "#555", display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                        <i className="fa-solid fa-user-shield" style={{ color: "#333", fontSize: "0.62rem" }} />
                         <span style={{ fontFamily: "'JetBrains Mono', monospace" }}>#{ann.author?.badge}</span>
                         <span>{ann.author?.name}</span>
-                        {ann.author?.rank && <span style={{ color: "rgba(255,255,255,0.16)" }}>· {ann.author.rank}</span>}
+                        {ann.author?.rank && <span style={{ color: "#333" }}>· {ann.author.rank}</span>}
                       </div>
                     </div>
 
@@ -228,9 +228,9 @@ export default function Duyurular() {
           style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.78)", backdropFilter: "blur(8px)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem" }}
           onClick={e => { if (e.target === e.currentTarget) setShowAddForm(false); }}
         >
-          <div style={{ ...glassCard, borderRadius: 18, width: "100%", maxWidth: 560, boxShadow: "0 24px 80px rgba(0,0,0,0.7)", border: "1px solid rgba(255,255,255,0.1)" }}>
+          <div style={{ ...glassCard, borderRadius: 8, width: "100%", maxWidth: 560, boxShadow: "0 24px 80px rgba(0,0,0,0.7)", border: "1px solid rgba(255,255,255,0.1)" }}>
             {/* Modal header */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1.35rem 1.5rem", borderBottom: "1px solid rgba(255,255,255,0.08)", background: "linear-gradient(90deg, #161616 0%, transparent 100%)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1.35rem 1.5rem", borderBottom: "1px solid rgba(255,255,255,0.08)", background: "transparent" }}>
               <div>
                 <div style={{ fontSize: "0.58rem", fontWeight: 800, color: "#555", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "0.2rem" }}>
                   ADMIN · BROADCAST
@@ -274,7 +274,7 @@ export default function Duyurular() {
                 <button type="submit" disabled={submitting} style={{
                   display: "flex", alignItems: "center", gap: "0.5rem",
                   padding: "0.65rem 1.35rem", borderRadius: 8,
-                  background: "linear-gradient(135deg, #1D6EF7 0%, #1558d6 100%)",
+                  background: "#1D6EF7",
                   border: "1px solid rgba(255,255,255,0.16)", color: "#fff",
                   fontWeight: 700, fontSize: "0.82rem", cursor: submitting ? "not-allowed" : "pointer",
                   opacity: submitting ? 0.65 : 1, transition: "all 0.18s",

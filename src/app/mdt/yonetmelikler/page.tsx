@@ -5,15 +5,15 @@ import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
 
 const glassCard: React.CSSProperties = {
-  background: "linear-gradient(145deg, rgba(13,18,32,0.9) 0%, rgba(10,14,26,0.8) 100%)",
+  background: "#111111",
   border: "1px solid rgba(255,255,255,0.08)",
-  borderRadius: 14,
+  borderRadius: 8,
   overflow: "hidden",
-  boxShadow: "0 8px 32px -8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03)",
+  boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
 };
 
 const inputBase: React.CSSProperties = {
-  width: "100%", background: "rgba(255,255,255,0.03)",
+  width: "100%", background: "#161616",
   border: "1px solid rgba(255,255,255,0.08)", borderRadius: 8,
   padding: "0.58rem 0.9rem", color: "#ededed",
   fontSize: "0.83rem", outline: "none", fontFamily: "'Inter', sans-serif",
@@ -79,7 +79,7 @@ export default function Yonetmelikler() {
         {/* ─── Header ─── */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1rem" }}>
           <div>
-            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(255,255,255,0.16)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.45rem" }}>
+            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "#333", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.45rem" }}>
               L.A.C.P.D. · RESMİ BELGELER
             </div>
             <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "#ededed", margin: 0, letterSpacing: "-0.02em" }}>
@@ -96,10 +96,10 @@ export default function Yonetmelikler() {
               style={{
                 display: "flex", alignItems: "center", gap: "0.55rem",
                 padding: "0.65rem 1.35rem", borderRadius: 9,
-                background: "linear-gradient(135deg, #1D6EF7 0%, #1558d6 100%)",
+                background: "#1D6EF7",
                 border: "1px solid rgba(255,255,255,0.16)", color: "#fff",
                 fontWeight: 700, fontSize: "0.82rem", cursor: "pointer",
-                boxShadow: "0 4px 16px rgba(255,255,255,0.12)", transition: "all 0.18s ease",
+                boxShadow: "none", transition: "all 0.18s ease",
               }}
             >
               <i className="fa-solid fa-plus" /> Yeni Yönetmelik
@@ -208,11 +208,11 @@ export default function Yonetmelikler() {
           onClick={e => { if (e.target === e.currentTarget) setShowModal(false); }}
         >
           <div style={{
-            background: "linear-gradient(145deg, #111111 0%, rgba(10,14,26,0.96) 100%)",
-            border: "1px solid rgba(255,255,255,0.1)", borderRadius: 18,
+            background: "#111111",
+            border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8,
             width: "100%", maxWidth: 580, boxShadow: "0 24px 80px rgba(0,0,0,0.7)",
           }}>
-            <div style={{ padding: "1.35rem 1.5rem", borderBottom: "1px solid rgba(255,255,255,0.08)", background: "linear-gradient(90deg, #161616 0%, transparent 100%)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div style={{ padding: "1.35rem 1.5rem", borderBottom: "1px solid rgba(255,255,255,0.08)", background: "transparent", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <div>
                 <div style={{ fontSize: "0.58rem", fontWeight: 800, color: "#555", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "0.2rem" }}>YÖNETİM · REGULATIONS</div>
                 <h3 style={{ margin: 0, fontWeight: 800, fontSize: "1rem", color: "#ededed" }}>Yeni Yönetmelik Ekle</h3>
@@ -239,12 +239,12 @@ export default function Yonetmelikler() {
                 <button onClick={handleSave} disabled={saving || !form.title.trim() || !form.content.trim()} style={{
                   display: "flex", alignItems: "center", gap: "0.5rem",
                   padding: "0.65rem 1.35rem", borderRadius: 8,
-                  background: "linear-gradient(135deg, #1D6EF7 0%, #1558d6 100%)",
+                  background: "#1D6EF7",
                   border: "1px solid rgba(255,255,255,0.16)", color: "#fff",
                   fontWeight: 700, fontSize: "0.82rem",
                   cursor: saving ? "not-allowed" : "pointer",
                   opacity: saving || !form.title.trim() || !form.content.trim() ? 0.55 : 1,
-                  boxShadow: "0 4px 16px rgba(255,255,255,0.12)", transition: "all 0.18s",
+                  boxShadow: "none", transition: "all 0.18s",
                 }}>
                   {saving ? <><i className="fa-solid fa-circle-notch fa-spin" /> KAYDEDİLİYOR...</> : <><i className="fa-solid fa-floppy-disk" /> KAYDET</>}
                 </button>

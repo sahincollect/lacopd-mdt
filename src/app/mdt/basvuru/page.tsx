@@ -135,9 +135,9 @@ export default function BirimBasvuruPage() {
           borderRadius: 10,
           padding: '4rem 2rem',
           textAlign: 'center',
-          boxShadow: '0 0 30px rgba(34,197,94,0.1)'
+          boxShadow: '0 0 30px rgba(0,210,106,0.1)'
         }}>
-          <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'rgba(34,197,94,0.15)', color: 'var(--mdt-success)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2.5rem', margin: '0 auto 1.5rem', border: '1px solid rgba(34,197,94,0.3)' }}>
+          <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'rgba(0,210,106,0.15)', color: 'var(--mdt-success)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2.5rem', margin: '0 auto 1.5rem', border: '1px solid rgba(0,210,106,0.3)' }}>
             <i className="fa-solid fa-check"></i>
           </div>
           <h2 style={{ fontSize: '1.75rem', fontWeight: 900, color: 'var(--mdt-text-primary)', marginBottom: '1rem' }}>BAŞVURUNUZ ALINDI</h2>
@@ -373,9 +373,9 @@ export default function BirimBasvuruPage() {
                           <td style={{ padding: '0.85rem 1rem', borderBottom: '1px solid var(--mdt-border)' }}>
                             <span style={{ 
                               padding: '3px 10px', borderRadius: 20, fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase',
-                              background: app.status === 'Onaylandı' ? 'rgba(34,197,94,0.12)' : app.status === 'Reddedildi' ? 'rgba(239,68,68,0.12)' : 'rgba(245,158,11,0.14)',
+                              background: app.status === 'Onaylandı' ? 'rgba(0,210,106,0.12)' : app.status === 'Reddedildi' ? 'rgba(239,68,68,0.12)' : 'rgba(245,158,11,0.14)',
                               color: app.status === 'Onaylandı' ? 'var(--mdt-success)' : app.status === 'Reddedildi' ? 'var(--mdt-danger)' : 'var(--mdt-warning)',
-                              border: `1px solid ${app.status === 'Onaylandı' ? 'rgba(34,197,94,0.22)' : app.status === 'Reddedildi' ? 'rgba(239,68,68,0.22)' : 'rgba(245,158,11,0.25)'}`
+                              border: `1px solid ${app.status === 'Onaylandı' ? 'rgba(0,210,106,0.22)' : app.status === 'Reddedildi' ? 'rgba(239,68,68,0.22)' : 'rgba(245,158,11,0.25)'}`
                             }}>
                               {app.status}
                             </span>
@@ -384,7 +384,7 @@ export default function BirimBasvuruPage() {
                           {isAdminView && (
                             <td style={{ padding: '0.85rem 1rem', borderBottom: '1px solid var(--mdt-border)', textAlign: 'right' }}>
                               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
-                                <button onClick={() => handleUpdateStatus(app.id, 'Onaylandı')} style={{ padding: '0.4rem 0.75rem', borderRadius: 6, border: '1px solid rgba(34,197,94,0.3)', background: 'rgba(34,197,94,0.1)', color: 'var(--mdt-success)', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer', transition: 'all 0.12s' }}>ONAYLA</button>
+                                <button onClick={() => handleUpdateStatus(app.id, 'Onaylandı')} style={{ padding: '0.4rem 0.75rem', borderRadius: 6, border: '1px solid rgba(0,210,106,0.3)', background: 'rgba(0,210,106,0.1)', color: 'var(--mdt-success)', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer', transition: 'all 0.12s' }}>ONAYLA</button>
                                 <button onClick={() => handleUpdateStatus(app.id, 'Reddedildi')} style={{ padding: '0.4rem 0.75rem', borderRadius: 6, border: '1px solid rgba(239,68,68,0.3)', background: 'rgba(239,68,68,0.1)', color: 'var(--mdt-danger)', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer', transition: 'all 0.12s' }}>REDDET</button>
                                 <button onClick={() => handleDelete(app.id)} style={{ padding: '0.4rem 0.75rem', borderRadius: 6, border: '1px solid var(--mdt-border)', background: 'transparent', color: 'var(--mdt-text-secondary)', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer', transition: 'all 0.12s' }}>SİL</button>
                               </div>

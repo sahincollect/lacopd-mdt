@@ -325,9 +325,9 @@ export default function PersonelListesi() {
                 </div>
 
                 <div style={{ display: "flex", gap: "0.5rem", marginTop: "auto" }}>
-                  <button onClick={() => handleApproveApplication(app.id, app.name)} style={{ flex: 1, padding: "0.65rem", borderRadius: "6px", border: "1px solid rgba(34,197,94,0.3)", background: "rgba(34,197,94,0.1)", color: "var(--mdt-success)", fontWeight: 700, fontSize: "0.8rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", transition: "background 0.15s" }}
-                    onMouseOver={e => (e.currentTarget as HTMLElement).style.background = 'rgba(34,197,94,0.2)'}
-                    onMouseOut={e => (e.currentTarget as HTMLElement).style.background = 'rgba(34,197,94,0.1)'}>
+                  <button onClick={() => handleApproveApplication(app.id, app.name)} style={{ flex: 1, padding: "0.65rem", borderRadius: "6px", border: "1px solid rgba(0,210,106,0.3)", background: "rgba(0,210,106,0.1)", color: "var(--mdt-success)", fontWeight: 700, fontSize: "0.8rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", transition: "background 0.15s" }}
+                    onMouseOver={e => (e.currentTarget as HTMLElement).style.background = 'rgba(0,210,106,0.2)'}
+                    onMouseOut={e => (e.currentTarget as HTMLElement).style.background = 'rgba(0,210,106,0.1)'}>
                     <i className="fa-solid fa-check"></i> ONAYLA
                   </button>
                   <button onClick={() => handleRejectApplication(app.id, app.name)} style={{ padding: "0.65rem 1rem", borderRadius: "6px", border: "1px solid rgba(239,68,68,0.3)", background: "rgba(239,68,68,0.1)", color: "var(--mdt-danger)", fontWeight: 700, fontSize: "0.8rem", cursor: "pointer", transition: "background 0.15s" }}
@@ -371,7 +371,7 @@ export default function PersonelListesi() {
                     </div>
                   </div>
                   {onDuty > 0 && (
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.75rem", color: "var(--mdt-success)", fontWeight: 700, padding: "4px 10px", background: "rgba(34,197,94,0.1)", borderRadius: "20px", border: "1px solid rgba(34,197,94,0.2)" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.75rem", color: "var(--mdt-success)", fontWeight: 700, padding: "4px 10px", background: "rgba(0,210,106,0.1)", borderRadius: "20px", border: "1px solid rgba(0,210,106,0.2)" }}>
                       <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "var(--mdt-success)" }}></span>
                       {onDuty} AKTİF
                     </div>

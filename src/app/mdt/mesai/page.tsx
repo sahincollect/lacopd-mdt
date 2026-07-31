@@ -17,17 +17,16 @@ interface OfficerShift {
 }
 
 const glassCard: React.CSSProperties = {
-  background: "linear-gradient(145deg, rgba(13,18,32,0.9) 0%, rgba(10,14,26,0.8) 100%)",
-  backdropFilter: "blur(20px)",
+  background: "#111111",
   border: "1px solid rgba(255,255,255,0.08)",
-  borderRadius: 16,
+  borderRadius: 8,
   overflow: "hidden",
-  boxShadow: "0 8px 32px -8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03)",
+  boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
 };
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
-  background: "rgba(255,255,255,0.03)",
+  background: "#161616",
   border: "1px solid rgba(255,255,255,0.08)",
   borderRadius: 8,
   padding: "0.55rem 0.9rem",
@@ -274,7 +273,7 @@ export default function MesaiSistemi() {
       {/* PAGE HEADER */}
       <div style={{ marginBottom: "2rem", display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1rem" }}>
         <div>
-          <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(255,255,255,0.16)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.5rem" }}>
+          <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "#333", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.5rem" }}>
             L.A.C.P.D. · OPERASYON
           </div>
           <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "#ededed", margin: 0, letterSpacing: "-0.02em" }}>
@@ -288,7 +287,7 @@ export default function MesaiSistemi() {
         <div style={{ display: "flex", gap: "2rem", alignItems: "center", background: "rgba(13,18,32,0.6)", padding: "1rem 1.5rem", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.08)" }}>
           <div>
             <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "#666", letterSpacing: '0.1em' }}>SAHADA AKTİF</div>
-            <div style={{ fontSize: "1.4rem", fontWeight: 900, color: "#22c55e", fontFamily: "'JetBrains Mono', monospace" }}>{activeCount} <span style={{ fontSize: "0.9rem", color: "#555" }}>/ {leaderboard.length}</span></div>
+            <div style={{ fontSize: "1.4rem", fontWeight: 900, color: "#00d26a", fontFamily: "'JetBrains Mono', monospace" }}>{activeCount} <span style={{ fontSize: "0.9rem", color: "#555" }}>/ {leaderboard.length}</span></div>
           </div>
           <div style={{ width: "1px", height: "30px", backgroundColor: "#2a2a2a" }}></div>
           <div>
@@ -309,16 +308,16 @@ export default function MesaiSistemi() {
         padding: "2rem",
         marginBottom: "2rem",
         display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1.5rem",
-        border: user?.isOnDuty ? "1px solid rgba(34,197,94,0.3)" : "1px solid rgba(255,255,255,0.08)",
-        boxShadow: user?.isOnDuty ? "0 8px 32px -8px rgba(34,197,94,0.15), inset 0 1px 0 rgba(255,255,255,0.03)" : glassCard.boxShadow
+        border: user?.isOnDuty ? "1px solid rgba(0,210,106,0.3)" : "1px solid rgba(255,255,255,0.08)",
+        boxShadow: user?.isOnDuty ? "0 8px 32px -8px rgba(0,210,106,0.15), inset 0 1px 0 rgba(255,255,255,0.03)" : glassCard.boxShadow
       }}>
         
         <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
           <div style={{ 
             width: "64px", height: "64px", borderRadius: "16px", 
-            background: user?.isOnDuty ? "rgba(34,197,94,0.1)" : "rgba(255,255,255,0.08)", 
-            color: user?.isOnDuty ? "#22c55e" : "#1D6EF7", 
-            border: user?.isOnDuty ? "1px solid rgba(34,197,94,0.2)" : "1px solid rgba(255,255,255,0.1)",
+            background: user?.isOnDuty ? "rgba(0,210,106,0.1)" : "rgba(255,255,255,0.08)", 
+            color: user?.isOnDuty ? "#00d26a" : "#1D6EF7", 
+            border: user?.isOnDuty ? "1px solid rgba(0,210,106,0.2)" : "1px solid rgba(255,255,255,0.1)",
             display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.5rem", fontWeight: 900 
           }}>
             {user?.name.charAt(0) || "U"}
@@ -326,7 +325,7 @@ export default function MesaiSistemi() {
           
           <div>
             <div style={{ fontSize: "0.65rem", fontWeight: 800, color: "#888", textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "0.25rem" }}>KÜMÜLATİF ŞAHSİ SÜRE</div>
-            <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "2.5rem", fontWeight: 700, color: user?.isOnDuty ? "#22c55e" : "#ededed", lineHeight: 1, margin: "0.25rem 0" }}>
+            <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "2.5rem", fontWeight: 700, color: user?.isOnDuty ? "#00d26a" : "#ededed", lineHeight: 1, margin: "0.25rem 0" }}>
               {formatTime(mySeconds)}
             </div>
             <div style={{ fontSize: "0.85rem", fontWeight: 600, color: "#666", marginTop: "0.5rem" }}>
@@ -467,12 +466,12 @@ export default function MesaiSistemi() {
                 {/* DURUM */}
                 <div style={{ flex: "1" }}>
                   {off.isOnDuty ? (
-                    <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", background: "rgba(34,197,94,0.08)", color: "#22c55e", border: "1px solid rgba(34,197,94,0.2)", padding: "0.3rem 0.6rem", borderRadius: "20px", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.08em" }}>
+                    <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", background: "rgba(0,210,106,0.08)", color: "#00d26a", border: "1px solid rgba(0,210,106,0.2)", padding: "0.3rem 0.6rem", borderRadius: "20px", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.08em" }}>
                       <span className="pulse-dot"></span>
                       AKTİF
                     </div>
                   ) : (
-                    <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", background: "rgba(255,255,255,0.03)", color: "#666", border: "1px solid rgba(255,255,255,0.05)", padding: "0.3rem 0.6rem", borderRadius: "20px", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.08em" }}>
+                    <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", background: "#161616", color: "#666", border: "1px solid rgba(255,255,255,0.05)", padding: "0.3rem 0.6rem", borderRadius: "20px", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.08em" }}>
                       <i className="fa-solid fa-moon"></i>
                       PASİF
                     </div>
@@ -480,7 +479,7 @@ export default function MesaiSistemi() {
                 </div>
 
                 {/* SÜRE */}
-                <div style={{ flex: "1", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", fontWeight: 700, fontSize: "1.1rem", color: off.isOnDuty ? "#22c55e" : "#888" }}>
+                <div style={{ flex: "1", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", fontWeight: 700, fontSize: "1.1rem", color: off.isOnDuty ? "#00d26a" : "#888" }}>
                   {formatTime(secs)}
                 </div>
 

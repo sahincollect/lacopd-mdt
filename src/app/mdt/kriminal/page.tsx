@@ -7,15 +7,15 @@ import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
 
 const glassCard: React.CSSProperties = {
-  background: "linear-gradient(145deg, rgba(13,18,32,0.9) 0%, rgba(10,14,26,0.8) 100%)",
+  background: "#111111",
   border: "1px solid rgba(255,255,255,0.08)",
-  borderRadius: 14,
+  borderRadius: 8,
   overflow: "hidden",
-  boxShadow: "0 8px 32px -8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03)",
+  boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
 };
 
 const inputStyle: React.CSSProperties = {
-  width: "100%", background: "rgba(255,255,255,0.03)",
+  width: "100%", background: "#161616",
   border: "1px solid rgba(255,255,255,0.08)", borderRadius: 8,
   padding: "0.58rem 0.9rem", color: "#ededed",
   fontSize: "0.83rem", outline: "none", fontFamily: "'Inter', sans-serif",
@@ -126,7 +126,7 @@ export default function SuçluVeritabanı() {
         {/* ─── Header ─── */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1rem" }}>
           <div>
-            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(255,255,255,0.16)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.45rem" }}>
+            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "#333", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.45rem" }}>
               L.A.C.P.D. · İSTİHBARAT
             </div>
             <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "#ededed", margin: 0, letterSpacing: "-0.02em" }}>
@@ -142,10 +142,10 @@ export default function SuçluVeritabanı() {
             style={{
               display: "flex", alignItems: "center", gap: "0.55rem",
               padding: "0.65rem 1.35rem", borderRadius: 9,
-              background: "linear-gradient(135deg, #1D6EF7 0%, #1558d6 100%)",
+              background: "#1D6EF7",
               border: "1px solid rgba(255,255,255,0.16)",
               color: "#fff", fontWeight: 700, fontSize: "0.82rem", cursor: "pointer",
-              boxShadow: "0 4px 16px rgba(255,255,255,0.12)", transition: "all 0.18s ease",
+              boxShadow: "none", transition: "all 0.18s ease",
             }}
           >
             <i className="fa-solid fa-fingerprint" style={{ fontSize: "0.78rem" }} /> YENİ SABIKA KAYDI
@@ -154,7 +154,7 @@ export default function SuçluVeritabanı() {
 
         {/* ─── Search ─── */}
         <div style={{ position: "relative" }}>
-          <i className="fa-solid fa-magnifying-glass" style={{ position: "absolute", left: "1.1rem", top: "50%", transform: "translateY(-50%)", color: "rgba(255,255,255,0.16)", fontSize: "0.85rem", pointerEvents: "none" }} />
+          <i className="fa-solid fa-magnifying-glass" style={{ position: "absolute", left: "1.1rem", top: "50%", transform: "translateY(-50%)", color: "#333", fontSize: "0.85rem", pointerEvents: "none" }} />
           <input
             className="mdt-inp"
             type="text"
@@ -258,7 +258,7 @@ export default function SuçluVeritabanı() {
                               <div style={{ fontSize: "0.58rem", fontWeight: 800, color: "#555", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.6rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
                                 <i className="fa-solid fa-align-left" style={{ fontSize: "0.55rem" }} /> Ek Notlar
                               </div>
-                              <p style={{ margin: 0, lineHeight: 1.7, fontSize: "0.83rem", color: "#888", whiteSpace: "pre-wrap", background: "rgba(255,255,255,0.03)", padding: "0.8rem 1rem", borderRadius: 8, border: "1px solid #161616" }}>
+                              <p style={{ margin: 0, lineHeight: 1.7, fontSize: "0.83rem", color: "#888", whiteSpace: "pre-wrap", background: "#161616", padding: "0.8rem 1rem", borderRadius: 8, border: "1px solid #161616" }}>
                                 {c.notes}
                               </p>
                             </div>
@@ -281,7 +281,7 @@ export default function SuçluVeritabanı() {
                       {/* Footer */}
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "0.9rem", borderTop: "1px solid rgba(255,255,255,0.04)" }}>
                         <span style={{ fontSize: "0.68rem", color: "#555", fontFamily: "'JetBrains Mono', monospace" }}>
-                          <i className="fa-solid fa-shield" style={{ color: "rgba(255,255,255,0.16)", marginRight: "0.4rem" }} />
+                          <i className="fa-solid fa-shield" style={{ color: "#333", marginRight: "0.4rem" }} />
                           {c.officer?.badge ? `#${c.officer.badge}` : "—"}
                         </span>
                         {canModify && (
@@ -320,8 +320,8 @@ export default function SuçluVeritabanı() {
           onClick={e => { if (e.target === e.currentTarget) setShowAddForm(false); }}
         >
           <div style={{
-            background: "linear-gradient(145deg, #111111 0%, rgba(10,14,26,0.96) 100%)",
-            border: "1px solid rgba(255,255,255,0.1)", borderRadius: 18,
+            background: "#111111",
+            border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8,
             width: "100%", maxWidth: 560, boxShadow: "0 24px 80px rgba(0,0,0,0.7)",
           }}>
             <div style={{ padding: "1.35rem 1.5rem", borderBottom: "1px solid rgba(255,255,255,0.08)", background: "linear-gradient(90deg, rgba(239,68,68,0.05) 0%, transparent 100%)" }}>
@@ -360,7 +360,7 @@ export default function SuçluVeritabanı() {
                   {formData.image && (
                     <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", width: "100%", marginTop: "0.5rem" }}>
                       {formData.image.split(",").map((url: string, i: number) => (
-                        <div key={i} style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.75rem", color: "#22c55e", fontWeight: 600, background: "rgba(34,197,94,0.1)", padding: "0.3rem 0.6rem", borderRadius: 6, border: "1px solid rgba(34,197,94,0.2)" }}>
+                        <div key={i} style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.75rem", color: "#00d26a", fontWeight: 600, background: "rgba(0,210,106,0.1)", padding: "0.3rem 0.6rem", borderRadius: 6, border: "1px solid rgba(0,210,106,0.2)" }}>
                           <i className="fa-solid fa-check-circle" /> Foto {i + 1}
                           <button type="button" onClick={() => {
                             const newUrls = formData.image.split(",").filter((_: any, idx: number) => idx !== i).join(",");
@@ -380,7 +380,7 @@ export default function SuçluVeritabanı() {
               </div>
               <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.75rem", paddingTop: "0.25rem" }}>
                 <button type="button" onClick={() => setShowAddForm(false)} style={{ padding: "0.6rem 1.1rem", borderRadius: 8, border: "1px solid rgba(255,255,255,0.08)", background: "transparent", color: "#666", fontWeight: 600, fontSize: "0.8rem", cursor: "pointer", transition: "all 0.15s" }}>İptal</button>
-                <button type="submit" disabled={submitting} style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.65rem 1.35rem", borderRadius: 8, background: "linear-gradient(135deg, #1D6EF7 0%, #1558d6 100%)", border: "1px solid rgba(255,255,255,0.16)", color: "#fff", fontWeight: 700, fontSize: "0.82rem", cursor: submitting ? "not-allowed" : "pointer", opacity: submitting ? 0.65 : 1, transition: "all 0.18s" }}>
+                <button type="submit" disabled={submitting} style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.65rem 1.35rem", borderRadius: 8, background: "#1D6EF7", border: "1px solid rgba(255,255,255,0.16)", color: "#fff", fontWeight: 700, fontSize: "0.82rem", cursor: submitting ? "not-allowed" : "pointer", opacity: submitting ? 0.65 : 1, transition: "all 0.18s" }}>
                   {submitting ? <><i className="fa-solid fa-spinner fa-spin" /> İŞLENİYOR...</> : <><i className="fa-solid fa-save" /> {editingId ? "GÜNCELLE" : "KAYDET"}</>}
                 </button>
               </div>

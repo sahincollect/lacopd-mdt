@@ -4,20 +4,20 @@ import { useState, useEffect } from "react";
 
 const STATUS_CFG: Record<string, { bg: string; color: string; border: string; icon: string }> = {
   "Bekliyor":   { bg: "rgba(245,158,11,0.08)",  color: "#f59e0b", border: "rgba(245,158,11,0.2)",  icon: "fa-clock" },
-  "Onaylandı":  { bg: "rgba(34,197,94,0.08)",   color: "#22c55e", border: "rgba(34,197,94,0.2)",   icon: "fa-check" },
+  "Onaylandı":  { bg: "rgba(0,210,106,0.08)",   color: "#00d26a", border: "rgba(0,210,106,0.2)",   icon: "fa-check" },
   "Reddedildi": { bg: "rgba(239,68,68,0.08)",   color: "#ef4444", border: "rgba(239,68,68,0.2)",   icon: "fa-xmark" },
 };
 
 const glassCard: React.CSSProperties = {
-  background: "linear-gradient(145deg, rgba(13,18,32,0.9) 0%, rgba(10,14,26,0.8) 100%)",
+  background: "#111111",
   border: "1px solid rgba(255,255,255,0.08)",
-  borderRadius: 16,
+  borderRadius: 8,
   overflow: "hidden",
-  boxShadow: "0 8px 32px -8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03)",
+  boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
 };
 
 const inputBase: React.CSSProperties = {
-  width: "100%", background: "rgba(255,255,255,0.03)",
+  width: "100%", background: "#161616",
   border: "1px solid rgba(255,255,255,0.08)", borderRadius: 8,
   padding: "0.58rem 0.9rem", color: "#ededed",
   fontSize: "0.83rem", outline: "none", fontFamily: "'Inter', sans-serif",
@@ -91,7 +91,7 @@ export default function MazeretlerPage() {
         .mdt-inp:focus { border-color: #555 !important; box-shadow: 0 0 0 3px rgba(255,255,255,0.08) !important; }
         .req-row:hover { background: rgba(255,255,255,0.03) !important; }
         .tab-btn-active { background: rgba(255,255,255,0.08) !important; color: #ededed !important; border-color: rgba(255,255,255,0.12) !important; }
-        .approve-btn:hover { background: rgba(34,197,94,0.2) !important; }
+        .approve-btn:hover { background: rgba(0,210,106,0.2) !important; }
         .reject-btn:hover  { background: rgba(245,158,11,0.2) !important; }
         .del-btn:hover     { background: rgba(239,68,68,0.15) !important; }
       `}</style>
@@ -101,7 +101,7 @@ export default function MazeretlerPage() {
         {/* ─── Header ─── */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1rem" }}>
           <div>
-            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(255,255,255,0.16)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.45rem" }}>
+            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "#333", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.45rem" }}>
               L.A.C.P.D. · İNSAN KAYNAKLARI
             </div>
             <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "#ededed", margin: 0, letterSpacing: "-0.02em" }}>
@@ -139,7 +139,7 @@ export default function MazeretlerPage() {
           <div style={{ display: "flex", justifyContent: "center" }}>
             <div style={{ ...glassCard, width: "100%", maxWidth: 660 }}>
               {/* Card header */}
-              <div style={{ padding: "1.15rem 1.4rem", borderBottom: "1px solid #161616", background: "linear-gradient(90deg, #161616 0%, transparent 100%)" }}>
+              <div style={{ padding: "1.15rem 1.4rem", borderBottom: "1px solid #161616", background: "transparent" }}>
                 <h3 style={{ margin: 0, fontSize: "0.95rem", fontWeight: 700, color: "#ededed", display: "flex", alignItems: "center", gap: "0.6rem" }}>
                   <div style={{ width: 30, height: 30, borderRadius: 8, background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <i className="fa-solid fa-file-signature" style={{ color: "#1D6EF7", fontSize: "0.78rem" }} />
@@ -151,7 +151,7 @@ export default function MazeretlerPage() {
               <div style={{ padding: "1.5rem" }}>
                 {/* Success / Error banners */}
                 {success && (
-                  <div style={{ background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.2)", borderRadius: 8, padding: "0.85rem 1rem", marginBottom: "1.25rem", color: "#22c55e", fontSize: "0.82rem", fontWeight: 600, display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <div style={{ background: "rgba(0,210,106,0.08)", border: "1px solid rgba(0,210,106,0.2)", borderRadius: 8, padding: "0.85rem 1rem", marginBottom: "1.25rem", color: "#00d26a", fontSize: "0.82rem", fontWeight: 600, display: "flex", alignItems: "center", gap: "0.5rem" }}>
                     <i className="fa-solid fa-circle-check" /> {success}
                   </div>
                 )}
@@ -209,12 +209,12 @@ export default function MazeretlerPage() {
                     <button type="submit" disabled={loading} style={{
                       display: "flex", alignItems: "center", gap: "0.55rem",
                       padding: "0.65rem 1.5rem", borderRadius: 8,
-                      background: "linear-gradient(135deg, #1D6EF7 0%, #1558d6 100%)",
+                      background: "#1D6EF7",
                       border: "1px solid rgba(255,255,255,0.16)", color: "#fff",
                       fontWeight: 700, fontSize: "0.82rem",
                       cursor: loading ? "not-allowed" : "pointer",
                       opacity: loading ? 0.65 : 1, transition: "all 0.18s",
-                      boxShadow: "0 4px 16px rgba(255,255,255,0.12)",
+                      boxShadow: "none",
                     }}>
                       {loading ? <><i className="fa-solid fa-spinner fa-spin" /> GÖNDERİLİYOR...</> : <><i className="fa-solid fa-paper-plane" /> TALEBİ GÖNDER</>}
                     </button>
@@ -239,7 +239,7 @@ export default function MazeretlerPage() {
               {/* Table header */}
               <div style={{ display: "grid", gridTemplateColumns: "2fr 1.5fr 2fr auto auto", gap: "1rem", padding: "0.75rem 1.25rem", borderBottom: "1px solid #161616", background: "rgba(8,12,20,0.6)" }}>
                 {["Personel", "Tarih Aralığı", "Gerekçe", "Durum", user?.role === "admin" ? "İşlemler" : ""].filter(Boolean).map((h, i) => (
-                  <div key={i} style={{ fontSize: "0.58rem", fontWeight: 800, color: "rgba(255,255,255,0.16)", letterSpacing: "0.2em", textTransform: "uppercase" }}>{h}</div>
+                  <div key={i} style={{ fontSize: "0.58rem", fontWeight: 800, color: "#333", letterSpacing: "0.2em", textTransform: "uppercase" }}>{h}</div>
                 ))}
               </div>
 
@@ -266,7 +266,7 @@ export default function MazeretlerPage() {
                       <div style={{ display: "flex", gap: "0.4rem" }}>
                         {r.status === "Bekliyor" && (
                           <>
-                            <button className="approve-btn" onClick={() => handleStatus(r.id, "Onaylandı")} title="Onayla" style={{ width: 28, height: 28, borderRadius: 6, border: "1px solid rgba(34,197,94,0.2)", background: "rgba(34,197,94,0.08)", color: "#22c55e", fontSize: "0.7rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.15s" }}>
+                            <button className="approve-btn" onClick={() => handleStatus(r.id, "Onaylandı")} title="Onayla" style={{ width: 28, height: 28, borderRadius: 6, border: "1px solid rgba(0,210,106,0.2)", background: "rgba(0,210,106,0.08)", color: "#00d26a", fontSize: "0.7rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.15s" }}>
                               <i className="fa-solid fa-check" />
                             </button>
                             <button className="reject-btn" onClick={() => handleStatus(r.id, "Reddedildi")} title="Reddet" style={{ width: 28, height: 28, borderRadius: 6, border: "1px solid rgba(245,158,11,0.2)", background: "rgba(245,158,11,0.08)", color: "#f59e0b", fontSize: "0.7rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.15s" }}>

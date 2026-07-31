@@ -189,17 +189,16 @@ export default function ProfilPage() {
   };
 
   const glassCard: React.CSSProperties = {
-    background: "linear-gradient(145deg, rgba(13,18,32,0.9) 0%, rgba(10,14,26,0.8) 100%)",
-    backdropFilter: "blur(20px)",
-    border: "1px solid rgba(255,255,255,0.08)",
-    borderRadius: 16,
+    background: "#111111",
+      border: "1px solid rgba(255,255,255,0.08)",
+    borderRadius: 8,
     overflow: "hidden",
-    boxShadow: "0 8px 32px -8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03)",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
   };
 
   const inputStyle: React.CSSProperties = {
     width: "100%",
-    background: "rgba(255,255,255,0.03)",
+    background: "#161616",
     border: "1px solid rgba(255,255,255,0.08)",
     borderRadius: 8,
     padding: "0.55rem 0.9rem",
@@ -222,7 +221,7 @@ export default function ProfilPage() {
 
   const btnPrimary: React.CSSProperties = {
     padding: "0.6rem 1.25rem", borderRadius: 8,
-    background: "linear-gradient(135deg, #1D6EF7 0%, #1558d6 100%)",
+    background: "#1D6EF7",
     border: "1px solid rgba(255,255,255,0.16)",
     color: "#fff", fontWeight: 700, fontSize: "0.82rem", cursor: "pointer",
     transition: "all 0.2s"
@@ -287,7 +286,7 @@ export default function ProfilPage() {
       `}</style>
       
       <div style={{ marginBottom: "2rem" }}>
-        <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "rgba(255,255,255,0.16)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.5rem" }}>
+        <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "#333", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.5rem" }}>
           L.A.C.P.D. · YÖNETİM
         </div>
         <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "#ededed", margin: 0, letterSpacing: "-0.02em" }}>
@@ -324,9 +323,9 @@ export default function ProfilPage() {
               <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', marginBottom: '1rem' }}>
                 <span style={{ 
                   padding: "0.25rem 0.7rem", borderRadius: 20,
-                  background: isOnDuty ? "rgba(34,197,94,0.08)" : "rgba(239,68,68,0.08)", 
-                  border: isOnDuty ? "1px solid rgba(34,197,94,0.2)" : "1px solid rgba(239,68,68,0.2)",
-                  color: isOnDuty ? "#22c55e" : "#ef4444", 
+                  background: isOnDuty ? "rgba(0,210,106,0.08)" : "rgba(239,68,68,0.08)", 
+                  border: isOnDuty ? "1px solid rgba(0,210,106,0.2)" : "1px solid rgba(239,68,68,0.2)",
+                  color: isOnDuty ? "#00d26a" : "#ef4444", 
                   fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.08em",
                 }}>
                   {isOnDuty ? 'MESAİDE' : 'MESAİ DIŞI'}
@@ -385,11 +384,11 @@ export default function ProfilPage() {
             onClick={toggleDuty}
             disabled={dutyLoading}
             style={{
-              background: isOnDuty ? 'rgba(34,197,94,0.1)' : 'rgba(239,68,68,0.1)',
-              border: isOnDuty ? '1px solid rgba(34,197,94,0.3)' : '1px solid rgba(239,68,68,0.3)',
+              background: isOnDuty ? 'rgba(0,210,106,0.1)' : 'rgba(239,68,68,0.1)',
+              border: isOnDuty ? '1px solid rgba(0,210,106,0.3)' : '1px solid rgba(239,68,68,0.3)',
               color: isOnDuty ? '#22c55e' : '#ef4444',
               opacity: dutyLoading ? 0.7 : 1,
-              boxShadow: isOnDuty ? '0 0 20px rgba(34,197,94,0.1)' : 'none'
+              boxShadow: isOnDuty ? '0 0 20px rgba(0,210,106,0.1)' : 'none'
             }}
           >
             <i className={`fa-solid ${isOnDuty ? 'fa-satellite-dish' : 'fa-power-off'}`} />
@@ -442,7 +441,7 @@ export default function ProfilPage() {
               </div>
 
               {imgMessage && (
-                <div style={{ fontSize: '0.75rem', fontWeight: 600, padding: '0.75rem', borderRadius: 8, backgroundColor: imgMessage.type === 'success' ? 'rgba(34,197,94,0.1)' : 'rgba(239, 68, 68, 0.1)', color: imgMessage.type === 'success' ? '#22c55e' : '#ef4444', border: `1px solid ${imgMessage.type === 'success' ? 'rgba(34,197,94,0.2)' : 'rgba(239, 68, 68, 0.2)'}`, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <div style={{ fontSize: '0.75rem', fontWeight: 600, padding: '0.75rem', borderRadius: 8, backgroundColor: imgMessage.type === 'success' ? 'rgba(0,210,106,0.1)' : 'rgba(239, 68, 68, 0.1)', color: imgMessage.type === 'success' ? '#22c55e' : '#ef4444', border: `1px solid ${imgMessage.type === 'success' ? 'rgba(0,210,106,0.2)' : 'rgba(239, 68, 68, 0.2)'}`, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <i className={`fa-solid ${imgMessage.type === 'success' ? 'fa-check-circle' : 'fa-circle-exclamation'}`}></i>
                   {imgMessage.text}
                 </div>
@@ -494,7 +493,7 @@ export default function ProfilPage() {
               </div>
               
               {pwMessage && (
-                <div style={{ fontSize: '0.75rem', fontWeight: 600, padding: '0.75rem', borderRadius: 8, backgroundColor: pwMessage.type === 'success' ? 'rgba(34,197,94,0.1)' : 'rgba(239, 68, 68, 0.1)', color: pwMessage.type === 'success' ? '#22c55e' : '#ef4444', border: `1px solid ${pwMessage.type === 'success' ? 'rgba(34,197,94,0.2)' : 'rgba(239, 68, 68, 0.2)'}`, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <div style={{ fontSize: '0.75rem', fontWeight: 600, padding: '0.75rem', borderRadius: 8, backgroundColor: pwMessage.type === 'success' ? 'rgba(0,210,106,0.1)' : 'rgba(239, 68, 68, 0.1)', color: pwMessage.type === 'success' ? '#22c55e' : '#ef4444', border: `1px solid ${pwMessage.type === 'success' ? 'rgba(0,210,106,0.2)' : 'rgba(239, 68, 68, 0.2)'}`, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <i className={`fa-solid ${pwMessage.type === 'success' ? 'fa-check-circle' : 'fa-circle-exclamation'}`}></i>
                   {pwMessage.text}
                 </div>
