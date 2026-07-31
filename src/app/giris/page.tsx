@@ -78,13 +78,15 @@ function GirisPageContent() {
             {/* Top: Logo + title */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
               <div style={{
-                width: 48, height: 48,
+                width: 52, height: 52,
                 backgroundColor: 'var(--bg-secondary)',
-                borderRadius: '10px',
+                borderRadius: '50%',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
+                overflow: 'hidden',
+                border: '1px solid rgba(255,255,255,0.1)'
               }}>
-                <img src="/lac-logo.png" alt="LAC" style={{ width: 34, height: 34, objectFit: 'contain' }} />
+                <img src="/lac-logo.png" alt="LAC" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div>
                 <div style={{ color: '#FFFFFF', fontWeight: 800, fontSize: '1rem', letterSpacing: '0.06em' }}>
