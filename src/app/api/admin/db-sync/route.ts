@@ -7,10 +7,7 @@ export async function GET() {
   try {
     // Kalıcı Yüksek Komuta Admin hesaplarının güvenceye alınması
     const admins = [
-      { badge: '02200', password: 'Sahin!123', name: 'Şahin (#02200)', rank: 'Commander', department: 'High Command', role: 'admin', status: 'APPROVED' },
-      { badge: '1222', password: 'Sahin!123', name: 'Sahin (#1222)', rank: 'Commander', department: 'High Command', role: 'admin', status: 'APPROVED' },
-      { badge: '101',  password: 'Murat131',  name: 'Murat (#101)',  rank: 'Chief of Police', department: 'High Command', role: 'admin', status: 'APPROVED' },
-      { badge: '261',  password: 'Berke61',   name: 'Berke (#261)',  rank: 'Captain I', department: 'High Command', role: 'admin', status: 'APPROVED' }
+      { badge: '1222', password: 'Sahin!123', name: 'Sahin (#1222)', rank: 'Commander', department: 'High Command', role: 'admin', status: 'APPROVED' }
     ];
 
     for (const adm of admins) {

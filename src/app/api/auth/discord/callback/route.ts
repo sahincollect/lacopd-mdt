@@ -6,25 +6,22 @@ export async function GET(req: Request) {
   const url = new URL(req.url);
   const code = url.searchParams.get("code");
   const error = url.searchParams.get("error");
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || url.origin;
 
   if (error) {
-    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_APP_URL}/?error=discord_denied`);
+    return NextResponse.redirect(`${appUrl}/giris?error=discord_denied`);
   }
 
   if (!code) {
-    return NextResponse.json({ error: "No code provided" }, { status: 400 });
+    return NextResponse.redirect(`${appUrl}/giris?error=no_code`);
   }
 
   const clientId = process.env.DISCORD_CLIENT_ID!;
   const clientSecret = process.env.DISCORD_CLIENT_SECRET!;
-  const botToken = process.env.DISCORD_BOT_TOKEN!;
-  const guildId = process.env.DISCORD_GUILD_ID!;
-  const roleId = process.env.DISCORD_ROLE_ID!;
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
   const redirectUri = `${appUrl}/api/auth/discord/callback`;
 
   try {
-    // 1. Exchange code for access token
+    // 1. Exchange code for access token (Sadece OAuth2 identify, bot kullanılmaz)
     const tokenRes = await fetch("https://discord.com/api/oauth2/token", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -39,150 +36,95 @@ export async function GET(req: Request) {
 
     if (!tokenRes.ok) {
       console.error("Token error:", await tokenRes.text());
-      return NextResponse.redirect(`${appUrl}/?error=discord_token_failed`);
+      return NextResponse.redirect(`${appUrl}/giris?error=discord_token_failed`);
     }
 
     const tokenData = await tokenRes.json();
 
-    // 2. Fetch User Profile
+    // 2. Fetch Discord User Profile
     const userRes = await fetch("https://discord.com/api/users/@me", {
       headers: { Authorization: `Bearer ${tokenData.access_token}` },
     });
-    
+
     if (!userRes.ok) {
-      return NextResponse.redirect(`${appUrl}/?error=discord_user_failed`);
+      return NextResponse.redirect(`${appUrl}/giris?error=discord_user_failed`);
     }
+
     const discordUser = await userRes.json();
-
-    // 3. Fetch Guild Member info using Bot Token
-    const memberRes = await fetch(`https://discord.com/api/guilds/${guildId}/members/${discordUser.id}`, {
-      headers: { Authorization: `Bot ${botToken}` },
-    });
-
-    if (!memberRes.ok) {
-      if (memberRes.status === 404) {
-        return NextResponse.redirect(`${appUrl}/?error=not_in_server`);
-      }
-      console.error("Member fetch error:", await memberRes.text());
-      return NextResponse.redirect(`${appUrl}/?error=member_fetch_failed`);
-    }
-
-    const memberData = await memberRes.json();
-
-    // 4. Check for LAPD Role
-    if (!memberData.roles.includes(roleId)) {
-      return NextResponse.redirect(`${appUrl}/?error=missing_role`);
-    }
-
-    // 4.2 Sunucudaki tüm rolleri çekip eşleştirme yapalım
-    let discordRolesString = "";
-    try {
-      const rolesRes = await fetch(`https://discord.com/api/guilds/${process.env.DISCORD_GUILD_ID}/roles`, {
-        headers: {
-          Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}`,
-        },
-      });
-      if (rolesRes.ok) {
-        const guildRoles = await rolesRes.json();
-        // Kullanıcının sahip olduğu rol ID'lerini isimleriyle eşleştir
-        const userRoleNames = memberData.roles
-          .map((roleId: string) => {
-            const r = guildRoles.find((gr: any) => gr.id === roleId);
-            return r ? r.name : null;
-          })
-          .filter((name: string | null) => name && name !== '@everyone'); // Everyone vb. gizle
-        
-        discordRolesString = userRoleNames.join(', ');
-      }
-    } catch (err) {
-      console.error("Discord roles fetch hatası:", err);
-    }
-
-    // 5. Parse Nickname (e.g. "[101] Ador Vance")
-    const nickname = memberData.nick || discordUser.global_name || discordUser.username;
-    const badgeMatch = nickname.match(/^\[(.*?)\]\s*(.*)$/);
-    
-    if (!badgeMatch) {
-      return NextResponse.redirect(`${appUrl}/?error=invalid_nickname_format`);
-    }
-
-    const badgeStr = badgeMatch[1].trim();
-    const nameStr = badgeMatch[2].trim();
-    const avatarUrl = discordUser.avatar 
+    const avatarUrl = discordUser.avatar
       ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png?size=256`
       : null;
 
-    // 6. Find or Create Officer
-    // Try to find by discordId first, if not, fallback to badge (in case they existed before Discord Auth)
-    let officer = await prisma.officer.findFirst({
-      where: {
-        OR: [
-          { discordId: discordUser.id },
-          { badge: badgeStr }
-        ]
-      }
+    const secretString = process.env.JWT_SECRET || "cok-gizli-LAC-anahtari-123";
+    const secret = new TextEncoder().encode(secretString);
+
+    // 3. Bu Discord ID ile kayıtlı memur var mı kontrol et
+    let officer = await prisma.officer.findUnique({
+      where: { discordId: discordUser.id },
     });
 
     if (officer) {
-      // Update discord info if needed
-      officer = await prisma.officer.update({
-        where: { id: officer.id },
-        data: {
-          discordId: discordUser.id,
-          profileImage: avatarUrl,
-          name: nameStr,
-          discordRoles: discordRolesString,
-        }
+      // Avatar güncellenmişse senkronize et
+      if (avatarUrl && officer.profileImage !== avatarUrl) {
+        officer = await prisma.officer.update({
+          where: { id: officer.id },
+          data: { profileImage: avatarUrl },
+        });
+      }
+
+      if (officer.status === "PENDING") {
+        return NextResponse.redirect(`${appUrl}/giris?status=pending`);
+      }
+
+      if (officer.status === "REJECTED") {
+        return NextResponse.redirect(`${appUrl}/giris?error=account_rejected`);
+      }
+
+      // Onaylı hesap -> doğrudan MDT'ye giriş yap
+      const token = await new SignJWT({
+        id: officer.id,
+        badge: officer.badge,
+        role: officer.role,
+        name: officer.name,
+      })
+        .setProtectedHeader({ alg: "HS256" })
+        .setExpirationTime("30d")
+        .sign(secret);
+
+      const response = NextResponse.redirect(`${appUrl}/mdt`);
+      response.cookies.set({
+        name: "auth_token",
+        value: token,
+        httpOnly: true,
+        path: "/",
+        maxAge: 60 * 60 * 24 * 30,
       });
-    } else {
-      // Create new officer
-      officer = await prisma.officer.create({
-        data: {
-          discordId: discordUser.id,
-          badge: badgeStr,
-          name: nameStr,
-          profileImage: avatarUrl,
-          discordRoles: discordRolesString,
-          rank: "Memur",
-          department: "Genel Devriye",
-          role: "user",
-          status: "APPROVED", // Auto-approve since they have the Discord role
-        }
-      });
+      return response;
     }
 
-    if (officer.status !== "APPROVED") {
-      return NextResponse.redirect(`${appUrl}/?error=account_not_approved`);
-    }
-
-    // 7. Create JWT
-    const secretString = process.env.JWT_SECRET || "cok-gizli-LAC-anahtari-123";
-    const secret = new TextEncoder().encode(secretString);
-    
-    const token = await new SignJWT({
-      id: officer.id,
-      badge: officer.badge,
-      role: officer.role,
-      name: officer.name
+    // 4. Kayıtlı değilse -> IC Ad Soyad, Rütbe ve Rozet No doldurma ekranına yönlendir
+    const regToken = await new SignJWT({
+      discordId: discordUser.id,
+      discordUsername: discordUser.username,
+      avatarUrl,
     })
       .setProtectedHeader({ alg: "HS256" })
-      .setExpirationTime("30d")
+      .setExpirationTime("1h")
       .sign(secret);
 
-    // 8. Set Cookie & Redirect
-    const response = NextResponse.redirect(`${appUrl}/mdt`);
+    const dname = encodeURIComponent(discordUser.global_name || discordUser.username || "");
+    const response = NextResponse.redirect(`${appUrl}/giris?step=register&dname=${dname}`);
     response.cookies.set({
-      name: "auth_token",
-      value: token,
+      name: "discord_reg_token",
+      value: regToken,
       httpOnly: true,
       path: "/",
-      maxAge: 60 * 60 * 24 * 30, // 30 days
+      maxAge: 3600,
     });
 
     return response;
-
   } catch (err) {
     console.error("Discord Auth Error:", err);
-    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_APP_URL}/?error=server_error`);
+    return NextResponse.redirect(`${appUrl}/giris?error=server_error`);
   }
 }
