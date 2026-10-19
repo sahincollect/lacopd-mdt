@@ -1,13 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from '@/lib/prisma';
 
 export async function GET(req: NextRequest) {
   try {
     const searchParams = req.nextUrl.searchParams;
     const key = searchParams.get('key');
-    
+
     if (key) {
       const setting = await prisma.systemSetting.findUnique({ where: { key } });
       return NextResponse.json({ success: true, data: setting ? setting.value : null });
