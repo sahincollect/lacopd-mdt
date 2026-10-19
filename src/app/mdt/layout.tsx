@@ -15,6 +15,7 @@ const NAV_SECTIONS = [
     label: "Operasyon",
     items: [
       { label: "Ana Panel", path: "/mdt", icon: "fa-table-columns" },
+      { label: "Taktiksel Planlama", path: "/mdt/taktik", icon: "fa-map-location-dot" },
       { label: "Rapor & Belge Portalı", path: "/mdt/raporlar", icon: "fa-file-lines" },
       { label: "Mesai & Devriye", path: "/mdt/mesai", icon: "fa-clock" },
       { label: "Personel Veritabanı", path: "/mdt/personel", icon: "fa-users" },

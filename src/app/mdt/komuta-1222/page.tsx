@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import toast from "react-hot-toast";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
@@ -14,34 +13,42 @@ interface SiteImage {
 }
 
 const CIVIL_TYPE_LABELS: Record<string, { label: string; icon: string; color: string }> = {
-  memur: { label: "Memur Başvurusu", icon: "fa-shield-halved", color: "var(--LAC-orange)" },
-  "ride-along": { label: "Ride Along", icon: "fa-car-side", color: "#8B5CF6" },
-  sikayet: { label: "Şikayet", icon: "fa-triangle-exclamation", color: "#F59E0B" },
+  memur: { label: "Memur Başvurusu", icon: "fa-shield-halved", color: "#041632" },
+  "ride-along": { label: "Ride Along", icon: "fa-car-side", color: "#0284c7" },
+  sikayet: { label: "Sivil Şikayet", icon: "fa-triangle-exclamation", color: "#d97706" },
 };
+
 const STATUS_OPTIONS = ["Bekliyor", "Inceleniyor", "Onaylandi", "Reddedildi"];
-const STATUS_COLORS: Record<string, string> = {
-  Bekliyor: "#F59E0B",
-  Inceleniyor: "var(--LAC-orange)",
-  Onaylandi: "#34D399",
-  Reddedildi: "#F87171",
-};
+
 const DIVISIONS = [
   { id: "detective", name: "Dedektif Bürosu (RHD)", icon: "fa-user-secret", color: "#0284c7" },
-  { id: "gnd", name: "Gangs & Narcotics (GND)", icon: "fa-skull-crossbones", color: "#EC4899" },
-  { id: "git", name: "Gang Impact Teams (GIT)", icon: "fa-people-group", color: "#8b5cf6" },
-  { id: "k9", name: "K-9 Unit", icon: "fa-paw", color: "#F59E0B" },
-  { id: "dive", name: "Dive Unit", icon: "fa-water", color: "#0ea5e9" },
-  { id: "swat", name: "SWAT Unit", icon: "fa-crosshairs", color: "#0ea5e9" },
-  { id: "patrol", name: "Traffic Unit", icon: "fa-car", color: "#10B981" },
-  { id: "air", name: "Air Unit", icon: "fa-helicopter", color: "#0369a1" },
+  { id: "gnd", name: "Gangs & Narcotics (GND)", icon: "fa-shield-virus", color: "#dc2626" },
+  { id: "git", name: "Gang Impact Teams (GIT)", icon: "fa-people-group", color: "#4f46e5" },
+  { id: "k9", name: "K-9 Unit", icon: "fa-paw", color: "#d97706" },
+  { id: "dive", name: "Dive Unit", icon: "fa-water", color: "#0891b2" },
+  { id: "swat", name: "SWAT Unit", icon: "fa-crosshairs", color: "#041632" },
+  { id: "patrol", name: "Traffic Unit", icon: "fa-car", color: "#16a34a" },
+  { id: "air", name: "Air Support Unit", icon: "fa-helicopter", color: "#0369a1" },
 ];
 
-type TabKey = "PERSONEL" | "DENETIM" | "LOGLAR" | "DEPARTMAN" | "SIVIL" | "SISTEM";
+type TabKey = "PERSONEL" | "DENETIM" | "DEPARTMAN" | "SIVIL" | "LOGLAR" | "SISTEM";
+
+const inputBase: React.CSSProperties = {
+  width: "100%",
+  padding: "0.6rem 0.85rem",
+  borderRadius: 6,
+  backgroundColor: "var(--bg-primary)",
+  border: "1px solid var(--border-strong)",
+  color: "var(--text-primary)",
+  fontSize: "0.86rem",
+  outline: "none",
+  fontFamily: "inherit",
+  boxSizing: "border-box",
+};
 
 export default function HighCommandSecretAdminPage() {
-  const [activeTab, setActiveTab] = useState<TabKey>("LOGLAR");
+  const [activeTab, setActiveTab] = useState<TabKey>("PERSONEL");
 
-  // ── SWR DATA FETCHING ──
   const { data: meData } = useSWR("/api/auth/me", fetcher);
   const { data: officersData, mutate: mutateOfficers } = useSWR("/api/officers", fetcher);
   const { data: logsData, mutate: mutateLogs } = useSWR("/api/honeypot", fetcher);
@@ -62,7 +69,6 @@ export default function HighCommandSecretAdminPage() {
   const applications: any[] = appData?.applications || [];
   const civilApplications: any[] = civilData?.applications || [];
 
-  // ── PERSONEL STATES ──
   const [officerSearch, setOfficerSearch] = useState("");
   const [officerFilter, setOfficerFilter] = useState<"ALL" | "PENDING" | "ADMIN">("ALL");
   const [editingOfficer, setEditingOfficer] = useState<any | null>(null);
@@ -73,48 +79,55 @@ export default function HighCommandSecretAdminPage() {
     name: "",
     password: "",
     rank: "Police Officer I",
-    department: "Genel Devriye",
+    department: "Patrol Division",
     role: "user",
     specialRoles: "",
   });
 
-  // ── DENETIM SUB-TAB STATE ──
   const [auditSubTab, setAuditSubTab] = useState<"RAPORLAR" | "SABIKA" | "MESAI">("RAPORLAR");
   const [auditSearch, setAuditSearch] = useState("");
-
-  // ── LOGS FILTER ──
   const [logFilter, setLogFilter] = useState<"HONEYPOT" | "LOGIN" | "ALL">("HONEYPOT");
 
-  // ── SYSTEM & MEDIA STATES ──
   const [url, setUrl] = useState("");
   const [type, setType] = useState("GALERI");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // ── CIVIL APPS EXPAND STATE ──
   const [expandedCivilId, setExpandedCivilId] = useState<number | null>(null);
 
   if (!meData) {
     return (
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "70vh", color: "var(--text-muted)", flexDirection: "column", gap: "1rem" }}>
-        <div style={{ width: "32px", height: "32px", border: "2px solid var(--border-light)", borderTopColor: "var(--LAC-orange)", borderRadius: "50%", animation: "spin 1s linear infinite" }} />
-        <span style={{ fontSize: "0.82rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--text-secondary)", fontWeight: 600 }}>KOMUTA MERKEZİ YÜKLENİYOR</span>
-        <style jsx>{`@keyframes spin { 100% { transform: rotate(360deg); } }`}</style>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "60vh", color: "var(--text-muted)" }}>
+        Yüksek Komuta verileri yükleniyor...
       </div>
     );
   }
 
   if (user?.role !== "admin") {
     return (
-      <div style={{ textAlign: "center", padding: "5rem 0", color: "#F87171" }}>
-        <i className="fa-solid fa-triangle-exclamation" style={{ fontSize: "3rem", marginBottom: "1rem" }} />
-        <h2>YETKİSİZ ERİŞİM</h2>
-        <p>Bu alana girmek için Yüksek Komuta (Admin) yetkisine sahip olmalısınız.</p>
+      <div
+        style={{
+          maxWidth: 520,
+          margin: "4rem auto",
+          padding: "2.5rem",
+          backgroundColor: "var(--bg-secondary)",
+          border: "1px solid var(--color-danger-border)",
+          borderTop: "4px solid var(--color-danger)",
+          borderRadius: 8,
+          textAlign: "center",
+        }}
+      >
+        <i className="fa-solid fa-lock" style={{ fontSize: "2.25rem", color: "var(--color-danger)", marginBottom: "0.75rem" }} />
+        <h2 style={{ margin: "0 0 0.5rem", fontSize: "1.25rem", fontWeight: 700, color: "var(--text-primary)" }}>
+          Yetkisiz Erişim
+        </h2>
+        <p style={{ margin: 0, fontSize: "0.9rem", color: "var(--text-secondary)" }}>
+          Bu yönetim paneline erişmek için Yüksek Komuta (Admin) yetkisine sahip olmanız gerekmektedir.
+        </p>
       </div>
     );
   }
 
-  // ── HANDLERS: PERSONEL ──
   const handleCreateOfficer = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -125,9 +138,9 @@ export default function HighCommandSecretAdminPage() {
       });
       const data = await res.json();
       if (res.ok) {
-        toast.success("Yeni personel başarıyla eklendi.");
+        toast.success("Yeni personel kaydı oluşturuldu.");
         setShowAddModal(false);
-        setNewOfficer({ badge: "", name: "", password: "", rank: "Police Officer I", department: "Genel Devriye", role: "user", specialRoles: "" });
+        setNewOfficer({ badge: "", name: "", password: "", rank: "Police Officer I", department: "Patrol Division", role: "user", specialRoles: "" });
         mutateOfficers();
       } else {
         toast.error(data.error || "Personel eklenemedi.");
@@ -150,9 +163,7 @@ export default function HighCommandSecretAdminPage() {
         status: editingOfficer.status,
         specialRoles: editingOfficer.specialRoles || "",
       };
-      if (newPassword.trim()) {
-        payload.password = newPassword.trim();
-      }
+      if (newPassword.trim()) payload.password = newPassword.trim();
       const res = await fetch(`/api/officers/${editingOfficer.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -193,7 +204,7 @@ export default function HighCommandSecretAdminPage() {
     try {
       const res = await fetch(`/api/officers/${id}`, { method: "DELETE" });
       if (res.ok) {
-        toast.success("Personel sistemden ihraç edildi / silindi.");
+        toast.success("Personel sistemden silindi.");
         mutateOfficers();
       } else {
         toast.error("Silinemedi.");
@@ -203,7 +214,6 @@ export default function HighCommandSecretAdminPage() {
     }
   };
 
-  // ── HANDLERS: AUDIT (REPORTS, CRIMINALS, SHIFTS) ──
   const handleDeleteReport = async (id: number) => {
     if (!confirm("Bu raporu kalıcı olarak silmek istediğinize emin misiniz?")) return;
     const res = await fetch(`/api/reports/${id}`, { method: "DELETE" });
@@ -223,7 +233,7 @@ export default function HighCommandSecretAdminPage() {
   };
 
   const handleResetShifts = async () => {
-    if (!confirm("DİKKAT: TÜM PERSONEL MESAİ SÜRELERİNİ SIFIRLAMAK ÜZERESİNİZ. Onaylıyor musunuz?")) return;
+    if (!confirm("TÜM PERSONEL MESAİ SÜRELERİNİ SIFIRLAMAK ÜZERESİNİZ. Onaylıyor musunuz?")) return;
     try {
       const res = await fetch("/api/shifts/reset", { method: "DELETE" });
       if (res.ok) {
@@ -235,23 +245,24 @@ export default function HighCommandSecretAdminPage() {
     }
   };
 
-  // ── HANDLERS: LOGS ──
   const handleClearLogs = async (mode: "honeypot" | "all") => {
-    const msg = mode === "honeypot" ? "Sazan (/admin) kayıtlarını temizlemek istiyor musunuz?" : "TÜM güvenlik ve giriş loglarını temizlemek istiyor musunuz?";
+    const msg =
+      mode === "honeypot"
+        ? "Yetkisiz (/admin) erişim kayıtlarını temizlemek istiyor musunuz?"
+        : "Tüm güvenlik ve giriş loglarını temizlemek istiyor musunuz?";
     if (!confirm(msg)) return;
     const res = await fetch(`/api/honeypot?mode=${mode}`, { method: "DELETE" });
     if (res.ok) {
-      toast.success("Loglar temizlendi.");
+      toast.success("Log kayıtları temizlendi.");
       mutateLogs();
     }
   };
 
-  // ── HANDLERS: SYSTEM & MEDIA ──
   const handleAddImage = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     if (!url.startsWith("/media") && !url.startsWith("/gallery") && !url.startsWith("http")) {
-      setError("URL geçerli bir link veya /media... şeklinde olmalıdır.");
+      setError("URL geçerli bir bağlantı veya /gallery/... biçiminde olmalıdır.");
       return;
     }
     setIsSubmitting(true);
@@ -263,11 +274,11 @@ export default function HighCommandSecretAdminPage() {
       });
       if (res.ok) {
         setUrl("");
-        toast.success("Medya başarıyla eklendi!");
+        toast.success("Medya eklendi.");
         mutateImages();
       } else {
         const data = await res.json();
-        setError(data.error || "Resim eklenemedi.");
+        setError(data.error || "Medya eklenemedi.");
       }
     } catch {
       setError("Bağlantı hatası.");
@@ -277,10 +288,10 @@ export default function HighCommandSecretAdminPage() {
   };
 
   const handleDeleteImage = async (id: number) => {
-    if (!confirm("Bu resmi silmek istediğinize emin misiniz?")) return;
+    if (!confirm("Bu görseli silmek istediğinize emin misiniz?")) return;
     const res = await fetch(`/api/images/${id}`, { method: "DELETE" });
     if (res.ok) {
-      toast.success("Medya silindi.");
+      toast.success("Görsel silindi.");
       mutateImages();
     }
   };
@@ -296,7 +307,6 @@ export default function HighCommandSecretAdminPage() {
     }
   };
 
-  // ── HANDLERS: UNIT & CIVIL APPS ──
   const handleUpdateUnitStatus = async (id: number, status: string) => {
     const res = await fetch(`/api/basvuru/${id}`, {
       method: "PUT",
@@ -310,7 +320,7 @@ export default function HighCommandSecretAdminPage() {
   };
 
   const handleDeleteUnitApp = async (id: number) => {
-    if (!confirm("Bu talebi silmek istediğinize emin misiniz?")) return;
+    if (!confirm("Bu birim başvurusunu silmek istediğinize emin misiniz?")) return;
     const res = await fetch(`/api/basvuru/${id}`, { method: "DELETE" });
     if (res.ok) {
       toast.success("Başvuru silindi.");
@@ -356,8 +366,7 @@ export default function HighCommandSecretAdminPage() {
 
   const honeypotLogs = allLogs.filter((l) => l.badge?.startsWith("HONEYPOT:"));
   const loginLogs = allLogs.filter((l) => !l.badge?.startsWith("HONEYPOT:"));
-  const displayedLogs =
-    logFilter === "HONEYPOT" ? honeypotLogs : logFilter === "LOGIN" ? loginLogs : allLogs;
+  const displayedLogs = logFilter === "HONEYPOT" ? honeypotLogs : logFilter === "LOGIN" ? loginLogs : allLogs;
 
   const filteredOfficers = officers.filter((o) => {
     const matchesSearch =
@@ -373,630 +382,790 @@ export default function HighCommandSecretAdminPage() {
 
   const pendingOfficersCount = officers.filter((o) => o.status === "PENDING").length;
 
+  const TABS: { key: TabKey; label: string; icon: string; badge?: number }[] = [
+    { key: "PERSONEL", label: `Personel Yönetimi (${officers.length})`, icon: "fa-users-gear", badge: pendingOfficersCount },
+    { key: "DENETIM", label: "Operasyonel Denetim", icon: "fa-clipboard-check" },
+    { key: "DEPARTMAN", label: `Birim Başvuruları (${applications.length})`, icon: "fa-building-shield" },
+    { key: "SIVIL", label: `Sivil Başvurular (${civilApplications.length})`, icon: "fa-file-signature" },
+    { key: "LOGLAR", label: `Güvenlik Logları (${allLogs.length})`, icon: "fa-shield-halved" },
+    { key: "SISTEM", label: "Sistem ve Medya", icon: "fa-server" },
+  ];
+
   return (
-    <div style={{ maxWidth: "1400px", margin: "0 auto", paddingBottom: "5rem", fontFamily: "'Inter', -apple-system, sans-serif" }}>
-      {/* ── HEADER ── */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "1.75rem", borderBottom: "1px solid var(--border-light)", paddingBottom: "1.5rem", flexWrap: "wrap", gap: "1rem" }}>
+    <div style={{ maxWidth: 1380, margin: "0 auto", display: "flex", flexDirection: "column", gap: "1.25rem", paddingBottom: "3rem" }}>
+      {/* ── PAGE HEADER ── */}
+      <div
+        style={{
+          backgroundColor: "var(--bg-secondary)",
+          border: "1px solid var(--border-light)",
+          borderRadius: 8,
+          padding: "1.25rem 1.5rem",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: "1rem",
+        }}
+      >
         <div>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.5rem" }}>
-            <span style={{ fontSize: "0.78rem", fontWeight: 800, color: "var(--LAC-orange)", letterSpacing: "0.04em", textTransform: "uppercase" }}>
-              HIGH COMMAND OVERWATCH • GİZLİ YÖNETİM TERMİNALİ
-            </span>
-            <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "#475569" }} />
-            <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "#34D399", letterSpacing: "0.1em" }}>
-              /mdt/komuta-1222
-            </span>
+          <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--LAC-orange)", letterSpacing: "0.04em", marginBottom: "0.2rem" }}>
+            LAPD HIGH COMMAND // YÜKSEK KOMUTA YÖNETİM PANELİ
           </div>
-          <h1 style={{ fontSize: "2rem", fontWeight: 800, color: "var(--text-primary)", margin: 0, letterSpacing: "-0.03em" }}>
+          <h1 style={{ margin: 0, fontSize: "1.45rem", fontWeight: 700, color: "var(--text-primary)", letterSpacing: "-0.02em" }}>
             Yüksek Komuta Kontrol Merkezi
           </h1>
+          <p style={{ margin: "0.25rem 0 0", fontSize: "0.86rem", color: "var(--text-secondary)" }}>
+            Personel yetkilerini, sicil başvurularını, operasyon kayıtlarını ve sistem güvenliğini yönetin.
+          </p>
         </div>
 
-        {/* Navigation Tabs */}
-        <div style={{ display: "flex", gap: "0.5rem", backgroundColor: "var(--bg-secondary)", padding: "0.4rem", borderRadius: "6px", border: "1px solid var(--border-light)", flexWrap: "wrap" }}>
-          {[
-            { key: "LOGLAR", label: `🎯 Sazan & Loglar (${honeypotLogs.length})` },
-            { key: "PERSONEL", label: `👮 Personel (${officers.length})${pendingOfficersCount > 0 ? ` [${pendingOfficersCount} Onay]` : ""}` },
-            { key: "DENETIM", label: "📂 Rapor / Sabıka / Mesai" },
-            { key: "DEPARTMAN", label: `🛡️ Birim Başvuru (${applications.length})` },
-            { key: "SIVIL", label: `📝 Sivil Başvuru (${civilApplications.length})` },
-            { key: "SISTEM", label: "⚙️ Sistem & Medya" },
-          ].map((tab) => (
-            <button
-              key={tab.key}
-              onClick={() => setActiveTab(tab.key as TabKey)}
-              style={{
-                padding: "0.55rem 1rem",
-                borderRadius: "6px",
-                background: activeTab === tab.key ? "var(--mdt-accent-alpha)" : "transparent",
-                color: activeTab === tab.key ? "var(--LAC-orange)" : "#94A3B8",
-                border: activeTab === tab.key ? "1px solid var(--mdt-accent-alpha)" : "1px solid transparent",
-                fontWeight: 700,
-                fontSize: "0.8rem",
-                cursor: "pointer",
-                transition: "all 0.15s",
-              }}
-            >
-              {tab.label}
-            </button>
-          ))}
+        <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
+          <div
+            style={{
+              padding: "0.5rem 0.9rem",
+              borderRadius: 6,
+              backgroundColor: "var(--bg-tertiary)",
+              border: "1px solid var(--border-light)",
+              fontSize: "0.82rem",
+              fontWeight: 600,
+              color: "var(--text-secondary)",
+            }}
+          >
+            Onay Bekleyen Personel:{" "}
+            <strong style={{ color: pendingOfficersCount > 0 ? "var(--LAC-orange)" : "var(--text-primary)" }}>
+              {pendingOfficersCount}
+            </strong>
+          </div>
+          <div
+            style={{
+              padding: "0.5rem 0.9rem",
+              borderRadius: 6,
+              backgroundColor: "var(--bg-tertiary)",
+              border: "1px solid var(--border-light)",
+              fontSize: "0.82rem",
+              fontWeight: 600,
+              color: "var(--text-secondary)",
+            }}
+          >
+            Yetkisiz (/admin) Kaydı: <strong style={{ color: "var(--text-primary)" }}>{honeypotLogs.length}</strong>
+          </div>
         </div>
       </div>
 
-      <AnimatePresence mode="wait">
-        {/* ════════════════════════════════════════════════════════════════
-            TAB 1: SAZAN & GÜVENLİK LOGLARI (/admin TUZAĞI + GİRİŞLER)
-           ════════════════════════════════════════════════════════════════ */}
-        {activeTab === "LOGLAR" && (
-          <motion.div key="loglar" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.25rem", flexWrap: "wrap", gap: "1rem" }}>
-              <div style={{ display: "flex", gap: "0.5rem" }}>
-                <button
-                  onClick={() => setLogFilter("HONEYPOT")}
+      {/* ── NAVIGATION TABS (NO EMOJIS) ── */}
+      <div
+        style={{
+          backgroundColor: "var(--bg-secondary)",
+          border: "1px solid var(--border-light)",
+          borderRadius: 8,
+          padding: "0.45rem",
+          display: "flex",
+          gap: "0.35rem",
+          flexWrap: "wrap",
+        }}
+      >
+        {TABS.map((t) => {
+          const isActive = activeTab === t.key;
+          return (
+            <button
+              key={t.key}
+              onClick={() => setActiveTab(t.key)}
+              style={{
+                padding: "0.6rem 1rem",
+                borderRadius: 6,
+                border: "none",
+                backgroundColor: isActive ? "#041632" : "transparent",
+                color: isActive ? "#ffffff" : "var(--text-secondary)",
+                fontSize: "0.84rem",
+                fontWeight: 600,
+                cursor: "pointer",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.5rem",
+              }}
+            >
+              <i className={`fa-solid ${t.icon}`} style={{ color: isActive ? "#ffffff" : "var(--LAC-orange)", fontSize: "0.82rem" }} />
+              {t.label}
+              {t.badge && t.badge > 0 ? (
+                <span
                   style={{
-                    padding: "0.5rem 1rem",
-                    borderRadius: "6px",
-                    background: logFilter === "HONEYPOT" ? "rgba(236, 72, 153, 0.2)" : "var(--bg-secondary)",
-                    border: `1px solid ${logFilter === "HONEYPOT" ? "rgba(236, 72, 153, 0.45)" : "var(--border-light)"}`,
-                    color: logFilter === "HONEYPOT" ? "#F472B6" : "#94A3B8",
-                    fontWeight: 800,
-                    fontSize: "0.8rem",
-                    cursor: "pointer",
+                    backgroundColor: "var(--LAC-orange)",
+                    color: "#ffffff",
+                    fontSize: "0.72rem",
+                    fontWeight: 700,
+                    padding: "0.05rem 0.45rem",
+                    borderRadius: 999,
                   }}
                 >
-                  💖 /admin Hayran Kulübü Sazanları ({honeypotLogs.length})
-                </button>
-                <button
-                  onClick={() => setLogFilter("LOGIN")}
-                  style={{
-                    padding: "0.5rem 1rem",
-                    borderRadius: "6px",
-                    background: logFilter === "LOGIN" ? "var(--mdt-accent-alpha)" : "var(--bg-secondary)",
-                    border: `1px solid ${logFilter === "LOGIN" ? "var(--mdt-accent-alpha)" : "var(--border-light)"}`,
-                    color: logFilter === "LOGIN" ? "var(--LAC-orange)" : "#94A3B8",
-                    fontWeight: 800,
-                    fontSize: "0.8rem",
-                    cursor: "pointer",
-                  }}
-                >
-                  🔐 MDT Giriş Denemeleri ({loginLogs.length})
-                </button>
-                <button
-                  onClick={() => setLogFilter("ALL")}
-                  style={{
-                    padding: "0.5rem 1rem",
-                    borderRadius: "6px",
-                    background: logFilter === "ALL" ? "var(--border-strong)" : "var(--bg-secondary)",
-                    border: "1px solid var(--border-light)",
-                    color: logFilter === "ALL" ? "#FFF" : "#94A3B8",
-                    fontWeight: 800,
-                    fontSize: "0.8rem",
-                    cursor: "pointer",
-                  }}
-                >
-                  Tümü ({allLogs.length})
-                </button>
-              </div>
+                  {t.badge} Onay
+                </span>
+              ) : null}
+            </button>
+          );
+        })}
+      </div>
 
-              <div style={{ display: "flex", gap: "0.6rem" }}>
-                <a
-                  href="/admin"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    padding: "0.5rem 1rem",
-                    borderRadius: "6px",
-                    background: "rgba(236, 72, 153, 0.12)",
-                    border: "1px solid rgba(236, 72, 153, 0.3)",
-                    color: "#F472B6",
-                    fontSize: "0.78rem",
-                    fontWeight: 800,
-                    textDecoration: "none",
-                  }}
-                >
-                  👁️ /admin Tuzak Sayfasını Gör
-                </a>
-                <button
-                  onClick={() => handleClearLogs("honeypot")}
-                  style={{
-                    padding: "0.5rem 1rem",
-                    borderRadius: "6px",
-                    background: "rgba(239, 68, 68, 0.12)",
-                    border: "1px solid rgba(239, 68, 68, 0.3)",
-                    color: "#F87171",
-                    fontSize: "0.78rem",
-                    fontWeight: 800,
-                    cursor: "pointer",
-                  }}
-                >
-                  🗑️ Sazan Loglarını Temizle
-                </button>
-              </div>
+      {/* ════════════════════════════════════════════════════════════════
+          TAB 1: PERSONEL YÖNETİMİ
+         ════════════════════════════════════════════════════════════════ */}
+      {activeTab === "PERSONEL" && (
+        <div
+          style={{
+            backgroundColor: "var(--bg-secondary)",
+            border: "1px solid var(--border-light)",
+            borderRadius: 8,
+            overflow: "hidden",
+          }}
+        >
+          {/* Toolbar */}
+          <div
+            style={{
+              padding: "1rem 1.25rem",
+              borderBottom: "1px solid var(--border-light)",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexWrap: "wrap",
+              gap: "0.75rem",
+            }}
+          >
+            <div style={{ display: "flex", gap: "0.45rem", flexWrap: "wrap", alignItems: "center" }}>
+              {[
+                { id: "ALL", label: `Tüm Personel (${officers.length})` },
+                { id: "PENDING", label: `Onay Bekleyenler (${pendingOfficersCount})` },
+                { id: "ADMIN", label: "Yüksek Komuta (Admin)" },
+              ].map((f) => {
+                const isActive = officerFilter === f.id;
+                return (
+                  <button
+                    key={f.id}
+                    onClick={() => setOfficerFilter(f.id as any)}
+                    style={{
+                      padding: "0.48rem 0.9rem",
+                      borderRadius: 6,
+                      backgroundColor: isActive ? "#041632" : "var(--bg-primary)",
+                      color: isActive ? "#ffffff" : "var(--text-secondary)",
+                      border: isActive ? "1px solid #041632" : "1px solid var(--border-light)",
+                      fontSize: "0.82rem",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                    }}
+                  >
+                    {f.label}
+                  </button>
+                );
+              })}
             </div>
 
-            <div style={{ display: "grid", gap: "0.75rem" }}>
-              {displayedLogs.length === 0 ? (
-                <div style={{ textAlign: "center", padding: "3.5rem", color: "var(--text-muted)", background: "var(--bg-secondary)", borderRadius: "18px", border: "1px dashed var(--border-light)" }}>
-                  Henüz bu kategoride kayıtlı log bulunmuyor.
-                </div>
-              ) : (
-                displayedLogs.map((log: any) => {
-                  const isHoneypot = log.badge?.startsWith("HONEYPOT:");
-                  const cleanDetail = isHoneypot ? log.badge.replace("HONEYPOT:", "") : `Rozet #${log.badge}`;
-                  return (
-                    <div
-                      key={log.id}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        gap: "1rem",
-                        flexWrap: "wrap",
-                        padding: "1rem 1.4rem",
-                        borderRadius: "6px",
-                        background: isHoneypot ? "rgba(236, 72, 153, 0.06)" : "var(--bg-secondary)",
-                        border: `1px solid ${
-                          isHoneypot
-                            ? "rgba(236, 72, 153, 0.25)"
-                            : log.success
-                            ? "rgba(52, 211, 153, 0.2)"
-                            : "rgba(239, 68, 68, 0.25)"
-                        }`,
-                      }}
-                    >
-                      <div style={{ display: "flex", alignItems: "center", gap: "1rem", flex: 1, minWidth: "260px" }}>
-                        <div
-                          style={{
-                            padding: "0.35rem 0.75rem",
-                            borderRadius: "6px",
-                            fontSize: "0.8rem",
-                            fontWeight: 900,
-                            background: isHoneypot
-                              ? "rgba(236, 72, 153, 0.2)"
-                              : log.success
-                              ? "rgba(52, 211, 153, 0.15)"
-                              : "rgba(239, 68, 68, 0.15)",
-                            color: isHoneypot ? "#F472B6" : log.success ? "#34D399" : "#F87171",
-                            whiteSpace: "nowrap",
-                          }}
-                        >
-                          {isHoneypot ? "💖 SAZAN (/admin)" : log.success ? "✓ BAŞARILI GİRİŞ" : "✕ BAŞARISIZ ŞİFRE"}
-                        </div>
-                        <div style={{ minWidth: 0 }}>
-                          <div style={{ color: "var(--text-primary)", fontWeight: 700, fontSize: "0.88rem", wordBreak: "break-all" }}>
-                            {cleanDetail}
-                          </div>
-                          <div style={{ color: "var(--text-secondary)", fontSize: "0.75rem", marginTop: "0.2rem" }}>
-                            IP Adresi:{" "}
-                            <code style={{ color: "var(--LAC-orange)", fontWeight: 800 }}>{log.ipAddress}</code>
-                          </div>
-                        </div>
-                      </div>
-                      <div style={{ fontSize: "0.76rem", color: "var(--text-secondary)", fontFamily: "monospace" }}>
-                        {new Date(log.createdAt).toLocaleString("tr-TR")}
-                      </div>
-                    </div>
-                  );
-                })
-              )}
-            </div>
-          </motion.div>
-        )}
-
-        {/* ════════════════════════════════════════════════════════════════
-            TAB 2: PERSONEL & YETKİ YÖNETİMİ
-           ════════════════════════════════════════════════════════════════ */}
-        {activeTab === "PERSONEL" && (
-          <motion.div key="personel" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem", marginBottom: "1.25rem", flexWrap: "wrap" }}>
-              <div style={{ display: "flex", gap: "0.75rem", flex: 1, flexWrap: "wrap" }}>
-                <input
-                  type="text"
-                  value={officerSearch}
-                  onChange={(e) => setOfficerSearch(e.target.value)}
-                  placeholder="Rozet, isim, rütbe veya birim ara..."
-                  style={{
-                    flex: "1 1 260px",
-                    padding: "0.7rem 1rem",
-                    borderRadius: "6px",
-                    background: "var(--bg-secondary)",
-                    border: "1px solid var(--border-strong)",
-                    color: "var(--text-primary)",
-                    fontSize: "0.85rem",
-                    outline: "none",
-                  }}
-                />
-                <button
-                  onClick={() => setOfficerFilter("ALL")}
-                  style={{
-                    padding: "0.6rem 1rem",
-                    borderRadius: "6px",
-                    background: officerFilter === "ALL" ? "var(--mdt-accent-alpha)" : "var(--bg-secondary)",
-                    border: "1px solid var(--border-light)",
-                    color: officerFilter === "ALL" ? "var(--LAC-orange)" : "#94A3B8",
-                    fontWeight: 700,
-                    fontSize: "0.8rem",
-                    cursor: "pointer",
-                  }}
-                >
-                  Tümü ({officers.length})
-                </button>
-                <button
-                  onClick={() => setOfficerFilter("PENDING")}
-                  style={{
-                    padding: "0.6rem 1rem",
-                    borderRadius: "6px",
-                    background: officerFilter === "PENDING" ? "rgba(245, 158, 11, 0.2)" : "var(--bg-secondary)",
-                    border: "1px solid var(--border-light)",
-                    color: officerFilter === "PENDING" ? "#FBBF24" : "#94A3B8",
-                    fontWeight: 700,
-                    fontSize: "0.8rem",
-                    cursor: "pointer",
-                  }}
-                >
-                  Onay Bekleyenler ({pendingOfficersCount})
-                </button>
-                <button
-                  onClick={() => setOfficerFilter("ADMIN")}
-                  style={{
-                    padding: "0.6rem 1rem",
-                    borderRadius: "6px",
-                    background: officerFilter === "ADMIN" ? "rgba(16, 185, 129, 0.2)" : "var(--bg-secondary)",
-                    border: "1px solid var(--border-light)",
-                    color: officerFilter === "ADMIN" ? "#34D399" : "#94A3B8",
-                    fontWeight: 700,
-                    fontSize: "0.8rem",
-                    cursor: "pointer",
-                  }}
-                >
-                  Adminler
-                </button>
-              </div>
-
+            <div style={{ display: "flex", gap: "0.6rem", alignItems: "center", flexWrap: "wrap" }}>
+              <input
+                type="text"
+                value={officerSearch}
+                onChange={(e) => setOfficerSearch(e.target.value)}
+                placeholder="Rozet, isim, rütbe veya birim ara..."
+                style={{ ...inputBase, width: 250, padding: "0.48rem 0.85rem" }}
+              />
               <button
                 onClick={() => setShowAddModal(true)}
                 style={{
-                  padding: "0.7rem 1.25rem",
-                  borderRadius: "6px",
-                  background: "var(--LAC-orange)",
-                  color: "var(--bg-secondary)",
+                  padding: "0.52rem 1rem",
+                  borderRadius: 6,
+                  backgroundColor: "var(--LAC-orange)",
+                  color: "#ffffff",
                   border: "none",
-                  fontWeight: 800,
                   fontSize: "0.82rem",
+                  fontWeight: 600,
                   cursor: "pointer",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.4rem",
                 }}
               >
-                + YENİ PERSONEL EKLE
+                <i className="fa-solid fa-user-plus" />
+                Yeni Personel Ekle
               </button>
             </div>
+          </div>
 
-            {/* Officer List */}
-            <div style={{ display: "grid", gap: "0.75rem" }}>
-              {filteredOfficers.map((off) => (
-                <div
-                  key={off.id}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    gap: "1rem",
-                    flexWrap: "wrap",
-                    padding: "1rem 1.4rem",
-                    borderRadius: "6px",
-                    background: "var(--bg-secondary)",
-                    border: "1px solid var(--border-light)",
-                  }}
-                >
-                  <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                    <div
-                      style={{
-                        width: "42px",
-                        height: "42px",
-                        borderRadius: "6px",
-                        background: "#1E3A8A",
-                        border: "1px solid #3B82F6",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontWeight: 800,
-                        color: "#BFDBFE",
-                        overflow: "hidden",
-                      }}
-                    >
-                      {off.profileImage ? (
-                        <img src={off.profileImage} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                      ) : (
-                        off.name?.charAt(0)
-                      )}
-                    </div>
-                    <div>
-                      <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap" }}>
-                        <span style={{ color: "var(--LAC-orange)", fontWeight: 800, fontSize: "0.9rem" }}>#{off.badge}</span>
-                        <span style={{ color: "var(--text-primary)", fontWeight: 800, fontSize: "0.95rem" }}>{off.name}</span>
-                        {off.role === "admin" && (
-                          <span style={{ background: "rgba(236, 72, 153, 0.18)", color: "#F472B6", border: "1px solid rgba(236, 72, 153, 0.35)", padding: "0.1rem 0.5rem", borderRadius: "6px", fontSize: "0.78rem", fontWeight: 800 }}>
-                            ADMIN
-                          </span>
-                        )}
-                        <span
+          {/* Personnel Table */}
+          <div style={{ overflowX: "auto" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
+              <thead>
+                <tr style={{ backgroundColor: "var(--bg-tertiary)", borderBottom: "1px solid var(--border-light)" }}>
+                  <th style={{ padding: "0.85rem 1.25rem", fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)" }}>
+                    Rozet & İsim
+                  </th>
+                  <th style={{ padding: "0.85rem 1.25rem", fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)" }}>
+                    Rütbe & Birim
+                  </th>
+                  <th style={{ padding: "0.85rem 1.25rem", fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)" }}>
+                    Yetki
+                  </th>
+                  <th style={{ padding: "0.85rem 1.25rem", fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)" }}>
+                    Hesap Durumu
+                  </th>
+                  <th style={{ padding: "0.85rem 1.25rem", fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)", textAlign: "right" }}>
+                    İşlemler
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredOfficers.map((off) => (
+                  <tr key={off.id} style={{ borderBottom: "1px solid var(--border-light)" }}>
+                    <td style={{ padding: "0.9rem 1.25rem" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                        <div
                           style={{
-                            background:
-                              off.status === "APPROVED"
-                                ? "rgba(52, 211, 153, 0.15)"
-                                : off.status === "PENDING"
-                                ? "rgba(245, 158, 11, 0.2)"
-                                : "rgba(239, 68, 68, 0.2)",
-                            color:
-                              off.status === "APPROVED"
-                                ? "#34D399"
-                                : off.status === "PENDING"
-                                ? "#FBBF24"
-                                : "#F87171",
-                            padding: "0.1rem 0.5rem",
-                            borderRadius: "6px",
-                            fontSize: "0.78rem",
-                            fontWeight: 800,
+                            width: 36,
+                            height: 36,
+                            borderRadius: 8,
+                            backgroundColor: "#041632",
+                            color: "#ffffff",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontWeight: 700,
+                            fontSize: "0.85rem",
+                            overflow: "hidden",
+                            flexShrink: 0,
                           }}
                         >
-                          {off.status}
-                        </span>
+                          {off.profileImage ? (
+                            <img src={off.profileImage} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                          ) : (
+                            off.name?.charAt(0)
+                          )}
+                        </div>
+                        <div>
+                          <div style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--text-primary)" }}>
+                            {off.name}{" "}
+                            <span style={{ color: "var(--LAC-orange)", fontWeight: 700, fontSize: "0.82rem" }}>
+                              #{off.badge}
+                            </span>
+                          </div>
+                          {off.specialRoles && (
+                            <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginTop: 2 }}>
+                              Özel Görev: {off.specialRoles}
+                            </div>
+                          )}
+                        </div>
                       </div>
-                      <div style={{ color: "var(--text-secondary)", fontSize: "0.78rem", marginTop: "0.2rem" }}>
-                        {off.rank} • {off.department}
-                        {off.specialRoles ? ` • [${off.specialRoles}]` : ""}
-                      </div>
-                    </div>
-                  </div>
+                    </td>
 
-                  <div style={{ display: "flex", gap: "0.5rem", alignItems: "center", flexWrap: "wrap" }}>
-                    {off.status === "PENDING" && (
-                      <>
+                    <td style={{ padding: "0.9rem 1.25rem" }}>
+                      <div style={{ fontSize: "0.86rem", fontWeight: 600, color: "var(--text-primary)" }}>{off.rank}</div>
+                      <div style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>{off.department}</div>
+                    </td>
+
+                    <td style={{ padding: "0.9rem 1.25rem" }}>
+                      <span
+                        style={{
+                          fontSize: "0.75rem",
+                          fontWeight: 700,
+                          padding: "0.2rem 0.55rem",
+                          borderRadius: 4,
+                          backgroundColor: off.role === "admin" ? "rgba(4,22,50,0.1)" : "var(--bg-tertiary)",
+                          color: off.role === "admin" ? "#041632" : "var(--text-secondary)",
+                          border: "1px solid var(--border-light)",
+                        }}
+                      >
+                        {off.role === "admin" ? "Yüksek Komuta" : "Standart Memur"}
+                      </span>
+                    </td>
+
+                    <td style={{ padding: "0.9rem 1.25rem" }}>
+                      <span
+                        style={{
+                          fontSize: "0.75rem",
+                          fontWeight: 700,
+                          padding: "0.22rem 0.6rem",
+                          borderRadius: 4,
+                          backgroundColor:
+                            off.status === "APPROVED"
+                              ? "var(--color-success-bg)"
+                              : off.status === "PENDING"
+                              ? "var(--color-warning-bg)"
+                              : "var(--color-danger-bg)",
+                          color:
+                            off.status === "APPROVED"
+                              ? "var(--color-success)"
+                              : off.status === "PENDING"
+                              ? "var(--color-warning)"
+                              : "var(--color-danger)",
+                          border: `1px solid ${
+                            off.status === "APPROVED"
+                              ? "var(--color-success-border)"
+                              : off.status === "PENDING"
+                              ? "var(--color-warning-border)"
+                              : "var(--color-danger-border)"
+                          }`,
+                        }}
+                      >
+                        {off.status === "APPROVED" ? "Onaylı" : off.status === "PENDING" ? "Onay Bekliyor" : "Reddedildi"}
+                      </span>
+                    </td>
+
+                    <td style={{ padding: "0.9rem 1.25rem", textAlign: "right" }}>
+                      <div style={{ display: "inline-flex", gap: "0.4rem", flexWrap: "wrap", justifyContent: "flex-end" }}>
+                        {off.status === "PENDING" && (
+                          <>
+                            <button
+                              onClick={() => handleQuickOfficerStatus(off.id, "APPROVED")}
+                              style={{
+                                padding: "0.38rem 0.75rem",
+                                borderRadius: 6,
+                                backgroundColor: "#16a34a",
+                                color: "#ffffff",
+                                border: "none",
+                                fontSize: "0.76rem",
+                                fontWeight: 600,
+                                cursor: "pointer",
+                              }}
+                            >
+                              Onayla
+                            </button>
+                            <button
+                              onClick={() => handleQuickOfficerStatus(off.id, "REJECTED")}
+                              style={{
+                                padding: "0.38rem 0.75rem",
+                                borderRadius: 6,
+                                backgroundColor: "var(--color-danger-bg)",
+                                border: "1px solid var(--color-danger-border)",
+                                color: "var(--color-danger)",
+                                fontSize: "0.76rem",
+                                fontWeight: 600,
+                                cursor: "pointer",
+                              }}
+                            >
+                              Reddet
+                            </button>
+                          </>
+                        )}
                         <button
-                          onClick={() => handleQuickOfficerStatus(off.id, "APPROVED")}
-                          style={{ padding: "0.45rem 0.85rem", borderRadius: "6px", background: "rgba(52, 211, 153, 0.15)", border: "1px solid rgba(52, 211, 153, 0.35)", color: "#34D399", fontWeight: 800, fontSize: "0.75rem", cursor: "pointer" }}
+                          onClick={() => {
+                            setEditingOfficer({ ...off });
+                            setNewPassword("");
+                          }}
+                          style={{
+                            padding: "0.38rem 0.75rem",
+                            borderRadius: 6,
+                            backgroundColor: "var(--bg-tertiary)",
+                            border: "1px solid var(--border-strong)",
+                            color: "var(--text-primary)",
+                            fontSize: "0.76rem",
+                            fontWeight: 600,
+                            cursor: "pointer",
+                          }}
                         >
-                          ✓ ONAYLA
+                          <i className="fa-solid fa-pen-to-square" style={{ marginRight: 5 }} />
+                          Düzenle
                         </button>
                         <button
-                          onClick={() => handleQuickOfficerStatus(off.id, "REJECTED")}
-                          style={{ padding: "0.45rem 0.85rem", borderRadius: "6px", background: "rgba(239, 68, 68, 0.15)", border: "1px solid rgba(239, 68, 68, 0.35)", color: "#F87171", fontWeight: 800, fontSize: "0.75rem", cursor: "pointer" }}
+                          onClick={() => handleDeleteOfficer(off.id, off.name)}
+                          style={{
+                            padding: "0.38rem 0.65rem",
+                            borderRadius: 6,
+                            backgroundColor: "var(--color-danger-bg)",
+                            border: "1px solid var(--color-danger-border)",
+                            color: "var(--color-danger)",
+                            fontSize: "0.76rem",
+                            fontWeight: 600,
+                            cursor: "pointer",
+                          }}
+                          title="Personeli Sil"
                         >
-                          ✕ REDDET
+                          <i className="fa-solid fa-trash" />
                         </button>
-                      </>
-                    )}
-                    <button
-                      onClick={() => {
-                        setEditingOfficer({ ...off });
-                        setNewPassword("");
-                      }}
-                      style={{
-                        padding: "0.45rem 0.85rem",
-                        borderRadius: "6px",
-                        background: "var(--mdt-accent-alpha)",
-                        border: "1px solid var(--mdt-accent-alpha)",
-                        color: "var(--LAC-orange)",
-                        fontWeight: 700,
-                        fontSize: "0.76rem",
-                        cursor: "pointer",
-                      }}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Edit Officer Modal */}
+          {editingOfficer && (
+            <div
+              style={{
+                position: "fixed",
+                inset: 0,
+                backgroundColor: "rgba(15, 23, 42, 0.65)",
+                zIndex: 100,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "1rem",
+              }}
+            >
+              <form
+                onSubmit={handleSaveOfficer}
+                style={{
+                  backgroundColor: "var(--bg-secondary)",
+                  border: "1px solid var(--border-light)",
+                  borderRadius: 8,
+                  padding: "1.75rem",
+                  width: "100%",
+                  maxWidth: 540,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1rem",
+                  boxShadow: "0 12px 32px rgba(0,0,0,0.2)",
+                }}
+              >
+                <h3 style={{ margin: 0, fontSize: "1.15rem", fontWeight: 700, color: "var(--text-primary)" }}>
+                  Personel Düzenle: #{editingOfficer.badge} {editingOfficer.name}
+                </h3>
+
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.85rem" }}>
+                  <div>
+                    <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 600, color: "var(--text-secondary)", marginBottom: 4 }}>
+                      Rozet Numarası
+                    </label>
+                    <input
+                      type="text"
+                      value={editingOfficer.badge}
+                      onChange={(e) => setEditingOfficer({ ...editingOfficer, badge: e.target.value })}
+                      style={inputBase}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 600, color: "var(--text-secondary)", marginBottom: 4 }}>
+                      Ad Soyad
+                    </label>
+                    <input
+                      type="text"
+                      value={editingOfficer.name}
+                      onChange={(e) => setEditingOfficer({ ...editingOfficer, name: e.target.value })}
+                      style={inputBase}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 600, color: "var(--text-secondary)", marginBottom: 4 }}>
+                      Rütbe
+                    </label>
+                    <input
+                      type="text"
+                      value={editingOfficer.rank}
+                      onChange={(e) => setEditingOfficer({ ...editingOfficer, rank: e.target.value })}
+                      style={inputBase}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 600, color: "var(--text-secondary)", marginBottom: 4 }}>
+                      Birim / Departman
+                    </label>
+                    <input
+                      type="text"
+                      value={editingOfficer.department}
+                      onChange={(e) => setEditingOfficer({ ...editingOfficer, department: e.target.value })}
+                      style={inputBase}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 600, color: "var(--text-secondary)", marginBottom: 4 }}>
+                      Sistem Yetkisi
+                    </label>
+                    <select
+                      value={editingOfficer.role}
+                      onChange={(e) => setEditingOfficer({ ...editingOfficer, role: e.target.value })}
+                      style={inputBase}
                     >
-                      <i className="fa-solid fa-pen-to-square" style={{ marginRight: "0.35rem" }} />
-                      Düzenle / Şifre
-                    </button>
-                    <button
-                      onClick={() => handleDeleteOfficer(off.id, off.name)}
-                      style={{
-                        padding: "0.45rem 0.75rem",
-                        borderRadius: "6px",
-                        background: "rgba(239, 68, 68, 0.12)",
-                        border: "1px solid rgba(239, 68, 68, 0.25)",
-                        color: "#F87171",
-                        fontWeight: 700,
-                        fontSize: "0.76rem",
-                        cursor: "pointer",
-                      }}
-                      title="İhraç Et / Sil"
+                      <option value="user">Standart Memur (user)</option>
+                      <option value="admin">Yüksek Komuta (admin)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 600, color: "var(--text-secondary)", marginBottom: 4 }}>
+                      Hesap Durumu
+                    </label>
+                    <select
+                      value={editingOfficer.status}
+                      onChange={(e) => setEditingOfficer({ ...editingOfficer, status: e.target.value })}
+                      style={inputBase}
                     >
-                      <i className="fa-solid fa-trash" />
-                    </button>
+                      <option value="APPROVED">APPROVED (Onaylı)</option>
+                      <option value="PENDING">PENDING (Bekliyor)</option>
+                      <option value="REJECTED">REJECTED (Reddedildi)</option>
+                    </select>
                   </div>
                 </div>
-              ))}
+
+                <div>
+                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 600, color: "var(--text-secondary)", marginBottom: 4 }}>
+                    Özel Görev / Birim Rolleri (Virgülle ayırın: FTO, SWAT, Internal Affairs)
+                  </label>
+                  <input
+                    type="text"
+                    value={editingOfficer.specialRoles || ""}
+                    onChange={(e) => setEditingOfficer({ ...editingOfficer, specialRoles: e.target.value })}
+                    style={inputBase}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 600, color: "var(--text-secondary)", marginBottom: 4 }}>
+                    Yeni Şifre Belirle (Değiştirmek istemiyorsanız boş bırakın)
+                  </label>
+                  <input
+                    type="text"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    placeholder="Yeni şifre..."
+                    style={inputBase}
+                  />
+                </div>
+
+                <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.6rem", marginTop: "0.5rem" }}>
+                  <button
+                    type="button"
+                    onClick={() => setEditingOfficer(null)}
+                    style={{
+                      padding: "0.55rem 1.1rem",
+                      borderRadius: 6,
+                      backgroundColor: "var(--bg-tertiary)",
+                      border: "1px solid var(--border-light)",
+                      color: "var(--text-secondary)",
+                      fontSize: "0.84rem",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                    }}
+                  >
+                    İptal
+                  </button>
+                  <button
+                    type="submit"
+                    style={{
+                      padding: "0.55rem 1.35rem",
+                      borderRadius: 6,
+                      backgroundColor: "#041632",
+                      border: "none",
+                      color: "#ffffff",
+                      fontSize: "0.84rem",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                    }}
+                  >
+                    Değişiklikleri Kaydet
+                  </button>
+                </div>
+              </form>
             </div>
+          )}
 
-            {/* Edit Officer Modal */}
-            {editingOfficer && (
-              <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.75)", zIndex: 100, display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem" }}>
-                <form
-                  onSubmit={handleSaveOfficer}
-                  style={{ background: "var(--bg-secondary)", border: "1px solid var(--mdt-accent-alpha)", borderRadius: "20px", padding: "2rem", width: "100%", maxWidth: "540px", display: "flex", flexDirection: "column", gap: "1rem" }}
-                >
-                  <h3 style={{ margin: 0, color: "var(--text-primary)", fontSize: "1.2rem", fontWeight: 800 }}>
-                    Personel Düzenle: #{editingOfficer.badge} {editingOfficer.name}
-                  </h3>
-
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.85rem" }}>
-                    <div>
-                      <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>ROZET NO</label>
-                      <input type="text" value={editingOfficer.badge} onChange={(e) => setEditingOfficer({ ...editingOfficer, badge: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
-                    </div>
-                    <div>
-                      <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>AD SOYAD</label>
-                      <input type="text" value={editingOfficer.name} onChange={(e) => setEditingOfficer({ ...editingOfficer, name: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
-                    </div>
-                    <div>
-                      <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>RÜTBE</label>
-                      <input type="text" value={editingOfficer.rank} onChange={(e) => setEditingOfficer({ ...editingOfficer, rank: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
-                    </div>
-                    <div>
-                      <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>BİRİM / DEPARTMAN</label>
-                      <input type="text" value={editingOfficer.department} onChange={(e) => setEditingOfficer({ ...editingOfficer, department: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
-                    </div>
-                    <div>
-                      <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>SİSTEM YETKİSİ</label>
-                      <select value={editingOfficer.role} onChange={(e) => setEditingOfficer({ ...editingOfficer, role: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "#080E1A", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }}>
-                        <option value="user">Standart Memur (user)</option>
-                        <option value="admin">Yüksek Komuta (admin)</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>HESAP DURUMU</label>
-                      <select value={editingOfficer.status} onChange={(e) => setEditingOfficer({ ...editingOfficer, status: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "#080E1A", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }}>
-                        <option value="APPROVED">APPROVED (Onaylı)</option>
-                        <option value="PENDING">PENDING (Bekliyor)</option>
-                        <option value="REJECTED">REJECTED (Reddedildi)</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>ÖZEL ROLLER (Virgülle ayırın: FTO, SWAT, Internal Affairs)</label>
-                    <input type="text" value={editingOfficer.specialRoles || ""} onChange={(e) => setEditingOfficer({ ...editingOfficer, specialRoles: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
-                  </div>
-
-                  <div>
-                    <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "#FBBF24" }}>YENİ ŞİFRE BELİRLE (Değiştirmek istemiyorsan boş bırak)</label>
-                    <input type="text" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="Yeni şifre..." style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "rgba(0,0,0,0.3)", border: "1px solid rgba(251, 191, 36, 0.3)", color: "var(--text-primary)" }} />
-                  </div>
-
-                  <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.75rem", marginTop: "0.5rem" }}>
-                    <button type="button" onClick={() => setEditingOfficer(null)} style={{ padding: "0.65rem 1.25rem", borderRadius: "6px", background: "var(--border-light)", border: "none", color: "var(--text-secondary)", fontWeight: 700, cursor: "pointer" }}>
-                      İptal
-                    </button>
-                    <button type="submit" style={{ padding: "0.65rem 1.5rem", borderRadius: "6px", background: "var(--LAC-orange)", border: "none", color: "var(--bg-secondary)", fontWeight: 800, cursor: "pointer" }}>
-                      Kaydet
-                    </button>
-                  </div>
-                </form>
-              </div>
-            )}
-
-            {/* Add Officer Modal */}
-            {showAddModal && (
-              <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.75)", zIndex: 100, display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem" }}>
-                <form
-                  onSubmit={handleCreateOfficer}
-                  style={{ background: "var(--bg-secondary)", border: "1px solid var(--mdt-accent-alpha)", borderRadius: "20px", padding: "2rem", width: "100%", maxWidth: "520px", display: "flex", flexDirection: "column", gap: "1rem" }}
-                >
-                  <h3 style={{ margin: 0, color: "var(--text-primary)", fontSize: "1.2rem", fontWeight: 800 }}>Yeni Personel Ekle</h3>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.85rem" }}>
-                    <div>
-                      <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>ROZET NO *</label>
-                      <input required type="text" value={newOfficer.badge} onChange={(e) => setNewOfficer({ ...newOfficer, badge: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
-                    </div>
-                    <div>
-                      <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>AD SOYAD *</label>
-                      <input required type="text" value={newOfficer.name} onChange={(e) => setNewOfficer({ ...newOfficer, name: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
-                    </div>
-                    <div>
-                      <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>ŞİFRE *</label>
-                      <input required type="text" value={newOfficer.password} onChange={(e) => setNewOfficer({ ...newOfficer, password: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
-                    </div>
-                    <div>
-                      <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>RÜTBE</label>
-                      <input type="text" value={newOfficer.rank} onChange={(e) => setNewOfficer({ ...newOfficer, rank: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
-                    </div>
-                    <div>
-                      <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>DEPARTMAN</label>
-                      <input type="text" value={newOfficer.department} onChange={(e) => setNewOfficer({ ...newOfficer, department: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
-                    </div>
-                    <div>
-                      <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>YETKİ</label>
-                      <select value={newOfficer.role} onChange={(e) => setNewOfficer({ ...newOfficer, role: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "#080E1A", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }}>
-                        <option value="user">Standart Memur</option>
-                        <option value="admin">Admin</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.75rem", marginTop: "0.5rem" }}>
-                    <button type="button" onClick={() => setShowAddModal(false)} style={{ padding: "0.65rem 1.25rem", borderRadius: "6px", background: "var(--border-light)", border: "none", color: "var(--text-secondary)", fontWeight: 700, cursor: "pointer" }}>
-                      İptal
-                    </button>
-                    <button type="submit" style={{ padding: "0.65rem 1.5rem", borderRadius: "6px", background: "var(--LAC-orange)", border: "none", color: "var(--bg-secondary)", fontWeight: 800, cursor: "pointer" }}>
-                      Oluştur
-                    </button>
-                  </div>
-                </form>
-              </div>
-            )}
-          </motion.div>
-        )}
-
-        {/* ════════════════════════════════════════════════════════════════
-            TAB 3: OPERASYONEL DENETİM (RAPORLAR, SABIKA, MESAİLER)
-           ════════════════════════════════════════════════════════════════ */}
-        {activeTab === "DENETIM" && (
-          <motion.div key="denetim" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.25rem", flexWrap: "wrap", gap: "1rem" }}>
-              <div style={{ display: "flex", gap: "0.5rem" }}>
-                <button
-                  onClick={() => setAuditSubTab("RAPORLAR")}
-                  style={{
-                    padding: "0.55rem 1.1rem",
-                    borderRadius: "6px",
-                    background: auditSubTab === "RAPORLAR" ? "var(--mdt-accent-alpha)" : "var(--bg-secondary)",
-                    border: "1px solid var(--border-light)",
-                    color: auditSubTab === "RAPORLAR" ? "var(--LAC-orange)" : "#94A3B8",
-                    fontWeight: 800,
-                    fontSize: "0.8rem",
-                    cursor: "pointer",
-                  }}
-                >
-                  📄 Raporlar ({reports.length})
-                </button>
-                <button
-                  onClick={() => setAuditSubTab("SABIKA")}
-                  style={{
-                    padding: "0.55rem 1.1rem",
-                    borderRadius: "6px",
-                    background: auditSubTab === "SABIKA" ? "var(--mdt-accent-alpha)" : "var(--bg-secondary)",
-                    border: "1px solid var(--border-light)",
-                    color: auditSubTab === "SABIKA" ? "var(--LAC-orange)" : "#94A3B8",
-                    fontWeight: 800,
-                    fontSize: "0.8rem",
-                    cursor: "pointer",
-                  }}
-                >
-                  🕵️ Sabıka Kayıtları ({criminals.length})
-                </button>
-                <button
-                  onClick={() => setAuditSubTab("MESAI")}
-                  style={{
-                    padding: "0.55rem 1.1rem",
-                    borderRadius: "6px",
-                    background: auditSubTab === "MESAI" ? "var(--mdt-accent-alpha)" : "var(--bg-secondary)",
-                    border: "1px solid var(--border-light)",
-                    color: auditSubTab === "MESAI" ? "var(--LAC-orange)" : "#94A3B8",
-                    fontWeight: 800,
-                    fontSize: "0.8rem",
-                    cursor: "pointer",
-                  }}
-                >
-                  ⏱️ Mesai Cetveli & Sıfırlama
-                </button>
-              </div>
-
-              <input
-                type="text"
-                value={auditSearch}
-                onChange={(e) => setAuditSearch(e.target.value)}
-                placeholder="Kayıtlarda ara..."
+          {/* Add Officer Modal */}
+          {showAddModal && (
+            <div
+              style={{
+                position: "fixed",
+                inset: 0,
+                backgroundColor: "rgba(15, 23, 42, 0.65)",
+                zIndex: 100,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "1rem",
+              }}
+            >
+              <form
+                onSubmit={handleCreateOfficer}
                 style={{
-                  padding: "0.55rem 1rem",
-                  borderRadius: "6px",
-                  background: "var(--bg-secondary)",
-                  border: "1px solid var(--border-strong)",
-                  color: "var(--text-primary)",
-                  fontSize: "0.82rem",
-                  outline: "none",
-                  minWidth: "240px",
+                  backgroundColor: "var(--bg-secondary)",
+                  border: "1px solid var(--border-light)",
+                  borderRadius: 8,
+                  padding: "1.75rem",
+                  width: "100%",
+                  maxWidth: 520,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1rem",
+                  boxShadow: "0 12px 32px rgba(0,0,0,0.2)",
                 }}
-              />
+              >
+                <h3 style={{ margin: 0, fontSize: "1.15rem", fontWeight: 700, color: "var(--text-primary)" }}>
+                  Yeni Personel Kaydı Oluştur
+                </h3>
+
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.85rem" }}>
+                  <div>
+                    <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 600, color: "var(--text-secondary)", marginBottom: 4 }}>
+                      Rozet Numarası *
+                    </label>
+                    <input
+                      required
+                      type="text"
+                      value={newOfficer.badge}
+                      onChange={(e) => setNewOfficer({ ...newOfficer, badge: e.target.value })}
+                      style={inputBase}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 600, color: "var(--text-secondary)", marginBottom: 4 }}>
+                      Ad Soyad *
+                    </label>
+                    <input
+                      required
+                      type="text"
+                      value={newOfficer.name}
+                      onChange={(e) => setNewOfficer({ ...newOfficer, name: e.target.value })}
+                      style={inputBase}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 600, color: "var(--text-secondary)", marginBottom: 4 }}>
+                      Geçici Şifre *
+                    </label>
+                    <input
+                      required
+                      type="text"
+                      value={newOfficer.password}
+                      onChange={(e) => setNewOfficer({ ...newOfficer, password: e.target.value })}
+                      style={inputBase}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 600, color: "var(--text-secondary)", marginBottom: 4 }}>
+                      Rütbe
+                    </label>
+                    <input
+                      type="text"
+                      value={newOfficer.rank}
+                      onChange={(e) => setNewOfficer({ ...newOfficer, rank: e.target.value })}
+                      style={inputBase}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 600, color: "var(--text-secondary)", marginBottom: 4 }}>
+                      Birim / Departman
+                    </label>
+                    <input
+                      type="text"
+                      value={newOfficer.department}
+                      onChange={(e) => setNewOfficer({ ...newOfficer, department: e.target.value })}
+                      style={inputBase}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 600, color: "var(--text-secondary)", marginBottom: 4 }}>
+                      Sistem Yetkisi
+                    </label>
+                    <select
+                      value={newOfficer.role}
+                      onChange={(e) => setNewOfficer({ ...newOfficer, role: e.target.value })}
+                      style={inputBase}
+                    >
+                      <option value="user">Standart Memur</option>
+                      <option value="admin">Yüksek Komuta (Admin)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.6rem", marginTop: "0.5rem" }}>
+                  <button
+                    type="button"
+                    onClick={() => setShowAddModal(false)}
+                    style={{
+                      padding: "0.55rem 1.1rem",
+                      borderRadius: 6,
+                      backgroundColor: "var(--bg-tertiary)",
+                      border: "1px solid var(--border-light)",
+                      color: "var(--text-secondary)",
+                      fontSize: "0.84rem",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                    }}
+                  >
+                    İptal
+                  </button>
+                  <button
+                    type="submit"
+                    style={{
+                      padding: "0.55rem 1.35rem",
+                      borderRadius: 6,
+                      backgroundColor: "var(--LAC-orange)",
+                      border: "none",
+                      color: "#ffffff",
+                      fontSize: "0.84rem",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                    }}
+                  >
+                    Personel Ekle
+                  </button>
+                </div>
+              </form>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ════════════════════════════════════════════════════════════════
+          TAB 2: OPERASYONEL DENETİM (RAPORLAR, SABIKA, MESAİLER)
+         ════════════════════════════════════════════════════════════════ */}
+      {activeTab === "DENETIM" && (
+        <div
+          style={{
+            backgroundColor: "var(--bg-secondary)",
+            border: "1px solid var(--border-light)",
+            borderRadius: 8,
+            overflow: "hidden",
+          }}
+        >
+          <div
+            style={{
+              padding: "1rem 1.25rem",
+              borderBottom: "1px solid var(--border-light)",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexWrap: "wrap",
+              gap: "0.75rem",
+            }}
+          >
+            <div style={{ display: "flex", gap: "0.45rem", flexWrap: "wrap" }}>
+              {[
+                { id: "RAPORLAR", label: `Vaka Raporları (${reports.length})`, icon: "fa-file-lines" },
+                { id: "SABIKA", label: `Sabıka Kayıtları (${criminals.length})`, icon: "fa-fingerprint" },
+                { id: "MESAI", label: "Mesai Cetveli ve Sıfırlama", icon: "fa-clock" },
+              ].map((st) => {
+                const isActive = auditSubTab === st.id;
+                return (
+                  <button
+                    key={st.id}
+                    onClick={() => setAuditSubTab(st.id as any)}
+                    style={{
+                      padding: "0.48rem 0.9rem",
+                      borderRadius: 6,
+                      backgroundColor: isActive ? "#041632" : "var(--bg-primary)",
+                      color: isActive ? "#ffffff" : "var(--text-secondary)",
+                      border: isActive ? "1px solid #041632" : "1px solid var(--border-light)",
+                      fontSize: "0.82rem",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "0.45rem",
+                    }}
+                  >
+                    <i className={`fa-solid ${st.icon}`} />
+                    {st.label}
+                  </button>
+                );
+              })}
             </div>
 
+            <input
+              type="text"
+              value={auditSearch}
+              onChange={(e) => setAuditSearch(e.target.value)}
+              placeholder="Kayıtlarda ara..."
+              style={{ ...inputBase, width: 250, padding: "0.48rem 0.85rem" }}
+            />
+          </div>
+
+          <div style={{ padding: "1.25rem" }}>
             {auditSubTab === "RAPORLAR" && (
-              <div style={{ display: "grid", gap: "0.85rem" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
                 {reports
                   .filter(
                     (r) =>
@@ -1007,9 +1176,9 @@ export default function HighCommandSecretAdminPage() {
                     <div
                       key={rep.id}
                       style={{
-                        padding: "1.25rem 1.5rem",
-                        borderRadius: "6px",
-                        background: "var(--bg-secondary)",
+                        padding: "1rem 1.25rem",
+                        borderRadius: 6,
+                        backgroundColor: "var(--bg-primary)",
                         border: "1px solid var(--border-light)",
                         display: "flex",
                         justifyContent: "space-between",
@@ -1018,11 +1187,11 @@ export default function HighCommandSecretAdminPage() {
                       }}
                     >
                       <div>
-                        <div style={{ color: "var(--text-primary)", fontWeight: 800, fontSize: "1rem" }}>{rep.title}</div>
-                        <div style={{ color: "var(--LAC-orange)", fontSize: "0.76rem", fontWeight: 700, marginTop: "0.2rem" }}>
+                        <div style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--text-primary)" }}>{rep.title}</div>
+                        <div style={{ fontSize: "0.78rem", fontWeight: 600, color: "var(--LAC-orange)", marginTop: 2 }}>
                           Memur: #{rep.officer?.badge} {rep.officer?.name} • {new Date(rep.createdAt).toLocaleString("tr-TR")}
                         </div>
-                        <p style={{ color: "var(--text-secondary)", fontSize: "0.84rem", marginTop: "0.6rem", whiteSpace: "pre-wrap" }}>
+                        <p style={{ margin: "0.5rem 0 0", fontSize: "0.85rem", color: "var(--text-secondary)", lineHeight: 1.5, whiteSpace: "pre-wrap" }}>
                           {rep.content?.slice(0, 350)}
                           {rep.content?.length > 350 ? "..." : ""}
                         </p>
@@ -1030,18 +1199,19 @@ export default function HighCommandSecretAdminPage() {
                       <button
                         onClick={() => handleDeleteReport(rep.id)}
                         style={{
-                          padding: "0.45rem 0.85rem",
-                          borderRadius: "6px",
-                          background: "rgba(239, 68, 68, 0.12)",
-                          border: "1px solid rgba(239, 68, 68, 0.25)",
-                          color: "#F87171",
-                          fontWeight: 700,
-                          fontSize: "0.75rem",
+                          padding: "0.4rem 0.8rem",
+                          borderRadius: 6,
+                          backgroundColor: "var(--color-danger-bg)",
+                          border: "1px solid var(--color-danger-border)",
+                          color: "var(--color-danger)",
+                          fontSize: "0.78rem",
+                          fontWeight: 600,
                           cursor: "pointer",
                           flexShrink: 0,
                         }}
                       >
-                        <i className="fa-solid fa-trash" /> Sil
+                        <i className="fa-solid fa-trash" style={{ marginRight: 5 }} />
+                        Sil
                       </button>
                     </div>
                   ))}
@@ -1049,7 +1219,7 @@ export default function HighCommandSecretAdminPage() {
             )}
 
             {auditSubTab === "SABIKA" && (
-              <div style={{ display: "grid", gap: "0.85rem" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
                 {criminals
                   .filter(
                     (c) =>
@@ -1060,9 +1230,9 @@ export default function HighCommandSecretAdminPage() {
                     <div
                       key={crim.id}
                       style={{
-                        padding: "1.25rem 1.5rem",
-                        borderRadius: "6px",
-                        background: "var(--bg-secondary)",
+                        padding: "1rem 1.25rem",
+                        borderRadius: 6,
+                        backgroundColor: "var(--bg-primary)",
                         border: "1px solid var(--border-light)",
                         display: "flex",
                         justifyContent: "space-between",
@@ -1071,31 +1241,33 @@ export default function HighCommandSecretAdminPage() {
                       }}
                     >
                       <div>
-                        <div style={{ color: "var(--text-primary)", fontWeight: 800, fontSize: "1rem" }}>{crim.name}</div>
-                        <div style={{ color: "#F87171", fontSize: "0.82rem", fontWeight: 700, marginTop: "0.25rem" }}>
+                        <div style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--text-primary)" }}>{crim.name}</div>
+                        <div style={{ fontSize: "0.84rem", fontWeight: 600, color: "var(--color-danger)", marginTop: 3 }}>
                           Suçlar: {crim.crimes}
                         </div>
                         {crim.notes && (
-                          <div style={{ color: "var(--text-secondary)", fontSize: "0.8rem", marginTop: "0.35rem" }}>Not: {crim.notes}</div>
+                          <div style={{ fontSize: "0.82rem", color: "var(--text-secondary)", marginTop: 4 }}>Not: {crim.notes}</div>
                         )}
-                        <div style={{ color: "var(--text-muted)", fontSize: "0.72rem", marginTop: "0.4rem" }}>
+                        <div style={{ fontSize: "0.76rem", color: "var(--text-muted)", marginTop: 4 }}>
                           Kaydeden: #{crim.officer?.badge} {crim.officer?.name} • {new Date(crim.createdAt).toLocaleString("tr-TR")}
                         </div>
                       </div>
                       <button
                         onClick={() => handleDeleteCriminal(crim.id)}
                         style={{
-                          padding: "0.45rem 0.85rem",
-                          borderRadius: "6px",
-                          background: "rgba(239, 68, 68, 0.12)",
-                          border: "1px solid rgba(239, 68, 68, 0.25)",
-                          color: "#F87171",
-                          fontWeight: 700,
-                          fontSize: "0.75rem",
+                          padding: "0.4rem 0.8rem",
+                          borderRadius: 6,
+                          backgroundColor: "var(--color-danger-bg)",
+                          border: "1px solid var(--color-danger-border)",
+                          color: "var(--color-danger)",
+                          fontSize: "0.78rem",
+                          fontWeight: 600,
                           cursor: "pointer",
+                          flexShrink: 0,
                         }}
                       >
-                        <i className="fa-solid fa-trash" /> Sil
+                        <i className="fa-solid fa-trash" style={{ marginRight: 5 }} />
+                        Sil
                       </button>
                     </div>
                   ))}
@@ -1103,22 +1275,46 @@ export default function HighCommandSecretAdminPage() {
             )}
 
             {auditSubTab === "MESAI" && (
-              <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-                <div style={{ background: "linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, var(--bg-secondary) 100%)", border: "1px solid rgba(239, 68, 68, 0.25)", borderRadius: "6px", padding: "1.5rem 2rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                <div
+                  style={{
+                    padding: "1.25rem 1.5rem",
+                    borderRadius: 8,
+                    backgroundColor: "var(--color-danger-bg)",
+                    border: "1px solid var(--color-danger-border)",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    flexWrap: "wrap",
+                    gap: "1rem",
+                  }}
+                >
                   <div>
-                    <h3 style={{ fontSize: "1.05rem", fontWeight: 800, color: "#F87171", margin: "0 0 0.3rem 0" }}>
-                      Mesai Sıfırlama Protokolü
+                    <h3 style={{ margin: "0 0 0.25rem", fontSize: "1rem", fontWeight: 700, color: "var(--color-danger)" }}>
+                      Mesai Sürelerini Sıfırlama Protokolü
                     </h3>
-                    <p style={{ margin: 0, fontSize: "0.82rem", color: "var(--text-secondary)" }}>
-                      Tüm personelin birikmiş mesai sürelerini sıfırlar.
+                    <p style={{ margin: 0, fontSize: "0.84rem", color: "var(--text-secondary)" }}>
+                      Haftalık veya aylık periyot sonunda tüm personelin birikmiş mesai kayıtlarını sıfırlar.
                     </p>
                   </div>
-                  <button onClick={handleResetShifts} style={{ background: "#EF4444", color: "var(--text-primary)", border: "none", padding: "0.75rem 1.4rem", borderRadius: "6px", fontWeight: 800, cursor: "pointer" }}>
-                    TÜM MESAİLERİ SIFIRLA
+                  <button
+                    onClick={handleResetShifts}
+                    style={{
+                      padding: "0.6rem 1.2rem",
+                      borderRadius: 6,
+                      backgroundColor: "var(--color-danger)",
+                      color: "#ffffff",
+                      border: "none",
+                      fontSize: "0.82rem",
+                      fontWeight: 700,
+                      cursor: "pointer",
+                    }}
+                  >
+                    Tüm Mesaileri Sıfırla
                   </button>
                 </div>
 
-                <div style={{ display: "grid", gap: "0.65rem" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                   {shifts
                     .filter((s) => s.name?.toLowerCase().includes(auditSearch.toLowerCase()) || s.badge?.includes(auditSearch))
                     .map((s, idx) => (
@@ -1128,24 +1324,35 @@ export default function HighCommandSecretAdminPage() {
                           display: "flex",
                           justifyContent: "space-between",
                           alignItems: "center",
-                          padding: "0.9rem 1.25rem",
-                          borderRadius: "6px",
-                          background: "var(--bg-secondary)",
+                          padding: "0.8rem 1.15rem",
+                          borderRadius: 6,
+                          backgroundColor: "var(--bg-primary)",
                           border: "1px solid var(--border-light)",
                         }}
                       >
-                        <div style={{ display: "flex", alignItems: "center", gap: "0.85rem" }}>
-                          <span style={{ color: "var(--text-muted)", fontWeight: 800, width: "24px" }}>#{idx + 1}</span>
-                          <span style={{ color: "var(--LAC-orange)", fontWeight: 800 }}>#{s.badge}</span>
-                          <span style={{ color: "var(--text-primary)", fontWeight: 700 }}>{s.name}</span>
-                          <span style={{ color: "var(--text-secondary)", fontSize: "0.78rem" }}>({s.rank})</span>
+                        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                          <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "var(--text-muted)", minWidth: 28 }}>
+                            #{idx + 1}
+                          </span>
+                          <span style={{ fontSize: "0.86rem", fontWeight: 700, color: "var(--LAC-orange)" }}>#{s.badge}</span>
+                          <span style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--text-primary)" }}>{s.name}</span>
+                          <span style={{ fontSize: "0.8rem", color: "var(--text-secondary)" }}>({s.rank})</span>
                           {s.isOnDuty && (
-                            <span style={{ background: "rgba(52, 211, 153, 0.15)", color: "#34D399", padding: "0.15rem 0.5rem", borderRadius: "6px", fontSize: "0.78rem", fontWeight: 800 }}>
-                              MESAİDE
+                            <span
+                              style={{
+                                fontSize: "0.72rem",
+                                fontWeight: 700,
+                                padding: "0.15rem 0.5rem",
+                                borderRadius: 4,
+                                backgroundColor: "var(--color-success-bg)",
+                                color: "var(--color-success)",
+                              }}
+                            >
+                              Görevde
                             </span>
                           )}
                         </div>
-                        <div style={{ color: "var(--text-primary)", fontWeight: 800, fontSize: "0.9rem" }}>
+                        <div style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--text-primary)" }}>
                           {formatSeconds(s.totalSeconds)}
                         </div>
                       </div>
@@ -1153,259 +1360,687 @@ export default function HighCommandSecretAdminPage() {
                 </div>
               </div>
             )}
-          </motion.div>
-        )}
+          </div>
+        </div>
+      )}
 
-        {/* ════════════════════════════════════════════════════════════════
-            TAB 4: BİRİM BAŞVURULARI
-           ════════════════════════════════════════════════════════════════ */}
-        {activeTab === "DEPARTMAN" && (
-          <motion.div key="departman" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }}>
-            <div style={{ display: "grid", gap: "1.25rem" }}>
-              {applications.length === 0 ? (
-                <div style={{ textAlign: "center", padding: "4rem", color: "var(--text-muted)", background: "var(--bg-secondary)", borderRadius: "20px", border: "1px dashed var(--border-light)" }}>
-                  Henüz birim başvurusu bulunmuyor.
-                </div>
-              ) : (
-                applications.map((app: any) => {
-                  const divInfo = DIVISIONS.find((d) => d.id === app.division) || DIVISIONS[0];
-                  return (
-                    <div key={app.id} style={{ background: "var(--bg-secondary)", borderRadius: "6px", border: "1px solid var(--border-light)", padding: "1.5rem", display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
-                      <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: "4px", background: divInfo.color }} />
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1.5rem", paddingLeft: "0.5rem" }}>
-                        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-                          <div style={{ width: "42px", height: "42px", borderRadius: "6px", background: `${divInfo.color}15`, border: `1px solid ${divInfo.color}40`, display: "flex", alignItems: "center", justifyContent: "center", color: divInfo.color, fontSize: "1.1rem" }}>
-                            <i className={`fa-solid ${divInfo.icon}`} />
-                          </div>
-                          <div>
-                            <h4 style={{ margin: "0 0 0.2rem 0", fontSize: "1.1rem", fontWeight: 800, color: "var(--text-primary)" }}>
-                              #{app.officer?.badge} - {app.officer?.name}
-                            </h4>
-                            <span style={{ fontSize: "0.75rem", color: divInfo.color, fontWeight: 700, letterSpacing: "0.05em", textTransform: "uppercase" }}>
-                              {divInfo.name}
-                            </span>
-                          </div>
+      {/* ════════════════════════════════════════════════════════════════
+          TAB 3: BİRİM BAŞVURULARI
+         ════════════════════════════════════════════════════════════════ */}
+      {activeTab === "DEPARTMAN" && (
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          {applications.length === 0 ? (
+            <div
+              style={{
+                backgroundColor: "var(--bg-secondary)",
+                border: "1px solid var(--border-light)",
+                borderRadius: 8,
+                padding: "3rem",
+                textAlign: "center",
+                color: "var(--text-muted)",
+              }}
+            >
+              Henüz birim başvurusu bulunmuyor.
+            </div>
+          ) : (
+            applications.map((app: any) => {
+              const divInfo = DIVISIONS.find((d) => d.id === app.division) || DIVISIONS[0];
+              return (
+                <div
+                  key={app.id}
+                  style={{
+                    backgroundColor: "var(--bg-secondary)",
+                    border: "1px solid var(--border-light)",
+                    borderLeft: `4px solid ${divInfo.color}`,
+                    borderRadius: 8,
+                    padding: "1.25rem 1.5rem",
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.85rem" }}>
+                      <div
+                        style={{
+                          width: 40,
+                          height: 40,
+                          borderRadius: 8,
+                          backgroundColor: `${divInfo.color}14`,
+                          color: divInfo.color,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: "1rem",
+                        }}
+                      >
+                        <i className={`fa-solid ${divInfo.icon}`} />
+                      </div>
+                      <div>
+                        <div style={{ fontSize: "1rem", fontWeight: 700, color: "var(--text-primary)" }}>
+                          #{app.officer?.badge} {app.officer?.name}
                         </div>
-                        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                          <span style={{ padding: "0.3rem 0.8rem", borderRadius: "6px", fontSize: "0.8rem", fontWeight: 800, background: app.status === "Onaylandı" ? "rgba(52, 211, 153, 0.15)" : app.status === "Reddedildi" ? "rgba(248, 113, 113, 0.15)" : "rgba(245, 158, 11, 0.15)", color: app.status === "Onaylandı" ? "#34D399" : app.status === "Reddedildi" ? "#F87171" : "#F59E0B" }}>
-                            {app.status}
+                        <div style={{ fontSize: "0.8rem", fontWeight: 600, color: divInfo.color }}>{divInfo.name}</div>
+                      </div>
+                    </div>
+
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                      <span
+                        style={{
+                          fontSize: "0.76rem",
+                          fontWeight: 700,
+                          padding: "0.25rem 0.65rem",
+                          borderRadius: 4,
+                          backgroundColor: "var(--bg-tertiary)",
+                          color: "var(--text-primary)",
+                          border: "1px solid var(--border-light)",
+                        }}
+                      >
+                        {app.status}
+                      </span>
+                      <button
+                        onClick={() => handleUpdateUnitStatus(app.id, "Onaylandı")}
+                        style={{
+                          padding: "0.4rem 0.75rem",
+                          borderRadius: 6,
+                          backgroundColor: "#16a34a",
+                          color: "#ffffff",
+                          border: "none",
+                          fontSize: "0.78rem",
+                          fontWeight: 600,
+                          cursor: "pointer",
+                        }}
+                      >
+                        Onayla
+                      </button>
+                      <button
+                        onClick={() => handleUpdateUnitStatus(app.id, "Reddedildi")}
+                        style={{
+                          padding: "0.4rem 0.75rem",
+                          borderRadius: 6,
+                          backgroundColor: "var(--color-danger-bg)",
+                          border: "1px solid var(--color-danger-border)",
+                          color: "var(--color-danger)",
+                          fontSize: "0.78rem",
+                          fontWeight: 600,
+                          cursor: "pointer",
+                        }}
+                      >
+                        Reddet
+                      </button>
+                      <button
+                        onClick={() => handleDeleteUnitApp(app.id)}
+                        style={{
+                          padding: "0.4rem 0.65rem",
+                          borderRadius: 6,
+                          backgroundColor: "var(--bg-tertiary)",
+                          border: "1px solid var(--border-light)",
+                          color: "var(--text-secondary)",
+                          fontSize: "0.78rem",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <i className="fa-solid fa-trash" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", backgroundColor: "var(--bg-primary)", padding: "1rem", borderRadius: 6, border: "1px solid var(--border-light)" }}>
+                    <div>
+                      <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)", marginBottom: 4 }}>
+                        Katılma Gerekçesi
+                      </div>
+                      <p style={{ margin: 0, fontSize: "0.86rem", color: "var(--text-primary)", lineHeight: 1.5, whiteSpace: "pre-wrap" }}>
+                        {app.reason}
+                      </p>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)", marginBottom: 4 }}>
+                        Saha Tecrübesi
+                      </div>
+                      <p style={{ margin: 0, fontSize: "0.86rem", color: "var(--text-primary)", lineHeight: 1.5, whiteSpace: "pre-wrap" }}>
+                        {app.experience}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
+      )}
+
+      {/* ════════════════════════════════════════════════════════════════
+          TAB 4: SİVİL BAŞVURULAR
+         ════════════════════════════════════════════════════════════════ */}
+      {activeTab === "SIVIL" && (
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
+          {civilApplications.length === 0 ? (
+            <div
+              style={{
+                backgroundColor: "var(--bg-secondary)",
+                border: "1px solid var(--border-light)",
+                borderRadius: 8,
+                padding: "3rem",
+                textAlign: "center",
+                color: "var(--text-muted)",
+              }}
+            >
+              Henüz sivil başvuru bulunmuyor.
+            </div>
+          ) : (
+            civilApplications.map((app: any) => {
+              const typeInfo = CIVIL_TYPE_LABELS[app.type] || { label: app.type, icon: "fa-file", color: "#041632" };
+              const content = parseContent(app.content);
+              const isExpanded = expandedCivilId === app.id;
+
+              return (
+                <div
+                  key={app.id}
+                  style={{
+                    backgroundColor: "var(--bg-secondary)",
+                    border: "1px solid var(--border-light)",
+                    borderRadius: 8,
+                    overflow: "hidden",
+                  }}
+                >
+                  <div
+                    onClick={() => setExpandedCivilId(isExpanded ? null : app.id)}
+                    style={{
+                      padding: "1rem 1.25rem",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      cursor: "pointer",
+                      gap: "1rem",
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.85rem" }}>
+                      <div
+                        style={{
+                          width: 38,
+                          height: 38,
+                          borderRadius: 8,
+                          backgroundColor: `${typeInfo.color}12`,
+                          color: typeInfo.color,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <i className={`fa-solid ${typeInfo.icon}`} />
+                      </div>
+                      <div>
+                        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                          <span style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--text-primary)" }}>{app.fullName}</span>
+                          <span
+                            style={{
+                              fontSize: "0.74rem",
+                              fontWeight: 600,
+                              padding: "0.15rem 0.5rem",
+                              borderRadius: 4,
+                              backgroundColor: `${typeInfo.color}12`,
+                              color: typeInfo.color,
+                            }}
+                          >
+                            {typeInfo.label}
                           </span>
-                          <div style={{ display: "flex", gap: "0.4rem" }}>
-                            <button onClick={() => handleUpdateUnitStatus(app.id, "Onaylandı")} style={{ width: "32px", height: "32px", borderRadius: "6px", background: "rgba(52, 211, 153, 0.1)", border: "1px solid rgba(52, 211, 153, 0.3)", color: "#34D399", cursor: "pointer" }}>
-                              <i className="fa-solid fa-check" />
-                            </button>
-                            <button onClick={() => handleUpdateUnitStatus(app.id, "Reddedildi")} style={{ width: "32px", height: "32px", borderRadius: "6px", background: "rgba(248, 113, 113, 0.1)", border: "1px solid rgba(248, 113, 113, 0.3)", color: "#F87171", cursor: "pointer" }}>
-                              <i className="fa-solid fa-xmark" />
-                            </button>
-                            <button onClick={() => handleDeleteUnitApp(app.id)} style={{ width: "32px", height: "32px", borderRadius: "6px", background: "var(--border-light)", border: "1px solid var(--border-strong)", color: "var(--text-secondary)", cursor: "pointer" }}>
-                              <i className="fa-solid fa-trash" />
-                            </button>
-                          </div>
                         </div>
-                      </div>
-                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem", background: "rgba(0,0,0,0.2)", padding: "1.25rem", borderRadius: "6px", borderLeft: `2px solid ${divInfo.color}40`, marginLeft: "0.5rem" }}>
-                        <div>
-                          <div style={{ fontSize: "0.8rem", color: divInfo.color, fontWeight: 800, marginBottom: "0.5rem", textTransform: "uppercase" }}>Neden Katılmak İstiyor?</div>
-                          <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--text-primary)", lineHeight: "1.6", whiteSpace: "pre-wrap" }}>{app.reason}</p>
-                        </div>
-                        <div>
-                          <div style={{ fontSize: "0.8rem", color: divInfo.color, fontWeight: 800, marginBottom: "0.5rem", textTransform: "uppercase" }}>Tecrübesi</div>
-                          <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--text-primary)", lineHeight: "1.6", whiteSpace: "pre-wrap" }}>{app.experience}</p>
+                        <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", marginTop: 2 }}>
+                          {new Date(app.createdAt).toLocaleDateString("tr-TR")}
                         </div>
                       </div>
                     </div>
-                  );
-                })
-              )}
-            </div>
-          </motion.div>
-        )}
 
-        {/* ════════════════════════════════════════════════════════════════
-            TAB 5: SİVİL BAŞVURULAR
-           ════════════════════════════════════════════════════════════════ */}
-        {activeTab === "SIVIL" && (
-          <motion.div key="sivil" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }}>
-            <div style={{ display: "grid", gap: "1.25rem" }}>
-              {civilApplications.length === 0 ? (
-                <div style={{ textAlign: "center", padding: "4rem", color: "var(--text-muted)", background: "var(--bg-secondary)", borderRadius: "20px", border: "1px dashed var(--border-light)" }}>
-                  Henüz sivil başvuru bulunmuyor.
-                </div>
-              ) : (
-                civilApplications.map((app: any) => {
-                  const typeInfo = CIVIL_TYPE_LABELS[app.type] || { label: app.type, icon: "fa-file", color: "var(--text-secondary)" };
-                  const content = parseContent(app.content);
-                  const isExpanded = expandedCivilId === app.id;
-                  const statusColor = STATUS_COLORS[app.status] || "#94A3B8";
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                      <span
+                        style={{
+                          fontSize: "0.76rem",
+                          fontWeight: 700,
+                          padding: "0.22rem 0.65rem",
+                          borderRadius: 4,
+                          backgroundColor: "var(--bg-tertiary)",
+                          color: "var(--text-primary)",
+                          border: "1px solid var(--border-light)",
+                        }}
+                      >
+                        {app.status}
+                      </span>
+                      <i className={`fa-solid fa-chevron-${isExpanded ? "up" : "down"}`} style={{ color: "var(--text-muted)", fontSize: "0.8rem" }} />
+                    </div>
+                  </div>
 
-                  return (
-                    <div key={app.id}>
-                      <div onClick={() => setExpandedCivilId(isExpanded ? null : app.id)} style={{ display: "flex", alignItems: "center", gap: "1.5rem", padding: "1.25rem 1.5rem", background: isExpanded ? "var(--mdt-accent-alpha)" : "var(--bg-secondary)", border: `1px solid ${isExpanded ? "var(--mdt-accent-alpha)" : "var(--border-light)"}`, borderRadius: isExpanded ? "16px 16px 0 0" : "16px", cursor: "pointer" }}>
-                        <div style={{ width: "42px", height: "42px", borderRadius: "6px", background: `${typeInfo.color}15`, border: `1px solid ${typeInfo.color}30`, display: "flex", alignItems: "center", justifyContent: "center", color: typeInfo.color, fontSize: "1rem", flexShrink: 0 }}>
-                          <i className={`fa-solid ${typeInfo.icon}`} />
-                        </div>
-                        <div style={{ flex: 1 }}>
-                          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.2rem" }}>
-                            <span style={{ color: "var(--text-primary)", fontWeight: 700, fontSize: "0.95rem" }}>{app.fullName}</span>
-                            <span style={{ fontSize: "0.78rem", color: typeInfo.color, background: `${typeInfo.color}15`, padding: "0.2rem 0.6rem", borderRadius: "50px", fontWeight: 800 }}>
-                              {typeInfo.label}
-                            </span>
+                  {isExpanded && (
+                    <div style={{ padding: "1.25rem", borderTop: "1px solid var(--border-light)", backgroundColor: "var(--bg-primary)" }}>
+                      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "1rem", marginBottom: "1rem" }}>
+                        {app.fullName && (
+                          <div>
+                            <div style={{ fontSize: "0.75rem", fontWeight: 600, color: "var(--text-muted)" }}>Ad Soyad</div>
+                            <div style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--text-primary)" }}>{app.fullName}</div>
                           </div>
-                          <div style={{ fontSize: "0.75rem", color: "var(--text-secondary)" }}>
-                            <i className="fa-regular fa-calendar" style={{ marginRight: "0.4rem" }} />
-                            {new Date(app.createdAt).toLocaleDateString("tr-TR")}
+                        )}
+                        {app.discordName && (
+                          <div>
+                            <div style={{ fontSize: "0.75rem", fontWeight: 600, color: "var(--text-muted)" }}>Discord</div>
+                            <div style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--text-primary)" }}>{app.discordName}</div>
                           </div>
-                        </div>
-                        <span style={{ fontSize: "0.8rem", fontWeight: 800, color: statusColor, background: `${statusColor}15`, border: `1px solid ${statusColor}30`, padding: "0.3rem 0.8rem", borderRadius: "50px" }}>
-                          {app.status}
-                        </span>
-                        <i className={`fa-solid fa-chevron-${isExpanded ? "up" : "down"}`} style={{ color: "var(--text-muted)", fontSize: "0.8rem" }} />
+                        )}
+                        {app.age && (
+                          <div>
+                            <div style={{ fontSize: "0.75rem", fontWeight: 600, color: "var(--text-muted)" }}>Yaş</div>
+                            <div style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--text-primary)" }}>{app.age}</div>
+                          </div>
+                        )}
+                        {Object.entries(content).map(
+                          ([key, val]) =>
+                            val &&
+                            typeof val === "string" &&
+                            val.length < 200 && (
+                              <div key={key}>
+                                <div style={{ fontSize: "0.75rem", fontWeight: 600, color: "var(--text-muted)" }}>{key}</div>
+                                <div style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--text-primary)" }}>{val}</div>
+                              </div>
+                            )
+                        )}
                       </div>
 
-                      {isExpanded && (
-                        <div style={{ padding: "2rem", background: "rgba(8, 14, 28, 0.6)", border: "1px solid var(--mdt-accent-alpha)", borderTop: "none", borderRadius: "0 0 16px 16px" }}>
-                          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "1.5rem", marginBottom: "2rem" }}>
-                            {app.fullName && (
-                              <div>
-                                <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", fontWeight: 800, marginBottom: "0.3rem" }}>AD SOYAD</div>
-                                <div style={{ color: "var(--text-primary)", fontSize: "0.85rem", fontWeight: 600 }}>{app.fullName}</div>
+                      {Object.entries(content).map(
+                        ([key, val]) =>
+                          val &&
+                          typeof val === "string" &&
+                          val.length >= 200 && (
+                            <div key={key} style={{ marginBottom: "1rem" }}>
+                              <div style={{ fontSize: "0.76rem", fontWeight: 600, color: "var(--text-muted)", marginBottom: 4 }}>{key}</div>
+                              <div
+                                style={{
+                                  padding: "0.85rem",
+                                  borderRadius: 6,
+                                  backgroundColor: "var(--bg-secondary)",
+                                  border: "1px solid var(--border-light)",
+                                  fontSize: "0.86rem",
+                                  color: "var(--text-primary)",
+                                  lineHeight: 1.55,
+                                  whiteSpace: "pre-wrap",
+                                }}
+                              >
+                                {val}
                               </div>
-                            )}
-                            {app.discordName && (
-                              <div>
-                                <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", fontWeight: 800, marginBottom: "0.3rem" }}>DISCORD</div>
-                                <div style={{ color: "var(--text-primary)", fontSize: "0.85rem", fontWeight: 600 }}>{app.discordName}</div>
-                              </div>
-                            )}
-                            {app.age && (
-                              <div>
-                                <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", fontWeight: 800, marginBottom: "0.3rem" }}>YAŞ</div>
-                                <div style={{ color: "var(--text-primary)", fontSize: "0.85rem", fontWeight: 600 }}>{app.age}</div>
-                              </div>
-                            )}
-                            {app.email && (
-                              <div>
-                                <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", fontWeight: 800, marginBottom: "0.3rem" }}>E-POSTA</div>
-                                <div style={{ color: "var(--text-primary)", fontSize: "0.85rem", fontWeight: 600 }}>{app.email}</div>
-                              </div>
-                            )}
-                            {Object.entries(content).map(
-                              ([key, val]) =>
-                                val &&
-                                typeof val === "string" &&
-                                val.length < 200 && (
-                                  <div key={key}>
-                                    <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", fontWeight: 800, marginBottom: "0.3rem", textTransform: "uppercase" }}>{key}</div>
-                                    <div style={{ color: "var(--text-primary)", fontSize: "0.85rem", fontWeight: 600 }}>{val}</div>
-                                  </div>
-                                )
-                            )}
-                          </div>
-                          {Object.entries(content).map(
-                            ([key, val]) =>
-                              val &&
-                              typeof val === "string" &&
-                              val.length >= 200 && (
-                                <div key={key} style={{ marginBottom: "1.5rem" }}>
-                                  <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", fontWeight: 800, marginBottom: "0.5rem", textTransform: "uppercase" }}>{key}</div>
-                                  <div style={{ background: "rgba(0,0,0,0.2)", padding: "1rem", borderRadius: "6px", color: "var(--text-secondary)", fontSize: "0.85rem", lineHeight: "1.6", whiteSpace: "pre-wrap", border: "1px solid var(--border-light)" }}>{val}</div>
-                                </div>
-                              )
-                          )}
-                          <div style={{ display: "flex", gap: "1rem", alignItems: "center", paddingTop: "1.5rem", borderTop: "1px solid var(--border-light)" }}>
-                            <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: 800 }}>DURUM:</span>
-                            <select value={app.status} onChange={(e) => updateCivilStatus(app.id, e.target.value)} style={{ padding: "0.4rem 0.8rem", borderRadius: "6px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: statusColor, fontWeight: 700, fontSize: "0.8rem", cursor: "pointer", outline: "none" }}>
-                              {STATUS_OPTIONS.map((s) => (
-                                <option key={s} value={s} style={{ background: "var(--bg-secondary)", color: "var(--text-primary)" }}>
-                                  {s}
-                                </option>
-                              ))}
-                            </select>
-                            <button onClick={() => deleteCivilApp(app.id)} style={{ marginLeft: "auto", padding: "0.4rem 1rem", borderRadius: "6px", background: "rgba(239, 68, 68, 0.1)", border: "1px solid rgba(239, 68, 68, 0.2)", color: "#F87171", fontSize: "0.8rem", fontWeight: 700, cursor: "pointer" }}>
-                              <i className="fa-solid fa-trash" style={{ marginRight: "0.4rem" }} /> SİL
-                            </button>
-                          </div>
-                        </div>
+                            </div>
+                          )
                       )}
-                    </div>
-                  );
-                })
-              )}
-            </div>
-          </motion.div>
-        )}
 
-        {/* ════════════════════════════════════════════════════════════════
-            TAB 6: SİSTEM & MEDYA
-           ════════════════════════════════════════════════════════════════ */}
-        {activeTab === "SISTEM" && (
-          <motion.div key="sistem" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }}>
-            <div style={{ display: "flex", gap: "2rem", flexDirection: "column" }}>
-              {/* DB Sync */}
-              <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--mdt-accent-alpha)", borderRadius: "18px", padding: "1.75rem 2.25rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
-                <div>
-                  <h3 style={{ fontSize: "1.05rem", fontWeight: 800, color: "var(--LAC-orange)", margin: "0 0 0.35rem 0" }}>
-                    Yüksek Komuta Hesap Güvencesi & Senkronizasyon
-                  </h3>
-                  <p style={{ margin: 0, fontSize: "0.84rem", color: "var(--text-secondary)" }}>
-                    Kurucu Yüksek Komuta (#1222, #101, #261) yetkilerini doğrular ve veritabanı bağlantısını senkronize eder.
-                  </p>
-                </div>
-                <button onClick={handleDbSync} style={{ background: "var(--mdt-accent-alpha)", color: "var(--LAC-orange)", border: "1px solid var(--mdt-accent-alpha)", padding: "0.75rem 1.4rem", borderRadius: "6px", fontWeight: 800, cursor: "pointer" }}>
-                  SENKRONİZE ET
-                </button>
-              </div>
-
-              {/* Media Upload */}
-              <div style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-light)", borderRadius: "20px", padding: "2.25rem" }}>
-                <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text-primary)", margin: "0 0 1.25rem 0", display: "flex", alignItems: "center", gap: "0.6rem" }}>
-                  <i className="fa-solid fa-cloud-arrow-up" style={{ color: "var(--LAC-orange)" }} /> Medya Yükle
-                </h3>
-                {error && <div style={{ color: "#FCA5A5", background: "rgba(239, 68, 68, 0.1)", padding: "1rem", borderRadius: "6px", border: "1px solid rgba(239, 68, 68, 0.2)", marginBottom: "1.25rem", fontSize: "0.85rem", fontWeight: 600 }}>{error}</div>}
-                <form onSubmit={handleAddImage} style={{ display: "flex", gap: "1.25rem", alignItems: "flex-end", flexWrap: "wrap" }}>
-                  <div style={{ flex: "1 1 300px" }}>
-                    <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, color: "var(--text-secondary)", marginBottom: "0.5rem" }}>GÖRSEL URL</label>
-                    <input type="text" value={url} onChange={(e) => setUrl(e.target.value)} placeholder="/gallery/1.png veya https://..." required style={{ width: "100%", padding: "0.8rem 1rem", background: "rgba(0,0,0,0.2)", border: "1px solid var(--border-light)", borderRadius: "6px", color: "var(--text-primary)", outline: "none", fontSize: "0.9rem" }} />
-                  </div>
-                  <div style={{ width: "220px" }}>
-                    <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, color: "var(--text-secondary)", marginBottom: "0.5rem" }}>KATEGORİ</label>
-                    <select value={type} onChange={(e) => setType(e.target.value)} style={{ width: "100%", padding: "0.8rem 1rem", background: "rgba(0,0,0,0.2)", border: "1px solid var(--border-light)", borderRadius: "6px", color: "var(--text-primary)", outline: "none", fontSize: "0.9rem" }}>
-                      <option value="GALERI" style={{ background: "var(--bg-secondary)" }}>Galeri Sayfası</option>
-                      <option value="GIRIS" style={{ background: "var(--bg-secondary)" }}>Giriş Arkaplanı</option>
-                    </select>
-                  </div>
-                  <button type="submit" disabled={isSubmitting} style={{ background: "var(--LAC-orange)", color: "var(--bg-secondary)", border: "none", padding: "0.8rem 2rem", borderRadius: "6px", fontWeight: 800, cursor: isSubmitting ? "not-allowed" : "pointer" }}>
-                    {isSubmitting ? "YÜKLENİYOR..." : "SİSTEME YÜKLE"}
-                  </button>
-                </form>
-              </div>
-
-              {/* Media Gallery */}
-              <div>
-                <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text-primary)", margin: "0 0 1.25rem 0" }}>Sistem Medya Arşivi ({images.length})</h3>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "1.25rem" }}>
-                  {images.map((img) => (
-                    <div key={img.id} style={{ background: "var(--bg-secondary)", borderRadius: "6px", border: "1px solid var(--border-light)", overflow: "hidden", display: "flex", flexDirection: "column" }}>
-                      <div style={{ height: "140px", background: "#000", position: "relative" }}>
-                        <img src={img.url} alt="medya" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.85 }} />
-                        <span style={{ position: "absolute", top: "0.5rem", left: "0.5rem", background: "rgba(0,0,0,0.7)", padding: "0.2rem 0.6rem", borderRadius: "6px", fontSize: "0.78rem", fontWeight: 800, color: "var(--text-primary)" }}>{img.type}</span>
-                      </div>
-                      <div style={{ padding: "0.85rem 1rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <div style={{ fontSize: "0.72rem", color: "var(--text-secondary)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "130px" }}>
-                          {img.url.split("/").pop()}
-                        </div>
-                        <button onClick={() => handleDeleteImage(img.id)} style={{ background: "rgba(239, 68, 68, 0.1)", color: "#F87171", border: "1px solid rgba(239, 68, 68, 0.2)", borderRadius: "6px", width: "30px", height: "30px", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
-                          <i className="fa-solid fa-trash" />
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", paddingTop: "0.85rem", borderTop: "1px solid var(--border-light)" }}>
+                        <span style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--text-secondary)" }}>Başvuru Durumu:</span>
+                        <select
+                          value={app.status}
+                          onChange={(e) => updateCivilStatus(app.id, e.target.value)}
+                          style={{ ...inputBase, width: 180, padding: "0.4rem 0.75rem" }}
+                        >
+                          {STATUS_OPTIONS.map((s) => (
+                            <option key={s} value={s}>
+                              {s}
+                            </option>
+                          ))}
+                        </select>
+                        <button
+                          onClick={() => deleteCivilApp(app.id)}
+                          style={{
+                            marginLeft: "auto",
+                            padding: "0.42rem 0.85rem",
+                            borderRadius: 6,
+                            backgroundColor: "var(--color-danger-bg)",
+                            border: "1px solid var(--color-danger-border)",
+                            color: "var(--color-danger)",
+                            fontSize: "0.78rem",
+                            fontWeight: 600,
+                            cursor: "pointer",
+                          }}
+                        >
+                          <i className="fa-solid fa-trash" style={{ marginRight: 5 }} />
+                          Başvuruyu Sil
                         </button>
                       </div>
                     </div>
-                  ))}
+                  )}
                 </div>
-              </div>
+              );
+            })
+          )}
+        </div>
+      )}
+
+      {/* ════════════════════════════════════════════════════════════════
+          TAB 5: GÜVENLİK LOGLARI
+         ════════════════════════════════════════════════════════════════ */}
+      {activeTab === "LOGLAR" && (
+        <div
+          style={{
+            backgroundColor: "var(--bg-secondary)",
+            border: "1px solid var(--border-light)",
+            borderRadius: 8,
+            overflow: "hidden",
+          }}
+        >
+          <div
+            style={{
+              padding: "1rem 1.25rem",
+              borderBottom: "1px solid var(--border-light)",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexWrap: "wrap",
+              gap: "0.75rem",
+            }}
+          >
+            <div style={{ display: "flex", gap: "0.45rem", flexWrap: "wrap" }}>
+              {[
+                { id: "HONEYPOT", label: `Yetkisiz (/admin) İhlalleri (${honeypotLogs.length})` },
+                { id: "LOGIN", label: `MDT Giriş Kayıtları (${loginLogs.length})` },
+                { id: "ALL", label: `Tüm Loglar (${allLogs.length})` },
+              ].map((lf) => {
+                const isActive = logFilter === lf.id;
+                return (
+                  <button
+                    key={lf.id}
+                    onClick={() => setLogFilter(lf.id as any)}
+                    style={{
+                      padding: "0.48rem 0.9rem",
+                      borderRadius: 6,
+                      backgroundColor: isActive ? "#041632" : "var(--bg-primary)",
+                      color: isActive ? "#ffffff" : "var(--text-secondary)",
+                      border: isActive ? "1px solid #041632" : "1px solid var(--border-light)",
+                      fontSize: "0.82rem",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                    }}
+                  >
+                    {lf.label}
+                  </button>
+                );
+              })}
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
+            <div style={{ display: "flex", gap: "0.5rem" }}>
+              <a
+                href="/admin"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  padding: "0.48rem 0.85rem",
+                  borderRadius: 6,
+                  backgroundColor: "var(--bg-tertiary)",
+                  border: "1px solid var(--border-strong)",
+                  color: "var(--text-primary)",
+                  fontSize: "0.8rem",
+                  fontWeight: 600,
+                  textDecoration: "none",
+                }}
+              >
+                <i className="fa-solid fa-arrow-up-right-from-square" style={{ marginRight: 5 }} />
+                /admin Sayfasını Görüntüle
+              </a>
+              <button
+                onClick={() => handleClearLogs("honeypot")}
+                style={{
+                  padding: "0.48rem 0.85rem",
+                  borderRadius: 6,
+                  backgroundColor: "var(--color-danger-bg)",
+                  border: "1px solid var(--color-danger-border)",
+                  color: "var(--color-danger)",
+                  fontSize: "0.8rem",
+                  fontWeight: 600,
+                  cursor: "pointer",
+                }}
+              >
+                <i className="fa-solid fa-trash" style={{ marginRight: 5 }} />
+                İhlal Loglarını Temizle
+              </button>
+            </div>
+          </div>
+
+          {displayedLogs.length === 0 ? (
+            <div style={{ padding: "3rem", textAlign: "center", color: "var(--text-muted)" }}>
+              Seçili kategoride kayıtlı güvenlik logu bulunmuyor.
+            </div>
+          ) : (
+            <div style={{ overflowX: "auto" }}>
+              <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
+                <thead>
+                  <tr style={{ backgroundColor: "var(--bg-tertiary)", borderBottom: "1px solid var(--border-light)" }}>
+                    <th style={{ padding: "0.85rem 1.25rem", fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)" }}>
+                      Olay Türü
+                    </th>
+                    <th style={{ padding: "0.85rem 1.25rem", fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)" }}>
+                      Detay / Kullanıcı
+                    </th>
+                    <th style={{ padding: "0.85rem 1.25rem", fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)" }}>
+                      IP Adresi
+                    </th>
+                    <th style={{ padding: "0.85rem 1.25rem", fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)", textAlign: "right" }}>
+                      Zaman Damgası
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {displayedLogs.map((log: any) => {
+                    const isHoneypot = log.badge?.startsWith("HONEYPOT:");
+                    const cleanDetail = isHoneypot ? log.badge.replace("HONEYPOT:", "") : `Rozet #${log.badge}`;
+                    return (
+                      <tr key={log.id} style={{ borderBottom: "1px solid var(--border-light)" }}>
+                        <td style={{ padding: "0.85rem 1.25rem" }}>
+                          <span
+                            style={{
+                              fontSize: "0.75rem",
+                              fontWeight: 700,
+                              padding: "0.2rem 0.55rem",
+                              borderRadius: 4,
+                              backgroundColor: isHoneypot
+                                ? "var(--color-warning-bg)"
+                                : log.success
+                                ? "var(--color-success-bg)"
+                                : "var(--color-danger-bg)",
+                              color: isHoneypot
+                                ? "var(--color-warning)"
+                                : log.success
+                                ? "var(--color-success)"
+                                : "var(--color-danger)",
+                            }}
+                          >
+                            {isHoneypot ? "YETKİSİZ (/admin)" : log.success ? "BAŞARILI GİRİŞ" : "BAŞARISIZ GİRİŞ"}
+                          </span>
+                        </td>
+                        <td style={{ padding: "0.85rem 1.25rem", fontSize: "0.88rem", fontWeight: 600, color: "var(--text-primary)" }}>
+                          {cleanDetail}
+                        </td>
+                        <td style={{ padding: "0.85rem 1.25rem", fontSize: "0.85rem", fontWeight: 700, color: "var(--LAC-orange)" }}>
+                          {log.ipAddress}
+                        </td>
+                        <td style={{ padding: "0.85rem 1.25rem", fontSize: "0.82rem", color: "var(--text-muted)", textAlign: "right" }}>
+                          {new Date(log.createdAt).toLocaleString("tr-TR")}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ════════════════════════════════════════════════════════════════
+          TAB 6: SİSTEM VE MEDYA
+         ════════════════════════════════════════════════════════════════ */}
+      {activeTab === "SISTEM" && (
+        <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+          <div
+            style={{
+              backgroundColor: "var(--bg-secondary)",
+              border: "1px solid var(--border-light)",
+              borderRadius: 8,
+              padding: "1.25rem 1.5rem",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexWrap: "wrap",
+              gap: "1rem",
+            }}
+          >
+            <div>
+              <h3 style={{ margin: "0 0 0.25rem", fontSize: "1rem", fontWeight: 700, color: "var(--text-primary)" }}>
+                Yüksek Komuta Veritabanı Senkronizasyonu
+              </h3>
+              <p style={{ margin: 0, fontSize: "0.84rem", color: "var(--text-secondary)" }}>
+                Kurucu Yüksek Komuta (#1222) yetkilerini doğrular ve veritabanı bağlantısını senkronize eder.
+              </p>
+            </div>
+            <button
+              onClick={handleDbSync}
+              style={{
+                padding: "0.6rem 1.25rem",
+                borderRadius: 6,
+                backgroundColor: "#041632",
+                color: "#ffffff",
+                border: "none",
+                fontSize: "0.84rem",
+                fontWeight: 600,
+                cursor: "pointer",
+              }}
+            >
+              Veritabanını Senkronize Et
+            </button>
+          </div>
+
+          <div
+            style={{
+              backgroundColor: "var(--bg-secondary)",
+              border: "1px solid var(--border-light)",
+              borderRadius: 8,
+              padding: "1.5rem",
+            }}
+          >
+            <h3 style={{ margin: "0 0 1rem", fontSize: "1rem", fontWeight: 700, color: "var(--text-primary)" }}>
+              Galeri ve Medya Yönetimi ({images.length})
+            </h3>
+
+            {error && (
+              <div
+                style={{
+                  marginBottom: "1rem",
+                  padding: "0.75rem 1rem",
+                  borderRadius: 6,
+                  backgroundColor: "var(--color-danger-bg)",
+                  border: "1px solid var(--color-danger-border)",
+                  color: "var(--color-danger)",
+                  fontSize: "0.84rem",
+                  fontWeight: 600,
+                }}
+              >
+                {error}
+              </div>
+            )}
+
+            <form onSubmit={handleAddImage} style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "flex-end", marginBottom: "1.5rem" }}>
+              <div style={{ flex: "1 1 280px" }}>
+                <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: "var(--text-secondary)", marginBottom: 4 }}>
+                  Görsel Bağlantısı (URL)
+                </label>
+                <input
+                  type="text"
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                  placeholder="/gallery/1.png veya https://..."
+                  required
+                  style={inputBase}
+                />
+              </div>
+              <div style={{ width: 200 }}>
+                <label style={{ display: "block", fontSize: "0.78rem", fontWeight: 600, color: "var(--text-secondary)", marginBottom: 4 }}>
+                  Kategori
+                </label>
+                <select value={type} onChange={(e) => setType(e.target.value)} style={inputBase}>
+                  <option value="GALERI">Galeri Sayfası</option>
+                  <option value="GIRIS">Giriş Arkaplanı</option>
+                </select>
+              </div>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                style={{
+                  padding: "0.62rem 1.25rem",
+                  borderRadius: 6,
+                  backgroundColor: "var(--LAC-orange)",
+                  color: "#ffffff",
+                  border: "none",
+                  fontSize: "0.84rem",
+                  fontWeight: 600,
+                  cursor: isSubmitting ? "not-allowed" : "pointer",
+                }}
+              >
+                {isSubmitting ? "Yükleniyor..." : "Görsel Ekle"}
+              </button>
+            </form>
+
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(210px, 1fr))", gap: "1rem" }}>
+              {images.map((img) => (
+                <div
+                  key={img.id}
+                  style={{
+                    borderRadius: 6,
+                    border: "1px solid var(--border-light)",
+                    backgroundColor: "var(--bg-primary)",
+                    overflow: "hidden",
+                  }}
+                >
+                  <div style={{ height: 130, backgroundColor: "#0f172a", position: "relative" }}>
+                    <img src={img.url} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    <span
+                      style={{
+                        position: "absolute",
+                        top: 8,
+                        left: 8,
+                        backgroundColor: "rgba(15,23,42,0.8)",
+                        color: "#ffffff",
+                        fontSize: "0.72rem",
+                        fontWeight: 700,
+                        padding: "0.15rem 0.5rem",
+                        borderRadius: 4,
+                      }}
+                    >
+                      {img.type}
+                    </span>
+                  </div>
+                  <div style={{ padding: "0.65rem 0.85rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <span
+                      style={{
+                        fontSize: "0.78rem",
+                        color: "var(--text-secondary)",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                        maxWidth: 130,
+                      }}
+                    >
+                      {img.url.split("/").pop()}
+                    </span>
+                    <button
+                      onClick={() => handleDeleteImage(img.id)}
+                      style={{
+                        padding: "0.3rem 0.55rem",
+                        borderRadius: 6,
+                        backgroundColor: "var(--color-danger-bg)",
+                        border: "1px solid var(--color-danger-border)",
+                        color: "var(--color-danger)",
+                        fontSize: "0.75rem",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <i className="fa-solid fa-trash" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

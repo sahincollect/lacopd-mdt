@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState, useMemo } from "react";
 import toast from "react-hot-toast";
@@ -16,27 +16,6 @@ interface OfficerShift {
   activeLogStart?: string | null;
 }
 
-const glassCard: React.CSSProperties = {
-  background: "var(--bg-secondary)",
-  border: "1px solid var(--border-light)",
-  borderRadius: 6,
-  overflow: "hidden",
-  boxShadow: "0 2px 6px rgba(0,0,0,0.04)",
-};
-
-const inputStyle: React.CSSProperties = {
-  width: "100%",
-  background: "var(--bg-tertiary)",
-  border: "1px solid var(--border-light)",
-  borderRadius: 6,
-  padding: "0.55rem 0.9rem",
-  color: "var(--text-primary)",
-  fontSize: "0.83rem",
-  outline: "none",
-  transition: "all 0.18s ease",
-  fontFamily: "'Inter', sans-serif",
-};
-
 export default function MesaiSistemi() {
   const [toggling, setToggling] = useState(false);
   const [liveTicks, setLiveTicks] = useState<Record<number, number>>({});
@@ -45,8 +24,8 @@ export default function MesaiSistemi() {
   const [selectedDept, setSelectedDept] = useState<string>("ALL");
   const [currentTime, setCurrentTime] = useState<string>("");
 
-  const { data: shiftsData, mutate: mutateShifts } = useSWR('/api/shifts', fetcher);
-  const { data: meData, mutate: mutateMe } = useSWR('/api/auth/me', fetcher);
+  const { data: shiftsData, mutate: mutateShifts } = useSWR("/api/shifts", fetcher);
+  const { data: meData, mutate: mutateMe } = useSWR("/api/auth/me", fetcher);
 
   const loading = !shiftsData || !meData;
   const leaderboard: OfficerShift[] = useMemo(() => shiftsData?.leaderboard || [], [shiftsData]);
@@ -64,7 +43,7 @@ export default function MesaiSistemi() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setLiveTicks(prev => {
+      setLiveTicks((prev) => {
         const next = { ...prev };
         leaderboard.forEach((off) => {
           if (off.isOnDuty) {
@@ -82,34 +61,44 @@ export default function MesaiSistemi() {
   const toggleDuty = async () => {
     if (!user || toggling) return;
     setToggling(true);
-    
+
     const newIsOnDuty = !user.isOnDuty;
     mutateMe({ user: { ...user, isOnDuty: newIsOnDuty } }, false);
-    mutateShifts({ 
-      leaderboard: leaderboard.map(o => o.id === user.id ? { ...o, isOnDuty: newIsOnDuty } : o) 
-    }, false);
-    
+    mutateShifts(
+      {
+        leaderboard: leaderboard.map((o) => (o.id === user.id ? { ...o, isOnDuty: newIsOnDuty } : o)),
+      },
+      false
+    );
+
     if (newIsOnDuty) {
-      setLiveTicks(prev => ({ ...prev, [user.id]: user.totalSeconds || 0 }));
+      setLiveTicks((prev) => ({ ...prev, [user.id]: user.totalSeconds || 0 }));
     } else {
-      setLiveTicks(prev => { const n = { ...prev }; delete n[user.id]; return n; });
+      setLiveTicks((prev) => {
+        const n = { ...prev };
+        delete n[user.id];
+        return n;
+      });
     }
 
     try {
       const res = await fetch(`/api/officers/${user.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ isOnDuty: newIsOnDuty })
+        body: JSON.stringify({ isOnDuty: newIsOnDuty }),
       });
       if (!res.ok) throw new Error();
-      toast.success(newIsOnDuty ? "Mesai başladı." : "Mesai bitirildi.");
+      toast.success(newIsOnDuty ? "Mesai başlatıldı (10-8)." : "Mesai sonlandırıldı (10-7).");
       mutateMe();
       mutateShifts();
     } catch {
       mutateMe({ user: { ...user, isOnDuty: !newIsOnDuty } }, false);
-      mutateShifts({ 
-        leaderboard: leaderboard.map(o => o.id === user.id ? { ...o, isOnDuty: !newIsOnDuty } : o) 
-      }, false);
+      mutateShifts(
+        {
+          leaderboard: leaderboard.map((o) => (o.id === user.id ? { ...o, isOnDuty: !newIsOnDuty } : o)),
+        },
+        false
+      );
       toast.error("Durum güncellenemedi.");
     } finally {
       setToggling(false);
@@ -117,12 +106,12 @@ export default function MesaiSistemi() {
   };
 
   const forceEndShift = async (off: OfficerShift) => {
-    if (!confirm(`[ADMİN] #${off.badge} rozetli ${off.name} personelinin mesaisini kapatmak istiyor musunuz?`)) return;
+    if (!confirm(`#${off.badge} ${off.name} personelinin aktif mesaisini kapatmak istiyor musunuz?`)) return;
     try {
       const res = await fetch(`/api/officers/${off.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ isOnDuty: false })
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ isOnDuty: false }),
       });
       if (res.ok) {
         toast.success(`Mesai kapatıldı: ${off.name}`);
@@ -144,29 +133,33 @@ export default function MesaiSistemi() {
   };
 
   const formatHoursMinimal = (totalSeconds: number) => {
-    return (totalSeconds / 3600).toFixed(1) + " sa";
+    return (totalSeconds / 3600).toFixed(1) + " Saat";
   };
 
   const departments = useMemo(() => {
     const set = new Set<string>();
-    leaderboard.forEach(o => o.department && set.add(o.department));
+    leaderboard.forEach((o) => o.department && set.add(o.department));
     return ["ALL", ...Array.from(set)];
   }, [leaderboard]);
 
-  const mySeconds = liveTicks[user?.id] !== undefined ? liveTicks[user?.id] : (user?.totalSeconds || 0);
-  const myEntry = leaderboard.find(o => o.id === user?.id);
+  const mySeconds = liveTicks[user?.id] !== undefined ? liveTicks[user?.id] : user?.totalSeconds || 0;
+  const myEntry = leaderboard.find((o) => o.id === user?.id);
   const myRankIndex = myEntry ? leaderboard.indexOf(myEntry) : -1;
 
-  const activeCount = useMemo(() => leaderboard.filter(o => o.isOnDuty).length, [leaderboard]);
-  const totalDepartmentSeconds = useMemo(() => leaderboard.reduce((acc, o) => acc + (liveTicks[o.id] !== undefined ? liveTicks[o.id] : o.totalSeconds), 0), [leaderboard, liveTicks]);
+  const activeCount = useMemo(() => leaderboard.filter((o) => o.isOnDuty).length, [leaderboard]);
+  const totalDepartmentSeconds = useMemo(
+    () => leaderboard.reduce((acc, o) => acc + (liveTicks[o.id] !== undefined ? liveTicks[o.id] : o.totalSeconds), 0),
+    [leaderboard, liveTicks]
+  );
 
   const filteredList = useMemo(() => {
     return leaderboard.filter((off, index) => {
-      const matchesSearch = !searchTerm || 
-        off.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-        off.badge.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      const matchesSearch =
+        !searchTerm ||
+        off.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        off.badge.toLowerCase().includes(searchTerm.toLowerCase()) ||
         off.rank.toLowerCase().includes(searchTerm.toLowerCase());
-      
+
       const matchesDept = selectedDept === "ALL" || off.department === selectedDept;
 
       let matchesMode = true;
@@ -178,333 +171,509 @@ export default function MesaiSistemi() {
     });
   }, [leaderboard, searchTerm, selectedDept, filterMode]);
 
-  const getRankBadge = (idx: number) => {
-    if (idx === 0) return { bg: "rgba(245,158,11,0.1)", color: "#f59e0b", border: "1px solid rgba(245,158,11,0.3)", icon: "fa-trophy" }; // Gold
-    if (idx === 1) return { bg: "#2a2a2a", color: "var(--text-primary)", border: "1px solid #555", icon: "fa-medal" }; // Silver
-    if (idx === 2) return { bg: "rgba(232,79,42,0.1)", color: "#E84F2A", border: "1px solid rgba(232,79,42,0.3)", icon: "fa-award" }; // Bronze
-    return { bg: "transparent", color: "var(--text-muted)", border: "1px solid transparent", icon: "fa-hashtag" };
-  };
-
   if (loading) {
     return (
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "50vh", flexDirection: "column", gap: "1rem" }}>
-        <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
-        `}</style>
-        <i className="fa-solid fa-circle-notch fa-spin" style={{ fontSize: "1.8rem", color: "var(--text-muted)" }} />
-        <span style={{ fontSize: "0.82rem", color: "var(--text-muted)", fontWeight: 600, letterSpacing: "0.1em" }}>YÜKLENİYOR...</span>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "50vh", color: "var(--text-muted)" }}>
+        Mesai verileri yükleniyor...
       </div>
     );
   }
 
   return (
-    <div style={{ fontFamily: "'Inter', sans-serif", color: "var(--text-primary)", paddingBottom: "3rem" }}>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
-        
-        .pulse-dot {
-          width: 8px;
-          height: 8px;
-          background-color: #22c55e;
-          border-radius: 50%;
-          display: inline-block;
-          box-shadow: 0 0 0 rgba(34, 197, 94, 0.4);
-          animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-          0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
-          70% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
-          100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
-        }
-
-        .filter-btn {
-          background: transparent;
-          color: #888;
-          border: 1px solid var(--border-light);
-          padding: 0.55rem 1rem;
-          border-radius: 8px;
-          font-weight: 600;
-          font-size: 0.75rem;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-        .filter-btn:hover {
-          background: var(--bg-tertiary);
-          color: var(--text-primary);
-        }
-        .filter-btn.active {
-          background: var(--border-light);
-          color: var(--LAC-orange);
-          border-color: var(--border-strong);
-        }
-
-        .custom-input:focus {
-          border-color: var(--border-strong) !important;
-          background: var(--bg-tertiary) !important;
-        }
-
-        .leaderboard-row {
-          transition: all 0.2s ease;
-        }
-        .leaderboard-row:hover {
-          background: var(--border-light) !important;
-        }
-
-        .action-btn {
-          background: rgba(239,68,68,0.1);
-          color: #ef4444;
-          border: 1px solid rgba(239,68,68,0.2);
-          width: 32px;
-          height: 32px;
-          border-radius: 6px;
-          font-size: 0.85rem;
-          cursor: pointer;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          transition: all 0.15s;
-        }
-        .action-btn:hover {
-          background: rgba(239,68,68,0.2);
-        }
-      `}</style>
-
-      {/* PAGE HEADER */}
-      <div style={{ marginBottom: "2rem", display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1rem" }}>
+    <div style={{ maxWidth: 1360, margin: "0 auto", display: "flex", flexDirection: "column", gap: "1.25rem", paddingBottom: "2.5rem" }}>
+      {/* ── PAGE HEADER ── */}
+      <div
+        style={{
+          backgroundColor: "var(--bg-secondary)",
+          border: "1px solid var(--border-light)",
+          borderRadius: 8,
+          padding: "1.25rem 1.5rem",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: "1rem",
+        }}
+      >
         <div>
-          <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: "0.5rem" }}>
-            L.A.C.P.D. · OPERASYON
+          <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--LAC-orange)", letterSpacing: "0.04em", marginBottom: "0.2rem" }}>
+            LAPD PATROL & DUTY MANAGEMENT // NÖBET VE MESAİ KONTROLÜ
           </div>
-          <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "var(--text-primary)", margin: 0, letterSpacing: "-0.02em" }}>
-            Mesai Takip Sistemi
+          <h1 style={{ margin: 0, fontSize: "1.45rem", fontWeight: 700, color: "var(--text-primary)", letterSpacing: "-0.02em" }}>
+            Mesai ve Devriye Takip Sistemi
           </h1>
-          <p style={{ color: "var(--text-secondary)", fontSize: "0.8rem", margin: "0.4rem 0 0", fontWeight: 400 }}>
-            Personel devriye durumları ve aktif operasyon gücü
+          <p style={{ margin: "0.25rem 0 0", fontSize: "0.86rem", color: "var(--text-secondary)" }}>
+            Bireysel vardiya durumunuzu yönetin ve departman genelindeki aktif devriye kadrosunu takip edin.
           </p>
         </div>
 
-        <div style={{ display: "flex", gap: "2rem", alignItems: "center", background: "rgba(13,18,32,0.6)", padding: "1rem 1.5rem", borderRadius: "12px", border: "1px solid var(--border-light)" }}>
-          <div>
-            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "var(--text-secondary)", letterSpacing: '0.1em' }}>SAHADA AKTİF</div>
-            <div style={{ fontSize: "1.4rem", fontWeight: 900, color: "#00d26a", fontFamily: "inherit" }}>{activeCount} <span style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>/ {leaderboard.length}</span></div>
-          </div>
-          <div style={{ width: "1px", height: "30px", backgroundColor: "#2a2a2a" }}></div>
-          <div>
-            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "var(--text-secondary)", letterSpacing: '0.1em' }}>DEPARTMAN EFORU</div>
-            <div style={{ fontSize: "1.4rem", fontWeight: 900, color: "var(--LAC-orange)", fontFamily: "inherit" }}>{formatHoursMinimal(totalDepartmentSeconds)}</div>
-          </div>
-          <div style={{ width: "1px", height: "30px", backgroundColor: "#2a2a2a" }}></div>
-          <div>
-            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "var(--text-secondary)", letterSpacing: '0.1em' }}>SAAT</div>
-            <div style={{ fontSize: "1.2rem", fontWeight: 900, color: "var(--text-primary)", fontFamily: "inherit" }}>{currentTime || "--:--:--"}</div>
-          </div>
+        <div
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.6rem",
+            padding: "0.55rem 1rem",
+            borderRadius: 6,
+            backgroundColor: "var(--bg-tertiary)",
+            border: "1px solid var(--border-light)",
+            fontSize: "0.85rem",
+            fontWeight: 700,
+            color: "var(--text-primary)",
+            fontVariantNumeric: "tabular-nums",
+          }}
+        >
+          <i className="fa-regular fa-clock" style={{ color: "var(--LAC-orange)" }} />
+          Sistem Saati: {currentTime || "--:--:--"}
         </div>
       </div>
 
-      {/* MY SHIFT CONSOLE */}
-      <div style={{ 
-        ...glassCard,
-        padding: "2rem",
-        marginBottom: "2rem",
-        display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1.5rem",
-        border: user?.isOnDuty ? "1px solid rgba(0,210,106,0.3)" : "1px solid var(--border-light)",
-        boxShadow: user?.isOnDuty ? "0 8px 32px -8px rgba(0,210,106,0.15), inset 0 1px 0 var(--border-light)" : glassCard.boxShadow
-      }}>
-        
-        <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
-          <div style={{ 
-            width: "64px", height: "64px", borderRadius: "16px", 
-            background: user?.isOnDuty ? "rgba(0,210,106,0.1)" : "var(--border-light)", 
-            color: user?.isOnDuty ? "#00d26a" : "var(--LAC-orange)", 
-            border: user?.isOnDuty ? "1px solid rgba(0,210,106,0.2)" : "1px solid var(--border-strong)",
-            display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.5rem", fontWeight: 900 
-          }}>
-            {user?.name.charAt(0) || "U"}
-          </div>
-          
-          <div>
-            <div style={{ fontSize: "0.78rem", fontWeight: 800, color: "var(--text-secondary)", textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: "0.25rem" }}>KÜMÜLATİF ŞAHSİ SÜRE</div>
-            <div style={{ fontFamily: "inherit", fontSize: "2.5rem", fontWeight: 700, color: user?.isOnDuty ? "#00d26a" : "var(--text-primary)", lineHeight: 1, margin: "0.25rem 0" }}>
-              {formatTime(mySeconds)}
+      {/* ── TOP SPLIT: PERSONAL DUTY CONSOLE + 4 METRIC CARDS ── */}
+      <div style={{ display: "grid", gridTemplateColumns: "1.25fr 1fr", gap: "1.25rem", alignItems: "stretch" }}>
+        {/* Left: Personal Duty Console */}
+        <div
+          style={{
+            backgroundColor: "var(--bg-secondary)",
+            border: "1px solid var(--border-light)",
+            borderLeft: user?.isOnDuty ? "4px solid #16a34a" : "4px solid #041632",
+            borderRadius: 8,
+            padding: "1.5rem",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: "1.25rem",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "1.25rem" }}>
+            <div
+              style={{
+                width: 60,
+                height: 60,
+                borderRadius: 10,
+                backgroundColor: user?.isOnDuty ? "rgba(22,163,74,0.12)" : "#041632",
+                color: user?.isOnDuty ? "#16a34a" : "#ffffff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "1.35rem",
+                fontWeight: 800,
+                flexShrink: 0,
+              }}
+            >
+              {user?.name?.charAt(0) || "P"}
             </div>
-            <div style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--text-secondary)", marginTop: "0.5rem" }}>
-              Departman Sıranız: <strong style={{ color: myRankIndex < 3 ? "#f59e0b" : "var(--LAC-orange)", marginLeft: "0.25rem" }}>{myRankIndex >= 0 ? `#${myRankIndex + 1}` : "Yok"}</strong>
-            </div>
-          </div>
-        </div>
 
-        <div>
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.3rem", flexWrap: "wrap" }}>
+                <span style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--text-primary)" }}>
+                  #{user?.badge} {user?.name}
+                </span>
+                <span
+                  style={{
+                    fontSize: "0.74rem",
+                    fontWeight: 700,
+                    padding: "0.18rem 0.55rem",
+                    borderRadius: 4,
+                    backgroundColor: user?.isOnDuty ? "var(--color-success-bg)" : "var(--bg-tertiary)",
+                    color: user?.isOnDuty ? "var(--color-success)" : "var(--text-muted)",
+                    border: user?.isOnDuty ? "1px solid var(--color-success-border)" : "1px solid var(--border-light)",
+                  }}
+                >
+                  {user?.isOnDuty ? "GÖREVDE (10-8)" : "GÖREV DIŞI (10-7)"}
+                </span>
+              </div>
+
+              <div
+                style={{
+                  fontSize: "2.1rem",
+                  fontWeight: 800,
+                  color: user?.isOnDuty ? "#16a34a" : "var(--text-primary)",
+                  fontVariantNumeric: "tabular-nums",
+                  lineHeight: 1.1,
+                }}
+              >
+                {formatTime(mySeconds)}
+              </div>
+
+              <div style={{ fontSize: "0.8rem", color: "var(--text-muted)", marginTop: "0.3rem" }}>
+                Kümülatif Mesai Süresi • Sıralama:{" "}
+                <strong style={{ color: "var(--text-primary)" }}>{myRankIndex >= 0 ? `#${myRankIndex + 1}` : "—"}</strong>
+              </div>
+            </div>
+          </div>
+
           <button
             onClick={toggleDuty}
             disabled={toggling}
             style={{
-              padding: "1rem 2rem",
-              background: user?.isOnDuty ? "rgba(239,68,68,0.1)" : "linear-gradient(135deg, var(--LAC-orange) 0%, #1558d6 100%)",
-              color: user?.isOnDuty ? "#ef4444" : "#fff",
-              border: user?.isOnDuty ? "1px solid rgba(239,68,68,0.3)" : "1px solid var(--border-strong)",
-              borderRadius: "12px",
-              fontSize: "0.95rem",
-              fontWeight: 800,
+              padding: "0.85rem 1.5rem",
+              borderRadius: 8,
+              backgroundColor: user?.isOnDuty ? "#dc2626" : "#16a34a",
+              color: "#ffffff",
+              border: "none",
+              fontSize: "0.9rem",
+              fontWeight: 700,
               cursor: toggling ? "not-allowed" : "pointer",
-              transition: "all 0.2s ease",
-              display: "flex",
+              display: "inline-flex",
               alignItems: "center",
-              gap: "0.75rem",
-              boxShadow: user?.isOnDuty ? "none" : "0 4px 12px var(--border-strong)"
+              gap: "0.6rem",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
             }}
-            onMouseOver={e => !toggling && ((e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)')}
-            onMouseOut={e => !toggling && ((e.currentTarget as HTMLElement).style.transform = 'translateY(0)')}
-            onMouseDown={e => !toggling && ((e.currentTarget as HTMLElement).style.transform = 'scale(0.97)')}
-            onMouseUp={e => !toggling && ((e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)')}
           >
-            <i className={`fa-solid ${user?.isOnDuty ? 'fa-power-off' : 'fa-satellite-dish'}`}></i>
-            {user?.isOnDuty ? "MESAİYİ BİTİR" : "MESAİYE BAŞLA"}
+            <i className={`fa-solid ${user?.isOnDuty ? "fa-power-off" : "fa-play"}`} />
+            {user?.isOnDuty ? "Mesaiyi Bitir (10-7)" : "Mesaiye Başla (10-8)"}
           </button>
+        </div>
+
+        {/* Right: 4 Summary KPI Cards */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.85rem" }}>
+          <div
+            style={{
+              backgroundColor: "var(--bg-secondary)",
+              border: "1px solid var(--border-light)",
+              borderRadius: 8,
+              padding: "1rem 1.25rem",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <div style={{ fontSize: "0.78rem", fontWeight: 600, color: "var(--text-muted)" }}>Aktif Saha Gücü</div>
+            <div style={{ fontSize: "1.55rem", fontWeight: 800, color: "#16a34a", marginTop: 4, fontVariantNumeric: "tabular-nums" }}>
+              {activeCount}{" "}
+              <span style={{ fontSize: "0.95rem", fontWeight: 600, color: "var(--text-muted)" }}>/ {leaderboard.length}</span>
+            </div>
+          </div>
+
+          <div
+            style={{
+              backgroundColor: "var(--bg-secondary)",
+              border: "1px solid var(--border-light)",
+              borderRadius: 8,
+              padding: "1rem 1.25rem",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <div style={{ fontSize: "0.78rem", fontWeight: 600, color: "var(--text-muted)" }}>Toplam Departman Mesaisi</div>
+            <div style={{ fontSize: "1.55rem", fontWeight: 800, color: "var(--text-primary)", marginTop: 4, fontVariantNumeric: "tabular-nums" }}>
+              {formatHoursMinimal(totalDepartmentSeconds)}
+            </div>
+          </div>
+
+          <div
+            style={{
+              backgroundColor: "var(--bg-secondary)",
+              border: "1px solid var(--border-light)",
+              borderRadius: 8,
+              padding: "1rem 1.25rem",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <div style={{ fontSize: "0.78rem", fontWeight: 600, color: "var(--text-muted)" }}>Görev Dışı Personel</div>
+            <div style={{ fontSize: "1.55rem", fontWeight: 800, color: "var(--text-secondary)", marginTop: 4, fontVariantNumeric: "tabular-nums" }}>
+              {Math.max(0, leaderboard.length - activeCount)}
+            </div>
+          </div>
+
+          <div
+            style={{
+              backgroundColor: "var(--bg-secondary)",
+              border: "1px solid var(--border-light)",
+              borderRadius: 8,
+              padding: "1rem 1.25rem",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <div style={{ fontSize: "0.78rem", fontWeight: 600, color: "var(--text-muted)" }}>Birim / Departman</div>
+            <div style={{ fontSize: "1.05rem", fontWeight: 700, color: "var(--LAC-orange)", marginTop: 6, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+              {user?.department || "Patrol Division"}
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* FILTERS AND TABLE */}
-      <div style={glassCard}>
-        
-        {/* Toolbar */}
-        <div style={{ padding: "1.5rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem", borderBottom: "1px solid var(--border-light)", background: "rgba(10,14,26,0.5)" }}>
-          
-          <div style={{ display: "flex", gap: "0.5rem" }}>
+      {/* ── PERSONNEL SHIFT TABLE CARD ── */}
+      <div
+        style={{
+          backgroundColor: "var(--bg-secondary)",
+          border: "1px solid var(--border-light)",
+          borderRadius: 8,
+          overflow: "hidden",
+        }}
+      >
+        {/* Filter Toolbar */}
+        <div
+          style={{
+            padding: "1rem 1.25rem",
+            borderBottom: "1px solid var(--border-light)",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: "0.75rem",
+          }}
+        >
+          <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
             {[
-              { id: "ALL", label: "Tüm Kadro" },
-              { id: "ACTIVE", label: "Aktif Devriyede" },
-              { id: "OFF_DUTY", label: "İstirahatte" },
-              { id: "TOP10", label: "Top 10" }
-            ].map(tab => (
-              <button
-                key={tab.id}
-                onClick={() => setFilterMode(tab.id as any)}
-                className={`filter-btn ${filterMode === tab.id ? 'active' : ''}`}
-              >
-                {tab.label}
-              </button>
-            ))}
+              { id: "ALL", label: `Tüm Kadro (${leaderboard.length})` },
+              { id: "ACTIVE", label: `Aktif Görevde (${activeCount})` },
+              { id: "OFF_DUTY", label: `Görev Dışı (${leaderboard.length - activeCount})` },
+              { id: "TOP10", label: "İlk 10 Sıralama" },
+            ].map((tab) => {
+              const isActive = filterMode === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setFilterMode(tab.id as any)}
+                  style={{
+                    padding: "0.48rem 0.9rem",
+                    borderRadius: 6,
+                    backgroundColor: isActive ? "#041632" : "var(--bg-primary)",
+                    color: isActive ? "#ffffff" : "var(--text-secondary)",
+                    border: isActive ? "1px solid #041632" : "1px solid var(--border-light)",
+                    fontSize: "0.82rem",
+                    fontWeight: 600,
+                    cursor: "pointer",
+                  }}
+                >
+                  {tab.label}
+                </button>
+              );
+            })}
           </div>
 
-          <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+          <div style={{ display: "flex", gap: "0.6rem", alignItems: "center", flexWrap: "wrap" }}>
             <select
               value={selectedDept}
-              onChange={e => setSelectedDept(e.target.value)}
-              className="custom-input"
-              style={{ 
-                ...inputStyle,
-                width: "auto",
+              onChange={(e) => setSelectedDept(e.target.value)}
+              style={{
+                padding: "0.48rem 0.85rem",
+                borderRadius: 6,
+                backgroundColor: "var(--bg-primary)",
+                border: "1px solid var(--border-strong)",
+                color: "var(--text-primary)",
+                fontSize: "0.84rem",
+                fontWeight: 500,
                 cursor: "pointer",
               }}
             >
-              {departments.map(d => <option key={d} value={d} style={{ background: "var(--bg-primary)", color: "var(--text-primary)" }}>{d === "ALL" ? "Tüm Departmanlar" : d}</option>)}
+              {departments.map((d) => (
+                <option key={d} value={d}>
+                  {d === "ALL" ? "Tüm Birimler" : d}
+                </option>
+              ))}
             </select>
 
             <div style={{ position: "relative" }}>
-              <i className="fa-solid fa-search" style={{ position: "absolute", left: "0.9rem", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)", fontSize: "0.8rem" }}></i>
+              <i
+                className="fa-solid fa-magnifying-glass"
+                style={{ position: "absolute", left: 11, top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)", fontSize: "0.8rem" }}
+              />
               <input
                 type="text"
-                placeholder="Personel ara..."
+                placeholder="İsim, rozet veya rütbe ara..."
                 value={searchTerm}
-                onChange={e => setSearchTerm(e.target.value)}
-                className="custom-input"
-                style={{ 
-                  ...inputStyle,
-                  paddingLeft: "2.2rem",
-                  width: "220px",
+                onChange={(e) => setSearchTerm(e.target.value)}
+                style={{
+                  padding: "0.48rem 0.85rem 0.48rem 2.1rem",
+                  borderRadius: 6,
+                  backgroundColor: "var(--bg-primary)",
+                  border: "1px solid var(--border-strong)",
+                  color: "var(--text-primary)",
+                  fontSize: "0.84rem",
+                  width: 230,
+                  outline: "none",
                 }}
               />
             </div>
           </div>
         </div>
 
-        {/* Data List Header */}
-        <div style={{ display: "flex", padding: "1rem 1.5rem", fontSize: "0.78rem", fontWeight: 800, color: "var(--text-secondary)", letterSpacing: "0.04em", textTransform: "uppercase", borderBottom: "1px solid rgba(255,255,255,0.02)" }}>
-          <div style={{ flex: "0 0 80px" }}>SIRA</div>
-          <div style={{ flex: "2" }}>PERSONEL</div>
-          <div style={{ flex: "1.5" }}>BİRİM / RÜTBE</div>
-          <div style={{ flex: "1" }}>DURUM</div>
-          <div style={{ flex: "1", textAlign: "right" }}>SÜRE</div>
-          {user?.role === "admin" && <div style={{ flex: "0 0 60px" }}></div>}
-        </div>
-
-        {/* Data List Rows */}
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          {filteredList.map((off) => {
-            const idx = leaderboard.indexOf(off);
-            const secs = liveTicks[off.id] !== undefined ? liveTicks[off.id] : off.totalSeconds;
-            const rankStyle = getRankBadge(idx);
-
-            return (
-              <div key={off.id} className="leaderboard-row" style={{ display: "flex", alignItems: "center", padding: "1rem 1.5rem", borderBottom: "1px solid rgba(255,255,255,0.02)", background: idx % 2 === 0 ? "rgba(29,110,247,0.01)" : "transparent" }}>
-                
-                {/* SIRA */}
-                <div style={{ flex: "0 0 80px", display: "flex", alignItems: "center" }}>
-                  <div style={{ 
-                    width: "36px", height: "36px", borderRadius: "10px", 
-                    background: rankStyle.bg, color: rankStyle.color, border: rankStyle.border,
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: "0.9rem", fontWeight: 800, fontFamily: "inherit"
-                  }}>
-                    {idx < 3 ? <i className={`fa-solid ${rankStyle.icon}`}></i> : `#${idx + 1}`}
-                  </div>
-                </div>
-
-                {/* PERSONEL */}
-                <div style={{ flex: "2", display: "flex", flexDirection: "column" }}>
-                  <div style={{ fontWeight: 700, color: "var(--text-primary)", fontSize: "0.95rem" }}>{off.name}</div>
-                  <div style={{ fontSize: "0.75rem", color: "var(--text-secondary)", fontFamily: "inherit", marginTop: "0.15rem" }}>#{off.badge}</div>
-                </div>
-
-                {/* BİRİM / RÜTBE */}
-                <div style={{ flex: "1.5", display: "flex", flexDirection: "column" }}>
-                  <div style={{ fontWeight: 600, fontSize: "0.85rem", color: "var(--text-primary)" }}>{off.rank}</div>
-                  <div style={{ fontSize: "0.75rem", color: "var(--text-secondary)", marginTop: "0.15rem" }}>{off.department || "-"}</div>
-                </div>
-
-                {/* DURUM */}
-                <div style={{ flex: "1" }}>
-                  {off.isOnDuty ? (
-                    <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", background: "rgba(0,210,106,0.08)", color: "#00d26a", border: "1px solid rgba(0,210,106,0.2)", padding: "0.3rem 0.6rem", borderRadius: "20px", fontSize: "0.78rem", fontWeight: 800, letterSpacing: "0.08em" }}>
-                      <span className="pulse-dot"></span>
-                      AKTİF
-                    </div>
-                  ) : (
-                    <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", background: "var(--bg-tertiary)", color: "var(--text-secondary)", border: "1px solid var(--border-light)", padding: "0.3rem 0.6rem", borderRadius: "20px", fontSize: "0.78rem", fontWeight: 800, letterSpacing: "0.08em" }}>
-                      <i className="fa-solid fa-moon"></i>
-                      PASİF
-                    </div>
-                  )}
-                </div>
-
-                {/* SÜRE */}
-                <div style={{ flex: "1", textAlign: "right", fontFamily: "inherit", fontWeight: 700, fontSize: "1.1rem", color: off.isOnDuty ? "#00d26a" : "#888" }}>
-                  {formatTime(secs)}
-                </div>
-
-                {/* ACTION */}
+        {/* Table */}
+        <div style={{ overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
+            <thead>
+              <tr style={{ backgroundColor: "var(--bg-tertiary)", borderBottom: "1px solid var(--border-light)" }}>
+                <th style={{ padding: "0.85rem 1.25rem", fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)", width: 80 }}>
+                  Sıra
+                </th>
+                <th style={{ padding: "0.85rem 1.25rem", fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)" }}>
+                  Personel
+                </th>
+                <th style={{ padding: "0.85rem 1.25rem", fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)" }}>
+                  Rütbe & Birim
+                </th>
+                <th style={{ padding: "0.85rem 1.25rem", fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)" }}>
+                  Nöbet Durumu
+                </th>
+                <th style={{ padding: "0.85rem 1.25rem", fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)", textAlign: "right" }}>
+                  Toplam Süre
+                </th>
                 {user?.role === "admin" && (
-                  <div style={{ flex: "0 0 60px", display: "flex", justifyContent: "flex-end" }}>
-                    {off.isOnDuty && off.id !== user?.id && (
-                      <button onClick={() => forceEndShift(off)} title="Mesaiyi Kapat" className="action-btn">
-                        <i className="fa-solid fa-power-off"></i>
-                      </button>
-                    )}
-                  </div>
+                  <th style={{ padding: "0.85rem 1.25rem", fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)", textAlign: "right", width: 120 }}>
+                    İşlem
+                  </th>
                 )}
-              </div>
-            );
-          })}
-          
-          {filteredList.length === 0 && (
-            <div style={{ padding: "4rem 2rem", textAlign: "center" }}>
-              <div style={{ width: 56, height: 56, borderRadius: "50%", background: "var(--bg-tertiary)", border: "1px solid var(--border-light)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1rem" }}>
-                <i className="fa-solid fa-ghost" style={{ color: "var(--border-strong)", fontSize: "1.3rem" }} />
-              </div>
-              <div style={{ fontSize: "0.85rem", color: "var(--text-muted)", fontWeight: 500 }}>Kayıt bulunamadı.</div>
-            </div>
-          )}
+              </tr>
+            </thead>
+            <tbody>
+              {filteredList.length === 0 ? (
+                <tr>
+                  <td colSpan={user?.role === "admin" ? 6 : 5} style={{ padding: "3rem", textAlign: "center", color: "var(--text-muted)" }}>
+                    Seçili filtreye uygun personel kaydı bulunamadı.
+                  </td>
+                </tr>
+              ) : (
+                filteredList.map((off) => {
+                  const idx = leaderboard.indexOf(off);
+                  const secs = liveTicks[off.id] !== undefined ? liveTicks[off.id] : off.totalSeconds;
+                  const isMe = off.id === user?.id;
+
+                  return (
+                    <tr
+                      key={off.id}
+                      style={{
+                        borderBottom: "1px solid var(--border-light)",
+                        backgroundColor: isMe ? "rgba(4,22,50,0.03)" : "transparent",
+                      }}
+                    >
+                      <td style={{ padding: "0.9rem 1.25rem" }}>
+                        <span
+                          style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            minWidth: 32,
+                            height: 28,
+                            padding: "0 0.45rem",
+                            borderRadius: 6,
+                            fontSize: "0.8rem",
+                            fontWeight: 700,
+                            backgroundColor:
+                              idx === 0
+                                ? "rgba(217,119,6,0.14)"
+                                : idx === 1
+                                ? "rgba(100,116,139,0.14)"
+                                : idx === 2
+                                ? "rgba(232,79,42,0.14)"
+                                : "var(--bg-tertiary)",
+                            color:
+                              idx === 0
+                                ? "#b45309"
+                                : idx === 1
+                                ? "#475569"
+                                : idx === 2
+                                ? "var(--LAC-orange)"
+                                : "var(--text-secondary)",
+                          }}
+                        >
+                          #{idx + 1}
+                        </span>
+                      </td>
+
+                      <td style={{ padding: "0.9rem 1.25rem" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                          <div
+                            style={{
+                              width: 36,
+                              height: 36,
+                              borderRadius: 8,
+                              backgroundColor: off.isOnDuty ? "#041632" : "var(--bg-tertiary)",
+                              color: off.isOnDuty ? "#ffffff" : "var(--text-secondary)",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              fontSize: "0.85rem",
+                              fontWeight: 700,
+                              flexShrink: 0,
+                            }}
+                          >
+                            {off.name?.charAt(0)}
+                          </div>
+                          <div>
+                            <div style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--text-primary)" }}>
+                              {off.name}{" "}
+                              <span style={{ color: "var(--LAC-orange)", fontWeight: 700, fontSize: "0.82rem" }}>
+                                #{off.badge}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+
+                      <td style={{ padding: "0.9rem 1.25rem" }}>
+                        <div style={{ fontSize: "0.86rem", fontWeight: 600, color: "var(--text-primary)" }}>{off.rank}</div>
+                        <div style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>{off.department || "Patrol Division"}</div>
+                      </td>
+
+                      <td style={{ padding: "0.9rem 1.25rem" }}>
+                        <span
+                          style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "0.4rem",
+                            padding: "0.24rem 0.65rem",
+                            borderRadius: 6,
+                            fontSize: "0.76rem",
+                            fontWeight: 700,
+                            backgroundColor: off.isOnDuty ? "var(--color-success-bg)" : "var(--bg-tertiary)",
+                            color: off.isOnDuty ? "var(--color-success)" : "var(--text-muted)",
+                            border: off.isOnDuty ? "1px solid var(--color-success-border)" : "1px solid var(--border-light)",
+                          }}
+                        >
+                          <span
+                            style={{
+                              width: 7,
+                              height: 7,
+                              borderRadius: "50%",
+                              backgroundColor: off.isOnDuty ? "#16a34a" : "#94a3b8",
+                            }}
+                          />
+                          {off.isOnDuty ? "Görevde (10-8)" : "Görev Dışı"}
+                        </span>
+                      </td>
+
+                      <td style={{ padding: "0.9rem 1.25rem", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>
+                        <div style={{ fontSize: "0.92rem", fontWeight: 700, color: off.isOnDuty ? "#16a34a" : "var(--text-primary)" }}>
+                          {formatTime(secs)}
+                        </div>
+                        <div style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>{formatHoursMinimal(secs)}</div>
+                      </td>
+
+                      {user?.role === "admin" && (
+                        <td style={{ padding: "0.9rem 1.25rem", textAlign: "right" }}>
+                          {off.isOnDuty && (
+                            <button
+                              onClick={() => forceEndShift(off)}
+                              title="Mesaiyi Kapat"
+                              style={{
+                                padding: "0.38rem 0.7rem",
+                                borderRadius: 6,
+                                backgroundColor: "var(--color-danger-bg)",
+                                border: "1px solid var(--color-danger-border)",
+                                color: "var(--color-danger)",
+                                fontSize: "0.76rem",
+                                fontWeight: 600,
+                                cursor: "pointer",
+                              }}
+                            >
+                              Mesaiyi Kapat
+                            </button>
+                          )}
+                        </td>
+                      )}
+                    </tr>
+                  );
+                })
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

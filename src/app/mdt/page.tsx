@@ -257,7 +257,27 @@ export default function MDTDashboard() {
         <div style={{ display: "flex", alignItems: "center", gap: "1.5rem", flexWrap: "wrap" }}>
           <LiveClock />
 
-          <div style={{ display: "flex", gap: "0.65rem" }}>
+          <div style={{ display: "flex", gap: "0.65rem", flexWrap: "wrap" }}>
+            <Link
+              href="/mdt/taktik"
+              style={{
+                backgroundColor: "var(--bg-primary)",
+                color: "var(--text-primary)",
+                border: "1px solid var(--border-strong)",
+                padding: "0.6rem 1.1rem",
+                fontSize: "0.84rem",
+                fontWeight: 600,
+                textDecoration: "none",
+                borderRadius: "6px",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.45rem",
+              }}
+            >
+              <i className="fa-solid fa-map-location-dot" style={{ fontSize: "0.78rem", color: "var(--LAC-orange)" }} />
+              Taktiksel Planlama
+            </Link>
+
             <Link
               href="/mdt/raporlar"
               style={{
