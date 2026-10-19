@@ -1,14 +1,14 @@
 export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { jwtVerify } from 'jose';
+import { jwtVerify, getJwtSecret } from '@/lib/session-verify';
 
 const getUser = async (req: Request) => {
   const cookie = req.headers.get('cookie') || '';
   const token = cookie.split('auth_token=')[1]?.split(';')[0];
   if (!token) return null;
   try {
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET || 'default_secret');
+    const secret = getJwtSecret();
     const { payload } = await jwtVerify(token, secret);
     return payload;
   } catch {

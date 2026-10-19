@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { jwtVerify } from "jose";
+import { jwtVerify } from '@/lib/session-verify';
 import { prisma } from "@/lib/prisma";
 import { getJwtSecret } from "@/lib/auth-config";
 

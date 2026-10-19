@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { cookies } from 'next/headers';
-import * as jose from 'jose';
+import { jwtVerify, getJwtSecret } from '@/lib/session-verify';
 
 export const dynamic = 'force-dynamic';
 
@@ -10,8 +10,8 @@ export async function GET(req: Request) {
     const token = cookies().get('auth_token')?.value;
     if (!token) return NextResponse.json({ count: 0 });
 
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET || 'default_secret');
-    const { payload } = await jose.jwtVerify(token, secret);
+    const secret = getJwtSecret();
+    const { payload } = await jwtVerify(token, secret);
     
     if (!payload.id) return NextResponse.json({ count: 0 });
     

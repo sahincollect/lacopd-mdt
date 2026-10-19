@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { SignJWT } from "jose";
-import { getAuthBaseUrl, extractRedirectUriFromState, getJwtSecret } from "@/lib/auth-config";
+import { getAuthBaseUrl, extractRedirectUriFromState, extractNonceFromState, getJwtSecret, safeEqual } from "@/lib/auth-config";
 
 export async function GET(req: Request) {
   const url = new URL(req.url);
@@ -35,13 +35,23 @@ export async function GET(req: Request) {
     );
   }
 
-  // 1. /login anında Discord'a iletilen birebir redirect_uri'yi belirle
-  // Öncelik: state parametresi (ters proxy/alan adı değişimlerine karşı %100 dayanıklı) -> cookie -> dinamik
-  const stateRedirectUri = extractRedirectUriFromState(state);
+  // 1. CSRF dogrulamasi: state icindeki nonce, login'de set edilen HttpOnly cerezle birebir eslesmeli.
   const cookieHeader = req.headers.get("cookie") || "";
-  const cookieMatch = cookieHeader.split("; ").find((c) => c.startsWith("discord_oauth_redirect_uri="));
-  const cookieRedirectUri = cookieMatch ? decodeURIComponent(cookieMatch.split("=")[1]) : null;
+  const readCookie = (name: string) => {
+    const m = cookieHeader.split(";").map((c) => c.trim()).find((c) => c.startsWith(name + "="));
+    return m ? decodeURIComponent(m.slice(name.length + 1)) : null;
+  };
+  const stateNonce = extractNonceFromState(state);
+  const cookieNonce = readCookie("discord_oauth_state");
+  if (!stateNonce || !cookieNonce || !safeEqual(stateNonce, cookieNonce)) {
+    return NextResponse.redirect(
+      `${baseUrl}/giris?error=state_mismatch&detail=${encodeURIComponent("Oturum dogrulamasi basarisiz. Lutfen tekrar Discord ile giris yapin.")}`
+    );
+  }
 
+  // redirect_uri, login'de Discord'a iletilen degerle birebir ayni olmali (state dogrulandigi icin guvenilir).
+  const stateRedirectUri = extractRedirectUriFromState(state);
+  const cookieRedirectUri = readCookie("discord_oauth_redirect_uri");
   const redirectUri = stateRedirectUri || cookieRedirectUri || `${baseUrl}/api/auth/discord/callback`;
 
   try {
@@ -164,6 +174,7 @@ export async function GET(req: Request) {
       });
       response.cookies.delete("discord_reg_token");
       response.cookies.delete("discord_oauth_redirect_uri");
+      response.cookies.delete("discord_oauth_state");
       return response;
     }
 
@@ -196,6 +207,7 @@ export async function GET(req: Request) {
       secure: !baseUrl.includes("localhost"),
     });
     response.cookies.delete("discord_oauth_redirect_uri");
+      response.cookies.delete("discord_oauth_state");
     return response;
   } catch (err: any) {
     console.error("Discord Auth Callback Error:", err);

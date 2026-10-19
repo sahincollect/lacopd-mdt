@@ -296,17 +296,6 @@ export default function HighCommandSecretAdminPage() {
     }
   };
 
-  const handleDbSync = async () => {
-    const res = await fetch("/api/admin/db-sync");
-    const data = await res.json();
-    if (data.success) {
-      toast.success(data.message);
-      mutateOfficers();
-    } else {
-      toast.error(data.error || "Senkronizasyon hatası.");
-    }
-  };
-
   const handleUpdateUnitStatus = async (id: number, status: string) => {
     const res = await fetch(`/api/basvuru/${id}`, {
       method: "PUT",
@@ -1870,44 +1859,6 @@ export default function HighCommandSecretAdminPage() {
          ════════════════════════════════════════════════════════════════ */}
       {activeTab === "SISTEM" && (
         <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-          <div
-            style={{
-              backgroundColor: "var(--bg-secondary)",
-              border: "1px solid var(--border-light)",
-              borderRadius: 8,
-              padding: "1.25rem 1.5rem",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              flexWrap: "wrap",
-              gap: "1rem",
-            }}
-          >
-            <div>
-              <h3 style={{ margin: "0 0 0.25rem", fontSize: "1rem", fontWeight: 700, color: "var(--text-primary)" }}>
-                Yüksek Komuta Veritabanı Senkronizasyonu
-              </h3>
-              <p style={{ margin: 0, fontSize: "0.84rem", color: "var(--text-secondary)" }}>
-                Kurucu Yüksek Komuta (#1222) yetkilerini doğrular ve veritabanı bağlantısını senkronize eder.
-              </p>
-            </div>
-            <button
-              onClick={handleDbSync}
-              style={{
-                padding: "0.6rem 1.25rem",
-                borderRadius: 6,
-                backgroundColor: "#041632",
-                color: "#ffffff",
-                border: "none",
-                fontSize: "0.84rem",
-                fontWeight: 600,
-                cursor: "pointer",
-              }}
-            >
-              Veritabanını Senkronize Et
-            </button>
-          </div>
-
           <div
             style={{
               backgroundColor: "var(--bg-secondary)",

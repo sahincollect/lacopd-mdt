@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { jwtVerify } from 'jose';
+import { jwtVerify, getJwtSecret } from '@/lib/session-verify';
 
 export async function DELETE(req: Request, { params }: { params: { id: string } }) {
   try {
@@ -9,7 +9,7 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
     const token = authHeader?.split('auth_token=')[1]?.split(';')[0];
     if (!token) return NextResponse.json({ error: 'Yetkisiz erişim.' }, { status: 401 });
 
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET || "default_secret");
+    const secret = getJwtSecret();
     const { payload } = await jwtVerify(token, secret);
 
     if (payload.role !== 'admin') {
@@ -30,7 +30,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
     const token = authHeader?.split('auth_token=')[1]?.split(';')[0];
     if (!token) return NextResponse.json({ error: 'Yetkisiz erişim.' }, { status: 401 });
 
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET || "default_secret");
+    const secret = getJwtSecret();
     const { payload } = await jwtVerify(token, secret);
 
     if (payload.role !== 'admin') {

@@ -1,9 +1,15 @@
 export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
+import { getAuthedOfficer } from '@/lib/session-verify';
 
 export async function POST(req: Request) {
+  const me = await getAuthedOfficer(req);
+  if (!me) return NextResponse.json({ error: 'Yetkisiz erisim.' }, { status: 401 });
   try {
     const body = await req.json();
+    if (typeof body?.narrativeInput === 'string' && body.narrativeInput.length > 8000) {
+      return NextResponse.json({ error: 'Anlatim cok uzun (en fazla 8000 karakter).' }, { status: 413 });
+    }
     const { narrativeInput, templateId, templateName, templateFields, customApiKey } = body;
 
     if (!narrativeInput || !templateFields) {

@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { jwtVerify, SignJWT } from "jose";
+import { jwtVerify } from "jose";
 import { getJwtSecret } from "@/lib/auth-config";
 
 export async function GET(req: NextRequest) {
@@ -48,6 +48,13 @@ export async function POST(req: NextRequest) {
     const rank = (body.rank || "").trim();
     const department = (body.department || "Patrol Division").trim();
 
+    if (name.length > 60 || badge.length > 12 || rank.length > 40 || department.length > 60) {
+      return NextResponse.json({ error: "Girilen bilgiler çok uzun." }, { status: 400 });
+    }
+    if (!/^[0-9A-Za-z-]{1,12}$/.test(badge)) {
+      return NextResponse.json({ error: "Rozet numarası yalnızca harf, rakam ve tire içerebilir." }, { status: 400 });
+    }
+
     if (!name || !badge || !rank) {
       return NextResponse.json(
         { error: "IC Ad Soyad, Rozet Numarası ve Rütbe alanlarının tamamı zorunludur." },
@@ -69,57 +76,6 @@ export async function POST(req: NextRequest) {
         },
         redirect: existingByDiscord.status === "APPROVED" ? "/mdt" : undefined,
       });
-    }
-
-    // Kurucu Admin henüz Discord hesabını bağlamadıysa, ilk bağlanan kurucu hesabı doğrudan eşleştir
-    const unlinkedAdmin = await prisma.officer.findFirst({
-      where: {
-        role: "admin",
-        discordId: null,
-      },
-    });
-
-    if (unlinkedAdmin) {
-      const updatedAdmin = await prisma.officer.update({
-        where: { id: unlinkedAdmin.id },
-        data: {
-          discordId,
-          name,
-          badge,
-          rank,
-          department: department || unlinkedAdmin.department,
-          profileImage: avatarUrl,
-          role: "admin",
-          status: "APPROVED",
-        },
-      });
-
-      const authToken = await new SignJWT({
-        id: updatedAdmin.id,
-        badge: updatedAdmin.badge,
-        role: updatedAdmin.role,
-        name: updatedAdmin.name,
-      })
-        .setProtectedHeader({ alg: "HS256" })
-        .setExpirationTime("30d")
-        .sign(secret);
-
-      const res = NextResponse.json({
-        success: true,
-        status: "APPROVED",
-        redirect: "/mdt",
-      });
-      res.cookies.set({
-        name: "auth_token",
-        value: authToken,
-        httpOnly: true,
-        path: "/",
-        maxAge: 60 * 60 * 24 * 30,
-        sameSite: "lax",
-        secure: process.env.NODE_ENV === "production",
-      });
-      res.cookies.delete("discord_reg_token");
-      return res;
     }
 
     // Rozet numarası başka bir memurda var mı kontrol et

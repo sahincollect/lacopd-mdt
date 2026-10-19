@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { jwtVerify } from 'jose';
+import { jwtVerify } from '@/lib/session-verify';
 import { getJwtSecret } from '@/lib/auth-config';
 
 // GET - Admin only: fetch all civil applications

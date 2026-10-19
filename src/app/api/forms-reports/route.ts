@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { jwtVerify } from 'jose';
+import { jwtVerify, getJwtSecret } from '@/lib/session-verify';
 
 export async function GET(req: Request) {
   try {
@@ -42,7 +42,7 @@ export async function POST(req: Request) {
     let user: any = null;
     if (token) {
       try {
-        const secret = new TextEncoder().encode(process.env.JWT_SECRET || "default_secret");
+        const secret = getJwtSecret();
         const { payload } = await jwtVerify(token, secret);
         user = payload;
       } catch (e) {}
@@ -109,7 +109,7 @@ export async function DELETE(req: Request) {
     let user: any = null;
     if (token) {
       try {
-        const secret = new TextEncoder().encode(process.env.JWT_SECRET || "default_secret");
+        const secret = getJwtSecret();
         const { payload } = await jwtVerify(token, secret);
         user = payload;
       } catch (e) {}

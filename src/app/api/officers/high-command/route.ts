@@ -1,8 +1,11 @@
 export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { getAuthedOfficer } from '@/lib/session-verify';
 
-export async function GET() {
+export async function GET(req: Request) {
+  const me = await getAuthedOfficer(req);
+  if (!me) return NextResponse.json({ error: 'Yetkisiz erisim.' }, { status: 401 });
   try {
     // Sadece yüksek rütbeli memurları (admin, Şef, Captain vb.) getir.
     // Şifre gibi hassas verileri kesinlikle seçmiyoruz. (Public Endpoint)

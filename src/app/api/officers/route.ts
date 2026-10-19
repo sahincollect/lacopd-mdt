@@ -3,14 +3,16 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 
-import { jwtVerify } from 'jose';
+import { jwtVerify, getJwtSecret, getAuthedOfficer } from '@/lib/session-verify';
 
 export async function GET(req: Request) {
   try {
-    // Memur listesi 'hakkimizda' sayfası gibi açık alanlarda kullanıldığı için 
-    // yetkilendirme kontrolünü (token) kaldırıyoruz. 
-    // SADECE GÜVENLİ ALANLARI çekiyoruz (şifreleri asla döndürmeyin!).
+    // Acik alanlarda (hakkimizda vb.) kullanildigi icin giris zorunlu degil; ancak giris yapmamis
+    // ziyaretciler SADECE onayli (APPROVED) memurlari gorur. PENDING/REJECTED yalnizca adminlere.
+    const viewer = await getAuthedOfficer(req);
+    const isAdmin = viewer?.role === 'admin';
     const officers = await prisma.officer.findMany({
+      where: isAdmin ? undefined : { status: 'APPROVED' },
       orderBy: { createdAt: 'desc' },
       select: {
         id: true,
@@ -38,7 +40,7 @@ export async function POST(req: Request) {
     const token = authHeader?.split('auth_token=')[1]?.split(';')[0];
     if (!token) return NextResponse.json({ error: 'Yetkisiz erişim.' }, { status: 401 });
 
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET || "default_secret");
+    const secret = getJwtSecret();
     const { payload } = await jwtVerify(token, secret);
 
     const requester = await prisma.officer.findUnique({ where: { id: payload.id as number } });

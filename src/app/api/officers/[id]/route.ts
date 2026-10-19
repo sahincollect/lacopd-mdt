@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 
-import { jwtVerify } from 'jose';
+import { jwtVerify, getJwtSecret } from '@/lib/session-verify';
 
 export async function GET(req: Request, { params }: { params: { id: string } }) {
   try {
@@ -11,12 +11,18 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
     const token = authHeader?.split('auth_token=')[1]?.split(';')[0];
     if (!token) return NextResponse.json({ error: 'Yetkisiz erişim.' }, { status: 401 });
     
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET || "default_secret");
+    const secret = getJwtSecret();
     await jwtVerify(token, secret);
 
     const id = parseInt(params.id);
-    const officer = await prisma.officer.findUnique({ where: { id } });
-    if (!officer) return NextResponse.json({ error: 'Memur bulunamadı.' }, { status: 404 });
+    const officer = await prisma.officer.findUnique({
+      where: { id },
+      select: {
+        id: true, badge: true, name: true, rank: true, department: true, role: true, status: true,
+        specialRoles: true, isOnDuty: true, profileImage: true, createdAt: true,
+      },
+    });
+    if (!officer) return NextResponse.json({ error: 'Memur bulunamadi.' }, { status: 404 });
     return NextResponse.json({ officer });
   } catch {
     return NextResponse.json({ error: 'Memur getirilemedi veya yetkisiz erişim.' }, { status: 401 });
@@ -29,7 +35,7 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
     const token = authHeader?.split('auth_token=')[1]?.split(';')[0];
     if (!token) return NextResponse.json({ error: 'Yetkisiz erişim.' }, { status: 401 });
 
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET || "default_secret");
+    const secret = getJwtSecret();
     const { payload } = await jwtVerify(token, secret);
 
     const requester = await prisma.officer.findUnique({ where: { id: payload.id as number } });
@@ -60,7 +66,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
     const token = authHeader?.split('auth_token=')[1]?.split(';')[0];
     if (!token) return NextResponse.json({ error: 'Yetkisiz erişim.' }, { status: 401 });
 
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET || "default_secret");
+    const secret = getJwtSecret();
     const { payload } = await jwtVerify(token, secret);
     
     const requesterId = payload.id as number;

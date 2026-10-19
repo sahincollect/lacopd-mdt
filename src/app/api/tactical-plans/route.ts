@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getAuthedOfficer } from "@/lib/session-verify";
 
 const SETTING_KEY = "tactical_plans_v2";
 
@@ -53,7 +54,9 @@ async function savePlans(plans: any[]) {
   });
 }
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const me = await getAuthedOfficer(req);
+  if (!me) return NextResponse.json({ error: "Yetkisiz erişim." }, { status: 401 });
   try {
     const plans = await getPlans();
     return NextResponse.json({ plans });
@@ -64,8 +67,14 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  const me = await getAuthedOfficer(req);
+  if (!me) return NextResponse.json({ error: "Yetkisiz erişim." }, { status: 401 });
   try {
-    const body = await req.json();
+    const raw = await req.text();
+    if (raw.length > 1_500_000) {
+      return NextResponse.json({ error: "İstek çok büyük." }, { status: 413 });
+    }
+    const body = JSON.parse(raw);
     const plans = await getPlans();
 
     if (body.action === "CREATE_PLAN") {
@@ -98,6 +107,9 @@ export async function POST(req: NextRequest) {
     }
 
     if (body.action === "DELETE_PLAN" && body.planId) {
+      if (me.role !== "admin") {
+        return NextResponse.json({ error: "Plan silmek için yönetici yetkisi gereklidir." }, { status: 403 });
+      }
       const filtered = plans.filter((p: any) => p.id !== body.planId);
       const updated = filtered.length > 0 ? filtered : DEFAULT_PLANS;
       await savePlans(updated);

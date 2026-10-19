@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { jwtVerify } from 'jose';
+import { jwtVerify, getJwtSecret } from '@/lib/session-verify';
 
 export async function GET(req: Request) {
   try {
@@ -9,7 +9,7 @@ export async function GET(req: Request) {
     const token = authHeader?.split('auth_token=')[1]?.split(';')[0];
     if (!token) return NextResponse.json({ error: 'Yetkisiz erişim.' }, { status: 401 });
 
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET || "default_secret");
+    const secret = getJwtSecret();
     await jwtVerify(token, secret);
 
     const reports = await prisma.report.findMany({
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
     const token = authHeader?.split('auth_token=')[1]?.split(';')[0];
     if (!token) return NextResponse.json({ error: 'Yetkisiz erişim.' }, { status: 401 });
 
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET || "default_secret");
+    const secret = getJwtSecret();
     const { payload } = await jwtVerify(token, secret);
     
     const body = await req.json();
