@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 import { jwtVerify } from 'jose';
+import { getJwtSecret } from '@/lib/auth-config';
 
 export async function POST(req: Request) {
   try {
@@ -14,10 +15,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Oturum bulunamadı. Lütfen tekrar giriş yapın.' }, { status: 401 });
     }
 
-    if (!process.env.JWT_SECRET) {
-      return NextResponse.json({ error: 'Sistem yapılandırma hatası: JWT_SECRET tanımlanmamış.' }, { status: 500 });
-    }
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+    const secret = getJwtSecret();
     const { payload } = await jwtVerify(token, secret);
     const officerId = payload.id as number;
 

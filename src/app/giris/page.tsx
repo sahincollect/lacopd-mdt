@@ -48,6 +48,12 @@ export default function GirisPage() {
 
 function GirisPageContent() {
   const [error, setError] = useState("");
+  const [loginError, setLoginError] = useState<{
+    title: string;
+    description: string;
+    detail?: string;
+    uri?: string;
+  } | null>(null);
   const [step, setStep] = useState<"login" | "register" | "pending">("login");
 
   // Discord OAuth session state
@@ -75,6 +81,8 @@ function GirisPageContent() {
 
   useEffect(() => {
     const errorParam = searchParams.get("error");
+    const detailParam = searchParams.get("detail");
+    const uriParam = searchParams.get("uri");
     const stepParam = searchParams.get("step");
     const statusParam = searchParams.get("status");
 
@@ -102,6 +110,7 @@ function GirisPageContent() {
     if (stepParam === "register") {
       setStep("register");
       setError("");
+      setLoginError(null);
       // Ayrıca sunucudaki discord_reg_token çerezinden bilgileri doğrula
       fetch("/api/auth/discord/complete")
         .then((r) => r.json())
@@ -119,12 +128,57 @@ function GirisPageContent() {
     } else if (statusParam === "pending") {
       setStep("pending");
       setError("");
+      setLoginError(null);
     } else if (errorParam) {
       setStep("login");
-      if (errorParam === "discord_denied") setError("Discord yetkilendirmesi iptal edildi.");
-      else if (errorParam === "account_rejected")
-        setError("MDT hesap başvurunuz Komuta Merkezi tarafından reddedilmiştir.");
-      else setError("Discord ile kimlik doğrulaması sırasında bir hata oluştu.");
+      if (errorParam === "discord_denied") {
+        setLoginError({
+          title: "Discord Yetkilendirmesi İptal Edildi",
+          description: "Discord üzerinde oturum açma yetkilendirmesi kullanıcı tarafından iptal edildi.",
+          detail: detailParam || undefined,
+        });
+      } else if (errorParam === "account_rejected") {
+        setLoginError({
+          title: "Başvuru Reddedildi",
+          description: "MDT hesap başvurunuz Yüksek Komuta Merkezi tarafından reddedilmiştir.",
+        });
+      } else if (errorParam === "discord_token_failed") {
+        setLoginError({
+          title: "Discord Token Takas Hatası",
+          description: "Discord sunucusu ile doğrulama kodu takası yapılamadı (invalid_grant / redirect_uri).",
+          detail: detailParam || undefined,
+          uri: uriParam || undefined,
+        });
+      } else if (errorParam === "discord_user_failed") {
+        setLoginError({
+          title: "Discord Profil Hatası",
+          description: "Discord hesabınızın profil bilgilerine erişilemedi.",
+          detail: detailParam || undefined,
+        });
+      } else if (errorParam === "missing_credentials") {
+        setLoginError({
+          title: "Sistem Yapılandırma Eksikliği",
+          description: "DISCORD_CLIENT_ID veya DISCORD_CLIENT_SECRET çevre değişkeni eksik.",
+          detail: detailParam || undefined,
+        });
+      } else if (errorParam === "server_error") {
+        setLoginError({
+          title: "Sunucu / Veritabanı Hatası",
+          description: "Veritabanı bağlantısı veya JWT oturumu oluşturulurken bir hata oluştu.",
+          detail: detailParam || undefined,
+        });
+      } else if (errorParam === "no_code") {
+        setLoginError({
+          title: "Yetkilendirme Kodu Eksik",
+          description: "Discord yönlendirmesinden oturum kodu alınamadı.",
+        });
+      } else {
+        setLoginError({
+          title: "Kimlik Doğrulama Hatası",
+          description: `Giriş işlemi sırasında hata oluştu: ${errorParam}`,
+          detail: detailParam || undefined,
+        });
+      }
     }
   }, [searchParams]);
 
@@ -565,25 +619,73 @@ function GirisPageContent() {
                     </p>
                   </div>
 
-                  {error && (
+                  {loginError && (
                     <div
                       style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "10px",
                         backgroundColor: "var(--color-danger-bg)",
                         border: "1px solid var(--color-danger-border)",
                         borderLeft: "4px solid var(--color-danger)",
                         color: "var(--color-danger)",
-                        padding: "12px 14px",
+                        padding: "14px 16px",
                         borderRadius: "6px",
-                        fontSize: "0.82rem",
-                        fontWeight: 700,
                         marginBottom: "1.5rem",
                       }}
                     >
-                      <i className="fa-solid fa-circle-exclamation"></i>
-                      {error}
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "8px",
+                          fontWeight: 800,
+                          fontSize: "0.86rem",
+                          marginBottom: "4px",
+                          letterSpacing: "0.02em",
+                        }}
+                      >
+                        <i className="fa-solid fa-triangle-exclamation" />
+                        <span>{loginError.title}</span>
+                      </div>
+                      <div style={{ color: "var(--text-primary)", fontSize: "0.82rem", lineHeight: 1.5 }}>
+                        {loginError.description}
+                      </div>
+                      {loginError.detail && (
+                        <div
+                          style={{
+                            marginTop: "8px",
+                            padding: "6px 10px",
+                            backgroundColor: "rgba(0,0,0,0.06)",
+                            borderRadius: "4px",
+                            fontFamily: "monospace",
+                            fontSize: "0.75rem",
+                            color: "var(--text-primary)",
+                            wordBreak: "break-all",
+                          }}
+                        >
+                          <strong>Detay:</strong> {loginError.detail}
+                        </div>
+                      )}
+                      {loginError.uri && (
+                        <div
+                          style={{
+                            marginTop: "8px",
+                            padding: "8px 10px",
+                            backgroundColor: "var(--bg-primary)",
+                            border: "1px dashed var(--border-strong)",
+                            borderRadius: "4px",
+                            fontSize: "0.72rem",
+                            color: "var(--text-secondary)",
+                            lineHeight: 1.45,
+                          }}
+                        >
+                          <div style={{ fontWeight: 800, color: "var(--text-primary)", marginBottom: "2px" }}>
+                            Kullanılan OAuth Callback URL:
+                          </div>
+                          <code style={{ color: "var(--LAC-orange)", fontWeight: 700 }}>{loginError.uri}</code>
+                          <div style={{ marginTop: "4px", color: "var(--text-muted)", fontSize: "0.7rem" }}>
+                            * Discord Developer Portal &gt; OAuth2 &gt; Redirects listesine bu URL&apos;nin eksiksiz eklendiğinden emin olun.
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )}
 

@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
 import { prisma } from "@/lib/prisma";
+import { getJwtSecret } from "@/lib/auth-config";
 
 export async function GET(req: NextRequest) {
   try {
@@ -12,15 +13,24 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ message: "Oturum açılmamış." }, { status: 401 });
     }
 
-    if (!process.env.JWT_SECRET) {
-      return NextResponse.json({ message: "Sistem yapılandırma hatası: JWT_SECRET tanımlanmamış." }, { status: 500 });
-    }
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+    const secret = getJwtSecret();
     const { payload } = await jwtVerify(token, secret);
 
     const officer = await prisma.officer.findUnique({
       where: { id: payload.id as number },
-      select: { id: true, badge: true, name: true, rank: true, department: true, role: true, isOnDuty: true, specialRoles: true, discordRoles: true, profileImage: true, createdAt: true }
+      select: {
+        id: true,
+        badge: true,
+        name: true,
+        rank: true,
+        department: true,
+        role: true,
+        isOnDuty: true,
+        specialRoles: true,
+        discordRoles: true,
+        profileImage: true,
+        createdAt: true,
+      },
     });
 
     if (!officer) {
@@ -28,7 +38,7 @@ export async function GET(req: NextRequest) {
     }
 
     return NextResponse.json({ user: officer }, { status: 200 });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ message: "Geçersiz token." }, { status: 401 });
   }
 }

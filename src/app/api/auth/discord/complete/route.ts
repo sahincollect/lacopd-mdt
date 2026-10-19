@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { jwtVerify, SignJWT } from "jose";
+import { getJwtSecret } from "@/lib/auth-config";
 
 export async function GET(req: NextRequest) {
   try {
@@ -10,8 +11,7 @@ export async function GET(req: NextRequest) {
     if (!regToken) {
       return NextResponse.json({ authenticated: false }, { status: 200 });
     }
-    const secretString = process.env.JWT_SECRET || "cok-gizli-LAC-anahtari-123";
-    const secret = new TextEncoder().encode(secretString);
+    const secret = getJwtSecret();
     const { payload } = await jwtVerify(regToken, secret);
 
     return NextResponse.json({
@@ -36,8 +36,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const secretString = process.env.JWT_SECRET || "cok-gizli-LAC-anahtari-123";
-    const secret = new TextEncoder().encode(secretString);
+    const secret = getJwtSecret();
     const { payload } = await jwtVerify(regToken, secret);
 
     const discordId = payload.discordId as string;
@@ -72,7 +71,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Kurucu Admin (Şahin) henüz Discord hesabını bağlamadıysa, ilk bağlanan kurucu hesabı doğrudan eşleştir
+    // Kurucu Admin henüz Discord hesabını bağlamadıysa, ilk bağlanan kurucu hesabı doğrudan eşleştir
     const unlinkedAdmin = await prisma.officer.findFirst({
       where: {
         role: "admin",
@@ -116,6 +115,8 @@ export async function POST(req: NextRequest) {
         httpOnly: true,
         path: "/",
         maxAge: 60 * 60 * 24 * 30,
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production",
       });
       res.cookies.delete("discord_reg_token");
       return res;

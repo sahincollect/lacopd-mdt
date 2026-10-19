@@ -2,6 +2,7 @@ export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { jwtVerify } from 'jose';
+import { getJwtSecret } from '@/lib/auth-config';
 
 // PATCH - Admin only: update status
 export async function PATCH(req: Request, { params }: { params: { id: string } }) {
@@ -10,10 +11,7 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
     const token = authHeader?.split('auth_token=')[1]?.split(';')[0];
     if (!token) return NextResponse.json({ error: 'Yetkisiz erişim.' }, { status: 401 });
 
-    if (!process.env.JWT_SECRET) {
-      return NextResponse.json({ error: 'Sistem yapılandırma hatası: JWT_SECRET tanımlanmamış.' }, { status: 500 });
-    }
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+    const secret = getJwtSecret();
     const { payload } = await jwtVerify(token, secret);
     if (payload.role !== 'admin') return NextResponse.json({ error: 'Yetki gereklidir.' }, { status: 403 });
 
@@ -38,10 +36,7 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
     const token = authHeader?.split('auth_token=')[1]?.split(';')[0];
     if (!token) return NextResponse.json({ error: 'Yetkisiz erişim.' }, { status: 401 });
 
-    if (!process.env.JWT_SECRET) {
-      return NextResponse.json({ error: 'Sistem yapılandırma hatası: JWT_SECRET tanımlanmamış.' }, { status: 500 });
-    }
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+    const secret = getJwtSecret();
     const { payload } = await jwtVerify(token, secret);
     if (payload.role !== 'admin') return NextResponse.json({ error: 'Yetki gereklidir.' }, { status: 403 });
 
