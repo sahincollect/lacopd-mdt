@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from 'next/link';
 
@@ -161,7 +161,7 @@ export default function HaberlerPage() {
               {otherNews.slice(0, 3).map((news, index) => (
                 <div 
                   key={news.id} 
-                  style={{ display: 'flex', gap: '1rem', paddingBottom: index !== 2 ? '1.5rem' : '0', borderBottom: index !== 2 ? '1px solid var(--border-light)' : 'none', cursor: 'pointer', group: 'true' }}
+                  style={{ display: 'flex', gap: '1rem', paddingBottom: index !== 2 ? '1.5rem' : '0', borderBottom: index !== 2 ? '1px solid var(--border-light)' : 'none', cursor: 'pointer' }}
                   onMouseOver={e => {
                     const title = e.currentTarget.querySelector('h4');
                     if (title) title.style.color = 'var(--LAC-orange)';

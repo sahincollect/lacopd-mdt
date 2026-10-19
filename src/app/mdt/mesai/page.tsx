@@ -17,20 +17,20 @@ interface OfficerShift {
 }
 
 const glassCard: React.CSSProperties = {
-  background: "#111111",
-  border: "1px solid rgba(255,255,255,0.08)",
-  borderRadius: 8,
+  background: "var(--bg-secondary)",
+  border: "1px solid var(--border-light)",
+  borderRadius: 2,
   overflow: "hidden",
-  boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
+  boxShadow: "0 2px 6px rgba(0,0,0,0.04)",
 };
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
-  background: "#161616",
-  border: "1px solid rgba(255,255,255,0.08)",
-  borderRadius: 8,
+  background: "var(--bg-tertiary)",
+  border: "1px solid var(--border-light)",
+  borderRadius: 2,
   padding: "0.55rem 0.9rem",
-  color: "#ededed",
+  color: "var(--text-primary)",
   fontSize: "0.83rem",
   outline: "none",
   transition: "all 0.18s ease",
@@ -180,9 +180,9 @@ export default function MesaiSistemi() {
 
   const getRankBadge = (idx: number) => {
     if (idx === 0) return { bg: "rgba(245,158,11,0.1)", color: "#f59e0b", border: "1px solid rgba(245,158,11,0.3)", icon: "fa-trophy" }; // Gold
-    if (idx === 1) return { bg: "#2a2a2a", color: "#ededed", border: "1px solid #555", icon: "fa-medal" }; // Silver
+    if (idx === 1) return { bg: "#2a2a2a", color: "var(--text-primary)", border: "1px solid #555", icon: "fa-medal" }; // Silver
     if (idx === 2) return { bg: "rgba(232,79,42,0.1)", color: "#E84F2A", border: "1px solid rgba(232,79,42,0.3)", icon: "fa-award" }; // Bronze
-    return { bg: "transparent", color: "#555", border: "1px solid transparent", icon: "fa-hashtag" };
+    return { bg: "transparent", color: "var(--text-muted)", border: "1px solid transparent", icon: "fa-hashtag" };
   };
 
   if (loading) {
@@ -191,14 +191,14 @@ export default function MesaiSistemi() {
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
         `}</style>
-        <i className="fa-solid fa-circle-notch fa-spin" style={{ fontSize: "1.8rem", color: "#555" }} />
-        <span style={{ fontSize: "0.82rem", color: "#555", fontWeight: 600, letterSpacing: "0.1em" }}>YÜKLENİYOR...</span>
+        <i className="fa-solid fa-circle-notch fa-spin" style={{ fontSize: "1.8rem", color: "var(--text-muted)" }} />
+        <span style={{ fontSize: "0.82rem", color: "var(--text-muted)", fontWeight: 600, letterSpacing: "0.1em" }}>YÜKLENİYOR...</span>
       </div>
     );
   }
 
   return (
-    <div style={{ fontFamily: "'Inter', sans-serif", color: "#ededed", paddingBottom: "3rem" }}>
+    <div style={{ fontFamily: "'Inter', sans-serif", color: "var(--text-primary)", paddingBottom: "3rem" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
         
@@ -221,7 +221,7 @@ export default function MesaiSistemi() {
         .filter-btn {
           background: transparent;
           color: #888;
-          border: 1px solid rgba(255,255,255,0.08);
+          border: 1px solid var(--border-light);
           padding: 0.55rem 1rem;
           border-radius: 8px;
           font-weight: 600;
@@ -230,25 +230,25 @@ export default function MesaiSistemi() {
           transition: all 0.2s ease;
         }
         .filter-btn:hover {
-          background: #161616;
-          color: #ededed;
+          background: var(--bg-tertiary);
+          color: var(--text-primary);
         }
         .filter-btn.active {
-          background: rgba(255,255,255,0.08);
-          color: #1D6EF7;
-          border-color: rgba(255,255,255,0.16);
+          background: var(--border-light);
+          color: var(--LAC-orange);
+          border-color: var(--border-strong);
         }
 
         .custom-input:focus {
-          border-color: rgba(255,255,255,0.16) !important;
-          background: #161616 !important;
+          border-color: var(--border-strong) !important;
+          background: var(--bg-tertiary) !important;
         }
 
         .leaderboard-row {
           transition: all 0.2s ease;
         }
         .leaderboard-row:hover {
-          background: rgba(255,255,255,0.03) !important;
+          background: var(--border-light) !important;
         }
 
         .action-btn {
@@ -273,31 +273,31 @@ export default function MesaiSistemi() {
       {/* PAGE HEADER */}
       <div style={{ marginBottom: "2rem", display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1rem" }}>
         <div>
-          <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "#333", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.5rem" }}>
+          <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.5rem" }}>
             L.A.C.P.D. · OPERASYON
           </div>
-          <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "#ededed", margin: 0, letterSpacing: "-0.02em" }}>
+          <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "var(--text-primary)", margin: 0, letterSpacing: "-0.02em" }}>
             Mesai Takip Sistemi
           </h1>
-          <p style={{ color: "#666", fontSize: "0.8rem", margin: "0.4rem 0 0", fontWeight: 400 }}>
+          <p style={{ color: "var(--text-secondary)", fontSize: "0.8rem", margin: "0.4rem 0 0", fontWeight: 400 }}>
             Personel devriye durumları ve aktif operasyon gücü
           </p>
         </div>
 
-        <div style={{ display: "flex", gap: "2rem", alignItems: "center", background: "rgba(13,18,32,0.6)", padding: "1rem 1.5rem", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.08)" }}>
+        <div style={{ display: "flex", gap: "2rem", alignItems: "center", background: "rgba(13,18,32,0.6)", padding: "1rem 1.5rem", borderRadius: "12px", border: "1px solid var(--border-light)" }}>
           <div>
-            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "#666", letterSpacing: '0.1em' }}>SAHADA AKTİF</div>
-            <div style={{ fontSize: "1.4rem", fontWeight: 900, color: "#00d26a", fontFamily: "'JetBrains Mono', monospace" }}>{activeCount} <span style={{ fontSize: "0.9rem", color: "#555" }}>/ {leaderboard.length}</span></div>
+            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "var(--text-secondary)", letterSpacing: '0.1em' }}>SAHADA AKTİF</div>
+            <div style={{ fontSize: "1.4rem", fontWeight: 900, color: "#00d26a", fontFamily: "'JetBrains Mono', monospace" }}>{activeCount} <span style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>/ {leaderboard.length}</span></div>
           </div>
           <div style={{ width: "1px", height: "30px", backgroundColor: "#2a2a2a" }}></div>
           <div>
-            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "#666", letterSpacing: '0.1em' }}>DEPARTMAN EFORU</div>
-            <div style={{ fontSize: "1.4rem", fontWeight: 900, color: "#1D6EF7", fontFamily: "'JetBrains Mono', monospace" }}>{formatHoursMinimal(totalDepartmentSeconds)}</div>
+            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "var(--text-secondary)", letterSpacing: '0.1em' }}>DEPARTMAN EFORU</div>
+            <div style={{ fontSize: "1.4rem", fontWeight: 900, color: "var(--LAC-orange)", fontFamily: "'JetBrains Mono', monospace" }}>{formatHoursMinimal(totalDepartmentSeconds)}</div>
           </div>
           <div style={{ width: "1px", height: "30px", backgroundColor: "#2a2a2a" }}></div>
           <div>
-            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "#666", letterSpacing: '0.1em' }}>SAAT</div>
-            <div style={{ fontSize: "1.2rem", fontWeight: 900, color: "#ededed", fontFamily: "'JetBrains Mono', monospace" }}>{currentTime || "--:--:--"}</div>
+            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "var(--text-secondary)", letterSpacing: '0.1em' }}>SAAT</div>
+            <div style={{ fontSize: "1.2rem", fontWeight: 900, color: "var(--text-primary)", fontFamily: "'JetBrains Mono', monospace" }}>{currentTime || "--:--:--"}</div>
           </div>
         </div>
       </div>
@@ -308,28 +308,28 @@ export default function MesaiSistemi() {
         padding: "2rem",
         marginBottom: "2rem",
         display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1.5rem",
-        border: user?.isOnDuty ? "1px solid rgba(0,210,106,0.3)" : "1px solid rgba(255,255,255,0.08)",
-        boxShadow: user?.isOnDuty ? "0 8px 32px -8px rgba(0,210,106,0.15), inset 0 1px 0 rgba(255,255,255,0.03)" : glassCard.boxShadow
+        border: user?.isOnDuty ? "1px solid rgba(0,210,106,0.3)" : "1px solid var(--border-light)",
+        boxShadow: user?.isOnDuty ? "0 8px 32px -8px rgba(0,210,106,0.15), inset 0 1px 0 var(--border-light)" : glassCard.boxShadow
       }}>
         
         <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
           <div style={{ 
             width: "64px", height: "64px", borderRadius: "16px", 
-            background: user?.isOnDuty ? "rgba(0,210,106,0.1)" : "rgba(255,255,255,0.08)", 
-            color: user?.isOnDuty ? "#00d26a" : "#1D6EF7", 
-            border: user?.isOnDuty ? "1px solid rgba(0,210,106,0.2)" : "1px solid rgba(255,255,255,0.1)",
+            background: user?.isOnDuty ? "rgba(0,210,106,0.1)" : "var(--border-light)", 
+            color: user?.isOnDuty ? "#00d26a" : "var(--LAC-orange)", 
+            border: user?.isOnDuty ? "1px solid rgba(0,210,106,0.2)" : "1px solid var(--border-strong)",
             display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.5rem", fontWeight: 900 
           }}>
             {user?.name.charAt(0) || "U"}
           </div>
           
           <div>
-            <div style={{ fontSize: "0.65rem", fontWeight: 800, color: "#888", textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "0.25rem" }}>KÜMÜLATİF ŞAHSİ SÜRE</div>
-            <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "2.5rem", fontWeight: 700, color: user?.isOnDuty ? "#00d26a" : "#ededed", lineHeight: 1, margin: "0.25rem 0" }}>
+            <div style={{ fontSize: "0.65rem", fontWeight: 800, color: "var(--text-secondary)", textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "0.25rem" }}>KÜMÜLATİF ŞAHSİ SÜRE</div>
+            <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "2.5rem", fontWeight: 700, color: user?.isOnDuty ? "#00d26a" : "var(--text-primary)", lineHeight: 1, margin: "0.25rem 0" }}>
               {formatTime(mySeconds)}
             </div>
-            <div style={{ fontSize: "0.85rem", fontWeight: 600, color: "#666", marginTop: "0.5rem" }}>
-              Departman Sıranız: <strong style={{ color: myRankIndex < 3 ? "#f59e0b" : "#1D6EF7", marginLeft: "0.25rem" }}>{myRankIndex >= 0 ? `#${myRankIndex + 1}` : "Yok"}</strong>
+            <div style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--text-secondary)", marginTop: "0.5rem" }}>
+              Departman Sıranız: <strong style={{ color: myRankIndex < 3 ? "#f59e0b" : "var(--LAC-orange)", marginLeft: "0.25rem" }}>{myRankIndex >= 0 ? `#${myRankIndex + 1}` : "Yok"}</strong>
             </div>
           </div>
         </div>
@@ -340,9 +340,9 @@ export default function MesaiSistemi() {
             disabled={toggling}
             style={{
               padding: "1rem 2rem",
-              background: user?.isOnDuty ? "rgba(239,68,68,0.1)" : "linear-gradient(135deg, #1D6EF7 0%, #1558d6 100%)",
+              background: user?.isOnDuty ? "rgba(239,68,68,0.1)" : "linear-gradient(135deg, var(--LAC-orange) 0%, #1558d6 100%)",
               color: user?.isOnDuty ? "#ef4444" : "#fff",
-              border: user?.isOnDuty ? "1px solid rgba(239,68,68,0.3)" : "1px solid rgba(255,255,255,0.16)",
+              border: user?.isOnDuty ? "1px solid rgba(239,68,68,0.3)" : "1px solid var(--border-strong)",
               borderRadius: "12px",
               fontSize: "0.95rem",
               fontWeight: 800,
@@ -351,7 +351,7 @@ export default function MesaiSistemi() {
               display: "flex",
               alignItems: "center",
               gap: "0.75rem",
-              boxShadow: user?.isOnDuty ? "none" : "0 4px 12px rgba(255,255,255,0.14)"
+              boxShadow: user?.isOnDuty ? "none" : "0 4px 12px var(--border-strong)"
             }}
             onMouseOver={e => !toggling && ((e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)')}
             onMouseOut={e => !toggling && ((e.currentTarget as HTMLElement).style.transform = 'translateY(0)')}
@@ -368,7 +368,7 @@ export default function MesaiSistemi() {
       <div style={glassCard}>
         
         {/* Toolbar */}
-        <div style={{ padding: "1.5rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem", borderBottom: "1px solid rgba(255,255,255,0.08)", background: "rgba(10,14,26,0.5)" }}>
+        <div style={{ padding: "1.5rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem", borderBottom: "1px solid var(--border-light)", background: "rgba(10,14,26,0.5)" }}>
           
           <div style={{ display: "flex", gap: "0.5rem" }}>
             {[
@@ -398,11 +398,11 @@ export default function MesaiSistemi() {
                 cursor: "pointer",
               }}
             >
-              {departments.map(d => <option key={d} value={d} style={{ background: "#0a0a0a", color: "#ededed" }}>{d === "ALL" ? "Tüm Departmanlar" : d}</option>)}
+              {departments.map(d => <option key={d} value={d} style={{ background: "var(--bg-primary)", color: "var(--text-primary)" }}>{d === "ALL" ? "Tüm Departmanlar" : d}</option>)}
             </select>
 
             <div style={{ position: "relative" }}>
-              <i className="fa-solid fa-search" style={{ position: "absolute", left: "0.9rem", top: "50%", transform: "translateY(-50%)", color: "#555", fontSize: "0.8rem" }}></i>
+              <i className="fa-solid fa-search" style={{ position: "absolute", left: "0.9rem", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)", fontSize: "0.8rem" }}></i>
               <input
                 type="text"
                 placeholder="Personel ara..."
@@ -420,7 +420,7 @@ export default function MesaiSistemi() {
         </div>
 
         {/* Data List Header */}
-        <div style={{ display: "flex", padding: "1rem 1.5rem", fontSize: "0.65rem", fontWeight: 800, color: "#666", letterSpacing: "0.15em", textTransform: "uppercase", borderBottom: "1px solid rgba(255,255,255,0.02)" }}>
+        <div style={{ display: "flex", padding: "1rem 1.5rem", fontSize: "0.65rem", fontWeight: 800, color: "var(--text-secondary)", letterSpacing: "0.15em", textTransform: "uppercase", borderBottom: "1px solid rgba(255,255,255,0.02)" }}>
           <div style={{ flex: "0 0 80px" }}>SIRA</div>
           <div style={{ flex: "2" }}>PERSONEL</div>
           <div style={{ flex: "1.5" }}>BİRİM / RÜTBE</div>
@@ -453,14 +453,14 @@ export default function MesaiSistemi() {
 
                 {/* PERSONEL */}
                 <div style={{ flex: "2", display: "flex", flexDirection: "column" }}>
-                  <div style={{ fontWeight: 700, color: "#ededed", fontSize: "0.95rem" }}>{off.name}</div>
-                  <div style={{ fontSize: "0.75rem", color: "#666", fontFamily: "'JetBrains Mono', monospace", marginTop: "0.15rem" }}>#{off.badge}</div>
+                  <div style={{ fontWeight: 700, color: "var(--text-primary)", fontSize: "0.95rem" }}>{off.name}</div>
+                  <div style={{ fontSize: "0.75rem", color: "var(--text-secondary)", fontFamily: "'JetBrains Mono', monospace", marginTop: "0.15rem" }}>#{off.badge}</div>
                 </div>
 
                 {/* BİRİM / RÜTBE */}
                 <div style={{ flex: "1.5", display: "flex", flexDirection: "column" }}>
-                  <div style={{ fontWeight: 600, fontSize: "0.85rem", color: "#ededed" }}>{off.rank}</div>
-                  <div style={{ fontSize: "0.75rem", color: "#666", marginTop: "0.15rem" }}>{off.department || "-"}</div>
+                  <div style={{ fontWeight: 600, fontSize: "0.85rem", color: "var(--text-primary)" }}>{off.rank}</div>
+                  <div style={{ fontSize: "0.75rem", color: "var(--text-secondary)", marginTop: "0.15rem" }}>{off.department || "-"}</div>
                 </div>
 
                 {/* DURUM */}
@@ -471,7 +471,7 @@ export default function MesaiSistemi() {
                       AKTİF
                     </div>
                   ) : (
-                    <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", background: "#161616", color: "#666", border: "1px solid rgba(255,255,255,0.05)", padding: "0.3rem 0.6rem", borderRadius: "20px", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.08em" }}>
+                    <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", background: "var(--bg-tertiary)", color: "var(--text-secondary)", border: "1px solid var(--border-light)", padding: "0.3rem 0.6rem", borderRadius: "20px", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.08em" }}>
                       <i className="fa-solid fa-moon"></i>
                       PASİF
                     </div>
@@ -499,10 +499,10 @@ export default function MesaiSistemi() {
           
           {filteredList.length === 0 && (
             <div style={{ padding: "4rem 2rem", textAlign: "center" }}>
-              <div style={{ width: 56, height: 56, borderRadius: "50%", background: "#161616", border: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1rem" }}>
-                <i className="fa-solid fa-ghost" style={{ color: "rgba(255,255,255,0.12)", fontSize: "1.3rem" }} />
+              <div style={{ width: 56, height: 56, borderRadius: "50%", background: "var(--bg-tertiary)", border: "1px solid var(--border-light)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1rem" }}>
+                <i className="fa-solid fa-ghost" style={{ color: "var(--border-strong)", fontSize: "1.3rem" }} />
               </div>
-              <div style={{ fontSize: "0.85rem", color: "#555", fontWeight: 500 }}>Kayıt bulunamadı.</div>
+              <div style={{ fontSize: "0.85rem", color: "var(--text-muted)", fontWeight: 500 }}>Kayıt bulunamadı.</div>
             </div>
           )}
         </div>

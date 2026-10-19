@@ -9,24 +9,24 @@ const STATUS_CFG: Record<string, { bg: string; color: string; border: string; ic
 };
 
 const glassCard: React.CSSProperties = {
-  background: "#111111",
-  border: "1px solid rgba(255,255,255,0.08)",
-  borderRadius: 8,
+  background: "var(--bg-secondary)",
+  border: "1px solid var(--border-light)",
+  borderRadius: 2,
   overflow: "hidden",
-  boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
+  boxShadow: "0 2px 6px rgba(0,0,0,0.04)",
 };
 
 const inputBase: React.CSSProperties = {
-  width: "100%", background: "#161616",
-  border: "1px solid rgba(255,255,255,0.08)", borderRadius: 8,
-  padding: "0.58rem 0.9rem", color: "#ededed",
+  width: "100%", background: "var(--bg-tertiary)",
+  border: "1px solid var(--border-light)", borderRadius: 2,
+  padding: "0.58rem 0.9rem", color: "var(--text-primary)",
   fontSize: "0.83rem", outline: "none", fontFamily: "'Inter', sans-serif",
   transition: "all 0.18s ease", boxSizing: "border-box",
 };
 
 const labelStyle: React.CSSProperties = {
   display: "block", fontSize: "0.58rem", fontWeight: 800,
-  color: "#555", letterSpacing: "0.22em",
+  color: "var(--text-muted)", letterSpacing: "0.22em",
   textTransform: "uppercase", marginBottom: "0.45rem",
 };
 
@@ -88,9 +88,9 @@ export default function MazeretlerPage() {
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
-        .mdt-inp:focus { border-color: #555 !important; box-shadow: 0 0 0 3px rgba(255,255,255,0.08) !important; }
-        .req-row:hover { background: rgba(255,255,255,0.03) !important; }
-        .tab-btn-active { background: rgba(255,255,255,0.08) !important; color: #ededed !important; border-color: rgba(255,255,255,0.12) !important; }
+        .mdt-inp:focus { border-color: #555 !important; box-shadow: 0 0 0 3px var(--border-light) !important; }
+        .req-row:hover { background: var(--border-light) !important; }
+        .tab-btn-active { background: var(--border-light) !important; color: var(--text-primary) !important; border-color: var(--border-strong) !important; }
         .approve-btn:hover { background: rgba(0,210,106,0.2) !important; }
         .reject-btn:hover  { background: rgba(245,158,11,0.2) !important; }
         .del-btn:hover     { background: rgba(239,68,68,0.15) !important; }
@@ -101,29 +101,29 @@ export default function MazeretlerPage() {
         {/* ─── Header ─── */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1rem" }}>
           <div>
-            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "#333", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.45rem" }}>
+            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.45rem" }}>
               L.A.C.P.D. · İNSAN KAYNAKLARI
             </div>
-            <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "#ededed", margin: 0, letterSpacing: "-0.02em" }}>
+            <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "var(--text-primary)", margin: 0, letterSpacing: "-0.02em" }}>
               Mazeret & İzin
             </h1>
-            <p style={{ color: "#666", fontSize: "0.8rem", margin: "0.4rem 0 0", fontWeight: 400 }}>
+            <p style={{ color: "var(--text-secondary)", fontSize: "0.8rem", margin: "0.4rem 0 0", fontWeight: 400 }}>
               İzin ve mazeret taleplerini oluşturun veya yönetin.
             </p>
           </div>
 
           {/* Tab switcher */}
-          <div style={{ display: "flex", gap: "0.5rem", background: "rgba(13,18,32,0.9)", padding: "0.3rem", borderRadius: 11, border: "1px solid rgba(255,255,255,0.08)" }}>
+          <div style={{ display: "flex", gap: "0.5rem", background: "var(--bg-tertiary)", padding: "0.3rem", borderRadius: 2, border: "1px solid var(--border-light)" }}>
             {(["form", "list"] as const).map(t => (
               <button
                 key={t}
                 onClick={() => setTab(t)}
                 className={tab === t ? "tab-btn-active" : ""}
                 style={{
-                  padding: "0.5rem 1.15rem", borderRadius: 8,
+                  padding: "0.5rem 1.15rem", borderRadius: 2,
                   border: "1px solid transparent",
                   background: "transparent",
-                  color: "#666",
+                  color: "var(--text-secondary)",
                   fontWeight: 600, fontSize: "0.8rem", cursor: "pointer",
                   transition: "all 0.18s ease",
                 }}
@@ -139,10 +139,10 @@ export default function MazeretlerPage() {
           <div style={{ display: "flex", justifyContent: "center" }}>
             <div style={{ ...glassCard, width: "100%", maxWidth: 660 }}>
               {/* Card header */}
-              <div style={{ padding: "1.15rem 1.4rem", borderBottom: "1px solid #161616", background: "transparent" }}>
-                <h3 style={{ margin: 0, fontSize: "0.95rem", fontWeight: 700, color: "#ededed", display: "flex", alignItems: "center", gap: "0.6rem" }}>
-                  <div style={{ width: 30, height: 30, borderRadius: 8, background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <i className="fa-solid fa-file-signature" style={{ color: "#1D6EF7", fontSize: "0.78rem" }} />
+              <div style={{ padding: "1.15rem 1.4rem", borderBottom: "1px solid var(--bg-tertiary)", background: "transparent" }}>
+                <h3 style={{ margin: 0, fontSize: "0.95rem", fontWeight: 700, color: "var(--text-primary)", display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                  <div style={{ width: 30, height: 30, borderRadius: 2, background: "var(--border-light)", border: "1px solid var(--border-strong)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <i className="fa-solid fa-file-signature" style={{ color: "var(--LAC-orange)", fontSize: "0.78rem" }} />
                   </div>
                   Mazeret Talebi Oluştur
                 </h3>
@@ -151,12 +151,12 @@ export default function MazeretlerPage() {
               <div style={{ padding: "1.5rem" }}>
                 {/* Success / Error banners */}
                 {success && (
-                  <div style={{ background: "rgba(0,210,106,0.08)", border: "1px solid rgba(0,210,106,0.2)", borderRadius: 8, padding: "0.85rem 1rem", marginBottom: "1.25rem", color: "#00d26a", fontSize: "0.82rem", fontWeight: 600, display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <div style={{ background: "rgba(0,210,106,0.08)", border: "1px solid rgba(0,210,106,0.2)", borderRadius: 2, padding: "0.85rem 1rem", marginBottom: "1.25rem", color: "#00d26a", fontSize: "0.82rem", fontWeight: 600, display: "flex", alignItems: "center", gap: "0.5rem" }}>
                     <i className="fa-solid fa-circle-check" /> {success}
                   </div>
                 )}
                 {error && (
-                  <div style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)", borderRadius: 8, padding: "0.85rem 1rem", marginBottom: "1.25rem", color: "#ef4444", fontSize: "0.82rem", fontWeight: 600, display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <div style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)", borderRadius: 2, padding: "0.85rem 1rem", marginBottom: "1.25rem", color: "#ef4444", fontSize: "0.82rem", fontWeight: 600, display: "flex", alignItems: "center", gap: "0.5rem" }}>
                     <i className="fa-solid fa-triangle-exclamation" /> {error}
                   </div>
                 )}
@@ -189,8 +189,8 @@ export default function MazeretlerPage() {
                     <div style={{
                       display: "flex", alignItems: "center", justifyContent: "center", gap: "0.75rem",
                       padding: "0.9rem", borderRadius: 10,
-                      background: "#161616", border: "1px dashed rgba(255,255,255,0.1)",
-                      color: "#1D6EF7", fontWeight: 700, fontSize: "0.88rem",
+                      background: "var(--bg-tertiary)", border: "1px dashed var(--border-strong)",
+                      color: "var(--LAC-orange)", fontWeight: 700, fontSize: "0.88rem",
                     }}>
                       <i className="fa-solid fa-calendar-days" />
                       Toplam <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "1.1rem", margin: "0 0.25rem" }}>{form.dayCount}</span> Gün
@@ -208,9 +208,9 @@ export default function MazeretlerPage() {
                   <div style={{ display: "flex", justifyContent: "flex-end" }}>
                     <button type="submit" disabled={loading} style={{
                       display: "flex", alignItems: "center", gap: "0.55rem",
-                      padding: "0.65rem 1.5rem", borderRadius: 8,
-                      background: "#1D6EF7",
-                      border: "1px solid rgba(255,255,255,0.16)", color: "#fff",
+                      padding: "0.65rem 1.5rem", borderRadius: 2,
+                      background: "var(--LAC-orange)",
+                      border: "1px solid var(--border-strong)", color: "#fff",
                       fontWeight: 700, fontSize: "0.82rem",
                       cursor: loading ? "not-allowed" : "pointer",
                       opacity: loading ? 0.65 : 1, transition: "all 0.18s",
@@ -229,17 +229,17 @@ export default function MazeretlerPage() {
         {tab === "list" && (
           requests.length === 0 ? (
             <div style={{ ...glassCard, padding: "5rem 2rem", textAlign: "center" }}>
-              <div style={{ width: 56, height: 56, borderRadius: "50%", background: "#161616", border: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1rem" }}>
-                <i className="fa-solid fa-calendar-xmark" style={{ color: "rgba(255,255,255,0.12)", fontSize: "1.3rem" }} />
+              <div style={{ width: 56, height: 56, borderRadius: "50%", background: "var(--bg-tertiary)", border: "1px solid var(--border-light)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1rem" }}>
+                <i className="fa-solid fa-calendar-xmark" style={{ color: "var(--border-strong)", fontSize: "1.3rem" }} />
               </div>
-              <div style={{ fontSize: "0.85rem", color: "#555", fontWeight: 500 }}>Henüz mazeret talebi bulunmuyor.</div>
+              <div style={{ fontSize: "0.85rem", color: "var(--text-muted)", fontWeight: 500 }}>Henüz mazeret talebi bulunmuyor.</div>
             </div>
           ) : (
             <div style={glassCard}>
               {/* Table header */}
-              <div style={{ display: "grid", gridTemplateColumns: "2fr 1.5fr 2fr auto auto", gap: "1rem", padding: "0.75rem 1.25rem", borderBottom: "1px solid #161616", background: "rgba(8,12,20,0.6)" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "2fr 1.5fr 2fr auto auto", gap: "1rem", padding: "0.75rem 1.25rem", borderBottom: "1px solid var(--bg-tertiary)", background: "rgba(8,12,20,0.6)" }}>
                 {["Personel", "Tarih Aralığı", "Gerekçe", "Durum", user?.role === "admin" ? "İşlemler" : ""].filter(Boolean).map((h, i) => (
-                  <div key={i} style={{ fontSize: "0.58rem", fontWeight: 800, color: "#333", letterSpacing: "0.2em", textTransform: "uppercase" }}>{h}</div>
+                  <div key={i} style={{ fontSize: "0.58rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.2em", textTransform: "uppercase" }}>{h}</div>
                 ))}
               </div>
 
@@ -247,16 +247,16 @@ export default function MazeretlerPage() {
               {requests.map((r: any) => {
                 const cfg = STATUS_CFG[r.status] || STATUS_CFG["Bekliyor"];
                 return (
-                  <div key={r.id} className="req-row" style={{ display: "grid", gridTemplateColumns: "2fr 1.5fr 2fr auto auto", gap: "1rem", alignItems: "center", padding: "0.9rem 1.25rem", borderBottom: "1px solid #161616", transition: "background 0.15s" }}>
+                  <div key={r.id} className="req-row" style={{ display: "grid", gridTemplateColumns: "2fr 1.5fr 2fr auto auto", gap: "1rem", alignItems: "center", padding: "0.9rem 1.25rem", borderBottom: "1px solid var(--bg-tertiary)", transition: "background 0.15s" }}>
                     <div>
-                      <div style={{ fontSize: "0.88rem", fontWeight: 600, color: "#ededed" }}>{r.fullName}</div>
-                      <div style={{ fontSize: "0.67rem", fontFamily: "'JetBrains Mono', monospace", color: "#555", marginTop: 2 }}>#{r.badge}</div>
+                      <div style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--text-primary)" }}>{r.fullName}</div>
+                      <div style={{ fontSize: "0.67rem", fontFamily: "'JetBrains Mono', monospace", color: "var(--text-muted)", marginTop: 2 }}>#{r.badge}</div>
                     </div>
                     <div>
-                      <div style={{ fontSize: "0.78rem", color: "#888" }}>{fmt(r.startDate)} — {fmt(r.endDate)}</div>
-                      <div style={{ fontSize: "0.68rem", fontFamily: "'JetBrains Mono', monospace", color: "#555", marginTop: 2 }}>{r.dayCount} GÜN</div>
+                      <div style={{ fontSize: "0.78rem", color: "var(--text-secondary)" }}>{fmt(r.startDate)} — {fmt(r.endDate)}</div>
+                      <div style={{ fontSize: "0.68rem", fontFamily: "'JetBrains Mono', monospace", color: "var(--text-muted)", marginTop: 2 }}>{r.dayCount} GÜN</div>
                     </div>
-                    <div style={{ fontSize: "0.78rem", color: "#888", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{r.reason}</div>
+                    <div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{r.reason}</div>
                     <div>
                       <span style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", padding: "0.25rem 0.7rem", borderRadius: 20, background: cfg.bg, border: `1px solid ${cfg.border}`, color: cfg.color, fontSize: "0.62rem", fontWeight: 800, letterSpacing: "0.08em" }}>
                         <i className={`fa-solid ${cfg.icon}`} style={{ fontSize: "0.55rem" }} /> {r.status}

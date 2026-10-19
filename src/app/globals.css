@@ -44,7 +44,7 @@ html {
 }
 
 :root {
-  /* LIGHT THEME (Corporate / Clean) */
+  /* LIGHT THEME (LAPDOnline Corporate / Clean) */
   --bg-primary: #f8fafc;
   --bg-secondary: #ffffff;
   --bg-tertiary: #f1f5f9;
@@ -57,8 +57,8 @@ html {
   --border-light: #e2e8f0;
   --border-strong: #cbd5e1;
 
-  --accent-primary: #041632;      /* LAC Dark Blue */
-  --accent-secondary: #E84F2A;    /* LAC Orange */
+  --accent-primary: #041632;      /* LAPD Dark Navy Blue */
+  --accent-secondary: #E84F2A;    /* LAPD Orange */
   
   /* Shared standard accents */
   --color-success: #10B981;
@@ -73,11 +73,11 @@ html {
   --color-warning-bg: #FFFBEB;
   --color-warning-border: #FDE68A;
 
-  --color-info: #4F46E5;
-  --color-info-bg: #E0E7FF;
-  --color-info-border: #C7D2FE;
+  --color-info: #041632;
+  --color-info-bg: #E2E8F0;
+  --color-info-border: #CBD5E1;
   
-  /* Legacy/Site variables mapping to new theme */
+  /* Legacy/Site variables mapping to LAPD theme */
   --bg-dark: var(--bg-primary);
   --bg-panel: var(--bg-secondary);
   --bg-hover: var(--bg-tertiary);
@@ -85,13 +85,36 @@ html {
   --LAC-bg: var(--bg-primary);
   --LAC-text-dark: var(--text-primary);
   --LAC-text-muted: var(--text-muted);
+  --LAC-blue: #041632;
   --LAC-blue-dark: var(--accent-primary);
   --LAC-orange: var(--accent-secondary);
   --LAC-border: var(--border-light);
+
+  /* MDT variables unified with Main Page LAPD Theme */
+  --mdt-sidebar-bg:     var(--bg-secondary);
+  --mdt-bg-main:        var(--bg-primary);
+  --mdt-card-bg:        var(--bg-secondary);
+  --mdt-border:         var(--border-light);
+  --mdt-border-subtle:  var(--border-light);
+  --mdt-hover:          var(--bg-tertiary);
+  --mdt-text-primary:   var(--text-primary);
+  --mdt-text-secondary: var(--text-secondary);
+  --mdt-text-muted:     var(--text-muted);
+  --mdt-accent:         var(--accent-secondary);
+  --mdt-accent-alpha:   rgba(232, 79, 42, 0.12);
+  --mdt-accent-hover:   #d03f1c;
+  --mdt-accent-glow:    rgba(232, 79, 42, 0.2);
+  --mdt-orange:         #E84F2A;
+  --mdt-navy:           #041632;
+  --mdt-success:        var(--color-success);
+  --mdt-warning:        var(--color-warning);
+  --mdt-danger:         var(--color-danger);
+  --mdt-glass-bg:       var(--bg-secondary);
+  --mdt-input-bg:       var(--bg-primary);
 }
 
 .dark {
-  /* DARK THEME (Minimalist Black & Orange) */
+  /* DARK THEME (Minimalist Black & LAPD Orange) */
   --bg-primary: #000000;
   --bg-secondary: #0A0A0A;
   --bg-tertiary: #171717;
@@ -105,7 +128,7 @@ html {
   --border-strong: rgba(255, 255, 255, 0.2);
 
   --accent-primary: #FFFFFF;      /* Pure White */
-  --accent-secondary: #E84F2A;    /* LAC Orange */
+  --accent-secondary: #E84F2A;    /* LAPD Orange */
   
   /* Shared standard accents */
   --color-success: #34D399;
@@ -120,11 +143,11 @@ html {
   --color-warning-bg: rgba(245, 158, 11, 0.12);
   --color-warning-border: rgba(245, 158, 11, 0.25);
 
-  --color-info: #818CF8;
-  --color-info-bg: rgba(79, 70, 229, 0.12);
-  --color-info-border: rgba(79, 70, 229, 0.25);
+  --color-info: #38BDF8;
+  --color-info-bg: rgba(56, 189, 248, 0.12);
+  --color-info-border: rgba(56, 189, 248, 0.25);
   
-  /* Legacy/Site variables mapping to new theme */
+  /* Legacy/Site variables mapping to LAPD theme */
   --bg-dark: var(--bg-primary);
   --bg-panel: var(--bg-secondary);
   --bg-hover: var(--bg-tertiary);
@@ -132,47 +155,32 @@ html {
   --LAC-bg: var(--bg-primary);
   --LAC-text-dark: var(--text-primary);
   --LAC-text-muted: var(--text-muted);
+  --LAC-blue: #041632;
   --LAC-blue-dark: var(--accent-primary);
   --LAC-orange: var(--accent-secondary);
   --LAC-border: var(--border-light);
-}
 
-/* ═══════════════════════════════════════════════
-   MDT ZONE – Always-dark premium dashboard tokens
-   Tactical Black & LACPD Blue Edition v2
-   ═══════════════════════════════════════════════ */
-:root,
-.dark {
-  /* MDT backgrounds – deep navy-black spectrum */
-  --mdt-sidebar-bg:     #0a0a0a;
-  --mdt-bg-main:        #0a0a0a;
-  --mdt-card-bg:        #111111;
-  --mdt-border:         rgba(255,255,255,0.08);
-  --mdt-border-subtle:  rgba(255,255,255,0.04);
-  --mdt-hover:          rgba(255,255,255,0.05);
-
-  /* METİN RENKLERİ */
-  --mdt-text-primary:   #ededed;
-  --mdt-text-secondary: #888888;
-  --mdt-text-muted:     #555555;
-
-  /* AKTİF / ACCENT RENKLER */
-  --mdt-accent:         #ededed; /* Using white/light-grey as primary accent */
-  --mdt-accent-alpha:   rgba(255,255,255,0.1);
-  --mdt-accent-hover:   #ffffff;
-  --mdt-accent-glow:    rgba(255,255,255,0.2);
-
-  /* DURUM RENKLERİ (Status) */
+  /* MDT variables unified with Main Page LAPD Theme */
+  --mdt-sidebar-bg:     var(--bg-secondary);
+  --mdt-bg-main:        var(--bg-primary);
+  --mdt-card-bg:        var(--bg-secondary);
+  --mdt-border:         var(--border-light);
+  --mdt-border-subtle:  var(--border-light);
+  --mdt-hover:          var(--bg-tertiary);
+  --mdt-text-primary:   var(--text-primary);
+  --mdt-text-secondary: var(--text-secondary);
+  --mdt-text-muted:     var(--text-muted);
+  --mdt-accent:         var(--accent-secondary);
+  --mdt-accent-alpha:   rgba(232, 79, 42, 0.15);
+  --mdt-accent-hover:   #ff603b;
+  --mdt-accent-glow:    rgba(232, 79, 42, 0.25);
   --mdt-orange:         #E84F2A;
-  
-  /* STATÜ RENKLERİ (Örn. online, onaylandı, beklemede) */
-  --mdt-success:        #00d26a;
-  --mdt-warning:        #f59e0b;
-  --mdt-danger:         #ef4444;
-
-  /* COMPONENT ÖZEL */
-  --mdt-glass-bg:       #111111;
-  --mdt-input-bg:       #161616;
+  --mdt-navy:           #041632;
+  --mdt-success:        var(--color-success);
+  --mdt-warning:        var(--color-warning);
+  --mdt-danger:         var(--color-danger);
+  --mdt-glass-bg:       var(--bg-secondary);
+  --mdt-input-bg:       var(--bg-tertiary);
 }
 
 * {
@@ -196,9 +204,6 @@ body {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-
-  /* === MÄ°NÄ°MALÄ°ST FENER Ä°MLECÄ° === */
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='4' fill='white' stroke='%230EA5E9' stroke-width='2'/%3E%3C/svg%3E") 8 8, auto;
 }
 
 /* Ensure Oswald variable works globally for all inline and class styles */
@@ -244,100 +249,80 @@ body {
   cursor: pointer !important;
 }
 
-/* === MDT SIDEBAR: Premium nav animations === */
-
-/* Nav item base */
+/* === MDT SIDEBAR: Corporate LAPD Nav === */
 .mdt-nav-item {
   position: relative;
   overflow: hidden;
   transition:
-    background  0.18s ease,
-    color       0.18s ease,
-    box-shadow  0.18s ease !important;
+    background  0.15s ease,
+    color       0.15s ease,
+    border-color 0.15s ease !important;
 }
 
-/* Ripple-like shimmer on hover via pseudo (CSS only) */
-.mdt-nav-item::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(29,110,247,0.06) 50%, transparent 100%);
-  transform: translateX(-100%);
-  transition: transform 0.4s ease;
-  pointer-events: none;
-  border-radius: inherit;
-}
-.mdt-nav-item:hover::before {
-  transform: translateX(100%);
-}
-
-/* Active item subtle glow */
-.mdt-nav-item.active {
-  box-shadow: inset 0 0 0 1px rgba(29,110,247,0.12) !important;
-}
-
-/* Active indicator bar */
 .mdt-nav-item.active::after {
   content: '';
   position: absolute;
   left: 0;
-  top: 20%;
-  bottom: 20%;
+  top: 0;
+  bottom: 0;
   width: 3px;
-  border-radius: 0 3px 3px 0;
-  background: #1D6EF7;
-  box-shadow: 2px 0 12px rgba(29,110,247,0.4);
-  animation: mdt-bar-in 0.2s cubic-bezier(.4,0,.2,1);
+  background: var(--LAC-orange);
 }
 
-@keyframes mdt-bar-in {
-  from { transform: scaleY(0); opacity: 0; }
-  to   { transform: scaleY(1); opacity: 1; }
+/* Corporate button helper inside MDT & global */
+.lapd-btn-primary {
+  background-color: var(--LAC-orange) !important;
+  color: #ffffff !important;
+  padding: 0.6rem 1.25rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 2px;
+  border: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.2s;
+}
+.lapd-btn-primary:hover:not(:disabled) {
+  opacity: 0.88;
 }
 
-/* Icon scale on hover */
-.mdt-nav-item:hover .mdt-nav-icon {
-  transform: scale(1.12);
+.lapd-btn-navy {
+  background-color: #041632 !important;
+  color: #ffffff !important;
+  padding: 0.6rem 1.25rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 2px;
+  border: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.2s;
 }
-.mdt-nav-icon {
-  transition: transform 0.15s ease;
+.lapd-btn-navy:hover:not(:disabled) {
+  opacity: 0.9;
 }
 
-
-/* === MDT ZONE: Force dark theme variables for all sub-pages === */
-.mdt-zone {
-  --bg-primary:       #0d0f14;
-  --bg-secondary:     #13161d;
-  --bg-tertiary:      #1a1e28;
-  --bg-hover-subtle:  #222836;
-  --text-primary:     #eef0f6;
-  --text-secondary:   #7c8494;
-  --text-muted:       #444c5e;
-  --border-light:     rgba(255,255,255,0.06);
-  --border-strong:    rgba(255,255,255,0.11);
-  --LAC-bg:          #0d0f14;
-  --LAC-blue-dark:   #1D6EF7;
-  --LAC-orange:      #E84F2A;
-  --LAC-border:      rgba(255,255,255,0.06);
-  --LAC-text-dark:   #eef0f6;
-  --LAC-text-muted:  #444c5e;
-  --bg-dark:          #0d0f14;
-  --bg-panel:         #13161d;
-  --bg-hover:         #1a1e28;
-  --border-color:     rgba(255,255,255,0.06);
-  --color-success:    #22c55e;
-  --color-success-bg: rgba(34,197,94,0.1);
-  --color-success-border: rgba(34,197,94,0.2);
-  --color-danger:     #ef4444;
-  --color-danger-bg:  rgba(239,68,68,0.12);
-  --color-danger-border: rgba(239,68,68,0.25);
-  --color-warning:    #f59e0b;
-  --color-warning-bg: rgba(245,158,11,0.1);
-  --color-info:       #1D6EF7;
-  --color-info-bg:    rgba(29,110,247,0.1);
-  --accent-primary:   #1D6EF7;
-  --accent-secondary: #E84F2A;
+.lapd-section-bar {
+  display: flex;
+  border-bottom: 1px solid var(--LAC-orange);
+  margin-bottom: 1.25rem;
 }
+.lapd-section-tab {
+  padding: 0.5rem 1rem;
+  color: var(--LAC-orange);
+  font-weight: 800;
+  font-size: 0.82rem;
+  border-bottom: 3px solid var(--LAC-orange);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
 
 @keyframes submarineFlash {
   0% { box-shadow: inset 0 0 20px rgba(239, 68, 68, 0.05); }

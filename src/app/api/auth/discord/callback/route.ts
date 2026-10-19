@@ -53,7 +53,7 @@ export async function GET(req: Request) {
     const discordUser = await userRes.json();
     const avatarUrl = discordUser.avatar
       ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png?size=256`
-      : null;
+      : `https://cdn.discordapp.com/embed/avatars/${Number(BigInt(discordUser.id) >> BigInt(22)) % 6}.png`;
 
     const secretString = process.env.JWT_SECRET || "cok-gizli-LAC-anahtari-123";
     const secret = new TextEncoder().encode(secretString);
@@ -73,7 +73,16 @@ export async function GET(req: Request) {
       }
 
       if (officer.status === "PENDING") {
-        return NextResponse.redirect(`${appUrl}/giris?status=pending`);
+        const params = new URLSearchParams({
+          status: "pending",
+          dname: discordUser.global_name || discordUser.username || "",
+          duser: discordUser.username || "",
+          davatar: avatarUrl || "",
+          oname: officer.name || "",
+          obadge: officer.badge || "",
+          orank: officer.rank || "",
+        });
+        return NextResponse.redirect(`${appUrl}/giris?${params.toString()}`);
       }
 
       if (officer.status === "REJECTED") {
@@ -106,14 +115,21 @@ export async function GET(req: Request) {
     const regToken = await new SignJWT({
       discordId: discordUser.id,
       discordUsername: discordUser.username,
+      globalName: discordUser.global_name || discordUser.username,
       avatarUrl,
     })
       .setProtectedHeader({ alg: "HS256" })
       .setExpirationTime("1h")
       .sign(secret);
 
-    const dname = encodeURIComponent(discordUser.global_name || discordUser.username || "");
-    const response = NextResponse.redirect(`${appUrl}/giris?step=register&dname=${dname}`);
+    const params = new URLSearchParams({
+      step: "register",
+      dname: discordUser.global_name || discordUser.username || "",
+      duser: discordUser.username || "",
+      did: discordUser.id || "",
+      davatar: avatarUrl || "",
+    });
+    const response = NextResponse.redirect(`${appUrl}/giris?${params.toString()}`);
     response.cookies.set({
       name: "discord_reg_token",
       value: regToken,

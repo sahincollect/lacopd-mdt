@@ -1,4 +1,4 @@
-﻿// src/app/mdt/kriminal/page.tsx
+// src/app/mdt/kriminal/page.tsx
 "use client";
 
 import { useState } from "react";
@@ -7,17 +7,17 @@ import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
 
 const glassCard: React.CSSProperties = {
-  background: "#111111",
-  border: "1px solid rgba(255,255,255,0.08)",
-  borderRadius: 8,
+  background: "var(--bg-secondary)",
+  border: "1px solid var(--border-light)",
+  borderRadius: 2,
   overflow: "hidden",
-  boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
+  boxShadow: "0 2px 6px rgba(0,0,0,0.04)",
 };
 
 const inputStyle: React.CSSProperties = {
-  width: "100%", background: "#161616",
-  border: "1px solid rgba(255,255,255,0.08)", borderRadius: 8,
-  padding: "0.58rem 0.9rem", color: "#ededed",
+  width: "100%", background: "var(--bg-tertiary)",
+  border: "1px solid var(--border-light)", borderRadius: 2,
+  padding: "0.58rem 0.9rem", color: "var(--text-primary)",
   fontSize: "0.83rem", outline: "none", fontFamily: "'Inter', sans-serif",
   transition: "all 0.18s ease", boxSizing: "border-box",
 };
@@ -102,8 +102,8 @@ export default function SuçluVeritabanı() {
 
   if (loading) return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "60vh", flexDirection: "column", gap: "1rem" }}>
-      <i className="fa-solid fa-circle-notch fa-spin" style={{ fontSize: "1.8rem", color: "#555" }} />
-      <span style={{ fontSize: "0.82rem", color: "#555", fontWeight: 600, letterSpacing: "0.1em" }}>VERİTABANI TARANIYOR...</span>
+      <i className="fa-solid fa-circle-notch fa-spin" style={{ fontSize: "1.8rem", color: "var(--text-muted)" }} />
+      <span style={{ fontSize: "0.82rem", color: "var(--text-muted)", fontWeight: 600, letterSpacing: "0.1em" }}>VERİTABANI TARANIYOR...</span>
     </div>
   );
 
@@ -113,12 +113,12 @@ export default function SuçluVeritabanı() {
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
         .crim-row { transition: all 0.18s ease; }
         .crim-row:hover { border-color: rgba(239,68,68,0.3) !important; }
-        .mdt-inp:focus { border-color: #555 !important; box-shadow: 0 0 0 3px rgba(255,255,255,0.08) !important; }
-        .hdr-btn:hover { box-shadow: 0 6px 24px rgba(255,255,255,0.16) !important; transform: translateY(-1px) !important; }
-        .edit-btn:hover { border-color: rgba(255,255,255,0.16) !important; color: #1D6EF7 !important; background: #161616 !important; }
+        .mdt-inp:focus { border-color: #555 !important; box-shadow: 0 0 0 3px var(--border-light) !important; }
+        .hdr-btn:hover { box-shadow: 0 6px 24px var(--border-strong) !important; transform: translateY(-1px) !important; }
+        .edit-btn:hover { border-color: var(--border-strong) !important; color: var(--LAC-orange) !important; background: var(--bg-tertiary) !important; }
         .del-btn:hover  { background: rgba(239,68,68,0.15) !important; }
         .expand-row { cursor: pointer; }
-        .expand-row:hover { background: rgba(255,255,255,0.03) !important; }
+        .expand-row:hover { background: var(--border-light) !important; }
       `}</style>
 
       <div style={{ fontFamily: "'Inter', sans-serif", display: "flex", flexDirection: "column", gap: "1.75rem" }}>
@@ -126,13 +126,13 @@ export default function SuçluVeritabanı() {
         {/* ─── Header ─── */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1rem" }}>
           <div>
-            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "#333", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.45rem" }}>
+            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.45rem" }}>
               L.A.C.P.D. · İSTİHBARAT
             </div>
-            <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "#ededed", margin: 0, letterSpacing: "-0.02em" }}>
+            <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "var(--text-primary)", margin: 0, letterSpacing: "-0.02em" }}>
               Kriminal Kayıtlar
             </h1>
-            <p style={{ color: "#666", fontSize: "0.8rem", margin: "0.4rem 0 0", fontWeight: 400 }}>
+            <p style={{ color: "var(--text-secondary)", fontSize: "0.8rem", margin: "0.4rem 0 0", fontWeight: 400 }}>
               Criminal DB — <span style={{ fontFamily: "'JetBrains Mono', monospace", color: "rgba(239,68,68,0.6)" }}>{criminals.length} kayıt</span>
             </p>
           </div>
@@ -141,9 +141,9 @@ export default function SuçluVeritabanı() {
             onClick={() => { setShowAddForm(true); setEditingId(null); setFormData({ name: "", crimes: "", notes: "", image: "" }); }}
             style={{
               display: "flex", alignItems: "center", gap: "0.55rem",
-              padding: "0.65rem 1.35rem", borderRadius: 9,
-              background: "#1D6EF7",
-              border: "1px solid rgba(255,255,255,0.16)",
+              padding: "0.65rem 1.35rem", borderRadius: 2,
+              background: "var(--LAC-orange)",
+              border: "1px solid var(--border-strong)",
               color: "#fff", fontWeight: 700, fontSize: "0.82rem", cursor: "pointer",
               boxShadow: "none", transition: "all 0.18s ease",
             }}
@@ -154,7 +154,7 @@ export default function SuçluVeritabanı() {
 
         {/* ─── Search ─── */}
         <div style={{ position: "relative" }}>
-          <i className="fa-solid fa-magnifying-glass" style={{ position: "absolute", left: "1.1rem", top: "50%", transform: "translateY(-50%)", color: "#333", fontSize: "0.85rem", pointerEvents: "none" }} />
+          <i className="fa-solid fa-magnifying-glass" style={{ position: "absolute", left: "1.1rem", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)", fontSize: "0.85rem", pointerEvents: "none" }} />
           <input
             className="mdt-inp"
             type="text"
@@ -171,7 +171,7 @@ export default function SuçluVeritabanı() {
             <div style={{ width: 60, height: 60, borderRadius: "50%", background: "rgba(239,68,68,0.05)", border: "1px solid rgba(239,68,68,0.1)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.25rem" }}>
               <i className="fa-solid fa-shield-halved" style={{ color: "rgba(239,68,68,0.25)", fontSize: "1.4rem" }} />
             </div>
-            <div style={{ fontSize: "0.9rem", color: "#555", fontWeight: 600 }}>
+            <div style={{ fontSize: "0.9rem", color: "var(--text-muted)", fontWeight: 600 }}>
               {search ? "Aranan kritere uygun kayıt bulunamadı." : "Sistemde kriminal kayıt bulunmuyor."}
             </div>
           </div>
@@ -200,7 +200,7 @@ export default function SuçluVeritabanı() {
                       display: "flex", justifyContent: "space-between", alignItems: "center",
                       padding: "1rem 1.25rem",
                       background: isExp ? "rgba(239,68,68,0.03)" : "transparent",
-                      borderBottom: isExp ? "1px solid #161616" : "none",
+                      borderBottom: isExp ? "1px solid var(--bg-tertiary)" : "none",
                       transition: "background 0.15s",
                     }}
                   >
@@ -216,8 +216,8 @@ export default function SuçluVeritabanı() {
                         {initials}
                       </div>
                       <div>
-                        <div style={{ fontWeight: 700, fontSize: "0.95rem", color: "#ededed" }}>{c.name}</div>
-                        <div style={{ fontSize: "0.67rem", color: "#555", marginTop: 2, display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                        <div style={{ fontWeight: 700, fontSize: "0.95rem", color: "var(--text-primary)" }}>{c.name}</div>
+                        <div style={{ fontSize: "0.67rem", color: "var(--text-muted)", marginTop: 2, display: "flex", alignItems: "center", gap: "0.4rem" }}>
                           <i className="fa-regular fa-clock" style={{ fontSize: "0.58rem" }} />
                           {new Date(c.createdAt).toLocaleDateString("tr-TR")}
                           <span style={{ width: 3, height: 3, borderRadius: "50%", background: "rgba(239,68,68,0.4)", display: "inline-block" }} />
@@ -225,12 +225,12 @@ export default function SuçluVeritabanı() {
                         </div>
                       </div>
                     </div>
-                    <i className={`fa-solid fa-chevron-${isExp ? "up" : "down"}`} style={{ color: "rgba(255,255,255,0.14)", fontSize: "0.7rem" }} />
+                    <i className={`fa-solid fa-chevron-${isExp ? "up" : "down"}`} style={{ color: "var(--border-strong)", fontSize: "0.7rem" }} />
                   </div>
 
                   {/* Expanded detail */}
                   {isExp && (
-                    <div style={{ padding: "1.25rem", background: "#161616" }}>
+                    <div style={{ padding: "1.25rem", background: "var(--bg-tertiary)" }}>
                       <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}>
                         {/* Info Left */}
                         <div style={{ flex: 1, minWidth: 200 }}>
@@ -255,10 +255,10 @@ export default function SuçluVeritabanı() {
                           {/* Notes */}
                           {c.notes && (
                             <div style={{ marginBottom: "1.1rem" }}>
-                              <div style={{ fontSize: "0.58rem", fontWeight: 800, color: "#555", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.6rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                              <div style={{ fontSize: "0.58rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.6rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
                                 <i className="fa-solid fa-align-left" style={{ fontSize: "0.55rem" }} /> Ek Notlar
                               </div>
-                              <p style={{ margin: 0, lineHeight: 1.7, fontSize: "0.83rem", color: "#888", whiteSpace: "pre-wrap", background: "#161616", padding: "0.8rem 1rem", borderRadius: 8, border: "1px solid #161616" }}>
+                              <p style={{ margin: 0, lineHeight: 1.7, fontSize: "0.83rem", color: "var(--text-secondary)", whiteSpace: "pre-wrap", background: "var(--bg-tertiary)", padding: "0.8rem 1rem", borderRadius: 2, border: "1px solid var(--bg-tertiary)" }}>
                                 {c.notes}
                               </p>
                             </div>
@@ -271,7 +271,7 @@ export default function SuçluVeritabanı() {
                             {c.image.split(",").map((url: string, i: number) => (
                               <div key={i} style={{ width: 140 }}>
                                  <div style={{ fontSize: "0.58rem", fontWeight: 800, color: "rgba(239,68,68,0.45)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.6rem", textAlign: "center" }}>MUGSHOT {i + 1}</div>
-                                 <img src={url} alt={`Sabıka ${i + 1}`} style={{ width: "100%", borderRadius: 8, border: "1px solid rgba(239,68,68,0.2)", background: "rgba(239,68,68,0.05)", display: "block" }} />
+                                 <img src={url} alt={`Sabıka ${i + 1}`} style={{ width: "100%", borderRadius: 2, border: "1px solid rgba(239,68,68,0.2)", background: "rgba(239,68,68,0.05)", display: "block" }} />
                               </div>
                             ))}
                           </div>
@@ -279,9 +279,9 @@ export default function SuçluVeritabanı() {
                       </div>
 
                       {/* Footer */}
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "0.9rem", borderTop: "1px solid rgba(255,255,255,0.04)" }}>
-                        <span style={{ fontSize: "0.68rem", color: "#555", fontFamily: "'JetBrains Mono', monospace" }}>
-                          <i className="fa-solid fa-shield" style={{ color: "#333", marginRight: "0.4rem" }} />
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "0.9rem", borderTop: "1px solid var(--border-light)" }}>
+                        <span style={{ fontSize: "0.68rem", color: "var(--text-muted)", fontFamily: "'JetBrains Mono', monospace" }}>
+                          <i className="fa-solid fa-shield" style={{ color: "var(--text-muted)", marginRight: "0.4rem" }} />
                           {c.officer?.badge ? `#${c.officer.badge}` : "—"}
                         </span>
                         {canModify && (
@@ -289,8 +289,8 @@ export default function SuçluVeritabanı() {
                             <button className="edit-btn" onClick={() => handleEdit(c)} style={{
                               display: "flex", alignItems: "center", gap: "0.4rem",
                               padding: "0.4rem 0.85rem", borderRadius: 7, fontSize: "0.72rem", fontWeight: 600,
-                              border: "1px solid rgba(255,255,255,0.08)", background: "transparent",
-                              color: "#666", cursor: "pointer", transition: "all 0.15s",
+                              border: "1px solid var(--border-light)", background: "transparent",
+                              color: "var(--text-secondary)", cursor: "pointer", transition: "all 0.15s",
                             }}>
                               <i className="fa-solid fa-pen" /> Düzenle
                             </button>
@@ -320,19 +320,19 @@ export default function SuçluVeritabanı() {
           onClick={e => { if (e.target === e.currentTarget) setShowAddForm(false); }}
         >
           <div style={{
-            background: "#111111",
-            border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8,
+            background: "var(--bg-secondary)",
+            border: "1px solid var(--border-strong)", borderRadius: 2,
             width: "100%", maxWidth: 560, boxShadow: "0 24px 80px rgba(0,0,0,0.7)",
           }}>
-            <div style={{ padding: "1.35rem 1.5rem", borderBottom: "1px solid rgba(255,255,255,0.08)", background: "linear-gradient(90deg, rgba(239,68,68,0.05) 0%, transparent 100%)" }}>
+            <div style={{ padding: "1.35rem 1.5rem", borderBottom: "1px solid var(--border-light)", background: "linear-gradient(90deg, rgba(239,68,68,0.05) 0%, transparent 100%)" }}>
               <div style={{ fontSize: "0.58rem", fontWeight: 800, color: "rgba(239,68,68,0.45)", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "0.2rem" }}>
                 CRIMINAL DB · {editingId ? "GÜNCELLE" : "YENİ KAYIT"}
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <h3 style={{ margin: 0, fontWeight: 800, fontSize: "1rem", color: "#ededed" }}>
+                <h3 style={{ margin: 0, fontWeight: 800, fontSize: "1rem", color: "var(--text-primary)" }}>
                   {editingId ? "Sabıka Kaydını Düzenle" : "Yeni Sabıka Kaydı"}
                 </h3>
-                <button onClick={() => setShowAddForm(false)} style={{ background: "none", border: "none", color: "#555", cursor: "pointer", fontSize: "1.1rem" }}
+                <button onClick={() => setShowAddForm(false)} style={{ background: "none", border: "none", color: "var(--text-muted)", cursor: "pointer", fontSize: "1.1rem" }}
                   onMouseOver={e => (e.currentTarget.style.color = "#ef4444")}
                   onMouseOut={e  => (e.currentTarget.style.color = "#555")}>
                   <i className="fa-solid fa-xmark" />
@@ -342,20 +342,20 @@ export default function SuçluVeritabanı() {
 
             <form onSubmit={handleSubmit} style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1.15rem" }}>
               <div>
-                <label style={{ display: "block", fontSize: "0.58rem", fontWeight: 800, color: "#555", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.45rem" }}>Şüpheli / Suçlu İsmi</label>
+                <label style={{ display: "block", fontSize: "0.58rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.45rem" }}>Şüpheli / Suçlu İsmi</label>
                 <input className="mdt-inp" name="name" type="text" value={formData.name} onChange={handleChange} required placeholder="Tam isim soyisim..." style={inputStyle} />
               </div>
               <div>
-                <label style={{ display: "block", fontSize: "0.58rem", fontWeight: 800, color: "#555", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.45rem" }}>İşlenen Suçlar <span style={{ color: "#555", fontWeight: 400, letterSpacing: 0 }}>(virgülle ayırın)</span></label>
+                <label style={{ display: "block", fontSize: "0.58rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.45rem" }}>İşlenen Suçlar <span style={{ color: "var(--text-muted)", fontWeight: 400, letterSpacing: 0 }}>(virgülle ayırın)</span></label>
                 <input className="mdt-inp" name="crimes" type="text" value={formData.crimes} onChange={handleChange} required placeholder="Silahlı Soygun, Polise Mukavemet..." style={inputStyle} />
               </div>
               <div>
-                <label style={{ display: "block", fontSize: "0.58rem", fontWeight: 800, color: "#555", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.45rem" }}>Sabıka Fotoğrafı (En fazla 5 adet)</label>
+                <label style={{ display: "block", fontSize: "0.58rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.45rem" }}>Sabıka Fotoğrafı (En fazla 5 adet)</label>
                 <div style={{ display: "flex", gap: "1rem", alignItems: "flex-start", flexWrap: "wrap" }}>
-                  <label style={{ ...inputStyle, cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", background: "#161616", color: "rgba(29,110,247,0.8)", fontWeight: 600, width: "auto", padding: "0.6rem 1rem" }}>
+                  <label style={{ ...inputStyle, cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", background: "var(--bg-tertiary)", color: "rgba(29,110,247,0.8)", fontWeight: 600, width: "auto", padding: "0.6rem 1rem" }}>
                     <i className={uploadingImg ? "fa-solid fa-spinner fa-spin" : "fa-solid fa-camera"} /> 
                     {uploadingImg ? "Yükleniyor..." : "Fotoğraf Ekle"}
-                    <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: "none" }} disabled={uploadingImg || (formData.image && formData.image.split(",").length >= 5)} />
+                    <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: "none" }} disabled={Boolean(uploadingImg || (formData.image && formData.image.split(",").length >= 5))} />
                   </label>
                   {formData.image && (
                     <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", width: "100%", marginTop: "0.5rem" }}>
@@ -373,14 +373,14 @@ export default function SuçluVeritabanı() {
                 </div>
               </div>
               <div>
-                <label style={{ display: "block", fontSize: "0.58rem", fontWeight: 800, color: "#555", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.45rem" }}>Ek Notlar <span style={{ color: "#555", fontWeight: 400, letterSpacing: 0 }}>(opsiyonel)</span></label>
+                <label style={{ display: "block", fontSize: "0.58rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.45rem" }}>Ek Notlar <span style={{ color: "var(--text-muted)", fontWeight: 400, letterSpacing: 0 }}>(opsiyonel)</span></label>
                 <textarea className="mdt-inp" name="notes" value={formData.notes} onChange={handleChange} rows={4}
                   placeholder="Ek detaylar, tanıklar, deliller..."
                   style={{ ...inputStyle, resize: "vertical", lineHeight: 1.65 }} />
               </div>
               <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.75rem", paddingTop: "0.25rem" }}>
-                <button type="button" onClick={() => setShowAddForm(false)} style={{ padding: "0.6rem 1.1rem", borderRadius: 8, border: "1px solid rgba(255,255,255,0.08)", background: "transparent", color: "#666", fontWeight: 600, fontSize: "0.8rem", cursor: "pointer", transition: "all 0.15s" }}>İptal</button>
-                <button type="submit" disabled={submitting} style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.65rem 1.35rem", borderRadius: 8, background: "#1D6EF7", border: "1px solid rgba(255,255,255,0.16)", color: "#fff", fontWeight: 700, fontSize: "0.82rem", cursor: submitting ? "not-allowed" : "pointer", opacity: submitting ? 0.65 : 1, transition: "all 0.18s" }}>
+                <button type="button" onClick={() => setShowAddForm(false)} style={{ padding: "0.6rem 1.1rem", borderRadius: 2, border: "1px solid var(--border-light)", background: "transparent", color: "var(--text-secondary)", fontWeight: 600, fontSize: "0.8rem", cursor: "pointer", transition: "all 0.15s" }}>İptal</button>
+                <button type="submit" disabled={submitting} style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.65rem 1.35rem", borderRadius: 2, background: "var(--LAC-orange)", border: "1px solid var(--border-strong)", color: "#fff", fontWeight: 700, fontSize: "0.82rem", cursor: submitting ? "not-allowed" : "pointer", opacity: submitting ? 0.65 : 1, transition: "all 0.18s" }}>
                   {submitting ? <><i className="fa-solid fa-spinner fa-spin" /> İŞLENİYOR...</> : <><i className="fa-solid fa-save" /> {editingId ? "GÜNCELLE" : "KAYDET"}</>}
                 </button>
               </div>

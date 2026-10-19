@@ -1,4 +1,4 @@
-﻿export const dynamic = 'force-dynamic';
+export const dynamic = 'force-dynamic';
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
@@ -28,7 +28,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: "❌ HESAP BAŞVURUNUZ REDDEDİLDİ. Lütfen Yüksek Komuta yetkilileri ile iletişime geçiniz." }, { status: 403 });
     }
 
-    const isValidPassword = await bcrypt.compare(password, officer.password);
+    const isValidPassword = officer.password ? await bcrypt.compare(password, officer.password) : false;
     
     // Check CF-Connecting-IP first for Cloudflare proxy
     let ipAddress = req.headers.get("cf-connecting-ip");

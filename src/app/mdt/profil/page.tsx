@@ -190,20 +190,20 @@ export default function ProfilPage() {
   };
 
   const glassCard: React.CSSProperties = {
-    background: "#111111",
-      border: "1px solid rgba(255,255,255,0.08)",
-    borderRadius: 8,
+    background: "var(--bg-secondary)",
+      border: "1px solid var(--border-light)",
+    borderRadius: 2,
     overflow: "hidden",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
+    boxShadow: "0 2px 6px rgba(0,0,0,0.04)",
   };
 
   const inputStyle: React.CSSProperties = {
     width: "100%",
-    background: "#161616",
-    border: "1px solid rgba(255,255,255,0.08)",
-    borderRadius: 8,
+    background: "var(--bg-tertiary)",
+    border: "1px solid var(--border-light)",
+    borderRadius: 2,
     padding: "0.55rem 0.9rem",
-    color: "#ededed",
+    color: "var(--text-primary)",
     fontSize: "0.83rem",
     outline: "none",
     transition: "all 0.18s ease",
@@ -214,16 +214,16 @@ export default function ProfilPage() {
     display: "block",
     fontSize: "0.6rem",
     fontWeight: 800,
-    color: "#555",
+    color: "var(--text-muted)",
     letterSpacing: "0.22em",
     textTransform: "uppercase",
     marginBottom: "0.45rem",
   };
 
   const btnPrimary: React.CSSProperties = {
-    padding: "0.6rem 1.25rem", borderRadius: 8,
-    background: "#1D6EF7",
-    border: "1px solid rgba(255,255,255,0.16)",
+    padding: "0.6rem 1.25rem", borderRadius: 2,
+    background: "var(--LAC-orange)",
+    border: "1px solid var(--border-strong)",
     color: "#fff", fontWeight: 700, fontSize: "0.82rem", cursor: "pointer",
     transition: "all 0.2s"
   };
@@ -231,8 +231,8 @@ export default function ProfilPage() {
   if (loading) {
     return (
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "50vh", flexDirection: "column", gap: "1rem" }}>
-        <i className="fa-solid fa-circle-notch fa-spin" style={{ fontSize: "1.8rem", color: "#555" }} />
-        <span style={{ fontSize: "0.82rem", color: "#555", fontWeight: 600, letterSpacing: "0.1em" }}>YÜKLENİYOR...</span>
+        <i className="fa-solid fa-circle-notch fa-spin" style={{ fontSize: "1.8rem", color: "var(--text-muted)" }} />
+        <span style={{ fontSize: "0.82rem", color: "var(--text-muted)", fontWeight: 600, letterSpacing: "0.1em" }}>YÜKLENİYOR...</span>
       </div>
     );
   }
@@ -243,7 +243,7 @@ export default function ProfilPage() {
         <div style={{ width: 56, height: 56, borderRadius: "50%", background: "rgba(239,68,68,0.05)", border: "1px solid rgba(239,68,68,0.1)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1rem" }}>
           <i className="fa-solid fa-triangle-exclamation" style={{ color: "rgba(239,68,68,0.5)", fontSize: "1.3rem" }} />
         </div>
-        <div style={{ fontSize: "0.85rem", color: "#555", fontWeight: 500 }}>Kimlik doğrulama hatası</div>
+        <div style={{ fontSize: "0.85rem", color: "var(--text-muted)", fontWeight: 500 }}>Kimlik doğrulama hatası</div>
       </div>
     );
   }
@@ -257,8 +257,8 @@ export default function ProfilPage() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
         .custom-input:focus {
-          border-color: rgba(255,255,255,0.16) !important;
-          background: #161616 !important;
+          border-color: var(--border-strong) !important;
+          background: var(--bg-tertiary) !important;
         }
         .custom-btn:hover {
           filter: brightness(1.1);
@@ -287,13 +287,13 @@ export default function ProfilPage() {
       `}</style>
       
       <div style={{ marginBottom: "2rem" }}>
-        <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "#333", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.5rem" }}>
+        <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.5rem" }}>
           L.A.C.P.D. · YÖNETİM
         </div>
-        <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "#ededed", margin: 0, letterSpacing: "-0.02em" }}>
+        <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "var(--text-primary)", margin: 0, letterSpacing: "-0.02em" }}>
           Personel Profili
         </h1>
-        <p style={{ color: "#666", fontSize: "0.8rem", margin: "0.4rem 0 0", fontWeight: 400 }}>
+        <p style={{ color: "var(--text-secondary)", fontSize: "0.8rem", margin: "0.4rem 0 0", fontWeight: 400 }}>
           Kimlik Kartı ve Sistem Konfigürasyonu
         </p>
       </div>
@@ -305,19 +305,19 @@ export default function ProfilPage() {
           
           {/* HERO PROFILE CARD */}
           <div style={{ ...glassCard, position: 'relative', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '140px', background: 'linear-gradient(to bottom, rgba(255,255,255,0.08), transparent)' }} />
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '140px', background: 'linear-gradient(to bottom, var(--border-light), transparent)' }} />
             
             <div style={{ padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', position: 'relative', zIndex: 1 }}>
               
               <div style={{ 
                 width: 110, height: 110, borderRadius: '50%', background: 'rgba(10,14,26,0.8)', border: '2px solid #555', 
                 display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', marginBottom: '1.5rem',
-                boxShadow: '0 0 30px rgba(255,255,255,0.1)'
+                boxShadow: '0 0 30px var(--border-strong)'
               }}>
                 {user.profileImage ? (
                   <img src={user.profileImage} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 ) : (
-                  <i className="fa-solid fa-user-tie" style={{ fontSize: '3rem', color: "#555" }}></i>
+                  <i className="fa-solid fa-user-tie" style={{ fontSize: '3rem', color: "var(--text-muted)" }}></i>
                 )}
               </div>
 
@@ -333,23 +333,23 @@ export default function ProfilPage() {
                 </span>
                 <span className="mono" style={{ 
                   padding: "0.25rem 0.7rem", borderRadius: 20,
-                  background: "#161616", border: "1px solid rgba(255,255,255,0.1)",
-                  color: "#1D6EF7", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.08em",
+                  background: "var(--bg-tertiary)", border: "1px solid var(--border-strong)",
+                  color: "var(--LAC-orange)", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.08em",
                 }}>
                   #{user.badge}
                 </span>
               </div>
 
-              <h2 style={{ fontSize: '2rem', fontWeight: 900, color: '#ededed', margin: '0 0 0.5rem 0', letterSpacing: '-0.02em' }}>{user.name}</h2>
-              <div style={{ fontSize: '0.9rem', color: '#888', fontWeight: 500 }}>{user.rank} • {user.department || 'L.A.C.P.D.'}</div>
+              <h2 style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--text-primary)', margin: '0 0 0.5rem 0', letterSpacing: '-0.02em' }}>{user.name}</h2>
+              <div style={{ fontSize: '0.9rem', color: "var(--text-secondary)", fontWeight: 500 }}>{user.rank} • {user.department || 'L.A.C.P.D.'}</div>
 
               {/* MDT Özel Rolleri */}
               {user.specialRoles && (
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'center', marginTop: '1.5rem' }}>
                   {user.specialRoles.split(',').filter(Boolean).map((sr: string, idx: number) => (
                     <span key={`sr-${idx}`} style={{
-                      fontSize: '0.65rem', fontWeight: 700, color: '#ededed',
-                      backgroundColor: '#161616', border: '1px solid rgba(255,255,255,0.08)',
+                      fontSize: '0.65rem', fontWeight: 700, color: 'var(--text-primary)',
+                      backgroundColor: 'var(--bg-tertiary)', border: '1px solid var(--border-light)',
                       padding: '4px 10px', borderRadius: '6px', letterSpacing: '0.05em', textTransform: 'uppercase'
                     }}>
                       {sr.trim()}
@@ -375,7 +375,7 @@ export default function ProfilPage() {
                 </div>
               )}
               
-              <div style={{ marginTop: '2rem', fontSize: '0.75rem', color: '#555', fontWeight: 500 }}>
+              <div style={{ marginTop: '2rem', fontSize: '0.75rem', color: "var(--text-muted)", fontWeight: 500 }}>
                 Kayıt Tarihi: {formatDate(user.createdAt)}
               </div>
             </div>
@@ -385,15 +385,15 @@ export default function ProfilPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
             <div style={{ ...glassCard, padding: '1.25rem', textAlign: 'center' }}>
               <div style={labelStyle}>TOPLAM MESAİ</div>
-              <div className="mono" style={{ fontSize: '1.4rem', fontWeight: 700, color: '#ededed' }}>{formatTime(liveSeconds)}</div>
+              <div className="mono" style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text-primary)' }}>{formatTime(liveSeconds)}</div>
             </div>
             <div style={{ ...glassCard, padding: '1.25rem', textAlign: 'center' }}>
               <div style={labelStyle}>RAPOR SAYISI</div>
-              <div className="mono" style={{ fontSize: '1.4rem', fontWeight: 700, color: '#ededed' }}>{reportCount}</div>
+              <div className="mono" style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text-primary)' }}>{reportCount}</div>
             </div>
             <div style={{ ...glassCard, padding: '1.25rem', textAlign: 'center' }}>
               <div style={labelStyle}>LİDERBOARD</div>
-              <div className="mono" style={{ fontSize: '1.4rem', fontWeight: 700, color: '#1D6EF7' }}>#{userRank}</div>
+              <div className="mono" style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--LAC-orange)' }}>#{userRank}</div>
             </div>
           </div>
           
@@ -421,10 +421,10 @@ export default function ProfilPage() {
           {/* PROFILE IMAGE CARD */}
           <div style={{ ...glassCard, padding: '1.5rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
-              <div style={{ width: 32, height: 32, borderRadius: 8, background: 'rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.1)' }}>
-                <i className="fa-solid fa-image" style={{ color: '#1D6EF7', fontSize: '0.9rem' }}></i>
+              <div style={{ width: 32, height: 32, borderRadius: 2, background: 'var(--border-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--border-strong)' }}>
+                <i className="fa-solid fa-image" style={{ color: 'var(--LAC-orange)', fontSize: '0.9rem' }}></i>
               </div>
-              <h3 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 700, color: '#ededed' }}>Profil Fotoğrafı</h3>
+              <h3 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-primary)' }}>Profil Fotoğrafı</h3>
             </div>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -453,14 +453,14 @@ export default function ProfilPage() {
                   className="custom-btn"
                   onClick={removePhoto} 
                   disabled={imgLoading || !user.profileImage} 
-                  style={{ padding: '0.6rem 1rem', borderRadius: 8, background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', color: '#ef4444', cursor: 'pointer', opacity: (!user.profileImage || imgLoading) ? 0.5 : 1, transition: 'all 0.2s' }}
+                  style={{ padding: '0.6rem 1rem', borderRadius: 2, background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', color: '#ef4444', cursor: 'pointer', opacity: (!user.profileImage || imgLoading) ? 0.5 : 1, transition: 'all 0.2s' }}
                 >
                   <i className="fa-solid fa-trash"></i>
                 </button>
               </div>
 
               {imgMessage && (
-                <div style={{ fontSize: '0.75rem', fontWeight: 600, padding: '0.75rem', borderRadius: 8, backgroundColor: imgMessage.type === 'success' ? 'rgba(0,210,106,0.1)' : 'rgba(239, 68, 68, 0.1)', color: imgMessage.type === 'success' ? '#22c55e' : '#ef4444', border: `1px solid ${imgMessage.type === 'success' ? 'rgba(0,210,106,0.2)' : 'rgba(239, 68, 68, 0.2)'}`, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <div style={{ fontSize: '0.75rem', fontWeight: 600, padding: '0.75rem', borderRadius: 2, backgroundColor: imgMessage.type === 'success' ? 'rgba(0,210,106,0.1)' : 'rgba(239, 68, 68, 0.1)', color: imgMessage.type === 'success' ? '#22c55e' : '#ef4444', border: `1px solid ${imgMessage.type === 'success' ? 'rgba(0,210,106,0.2)' : 'rgba(239, 68, 68, 0.2)'}`, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <i className={`fa-solid ${imgMessage.type === 'success' ? 'fa-check-circle' : 'fa-circle-exclamation'}`}></i>
                   {imgMessage.text}
                 </div>
@@ -471,10 +471,10 @@ export default function ProfilPage() {
           {/* SECURITY CARD */}
           <div style={{ ...glassCard, padding: '1.5rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
-              <div style={{ width: 32, height: 32, borderRadius: 8, background: 'rgba(245,158,11,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(245,158,11,0.2)' }}>
+              <div style={{ width: 32, height: 32, borderRadius: 2, background: 'rgba(245,158,11,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(245,158,11,0.2)' }}>
                 <i className="fa-solid fa-lock" style={{ color: '#f59e0b', fontSize: '0.9rem' }}></i>
               </div>
-              <h3 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 700, color: '#ededed' }}>Güvenlik Anahtarı</h3>
+              <h3 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-primary)' }}>Güvenlik Anahtarı</h3>
             </div>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -512,7 +512,7 @@ export default function ProfilPage() {
               </div>
               
               {pwMessage && (
-                <div style={{ fontSize: '0.75rem', fontWeight: 600, padding: '0.75rem', borderRadius: 8, backgroundColor: pwMessage.type === 'success' ? 'rgba(0,210,106,0.1)' : 'rgba(239, 68, 68, 0.1)', color: pwMessage.type === 'success' ? '#22c55e' : '#ef4444', border: `1px solid ${pwMessage.type === 'success' ? 'rgba(0,210,106,0.2)' : 'rgba(239, 68, 68, 0.2)'}`, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <div style={{ fontSize: '0.75rem', fontWeight: 600, padding: '0.75rem', borderRadius: 2, backgroundColor: pwMessage.type === 'success' ? 'rgba(0,210,106,0.1)' : 'rgba(239, 68, 68, 0.1)', color: pwMessage.type === 'success' ? '#22c55e' : '#ef4444', border: `1px solid ${pwMessage.type === 'success' ? 'rgba(0,210,106,0.2)' : 'rgba(239, 68, 68, 0.2)'}`, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <i className={`fa-solid ${pwMessage.type === 'success' ? 'fa-check-circle' : 'fa-circle-exclamation'}`}></i>
                   {pwMessage.text}
                 </div>
@@ -523,7 +523,7 @@ export default function ProfilPage() {
                   className="custom-btn"
                   onClick={changePassword} 
                   disabled={pwLoading} 
-                  style={{ width: '100%', padding: '0.6rem 1rem', borderRadius: 8, background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.3)', color: '#f59e0b', fontWeight: 700, fontSize: '0.8rem', cursor: pwLoading ? 'not-allowed' : 'pointer', transition: 'all 0.2s', opacity: pwLoading ? 0.7 : 1 }}
+                  style={{ width: '100%', padding: '0.6rem 1rem', borderRadius: 2, background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.3)', color: '#f59e0b', fontWeight: 700, fontSize: '0.8rem', cursor: pwLoading ? 'not-allowed' : 'pointer', transition: 'all 0.2s', opacity: pwLoading ? 0.7 : 1 }}
                 >
                   {pwLoading ? 'İŞLENİYOR...' : 'ŞİFREYİ GÜNCELLE'}
                 </button>

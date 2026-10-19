@@ -4,6 +4,28 @@ import type { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { jwtVerify, SignJWT } from "jose";
 
+export async function GET(req: NextRequest) {
+  try {
+    const regToken = req.cookies.get("discord_reg_token")?.value;
+    if (!regToken) {
+      return NextResponse.json({ authenticated: false }, { status: 200 });
+    }
+    const secretString = process.env.JWT_SECRET || "cok-gizli-LAC-anahtari-123";
+    const secret = new TextEncoder().encode(secretString);
+    const { payload } = await jwtVerify(regToken, secret);
+
+    return NextResponse.json({
+      authenticated: true,
+      discordId: payload.discordId,
+      discordUsername: payload.discordUsername,
+      globalName: payload.globalName || payload.discordUsername,
+      avatarUrl: payload.avatarUrl,
+    });
+  } catch {
+    return NextResponse.json({ authenticated: false }, { status: 200 });
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const regToken = req.cookies.get("discord_reg_token")?.value;
@@ -25,6 +47,7 @@ export async function POST(req: NextRequest) {
     const name = (body.name || "").trim();
     const badge = (body.badge || "").trim();
     const rank = (body.rank || "").trim();
+    const department = (body.department || "Patrol Division").trim();
 
     if (!name || !badge || !rank) {
       return NextResponse.json(
@@ -40,6 +63,11 @@ export async function POST(req: NextRequest) {
     if (existingByDiscord) {
       return NextResponse.json({
         status: existingByDiscord.status,
+        officer: {
+          name: existingByDiscord.name,
+          badge: existingByDiscord.badge,
+          rank: existingByDiscord.rank,
+        },
         redirect: existingByDiscord.status === "APPROVED" ? "/mdt" : undefined,
       });
     }
@@ -53,7 +81,6 @@ export async function POST(req: NextRequest) {
     });
 
     if (unlinkedAdmin) {
-      // Rozet çakışması olmaması için güncelle
       const updatedAdmin = await prisma.officer.update({
         where: { id: unlinkedAdmin.id },
         data: {
@@ -61,6 +88,7 @@ export async function POST(req: NextRequest) {
           name,
           badge,
           rank,
+          department: department || unlinkedAdmin.department,
           profileImage: avatarUrl,
           role: "admin",
           status: "APPROVED",
@@ -105,13 +133,13 @@ export async function POST(req: NextRequest) {
     }
 
     // Standart memur kaydı -> Admin onayı bekler (PENDING)
-    await prisma.officer.create({
+    const createdOfficer = await prisma.officer.create({
       data: {
         discordId,
         name,
         badge,
         rank,
-        department: "Genel Devriye",
+        department,
         role: "user",
         status: "PENDING",
         profileImage: avatarUrl,
@@ -121,6 +149,11 @@ export async function POST(req: NextRequest) {
     const res = NextResponse.json({
       success: true,
       status: "PENDING",
+      officer: {
+        name: createdOfficer.name,
+        badge: createdOfficer.badge,
+        rank: createdOfficer.rank,
+      },
     });
     res.cookies.delete("discord_reg_token");
     return res;

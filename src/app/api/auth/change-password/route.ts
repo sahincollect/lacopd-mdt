@@ -36,7 +36,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Kullanıcı bulunamadı.' }, { status: 404 });
     }
 
-    const isMatch = await bcrypt.compare(currentPassword, officer.password);
+    const isMatch = officer.password ? await bcrypt.compare(currentPassword, officer.password) : false;
     if (!isMatch) {
       return NextResponse.json({ error: 'Mevcut şifre yanlış.' }, { status: 400 });
     }
