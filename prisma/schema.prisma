@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -50,8 +50,8 @@ model Report {
   evidenceUrl String?  @db.Text
   reportCode  String?  @unique
   formId      String?
-  formData    String?  @db.LongText
-  diagramData String?  @db.LongText
+  formData    String?  @db.Text
+  diagramData String?  @db.Text
   createdAt   DateTime @default(now())
 }
 
@@ -118,7 +118,7 @@ model Message {
 
 model FileStorage {
   id        String   @id @default(uuid())
-  data      String   @db.LongText
+  data      String   @db.Text
   mimeType  String
   fileName  String
   createdAt DateTime @default(now())

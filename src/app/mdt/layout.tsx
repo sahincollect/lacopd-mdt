@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -82,7 +82,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
   if (user?.role === 'admin') {
     allSections.push({
       label: "Yönetim",
-      items: [{ label: "Admin Paneli", path: "/mdt/admin", icon: "fa-shield-halved" }],
+      items: [{ label: "Yüksek Komuta Paneli", path: "/mdt/komuta-1222", icon: "fa-shield-halved" }],
     });
   }
 

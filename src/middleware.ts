@@ -28,9 +28,19 @@ async function verifyToken(token: string, secret: string): Promise<boolean> {
 }
 
 export async function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+
+  // Tuzak rotalar: /mdt/admin, /wp-admin, /administrator, /panel -> /admin hayran kulübüne yönlendir
+  const trapPaths = ["/mdt/admin", "/wp-admin", "/administrator", "/panel", "/cpanel", "/phpmyadmin"];
+  if (trapPaths.some(p => pathname === p || pathname.startsWith(`${p}/`))) {
+    const trapUrl = new URL("/admin", request.url);
+    trapUrl.searchParams.set("from", pathname);
+    return NextResponse.redirect(trapUrl);
+  }
+
   const token = request.cookies.get("auth_token")?.value;
-  const isMdtRoute = request.nextUrl.pathname.startsWith("/mdt");
-  const isLoginRoute = request.nextUrl.pathname === "/giris";
+  const isMdtRoute = pathname.startsWith("/mdt");
+  const isLoginRoute = pathname === "/giris";
   const secret = process.env.JWT_SECRET;
 
   if (!secret) {
@@ -60,5 +70,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/mdt/:path*", "/giris"],
+  matcher: ["/mdt/:path*", "/giris", "/wp-admin/:path*", "/administrator/:path*", "/panel/:path*", "/cpanel/:path*", "/phpmyadmin/:path*"],
 };
