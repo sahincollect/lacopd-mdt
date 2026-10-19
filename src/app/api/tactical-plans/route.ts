@@ -1,131 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-const SETTING_KEY = "tactical_plans_v1";
+const SETTING_KEY = "tactical_plans_v2";
 
 const DEFAULT_PLANS = [
   {
-    id: "OP-2026-101",
-    title: "Eclipse Bulvarı Yüksek Riskli Baskın Planı",
-    location: "Eclipse Blvd No: 402 — Batı Vinewood",
-    riskLevel: "KRİTİK",
+    id: "OP-2026-001",
+    title: "Boş Taktiksel Operasyon Şablonu",
+    location: "Operasyon Bölgesi Belirtilmedi",
+    riskLevel: "YÜKSEK",
     status: "PLANLANIYOR",
-    commander: "Yüksek Komuta",
-    mapType: "BUILDING",
+    commander: "Komuta Merkezi",
+    mapType: "EMPTY",
     customMapUrl: "",
     summary:
-      "Silahlı soygun şüphelilerinin barikat kurduğu iki katlı mülke yönelik çevre emniyeti, hava gözlemi ve SWAT giriş koordinasyonu.",
+      "Serbest taktiksel planlama tahtası. Sol kütüphaneden bina, oda, konteyner, yol, siper, birim ve şüphelileri sürükleyip bırakarak operasyon krokinizi sıfırdan inşa edebilirsiniz.",
     createdAt: new Date().toISOString(),
-    markers: [
-      {
-        id: "m-1",
-        category: "UNIT",
-        type: "SWAT",
-        label: "SWAT-1 (Giriş)",
-        sublabel: "Ön Kapı Koçbaşı",
-        x: 42,
-        y: 68,
-      },
-      {
-        id: "m-2",
-        category: "UNIT",
-        type: "PATROL",
-        label: "1-ADAM-12",
-        sublabel: "Güney Çemberi",
-        x: 25,
-        y: 82,
-      },
-      {
-        id: "m-3",
-        category: "UNIT",
-        type: "PATROL",
-        label: "2-ADAM-19",
-        sublabel: "Kuzey Çemberi",
-        x: 76,
-        y: 22,
-      },
-      {
-        id: "m-4",
-        category: "UNIT",
-        type: "SNIPER",
-        label: "GÖZLEM-1",
-        sublabel: "Karşı Çatı",
-        x: 18,
-        y: 30,
-      },
-      {
-        id: "m-5",
-        category: "UNIT",
-        type: "AIR",
-        label: "AIR-1",
-        sublabel: "Termal Kamera",
-        x: 82,
-        y: 65,
-      },
-      {
-        id: "m-6",
-        category: "SUSPECT",
-        type: "ARMED_SUSPECT",
-        label: "Şüpheli #1 (Silahlı)",
-        sublabel: "Üst Kat Koridor",
-        x: 50,
-        y: 44,
-      },
-      {
-        id: "m-7",
-        category: "SUSPECT",
-        type: "HOSTAGE",
-        label: "Rehine (1 Sivil)",
-        sublabel: "Arka Oda",
-        x: 58,
-        y: 36,
-      },
-      {
-        id: "m-8",
-        category: "DIRECTIVE_PIN",
-        type: "BREACH",
-        label: "Giriş Noktası A",
-        sublabel: "Ana Kapı + Flashbang",
-        x: 48,
-        y: 58,
-      },
-    ],
-    directives: [
-      {
-        id: "dir-1",
-        phase: "AŞAMA 1",
-        priority: "YÜKSEK",
-        assignedTo: "1-ADAM-12 & 2-ADAM-19",
-        text: "Eclipse Bulvarı kuzey ve güney kavşakları sivil trafiğe kapatılarak dış güvenlik çemberi oluşturulacak.",
-        completed: true,
-      },
-      {
-        id: "dir-2",
-        priority: "KRİTİK",
-        phase: "AŞAMA 2",
-        assignedTo: "AIR-1 & GÖZLEM-1",
-        text: "Çatı ve arka bahçe kaçış koridorları termal görüş ile sabitlenecek, içerideki şüpheli hareketliliği telsizden aktarılacak.",
-        completed: false,
-      },
-      {
-        id: "dir-3",
-        priority: "KRİTİK",
-        phase: "AŞAMA 3",
-        assignedTo: "SWAT-1",
-        text: "Müzakere sonuçsuz kalırsa Giriş Noktası A üzerinden sarsıcı mühimmat ile eşzamanlı giriş yapılacak.",
-        completed: false,
-      },
-    ],
-    comments: [
-      {
-        id: "c-1",
-        authorName: "Komuta Merkezi",
-        authorBadge: "1222",
-        authorRank: "Chief of Police",
-        content: "Arka bahçede kaçış aracı ihtimaline karşı K-9 birimi batı koridorunda hazır beklesin.",
-        createdAt: new Date().toISOString(),
-      },
-    ],
+    structures: [],
+    markers: [],
+    drawings: [],
+    directives: [],
+    comments: [],
   },
 ];
 
@@ -181,11 +76,13 @@ export async function POST(req: NextRequest) {
         riskLevel: body.riskLevel || "YÜKSEK",
         status: "PLANLANIYOR",
         commander: body.commander || "Komuta Merkezi",
-        mapType: body.mapType || "BUILDING",
+        mapType: body.mapType || "EMPTY",
         customMapUrl: body.customMapUrl || "",
         summary: body.summary || "",
         createdAt: new Date().toISOString(),
+        structures: [],
         markers: [],
+        drawings: [],
         directives: [],
         comments: [],
       };
@@ -201,7 +98,8 @@ export async function POST(req: NextRequest) {
     }
 
     if (body.action === "DELETE_PLAN" && body.planId) {
-      const updated = plans.filter((p: any) => p.id !== body.planId);
+      const filtered = plans.filter((p: any) => p.id !== body.planId);
+      const updated = filtered.length > 0 ? filtered : DEFAULT_PLANS;
       await savePlans(updated);
       return NextResponse.json({ success: true, plans: updated });
     }
