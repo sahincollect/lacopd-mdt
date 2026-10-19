@@ -395,7 +395,7 @@ export default function MailBoxPage() {
 
   const inputStyle: React.CSSProperties = {
     width: "100%", padding: "0.85rem 1rem", background: 'var(--mdt-bg-main)', border: "1px solid var(--mdt-border)",
-    borderRadius: "2px", color: 'var(--mdt-text-primary)', fontSize: "0.85rem", outline: "none", boxSizing: "border-box",
+    borderRadius: "6px", color: 'var(--mdt-text-primary)', fontSize: "0.85rem", outline: "none", boxSizing: "border-box",
     transition: "border-color 0.15s, box-shadow 0.15s"
   };
 
@@ -418,13 +418,13 @@ export default function MailBoxPage() {
           </p>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-          <button onClick={() => loadMails()} disabled={loading} style={{ padding: '0.75rem 1.25rem', borderRadius: "2px", backgroundColor: 'var(--mdt-card-bg)', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', fontWeight: 700, fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', transition: 'all 0.15s' }}
+          <button onClick={() => loadMails()} disabled={loading} style={{ padding: '0.75rem 1.25rem', borderRadius: "6px", backgroundColor: 'var(--mdt-card-bg)', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', fontWeight: 700, fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', transition: 'all 0.15s' }}
             onMouseOver={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-text-primary)'; }}
             onMouseOut={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; }}>
             <i className={`fa-solid fa-rotate-right ${loading ? 'fa-spin' : ''}`}></i> YENİLE
           </button>
 
-          <button onClick={() => { setActiveFolder('compose'); setComposeSubject(''); setComposeBody(''); setTargetMode('single'); }} style={{ padding: '0.75rem 1.25rem', borderRadius: "2px", backgroundColor: 'var(--mdt-accent)', border: '1px solid var(--mdt-accent)', color: "#ffffff", fontWeight: 800, fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', transition: 'all 0.15s' }}
+          <button onClick={() => { setActiveFolder('compose'); setComposeSubject(''); setComposeBody(''); setTargetMode('single'); }} style={{ padding: '0.75rem 1.25rem', borderRadius: "6px", backgroundColor: 'var(--mdt-accent)', border: '1px solid var(--mdt-accent)', color: "#ffffff", fontWeight: 800, fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', transition: 'all 0.15s' }}
             onMouseOver={e => (e.currentTarget as HTMLElement).style.opacity = '0.85'}
             onMouseOut={e => (e.currentTarget as HTMLElement).style.opacity = '1'}>
             <i className="fa-solid fa-plus"></i> YENİ POSTA
@@ -433,7 +433,7 @@ export default function MailBoxPage() {
       </div>
 
       {/* ── TABS ── */}
-      <div style={{ display: 'flex', gap: '0.5rem', backgroundColor: 'var(--mdt-card-bg)', padding: '0.5rem', borderRadius: "2px", border: '1px solid var(--mdt-border)', overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none' }}>
+      <div style={{ display: 'flex', gap: '0.5rem', backgroundColor: 'var(--mdt-card-bg)', padding: '0.5rem', borderRadius: "6px", border: '1px solid var(--mdt-border)', overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none' }}>
         {[
           { id: 'inbox', label: '📥 Gelen Kutusu', count: unreadCount, badgeColor: 'var(--mdt-danger)' },
           { id: 'sent', label: '📤 Gönderilenler', count: 0 },
@@ -442,7 +442,7 @@ export default function MailBoxPage() {
         ].map((tab) => {
           const isActive = activeFolder === tab.id;
           return (
-            <button key={tab.id} onClick={() => setActiveFolder(tab.id as any)} style={{ flex: 1, minWidth: '150px', padding: '0.75rem 1rem', borderRadius: "2px", border: isActive ? '1px solid var(--mdt-border)' : '1px solid transparent', backgroundColor: isActive ? 'var(--mdt-bg-main)' : 'transparent', color: isActive ? 'var(--mdt-text-primary)' : 'var(--mdt-text-secondary)', fontWeight: isActive ? 800 : 700, fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.6rem', transition: 'all 0.15s', whiteSpace: 'nowrap' }}
+            <button key={tab.id} onClick={() => setActiveFolder(tab.id as any)} style={{ flex: 1, minWidth: '150px', padding: '0.75rem 1rem', borderRadius: "6px", border: isActive ? '1px solid var(--mdt-border)' : '1px solid transparent', backgroundColor: isActive ? 'var(--mdt-bg-main)' : 'transparent', color: isActive ? 'var(--mdt-text-primary)' : 'var(--mdt-text-secondary)', fontWeight: isActive ? 800 : 700, fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.6rem', transition: 'all 0.15s', whiteSpace: 'nowrap' }}
               onMouseOver={e => !isActive && ((e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)')}
               onMouseOut={e => !isActive && ((e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)')}>
               <span>{tab.label}</span>
@@ -454,18 +454,18 @@ export default function MailBoxPage() {
 
       {/* ── BATCH ACTION TOOLBAR ── */}
       {selectedIds.length > 0 && activeFolder !== 'compose' && (
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-accent)', padding: '1rem 1.5rem', borderRadius: "2px", boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-accent)', padding: '1rem 1.5rem', borderRadius: "6px", boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
             <span style={{ fontWeight: 800, color: 'var(--mdt-accent)', fontSize: '0.9rem' }}>{selectedIds.length} öğe seçildi</span>
           </div>
           <div style={{ display: 'flex', gap: '0.75rem' }}>
-            <button onClick={handleBatchMarkAsRead} disabled={batchActionLoading} style={{ padding: '0.6rem 1.25rem', borderRadius: "2px", backgroundColor: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.3)', color: 'var(--mdt-success)', fontWeight: 700, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.15s' }}
+            <button onClick={handleBatchMarkAsRead} disabled={batchActionLoading} style={{ padding: '0.6rem 1.25rem', borderRadius: "6px", backgroundColor: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.3)', color: 'var(--mdt-success)', fontWeight: 700, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.15s' }}
               onMouseOver={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(34,197,94,0.2)'; }}
               onMouseOut={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(34,197,94,0.1)'; }}>Okundu İşaretle</button>
-            <button onClick={handleBatchDelete} disabled={batchActionLoading} style={{ padding: '0.6rem 1.25rem', borderRadius: "2px", backgroundColor: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', color: 'var(--mdt-danger)', fontWeight: 700, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.15s' }}
+            <button onClick={handleBatchDelete} disabled={batchActionLoading} style={{ padding: '0.6rem 1.25rem', borderRadius: "6px", backgroundColor: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', color: 'var(--mdt-danger)', fontWeight: 700, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.15s' }}
               onMouseOver={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(239,68,68,0.2)'; }}
               onMouseOut={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(239,68,68,0.1)'; }}>Sil</button>
-            <button onClick={() => setSelectedIds([])} style={{ padding: '0.6rem 1.25rem', borderRadius: "2px", backgroundColor: 'transparent', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', fontWeight: 700, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.15s' }}
+            <button onClick={() => setSelectedIds([])} style={{ padding: '0.6rem 1.25rem', borderRadius: "6px", backgroundColor: 'transparent', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', fontWeight: 700, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.15s' }}
               onMouseOver={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-text-primary)'; }}
               onMouseOut={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; }}>İptal</button>
           </div>
@@ -474,7 +474,7 @@ export default function MailBoxPage() {
 
       {/* ── MAIN CONTENT ── */}
       {activeFolder === 'compose' ? (
-        <div style={{ backgroundColor: 'var(--mdt-card-bg)', borderRadius: "2px", border: '1px solid var(--mdt-border)', padding: '2rem' }}>
+        <div style={{ backgroundColor: 'var(--mdt-card-bg)', borderRadius: "6px", border: '1px solid var(--mdt-border)', padding: '2rem' }}>
           
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', borderBottom: '1px solid var(--mdt-border)', paddingBottom: '1.25rem', flexWrap: "wrap", gap: "1rem" }}>
             <h2 style={{ margin: 0, fontSize: '1.15rem', fontWeight: 900, color: 'var(--mdt-text-primary)', textTransform: 'uppercase', letterSpacing: '0.02em', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -483,16 +483,16 @@ export default function MailBoxPage() {
             
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
               <span style={{ fontSize: '0.7rem', color: 'var(--mdt-text-muted)', fontWeight: 700, letterSpacing: '0.1em' }}>HIZLI ŞABLON:</span>
-              <button type="button" onClick={() => handleApplyTemplate('patrol')} style={{ padding: '0.5rem 0.8rem', borderRadius: "2px", backgroundColor: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer', transition: 'all 0.15s' }}
+              <button type="button" onClick={() => handleApplyTemplate('patrol')} style={{ padding: '0.5rem 0.8rem', borderRadius: "6px", backgroundColor: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer', transition: 'all 0.15s' }}
                 onMouseOver={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-text-primary)'; }}
                 onMouseOut={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; }}>Devriye</button>
-              <button type="button" onClick={() => handleApplyTemplate('arrest')} style={{ padding: '0.5rem 0.8rem', borderRadius: "2px", backgroundColor: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer', transition: 'all 0.15s' }}
+              <button type="button" onClick={() => handleApplyTemplate('arrest')} style={{ padding: '0.5rem 0.8rem', borderRadius: "6px", backgroundColor: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer', transition: 'all 0.15s' }}
                 onMouseOver={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-text-primary)'; }}
                 onMouseOut={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; }}>Tutanak</button>
-              <button type="button" onClick={() => handleApplyTemplate('directive')} style={{ padding: '0.5rem 0.8rem', borderRadius: "2px", backgroundColor: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer', transition: 'all 0.15s' }}
+              <button type="button" onClick={() => handleApplyTemplate('directive')} style={{ padding: '0.5rem 0.8rem', borderRadius: "6px", backgroundColor: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer', transition: 'all 0.15s' }}
                 onMouseOver={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-text-primary)'; }}
                 onMouseOut={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; }}>Talimat</button>
-              <button type="button" onClick={() => handleApplyTemplate('shift')} style={{ padding: '0.5rem 0.8rem', borderRadius: "2px", backgroundColor: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer', transition: 'all 0.15s' }}
+              <button type="button" onClick={() => handleApplyTemplate('shift')} style={{ padding: '0.5rem 0.8rem', borderRadius: "6px", backgroundColor: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer', transition: 'all 0.15s' }}
                 onMouseOver={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-text-primary)'; }}
                 onMouseOut={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; }}>Mesai</button>
             </div>
@@ -502,10 +502,10 @@ export default function MailBoxPage() {
             <div>
               <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', color: 'var(--mdt-text-muted)', marginBottom: '0.5rem', textTransform: 'uppercase' }}>HEDEF SEÇİMİ:</label>
               <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: "1rem" }}>
-                <button type="button" onClick={() => setTargetMode('single')} style={{ padding: '0.6rem 1.2rem', borderRadius: "2px", border: targetMode === 'single' ? '1px solid var(--mdt-accent)' : '1px solid var(--mdt-border)', backgroundColor: targetMode === 'single' ? 'color-mix(in srgb, var(--mdt-accent) 10%, transparent)' : 'var(--mdt-bg-main)', color: targetMode === 'single' ? 'var(--mdt-accent)' : 'var(--mdt-text-secondary)', fontWeight: 800, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.15s' }}>Tekli Memur</button>
-                <button type="button" onClick={() => setTargetMode('department')} style={{ padding: '0.6rem 1.2rem', borderRadius: "2px", border: targetMode === 'department' ? '1px solid var(--mdt-accent)' : '1px solid var(--mdt-border)', backgroundColor: targetMode === 'department' ? 'color-mix(in srgb, var(--mdt-accent) 10%, transparent)' : 'var(--mdt-bg-main)', color: targetMode === 'department' ? 'var(--mdt-accent)' : 'var(--mdt-text-secondary)', fontWeight: 800, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.15s' }}>Birim Bazlı</button>
-                <button type="button" onClick={() => setTargetMode('rank')} style={{ padding: '0.6rem 1.2rem', borderRadius: "2px", border: targetMode === 'rank' ? '1px solid var(--mdt-accent)' : '1px solid var(--mdt-border)', backgroundColor: targetMode === 'rank' ? 'color-mix(in srgb, var(--mdt-accent) 10%, transparent)' : 'var(--mdt-bg-main)', color: targetMode === 'rank' ? 'var(--mdt-accent)' : 'var(--mdt-text-secondary)', fontWeight: 800, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.15s' }}>Rütbe Bazlı</button>
-                {isAdmin && <button type="button" onClick={() => setTargetMode('broadcast')} style={{ padding: '0.6rem 1.2rem', borderRadius: "2px", border: targetMode === 'broadcast' ? '1px solid var(--mdt-warning)' : '1px solid var(--mdt-border)', backgroundColor: targetMode === 'broadcast' ? 'rgba(245,158,11,0.1)' : 'var(--mdt-bg-main)', color: targetMode === 'broadcast' ? 'var(--mdt-warning)' : 'var(--mdt-text-secondary)', fontWeight: 800, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.15s' }}>Tüm Departman (Broadcast)</button>}
+                <button type="button" onClick={() => setTargetMode('single')} style={{ padding: '0.6rem 1.2rem', borderRadius: "6px", border: targetMode === 'single' ? '1px solid var(--mdt-accent)' : '1px solid var(--mdt-border)', backgroundColor: targetMode === 'single' ? 'color-mix(in srgb, var(--mdt-accent) 10%, transparent)' : 'var(--mdt-bg-main)', color: targetMode === 'single' ? 'var(--mdt-accent)' : 'var(--mdt-text-secondary)', fontWeight: 800, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.15s' }}>Tekli Memur</button>
+                <button type="button" onClick={() => setTargetMode('department')} style={{ padding: '0.6rem 1.2rem', borderRadius: "6px", border: targetMode === 'department' ? '1px solid var(--mdt-accent)' : '1px solid var(--mdt-border)', backgroundColor: targetMode === 'department' ? 'color-mix(in srgb, var(--mdt-accent) 10%, transparent)' : 'var(--mdt-bg-main)', color: targetMode === 'department' ? 'var(--mdt-accent)' : 'var(--mdt-text-secondary)', fontWeight: 800, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.15s' }}>Birim Bazlı</button>
+                <button type="button" onClick={() => setTargetMode('rank')} style={{ padding: '0.6rem 1.2rem', borderRadius: "6px", border: targetMode === 'rank' ? '1px solid var(--mdt-accent)' : '1px solid var(--mdt-border)', backgroundColor: targetMode === 'rank' ? 'color-mix(in srgb, var(--mdt-accent) 10%, transparent)' : 'var(--mdt-bg-main)', color: targetMode === 'rank' ? 'var(--mdt-accent)' : 'var(--mdt-text-secondary)', fontWeight: 800, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.15s' }}>Rütbe Bazlı</button>
+                {isAdmin && <button type="button" onClick={() => setTargetMode('broadcast')} style={{ padding: '0.6rem 1.2rem', borderRadius: "6px", border: targetMode === 'broadcast' ? '1px solid var(--mdt-warning)' : '1px solid var(--mdt-border)', backgroundColor: targetMode === 'broadcast' ? 'rgba(245,158,11,0.1)' : 'var(--mdt-bg-main)', color: targetMode === 'broadcast' ? 'var(--mdt-warning)' : 'var(--mdt-text-secondary)', fontWeight: 800, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.15s' }}>Tüm Departman (Broadcast)</button>}
               </div>
 
               {targetMode === 'single' && (
@@ -539,9 +539,9 @@ export default function MailBoxPage() {
             <div>
               <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', color: 'var(--mdt-text-muted)', marginBottom: '0.5rem', textTransform: 'uppercase' }}>ÖNCELİK & GİZLİLİK SEVİYESİ:</label>
               <div style={{ display: 'flex', gap: '0.6rem' }}>
-                <button type="button" onClick={() => setComposePriority('normal')} style={{ flex: 1, padding: '0.75rem', borderRadius: "2px", border: composePriority === 'normal' ? '1px solid var(--mdt-success)' : '1px solid var(--mdt-border)', backgroundColor: composePriority === 'normal' ? 'rgba(34,197,94,0.1)' : 'var(--mdt-bg-main)', color: composePriority === 'normal' ? 'var(--mdt-success)' : 'var(--mdt-text-secondary)', fontWeight: 800, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.15s' }}>Normal</button>
-                <button type="button" onClick={() => setComposePriority('urgent')} style={{ flex: 1, padding: '0.75rem', borderRadius: "2px", border: composePriority === 'urgent' ? '1px solid var(--mdt-warning)' : '1px solid var(--mdt-border)', backgroundColor: composePriority === 'urgent' ? 'rgba(245,158,11,0.1)' : 'var(--mdt-bg-main)', color: composePriority === 'urgent' ? 'var(--mdt-warning)' : 'var(--mdt-text-secondary)', fontWeight: 800, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.15s' }}>Önemli</button>
-                <button type="button" onClick={() => setComposePriority('secret')} style={{ flex: 1, padding: '0.75rem', borderRadius: "2px", border: composePriority === 'secret' ? '1px solid var(--mdt-danger)' : '1px solid var(--mdt-border)', backgroundColor: composePriority === 'secret' ? 'rgba(239,68,68,0.1)' : 'var(--mdt-bg-main)', color: composePriority === 'secret' ? 'var(--mdt-danger)' : 'var(--mdt-text-secondary)', fontWeight: 800, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.15s' }}>Acil & Gizli</button>
+                <button type="button" onClick={() => setComposePriority('normal')} style={{ flex: 1, padding: '0.75rem', borderRadius: "6px", border: composePriority === 'normal' ? '1px solid var(--mdt-success)' : '1px solid var(--mdt-border)', backgroundColor: composePriority === 'normal' ? 'rgba(34,197,94,0.1)' : 'var(--mdt-bg-main)', color: composePriority === 'normal' ? 'var(--mdt-success)' : 'var(--mdt-text-secondary)', fontWeight: 800, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.15s' }}>Normal</button>
+                <button type="button" onClick={() => setComposePriority('urgent')} style={{ flex: 1, padding: '0.75rem', borderRadius: "6px", border: composePriority === 'urgent' ? '1px solid var(--mdt-warning)' : '1px solid var(--mdt-border)', backgroundColor: composePriority === 'urgent' ? 'rgba(245,158,11,0.1)' : 'var(--mdt-bg-main)', color: composePriority === 'urgent' ? 'var(--mdt-warning)' : 'var(--mdt-text-secondary)', fontWeight: 800, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.15s' }}>Önemli</button>
+                <button type="button" onClick={() => setComposePriority('secret')} style={{ flex: 1, padding: '0.75rem', borderRadius: "6px", border: composePriority === 'secret' ? '1px solid var(--mdt-danger)' : '1px solid var(--mdt-border)', backgroundColor: composePriority === 'secret' ? 'rgba(239,68,68,0.1)' : 'var(--mdt-bg-main)', color: composePriority === 'secret' ? 'var(--mdt-danger)' : 'var(--mdt-text-secondary)', fontWeight: 800, fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.15s' }}>Acil & Gizli</button>
               </div>
             </div>
 
@@ -560,10 +560,10 @@ export default function MailBoxPage() {
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', paddingTop: '1.5rem', borderTop: '1px solid var(--mdt-border)' }}>
-              <button type="button" onClick={() => setActiveFolder('inbox')} style={{ padding: '0.85rem 1.75rem', borderRadius: "2px", backgroundColor: 'transparent', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', fontWeight: 800, cursor: 'pointer', transition: 'all 0.15s', fontSize: '0.85rem' }}
+              <button type="button" onClick={() => setActiveFolder('inbox')} style={{ padding: '0.85rem 1.75rem', borderRadius: "6px", backgroundColor: 'transparent', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', fontWeight: 800, cursor: 'pointer', transition: 'all 0.15s', fontSize: '0.85rem' }}
                 onMouseOver={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-text-primary)'; }}
                 onMouseOut={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; }}>İptal</button>
-              <button type="submit" disabled={submitting} style={{ padding: '0.85rem 2.5rem', borderRadius: "2px", backgroundColor: 'var(--mdt-accent)', border: '1px solid var(--mdt-accent)', color: "#ffffff", fontWeight: 800, cursor: submitting ? 'not-allowed' : 'pointer', fontSize: '0.85rem', transition: 'opacity 0.15s', opacity: submitting ? 0.7 : 1 }}
+              <button type="submit" disabled={submitting} style={{ padding: '0.85rem 2.5rem', borderRadius: "6px", backgroundColor: 'var(--mdt-accent)', border: '1px solid var(--mdt-accent)', color: "#ffffff", fontWeight: 800, cursor: submitting ? 'not-allowed' : 'pointer', fontSize: '0.85rem', transition: 'opacity 0.15s', opacity: submitting ? 0.7 : 1 }}
                 onMouseOver={e => !submitting && ((e.currentTarget as HTMLElement).style.opacity = '0.85')}
                 onMouseOut={e => !submitting && ((e.currentTarget as HTMLElement).style.opacity = '1')}>
                 {submitting ? "GÖNDERİLİYOR..." : "MESAJI GÖNDER"}
@@ -575,7 +575,7 @@ export default function MailBoxPage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'minmax(350px, 400px) 1fr', gap: '1.5rem', minHeight: '650px', alignItems: 'start' }}>
           
           {/* ── MAIL LIST ── */}
-          <div style={{ backgroundColor: 'var(--mdt-card-bg)', borderRadius: "2px", border: '1px solid var(--mdt-border)', display: 'flex', flexDirection: 'column', height: '650px', overflow: 'hidden' }}>
+          <div style={{ backgroundColor: 'var(--mdt-card-bg)', borderRadius: "6px", border: '1px solid var(--mdt-border)', display: 'flex', flexDirection: 'column', height: '650px', overflow: 'hidden' }}>
             <div style={{ padding: '1.25rem', borderBottom: '1px solid var(--mdt-border)', display: 'flex', flexDirection: 'column', gap: '1rem', backgroundColor: 'var(--mdt-bg-main)' }}>
               <div style={{ position: 'relative' }}>
                 <i className="fa-solid fa-magnifying-glass" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--mdt-text-muted)' }} />
@@ -599,7 +599,7 @@ export default function MailBoxPage() {
                   <option value="unread">Okunmamış</option>
                   <option value="read">Okunmuş</option>
                 </select>
-                <button type="button" onClick={handleToggleSelectAll} style={{ padding: '0.6rem 1rem', borderRadius: "2px", backgroundColor: 'var(--mdt-card-bg)', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', fontWeight: 700, cursor: 'pointer', transition: 'all 0.15s' }}
+                <button type="button" onClick={handleToggleSelectAll} style={{ padding: '0.6rem 1rem', borderRadius: "6px", backgroundColor: 'var(--mdt-card-bg)', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', fontWeight: 700, cursor: 'pointer', transition: 'all 0.15s' }}
                   onMouseOver={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-text-primary)'; }}
                   onMouseOut={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; }}>Tümü</button>
               </div>
@@ -618,7 +618,7 @@ export default function MailBoxPage() {
                   const isUnread = !mail.isRead && mail.receiverId === currentUser?.id;
 
                   return (
-                    <div key={mail.id} onClick={() => handleSelectMailItem(mail)} style={{ padding: '1rem', borderRadius: "2px", backgroundColor: isSelected ? 'var(--mdt-bg-main)' : 'transparent', border: isSelected ? '1px solid var(--mdt-accent)' : '1px solid transparent', cursor: 'pointer', display: 'flex', gap: '0.75rem', transition: 'all 0.15s', position: 'relative' }}
+                    <div key={mail.id} onClick={() => handleSelectMailItem(mail)} style={{ padding: '1rem', borderRadius: "6px", backgroundColor: isSelected ? 'var(--mdt-bg-main)' : 'transparent', border: isSelected ? '1px solid var(--mdt-accent)' : '1px solid transparent', cursor: 'pointer', display: 'flex', gap: '0.75rem', transition: 'all 0.15s', position: 'relative' }}
                       onMouseOver={e => { if (!isSelected) (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.02)'; }}
                       onMouseOut={e => { if (!isSelected) (e.currentTarget as HTMLElement).style.background = 'transparent'; }}>
                       {isUnread && <div style={{ position: 'absolute', left: '0', top: '50%', transform: 'translateY(-50%)', width: '3px', height: '60%', backgroundColor: 'var(--mdt-accent)', borderRadius: '0 4px 4px 0' }} />}
@@ -645,7 +645,7 @@ export default function MailBoxPage() {
           </div>
 
           {/* ── MAIL READER ── */}
-          <div style={{ backgroundColor: 'var(--mdt-card-bg)', borderRadius: "2px", border: '1px solid var(--mdt-border)', display: 'flex', flexDirection: 'column', height: '650px', overflow: 'hidden' }}>
+          <div style={{ backgroundColor: 'var(--mdt-card-bg)', borderRadius: "6px", border: '1px solid var(--mdt-border)', display: 'flex', flexDirection: 'column', height: '650px', overflow: 'hidden' }}>
             {selectedMail ? (
               (() => {
                 const parsed = parseMailContent(selectedMail.content);
@@ -656,16 +656,16 @@ export default function MailBoxPage() {
                         {parsed.priority.toUpperCase()}
                       </div>
                       <div style={{ display: 'flex', gap: '0.5rem' }}>
-                        <button onClick={() => handleReply(selectedMail)} style={{ padding: '0.5rem 1rem', borderRadius: "2px", backgroundColor: 'var(--mdt-accent)', border: '1px solid var(--mdt-accent)', color: "#ffffff", fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer', transition: 'all 0.15s' }}
+                        <button onClick={() => handleReply(selectedMail)} style={{ padding: '0.5rem 1rem', borderRadius: "6px", backgroundColor: 'var(--mdt-accent)', border: '1px solid var(--mdt-accent)', color: "#ffffff", fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer', transition: 'all 0.15s' }}
                           onMouseOver={e => (e.currentTarget as HTMLElement).style.opacity = '0.85'}
                           onMouseOut={e => (e.currentTarget as HTMLElement).style.opacity = '1'}><i className="fa-solid fa-reply" style={{ marginRight: '0.3rem' }}/> Yanıtla</button>
-                        <button onClick={() => handleForward(selectedMail)} style={{ padding: '0.5rem 1rem', borderRadius: "2px", backgroundColor: 'transparent', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer', transition: 'all 0.15s' }}
+                        <button onClick={() => handleForward(selectedMail)} style={{ padding: '0.5rem 1rem', borderRadius: "6px", backgroundColor: 'transparent', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer', transition: 'all 0.15s' }}
                           onMouseOver={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-text-primary)'; }}
                           onMouseOut={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; }}><i className="fa-solid fa-share" style={{ marginRight: '0.3rem' }}/> İlet</button>
-                        <button onClick={() => handleCopyMailBody(selectedMail)} style={{ padding: '0.5rem 1rem', borderRadius: "2px", backgroundColor: 'transparent', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer', transition: 'all 0.15s' }}
+                        <button onClick={() => handleCopyMailBody(selectedMail)} style={{ padding: '0.5rem 1rem', borderRadius: "6px", backgroundColor: 'transparent', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer', transition: 'all 0.15s' }}
                           onMouseOver={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-text-primary)'; }}
                           onMouseOut={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; }}><i className="fa-regular fa-copy" style={{ marginRight: '0.3rem' }}/> Kopyala</button>
-                        <button onClick={() => handlePrintMail(selectedMail)} style={{ padding: '0.5rem 1rem', borderRadius: "2px", backgroundColor: 'transparent', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer', transition: 'all 0.15s' }}
+                        <button onClick={() => handlePrintMail(selectedMail)} style={{ padding: '0.5rem 1rem', borderRadius: "6px", backgroundColor: 'transparent', border: '1px solid var(--mdt-border)', color: 'var(--mdt-text-secondary)', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer', transition: 'all 0.15s' }}
                           onMouseOver={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-primary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-text-primary)'; }}
                           onMouseOut={e => { (e.currentTarget as HTMLElement).style.color = 'var(--mdt-text-secondary)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--mdt-border)'; }}><i className="fa-solid fa-print" style={{ marginRight: '0.3rem' }}/> Yazdır</button>
                       </div>
@@ -674,7 +674,7 @@ export default function MailBoxPage() {
                     <div style={{ flex: 1, overflowY: 'auto', padding: '2rem' }} className="scroll-custom">
                       <h1 style={{ margin: '0 0 2rem 0', fontSize: '1.4rem', fontWeight: 800, color: 'var(--mdt-text-primary)', lineHeight: 1.3 }}>{parsed.subject}</h1>
                       
-                      <div style={{ padding: '1.25rem', borderRadius: "2px", backgroundColor: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+                      <div style={{ padding: '1.25rem', borderRadius: "6px", backgroundColor: 'var(--mdt-bg-main)', border: '1px solid var(--mdt-border)', marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                           <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: 'var(--mdt-card-bg)', border: '1px solid var(--mdt-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--mdt-text-muted)', fontSize: '1.1rem' }}>
                             <i className="fa-solid fa-user" />

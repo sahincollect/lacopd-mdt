@@ -1,41 +1,40 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
 import ThemeToggle from "@/components/ThemeToggle";
 
-const SIDEBAR_W = 265;
+const SIDEBAR_W = 252;
 const SIDEBAR_COLLAPSED = 68;
 
 const NAV_SECTIONS = [
   {
-    label: "OPERASYON MERKEZİ",
+    label: "Operasyon",
     items: [
-      { label: "Ana Panel", path: "/mdt", icon: "fa-gauge-high" },
+      { label: "Ana Panel", path: "/mdt", icon: "fa-table-columns" },
       { label: "Rapor & Belge Portalı", path: "/mdt/raporlar", icon: "fa-file-lines" },
       { label: "Mesai & Devriye", path: "/mdt/mesai", icon: "fa-clock" },
       { label: "Personel Veritabanı", path: "/mdt/personel", icon: "fa-users" },
-      { label: "Kriminal Sicil Kayıtları", path: "/mdt/kriminal", icon: "fa-fingerprint" },
+      { label: "Kriminal Kayıtlar", path: "/mdt/kriminal", icon: "fa-fingerprint" },
     ],
   },
   {
-    label: "DEPARTMAN BİRİMLERİ",
+    label: "Birim & İdari İşlemler",
     items: [
       { label: "Birim Başvuruları", path: "/mdt/basvuru", icon: "fa-id-badge" },
-      { label: "Resmi Duyurular", path: "/mdt/duyurular", icon: "fa-bullhorn" },
-      { label: "İç Haberleşme (E-Posta)", path: "/mdt/mesajlar", icon: "fa-envelope", hasUnread: true },
-      { label: "Mazeret & İzin Talepleri", path: "/mdt/mazeretler", icon: "fa-calendar-xmark" },
-      { label: "Departman Yönetmelikleri", path: "/mdt/yonetmelikler", icon: "fa-scale-balanced" },
+      { label: "Duyurular", path: "/mdt/duyurular", icon: "fa-bullhorn" },
+      { label: "İç Haberleşme", path: "/mdt/mesajlar", icon: "fa-envelope", hasUnread: true },
+      { label: "Mazeret & İzin", path: "/mdt/mazeretler", icon: "fa-calendar-check" },
+      { label: "Yönetmelikler", path: "/mdt/yonetmelikler", icon: "fa-scale-balanced" },
     ],
   },
 ];
 
 export default function MDTLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const router = useRouter();
   const [user, setUser] = useState<any>(null);
   const [unreadCount, setUnread] = useState(0);
   const [collapsed, setCollapsed] = useState(false);
@@ -88,7 +87,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
   const allSections = [...NAV_SECTIONS];
   if (user?.role === "admin") {
     allSections.push({
-      label: "YÜKSEK KOMUTA",
+      label: "Yönetim",
       items: [{ label: "Yüksek Komuta Paneli", path: "/mdt/komuta-1222", icon: "fa-shield-halved" }],
     });
   }
@@ -110,136 +109,91 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
-        backgroundColor: "var(--LAC-bg)",
-        color: "var(--LAC-text-dark)",
-        fontFamily: "var(--font-inter), 'Inter', -apple-system, sans-serif",
+        backgroundColor: "var(--bg-primary)",
+        color: "var(--text-primary)",
+        fontFamily: "var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
       }}
     >
-      {/* ── TOP OFFICIAL LAPD BANNER (Matches Navigation.tsx) ── */}
-      <div
-        style={{
-          backgroundColor: "var(--bg-tertiary)",
-          borderBottom: "1px solid var(--border-light)",
-          padding: "0.4rem 2rem",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          fontSize: "0.73rem",
-          color: "var(--text-primary)",
-          flexWrap: "wrap",
-          gap: "0.5rem",
-        }}
-      >
-        <div>
-          <strong style={{ fontWeight: 800, color: "var(--LAC-orange)" }}>RESMİ EMNİYET AĞI:</strong>{" "}
-          Los Angeles Community Police Department — Mobil Veri Terminali (MDT)
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "1.25rem" }}>
-          {user && (
-            <span style={{ fontWeight: 700, color: "var(--text-secondary)" }}>
-              Aktif Oturum: <strong style={{ color: "var(--text-primary)" }}>{user.name} (#{user.badge})</strong> · {user.rank}
-            </span>
-          )}
-          <Link
-            href="/"
-            style={{
-              color: "var(--accent-secondary)",
-              textDecoration: "none",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "0.04em",
-            }}
-          >
-            — Resmi Web Sitesine Dön
-          </Link>
-        </div>
-      </div>
-
-      {/* ── MAIN CORPORATE HEADER (Matches Navigation.tsx 80px header) ── */}
+      {/* ── CLEAN CORPORATE HEADER (64px) ── */}
       <header
         style={{
           backgroundColor: "var(--bg-secondary)",
-          borderBottom: "1px solid var(--LAC-border)",
-          padding: "0 2rem",
+          borderBottom: "1px solid var(--border-light)",
+          padding: "0 1.75rem",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          height: "80px",
-          boxSizing: "border-box",
+          height: "64px",
           position: "sticky",
           top: 0,
           zIndex: 60,
           gap: "1.5rem",
         }}
       >
-        {/* Left: Official Seal & Title */}
-        <div style={{ display: "flex", alignItems: "center", gap: "1.2rem" }}>
-          <Link href="/mdt" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "1.1rem" }}>
-            <div
+        {/* Left: Seal + Title + Breadcrumb */}
+        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          <Link href="/mdt" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+            <img
+              src="/logom.png"
+              alt="LACPD"
               style={{
-                width: "52px",
-                height: "52px",
+                width: "38px",
+                height: "38px",
                 borderRadius: "50%",
-                overflow: "hidden",
-                border: "2px solid var(--border-strong)",
-                boxShadow: "0 4px 10px rgba(0, 0, 0, 0.08)",
-                flexShrink: 0,
+                objectFit: "cover",
+                border: "1px solid var(--border-strong)",
               }}
-            >
-              <img
-                src="/logom.png"
-                alt="LAC Logo"
-                style={{ width: "100%", height: "100%", objectFit: "cover", backgroundColor: "var(--accent-primary)" }}
-              />
-            </div>
+            />
             <div>
               <div
                 style={{
-                  fontSize: "1.45rem",
-                  fontWeight: 900,
+                  fontSize: "0.98rem",
+                  fontWeight: 800,
                   color: "var(--accent-primary)",
-                  letterSpacing: "0.03em",
-                  fontFamily: "'Oswald', sans-serif",
-                  lineHeight: 1,
+                  letterSpacing: "-0.01em",
+                  lineHeight: 1.15,
                 }}
               >
-                LOS ANGELES C.P.D.
+                Los Angeles C.P.D.
               </div>
               <div
                 style={{
                   fontSize: "0.72rem",
                   color: "var(--text-muted)",
-                  fontWeight: 700,
-                  letterSpacing: "0.14em",
-                  textTransform: "uppercase",
-                  marginTop: "0.25rem",
+                  fontWeight: 500,
                 }}
               >
-                MOBİL VERİ TERMİNALİ · {currentLabel.toUpperCase()}
+                Mobil Veri Terminali
               </div>
             </div>
           </Link>
+
+          <div style={{ width: "1px", height: "24px", backgroundColor: "var(--border-light)", margin: "0 0.25rem" }} />
+
+          <span style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--text-secondary)" }}>
+            {currentLabel}
+          </span>
         </div>
 
-        {/* Center: Corporate Search Box (Same as Main Page) */}
-        <div style={{ flex: 1, maxWidth: "420px", position: "relative" }}>
+        {/* Center: Clean Search Input */}
+        <div style={{ flex: 1, maxWidth: "360px", position: "relative" }}>
           <div
             style={{
               display: "flex",
               alignItems: "center",
-              padding: "0.55rem 1rem",
+              padding: "0.45rem 0.85rem",
               backgroundColor: "var(--bg-primary)",
               border: "1px solid var(--border-light)",
-              borderRadius: "2px",
+              borderRadius: "6px",
             }}
           >
             <i
               className="fa-solid fa-magnifying-glass"
-              style={{ color: "var(--accent-secondary)", fontSize: "0.95rem", marginRight: "10px" }}
+              style={{ color: "var(--text-muted)", fontSize: "0.82rem", marginRight: "8px" }}
             />
             <input
               type="text"
-              placeholder="MDT modülü ara... (Örn: Rapor, Kriminal, Mesai)"
+              placeholder="Modül ara..."
               value={quickSearch}
               onChange={(e) => setQuickSearch(e.target.value)}
               style={{
@@ -249,7 +203,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                 fontSize: "0.85rem",
                 color: "var(--text-primary)",
                 backgroundColor: "transparent",
-                fontFamily: "var(--font-inter)",
+                fontFamily: "inherit",
               }}
             />
           </div>
@@ -258,14 +212,15 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
             <div
               style={{
                 position: "absolute",
-                top: "100%",
+                top: "calc(100% + 4px)",
                 left: 0,
                 right: 0,
                 backgroundColor: "var(--bg-secondary)",
                 border: "1px solid var(--border-light)",
-                borderTop: "3px solid var(--LAC-orange)",
-                boxShadow: "0 10px 25px rgba(0,0,0,0.2)",
+                borderRadius: "6px",
+                boxShadow: "0 10px 25px rgba(15, 23, 42, 0.1)",
                 zIndex: 200,
+                overflow: "hidden",
               }}
             >
               {filteredSearchItems.map((res) => (
@@ -277,15 +232,15 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                     display: "flex",
                     alignItems: "center",
                     gap: "0.65rem",
-                    padding: "0.75rem 1rem",
+                    padding: "0.65rem 1rem",
                     color: "var(--text-primary)",
                     textDecoration: "none",
                     borderBottom: "1px solid var(--border-light)",
                     fontSize: "0.85rem",
-                    fontWeight: 600,
+                    fontWeight: 500,
                   }}
                 >
-                  <i className={`fa-solid ${res.icon}`} style={{ color: "var(--LAC-orange)", width: 16 }} />
+                  <i className={`fa-solid ${res.icon}`} style={{ color: "var(--text-muted)", width: 16 }} />
                   {res.label}
                 </Link>
               ))}
@@ -293,39 +248,58 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
           )}
         </div>
 
-        {/* Right: Actions (ThemeToggle, Messages, Duty Status, Officer Profile) */}
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+        {/* Right: Actions */}
+        <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
+          <Link
+            href="/"
+            style={{
+              color: "var(--text-secondary)",
+              fontSize: "0.82rem",
+              fontWeight: 600,
+              textDecoration: "none",
+              padding: "0.45rem 0.75rem",
+              borderRadius: "6px",
+              border: "1px solid var(--border-light)",
+              backgroundColor: "var(--bg-primary)",
+            }}
+          >
+            Ana Sayfa
+          </Link>
+
           <ThemeToggle />
 
-          {/* Internal Mail / Notification Button */}
+          {/* Internal Mail */}
           <Link
             href="/mdt/mesajlar"
             title="İç Haberleşme"
             style={{
               position: "relative",
-              color: "var(--text-primary)",
-              backgroundColor: "var(--bg-tertiary)",
+              color: "var(--text-secondary)",
+              backgroundColor: "var(--bg-primary)",
               border: "1px solid var(--border-light)",
-              padding: "0.55rem 0.8rem",
-              borderRadius: "2px",
+              width: "36px",
+              height: "36px",
+              borderRadius: "6px",
               display: "flex",
               alignItems: "center",
-              gap: "0.4rem",
+              justifyContent: "center",
               textDecoration: "none",
-              fontSize: "0.78rem",
-              fontWeight: 700,
+              fontSize: "0.88rem",
             }}
           >
-            <i className="fa-solid fa-envelope" style={{ color: "var(--LAC-orange)" }} />
+            <i className="fa-regular fa-envelope" />
             {unreadCount > 0 && (
               <span
                 style={{
+                  position: "absolute",
+                  top: "-4px",
+                  right: "-4px",
                   backgroundColor: "var(--LAC-orange)",
                   color: "#FFFFFF",
-                  fontSize: "0.65rem",
-                  fontWeight: 800,
-                  padding: "1px 6px",
-                  borderRadius: "2px",
+                  fontSize: "0.78rem",
+                  fontWeight: 700,
+                  padding: "1px 5px",
+                  borderRadius: "10px",
                 }}
               >
                 {unreadCount}
@@ -333,7 +307,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
             )}
           </Link>
 
-          {/* Duty Status Badge */}
+          {/* Duty Status Pill */}
           {user && (
             <Link
               href="/mdt/mesai"
@@ -341,47 +315,43 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                 display: "flex",
                 alignItems: "center",
                 gap: "0.45rem",
-                padding: "0.55rem 0.95rem",
-                borderRadius: "2px",
-                backgroundColor: user.isOnDuty ? "var(--color-success-bg)" : "var(--bg-tertiary)",
+                padding: "0.42rem 0.8rem",
+                borderRadius: "6px",
+                backgroundColor: user.isOnDuty ? "var(--color-success-bg)" : "var(--bg-primary)",
                 border: `1px solid ${user.isOnDuty ? "var(--color-success-border)" : "var(--border-light)"}`,
                 color: user.isOnDuty ? "var(--color-success)" : "var(--text-secondary)",
-                fontSize: "0.75rem",
-                fontWeight: 800,
-                textTransform: "uppercase",
-                letterSpacing: "0.05em",
+                fontSize: "0.8rem",
+                fontWeight: 600,
                 textDecoration: "none",
               }}
             >
               <span
                 style={{
-                  width: 8,
-                  height: 8,
+                  width: 7,
+                  height: 7,
                   borderRadius: "50%",
                   backgroundColor: user.isOnDuty ? "var(--color-success)" : "var(--text-muted)",
                 }}
               />
-              {user.isOnDuty ? "GÖREVDE (10-8)" : "GÖREV DIŞI (10-7)"}
+              {user.isOnDuty ? "Görevde" : "Görev Dışı"}
             </Link>
           )}
 
-          {/* Officer Profile Button & Corporate Dropdown */}
+          {/* Officer Profile Dropdown */}
           <div ref={profileRef} style={{ position: "relative" }}>
             <button
               onClick={() => setProfileOpen((o) => !o)}
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: "0.65rem",
-                backgroundColor: "var(--LAC-orange)",
-                color: "#FFFFFF",
-                padding: "0.5rem 1rem",
-                border: "none",
-                borderRadius: "2px",
-                fontSize: "0.78rem",
-                fontWeight: 700,
-                textTransform: "uppercase",
-                letterSpacing: "0.04em",
+                gap: "0.6rem",
+                backgroundColor: "var(--bg-primary)",
+                color: "var(--text-primary)",
+                padding: "0.35rem 0.75rem 0.35rem 0.45rem",
+                border: "1px solid var(--border-light)",
+                borderRadius: "6px",
+                fontSize: "0.84rem",
+                fontWeight: 600,
                 cursor: "pointer",
               }}
             >
@@ -389,141 +359,157 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                 <img
                   src={user.profileImage}
                   alt=""
-                  style={{ width: 24, height: 24, borderRadius: "50%", objectFit: "cover", border: "1px solid #fff" }}
+                  style={{ width: 26, height: 26, borderRadius: "50%", objectFit: "cover" }}
                 />
               ) : (
-                <i className="fa-solid fa-user-shield" />
+                <div
+                  style={{
+                    width: 26,
+                    height: 26,
+                    borderRadius: "50%",
+                    backgroundColor: "#041632",
+                    color: "#FFFFFF",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "0.72rem",
+                    fontWeight: 700,
+                  }}
+                >
+                  {user?.name?.charAt(0) ?? "M"}
+                </div>
               )}
-              <span>{user ? `#${user.badge} ${user.name.split(" ")[0]}` : "PERSONEL"}</span>
-              <i className="fa-solid fa-caret-down" style={{ fontSize: "0.7rem" }} />
+              <span>{user ? user.name : "Personel"}</span>
+              <span style={{ color: "var(--text-muted)", fontSize: "0.76rem", fontWeight: 500 }}>
+                #{user?.badge ?? "—"}
+              </span>
+              <i className="fa-solid fa-chevron-down" style={{ fontSize: "0.78rem", color: "var(--text-muted)" }} />
             </button>
 
             {profileOpen && (
               <div
                 style={{
                   position: "absolute",
-                  top: "calc(100% + 8px)",
+                  top: "calc(100% + 6px)",
                   right: 0,
-                  width: "260px",
+                  width: "240px",
                   backgroundColor: "var(--bg-secondary)",
-                  border: "1px solid var(--LAC-border)",
-                  borderTop: "3px solid var(--LAC-orange)",
-                  boxShadow: "0 10px 25px rgba(0,0,0,0.25)",
+                  border: "1px solid var(--border-light)",
+                  borderRadius: "8px",
+                  boxShadow: "0 10px 25px rgba(15, 23, 42, 0.12)",
                   zIndex: 200,
+                  overflow: "hidden",
                 }}
               >
                 <div
                   style={{
-                    padding: "1rem 1.25rem",
+                    padding: "0.9rem 1rem",
                     borderBottom: "1px solid var(--border-light)",
-                    backgroundColor: "var(--bg-tertiary)",
+                    backgroundColor: "var(--bg-primary)",
                   }}
                 >
-                  <div style={{ fontSize: "0.9rem", fontWeight: 800, color: "var(--text-primary)" }}>
+                  <div style={{ fontSize: "0.88rem", fontWeight: 700, color: "var(--text-primary)" }}>
                     {user?.name ?? "Memur"}
                   </div>
-                  <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--LAC-orange)", marginTop: "2px" }}>
-                    Rozet #{user?.badge ?? "—"} · {user?.rank ?? "—"}
-                  </div>
-                  <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", marginTop: "2px" }}>
-                    {user?.department ?? "Patrol Division"}
+                  <div style={{ fontSize: "0.76rem", color: "var(--text-secondary)", marginTop: "2px" }}>
+                    #{user?.badge ?? "—"} · {user?.rank ?? "—"}
                   </div>
                 </div>
 
-                <Link
-                  href="/mdt/profil"
-                  onClick={() => setProfileOpen(false)}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.75rem",
-                    padding: "0.85rem 1.25rem",
-                    color: "var(--LAC-text-dark)",
-                    textDecoration: "none",
-                    fontSize: "0.82rem",
-                    fontWeight: 600,
-                    borderBottom: "1px solid var(--border-light)",
-                  }}
-                >
-                  <i className="fa-solid fa-id-card" style={{ color: "var(--LAC-orange)", width: 16 }} />
-                  Personel Dosyam & Profil
-                </Link>
-
-                {user?.role === "admin" && (
+                <div style={{ padding: "0.35rem" }}>
                   <Link
-                    href="/mdt/komuta-1222"
+                    href="/mdt/profil"
                     onClick={() => setProfileOpen(false)}
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      gap: "0.75rem",
-                      padding: "0.85rem 1.25rem",
-                      color: "var(--LAC-text-dark)",
+                      gap: "0.65rem",
+                      padding: "0.6rem 0.75rem",
+                      color: "var(--text-primary)",
                       textDecoration: "none",
-                      fontSize: "0.82rem",
-                      fontWeight: 600,
-                      borderBottom: "1px solid var(--border-light)",
+                      fontSize: "0.84rem",
+                      fontWeight: 500,
+                      borderRadius: "5px",
                     }}
                   >
-                    <i className="fa-solid fa-shield-halved" style={{ color: "var(--LAC-orange)", width: 16 }} />
-                    Yüksek Komuta Paneli
+                    <i className="fa-regular fa-id-badge" style={{ color: "var(--text-muted)", width: 16 }} />
+                    Profilim & Sicil Kartı
                   </Link>
-                )}
 
-                <button
-                  onClick={handleLogout}
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.75rem",
-                    padding: "0.85rem 1.25rem",
-                    backgroundColor: "transparent",
-                    border: "none",
-                    color: "var(--color-danger)",
-                    fontSize: "0.82rem",
-                    fontWeight: 700,
-                    textAlign: "left",
-                    cursor: "pointer",
-                  }}
-                >
-                  <i className="fa-solid fa-right-from-bracket" style={{ width: 16 }} />
-                  Güvenli Çıkış Yap
-                </button>
+                  {user?.role === "admin" && (
+                    <Link
+                      href="/mdt/komuta-1222"
+                      onClick={() => setProfileOpen(false)}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.65rem",
+                        padding: "0.6rem 0.75rem",
+                        color: "var(--text-primary)",
+                        textDecoration: "none",
+                        fontSize: "0.84rem",
+                        fontWeight: 500,
+                        borderRadius: "5px",
+                      }}
+                    >
+                      <i className="fa-solid fa-shield-halved" style={{ color: "var(--LAC-orange)", width: 16 }} />
+                      Yüksek Komuta Paneli
+                    </Link>
+                  )}
+
+                  <button
+                    onClick={handleLogout}
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.65rem",
+                      padding: "0.6rem 0.75rem",
+                      backgroundColor: "transparent",
+                      border: "none",
+                      color: "var(--color-danger)",
+                      fontSize: "0.84rem",
+                      fontWeight: 600,
+                      textAlign: "left",
+                      cursor: "pointer",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    <i className="fa-solid fa-arrow-right-from-bracket" style={{ width: 16 }} />
+                    Çıkış Yap
+                  </button>
+                </div>
               </div>
             )}
           </div>
         </div>
       </header>
 
-      {/* ── BODY: LEFT CORPORATE SIDEBAR + MAIN CONTENT ── */}
-      <div style={{ display: "flex", flex: 1, minHeight: "calc(100vh - 112px)" }}>
+      {/* ── BODY: SIDEBAR + MAIN ── */}
+      <div style={{ display: "flex", flex: 1, minHeight: "calc(100vh - 64px)" }}>
         <aside
           style={{
             width: sideW,
             minWidth: sideW,
             backgroundColor: "var(--bg-secondary)",
-            borderRight: "1px solid var(--LAC-border)",
+            borderRight: "1px solid var(--border-light)",
             display: "flex",
             flexDirection: "column",
             transition: "width 0.2s ease",
             flexShrink: 0,
           }}
         >
-          <nav style={{ flex: 1, padding: "1.25rem 0.75rem" }}>
+          <nav style={{ flex: 1, padding: "1.1rem 0.75rem" }}>
             {allSections.map((section) => (
-              <div key={section.label} style={{ marginBottom: "1.5rem" }}>
+              <div key={section.label} style={{ marginBottom: "1.35rem" }}>
                 {!collapsed && (
                   <div
                     style={{
-                      fontSize: "0.68rem",
-                      fontWeight: 800,
-                      color: "var(--LAC-orange)",
-                      letterSpacing: "0.08em",
-                      textTransform: "uppercase",
-                      padding: "0 0.5rem 0.4rem",
-                      marginBottom: "0.5rem",
-                      borderBottom: "2px solid var(--LAC-orange)",
+                      fontSize: "0.73rem",
+                      fontWeight: 600,
+                      color: "var(--text-muted)",
+                      padding: "0 0.65rem",
+                      marginBottom: "0.4rem",
                     }}
                   >
                     {section.label}
@@ -543,39 +529,36 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                         alignItems: "center",
                         gap: collapsed ? 0 : "0.75rem",
                         justifyContent: collapsed ? "center" : "flex-start",
-                        padding: collapsed ? "0.75rem 0" : "0.7rem 0.85rem",
-                        marginBottom: "0.2rem",
-                        borderRadius: "2px",
+                        padding: collapsed ? "0.7rem 0" : "0.6rem 0.75rem",
+                        marginBottom: "0.18rem",
+                        borderRadius: "6px",
                         textDecoration: "none",
-                        backgroundColor: isActive ? "var(--bg-tertiary)" : "transparent",
-                        borderLeft: isActive ? "3px solid var(--LAC-orange)" : "3px solid transparent",
-                        color: isActive ? "var(--LAC-orange)" : "var(--text-primary)",
-                        fontWeight: isActive ? 800 : 600,
-                        fontSize: "0.82rem",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.03em",
+                        backgroundColor: isActive ? "#041632" : "transparent",
+                        color: isActive ? "#FFFFFF" : "var(--text-secondary)",
+                        fontWeight: isActive ? 600 : 500,
+                        fontSize: "0.875rem",
                         transition: "background-color 0.15s, color 0.15s",
                       }}
                       onMouseOver={(e) => {
                         if (!isActive) {
                           e.currentTarget.style.backgroundColor = "var(--bg-tertiary)";
-                          e.currentTarget.style.color = "var(--LAC-orange)";
+                          e.currentTarget.style.color = "var(--text-primary)";
                         }
                       }}
                       onMouseOut={(e) => {
                         if (!isActive) {
                           e.currentTarget.style.backgroundColor = "transparent";
-                          e.currentTarget.style.color = "var(--text-primary)";
+                          e.currentTarget.style.color = "var(--text-secondary)";
                         }
                       }}
                     >
                       <i
                         className={`fa-solid ${item.icon}`}
                         style={{
-                          fontSize: "0.95rem",
-                          width: 20,
+                          fontSize: "0.9rem",
+                          width: 18,
                           textAlign: "center",
-                          color: isActive ? "var(--LAC-orange)" : "var(--accent-primary)",
+                          color: isActive ? "#E84F2A" : "var(--text-muted)",
                           flexShrink: 0,
                         }}
                       />
@@ -589,10 +572,10 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                           style={{
                             backgroundColor: "var(--LAC-orange)",
                             color: "#FFFFFF",
-                            fontSize: "0.65rem",
-                            fontWeight: 800,
+                            fontSize: "0.8rem",
+                            fontWeight: 700,
                             padding: "1px 6px",
-                            borderRadius: "2px",
+                            borderRadius: "10px",
                           }}
                         >
                           {unreadCount}
@@ -605,7 +588,7 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
             ))}
           </nav>
 
-          {/* Collapse Sidebar Footer */}
+          {/* Collapse Button */}
           <div style={{ padding: "0.75rem", borderTop: "1px solid var(--border-light)" }}>
             <button
               onClick={() => setCollapsed((c) => !c)}
@@ -614,20 +597,18 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: collapsed ? "center" : "space-between",
-                padding: "0.6rem 0.85rem",
-                backgroundColor: "var(--bg-tertiary)",
+                padding: "0.55rem 0.75rem",
+                backgroundColor: "var(--bg-primary)",
                 border: "1px solid var(--border-light)",
-                borderRadius: "2px",
+                borderRadius: "6px",
                 color: "var(--text-secondary)",
-                fontSize: "0.75rem",
-                fontWeight: 700,
-                textTransform: "uppercase",
-                letterSpacing: "0.04em",
+                fontSize: "0.8rem",
+                fontWeight: 500,
                 cursor: "pointer",
               }}
             >
-              {!collapsed && <span>MENÜYÜ DARALT</span>}
-              <i className={`fa-solid ${collapsed ? "fa-chevron-right" : "fa-chevron-left"}`} />
+              {!collapsed && <span>Menüyü Daralt</span>}
+              <i className={`fa-solid ${collapsed ? "fa-chevron-right" : "fa-chevron-left"}`} style={{ fontSize: "0.75rem" }} />
             </button>
           </div>
         </aside>
@@ -636,8 +617,8 @@ export default function MDTLayout({ children }: { children: React.ReactNode }) {
         <main
           style={{
             flex: 1,
-            padding: "2rem 2.5rem",
-            backgroundColor: "var(--LAC-bg)",
+            padding: "1.75rem 2.25rem",
+            backgroundColor: "var(--bg-primary)",
             overflowY: "auto",
           }}
         >

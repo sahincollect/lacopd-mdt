@@ -258,7 +258,7 @@ function GirisPageContent() {
                     fontWeight: 900,
                     fontSize: "1.35rem",
                     letterSpacing: "0.03em",
-                    fontFamily: "'Oswald', sans-serif",
+                    fontFamily: "inherit",
                     lineHeight: 1,
                   }}
                 >
@@ -267,9 +267,9 @@ function GirisPageContent() {
                 <div
                   style={{
                     color: "rgba(255,255,255,0.65)",
-                    fontSize: "0.7rem",
+                    fontSize: "0.8rem",
                     fontWeight: 700,
-                    letterSpacing: "0.15em",
+                    letterSpacing: "0.04em",
                     textTransform: "uppercase",
                     marginTop: "0.25rem",
                   }}
@@ -288,8 +288,8 @@ function GirisPageContent() {
                   backgroundColor: "var(--LAC-orange)",
                   color: "#FFFFFF",
                   padding: "6px 14px",
-                  borderRadius: "2px",
-                  fontSize: "0.7rem",
+                  borderRadius: "6px",
+                  fontSize: "0.8rem",
                   fontWeight: 800,
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
@@ -308,7 +308,7 @@ function GirisPageContent() {
                   lineHeight: 1.08,
                   margin: "0 0 1.25rem 0",
                   letterSpacing: "-0.01em",
-                  fontFamily: "'Oswald', sans-serif",
+                  fontFamily: "inherit",
                   textTransform: "uppercase",
                 }}
               >
@@ -421,7 +421,7 @@ function GirisPageContent() {
                   fontSize: "0.75rem",
                   fontWeight: 700,
                   textDecoration: "none",
-                  borderRadius: "2px",
+                  borderRadius: "6px",
                   textTransform: "uppercase",
                   letterSpacing: "0.04em",
                   display: "inline-flex",
@@ -474,7 +474,7 @@ function GirisPageContent() {
                           : isCurrent
                           ? "3px solid var(--LAC-orange)"
                           : "3px solid var(--border-strong)",
-                        borderRadius: "2px",
+                        borderRadius: "6px",
                         display: "flex",
                         alignItems: "center",
                         gap: "0.5rem",
@@ -484,11 +484,11 @@ function GirisPageContent() {
                         style={{
                           width: 20,
                           height: 20,
-                          borderRadius: "2px",
+                          borderRadius: "6px",
                           display: "inline-flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          fontSize: "0.68rem",
+                          fontSize: "0.78rem",
                           fontWeight: 800,
                           backgroundColor: s.done
                             ? "#10B981"
@@ -529,7 +529,7 @@ function GirisPageContent() {
                     backgroundColor: "var(--bg-secondary)",
                     border: "1px solid var(--border-light)",
                     borderTop: "3px solid var(--LAC-orange)",
-                    borderRadius: "2px",
+                    borderRadius: "6px",
                     padding: "2rem",
                     boxShadow: "0 4px 12px rgba(0,0,0,0.04)",
                   }}
@@ -537,7 +537,7 @@ function GirisPageContent() {
                   <div style={{ marginBottom: "1.5rem" }}>
                     <div
                       style={{
-                        fontSize: "0.7rem",
+                        fontSize: "0.8rem",
                         fontWeight: 800,
                         color: "var(--LAC-orange)",
                         textTransform: "uppercase",
@@ -553,7 +553,7 @@ function GirisPageContent() {
                         fontSize: "1.75rem",
                         fontWeight: 800,
                         color: "var(--accent-primary)",
-                        fontFamily: "'Oswald', sans-serif",
+                        fontFamily: "inherit",
                         textTransform: "uppercase",
                         letterSpacing: "0.01em",
                       }}
@@ -576,7 +576,7 @@ function GirisPageContent() {
                         borderLeft: "4px solid var(--color-danger)",
                         color: "var(--color-danger)",
                         padding: "12px 14px",
-                        borderRadius: "2px",
+                        borderRadius: "6px",
                         fontSize: "0.82rem",
                         fontWeight: 700,
                         marginBottom: "1.5rem",
@@ -600,7 +600,7 @@ function GirisPageContent() {
                       backgroundColor: "#5865F2",
                       color: "#FFFFFF",
                       border: "none",
-                      borderRadius: "2px",
+                      borderRadius: "6px",
                       fontSize: "0.9rem",
                       fontWeight: 800,
                       textTransform: "uppercase",
@@ -621,7 +621,7 @@ function GirisPageContent() {
                       backgroundColor: "var(--bg-tertiary)",
                       border: "1px solid var(--border-light)",
                       borderLeft: "3px solid var(--accent-primary)",
-                      borderRadius: "2px",
+                      borderRadius: "6px",
                     }}
                   >
                     <div
@@ -659,7 +659,7 @@ function GirisPageContent() {
                       backgroundColor: "var(--bg-secondary)",
                       border: "1px solid var(--border-light)",
                       borderLeft: "4px solid #10B981",
-                      borderRadius: "2px",
+                      borderRadius: "6px",
                       padding: "1rem 1.25rem",
                       display: "flex",
                       alignItems: "center",
@@ -719,13 +719,13 @@ function GirisPageContent() {
                         <div style={{ display: "flex", alignItems: "center", gap: "0.45rem", flexWrap: "wrap" }}>
                           <span
                             style={{
-                              fontSize: "0.62rem",
+                              fontSize: "0.75rem",
                               fontWeight: 800,
                               backgroundColor: "var(--color-success-bg)",
                               color: "var(--color-success)",
                               border: "1px solid var(--color-success-border)",
                               padding: "2px 6px",
-                              borderRadius: "2px",
+                              borderRadius: "6px",
                               textTransform: "uppercase",
                               letterSpacing: "0.05em",
                             }}
@@ -757,13 +757,13 @@ function GirisPageContent() {
                     <a
                       href="/api/auth/discord/login"
                       style={{
-                        fontSize: "0.7rem",
+                        fontSize: "0.8rem",
                         fontWeight: 700,
                         color: "var(--text-secondary)",
                         backgroundColor: "var(--bg-tertiary)",
                         border: "1px solid var(--border-light)",
                         padding: "0.45rem 0.75rem",
-                        borderRadius: "2px",
+                        borderRadius: "6px",
                         textDecoration: "none",
                         textTransform: "uppercase",
                         letterSpacing: "0.04em",
@@ -781,7 +781,7 @@ function GirisPageContent() {
                       backgroundColor: "var(--bg-secondary)",
                       border: "1px solid var(--border-light)",
                       borderTop: "3px solid var(--LAC-orange)",
-                      borderRadius: "2px",
+                      borderRadius: "6px",
                       padding: "1.75rem 2rem",
                       boxShadow: "0 4px 12px rgba(0,0,0,0.04)",
                     }}
@@ -789,7 +789,7 @@ function GirisPageContent() {
                     <div style={{ marginBottom: "1.25rem", borderBottom: "1px solid var(--border-light)", paddingBottom: "1rem" }}>
                       <div
                         style={{
-                          fontSize: "0.68rem",
+                          fontSize: "0.78rem",
                           fontWeight: 800,
                           color: "var(--LAC-orange)",
                           textTransform: "uppercase",
@@ -805,7 +805,7 @@ function GirisPageContent() {
                           fontSize: "1.55rem",
                           fontWeight: 800,
                           color: "var(--accent-primary)",
-                          fontFamily: "'Oswald', sans-serif",
+                          fontFamily: "inherit",
                           textTransform: "uppercase",
                         }}
                       >
@@ -827,7 +827,7 @@ function GirisPageContent() {
                           borderLeft: "4px solid var(--color-danger)",
                           color: "var(--color-danger)",
                           padding: "10px 14px",
-                          borderRadius: "2px",
+                          borderRadius: "6px",
                           fontSize: "0.8rem",
                           fontWeight: 700,
                           marginBottom: "1.25rem",
@@ -864,7 +864,7 @@ function GirisPageContent() {
                             style={{
                               width: "100%",
                               padding: "11px 12px",
-                              borderRadius: "2px",
+                              borderRadius: "6px",
                               border: "1px solid var(--border-strong)",
                               backgroundColor: "var(--bg-primary)",
                               color: "var(--text-primary)",
@@ -899,7 +899,7 @@ function GirisPageContent() {
                             style={{
                               width: "100%",
                               padding: "11px 12px",
-                              borderRadius: "2px",
+                              borderRadius: "6px",
                               border: "1px solid var(--border-strong)",
                               backgroundColor: "var(--bg-primary)",
                               color: "var(--text-primary)",
@@ -933,7 +933,7 @@ function GirisPageContent() {
                             style={{
                               width: "100%",
                               padding: "11px 12px",
-                              borderRadius: "2px",
+                              borderRadius: "6px",
                               border: "1px solid var(--border-strong)",
                               backgroundColor: "var(--bg-primary)",
                               color: "var(--text-primary)",
@@ -971,7 +971,7 @@ function GirisPageContent() {
                             style={{
                               width: "100%",
                               padding: "11px 12px",
-                              borderRadius: "2px",
+                              borderRadius: "6px",
                               border: "1px solid var(--border-strong)",
                               backgroundColor: "var(--bg-primary)",
                               color: "var(--text-primary)",
@@ -996,7 +996,7 @@ function GirisPageContent() {
                           padding: "0.85rem 1rem",
                           backgroundColor: "var(--bg-tertiary)",
                           border: "1px solid var(--border-light)",
-                          borderRadius: "2px",
+                          borderRadius: "6px",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "space-between",
@@ -1010,7 +1010,7 @@ function GirisPageContent() {
                             style={{ width: 34, height: 34, borderRadius: "50%", objectFit: "cover" }}
                           />
                           <div>
-                            <div style={{ fontSize: "0.62rem", fontWeight: 800, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+                            <div style={{ fontSize: "0.75rem", fontWeight: 800, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
                               ÖNİZLEME · LAPD PERSONEL KARTI
                             </div>
                             <div style={{ fontSize: "0.88rem", fontWeight: 800, color: "var(--text-primary)" }}>
@@ -1032,7 +1032,7 @@ function GirisPageContent() {
                           marginTop: "0.25rem",
                           width: "100%",
                           padding: "0.95rem 1.25rem",
-                          borderRadius: "2px",
+                          borderRadius: "6px",
                           border: "none",
                           backgroundColor: "var(--LAC-orange)",
                           color: "#FFFFFF",
@@ -1065,7 +1065,7 @@ function GirisPageContent() {
                     backgroundColor: "var(--bg-secondary)",
                     border: "1px solid var(--border-light)",
                     borderTop: "3px solid var(--LAC-orange)",
-                    borderRadius: "2px",
+                    borderRadius: "6px",
                     padding: "2rem",
                     boxShadow: "0 4px 12px rgba(0,0,0,0.04)",
                   }}
@@ -1075,7 +1075,7 @@ function GirisPageContent() {
                       style={{
                         width: 48,
                         height: 48,
-                        borderRadius: "2px",
+                        borderRadius: "6px",
                         backgroundColor: "var(--color-warning-bg)",
                         border: "1px solid var(--color-warning-border)",
                         color: "var(--color-warning)",
@@ -1091,7 +1091,7 @@ function GirisPageContent() {
                     <div>
                       <div
                         style={{
-                          fontSize: "0.68rem",
+                          fontSize: "0.78rem",
                           fontWeight: 800,
                           color: "var(--LAC-orange)",
                           textTransform: "uppercase",
@@ -1106,7 +1106,7 @@ function GirisPageContent() {
                           fontSize: "1.45rem",
                           fontWeight: 800,
                           color: "var(--accent-primary)",
-                          fontFamily: "'Oswald', sans-serif",
+                          fontFamily: "inherit",
                           textTransform: "uppercase",
                         }}
                       >
@@ -1122,7 +1122,7 @@ function GirisPageContent() {
                       backgroundColor: "var(--bg-tertiary)",
                       border: "1px solid var(--border-light)",
                       borderLeft: "4px solid var(--accent-primary)",
-                      borderRadius: "2px",
+                      borderRadius: "6px",
                       marginBottom: "1.25rem",
                       display: "flex",
                       alignItems: "center",
@@ -1157,10 +1157,10 @@ function GirisPageContent() {
                     </div>
                     <span
                       style={{
-                        fontSize: "0.65rem",
+                        fontSize: "0.78rem",
                         fontWeight: 800,
                         padding: "4px 8px",
-                        borderRadius: "2px",
+                        borderRadius: "6px",
                         backgroundColor: "var(--color-warning-bg)",
                         color: "var(--color-warning)",
                         border: "1px solid var(--color-warning-border)",
@@ -1183,7 +1183,7 @@ function GirisPageContent() {
                       style={{
                         flex: 1,
                         padding: "0.8rem 1rem",
-                        borderRadius: "2px",
+                        borderRadius: "6px",
                         backgroundColor: "var(--LAC-orange)",
                         color: "#FFFFFF",
                         fontWeight: 800,
@@ -1208,7 +1208,7 @@ function GirisPageContent() {
                       }}
                       style={{
                         padding: "0.8rem 1rem",
-                        borderRadius: "2px",
+                        borderRadius: "6px",
                         border: "1px solid var(--border-strong)",
                         backgroundColor: "var(--bg-primary)",
                         color: "var(--text-primary)",
@@ -1232,7 +1232,7 @@ function GirisPageContent() {
                   borderTop: "1px solid var(--border-light)",
                   display: "flex",
                   justifyContent: "space-between",
-                  fontSize: "0.7rem",
+                  fontSize: "0.8rem",
                   fontWeight: 600,
                   color: "var(--text-muted)",
                   textTransform: "uppercase",

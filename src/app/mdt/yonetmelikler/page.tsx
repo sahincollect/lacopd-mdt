@@ -7,14 +7,14 @@ import { fetcher } from "@/lib/fetcher";
 const glassCard: React.CSSProperties = {
   background: "var(--bg-secondary)",
   border: "1px solid var(--border-light)",
-  borderRadius: 2,
+  borderRadius: 6,
   overflow: "hidden",
   boxShadow: "0 2px 6px rgba(0,0,0,0.04)",
 };
 
 const inputBase: React.CSSProperties = {
   width: "100%", background: "var(--bg-tertiary)",
-  border: "1px solid var(--border-light)", borderRadius: 2,
+  border: "1px solid var(--border-light)", borderRadius: 6,
   padding: "0.58rem 0.9rem", color: "var(--text-primary)",
   fontSize: "0.83rem", outline: "none", fontFamily: "'Inter', sans-serif",
   transition: "all 0.18s ease", boxSizing: "border-box",
@@ -79,14 +79,14 @@ export default function Yonetmelikler() {
         {/* ─── Header ─── */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1rem" }}>
           <div>
-            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.45rem" }}>
+            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: "0.45rem" }}>
               L.A.C.P.D. · RESMİ BELGELER
             </div>
             <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "var(--text-primary)", margin: 0, letterSpacing: "-0.02em" }}>
               Departman Yönetmelikleri
             </h1>
             <p style={{ color: "var(--text-secondary)", fontSize: "0.8rem", margin: "0.4rem 0 0", fontWeight: 400 }}>
-              Resmi kural, prosedür ve iç tüzükler · <span style={{ fontFamily: "'JetBrains Mono', monospace", color: "var(--text-muted)" }}>{Array.isArray(list) ? list.length : 0} belge</span>
+              Resmi kural, prosedür ve iç tüzükler · <span style={{ fontFamily: "inherit", color: "var(--text-muted)" }}>{Array.isArray(list) ? list.length : 0} belge</span>
             </p>
           </div>
           {isAdmin && (
@@ -95,7 +95,7 @@ export default function Yonetmelikler() {
               onClick={() => setShowModal(true)}
               style={{
                 display: "flex", alignItems: "center", gap: "0.55rem",
-                padding: "0.65rem 1.35rem", borderRadius: 2,
+                padding: "0.65rem 1.35rem", borderRadius: 6,
                 background: "var(--LAC-orange)",
                 border: "1px solid var(--border-strong)", color: "#fff",
                 fontWeight: 700, fontSize: "0.82rem", cursor: "pointer",
@@ -118,7 +118,7 @@ export default function Yonetmelikler() {
               Departman yönetmelikleri, prosedürler ve iç tüzükler burada yayınlanacaktır.
             </div>
             {isAdmin && (
-              <button onClick={() => setShowModal(true)} style={{ marginTop: "1.5rem", display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.6rem 1.25rem", borderRadius: 2, background: "var(--bg-tertiary)", border: "1px solid var(--border-strong)", color: "var(--LAC-orange)", fontWeight: 700, fontSize: "0.8rem", cursor: "pointer" }}>
+              <button onClick={() => setShowModal(true)} style={{ marginTop: "1.5rem", display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.6rem 1.25rem", borderRadius: 6, background: "var(--bg-tertiary)", border: "1px solid var(--border-strong)", color: "var(--LAC-orange)", fontWeight: 700, fontSize: "0.8rem", cursor: "pointer" }}>
                 <i className="fa-solid fa-plus" /> Yeni Ekle
               </button>
             )}
@@ -143,10 +143,10 @@ export default function Yonetmelikler() {
                     <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
                       {/* Index badge */}
                       <div style={{
-                        width: 32, height: 32, borderRadius: 2, flexShrink: 0,
+                        width: 32, height: 32, borderRadius: 6, flexShrink: 0,
                         background: "var(--bg-tertiary)", border: "1px solid var(--border-light)",
                         display: "flex", alignItems: "center", justifyContent: "center",
-                        fontFamily: "'JetBrains Mono', monospace", fontSize: "0.72rem", fontWeight: 700,
+                        fontFamily: "inherit", fontSize: "0.72rem", fontWeight: 700,
                         color: "var(--text-muted)",
                       }}>
                         {String(idx + 1).padStart(2, "0")}
@@ -154,7 +154,7 @@ export default function Yonetmelikler() {
                       <div>
                         <div style={{ fontWeight: 700, fontSize: "0.93rem", color: "var(--text-primary)" }}>{yr.title}</div>
                         {yr.createdAt && (
-                          <div style={{ fontSize: "0.65rem", color: "var(--text-muted)", marginTop: 2, fontFamily: "'JetBrains Mono', monospace" }}>
+                          <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", marginTop: 2, fontFamily: "inherit" }}>
                             {new Date(yr.createdAt).toLocaleDateString("tr-TR")}
                           </div>
                         )}
@@ -169,7 +169,7 @@ export default function Yonetmelikler() {
                           style={{
                             width: 28, height: 28, borderRadius: 6,
                             border: "1px solid rgba(239,68,68,0.2)", background: "rgba(239,68,68,0.06)",
-                            color: "#ef4444", fontSize: "0.7rem", cursor: "pointer",
+                            color: "#ef4444", fontSize: "0.8rem", cursor: "pointer",
                             display: "flex", alignItems: "center", justifyContent: "center",
                             transition: "all 0.15s",
                           }}
@@ -177,7 +177,7 @@ export default function Yonetmelikler() {
                           {deletingId === yr.id ? <i className="fa-solid fa-circle-notch fa-spin" /> : <i className="fa-solid fa-trash" />}
                         </button>
                       )}
-                      <i className={`fa-solid fa-chevron-${isExp ? "up" : "down"}`} style={{ color: "rgba(29,110,247,0.35)", fontSize: "0.7rem" }} />
+                      <i className={`fa-solid fa-chevron-${isExp ? "up" : "down"}`} style={{ color: "rgba(29,110,247,0.35)", fontSize: "0.8rem" }} />
                     </div>
                   </div>
 
@@ -209,12 +209,12 @@ export default function Yonetmelikler() {
         >
           <div style={{
             background: "var(--bg-secondary)",
-            border: "1px solid var(--border-strong)", borderRadius: 2,
+            border: "1px solid var(--border-strong)", borderRadius: 6,
             width: "100%", maxWidth: 580, boxShadow: "0 24px 80px rgba(0,0,0,0.7)",
           }}>
             <div style={{ padding: "1.35rem 1.5rem", borderBottom: "1px solid var(--border-light)", background: "transparent", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <div>
-                <div style={{ fontSize: "0.58rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "0.2rem" }}>YÖNETİM · REGULATIONS</div>
+                <div style={{ fontSize: "0.75rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: "0.2rem" }}>YÖNETİM · REGULATIONS</div>
                 <h3 style={{ margin: 0, fontWeight: 800, fontSize: "1rem", color: "var(--text-primary)" }}>Yeni Yönetmelik Ekle</h3>
               </div>
               <button onClick={() => setShowModal(false)} style={{ background: "none", border: "none", color: "var(--text-muted)", cursor: "pointer", fontSize: "1.1rem" }}
@@ -226,19 +226,19 @@ export default function Yonetmelikler() {
 
             <div style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1.15rem" }}>
               <div>
-                <label style={{ display: "block", fontSize: "0.58rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.45rem" }}>Başlık</label>
+                <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: "0.45rem" }}>Başlık</label>
                 <input className="mdt-inp" type="text" value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} placeholder="Yönetmelik başlığı..." style={inputBase} />
               </div>
               <div>
-                <label style={{ display: "block", fontSize: "0.58rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.45rem" }}>İçerik</label>
+                <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: "0.45rem" }}>İçerik</label>
                 <textarea className="mdt-inp" value={form.content} onChange={e => setForm(f => ({ ...f, content: e.target.value }))} placeholder="Yönetmelik içeriği..." rows={9}
                   style={{ ...inputBase, resize: "vertical", lineHeight: 1.7 }} />
               </div>
               <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.75rem" }}>
-                <button onClick={() => setShowModal(false)} style={{ padding: "0.6rem 1.1rem", borderRadius: 2, border: "1px solid var(--border-light)", background: "transparent", color: "var(--text-secondary)", fontWeight: 600, fontSize: "0.8rem", cursor: "pointer" }}>İptal</button>
+                <button onClick={() => setShowModal(false)} style={{ padding: "0.6rem 1.1rem", borderRadius: 6, border: "1px solid var(--border-light)", background: "transparent", color: "var(--text-secondary)", fontWeight: 600, fontSize: "0.8rem", cursor: "pointer" }}>İptal</button>
                 <button onClick={handleSave} disabled={saving || !form.title.trim() || !form.content.trim()} style={{
                   display: "flex", alignItems: "center", gap: "0.5rem",
-                  padding: "0.65rem 1.35rem", borderRadius: 2,
+                  padding: "0.65rem 1.35rem", borderRadius: 6,
                   background: "var(--LAC-orange)",
                   border: "1px solid var(--border-strong)", color: "#fff",
                   fontWeight: 700, fontSize: "0.82rem",

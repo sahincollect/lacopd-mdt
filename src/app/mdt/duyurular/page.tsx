@@ -15,14 +15,14 @@ const TYPE_CONFIG: Record<string, { color: string; bg: string; border: string; i
 const glassCard: React.CSSProperties = {
   background: "var(--bg-secondary)",
   border: "1px solid var(--border-light)",
-  borderRadius: 2,
+  borderRadius: 6,
   overflow: "hidden",
   boxShadow: "0 2px 6px rgba(0,0,0,0.04)",
 };
 
 const inputStyle: React.CSSProperties = {
   width: "100%", background: "var(--bg-tertiary)",
-  border: "1px solid var(--border-light)", borderRadius: 2,
+  border: "1px solid var(--border-light)", borderRadius: 6,
   padding: "0.58rem 0.9rem", color: "var(--text-primary)",
   fontSize: "0.83rem", outline: "none", fontFamily: "'Inter', sans-serif",
   transition: "all 0.18s ease", boxSizing: "border-box",
@@ -102,14 +102,14 @@ export default function Duyurular() {
         {/* ─── Page Header ─── */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1rem" }}>
           <div>
-            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.45rem" }}>
+            <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: "0.45rem" }}>
               L.A.C.P.D. · İÇ İLETİŞİM
             </div>
             <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "var(--text-primary)", margin: 0, letterSpacing: "-0.02em" }}>
               Duyurular
             </h1>
             <p style={{ color: "var(--text-secondary)", fontSize: "0.8rem", margin: "0.4rem 0 0", fontWeight: 400 }}>
-              Departman içi yayınlar · <span style={{ fontFamily: "'JetBrains Mono', monospace", color: "var(--text-muted)" }}>{announcements.length} aktif duyuru</span>
+              Departman içi yayınlar · <span style={{ fontFamily: "inherit", color: "var(--text-muted)" }}>{announcements.length} aktif duyuru</span>
             </p>
           </div>
           {isAdmin && (
@@ -117,7 +117,7 @@ export default function Duyurular() {
               onClick={() => { setShowAddForm(true); setEditingId(null); setFormData({ title: "", content: "", type: "Normal" }); }}
               style={{
                 display: "flex", alignItems: "center", gap: "0.55rem",
-                padding: "0.65rem 1.35rem", borderRadius: 2,
+                padding: "0.65rem 1.35rem", borderRadius: 6,
                 background: "var(--LAC-orange)",
                 border: "1px solid var(--border-strong)",
                 color: "#fff", fontWeight: 700, fontSize: "0.82rem", cursor: "pointer",
@@ -151,7 +151,7 @@ export default function Duyurular() {
                   style={{
                     ...glassCard,
                     borderLeft: `3px solid ${cfg.color}`,
-                    borderRadius: 2,
+                    borderRadius: 6,
                   }}
                 >
                   {/* Card header */}
@@ -171,18 +171,18 @@ export default function Duyurular() {
                           background: cfg.bg, border: `1px solid ${cfg.border}`,
                           color: cfg.color, fontSize: "0.6rem", fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase",
                         }}>
-                          <i className={`fa-solid ${cfg.icon}`} style={{ fontSize: "0.55rem" }} /> {cfg.label}
+                          <i className={`fa-solid ${cfg.icon}`} style={{ fontSize: "0.75rem" }} /> {cfg.label}
                         </span>
-                        <span style={{ fontSize: "0.67rem", color: "var(--text-muted)", fontFamily: "'JetBrains Mono', monospace" }}>
+                        <span style={{ fontSize: "0.78rem", color: "var(--text-muted)", fontFamily: "inherit" }}>
                           {new Date(ann.createdAt).toLocaleString("tr-TR")}
                         </span>
                       </div>
                       {/* Title */}
                       <h3 style={{ fontSize: "1.05rem", fontWeight: 800, margin: 0, color: "var(--text-primary)", lineHeight: 1.3 }}>{ann.title}</h3>
                       {/* Author */}
-                      <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", display: "flex", alignItems: "center", gap: "0.4rem" }}>
-                        <i className="fa-solid fa-user-shield" style={{ color: "var(--text-muted)", fontSize: "0.62rem" }} />
-                        <span style={{ fontFamily: "'JetBrains Mono', monospace" }}>#{ann.author?.badge}</span>
+                      <div style={{ fontSize: "0.8rem", color: "var(--text-muted)", display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                        <i className="fa-solid fa-user-shield" style={{ color: "var(--text-muted)", fontSize: "0.75rem" }} />
+                        <span style={{ fontFamily: "inherit" }}>#{ann.author?.badge}</span>
                         <span>{ann.author?.name}</span>
                         {ann.author?.rank && <span style={{ color: "var(--text-muted)" }}>· {ann.author.rank}</span>}
                       </div>
@@ -192,14 +192,14 @@ export default function Duyurular() {
                     {isAdmin && (
                       <div style={{ display: "flex", gap: "0.5rem", flexShrink: 0 }}>
                         <button className="admin-edit-btn" onClick={() => handleEdit(ann)} title="Düzenle" style={{
-                          padding: "0.45rem 0.75rem", borderRadius: 2, fontSize: "0.75rem",
+                          padding: "0.45rem 0.75rem", borderRadius: 6, fontSize: "0.75rem",
                           border: "1px solid var(--border-light)", background: "transparent",
                           color: "var(--text-secondary)", cursor: "pointer", transition: "all 0.15s",
                         }}>
                           <i className="fa-solid fa-pen" />
                         </button>
                         <button className="admin-del-btn" onClick={() => handleDelete(ann.id)} title="Sil" style={{
-                          padding: "0.45rem 0.75rem", borderRadius: 2, fontSize: "0.75rem",
+                          padding: "0.45rem 0.75rem", borderRadius: 6, fontSize: "0.75rem",
                           border: "1px solid rgba(239,68,68,0.2)", background: "rgba(239,68,68,0.06)",
                           color: "#ef4444", cursor: "pointer", transition: "all 0.15s",
                         }}>
@@ -228,11 +228,11 @@ export default function Duyurular() {
           style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.78)", backdropFilter: "blur(8px)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem" }}
           onClick={e => { if (e.target === e.currentTarget) setShowAddForm(false); }}
         >
-          <div style={{ ...glassCard, borderRadius: 2, width: "100%", maxWidth: 560, boxShadow: "0 24px 80px rgba(0,0,0,0.7)", border: "1px solid var(--border-strong)" }}>
+          <div style={{ ...glassCard, borderRadius: 6, width: "100%", maxWidth: 560, boxShadow: "0 24px 80px rgba(0,0,0,0.7)", border: "1px solid var(--border-strong)" }}>
             {/* Modal header */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1.35rem 1.5rem", borderBottom: "1px solid var(--border-light)", background: "transparent" }}>
               <div>
-                <div style={{ fontSize: "0.58rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "0.2rem" }}>
+                <div style={{ fontSize: "0.75rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: "0.2rem" }}>
                   ADMIN · BROADCAST
                 </div>
                 <h3 style={{ margin: 0, fontWeight: 800, fontSize: "1rem", color: "var(--text-primary)" }}>
@@ -248,11 +248,11 @@ export default function Duyurular() {
 
             <form onSubmit={handleSubmit} style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1.15rem" }}>
               <div>
-                <label style={{ display: "block", fontSize: "0.58rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.45rem" }}>Duyuru Başlığı</label>
+                <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: "0.45rem" }}>Duyuru Başlığı</label>
                 <input className="mdt-input" name="title" type="text" value={formData.title} onChange={handleChange} required placeholder="Duyuru başlığını girin..." style={inputStyle} />
               </div>
               <div>
-                <label style={{ display: "block", fontSize: "0.58rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.45rem" }}>Önem Derecesi</label>
+                <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: "0.45rem" }}>Önem Derecesi</label>
                 <select className="mdt-input" name="type" value={formData.type} onChange={handleChange} style={{ ...inputStyle, appearance: "none" }}>
                   <option value="Normal">Normal</option>
                   <option value="Dikkat">Dikkat</option>
@@ -260,7 +260,7 @@ export default function Duyurular() {
                 </select>
               </div>
               <div>
-                <label style={{ display: "block", fontSize: "0.58rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: "0.45rem" }}>İçerik</label>
+                <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: "0.45rem" }}>İçerik</label>
                 <textarea className="mdt-input" name="content" value={formData.content} onChange={handleChange} required rows={5}
                   placeholder="Duyuru içeriğini buraya yazın..."
                   style={{ ...inputStyle, resize: "vertical", lineHeight: 1.65 }} />
@@ -268,12 +268,12 @@ export default function Duyurular() {
 
               <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.75rem", paddingTop: "0.25rem" }}>
                 <button type="button" className="cancel-btn" onClick={() => setShowAddForm(false)} style={{
-                  padding: "0.6rem 1.1rem", borderRadius: 2, border: "1px solid var(--border-light)",
+                  padding: "0.6rem 1.1rem", borderRadius: 6, border: "1px solid var(--border-light)",
                   background: "transparent", color: "var(--text-secondary)", fontWeight: 600, fontSize: "0.8rem", cursor: "pointer", transition: "all 0.15s",
                 }}>İptal</button>
                 <button type="submit" disabled={submitting} style={{
                   display: "flex", alignItems: "center", gap: "0.5rem",
-                  padding: "0.65rem 1.35rem", borderRadius: 2,
+                  padding: "0.65rem 1.35rem", borderRadius: 6,
                   background: "var(--LAC-orange)",
                   border: "1px solid var(--border-strong)", color: "#fff",
                   fontWeight: 700, fontSize: "0.82rem", cursor: submitting ? "not-allowed" : "pointer",

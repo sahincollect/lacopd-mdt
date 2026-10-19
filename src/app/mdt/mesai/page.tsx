@@ -19,7 +19,7 @@ interface OfficerShift {
 const glassCard: React.CSSProperties = {
   background: "var(--bg-secondary)",
   border: "1px solid var(--border-light)",
-  borderRadius: 2,
+  borderRadius: 6,
   overflow: "hidden",
   boxShadow: "0 2px 6px rgba(0,0,0,0.04)",
 };
@@ -28,7 +28,7 @@ const inputStyle: React.CSSProperties = {
   width: "100%",
   background: "var(--bg-tertiary)",
   border: "1px solid var(--border-light)",
-  borderRadius: 2,
+  borderRadius: 6,
   padding: "0.55rem 0.9rem",
   color: "var(--text-primary)",
   fontSize: "0.83rem",
@@ -273,7 +273,7 @@ export default function MesaiSistemi() {
       {/* PAGE HEADER */}
       <div style={{ marginBottom: "2rem", display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1rem" }}>
         <div>
-          <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "0.5rem" }}>
+          <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "var(--text-muted)", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: "0.5rem" }}>
             L.A.C.P.D. · OPERASYON
           </div>
           <h1 style={{ fontSize: "1.9rem", fontWeight: 900, color: "var(--text-primary)", margin: 0, letterSpacing: "-0.02em" }}>
@@ -287,17 +287,17 @@ export default function MesaiSistemi() {
         <div style={{ display: "flex", gap: "2rem", alignItems: "center", background: "rgba(13,18,32,0.6)", padding: "1rem 1.5rem", borderRadius: "12px", border: "1px solid var(--border-light)" }}>
           <div>
             <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "var(--text-secondary)", letterSpacing: '0.1em' }}>SAHADA AKTİF</div>
-            <div style={{ fontSize: "1.4rem", fontWeight: 900, color: "#00d26a", fontFamily: "'JetBrains Mono', monospace" }}>{activeCount} <span style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>/ {leaderboard.length}</span></div>
+            <div style={{ fontSize: "1.4rem", fontWeight: 900, color: "#00d26a", fontFamily: "inherit" }}>{activeCount} <span style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>/ {leaderboard.length}</span></div>
           </div>
           <div style={{ width: "1px", height: "30px", backgroundColor: "#2a2a2a" }}></div>
           <div>
             <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "var(--text-secondary)", letterSpacing: '0.1em' }}>DEPARTMAN EFORU</div>
-            <div style={{ fontSize: "1.4rem", fontWeight: 900, color: "var(--LAC-orange)", fontFamily: "'JetBrains Mono', monospace" }}>{formatHoursMinimal(totalDepartmentSeconds)}</div>
+            <div style={{ fontSize: "1.4rem", fontWeight: 900, color: "var(--LAC-orange)", fontFamily: "inherit" }}>{formatHoursMinimal(totalDepartmentSeconds)}</div>
           </div>
           <div style={{ width: "1px", height: "30px", backgroundColor: "#2a2a2a" }}></div>
           <div>
             <div style={{ fontSize: "0.6rem", fontWeight: 800, color: "var(--text-secondary)", letterSpacing: '0.1em' }}>SAAT</div>
-            <div style={{ fontSize: "1.2rem", fontWeight: 900, color: "var(--text-primary)", fontFamily: "'JetBrains Mono', monospace" }}>{currentTime || "--:--:--"}</div>
+            <div style={{ fontSize: "1.2rem", fontWeight: 900, color: "var(--text-primary)", fontFamily: "inherit" }}>{currentTime || "--:--:--"}</div>
           </div>
         </div>
       </div>
@@ -324,8 +324,8 @@ export default function MesaiSistemi() {
           </div>
           
           <div>
-            <div style={{ fontSize: "0.65rem", fontWeight: 800, color: "var(--text-secondary)", textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "0.25rem" }}>KÜMÜLATİF ŞAHSİ SÜRE</div>
-            <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "2.5rem", fontWeight: 700, color: user?.isOnDuty ? "#00d26a" : "var(--text-primary)", lineHeight: 1, margin: "0.25rem 0" }}>
+            <div style={{ fontSize: "0.78rem", fontWeight: 800, color: "var(--text-secondary)", textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: "0.25rem" }}>KÜMÜLATİF ŞAHSİ SÜRE</div>
+            <div style={{ fontFamily: "inherit", fontSize: "2.5rem", fontWeight: 700, color: user?.isOnDuty ? "#00d26a" : "var(--text-primary)", lineHeight: 1, margin: "0.25rem 0" }}>
               {formatTime(mySeconds)}
             </div>
             <div style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--text-secondary)", marginTop: "0.5rem" }}>
@@ -420,7 +420,7 @@ export default function MesaiSistemi() {
         </div>
 
         {/* Data List Header */}
-        <div style={{ display: "flex", padding: "1rem 1.5rem", fontSize: "0.65rem", fontWeight: 800, color: "var(--text-secondary)", letterSpacing: "0.15em", textTransform: "uppercase", borderBottom: "1px solid rgba(255,255,255,0.02)" }}>
+        <div style={{ display: "flex", padding: "1rem 1.5rem", fontSize: "0.78rem", fontWeight: 800, color: "var(--text-secondary)", letterSpacing: "0.04em", textTransform: "uppercase", borderBottom: "1px solid rgba(255,255,255,0.02)" }}>
           <div style={{ flex: "0 0 80px" }}>SIRA</div>
           <div style={{ flex: "2" }}>PERSONEL</div>
           <div style={{ flex: "1.5" }}>BİRİM / RÜTBE</div>
@@ -445,7 +445,7 @@ export default function MesaiSistemi() {
                     width: "36px", height: "36px", borderRadius: "10px", 
                     background: rankStyle.bg, color: rankStyle.color, border: rankStyle.border,
                     display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: "0.9rem", fontWeight: 800, fontFamily: "'JetBrains Mono', monospace"
+                    fontSize: "0.9rem", fontWeight: 800, fontFamily: "inherit"
                   }}>
                     {idx < 3 ? <i className={`fa-solid ${rankStyle.icon}`}></i> : `#${idx + 1}`}
                   </div>
@@ -454,7 +454,7 @@ export default function MesaiSistemi() {
                 {/* PERSONEL */}
                 <div style={{ flex: "2", display: "flex", flexDirection: "column" }}>
                   <div style={{ fontWeight: 700, color: "var(--text-primary)", fontSize: "0.95rem" }}>{off.name}</div>
-                  <div style={{ fontSize: "0.75rem", color: "var(--text-secondary)", fontFamily: "'JetBrains Mono', monospace", marginTop: "0.15rem" }}>#{off.badge}</div>
+                  <div style={{ fontSize: "0.75rem", color: "var(--text-secondary)", fontFamily: "inherit", marginTop: "0.15rem" }}>#{off.badge}</div>
                 </div>
 
                 {/* BİRİM / RÜTBE */}
@@ -466,12 +466,12 @@ export default function MesaiSistemi() {
                 {/* DURUM */}
                 <div style={{ flex: "1" }}>
                   {off.isOnDuty ? (
-                    <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", background: "rgba(0,210,106,0.08)", color: "#00d26a", border: "1px solid rgba(0,210,106,0.2)", padding: "0.3rem 0.6rem", borderRadius: "20px", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.08em" }}>
+                    <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", background: "rgba(0,210,106,0.08)", color: "#00d26a", border: "1px solid rgba(0,210,106,0.2)", padding: "0.3rem 0.6rem", borderRadius: "20px", fontSize: "0.78rem", fontWeight: 800, letterSpacing: "0.08em" }}>
                       <span className="pulse-dot"></span>
                       AKTİF
                     </div>
                   ) : (
-                    <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", background: "var(--bg-tertiary)", color: "var(--text-secondary)", border: "1px solid var(--border-light)", padding: "0.3rem 0.6rem", borderRadius: "20px", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.08em" }}>
+                    <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", background: "var(--bg-tertiary)", color: "var(--text-secondary)", border: "1px solid var(--border-light)", padding: "0.3rem 0.6rem", borderRadius: "20px", fontSize: "0.78rem", fontWeight: 800, letterSpacing: "0.08em" }}>
                       <i className="fa-solid fa-moon"></i>
                       PASİF
                     </div>
@@ -479,7 +479,7 @@ export default function MesaiSistemi() {
                 </div>
 
                 {/* SÜRE */}
-                <div style={{ flex: "1", textAlign: "right", fontFamily: "'JetBrains Mono', monospace", fontWeight: 700, fontSize: "1.1rem", color: off.isOnDuty ? "#00d26a" : "#888" }}>
+                <div style={{ flex: "1", textAlign: "right", fontFamily: "inherit", fontWeight: 700, fontSize: "1.1rem", color: off.isOnDuty ? "#00d26a" : "#888" }}>
                   {formatTime(secs)}
                 </div>
 

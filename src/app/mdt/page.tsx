@@ -31,26 +31,22 @@ function LiveClock() {
     return () => clearInterval(id);
   }, []);
   return (
-    <div style={{ textAlign: "right", lineHeight: 1.25 }}>
+    <div style={{ textAlign: "right", lineHeight: 1.3 }}>
       <div
         style={{
-          fontSize: "1.6rem",
-          fontWeight: 900,
-          color: "var(--accent-primary)",
-          fontFamily: "'Oswald', sans-serif",
-          letterSpacing: "0.04em",
+          fontSize: "1.35rem",
+          fontWeight: 700,
+          color: "var(--text-primary)",
+          fontVariantNumeric: "tabular-nums",
         }}
       >
         {t.time}
       </div>
       <div
         style={{
-          fontSize: "0.7rem",
+          fontSize: "0.78rem",
           color: "var(--text-muted)",
-          fontWeight: 700,
-          letterSpacing: "0.08em",
-          textTransform: "uppercase",
-          marginTop: "0.15rem",
+          fontWeight: 500,
         }}
       >
         {t.date}
@@ -74,15 +70,6 @@ function formatSecs(secs: number) {
   const sc = s % 60;
   return `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}:${sc.toString().padStart(2, "0")}`;
 }
-
-const QUICK_LINKS = [
-  { icon: "fa-file-signature", label: "Rapor Yaz", href: "/mdt/raporlar" },
-  { icon: "fa-fingerprint", label: "Kriminal Kayıt", href: "/mdt/kriminal" },
-  { icon: "fa-users", label: "Personel Ağı", href: "/mdt/personel" },
-  { icon: "fa-clock", label: "Mesai Sistemi", href: "/mdt/mesai" },
-  { icon: "fa-bullhorn", label: "Duyurular", href: "/mdt/duyurular" },
-  { icon: "fa-scale-balanced", label: "Yönetmelikler", href: "/mdt/yonetmelikler" },
-];
 
 export default function MDTDashboard() {
   const { data: meData, mutate: mutateMe } = useSWR("/api/auth/me", fetcher, { refreshInterval: 30000 });
@@ -141,7 +128,7 @@ export default function MDTDashboard() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ isOnDuty: next }),
       });
-      toast.success(next ? "10-8: Göreve başlandı." : "10-7: Görev sonlandırıldı.");
+      toast.success(next ? "Mesai başlatıldı." : "Mesai sonlandırıldı.");
       await Promise.all([mutateMe(), mutateOfficers(), mutateShifts()]);
     } catch {
       toast.error("Bağlantı hatası.");
@@ -155,40 +142,45 @@ export default function MDTDashboard() {
 
   const STATS = [
     {
-      label: "KAYITLI PERSONEL",
+      label: "Kayıtlı Personel",
       value: officers.length,
-      sub: "Aktif Sicil Kaydı",
+      sub: "Aktif sicil kaydı",
       icon: "fa-users",
     },
     {
-      label: "SAHADA AKTİF BİRİM",
+      label: "Aktif Saha Birimi",
       value: onDuty.length,
-      sub: `${officers.length ? Math.round((onDuty.length / officers.length) * 100) : 0}% Devriyede`,
+      sub: `${officers.length ? Math.round((onDuty.length / officers.length) * 100) : 0}% görev başında`,
       icon: "fa-car-side",
     },
     {
-      label: "ARŞİVLENEN RAPOR",
+      label: "Arşivlenen Rapor",
       value: allReports.length,
-      sub: "Resmi Vaka Dosyası",
+      sub: "Resmi vaka dosyası",
       icon: "fa-file-lines",
     },
     {
-      label: "KİŞİSEL MESAİ SÜRESİ",
+      label: "Kişisel Mesai Süresi",
       value: formatSecs(myLiveSecs),
-      sub: myRank > 0 ? `Departman Sıralaması: #${myRank}` : "Mesai Kaydı",
+      sub: myRank > 0 ? `Departman sıralaması: #${myRank}` : "Mesai kaydı",
       icon: "fa-clock",
     },
   ];
 
+  const cardStyle: React.CSSProperties = {
+    backgroundColor: "var(--bg-secondary)",
+    border: "1px solid var(--border-light)",
+    borderRadius: "8px",
+    boxShadow: "0 1px 2px rgba(15, 23, 42, 0.03)",
+  };
+
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "2rem", paddingBottom: "2.5rem" }}>
-      {/* ── HERO BANNER (LAPDOnline Style) ── */}
+    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", paddingBottom: "2rem" }}>
+      {/* ── CLEAN WELCOME & ACTION HEADER ── */}
       <section
         style={{
-          backgroundColor: "var(--bg-secondary)",
-          border: "1px solid var(--LAC-border)",
-          borderTop: "4px solid var(--LAC-orange)",
-          padding: "2rem 2.25rem",
+          ...cardStyle,
+          padding: "1.5rem 1.75rem",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
@@ -197,76 +189,63 @@ export default function MDTDashboard() {
         }}
       >
         <div>
-          <p
+          <div
             style={{
-              fontSize: "0.82rem",
-              color: "var(--LAC-text-muted)",
+              fontSize: "0.8rem",
+              color: "var(--text-muted)",
+              fontWeight: 500,
               marginBottom: "0.25rem",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "0.06em",
             }}
           >
-            Los Angeles Community Polis Departmanı · Resmi Komuta ve Operasyon Merkezi
-          </p>
+            Los Angeles Community Police Department · Komuta & Operasyon Paneli
+          </div>
           <h1
             style={{
-              fontFamily: "var(--font-inter)",
-              fontSize: "2.4rem",
-              fontWeight: 800,
-              color: "var(--LAC-blue-dark)",
+              fontSize: "1.65rem",
+              fontWeight: 700,
+              color: "var(--text-primary)",
               margin: 0,
               letterSpacing: "-0.02em",
-              lineHeight: 1.15,
             }}
           >
-            To Protect and to Serve —{" "}
-            <span style={{ color: "var(--LAC-orange)" }}>
-              {loading ? "..." : user?.name ?? "Memur"}
-            </span>
+            Hoş geldiniz, {loading ? "..." : user?.name ?? "Memur"}
           </h1>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginTop: "0.9rem", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginTop: "0.75rem", flexWrap: "wrap" }}>
             <span
               style={{
                 backgroundColor: "#041632",
                 color: "#FFFFFF",
-                fontSize: "0.75rem",
-                fontWeight: 800,
-                padding: "0.3rem 0.75rem",
-                borderRadius: "2px",
-                textTransform: "uppercase",
-                letterSpacing: "0.05em",
+                fontSize: "0.76rem",
+                fontWeight: 600,
+                padding: "0.25rem 0.65rem",
+                borderRadius: "5px",
               }}
             >
-              ROZET #{user?.badge ?? "—"}
+              Rozet #{user?.badge ?? "—"}
             </span>
             <span
               style={{
-                backgroundColor: "var(--bg-tertiary)",
+                backgroundColor: "var(--bg-primary)",
                 border: "1px solid var(--border-light)",
-                color: "var(--text-primary)",
-                fontSize: "0.75rem",
-                fontWeight: 700,
-                padding: "0.3rem 0.75rem",
-                borderRadius: "2px",
-                textTransform: "uppercase",
-                letterSpacing: "0.04em",
+                color: "var(--text-secondary)",
+                fontSize: "0.76rem",
+                fontWeight: 600,
+                padding: "0.25rem 0.65rem",
+                borderRadius: "5px",
               }}
             >
               {user?.rank ?? "—"}
             </span>
             <span
               style={{
-                backgroundColor: "var(--bg-tertiary)",
+                backgroundColor: "var(--bg-primary)",
                 border: "1px solid var(--border-light)",
-                color: "var(--text-secondary)",
-                fontSize: "0.75rem",
-                fontWeight: 700,
-                padding: "0.3rem 0.75rem",
-                borderRadius: "2px",
-                textTransform: "uppercase",
-                letterSpacing: "0.04em",
+                color: "var(--text-muted)",
+                fontSize: "0.76rem",
+                fontWeight: 500,
+                padding: "0.25rem 0.65rem",
+                borderRadius: "5px",
               }}
             >
               {user?.department ?? "Patrol Division"}
@@ -274,213 +253,152 @@ export default function MDTDashboard() {
           </div>
         </div>
 
-        {/* Right: Clock + Corporate Action Buttons */}
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "1rem" }}>
+        {/* Right: Clock + Clean Buttons */}
+        <div style={{ display: "flex", alignItems: "center", gap: "1.5rem", flexWrap: "wrap" }}>
           <LiveClock />
-          <div style={{ display: "flex", gap: "0.75rem" }}>
+
+          <div style={{ display: "flex", gap: "0.65rem" }}>
             <Link
               href="/mdt/raporlar"
               style={{
-                backgroundColor: "#041632",
-                color: "#FFFFFF",
-                padding: "0.7rem 1.25rem",
-                fontSize: "0.78rem",
-                fontWeight: 700,
+                backgroundColor: "var(--bg-primary)",
+                color: "var(--text-primary)",
+                border: "1px solid var(--border-strong)",
+                padding: "0.6rem 1.1rem",
+                fontSize: "0.84rem",
+                fontWeight: 600,
                 textDecoration: "none",
-                borderRadius: "2px",
-                textTransform: "uppercase",
-                letterSpacing: "0.05em",
+                borderRadius: "6px",
                 display: "inline-flex",
                 alignItems: "center",
-                gap: "0.5rem",
+                gap: "0.45rem",
               }}
             >
-              <i className="fa-solid fa-plus" /> YENİ RAPOR OLUŞTUR
+              <i className="fa-solid fa-plus" style={{ fontSize: "0.75rem" }} />
+              Yeni Rapor
             </Link>
 
             <button
               onClick={toggleDuty}
               disabled={toggling || !user}
               style={{
-                backgroundColor: user?.isOnDuty ? "var(--color-danger)" : "var(--LAC-orange)",
+                backgroundColor: user?.isOnDuty ? "var(--color-danger)" : "#041632",
                 color: "#FFFFFF",
-                padding: "0.7rem 1.4rem",
-                fontSize: "0.78rem",
-                fontWeight: 800,
+                padding: "0.6rem 1.2rem",
+                fontSize: "0.84rem",
+                fontWeight: 600,
                 border: "none",
-                borderRadius: "2px",
-                textTransform: "uppercase",
-                letterSpacing: "0.05em",
+                borderRadius: "6px",
                 cursor: toggling || !user ? "not-allowed" : "pointer",
                 display: "inline-flex",
                 alignItems: "center",
-                gap: "0.5rem",
+                gap: "0.45rem",
                 opacity: toggling ? 0.7 : 1,
               }}
             >
-              <i className={`fa-solid ${user?.isOnDuty ? "fa-stop" : "fa-play"}`} />
-              {toggling ? "İŞLENİYOR..." : user?.isOnDuty ? "MESAİYİ BİTİR (10-7)" : "MESAİYE BAŞLA (10-8)"}
+              <i className={`fa-solid ${user?.isOnDuty ? "fa-stop" : "fa-play"}`} style={{ fontSize: "0.72rem" }} />
+              {toggling ? "İşleniyor..." : user?.isOnDuty ? "Mesaiyi Bitir" : "Mesaiye Başla"}
             </button>
           </div>
         </div>
       </section>
 
-      {/* ── HIZLI BAĞLANTILAR (Exact LAPDOnline Quicklinks Grid from src/app/page.tsx) ── */}
-      <section>
-        <h3
-          style={{
-            fontSize: "0.75rem",
-            fontWeight: 800,
-            textTransform: "uppercase",
-            letterSpacing: "0.05em",
-            marginBottom: "0.75rem",
-            color: "var(--text-primary)",
-          }}
-        >
-          HIZLI BAĞLANTILAR
-        </h3>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(6, 1fr)",
-            border: "1px solid var(--LAC-border)",
-            backgroundColor: "var(--bg-secondary)",
-          }}
-        >
-          {QUICK_LINKS.map((item, idx) => (
-            <Link
-              href={item.href}
-              key={idx}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: "1.6rem 1rem",
-                borderRight: idx !== QUICK_LINKS.length - 1 ? "1px solid var(--LAC-border)" : "none",
-                textAlign: "center",
-                cursor: "pointer",
-                transition: "background-color 0.2s",
-                textDecoration: "none",
-                color: "var(--text-primary)",
-              }}
-              onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "var(--bg-tertiary)")}
-              onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
-            >
-              <i
-                className={`fa-solid ${item.icon}`}
-                style={{ fontSize: "1.65rem", color: "var(--LAC-blue-dark)", marginBottom: "0.75rem" }}
-              />
-              <span style={{ fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.03em" }}>
-                {item.label}
-              </span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* ── 4 CORPORATE STAT CARDS ── */}
-      <section style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem" }}>
+      {/* ── 4 CLEAN METRIC CARDS ── */}
+      <section style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem" }}>
         {STATS.map((s, i) => (
           <div
             key={i}
             style={{
-              backgroundColor: "var(--bg-secondary)",
-              border: "1px solid var(--border-light)",
-              borderTop: i % 2 === 0 ? "3px solid var(--LAC-orange)" : "3px solid #041632",
-              padding: "1.35rem 1.5rem",
+              ...cardStyle,
+              padding: "1.25rem 1.4rem",
               display: "flex",
               flexDirection: "column",
-              gap: "0.4rem",
+              gap: "0.45rem",
             }}
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <span
                 style={{
-                  fontSize: "0.7rem",
-                  fontWeight: 800,
-                  color: "var(--text-muted)",
-                  letterSpacing: "0.06em",
-                  textTransform: "uppercase",
+                  fontSize: "0.84rem",
+                  fontWeight: 600,
+                  color: "var(--text-secondary)",
                 }}
               >
                 {s.label}
               </span>
-              <i className={`fa-solid ${s.icon}`} style={{ fontSize: "1rem", color: "var(--LAC-orange)" }} />
+              <div
+                style={{
+                  width: 34,
+                  height: 34,
+                  borderRadius: "6px",
+                  backgroundColor: "var(--bg-primary)",
+                  border: "1px solid var(--border-light)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "var(--accent-primary)",
+                  fontSize: "0.88rem",
+                }}
+              >
+                <i className={`fa-solid ${s.icon}`} />
+              </div>
             </div>
             <div
               style={{
-                fontSize: "2rem",
-                fontWeight: 900,
-                color: "var(--LAC-blue-dark)",
-                fontFamily: "'Oswald', sans-serif",
-                lineHeight: 1.15,
+                fontSize: "1.8rem",
+                fontWeight: 700,
+                color: "var(--text-primary)",
+                lineHeight: 1.2,
+                fontVariantNumeric: "tabular-nums",
               }}
             >
               {loading ? "—" : s.value}
             </div>
-            <div style={{ fontSize: "0.75rem", color: "var(--text-secondary)", fontWeight: 600 }}>{s.sub}</div>
+            <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", fontWeight: 500 }}>{s.sub}</div>
           </div>
         ))}
       </section>
 
-      {/* ── MAIN DATA COLUMNS (LAPDOnline Newsroom Tab Style) ── */}
-      <section style={{ display: "grid", gridTemplateColumns: "1fr 1fr 340px", gap: "1.5rem", alignItems: "start" }}>
-        {/* COLUMN 1: SON RAPORLAR */}
-        <div
-          style={{
-            backgroundColor: "var(--bg-secondary)",
-            border: "1px solid var(--border-light)",
-            padding: "1.5rem",
-          }}
-        >
+      {/* ── 3 SYSTEMATIC DATA PANELS ── */}
+      <section style={{ display: "grid", gridTemplateColumns: "1fr 1fr 340px", gap: "1.25rem", alignItems: "start" }}>
+        {/* PANEL 1: SON VAKA RAPORLARI */}
+        <div style={cardStyle}>
           <div
             style={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              borderBottom: "1px solid var(--LAC-orange)",
-              marginBottom: "1.25rem",
+              padding: "1rem 1.25rem",
+              borderBottom: "1px solid var(--border-light)",
             }}
           >
-            <div
-              style={{
-                padding: "0.4rem 0.75rem",
-                color: "var(--LAC-orange)",
-                fontWeight: 800,
-                fontSize: "0.82rem",
-                borderBottom: "3px solid var(--LAC-orange)",
-                textTransform: "uppercase",
-                letterSpacing: "0.04em",
-              }}
-            >
-              SON VAKA RAPORLARI
-            </div>
+            <h2 style={{ margin: 0, fontSize: "0.95rem", fontWeight: 700, color: "var(--text-primary)" }}>
+              Son Vaka Raporları
+            </h2>
             <Link
               href="/mdt/raporlar"
               style={{
-                color: "var(--accent-secondary)",
+                color: "var(--LAC-orange)",
                 textDecoration: "none",
-                fontWeight: 700,
-                fontSize: "0.75rem",
-                textTransform: "uppercase",
+                fontWeight: 600,
+                fontSize: "0.8rem",
               }}
             >
-              TÜMÜNÜ GÖR →
+              Tümünü Gör →
             </Link>
           </div>
 
           {loading ? (
-            <div style={{ padding: "2rem", textAlign: "center", color: "var(--text-muted)", fontSize: "0.85rem" }}>
+            <div style={{ padding: "2.25rem 1.25rem", textAlign: "center", color: "var(--text-muted)", fontSize: "0.85rem" }}>
               Yükleniyor...
             </div>
           ) : allReports.length === 0 ? (
-            <div style={{ padding: "2.5rem 1rem", textAlign: "center", color: "var(--text-muted)", fontSize: "0.85rem" }}>
+            <div style={{ padding: "2.5rem 1.25rem", textAlign: "center", color: "var(--text-muted)", fontSize: "0.85rem" }}>
               Sistemde henüz kayıtlı rapor bulunmuyor.
             </div>
           ) : (
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              {allReports.slice(0, 7).map((r: any) => (
+            <div>
+              {allReports.slice(0, 7).map((r: any, idx: number) => (
                 <Link
                   key={r.id}
                   href="/mdt/raporlar"
@@ -488,8 +406,8 @@ export default function MDTDashboard() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    padding: "0.85rem 0.5rem",
-                    borderBottom: "1px solid var(--border-light)",
+                    padding: "0.85rem 1.25rem",
+                    borderBottom: idx < Math.min(allReports.length, 7) - 1 ? "1px solid var(--border-light)" : "none",
                     textDecoration: "none",
                     color: "var(--text-primary)",
                   }}
@@ -498,7 +416,7 @@ export default function MDTDashboard() {
                     <div
                       style={{
                         fontSize: "0.88rem",
-                        fontWeight: 700,
+                        fontWeight: 600,
                         color: "var(--text-primary)",
                         whiteSpace: "nowrap",
                         overflow: "hidden",
@@ -507,111 +425,95 @@ export default function MDTDashboard() {
                     >
                       {r.title}
                     </div>
-                    <div style={{ fontSize: "0.74rem", color: "var(--text-muted)", marginTop: "3px", fontWeight: 600 }}>
+                    <div style={{ fontSize: "0.76rem", color: "var(--text-muted)", marginTop: "2px" }}>
                       Memur #{r.officer?.badge} · {timeAgo(r.createdAt)}
                     </div>
                   </div>
-                  <span
-                    style={{
-                      backgroundColor: "var(--bg-tertiary)",
-                      border: "1px solid var(--border-light)",
-                      color: "var(--text-secondary)",
-                      fontSize: "0.68rem",
-                      fontWeight: 700,
-                      padding: "2px 8px",
-                      borderRadius: "2px",
-                      textTransform: "uppercase",
-                      flexShrink: 0,
-                    }}
-                  >
-                    İNCELE
-                  </span>
+                  <i className="fa-solid fa-chevron-right" style={{ fontSize: "0.72rem", color: "var(--text-muted)" }} />
                 </Link>
               ))}
             </div>
           )}
         </div>
 
-        {/* COLUMN 2: AKTİF DEVRİYE BİRİMLERİ */}
-        <div
-          style={{
-            backgroundColor: "var(--bg-secondary)",
-            border: "1px solid var(--border-light)",
-            padding: "1.5rem",
-          }}
-        >
+        {/* PANEL 2: AKTİF SAHA BİRİMLERİ */}
+        <div style={cardStyle}>
           <div
             style={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              borderBottom: "1px solid var(--LAC-orange)",
-              marginBottom: "1.25rem",
+              padding: "1rem 1.25rem",
+              borderBottom: "1px solid var(--border-light)",
             }}
           >
-            <div
-              style={{
-                padding: "0.4rem 0.75rem",
-                color: "var(--LAC-orange)",
-                fontWeight: 800,
-                fontSize: "0.82rem",
-                borderBottom: "3px solid var(--LAC-orange)",
-                textTransform: "uppercase",
-                letterSpacing: "0.04em",
-              }}
-            >
-              AKTİF SAHA BİRİMLERİ ({onDuty.length})
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <h2 style={{ margin: 0, fontSize: "0.95rem", fontWeight: 700, color: "var(--text-primary)" }}>
+                Aktif Saha Birimleri
+              </h2>
+              <span
+                style={{
+                  fontSize: "0.75rem",
+                  fontWeight: 600,
+                  padding: "1px 7px",
+                  borderRadius: "10px",
+                  backgroundColor: "var(--bg-primary)",
+                  color: "var(--text-secondary)",
+                  border: "1px solid var(--border-light)",
+                }}
+              >
+                {onDuty.length}
+              </span>
             </div>
             <Link
               href="/mdt/mesai"
               style={{
-                color: "var(--accent-secondary)",
+                color: "var(--LAC-orange)",
                 textDecoration: "none",
-                fontWeight: 700,
-                fontSize: "0.75rem",
-                textTransform: "uppercase",
+                fontWeight: 600,
+                fontSize: "0.8rem",
               }}
             >
-              MESAİ LİSTESİ →
+              Mesai Listesi →
             </Link>
           </div>
 
           {loading ? (
-            <div style={{ padding: "2rem", textAlign: "center", color: "var(--text-muted)", fontSize: "0.85rem" }}>
+            <div style={{ padding: "2.25rem 1.25rem", textAlign: "center", color: "var(--text-muted)", fontSize: "0.85rem" }}>
               Yükleniyor...
             </div>
           ) : onDuty.length === 0 ? (
-            <div style={{ padding: "2.5rem 1rem", textAlign: "center", color: "var(--text-muted)", fontSize: "0.85rem" }}>
-              Şu anda sahada aktif (10-8) birim bulunmuyor.
+            <div style={{ padding: "2.5rem 1.25rem", textAlign: "center", color: "var(--text-muted)", fontSize: "0.85rem" }}>
+              Şu anda sahada aktif birim bulunmuyor.
             </div>
           ) : (
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              {onDuty.map((o: any) => (
+            <div>
+              {onDuty.map((o: any, idx: number) => (
                 <div
                   key={o.id}
                   style={{
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    padding: "0.8rem 0.5rem",
-                    borderBottom: "1px solid var(--border-light)",
+                    padding: "0.8rem 1.25rem",
+                    borderBottom: idx < onDuty.length - 1 ? "1px solid var(--border-light)" : "none",
                   }}
                 >
                   <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
                     <div
                       style={{
-                        width: 36,
-                        height: 36,
+                        width: 34,
+                        height: 34,
                         borderRadius: "50%",
                         overflow: "hidden",
-                        backgroundColor: "var(--bg-tertiary)",
-                        border: "1px solid var(--border-strong)",
+                        backgroundColor: "var(--bg-primary)",
+                        border: "1px solid var(--border-light)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        fontWeight: 800,
+                        fontWeight: 700,
                         fontSize: "0.75rem",
-                        color: "var(--text-primary)",
+                        color: "var(--text-secondary)",
                       }}
                     >
                       {o.profileImage ? (
@@ -621,9 +523,9 @@ export default function MDTDashboard() {
                       )}
                     </div>
                     <div>
-                      <div style={{ fontSize: "0.88rem", fontWeight: 700, color: "var(--text-primary)" }}>{o.name}</div>
-                      <div style={{ fontSize: "0.72rem", color: "var(--text-muted)", fontWeight: 600 }}>
-                        Rozet #{o.badge} · {o.rank}
+                      <div style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--text-primary)" }}>{o.name}</div>
+                      <div style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>
+                        #{o.badge} · {o.rank}
                       </div>
                     </div>
                   </div>
@@ -632,14 +534,13 @@ export default function MDTDashboard() {
                       backgroundColor: "var(--color-success-bg)",
                       border: "1px solid var(--color-success-border)",
                       color: "var(--color-success)",
-                      fontSize: "0.65rem",
-                      fontWeight: 800,
+                      fontSize: "0.72rem",
+                      fontWeight: 600,
                       padding: "2px 8px",
-                      borderRadius: "2px",
-                      textTransform: "uppercase",
+                      borderRadius: "5px",
                     }}
                   >
-                    10-8 GÖREVDE
+                    Görevde
                   </span>
                 </div>
               ))}
@@ -647,48 +548,32 @@ export default function MDTDashboard() {
           )}
         </div>
 
-        {/* COLUMN 3: HAFTALIK MESAİ LİDERLİĞİ */}
-        <div
-          style={{
-            backgroundColor: "var(--bg-secondary)",
-            border: "1px solid var(--border-light)",
-            padding: "1.5rem",
-          }}
-        >
+        {/* PANEL 3: MESAİ SIRALAMASI */}
+        <div style={cardStyle}>
           <div
             style={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              borderBottom: "1px solid var(--LAC-orange)",
-              marginBottom: "1.25rem",
+              padding: "1rem 1.25rem",
+              borderBottom: "1px solid var(--border-light)",
             }}
           >
-            <div
-              style={{
-                padding: "0.4rem 0.75rem",
-                color: "var(--LAC-orange)",
-                fontWeight: 800,
-                fontSize: "0.82rem",
-                borderBottom: "3px solid var(--LAC-orange)",
-                textTransform: "uppercase",
-                letterSpacing: "0.04em",
-              }}
-            >
-              MESAİ SIRALAMASI
-            </div>
+            <h2 style={{ margin: 0, fontSize: "0.95rem", fontWeight: 700, color: "var(--text-primary)" }}>
+              Mesai Sıralaması
+            </h2>
           </div>
 
           {!shiftsData ? (
-            <div style={{ padding: "2rem", textAlign: "center", color: "var(--text-muted)", fontSize: "0.82rem" }}>
+            <div style={{ padding: "2rem 1.25rem", textAlign: "center", color: "var(--text-muted)", fontSize: "0.84rem" }}>
               Yükleniyor...
             </div>
           ) : topShift.length === 0 ? (
-            <div style={{ padding: "2rem", textAlign: "center", color: "var(--text-muted)", fontSize: "0.82rem" }}>
+            <div style={{ padding: "2rem 1.25rem", textAlign: "center", color: "var(--text-muted)", fontSize: "0.84rem" }}>
               Mesai kaydı bulunamadı.
             </div>
           ) : (
-            <div style={{ display: "flex", flexDirection: "column" }}>
+            <div>
               {topShift.map((e: any, i: number) => {
                 const currentSecs = liveTicks[e.id] ?? e.totalSeconds ?? 0;
                 return (
@@ -698,23 +583,24 @@ export default function MDTDashboard() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "space-between",
-                      padding: "0.75rem 0.25rem",
-                      borderBottom: "1px solid var(--border-light)",
+                      padding: "0.8rem 1.25rem",
+                      borderBottom: i < topShift.length - 1 ? "1px solid var(--border-light)" : "none",
                     }}
                   >
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", minWidth: 0 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.7rem", minWidth: 0 }}>
                       <span
                         style={{
                           width: 24,
                           height: 24,
-                          borderRadius: "2px",
-                          backgroundColor: i === 0 ? "var(--LAC-orange)" : "var(--bg-tertiary)",
-                          color: i === 0 ? "#FFFFFF" : "var(--text-primary)",
+                          borderRadius: "5px",
+                          backgroundColor: i === 0 ? "#041632" : "var(--bg-primary)",
+                          border: i === 0 ? "none" : "1px solid var(--border-light)",
+                          color: i === 0 ? "#FFFFFF" : "var(--text-secondary)",
                           display: "inline-flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          fontSize: "0.72rem",
-                          fontWeight: 800,
+                          fontSize: "0.75rem",
+                          fontWeight: 700,
                           flexShrink: 0,
                         }}
                       >
@@ -723,8 +609,8 @@ export default function MDTDashboard() {
                       <div style={{ minWidth: 0 }}>
                         <div
                           style={{
-                            fontSize: "0.84rem",
-                            fontWeight: 700,
+                            fontSize: "0.86rem",
+                            fontWeight: 600,
                             color: "var(--text-primary)",
                             whiteSpace: "nowrap",
                             overflow: "hidden",
@@ -733,16 +619,17 @@ export default function MDTDashboard() {
                         >
                           {e.name}
                         </div>
-                        <div style={{ fontSize: "0.68rem", color: "var(--text-muted)", fontWeight: 600 }}>
+                        <div style={{ fontSize: "0.74rem", color: "var(--text-muted)" }}>
                           #{e.badge} · {e.rank}
                         </div>
                       </div>
                     </div>
                     <span
                       style={{
-                        fontSize: "0.75rem",
-                        fontWeight: 800,
-                        color: e.isOnDuty ? "var(--color-success)" : "var(--accent-primary)",
+                        fontSize: "0.82rem",
+                        fontWeight: 600,
+                        color: e.isOnDuty ? "var(--color-success)" : "var(--text-secondary)",
+                        fontVariantNumeric: "tabular-nums",
                         flexShrink: 0,
                       }}
                     >

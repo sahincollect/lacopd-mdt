@@ -40,14 +40,14 @@
 /* Only apply backface-visibility to animated containers, NOT globally (causes text flicker) */
 
 html {
-  font-size: 90%;
+  font-size: 100%;
 }
 
 :root {
-  /* LIGHT THEME (LAPDOnline Corporate / Clean) */
-  --bg-primary: #f8fafc;
+  /* LIGHT THEME (LAPDOnline Clean & High-Readability Corporate) */
+  --bg-primary: #f4f6f9;
   --bg-secondary: #ffffff;
-  --bg-tertiary: #f1f5f9;
+  --bg-tertiary: #eef2f6;
   --bg-hover-subtle: #e2e8f0;
   
   --text-primary: #0f172a;
@@ -61,21 +61,21 @@ html {
   --accent-secondary: #E84F2A;    /* LAPD Orange */
   
   /* Shared standard accents */
-  --color-success: #10B981;
-  --color-success-bg: #D1FAE5;
-  --color-success-border: #A7F3D0;
+  --color-success: #059669;
+  --color-success-bg: #ecfdf5;
+  --color-success-border: #a7f3d0;
   
-  --color-danger: #DC2626;
-  --color-danger-bg: #FEF2F2;
-  --color-danger-border: #FECACA;
+  --color-danger: #dc2626;
+  --color-danger-bg: #fef2f2;
+  --color-danger-border: #fecaca;
 
-  --color-warning: #D97706;
-  --color-warning-bg: #FFFBEB;
-  --color-warning-border: #FDE68A;
+  --color-warning: #d97706;
+  --color-warning-bg: #fffbeb;
+  --color-warning-border: #fde68a;
 
   --color-info: #041632;
-  --color-info-bg: #E2E8F0;
-  --color-info-border: #CBD5E1;
+  --color-info-bg: #e2e8f0;
+  --color-info-border: #cbd5e1;
   
   /* Legacy/Site variables mapping to LAPD theme */
   --bg-dark: var(--bg-primary);
@@ -90,7 +90,7 @@ html {
   --LAC-orange: var(--accent-secondary);
   --LAC-border: var(--border-light);
 
-  /* MDT variables unified with Main Page LAPD Theme */
+  /* MDT variables unified with Clean Corporate Theme */
   --mdt-sidebar-bg:     var(--bg-secondary);
   --mdt-bg-main:        var(--bg-primary);
   --mdt-card-bg:        var(--bg-secondary);
@@ -100,50 +100,50 @@ html {
   --mdt-text-primary:   var(--text-primary);
   --mdt-text-secondary: var(--text-secondary);
   --mdt-text-muted:     var(--text-muted);
-  --mdt-accent:         var(--accent-secondary);
-  --mdt-accent-alpha:   rgba(232, 79, 42, 0.12);
-  --mdt-accent-hover:   #d03f1c;
-  --mdt-accent-glow:    rgba(232, 79, 42, 0.2);
+  --mdt-accent:         #041632;
+  --mdt-accent-alpha:   rgba(4, 22, 50, 0.08);
+  --mdt-accent-hover:   #0a2550;
+  --mdt-accent-glow:    rgba(4, 22, 50, 0.12);
   --mdt-orange:         #E84F2A;
   --mdt-navy:           #041632;
   --mdt-success:        var(--color-success);
   --mdt-warning:        var(--color-warning);
   --mdt-danger:         var(--color-danger);
   --mdt-glass-bg:       var(--bg-secondary);
-  --mdt-input-bg:       var(--bg-primary);
+  --mdt-input-bg:       #ffffff;
 }
 
 .dark {
-  /* DARK THEME (Minimalist Black & LAPD Orange) */
-  --bg-primary: #000000;
-  --bg-secondary: #0A0A0A;
-  --bg-tertiary: #171717;
-  --bg-hover-subtle: #262626;
+  /* DARK THEME (Clean Slate Dark & LAPD Orange) */
+  --bg-primary: #0b0f17;
+  --bg-secondary: #111827;
+  --bg-tertiary: #1e293b;
+  --bg-hover-subtle: #334155;
   
-  --text-primary: #F5F5F5;
-  --text-secondary: #A3A3A3;
-  --text-muted: #737373;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
   
-  --border-light: rgba(255, 255, 255, 0.1);
-  --border-strong: rgba(255, 255, 255, 0.2);
+  --border-light: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.16);
 
-  --accent-primary: #FFFFFF;      /* Pure White */
-  --accent-secondary: #E84F2A;    /* LAPD Orange */
+  --accent-primary: #f8fafc;
+  --accent-secondary: #E84F2A;
   
   /* Shared standard accents */
-  --color-success: #34D399;
+  --color-success: #34d399;
   --color-success-bg: rgba(16, 185, 129, 0.12);
   --color-success-border: rgba(16, 185, 129, 0.25);
   
-  --color-danger: #F87171;
+  --color-danger: #f87171;
   --color-danger-bg: rgba(239, 68, 68, 0.15);
   --color-danger-border: rgba(239, 68, 68, 0.3);
 
-  --color-warning: #FBBF24;
+  --color-warning: #fbbf24;
   --color-warning-bg: rgba(245, 158, 11, 0.12);
   --color-warning-border: rgba(245, 158, 11, 0.25);
 
-  --color-info: #38BDF8;
+  --color-info: #38bdf8;
   --color-info-bg: rgba(56, 189, 248, 0.12);
   --color-info-border: rgba(56, 189, 248, 0.25);
   
@@ -160,7 +160,7 @@ html {
   --LAC-orange: var(--accent-secondary);
   --LAC-border: var(--border-light);
 
-  /* MDT variables unified with Main Page LAPD Theme */
+  /* MDT variables unified with Dark Theme */
   --mdt-sidebar-bg:     var(--bg-secondary);
   --mdt-bg-main:        var(--bg-primary);
   --mdt-card-bg:        var(--bg-secondary);
@@ -170,7 +170,7 @@ html {
   --mdt-text-primary:   var(--text-primary);
   --mdt-text-secondary: var(--text-secondary);
   --mdt-text-muted:     var(--text-muted);
-  --mdt-accent:         var(--accent-secondary);
+  --mdt-accent:         #E84F2A;
   --mdt-accent-alpha:   rgba(232, 79, 42, 0.15);
   --mdt-accent-hover:   #ff603b;
   --mdt-accent-glow:    rgba(232, 79, 42, 0.25);
@@ -193,11 +193,11 @@ body {
   font-family: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  line-height: 1.6;
+  line-height: 1.55;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 
   /* === KOPYA KORUMA (MDT haric) === */
   user-select: none;
@@ -206,8 +206,8 @@ body {
   -ms-user-select: none;
 }
 
-/* Ensure Oswald variable works globally for all inline and class styles */
-*[style*="'Oswald'"], *[style*="Oswald"], .font-oswald, h1, h2, h3, header {
+/* Only use Oswald when explicitly requested, never force on all h1/h2/h3/header */
+*[style*="'Oswald'"], *[style*="Oswald"], .font-oswald {
   font-family: var(--font-oswald), 'Oswald', -apple-system, sans-serif !important;
 }
 

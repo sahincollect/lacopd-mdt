@@ -379,11 +379,11 @@ export default function HighCommandSecretAdminPage() {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "1.75rem", borderBottom: "1px solid var(--border-light)", paddingBottom: "1.5rem", flexWrap: "wrap", gap: "1rem" }}>
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.5rem" }}>
-            <span style={{ fontSize: "0.68rem", fontWeight: 800, color: "var(--LAC-orange)", letterSpacing: "0.15em", textTransform: "uppercase" }}>
+            <span style={{ fontSize: "0.78rem", fontWeight: 800, color: "var(--LAC-orange)", letterSpacing: "0.04em", textTransform: "uppercase" }}>
               HIGH COMMAND OVERWATCH • GİZLİ YÖNETİM TERMİNALİ
             </span>
             <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "#475569" }} />
-            <span style={{ fontSize: "0.68rem", fontWeight: 700, color: "#34D399", letterSpacing: "0.1em" }}>
+            <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "#34D399", letterSpacing: "0.1em" }}>
               /mdt/komuta-1222
             </span>
           </div>
@@ -393,7 +393,7 @@ export default function HighCommandSecretAdminPage() {
         </div>
 
         {/* Navigation Tabs */}
-        <div style={{ display: "flex", gap: "0.5rem", backgroundColor: "var(--bg-secondary)", padding: "0.4rem", borderRadius: "2px", border: "1px solid var(--border-light)", flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: "0.5rem", backgroundColor: "var(--bg-secondary)", padding: "0.4rem", borderRadius: "6px", border: "1px solid var(--border-light)", flexWrap: "wrap" }}>
           {[
             { key: "LOGLAR", label: `🎯 Sazan & Loglar (${honeypotLogs.length})` },
             { key: "PERSONEL", label: `👮 Personel (${officers.length})${pendingOfficersCount > 0 ? ` [${pendingOfficersCount} Onay]` : ""}` },
@@ -407,7 +407,7 @@ export default function HighCommandSecretAdminPage() {
               onClick={() => setActiveTab(tab.key as TabKey)}
               style={{
                 padding: "0.55rem 1rem",
-                borderRadius: "2px",
+                borderRadius: "6px",
                 background: activeTab === tab.key ? "var(--mdt-accent-alpha)" : "transparent",
                 color: activeTab === tab.key ? "var(--LAC-orange)" : "#94A3B8",
                 border: activeTab === tab.key ? "1px solid var(--mdt-accent-alpha)" : "1px solid transparent",
@@ -435,7 +435,7 @@ export default function HighCommandSecretAdminPage() {
                   onClick={() => setLogFilter("HONEYPOT")}
                   style={{
                     padding: "0.5rem 1rem",
-                    borderRadius: "2px",
+                    borderRadius: "6px",
                     background: logFilter === "HONEYPOT" ? "rgba(236, 72, 153, 0.2)" : "var(--bg-secondary)",
                     border: `1px solid ${logFilter === "HONEYPOT" ? "rgba(236, 72, 153, 0.45)" : "var(--border-light)"}`,
                     color: logFilter === "HONEYPOT" ? "#F472B6" : "#94A3B8",
@@ -450,7 +450,7 @@ export default function HighCommandSecretAdminPage() {
                   onClick={() => setLogFilter("LOGIN")}
                   style={{
                     padding: "0.5rem 1rem",
-                    borderRadius: "2px",
+                    borderRadius: "6px",
                     background: logFilter === "LOGIN" ? "var(--mdt-accent-alpha)" : "var(--bg-secondary)",
                     border: `1px solid ${logFilter === "LOGIN" ? "var(--mdt-accent-alpha)" : "var(--border-light)"}`,
                     color: logFilter === "LOGIN" ? "var(--LAC-orange)" : "#94A3B8",
@@ -465,7 +465,7 @@ export default function HighCommandSecretAdminPage() {
                   onClick={() => setLogFilter("ALL")}
                   style={{
                     padding: "0.5rem 1rem",
-                    borderRadius: "2px",
+                    borderRadius: "6px",
                     background: logFilter === "ALL" ? "var(--border-strong)" : "var(--bg-secondary)",
                     border: "1px solid var(--border-light)",
                     color: logFilter === "ALL" ? "#FFF" : "#94A3B8",
@@ -485,7 +485,7 @@ export default function HighCommandSecretAdminPage() {
                   rel="noopener noreferrer"
                   style={{
                     padding: "0.5rem 1rem",
-                    borderRadius: "2px",
+                    borderRadius: "6px",
                     background: "rgba(236, 72, 153, 0.12)",
                     border: "1px solid rgba(236, 72, 153, 0.3)",
                     color: "#F472B6",
@@ -500,7 +500,7 @@ export default function HighCommandSecretAdminPage() {
                   onClick={() => handleClearLogs("honeypot")}
                   style={{
                     padding: "0.5rem 1rem",
-                    borderRadius: "2px",
+                    borderRadius: "6px",
                     background: "rgba(239, 68, 68, 0.12)",
                     border: "1px solid rgba(239, 68, 68, 0.3)",
                     color: "#F87171",
@@ -533,7 +533,7 @@ export default function HighCommandSecretAdminPage() {
                         gap: "1rem",
                         flexWrap: "wrap",
                         padding: "1rem 1.4rem",
-                        borderRadius: "2px",
+                        borderRadius: "6px",
                         background: isHoneypot ? "rgba(236, 72, 153, 0.06)" : "var(--bg-secondary)",
                         border: `1px solid ${
                           isHoneypot
@@ -548,8 +548,8 @@ export default function HighCommandSecretAdminPage() {
                         <div
                           style={{
                             padding: "0.35rem 0.75rem",
-                            borderRadius: "2px",
-                            fontSize: "0.7rem",
+                            borderRadius: "6px",
+                            fontSize: "0.8rem",
                             fontWeight: 900,
                             background: isHoneypot
                               ? "rgba(236, 72, 153, 0.2)"
@@ -598,7 +598,7 @@ export default function HighCommandSecretAdminPage() {
                   style={{
                     flex: "1 1 260px",
                     padding: "0.7rem 1rem",
-                    borderRadius: "2px",
+                    borderRadius: "6px",
                     background: "var(--bg-secondary)",
                     border: "1px solid var(--border-strong)",
                     color: "var(--text-primary)",
@@ -610,7 +610,7 @@ export default function HighCommandSecretAdminPage() {
                   onClick={() => setOfficerFilter("ALL")}
                   style={{
                     padding: "0.6rem 1rem",
-                    borderRadius: "2px",
+                    borderRadius: "6px",
                     background: officerFilter === "ALL" ? "var(--mdt-accent-alpha)" : "var(--bg-secondary)",
                     border: "1px solid var(--border-light)",
                     color: officerFilter === "ALL" ? "var(--LAC-orange)" : "#94A3B8",
@@ -625,7 +625,7 @@ export default function HighCommandSecretAdminPage() {
                   onClick={() => setOfficerFilter("PENDING")}
                   style={{
                     padding: "0.6rem 1rem",
-                    borderRadius: "2px",
+                    borderRadius: "6px",
                     background: officerFilter === "PENDING" ? "rgba(245, 158, 11, 0.2)" : "var(--bg-secondary)",
                     border: "1px solid var(--border-light)",
                     color: officerFilter === "PENDING" ? "#FBBF24" : "#94A3B8",
@@ -640,7 +640,7 @@ export default function HighCommandSecretAdminPage() {
                   onClick={() => setOfficerFilter("ADMIN")}
                   style={{
                     padding: "0.6rem 1rem",
-                    borderRadius: "2px",
+                    borderRadius: "6px",
                     background: officerFilter === "ADMIN" ? "rgba(16, 185, 129, 0.2)" : "var(--bg-secondary)",
                     border: "1px solid var(--border-light)",
                     color: officerFilter === "ADMIN" ? "#34D399" : "#94A3B8",
@@ -657,7 +657,7 @@ export default function HighCommandSecretAdminPage() {
                 onClick={() => setShowAddModal(true)}
                 style={{
                   padding: "0.7rem 1.25rem",
-                  borderRadius: "2px",
+                  borderRadius: "6px",
                   background: "var(--LAC-orange)",
                   color: "var(--bg-secondary)",
                   border: "none",
@@ -682,7 +682,7 @@ export default function HighCommandSecretAdminPage() {
                     gap: "1rem",
                     flexWrap: "wrap",
                     padding: "1rem 1.4rem",
-                    borderRadius: "2px",
+                    borderRadius: "6px",
                     background: "var(--bg-secondary)",
                     border: "1px solid var(--border-light)",
                   }}
@@ -692,7 +692,7 @@ export default function HighCommandSecretAdminPage() {
                       style={{
                         width: "42px",
                         height: "42px",
-                        borderRadius: "2px",
+                        borderRadius: "6px",
                         background: "#1E3A8A",
                         border: "1px solid #3B82F6",
                         display: "flex",
@@ -714,7 +714,7 @@ export default function HighCommandSecretAdminPage() {
                         <span style={{ color: "var(--LAC-orange)", fontWeight: 800, fontSize: "0.9rem" }}>#{off.badge}</span>
                         <span style={{ color: "var(--text-primary)", fontWeight: 800, fontSize: "0.95rem" }}>{off.name}</span>
                         {off.role === "admin" && (
-                          <span style={{ background: "rgba(236, 72, 153, 0.18)", color: "#F472B6", border: "1px solid rgba(236, 72, 153, 0.35)", padding: "0.1rem 0.5rem", borderRadius: "6px", fontSize: "0.65rem", fontWeight: 800 }}>
+                          <span style={{ background: "rgba(236, 72, 153, 0.18)", color: "#F472B6", border: "1px solid rgba(236, 72, 153, 0.35)", padding: "0.1rem 0.5rem", borderRadius: "6px", fontSize: "0.78rem", fontWeight: 800 }}>
                             ADMIN
                           </span>
                         )}
@@ -734,7 +734,7 @@ export default function HighCommandSecretAdminPage() {
                                 : "#F87171",
                             padding: "0.1rem 0.5rem",
                             borderRadius: "6px",
-                            fontSize: "0.65rem",
+                            fontSize: "0.78rem",
                             fontWeight: 800,
                           }}
                         >
@@ -753,13 +753,13 @@ export default function HighCommandSecretAdminPage() {
                       <>
                         <button
                           onClick={() => handleQuickOfficerStatus(off.id, "APPROVED")}
-                          style={{ padding: "0.45rem 0.85rem", borderRadius: "2px", background: "rgba(52, 211, 153, 0.15)", border: "1px solid rgba(52, 211, 153, 0.35)", color: "#34D399", fontWeight: 800, fontSize: "0.75rem", cursor: "pointer" }}
+                          style={{ padding: "0.45rem 0.85rem", borderRadius: "6px", background: "rgba(52, 211, 153, 0.15)", border: "1px solid rgba(52, 211, 153, 0.35)", color: "#34D399", fontWeight: 800, fontSize: "0.75rem", cursor: "pointer" }}
                         >
                           ✓ ONAYLA
                         </button>
                         <button
                           onClick={() => handleQuickOfficerStatus(off.id, "REJECTED")}
-                          style={{ padding: "0.45rem 0.85rem", borderRadius: "2px", background: "rgba(239, 68, 68, 0.15)", border: "1px solid rgba(239, 68, 68, 0.35)", color: "#F87171", fontWeight: 800, fontSize: "0.75rem", cursor: "pointer" }}
+                          style={{ padding: "0.45rem 0.85rem", borderRadius: "6px", background: "rgba(239, 68, 68, 0.15)", border: "1px solid rgba(239, 68, 68, 0.35)", color: "#F87171", fontWeight: 800, fontSize: "0.75rem", cursor: "pointer" }}
                         >
                           ✕ REDDET
                         </button>
@@ -772,7 +772,7 @@ export default function HighCommandSecretAdminPage() {
                       }}
                       style={{
                         padding: "0.45rem 0.85rem",
-                        borderRadius: "2px",
+                        borderRadius: "6px",
                         background: "var(--mdt-accent-alpha)",
                         border: "1px solid var(--mdt-accent-alpha)",
                         color: "var(--LAC-orange)",
@@ -788,7 +788,7 @@ export default function HighCommandSecretAdminPage() {
                       onClick={() => handleDeleteOfficer(off.id, off.name)}
                       style={{
                         padding: "0.45rem 0.75rem",
-                        borderRadius: "2px",
+                        borderRadius: "6px",
                         background: "rgba(239, 68, 68, 0.12)",
                         border: "1px solid rgba(239, 68, 68, 0.25)",
                         color: "#F87171",
@@ -818,31 +818,31 @@ export default function HighCommandSecretAdminPage() {
 
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.85rem" }}>
                     <div>
-                      <label style={{ fontSize: "0.7rem", fontWeight: 800, color: "var(--text-secondary)" }}>ROZET NO</label>
-                      <input type="text" value={editingOfficer.badge} onChange={(e) => setEditingOfficer({ ...editingOfficer, badge: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "2px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
+                      <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>ROZET NO</label>
+                      <input type="text" value={editingOfficer.badge} onChange={(e) => setEditingOfficer({ ...editingOfficer, badge: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
                     </div>
                     <div>
-                      <label style={{ fontSize: "0.7rem", fontWeight: 800, color: "var(--text-secondary)" }}>AD SOYAD</label>
-                      <input type="text" value={editingOfficer.name} onChange={(e) => setEditingOfficer({ ...editingOfficer, name: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "2px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
+                      <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>AD SOYAD</label>
+                      <input type="text" value={editingOfficer.name} onChange={(e) => setEditingOfficer({ ...editingOfficer, name: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
                     </div>
                     <div>
-                      <label style={{ fontSize: "0.7rem", fontWeight: 800, color: "var(--text-secondary)" }}>RÜTBE</label>
-                      <input type="text" value={editingOfficer.rank} onChange={(e) => setEditingOfficer({ ...editingOfficer, rank: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "2px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
+                      <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>RÜTBE</label>
+                      <input type="text" value={editingOfficer.rank} onChange={(e) => setEditingOfficer({ ...editingOfficer, rank: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
                     </div>
                     <div>
-                      <label style={{ fontSize: "0.7rem", fontWeight: 800, color: "var(--text-secondary)" }}>BİRİM / DEPARTMAN</label>
-                      <input type="text" value={editingOfficer.department} onChange={(e) => setEditingOfficer({ ...editingOfficer, department: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "2px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
+                      <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>BİRİM / DEPARTMAN</label>
+                      <input type="text" value={editingOfficer.department} onChange={(e) => setEditingOfficer({ ...editingOfficer, department: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
                     </div>
                     <div>
-                      <label style={{ fontSize: "0.7rem", fontWeight: 800, color: "var(--text-secondary)" }}>SİSTEM YETKİSİ</label>
-                      <select value={editingOfficer.role} onChange={(e) => setEditingOfficer({ ...editingOfficer, role: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "2px", background: "#080E1A", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }}>
+                      <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>SİSTEM YETKİSİ</label>
+                      <select value={editingOfficer.role} onChange={(e) => setEditingOfficer({ ...editingOfficer, role: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "#080E1A", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }}>
                         <option value="user">Standart Memur (user)</option>
                         <option value="admin">Yüksek Komuta (admin)</option>
                       </select>
                     </div>
                     <div>
-                      <label style={{ fontSize: "0.7rem", fontWeight: 800, color: "var(--text-secondary)" }}>HESAP DURUMU</label>
-                      <select value={editingOfficer.status} onChange={(e) => setEditingOfficer({ ...editingOfficer, status: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "2px", background: "#080E1A", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }}>
+                      <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>HESAP DURUMU</label>
+                      <select value={editingOfficer.status} onChange={(e) => setEditingOfficer({ ...editingOfficer, status: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "#080E1A", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }}>
                         <option value="APPROVED">APPROVED (Onaylı)</option>
                         <option value="PENDING">PENDING (Bekliyor)</option>
                         <option value="REJECTED">REJECTED (Reddedildi)</option>
@@ -851,20 +851,20 @@ export default function HighCommandSecretAdminPage() {
                   </div>
 
                   <div>
-                    <label style={{ fontSize: "0.7rem", fontWeight: 800, color: "var(--text-secondary)" }}>ÖZEL ROLLER (Virgülle ayırın: FTO, SWAT, Internal Affairs)</label>
-                    <input type="text" value={editingOfficer.specialRoles || ""} onChange={(e) => setEditingOfficer({ ...editingOfficer, specialRoles: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "2px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
+                    <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>ÖZEL ROLLER (Virgülle ayırın: FTO, SWAT, Internal Affairs)</label>
+                    <input type="text" value={editingOfficer.specialRoles || ""} onChange={(e) => setEditingOfficer({ ...editingOfficer, specialRoles: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
                   </div>
 
                   <div>
-                    <label style={{ fontSize: "0.7rem", fontWeight: 800, color: "#FBBF24" }}>YENİ ŞİFRE BELİRLE (Değiştirmek istemiyorsan boş bırak)</label>
-                    <input type="text" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="Yeni şifre..." style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "2px", background: "rgba(0,0,0,0.3)", border: "1px solid rgba(251, 191, 36, 0.3)", color: "var(--text-primary)" }} />
+                    <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "#FBBF24" }}>YENİ ŞİFRE BELİRLE (Değiştirmek istemiyorsan boş bırak)</label>
+                    <input type="text" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="Yeni şifre..." style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "rgba(0,0,0,0.3)", border: "1px solid rgba(251, 191, 36, 0.3)", color: "var(--text-primary)" }} />
                   </div>
 
                   <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.75rem", marginTop: "0.5rem" }}>
-                    <button type="button" onClick={() => setEditingOfficer(null)} style={{ padding: "0.65rem 1.25rem", borderRadius: "2px", background: "var(--border-light)", border: "none", color: "var(--text-secondary)", fontWeight: 700, cursor: "pointer" }}>
+                    <button type="button" onClick={() => setEditingOfficer(null)} style={{ padding: "0.65rem 1.25rem", borderRadius: "6px", background: "var(--border-light)", border: "none", color: "var(--text-secondary)", fontWeight: 700, cursor: "pointer" }}>
                       İptal
                     </button>
-                    <button type="submit" style={{ padding: "0.65rem 1.5rem", borderRadius: "2px", background: "var(--LAC-orange)", border: "none", color: "var(--bg-secondary)", fontWeight: 800, cursor: "pointer" }}>
+                    <button type="submit" style={{ padding: "0.65rem 1.5rem", borderRadius: "6px", background: "var(--LAC-orange)", border: "none", color: "var(--bg-secondary)", fontWeight: 800, cursor: "pointer" }}>
                       Kaydet
                     </button>
                   </div>
@@ -882,38 +882,38 @@ export default function HighCommandSecretAdminPage() {
                   <h3 style={{ margin: 0, color: "var(--text-primary)", fontSize: "1.2rem", fontWeight: 800 }}>Yeni Personel Ekle</h3>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.85rem" }}>
                     <div>
-                      <label style={{ fontSize: "0.7rem", fontWeight: 800, color: "var(--text-secondary)" }}>ROZET NO *</label>
-                      <input required type="text" value={newOfficer.badge} onChange={(e) => setNewOfficer({ ...newOfficer, badge: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "2px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
+                      <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>ROZET NO *</label>
+                      <input required type="text" value={newOfficer.badge} onChange={(e) => setNewOfficer({ ...newOfficer, badge: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
                     </div>
                     <div>
-                      <label style={{ fontSize: "0.7rem", fontWeight: 800, color: "var(--text-secondary)" }}>AD SOYAD *</label>
-                      <input required type="text" value={newOfficer.name} onChange={(e) => setNewOfficer({ ...newOfficer, name: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "2px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
+                      <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>AD SOYAD *</label>
+                      <input required type="text" value={newOfficer.name} onChange={(e) => setNewOfficer({ ...newOfficer, name: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
                     </div>
                     <div>
-                      <label style={{ fontSize: "0.7rem", fontWeight: 800, color: "var(--text-secondary)" }}>ŞİFRE *</label>
-                      <input required type="text" value={newOfficer.password} onChange={(e) => setNewOfficer({ ...newOfficer, password: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "2px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
+                      <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>ŞİFRE *</label>
+                      <input required type="text" value={newOfficer.password} onChange={(e) => setNewOfficer({ ...newOfficer, password: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
                     </div>
                     <div>
-                      <label style={{ fontSize: "0.7rem", fontWeight: 800, color: "var(--text-secondary)" }}>RÜTBE</label>
-                      <input type="text" value={newOfficer.rank} onChange={(e) => setNewOfficer({ ...newOfficer, rank: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "2px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
+                      <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>RÜTBE</label>
+                      <input type="text" value={newOfficer.rank} onChange={(e) => setNewOfficer({ ...newOfficer, rank: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
                     </div>
                     <div>
-                      <label style={{ fontSize: "0.7rem", fontWeight: 800, color: "var(--text-secondary)" }}>DEPARTMAN</label>
-                      <input type="text" value={newOfficer.department} onChange={(e) => setNewOfficer({ ...newOfficer, department: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "2px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
+                      <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>DEPARTMAN</label>
+                      <input type="text" value={newOfficer.department} onChange={(e) => setNewOfficer({ ...newOfficer, department: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }} />
                     </div>
                     <div>
-                      <label style={{ fontSize: "0.7rem", fontWeight: 800, color: "var(--text-secondary)" }}>YETKİ</label>
-                      <select value={newOfficer.role} onChange={(e) => setNewOfficer({ ...newOfficer, role: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "2px", background: "#080E1A", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }}>
+                      <label style={{ fontSize: "0.8rem", fontWeight: 800, color: "var(--text-secondary)" }}>YETKİ</label>
+                      <select value={newOfficer.role} onChange={(e) => setNewOfficer({ ...newOfficer, role: e.target.value })} style={{ width: "100%", marginTop: "0.3rem", padding: "0.65rem", borderRadius: "6px", background: "#080E1A", border: "1px solid var(--border-strong)", color: "var(--text-primary)" }}>
                         <option value="user">Standart Memur</option>
                         <option value="admin">Admin</option>
                       </select>
                     </div>
                   </div>
                   <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.75rem", marginTop: "0.5rem" }}>
-                    <button type="button" onClick={() => setShowAddModal(false)} style={{ padding: "0.65rem 1.25rem", borderRadius: "2px", background: "var(--border-light)", border: "none", color: "var(--text-secondary)", fontWeight: 700, cursor: "pointer" }}>
+                    <button type="button" onClick={() => setShowAddModal(false)} style={{ padding: "0.65rem 1.25rem", borderRadius: "6px", background: "var(--border-light)", border: "none", color: "var(--text-secondary)", fontWeight: 700, cursor: "pointer" }}>
                       İptal
                     </button>
-                    <button type="submit" style={{ padding: "0.65rem 1.5rem", borderRadius: "2px", background: "var(--LAC-orange)", border: "none", color: "var(--bg-secondary)", fontWeight: 800, cursor: "pointer" }}>
+                    <button type="submit" style={{ padding: "0.65rem 1.5rem", borderRadius: "6px", background: "var(--LAC-orange)", border: "none", color: "var(--bg-secondary)", fontWeight: 800, cursor: "pointer" }}>
                       Oluştur
                     </button>
                   </div>
@@ -934,7 +934,7 @@ export default function HighCommandSecretAdminPage() {
                   onClick={() => setAuditSubTab("RAPORLAR")}
                   style={{
                     padding: "0.55rem 1.1rem",
-                    borderRadius: "2px",
+                    borderRadius: "6px",
                     background: auditSubTab === "RAPORLAR" ? "var(--mdt-accent-alpha)" : "var(--bg-secondary)",
                     border: "1px solid var(--border-light)",
                     color: auditSubTab === "RAPORLAR" ? "var(--LAC-orange)" : "#94A3B8",
@@ -949,7 +949,7 @@ export default function HighCommandSecretAdminPage() {
                   onClick={() => setAuditSubTab("SABIKA")}
                   style={{
                     padding: "0.55rem 1.1rem",
-                    borderRadius: "2px",
+                    borderRadius: "6px",
                     background: auditSubTab === "SABIKA" ? "var(--mdt-accent-alpha)" : "var(--bg-secondary)",
                     border: "1px solid var(--border-light)",
                     color: auditSubTab === "SABIKA" ? "var(--LAC-orange)" : "#94A3B8",
@@ -964,7 +964,7 @@ export default function HighCommandSecretAdminPage() {
                   onClick={() => setAuditSubTab("MESAI")}
                   style={{
                     padding: "0.55rem 1.1rem",
-                    borderRadius: "2px",
+                    borderRadius: "6px",
                     background: auditSubTab === "MESAI" ? "var(--mdt-accent-alpha)" : "var(--bg-secondary)",
                     border: "1px solid var(--border-light)",
                     color: auditSubTab === "MESAI" ? "var(--LAC-orange)" : "#94A3B8",
@@ -984,7 +984,7 @@ export default function HighCommandSecretAdminPage() {
                 placeholder="Kayıtlarda ara..."
                 style={{
                   padding: "0.55rem 1rem",
-                  borderRadius: "2px",
+                  borderRadius: "6px",
                   background: "var(--bg-secondary)",
                   border: "1px solid var(--border-strong)",
                   color: "var(--text-primary)",
@@ -1008,7 +1008,7 @@ export default function HighCommandSecretAdminPage() {
                       key={rep.id}
                       style={{
                         padding: "1.25rem 1.5rem",
-                        borderRadius: "2px",
+                        borderRadius: "6px",
                         background: "var(--bg-secondary)",
                         border: "1px solid var(--border-light)",
                         display: "flex",
@@ -1031,7 +1031,7 @@ export default function HighCommandSecretAdminPage() {
                         onClick={() => handleDeleteReport(rep.id)}
                         style={{
                           padding: "0.45rem 0.85rem",
-                          borderRadius: "2px",
+                          borderRadius: "6px",
                           background: "rgba(239, 68, 68, 0.12)",
                           border: "1px solid rgba(239, 68, 68, 0.25)",
                           color: "#F87171",
@@ -1061,7 +1061,7 @@ export default function HighCommandSecretAdminPage() {
                       key={crim.id}
                       style={{
                         padding: "1.25rem 1.5rem",
-                        borderRadius: "2px",
+                        borderRadius: "6px",
                         background: "var(--bg-secondary)",
                         border: "1px solid var(--border-light)",
                         display: "flex",
@@ -1086,7 +1086,7 @@ export default function HighCommandSecretAdminPage() {
                         onClick={() => handleDeleteCriminal(crim.id)}
                         style={{
                           padding: "0.45rem 0.85rem",
-                          borderRadius: "2px",
+                          borderRadius: "6px",
                           background: "rgba(239, 68, 68, 0.12)",
                           border: "1px solid rgba(239, 68, 68, 0.25)",
                           color: "#F87171",
@@ -1104,7 +1104,7 @@ export default function HighCommandSecretAdminPage() {
 
             {auditSubTab === "MESAI" && (
               <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-                <div style={{ background: "linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, var(--bg-secondary) 100%)", border: "1px solid rgba(239, 68, 68, 0.25)", borderRadius: "2px", padding: "1.5rem 2rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
+                <div style={{ background: "linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, var(--bg-secondary) 100%)", border: "1px solid rgba(239, 68, 68, 0.25)", borderRadius: "6px", padding: "1.5rem 2rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
                   <div>
                     <h3 style={{ fontSize: "1.05rem", fontWeight: 800, color: "#F87171", margin: "0 0 0.3rem 0" }}>
                       Mesai Sıfırlama Protokolü
@@ -1113,7 +1113,7 @@ export default function HighCommandSecretAdminPage() {
                       Tüm personelin birikmiş mesai sürelerini sıfırlar.
                     </p>
                   </div>
-                  <button onClick={handleResetShifts} style={{ background: "#EF4444", color: "var(--text-primary)", border: "none", padding: "0.75rem 1.4rem", borderRadius: "2px", fontWeight: 800, cursor: "pointer" }}>
+                  <button onClick={handleResetShifts} style={{ background: "#EF4444", color: "var(--text-primary)", border: "none", padding: "0.75rem 1.4rem", borderRadius: "6px", fontWeight: 800, cursor: "pointer" }}>
                     TÜM MESAİLERİ SIFIRLA
                   </button>
                 </div>
@@ -1129,7 +1129,7 @@ export default function HighCommandSecretAdminPage() {
                           justifyContent: "space-between",
                           alignItems: "center",
                           padding: "0.9rem 1.25rem",
-                          borderRadius: "2px",
+                          borderRadius: "6px",
                           background: "var(--bg-secondary)",
                           border: "1px solid var(--border-light)",
                         }}
@@ -1140,7 +1140,7 @@ export default function HighCommandSecretAdminPage() {
                           <span style={{ color: "var(--text-primary)", fontWeight: 700 }}>{s.name}</span>
                           <span style={{ color: "var(--text-secondary)", fontSize: "0.78rem" }}>({s.rank})</span>
                           {s.isOnDuty && (
-                            <span style={{ background: "rgba(52, 211, 153, 0.15)", color: "#34D399", padding: "0.15rem 0.5rem", borderRadius: "6px", fontSize: "0.65rem", fontWeight: 800 }}>
+                            <span style={{ background: "rgba(52, 211, 153, 0.15)", color: "#34D399", padding: "0.15rem 0.5rem", borderRadius: "6px", fontSize: "0.78rem", fontWeight: 800 }}>
                               MESAİDE
                             </span>
                           )}
@@ -1170,11 +1170,11 @@ export default function HighCommandSecretAdminPage() {
                 applications.map((app: any) => {
                   const divInfo = DIVISIONS.find((d) => d.id === app.division) || DIVISIONS[0];
                   return (
-                    <div key={app.id} style={{ background: "var(--bg-secondary)", borderRadius: "2px", border: "1px solid var(--border-light)", padding: "1.5rem", display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
+                    <div key={app.id} style={{ background: "var(--bg-secondary)", borderRadius: "6px", border: "1px solid var(--border-light)", padding: "1.5rem", display: "flex", flexDirection: "column", position: "relative", overflow: "hidden" }}>
                       <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: "4px", background: divInfo.color }} />
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1.5rem", paddingLeft: "0.5rem" }}>
                         <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-                          <div style={{ width: "42px", height: "42px", borderRadius: "2px", background: `${divInfo.color}15`, border: `1px solid ${divInfo.color}40`, display: "flex", alignItems: "center", justifyContent: "center", color: divInfo.color, fontSize: "1.1rem" }}>
+                          <div style={{ width: "42px", height: "42px", borderRadius: "6px", background: `${divInfo.color}15`, border: `1px solid ${divInfo.color}40`, display: "flex", alignItems: "center", justifyContent: "center", color: divInfo.color, fontSize: "1.1rem" }}>
                             <i className={`fa-solid ${divInfo.icon}`} />
                           </div>
                           <div>
@@ -1187,29 +1187,29 @@ export default function HighCommandSecretAdminPage() {
                           </div>
                         </div>
                         <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                          <span style={{ padding: "0.3rem 0.8rem", borderRadius: "2px", fontSize: "0.7rem", fontWeight: 800, background: app.status === "Onaylandı" ? "rgba(52, 211, 153, 0.15)" : app.status === "Reddedildi" ? "rgba(248, 113, 113, 0.15)" : "rgba(245, 158, 11, 0.15)", color: app.status === "Onaylandı" ? "#34D399" : app.status === "Reddedildi" ? "#F87171" : "#F59E0B" }}>
+                          <span style={{ padding: "0.3rem 0.8rem", borderRadius: "6px", fontSize: "0.8rem", fontWeight: 800, background: app.status === "Onaylandı" ? "rgba(52, 211, 153, 0.15)" : app.status === "Reddedildi" ? "rgba(248, 113, 113, 0.15)" : "rgba(245, 158, 11, 0.15)", color: app.status === "Onaylandı" ? "#34D399" : app.status === "Reddedildi" ? "#F87171" : "#F59E0B" }}>
                             {app.status}
                           </span>
                           <div style={{ display: "flex", gap: "0.4rem" }}>
-                            <button onClick={() => handleUpdateUnitStatus(app.id, "Onaylandı")} style={{ width: "32px", height: "32px", borderRadius: "2px", background: "rgba(52, 211, 153, 0.1)", border: "1px solid rgba(52, 211, 153, 0.3)", color: "#34D399", cursor: "pointer" }}>
+                            <button onClick={() => handleUpdateUnitStatus(app.id, "Onaylandı")} style={{ width: "32px", height: "32px", borderRadius: "6px", background: "rgba(52, 211, 153, 0.1)", border: "1px solid rgba(52, 211, 153, 0.3)", color: "#34D399", cursor: "pointer" }}>
                               <i className="fa-solid fa-check" />
                             </button>
-                            <button onClick={() => handleUpdateUnitStatus(app.id, "Reddedildi")} style={{ width: "32px", height: "32px", borderRadius: "2px", background: "rgba(248, 113, 113, 0.1)", border: "1px solid rgba(248, 113, 113, 0.3)", color: "#F87171", cursor: "pointer" }}>
+                            <button onClick={() => handleUpdateUnitStatus(app.id, "Reddedildi")} style={{ width: "32px", height: "32px", borderRadius: "6px", background: "rgba(248, 113, 113, 0.1)", border: "1px solid rgba(248, 113, 113, 0.3)", color: "#F87171", cursor: "pointer" }}>
                               <i className="fa-solid fa-xmark" />
                             </button>
-                            <button onClick={() => handleDeleteUnitApp(app.id)} style={{ width: "32px", height: "32px", borderRadius: "2px", background: "var(--border-light)", border: "1px solid var(--border-strong)", color: "var(--text-secondary)", cursor: "pointer" }}>
+                            <button onClick={() => handleDeleteUnitApp(app.id)} style={{ width: "32px", height: "32px", borderRadius: "6px", background: "var(--border-light)", border: "1px solid var(--border-strong)", color: "var(--text-secondary)", cursor: "pointer" }}>
                               <i className="fa-solid fa-trash" />
                             </button>
                           </div>
                         </div>
                       </div>
-                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem", background: "rgba(0,0,0,0.2)", padding: "1.25rem", borderRadius: "2px", borderLeft: `2px solid ${divInfo.color}40`, marginLeft: "0.5rem" }}>
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem", background: "rgba(0,0,0,0.2)", padding: "1.25rem", borderRadius: "6px", borderLeft: `2px solid ${divInfo.color}40`, marginLeft: "0.5rem" }}>
                         <div>
-                          <div style={{ fontSize: "0.7rem", color: divInfo.color, fontWeight: 800, marginBottom: "0.5rem", textTransform: "uppercase" }}>Neden Katılmak İstiyor?</div>
+                          <div style={{ fontSize: "0.8rem", color: divInfo.color, fontWeight: 800, marginBottom: "0.5rem", textTransform: "uppercase" }}>Neden Katılmak İstiyor?</div>
                           <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--text-primary)", lineHeight: "1.6", whiteSpace: "pre-wrap" }}>{app.reason}</p>
                         </div>
                         <div>
-                          <div style={{ fontSize: "0.7rem", color: divInfo.color, fontWeight: 800, marginBottom: "0.5rem", textTransform: "uppercase" }}>Tecrübesi</div>
+                          <div style={{ fontSize: "0.8rem", color: divInfo.color, fontWeight: 800, marginBottom: "0.5rem", textTransform: "uppercase" }}>Tecrübesi</div>
                           <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--text-primary)", lineHeight: "1.6", whiteSpace: "pre-wrap" }}>{app.experience}</p>
                         </div>
                       </div>
@@ -1241,13 +1241,13 @@ export default function HighCommandSecretAdminPage() {
                   return (
                     <div key={app.id}>
                       <div onClick={() => setExpandedCivilId(isExpanded ? null : app.id)} style={{ display: "flex", alignItems: "center", gap: "1.5rem", padding: "1.25rem 1.5rem", background: isExpanded ? "var(--mdt-accent-alpha)" : "var(--bg-secondary)", border: `1px solid ${isExpanded ? "var(--mdt-accent-alpha)" : "var(--border-light)"}`, borderRadius: isExpanded ? "16px 16px 0 0" : "16px", cursor: "pointer" }}>
-                        <div style={{ width: "42px", height: "42px", borderRadius: "2px", background: `${typeInfo.color}15`, border: `1px solid ${typeInfo.color}30`, display: "flex", alignItems: "center", justifyContent: "center", color: typeInfo.color, fontSize: "1rem", flexShrink: 0 }}>
+                        <div style={{ width: "42px", height: "42px", borderRadius: "6px", background: `${typeInfo.color}15`, border: `1px solid ${typeInfo.color}30`, display: "flex", alignItems: "center", justifyContent: "center", color: typeInfo.color, fontSize: "1rem", flexShrink: 0 }}>
                           <i className={`fa-solid ${typeInfo.icon}`} />
                         </div>
                         <div style={{ flex: 1 }}>
                           <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.2rem" }}>
                             <span style={{ color: "var(--text-primary)", fontWeight: 700, fontSize: "0.95rem" }}>{app.fullName}</span>
-                            <span style={{ fontSize: "0.65rem", color: typeInfo.color, background: `${typeInfo.color}15`, padding: "0.2rem 0.6rem", borderRadius: "50px", fontWeight: 800 }}>
+                            <span style={{ fontSize: "0.78rem", color: typeInfo.color, background: `${typeInfo.color}15`, padding: "0.2rem 0.6rem", borderRadius: "50px", fontWeight: 800 }}>
                               {typeInfo.label}
                             </span>
                           </div>
@@ -1256,7 +1256,7 @@ export default function HighCommandSecretAdminPage() {
                             {new Date(app.createdAt).toLocaleDateString("tr-TR")}
                           </div>
                         </div>
-                        <span style={{ fontSize: "0.7rem", fontWeight: 800, color: statusColor, background: `${statusColor}15`, border: `1px solid ${statusColor}30`, padding: "0.3rem 0.8rem", borderRadius: "50px" }}>
+                        <span style={{ fontSize: "0.8rem", fontWeight: 800, color: statusColor, background: `${statusColor}15`, border: `1px solid ${statusColor}30`, padding: "0.3rem 0.8rem", borderRadius: "50px" }}>
                           {app.status}
                         </span>
                         <i className={`fa-solid fa-chevron-${isExpanded ? "up" : "down"}`} style={{ color: "var(--text-muted)", fontSize: "0.8rem" }} />
@@ -1267,25 +1267,25 @@ export default function HighCommandSecretAdminPage() {
                           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "1.5rem", marginBottom: "2rem" }}>
                             {app.fullName && (
                               <div>
-                                <div style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 800, marginBottom: "0.3rem" }}>AD SOYAD</div>
+                                <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", fontWeight: 800, marginBottom: "0.3rem" }}>AD SOYAD</div>
                                 <div style={{ color: "var(--text-primary)", fontSize: "0.85rem", fontWeight: 600 }}>{app.fullName}</div>
                               </div>
                             )}
                             {app.discordName && (
                               <div>
-                                <div style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 800, marginBottom: "0.3rem" }}>DISCORD</div>
+                                <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", fontWeight: 800, marginBottom: "0.3rem" }}>DISCORD</div>
                                 <div style={{ color: "var(--text-primary)", fontSize: "0.85rem", fontWeight: 600 }}>{app.discordName}</div>
                               </div>
                             )}
                             {app.age && (
                               <div>
-                                <div style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 800, marginBottom: "0.3rem" }}>YAŞ</div>
+                                <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", fontWeight: 800, marginBottom: "0.3rem" }}>YAŞ</div>
                                 <div style={{ color: "var(--text-primary)", fontSize: "0.85rem", fontWeight: 600 }}>{app.age}</div>
                               </div>
                             )}
                             {app.email && (
                               <div>
-                                <div style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 800, marginBottom: "0.3rem" }}>E-POSTA</div>
+                                <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", fontWeight: 800, marginBottom: "0.3rem" }}>E-POSTA</div>
                                 <div style={{ color: "var(--text-primary)", fontSize: "0.85rem", fontWeight: 600 }}>{app.email}</div>
                               </div>
                             )}
@@ -1295,7 +1295,7 @@ export default function HighCommandSecretAdminPage() {
                                 typeof val === "string" &&
                                 val.length < 200 && (
                                   <div key={key}>
-                                    <div style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 800, marginBottom: "0.3rem", textTransform: "uppercase" }}>{key}</div>
+                                    <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", fontWeight: 800, marginBottom: "0.3rem", textTransform: "uppercase" }}>{key}</div>
                                     <div style={{ color: "var(--text-primary)", fontSize: "0.85rem", fontWeight: 600 }}>{val}</div>
                                   </div>
                                 )
@@ -1307,21 +1307,21 @@ export default function HighCommandSecretAdminPage() {
                               typeof val === "string" &&
                               val.length >= 200 && (
                                 <div key={key} style={{ marginBottom: "1.5rem" }}>
-                                  <div style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 800, marginBottom: "0.5rem", textTransform: "uppercase" }}>{key}</div>
-                                  <div style={{ background: "rgba(0,0,0,0.2)", padding: "1rem", borderRadius: "2px", color: "var(--text-secondary)", fontSize: "0.85rem", lineHeight: "1.6", whiteSpace: "pre-wrap", border: "1px solid var(--border-light)" }}>{val}</div>
+                                  <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", fontWeight: 800, marginBottom: "0.5rem", textTransform: "uppercase" }}>{key}</div>
+                                  <div style={{ background: "rgba(0,0,0,0.2)", padding: "1rem", borderRadius: "6px", color: "var(--text-secondary)", fontSize: "0.85rem", lineHeight: "1.6", whiteSpace: "pre-wrap", border: "1px solid var(--border-light)" }}>{val}</div>
                                 </div>
                               )
                           )}
                           <div style={{ display: "flex", gap: "1rem", alignItems: "center", paddingTop: "1.5rem", borderTop: "1px solid var(--border-light)" }}>
                             <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: 800 }}>DURUM:</span>
-                            <select value={app.status} onChange={(e) => updateCivilStatus(app.id, e.target.value)} style={{ padding: "0.4rem 0.8rem", borderRadius: "2px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: statusColor, fontWeight: 700, fontSize: "0.8rem", cursor: "pointer", outline: "none" }}>
+                            <select value={app.status} onChange={(e) => updateCivilStatus(app.id, e.target.value)} style={{ padding: "0.4rem 0.8rem", borderRadius: "6px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border-strong)", color: statusColor, fontWeight: 700, fontSize: "0.8rem", cursor: "pointer", outline: "none" }}>
                               {STATUS_OPTIONS.map((s) => (
                                 <option key={s} value={s} style={{ background: "var(--bg-secondary)", color: "var(--text-primary)" }}>
                                   {s}
                                 </option>
                               ))}
                             </select>
-                            <button onClick={() => deleteCivilApp(app.id)} style={{ marginLeft: "auto", padding: "0.4rem 1rem", borderRadius: "2px", background: "rgba(239, 68, 68, 0.1)", border: "1px solid rgba(239, 68, 68, 0.2)", color: "#F87171", fontSize: "0.8rem", fontWeight: 700, cursor: "pointer" }}>
+                            <button onClick={() => deleteCivilApp(app.id)} style={{ marginLeft: "auto", padding: "0.4rem 1rem", borderRadius: "6px", background: "rgba(239, 68, 68, 0.1)", border: "1px solid rgba(239, 68, 68, 0.2)", color: "#F87171", fontSize: "0.8rem", fontWeight: 700, cursor: "pointer" }}>
                               <i className="fa-solid fa-trash" style={{ marginRight: "0.4rem" }} /> SİL
                             </button>
                           </div>
@@ -1351,7 +1351,7 @@ export default function HighCommandSecretAdminPage() {
                     Kurucu Yüksek Komuta (#1222, #101, #261) yetkilerini doğrular ve veritabanı bağlantısını senkronize eder.
                   </p>
                 </div>
-                <button onClick={handleDbSync} style={{ background: "var(--mdt-accent-alpha)", color: "var(--LAC-orange)", border: "1px solid var(--mdt-accent-alpha)", padding: "0.75rem 1.4rem", borderRadius: "2px", fontWeight: 800, cursor: "pointer" }}>
+                <button onClick={handleDbSync} style={{ background: "var(--mdt-accent-alpha)", color: "var(--LAC-orange)", border: "1px solid var(--mdt-accent-alpha)", padding: "0.75rem 1.4rem", borderRadius: "6px", fontWeight: 800, cursor: "pointer" }}>
                   SENKRONİZE ET
                 </button>
               </div>
@@ -1361,20 +1361,20 @@ export default function HighCommandSecretAdminPage() {
                 <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text-primary)", margin: "0 0 1.25rem 0", display: "flex", alignItems: "center", gap: "0.6rem" }}>
                   <i className="fa-solid fa-cloud-arrow-up" style={{ color: "var(--LAC-orange)" }} /> Medya Yükle
                 </h3>
-                {error && <div style={{ color: "#FCA5A5", background: "rgba(239, 68, 68, 0.1)", padding: "1rem", borderRadius: "2px", border: "1px solid rgba(239, 68, 68, 0.2)", marginBottom: "1.25rem", fontSize: "0.85rem", fontWeight: 600 }}>{error}</div>}
+                {error && <div style={{ color: "#FCA5A5", background: "rgba(239, 68, 68, 0.1)", padding: "1rem", borderRadius: "6px", border: "1px solid rgba(239, 68, 68, 0.2)", marginBottom: "1.25rem", fontSize: "0.85rem", fontWeight: 600 }}>{error}</div>}
                 <form onSubmit={handleAddImage} style={{ display: "flex", gap: "1.25rem", alignItems: "flex-end", flexWrap: "wrap" }}>
                   <div style={{ flex: "1 1 300px" }}>
                     <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, color: "var(--text-secondary)", marginBottom: "0.5rem" }}>GÖRSEL URL</label>
-                    <input type="text" value={url} onChange={(e) => setUrl(e.target.value)} placeholder="/gallery/1.png veya https://..." required style={{ width: "100%", padding: "0.8rem 1rem", background: "rgba(0,0,0,0.2)", border: "1px solid var(--border-light)", borderRadius: "2px", color: "var(--text-primary)", outline: "none", fontSize: "0.9rem" }} />
+                    <input type="text" value={url} onChange={(e) => setUrl(e.target.value)} placeholder="/gallery/1.png veya https://..." required style={{ width: "100%", padding: "0.8rem 1rem", background: "rgba(0,0,0,0.2)", border: "1px solid var(--border-light)", borderRadius: "6px", color: "var(--text-primary)", outline: "none", fontSize: "0.9rem" }} />
                   </div>
                   <div style={{ width: "220px" }}>
                     <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, color: "var(--text-secondary)", marginBottom: "0.5rem" }}>KATEGORİ</label>
-                    <select value={type} onChange={(e) => setType(e.target.value)} style={{ width: "100%", padding: "0.8rem 1rem", background: "rgba(0,0,0,0.2)", border: "1px solid var(--border-light)", borderRadius: "2px", color: "var(--text-primary)", outline: "none", fontSize: "0.9rem" }}>
+                    <select value={type} onChange={(e) => setType(e.target.value)} style={{ width: "100%", padding: "0.8rem 1rem", background: "rgba(0,0,0,0.2)", border: "1px solid var(--border-light)", borderRadius: "6px", color: "var(--text-primary)", outline: "none", fontSize: "0.9rem" }}>
                       <option value="GALERI" style={{ background: "var(--bg-secondary)" }}>Galeri Sayfası</option>
                       <option value="GIRIS" style={{ background: "var(--bg-secondary)" }}>Giriş Arkaplanı</option>
                     </select>
                   </div>
-                  <button type="submit" disabled={isSubmitting} style={{ background: "var(--LAC-orange)", color: "var(--bg-secondary)", border: "none", padding: "0.8rem 2rem", borderRadius: "2px", fontWeight: 800, cursor: isSubmitting ? "not-allowed" : "pointer" }}>
+                  <button type="submit" disabled={isSubmitting} style={{ background: "var(--LAC-orange)", color: "var(--bg-secondary)", border: "none", padding: "0.8rem 2rem", borderRadius: "6px", fontWeight: 800, cursor: isSubmitting ? "not-allowed" : "pointer" }}>
                     {isSubmitting ? "YÜKLENİYOR..." : "SİSTEME YÜKLE"}
                   </button>
                 </form>
@@ -1385,16 +1385,16 @@ export default function HighCommandSecretAdminPage() {
                 <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text-primary)", margin: "0 0 1.25rem 0" }}>Sistem Medya Arşivi ({images.length})</h3>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "1.25rem" }}>
                   {images.map((img) => (
-                    <div key={img.id} style={{ background: "var(--bg-secondary)", borderRadius: "2px", border: "1px solid var(--border-light)", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+                    <div key={img.id} style={{ background: "var(--bg-secondary)", borderRadius: "6px", border: "1px solid var(--border-light)", overflow: "hidden", display: "flex", flexDirection: "column" }}>
                       <div style={{ height: "140px", background: "#000", position: "relative" }}>
                         <img src={img.url} alt="medya" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.85 }} />
-                        <span style={{ position: "absolute", top: "0.5rem", left: "0.5rem", background: "rgba(0,0,0,0.7)", padding: "0.2rem 0.6rem", borderRadius: "6px", fontSize: "0.65rem", fontWeight: 800, color: "var(--text-primary)" }}>{img.type}</span>
+                        <span style={{ position: "absolute", top: "0.5rem", left: "0.5rem", background: "rgba(0,0,0,0.7)", padding: "0.2rem 0.6rem", borderRadius: "6px", fontSize: "0.78rem", fontWeight: 800, color: "var(--text-primary)" }}>{img.type}</span>
                       </div>
                       <div style={{ padding: "0.85rem 1rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                         <div style={{ fontSize: "0.72rem", color: "var(--text-secondary)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "130px" }}>
                           {img.url.split("/").pop()}
                         </div>
-                        <button onClick={() => handleDeleteImage(img.id)} style={{ background: "rgba(239, 68, 68, 0.1)", color: "#F87171", border: "1px solid rgba(239, 68, 68, 0.2)", borderRadius: "2px", width: "30px", height: "30px", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+                        <button onClick={() => handleDeleteImage(img.id)} style={{ background: "rgba(239, 68, 68, 0.1)", color: "#F87171", border: "1px solid rgba(239, 68, 68, 0.2)", borderRadius: "6px", width: "30px", height: "30px", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
                           <i className="fa-solid fa-trash" />
                         </button>
                       </div>
