@@ -81,8 +81,8 @@ export default function GirisPage() {
             alignItems: "center",
             justifyContent: "center",
             height: "100vh",
-            backgroundColor: "#000000",
-            color: "#a1a1aa",
+            backgroundColor: "#f8f9fa",
+            color: "#475569",
             fontFamily: "var(--font-inter), -apple-system, sans-serif",
             fontSize: "0.9rem",
           }}
@@ -92,8 +92,8 @@ export default function GirisPage() {
               style={{
                 width: 28,
                 height: 28,
-                border: "2px solid #27272a",
-                borderTopColor: "#a3b18a",
+                border: "2px solid #cbd5e1",
+                borderTopColor: "#657e4e",
                 borderRadius: "50%",
                 animation: "spin 0.8s linear infinite",
                 margin: "0 auto 12px",
@@ -110,6 +110,9 @@ export default function GirisPage() {
 }
 
 function GirisPageContent() {
+  // Theme state: defaults to "light" as requested ("Açık renkli karşılasın, tıklanırsa karanlık olsun")
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+
   const [error, setError] = useState("");
   const [loginError, setLoginError] = useState<{
     title: string;
@@ -147,6 +150,13 @@ function GirisPageContent() {
 
   const searchParams = useSearchParams();
   const router = useRouter();
+
+  // Sync theme with document class
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.documentElement.classList.toggle("dark", theme === "dark");
+    }
+  }, [theme]);
 
   // Close modals on Escape key
   useEffect(() => {
@@ -308,6 +318,100 @@ function GirisPageContent() {
   };
 
   const currentHeroPhoto = HERO_PHOTOS[selectedPhotoIndex] || HERO_PHOTOS[0];
+  const isDark = theme === "dark";
+
+  // Dynamic theme palette: Default is Light ("Açık renkli"), toggles to Dark on click
+  const t = isDark
+    ? {
+        pageBg: "#000000",
+        panelBg: "#000000",
+        heroWrapperBg: "#09090b",
+        heroWrapperBorder: "rgba(255, 255, 255, 0.08)",
+        textPrimary: "#ffffff",
+        textSecondary: "#a1a1aa",
+        textMuted: "#71717a",
+        cardBg: "#121214",
+        cardBorder: "#27272a",
+        inputBg: "#121214",
+        inputBorder: "#27272a",
+        inputText: "#f4f4f5",
+        inputPlaceholder: "#52525b",
+        inputFocusBorder: "#a3b18a",
+        inputFocusRing: "rgba(163, 177, 138, 0.45)",
+        btnPrimaryBg: "#a3b18a",
+        btnPrimaryText: "#0d0d0f",
+        btnPrimaryHover: "#b4c39c",
+        btnSecondaryBg: "#18181b",
+        btnSecondaryBorder: "#27272a",
+        btnSecondaryText: "#d4d4d8",
+        btnSecondaryHover: "#27272a",
+        ghostBtnBg: "rgba(24, 24, 27, 0.6)",
+        ghostBtnBorder: "#27272a",
+        ghostBtnText: "#a1a1aa",
+        ghostBtnHover: "#27272a",
+        actionRowBg: "#121214",
+        actionRowBorder: "#27272a",
+        actionRowText: "#d4d4d8",
+        actionRowHover: "#1a1a1e",
+        statusPillBg: "rgba(34, 197, 94, 0.12)",
+        statusPillBorder: "rgba(34, 197, 94, 0.25)",
+        statusPillText: "#4ade80",
+        badgePillBg: "rgba(163, 177, 138, 0.12)",
+        badgePillBorder: "rgba(163, 177, 138, 0.28)",
+        badgePillText: "#a3b18a",
+        modalBg: "#0f0f11",
+        modalBorder: "#27272a",
+        modalText: "#a1a1aa",
+        modalTitle: "#ffffff",
+        modalHeaderBorder: "#27272a",
+        footerText: "#52525b",
+        footerLink: "#a1a1aa",
+      }
+    : {
+        pageBg: "#f8f9fa",
+        panelBg: "#ffffff",
+        heroWrapperBg: "#f1f5f9",
+        heroWrapperBorder: "#e2e8f0",
+        textPrimary: "#0f172a",
+        textSecondary: "#475569",
+        textMuted: "#64748b",
+        cardBg: "#f8fafc",
+        cardBorder: "#e2e8f0",
+        inputBg: "#ffffff",
+        inputBorder: "#cbd5e1",
+        inputText: "#0f172a",
+        inputPlaceholder: "#94a3b8",
+        inputFocusBorder: "#657e4e",
+        inputFocusRing: "rgba(101, 126, 78, 0.25)",
+        btnPrimaryBg: "#657e4e",
+        btnPrimaryText: "#ffffff",
+        btnPrimaryHover: "#556b41",
+        btnSecondaryBg: "#f1f5f9",
+        btnSecondaryBorder: "#cbd5e1",
+        btnSecondaryText: "#1e293b",
+        btnSecondaryHover: "#e2e8f0",
+        ghostBtnBg: "#ffffff",
+        ghostBtnBorder: "#e2e8f0",
+        ghostBtnText: "#334155",
+        ghostBtnHover: "#f1f5f9",
+        actionRowBg: "#ffffff",
+        actionRowBorder: "#e2e8f0",
+        actionRowText: "#1e293b",
+        actionRowHover: "#f8fafc",
+        statusPillBg: "#f0fdf4",
+        statusPillBorder: "#bbf7d0",
+        statusPillText: "#15803d",
+        badgePillBg: "rgba(101, 126, 78, 0.12)",
+        badgePillBorder: "rgba(101, 126, 78, 0.3)",
+        badgePillText: "#4d623a",
+        modalBg: "#ffffff",
+        modalBorder: "#e2e8f0",
+        modalText: "#334155",
+        modalTitle: "#0f172a",
+        modalHeaderBorder: "#e2e8f0",
+        footerText: "#64748b",
+        footerLink: "#0f172a",
+      };
 
   return (
     <>
@@ -316,18 +420,19 @@ function GirisPageContent() {
           margin: 0;
           padding: 0;
           height: 100%;
-          background-color: #000000;
-          color: #ffffff;
+          background-color: ${t.pageBg};
+          color: ${t.textPrimary};
           font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
           overflow: hidden;
+          transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .minimal-input {
           width: 100%;
           box-sizing: border-box;
-          background-color: #121214;
-          border: 1px solid #27272a;
-          color: #f4f4f5;
+          background-color: ${t.inputBg};
+          border: 1px solid ${t.inputBorder};
+          color: ${t.inputText};
           border-radius: 10px;
           padding: 13px 15px;
           font-size: 0.88rem;
@@ -336,19 +441,18 @@ function GirisPageContent() {
           transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
         }
         .minimal-input::placeholder {
-          color: #52525b;
+          color: ${t.inputPlaceholder};
         }
         .minimal-input:focus {
-          border-color: #a3b18a;
-          background-color: #161619;
-          box-shadow: 0 0 0 1.5px rgba(163, 177, 138, 0.45);
+          border-color: ${t.inputFocusBorder};
+          box-shadow: 0 0 0 2px ${t.inputFocusRing};
         }
 
         .minimal-btn-primary {
           width: 100%;
           box-sizing: border-box;
-          background-color: #a3b18a;
-          color: #0d0d0f;
+          background-color: ${t.btnPrimaryBg};
+          color: ${t.btnPrimaryText};
           border: none;
           border-radius: 10px;
           padding: 13px 18px;
@@ -361,12 +465,12 @@ function GirisPageContent() {
           justify-content: center;
           gap: 10px;
           text-decoration: none;
-          transition: filter 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+          transition: filter 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease, background-color 0.2s ease;
           font-family: inherit;
         }
         .minimal-btn-primary:hover:not(:disabled) {
           filter: brightness(1.08);
-          box-shadow: 0 6px 20px -2px rgba(163, 177, 138, 0.25);
+          box-shadow: 0 6px 20px -2px rgba(101, 126, 78, 0.35);
         }
         .minimal-btn-primary:active:not(:disabled) {
           transform: scale(0.99);
@@ -377,9 +481,9 @@ function GirisPageContent() {
         }
 
         .minimal-btn-secondary {
-          background-color: #18181b;
-          border: 1px solid #27272a;
-          color: #d4d4d8;
+          background-color: ${t.btnSecondaryBg};
+          border: 1px solid ${t.btnSecondaryBorder};
+          color: ${t.btnSecondaryText};
           border-radius: 10px;
           padding: 11px 16px;
           font-size: 0.85rem;
@@ -394,18 +498,17 @@ function GirisPageContent() {
           font-family: inherit;
         }
         .minimal-btn-secondary:hover {
-          background-color: #27272a;
-          color: #ffffff;
-          border-color: #3f3f46;
+          background-color: ${t.btnSecondaryHover};
+          color: ${t.textPrimary};
         }
         .minimal-btn-secondary:active {
           transform: scale(0.99);
         }
 
         .nav-ghost-btn {
-          color: #a1a1aa;
-          background-color: rgba(24, 24, 27, 0.6);
-          border: 1px solid #27272a;
+          color: ${t.ghostBtnText};
+          background-color: ${t.ghostBtnBg};
+          border: 1px solid ${t.ghostBtnBorder};
           border-radius: 8px;
           padding: 6px 12px;
           font-size: 0.78rem;
@@ -419,9 +522,8 @@ function GirisPageContent() {
           font-family: inherit;
         }
         .nav-ghost-btn:hover {
-          color: #ffffff;
-          background-color: #27272a;
-          border-color: #3f3f46;
+          color: ${t.textPrimary};
+          background-color: ${t.ghostBtnHover};
         }
 
         .action-link-row {
@@ -429,10 +531,10 @@ function GirisPageContent() {
           align-items: center;
           justify-content: space-between;
           padding: 10px 14px;
-          background-color: #121214;
-          border: 1px solid #27272a;
+          background-color: ${t.actionRowBg};
+          border: 1px solid ${t.actionRowBorder};
           border-radius: 10px;
-          color: #d4d4d8;
+          color: ${t.actionRowText};
           font-size: 0.82rem;
           text-decoration: none;
           transition: all 0.2s ease;
@@ -442,9 +544,8 @@ function GirisPageContent() {
           font-family: inherit;
         }
         .action-link-row:hover {
-          background-color: #1a1a1e;
-          border-color: #3f3f46;
-          color: #ffffff;
+          background-color: ${t.actionRowHover};
+          color: ${t.textPrimary};
         }
 
         .gallery-pill {
@@ -476,7 +577,7 @@ function GirisPageContent() {
         .modal-overlay {
           position: fixed;
           inset: 0;
-          background-color: rgba(0, 0, 0, 0.82);
+          background-color: ${isDark ? "rgba(0, 0, 0, 0.82)" : "rgba(15, 23, 42, 0.55)"};
           backdrop-filter: blur(8px);
           display: flex;
           align-items: center;
@@ -488,10 +589,10 @@ function GirisPageContent() {
         .modal-card {
           width: 100%;
           max-width: 540px;
-          background-color: #0f0f11;
-          border: 1px solid #27272a;
+          background-color: ${t.modalBg};
+          border: 1px solid ${t.modalBorder};
           border-radius: 16px;
-          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85);
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, ${isDark ? "0.85" : "0.25"});
           overflow: hidden;
           display: flex;
           flex-direction: column;
@@ -524,13 +625,14 @@ function GirisPageContent() {
           display: "flex",
           height: "100vh",
           width: "100vw",
-          backgroundColor: "#000000",
+          backgroundColor: t.pageBg,
           overflow: "hidden",
           boxSizing: "border-box",
+          transition: "background-color 0.3s ease",
         }}
       >
         {/* ═════════════════════════════════════════════════════
-            LEFT PANEL: POLICE GALLERY HERO CARD (MATCHING USER IMAGE STYLE)
+            LEFT PANEL: POLICE GALLERY HERO CARD
            ═════════════════════════════════════════════════════ */}
         <div
           className="minimal-hero-panel"
@@ -549,11 +651,13 @@ function GirisPageContent() {
               borderRadius: "26px",
               overflow: "hidden",
               position: "relative",
-              backgroundColor: "#09090b",
+              backgroundColor: t.heroWrapperBg,
+              border: `1px solid ${t.heroWrapperBorder}`,
               backgroundImage: `url("${currentHeroPhoto.url}")`,
               backgroundSize: "cover",
               backgroundPosition: "center center",
-              transition: "background-image 0.5s ease-in-out",
+              transition: "background-image 0.5s ease-in-out, border-color 0.3s ease",
+              boxShadow: isDark ? "none" : "0 20px 40px -15px rgba(0,0,0,0.12)",
             }}
           >
             {/* Top Bar inside Left Card: Official Seal + Gallery Selector */}
@@ -600,7 +704,7 @@ function GirisPageContent() {
                   <div
                     style={{
                       fontSize: "0.68rem",
-                      color: "#a1a1aa",
+                      color: "#cbd5e1",
                       letterSpacing: "0.04em",
                     }}
                   >
@@ -624,7 +728,7 @@ function GirisPageContent() {
               </div>
             </div>
 
-            {/* Dark gradient overlay towards the bottom */}
+            {/* Dark gradient overlay towards the bottom for maximum text readability */}
             <div
               style={{
                 position: "absolute",
@@ -634,7 +738,7 @@ function GirisPageContent() {
               }}
             />
 
-            {/* Overlaid Typography at Bottom Left (Matching exact aesthetic from reference) */}
+            {/* Overlaid Typography at Bottom Left */}
             <div
               style={{
                 position: "absolute",
@@ -653,10 +757,10 @@ function GirisPageContent() {
                   gap: "6px",
                   padding: "4px 10px",
                   borderRadius: "6px",
-                  backgroundColor: "rgba(255, 255, 255, 0.08)",
-                  border: "1px solid rgba(255, 255, 255, 0.12)",
+                  backgroundColor: "rgba(255, 255, 255, 0.12)",
+                  border: "1px solid rgba(255, 255, 255, 0.16)",
                   fontSize: "0.7rem",
-                  color: "#d4d4d8",
+                  color: "#f1f5f9",
                   letterSpacing: "0.04em",
                   textTransform: "uppercase",
                   marginBottom: "1rem",
@@ -664,18 +768,18 @@ function GirisPageContent() {
               >
                 <i className="fa-solid fa-camera" style={{ fontSize: "0.65rem", color: "#a3b18a" }} />
                 <span>{currentHeroPhoto.label}</span>
-                <span style={{ color: "#71717a" }}>·</span>
-                <span style={{ color: "#a1a1aa" }}>{currentHeroPhoto.description}</span>
+                <span style={{ color: "rgba(255,255,255,0.4)" }}>·</span>
+                <span style={{ color: "#e2e8f0" }}>{currentHeroPhoto.description}</span>
               </div>
 
               <h2
                 style={{
                   fontSize: "1.85rem",
-                  fontWeight: 400,
+                  fontWeight: 500,
                   lineHeight: 1.35,
                   margin: "0 0 0.5rem 0",
                   letterSpacing: "-0.015em",
-                  color: "#f4f4f5",
+                  color: "#ffffff",
                 }}
               >
                 To protect and to serve,
@@ -687,7 +791,7 @@ function GirisPageContent() {
                 style={{
                   fontSize: "0.98rem",
                   fontWeight: 400,
-                  color: "#d4d4d8",
+                  color: "#e2e8f0",
                   margin: "0 0 1.25rem 0",
                   lineHeight: 1.45,
                 }}
@@ -698,7 +802,7 @@ function GirisPageContent() {
               <div
                 style={{
                   fontSize: "0.76rem",
-                  color: "#a1a1aa",
+                  color: "#cbd5e1",
                   letterSpacing: "0.01em",
                 }}
               >
@@ -708,14 +812,14 @@ function GirisPageContent() {
           </div>
         </div>
 
-        {/* ═════════════════════════════════════════════════════
-            RIGHT PANEL: HIGH-END MINIMALIST INTERFACE (FUNCTIONAL BUTTONS)
-           ═════════════════════════════════════════════════════ */}
+        {/* ═════════════════════════════════════════════════
+            RIGHT PANEL: ADAPTIVE LIGHT/DARK INTERFACE
+           ═════════════════════════════════════════════════ */}
         <div
           className="minimal-form-panel"
           style={{
             flex: "1 1 52%",
-            backgroundColor: "#000000",
+            backgroundColor: t.panelBg,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -724,6 +828,7 @@ function GirisPageContent() {
             boxSizing: "border-box",
             overflowY: "auto",
             position: "relative",
+            transition: "background-color 0.3s ease",
           }}
         >
           {/* Top Bar with System Status & Action Links */}
@@ -745,7 +850,11 @@ function GirisPageContent() {
                 alignItems: "center",
                 gap: "7px",
                 fontSize: "0.74rem",
-                color: "#a1a1aa",
+                color: t.statusPillText,
+                backgroundColor: t.statusPillBg,
+                border: `1px solid ${t.statusPillBorder}`,
+                padding: "4px 10px",
+                borderRadius: "20px",
                 letterSpacing: "0.04em",
                 fontFamily: "monospace",
               }}
@@ -761,12 +870,29 @@ function GirisPageContent() {
                 }}
               />
               <span>TERMINAL ACTIVE</span>
-              <span style={{ color: "#52525b" }}>|</span>
-              <span style={{ color: "#71717a" }}>v2.4 SSL</span>
+              <span style={{ opacity: 0.5 }}>|</span>
+              <span>v2.4 SSL</span>
             </div>
 
-            {/* Right Quick Navigation Actions */}
+            {/* Right Quick Navigation Actions & Theme Toggle Switch */}
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              {/* THEME TOGGLE BUTTON: Default Light -> Click to Dark */}
+              <button
+                type="button"
+                onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+                className="nav-ghost-btn"
+                title={isDark ? "Açık Renkli Temaya Geç" : "Karanlık Temaya Geç"}
+                style={{
+                  backgroundColor: isDark ? "#27272a" : "#f1f5f9",
+                  borderColor: isDark ? "#3f3f46" : "#cbd5e1",
+                  color: isDark ? "#facc15" : "#475569",
+                  fontWeight: 600,
+                }}
+              >
+                <i className={isDark ? "fa-solid fa-sun" : "fa-solid fa-moon"} style={{ fontSize: "0.82rem" }} />
+                <span>{isDark ? "Açık Mod" : "Karanlık Mod"}</span>
+              </button>
+
               <button
                 type="button"
                 onClick={() => setActiveModal("help")}
@@ -817,9 +943,9 @@ function GirisPageContent() {
                       gap: "6px",
                       padding: "3px 8px",
                       borderRadius: "6px",
-                      backgroundColor: "rgba(163, 177, 138, 0.12)",
-                      border: "1px solid rgba(163, 177, 138, 0.28)",
-                      color: "#a3b18a",
+                      backgroundColor: t.badgePillBg,
+                      border: `1px solid ${t.badgePillBorder}`,
+                      color: t.badgePillText,
                       fontSize: "0.72rem",
                       fontWeight: 600,
                       letterSpacing: "0.04em",
@@ -834,10 +960,10 @@ function GirisPageContent() {
                   <h1
                     style={{
                       fontSize: "1.85rem",
-                      fontWeight: 500,
+                      fontWeight: 600,
                       margin: "0 0 0.5rem 0",
                       letterSpacing: "-0.02em",
-                      color: "#ffffff",
+                      color: t.textPrimary,
                     }}
                   >
                     Sign in to your terminal
@@ -846,7 +972,7 @@ function GirisPageContent() {
                     style={{
                       margin: 0,
                       fontSize: "0.85rem",
-                      color: "#71717a",
+                      color: t.textSecondary,
                       lineHeight: 1.5,
                     }}
                   >
@@ -862,7 +988,7 @@ function GirisPageContent() {
                       borderRadius: "10px",
                       padding: "12px 14px",
                       marginBottom: "1.5rem",
-                      color: "#fca5a5",
+                      color: isDark ? "#fca5a5" : "#dc2626",
                       fontSize: "0.82rem",
                       lineHeight: 1.45,
                     }}
@@ -871,15 +997,15 @@ function GirisPageContent() {
                       <i className="fa-solid fa-triangle-exclamation" />
                       {loginError.title}
                     </div>
-                    <div style={{ color: "#d4d4d8" }}>{loginError.description}</div>
+                    <div style={{ color: t.textSecondary }}>{loginError.description}</div>
                     {loginError.detail && (
                       <div
                         style={{
                           marginTop: "6px",
                           fontFamily: "monospace",
                           fontSize: "0.74rem",
-                          color: "#a1a1aa",
-                          backgroundColor: "rgba(0, 0, 0, 0.3)",
+                          color: t.textMuted,
+                          backgroundColor: isDark ? "rgba(0, 0, 0, 0.3)" : "rgba(0,0,0,0.05)",
                           padding: "4px 8px",
                           borderRadius: "4px",
                         }}
@@ -898,7 +1024,7 @@ function GirisPageContent() {
                         alignItems: "center",
                         justifyContent: "space-between",
                         fontSize: "0.82rem",
-                        color: "#a1a1aa",
+                        color: t.textSecondary,
                         marginBottom: "7px",
                         fontWeight: 500,
                       }}
@@ -907,10 +1033,11 @@ function GirisPageContent() {
                       <span
                         style={{
                           fontSize: "0.72rem",
-                          color: "#a3b18a",
+                          color: isDark ? "#a3b18a" : "#4d623a",
                           display: "inline-flex",
                           alignItems: "center",
                           gap: "4px",
+                          fontWeight: 600,
                         }}
                       >
                         <i className="fa-solid fa-circle-check" />
@@ -924,9 +1051,9 @@ function GirisPageContent() {
                         value="Kurumsal Discord SSO (OAuth2)"
                         className="minimal-input"
                         style={{
-                          color: "#d4d4d8",
+                          color: t.inputText,
                           cursor: "default",
-                          backgroundColor: "#0d0d0f",
+                          backgroundColor: isDark ? "#0d0d0f" : "#f8fafc",
                           paddingLeft: "40px",
                         }}
                       />
@@ -957,10 +1084,10 @@ function GirisPageContent() {
                       className="action-link-row"
                     >
                       <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                        <i className="fa-solid fa-id-card-clip" style={{ color: "#a3b18a", fontSize: "0.85rem" }} />
+                        <i className="fa-solid fa-id-card-clip" style={{ color: isDark ? "#a3b18a" : "#657e4e", fontSize: "0.85rem" }} />
                         <span>Onay bekleyen personel dosyam var</span>
                       </span>
-                      <i className="fa-solid fa-chevron-right" style={{ color: "#52525b", fontSize: "0.75rem" }} />
+                      <i className="fa-solid fa-chevron-right" style={{ color: t.textMuted, fontSize: "0.75rem" }} />
                     </button>
 
                     <button
@@ -969,18 +1096,18 @@ function GirisPageContent() {
                       className="action-link-row"
                     >
                       <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                        <i className="fa-solid fa-book-bookmark" style={{ color: "#a1a1aa", fontSize: "0.85rem" }} />
+                        <i className="fa-solid fa-book-bookmark" style={{ color: t.textSecondary, fontSize: "0.85rem" }} />
                         <span>MDT Kullanım & Yetki Alma Kılavuzu</span>
                       </span>
-                      <i className="fa-solid fa-arrow-up-right-from-square" style={{ color: "#52525b", fontSize: "0.72rem" }} />
+                      <i className="fa-solid fa-arrow-up-right-from-square" style={{ color: t.textMuted, fontSize: "0.72rem" }} />
                     </button>
 
                     <Link href="/iletisim" className="action-link-row">
                       <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                        <i className="fa-solid fa-headset" style={{ color: "#a1a1aa", fontSize: "0.85rem" }} />
+                        <i className="fa-solid fa-headset" style={{ color: t.textSecondary, fontSize: "0.85rem" }} />
                         <span>Departman İletişimi & Yüksek Komuta</span>
                       </span>
-                      <i className="fa-solid fa-chevron-right" style={{ color: "#52525b", fontSize: "0.75rem" }} />
+                      <i className="fa-solid fa-chevron-right" style={{ color: t.textMuted, fontSize: "0.75rem" }} />
                     </Link>
                   </div>
                 </div>
@@ -1000,9 +1127,9 @@ function GirisPageContent() {
                       gap: "6px",
                       padding: "3px 8px",
                       borderRadius: "6px",
-                      backgroundColor: "rgba(163, 177, 138, 0.12)",
-                      border: "1px solid rgba(163, 177, 138, 0.28)",
-                      color: "#a3b18a",
+                      backgroundColor: t.badgePillBg,
+                      border: `1px solid ${t.badgePillBorder}`,
+                      color: t.badgePillText,
                       fontSize: "0.72rem",
                       fontWeight: 600,
                       letterSpacing: "0.04em",
@@ -1017,10 +1144,10 @@ function GirisPageContent() {
                   <h1
                     style={{
                       fontSize: "1.85rem",
-                      fontWeight: 500,
+                      fontWeight: 600,
                       margin: "0 0 0.5rem 0",
                       letterSpacing: "-0.02em",
-                      color: "#ffffff",
+                      color: t.textPrimary,
                     }}
                   >
                     Create your account
@@ -1029,7 +1156,7 @@ function GirisPageContent() {
                     style={{
                       margin: 0,
                       fontSize: "0.85rem",
-                      color: "#71717a",
+                      color: t.textSecondary,
                       lineHeight: 1.5,
                     }}
                   >
@@ -1045,7 +1172,7 @@ function GirisPageContent() {
                       borderRadius: "10px",
                       padding: "10px 14px",
                       marginBottom: "1.25rem",
-                      color: "#fca5a5",
+                      color: isDark ? "#fca5a5" : "#dc2626",
                       fontSize: "0.82rem",
                       display: "flex",
                       alignItems: "center",
@@ -1060,8 +1187,8 @@ function GirisPageContent() {
                 {/* Connected Account Bar */}
                 <div
                   style={{
-                    backgroundColor: "#121214",
-                    border: "1px solid #27272a",
+                    backgroundColor: t.cardBg,
+                    border: `1px solid ${t.cardBorder}`,
                     borderRadius: "10px",
                     padding: "10px 14px",
                     display: "flex",
@@ -1071,7 +1198,7 @@ function GirisPageContent() {
                     fontSize: "0.8rem",
                   }}
                 >
-                  <div style={{ display: "flex", alignItems: "center", gap: "10px", color: "#d4d4d8" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px", color: t.textPrimary }}>
                     {discordProfile.avatarUrl ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
@@ -1085,23 +1212,23 @@ function GirisPageContent() {
                           width: 8,
                           height: 8,
                           borderRadius: "50%",
-                          backgroundColor: "#a3b18a",
+                          backgroundColor: isDark ? "#a3b18a" : "#657e4e",
                           display: "inline-block",
                         }}
                       />
                     )}
                     <span style={{ fontWeight: 600 }}>{discordProfile.displayName || "Discord Kullanıcısı"}</span>
                     {discordProfile.username && (
-                      <span style={{ color: "#71717a" }}>@{discordProfile.username}</span>
+                      <span style={{ color: t.textMuted }}>@{discordProfile.username}</span>
                     )}
                   </div>
                   <a
                     href="/api/auth/discord/login"
                     style={{
-                      color: "#a3b18a",
+                      color: isDark ? "#a3b18a" : "#657e4e",
                       fontSize: "0.75rem",
                       textDecoration: "none",
-                      fontWeight: 500,
+                      fontWeight: 600,
                     }}
                   >
                     Değiştir
@@ -1114,7 +1241,7 @@ function GirisPageContent() {
                       style={{
                         display: "block",
                         fontSize: "0.82rem",
-                        color: "#a1a1aa",
+                        color: t.textSecondary,
                         marginBottom: "6px",
                         fontWeight: 500,
                       }}
@@ -1136,7 +1263,7 @@ function GirisPageContent() {
                       style={{
                         display: "block",
                         fontSize: "0.82rem",
-                        color: "#a1a1aa",
+                        color: t.textSecondary,
                         marginBottom: "6px",
                         fontWeight: 500,
                       }}
@@ -1159,7 +1286,7 @@ function GirisPageContent() {
                         style={{
                           display: "block",
                           fontSize: "0.82rem",
-                          color: "#a1a1aa",
+                          color: t.textSecondary,
                           marginBottom: "6px",
                           fontWeight: 500,
                         }}
@@ -1173,7 +1300,7 @@ function GirisPageContent() {
                         style={{ cursor: "pointer" }}
                       >
                         {RANKS.map((r) => (
-                          <option key={r} value={r} style={{ backgroundColor: "#18181b", color: "#ffffff" }}>
+                          <option key={r} value={r} style={{ backgroundColor: t.cardBg, color: t.textPrimary }}>
                             {r}
                           </option>
                         ))}
@@ -1185,7 +1312,7 @@ function GirisPageContent() {
                         style={{
                           display: "block",
                           fontSize: "0.82rem",
-                          color: "#a1a1aa",
+                          color: t.textSecondary,
                           marginBottom: "6px",
                           fontWeight: 500,
                         }}
@@ -1199,7 +1326,7 @@ function GirisPageContent() {
                         style={{ cursor: "pointer" }}
                       >
                         {DEPARTMENTS.map((d) => (
-                          <option key={d} value={d} style={{ backgroundColor: "#18181b", color: "#ffffff" }}>
+                          <option key={d} value={d} style={{ backgroundColor: t.cardBg, color: t.textPrimary }}>
                             {d}
                           </option>
                         ))}
@@ -1210,7 +1337,7 @@ function GirisPageContent() {
                   <div
                     style={{
                       fontSize: "0.74rem",
-                      color: "#71717a",
+                      color: t.textMuted,
                       lineHeight: 1.45,
                       marginTop: "2px",
                     }}
@@ -1231,7 +1358,7 @@ function GirisPageContent() {
                             style={{
                               width: 14,
                               height: 14,
-                              border: "2px solid #0d0d0f",
+                              border: "2px solid currentColor",
                               borderTopColor: "transparent",
                               borderRadius: "50%",
                               animation: "spin 0.6s linear infinite",
@@ -1272,7 +1399,7 @@ function GirisPageContent() {
                       borderRadius: "6px",
                       backgroundColor: "rgba(234, 179, 8, 0.12)",
                       border: "1px solid rgba(234, 179, 8, 0.28)",
-                      color: "#facc15",
+                      color: isDark ? "#facc15" : "#b45309",
                       fontSize: "0.72rem",
                       fontWeight: 600,
                       letterSpacing: "0.04em",
@@ -1287,10 +1414,10 @@ function GirisPageContent() {
                   <h1
                     style={{
                       fontSize: "1.85rem",
-                      fontWeight: 500,
+                      fontWeight: 600,
                       margin: "0 0 0.5rem 0",
                       letterSpacing: "-0.02em",
-                      color: "#ffffff",
+                      color: t.textPrimary,
                     }}
                   >
                     Account under review
@@ -1299,7 +1426,7 @@ function GirisPageContent() {
                     style={{
                       margin: 0,
                       fontSize: "0.85rem",
-                      color: "#71717a",
+                      color: t.textSecondary,
                       lineHeight: 1.5,
                     }}
                   >
@@ -1309,23 +1436,23 @@ function GirisPageContent() {
 
                 <div
                   style={{
-                    backgroundColor: "#121214",
-                    border: "1px solid #27272a",
+                    backgroundColor: t.cardBg,
+                    border: `1px solid ${t.cardBorder}`,
                     borderRadius: "12px",
                     padding: "16px 18px",
                     marginBottom: "1.5rem",
                   }}
                 >
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
-                    <span style={{ fontSize: "0.75rem", color: "#a1a1aa", textTransform: "uppercase", letterSpacing: "0.04em" }}>
+                    <span style={{ fontSize: "0.75rem", color: t.textMuted, textTransform: "uppercase", letterSpacing: "0.04em" }}>
                       DOSYA DURUMU
                     </span>
                     <span
                       style={{
                         fontSize: "0.72rem",
-                        color: "#a3b18a",
-                        backgroundColor: "rgba(163, 177, 138, 0.12)",
-                        border: "1px solid rgba(163, 177, 138, 0.25)",
+                        color: isDark ? "#a3b18a" : "#4d623a",
+                        backgroundColor: t.badgePillBg,
+                        border: `1px solid ${t.badgePillBorder}`,
                         padding: "3px 8px",
                         borderRadius: "6px",
                         fontWeight: 600,
@@ -1339,7 +1466,7 @@ function GirisPageContent() {
                           width: 6,
                           height: 6,
                           borderRadius: "50%",
-                          backgroundColor: "#a3b18a",
+                          backgroundColor: isDark ? "#a3b18a" : "#657e4e",
                           display: "inline-block",
                         }}
                       />
@@ -1347,11 +1474,11 @@ function GirisPageContent() {
                     </span>
                   </div>
 
-                  <div style={{ fontSize: "1.05rem", fontWeight: 600, color: "#ffffff", marginBottom: "4px" }}>
+                  <div style={{ fontSize: "1.05rem", fontWeight: 600, color: t.textPrimary, marginBottom: "4px" }}>
                     {icName || discordProfile.displayName || "Kayıtlı Memur"}{" "}
-                    {badge && <span style={{ color: "#a3b18a" }}>#{badge}</span>}
+                    {badge && <span style={{ color: isDark ? "#a3b18a" : "#657e4e" }}>#{badge}</span>}
                   </div>
-                  <div style={{ fontSize: "0.78rem", color: "#71717a" }}>
+                  <div style={{ fontSize: "0.78rem", color: t.textSecondary }}>
                     {rank} — {department}
                   </div>
                 </div>
@@ -1386,13 +1513,13 @@ function GirisPageContent() {
               </div>
             )}
 
-            {/* Bottom Footer Note (Matching screenshot footer + functional modal triggers) */}
+            {/* Bottom Footer Note */}
             <div
               style={{
                 marginTop: "2.5rem",
                 textAlign: "center",
                 fontSize: "0.74rem",
-                color: "#52525b",
+                color: t.footerText,
                 lineHeight: 1.5,
               }}
             >
@@ -1404,11 +1531,12 @@ function GirisPageContent() {
                   background: "none",
                   border: "none",
                   padding: 0,
-                  color: "#a1a1aa",
+                  color: t.footerLink,
                   textDecoration: "underline",
                   cursor: "pointer",
                   fontFamily: "inherit",
                   fontSize: "inherit",
+                  fontWeight: 500,
                 }}
               >
                 Terms of Service
@@ -1421,11 +1549,12 @@ function GirisPageContent() {
                   background: "none",
                   border: "none",
                   padding: 0,
-                  color: "#a1a1aa",
+                  color: t.footerLink,
                   textDecoration: "underline",
                   cursor: "pointer",
                   fontFamily: "inherit",
                   fontSize: "inherit",
+                  fontWeight: 500,
                 }}
               >
                 Privacy Policy
@@ -1445,15 +1574,15 @@ function GirisPageContent() {
             <div
               style={{
                 padding: "20px 24px",
-                borderBottom: "1px solid #27272a",
+                borderBottom: `1px solid ${t.modalHeaderBorder}`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
               }}
             >
               <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <i className="fa-solid fa-scale-balanced" style={{ color: "#a3b18a", fontSize: "1.1rem" }} />
-                <h3 style={{ margin: 0, fontSize: "1.1rem", fontWeight: 600, color: "#ffffff" }}>
+                <i className="fa-solid fa-scale-balanced" style={{ color: isDark ? "#a3b18a" : "#657e4e", fontSize: "1.1rem" }} />
+                <h3 style={{ margin: 0, fontSize: "1.1rem", fontWeight: 600, color: t.modalTitle }}>
                   MDT Terminal Kullanım Koşulları
                 </h3>
               </div>
@@ -1462,7 +1591,7 @@ function GirisPageContent() {
                 style={{
                   background: "none",
                   border: "none",
-                  color: "#71717a",
+                  color: t.textMuted,
                   cursor: "pointer",
                   fontSize: "1.1rem",
                   padding: "4px",
@@ -1471,22 +1600,22 @@ function GirisPageContent() {
                 ✕
               </button>
             </div>
-            <div style={{ padding: "20px 24px", overflowY: "auto", fontSize: "0.85rem", color: "#a1a1aa", lineHeight: 1.6 }}>
+            <div style={{ padding: "20px 24px", overflowY: "auto", fontSize: "0.85rem", color: t.modalText, lineHeight: 1.6 }}>
               <p style={{ marginTop: 0 }}>
                 Bu terminal, yalnızca Los Angeles Community Police Department (LACPD) bünyesinde aktif görev yapan yetkili
                 personel için tahsis edilmiş bir kolluk kuvveti bilgi sistemidir.
               </p>
-              <h4 style={{ color: "#f4f4f5", fontSize: "0.92rem", margin: "14px 0 6px" }}>1. Yetkisiz Erişim ve Güvenlik</h4>
+              <h4 style={{ color: t.textPrimary, fontSize: "0.92rem", margin: "14px 0 6px" }}>1. Yetkisiz Erişim ve Güvenlik</h4>
               <p>
                 Terminal üzerindeki tüm oturum açma girişimleri, yapılan sorgular, sicil aramaları ve girilen raporlar CJIS
                 standartlarına uygun olarak tarih, IP ve kullanıcı kimliğiyle kayıt altına alınmaktadır.
               </p>
-              <h4 style={{ color: "#f4f4f5", fontSize: "0.92rem", margin: "14px 0 6px" }}>2. Bilgi Gizliliği ve Paylaşım Yasağı</h4>
+              <h4 style={{ color: t.textPrimary, fontSize: "0.92rem", margin: "14px 0 6px" }}>2. Bilgi Gizliliği ve Paylaşım Yasağı</h4>
               <p>
                 MDT sistemi içerisindeki şahıs kayıtları, ceza puanları, araç sorguları ve taktik planlar gizlilik derecelidir.
                 Üçüncü şahıslara veya departman dışına sızdırılması durumunda derhal ihraç ve adli soruşturma uygulanır.
               </p>
-              <h4 style={{ color: "#f4f4f5", fontSize: "0.92rem", margin: "14px 0 6px" }}>3. Yüksek Komuta Denetimi</h4>
+              <h4 style={{ color: t.textPrimary, fontSize: "0.92rem", margin: "14px 0 6px" }}>3. Yüksek Komuta Denetimi</h4>
               <p>
                 Yüksek Komuta kademesi, gerektiğinde herhangi bir personelin terminal yetkilerini askıya alma, raporlarını
                 denetleme ve mesai saatlerini teftiş etme hakkını saklı tutar.
@@ -1495,7 +1624,7 @@ function GirisPageContent() {
             <div
               style={{
                 padding: "14px 24px",
-                borderTop: "1px solid #27272a",
+                borderTop: `1px solid ${t.modalHeaderBorder}`,
                 display: "flex",
                 justifyContent: "flex-end",
               }}
@@ -1521,15 +1650,15 @@ function GirisPageContent() {
             <div
               style={{
                 padding: "20px 24px",
-                borderBottom: "1px solid #27272a",
+                borderBottom: `1px solid ${t.modalHeaderBorder}`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
               }}
             >
               <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <i className="fa-solid fa-user-shield" style={{ color: "#a3b18a", fontSize: "1.1rem" }} />
-                <h3 style={{ margin: 0, fontSize: "1.1rem", fontWeight: 600, color: "#ffffff" }}>
+                <i className="fa-solid fa-user-shield" style={{ color: isDark ? "#a3b18a" : "#657e4e", fontSize: "1.1rem" }} />
+                <h3 style={{ margin: 0, fontSize: "1.1rem", fontWeight: 600, color: t.modalTitle }}>
                   MDT Veri Gizliliği Politikası
                 </h3>
               </div>
@@ -1538,7 +1667,7 @@ function GirisPageContent() {
                 style={{
                   background: "none",
                   border: "none",
-                  color: "#71717a",
+                  color: t.textMuted,
                   cursor: "pointer",
                   fontSize: "1.1rem",
                   padding: "4px",
@@ -1547,16 +1676,16 @@ function GirisPageContent() {
                 ✕
               </button>
             </div>
-            <div style={{ padding: "20px 24px", overflowY: "auto", fontSize: "0.85rem", color: "#a1a1aa", lineHeight: 1.6 }}>
+            <div style={{ padding: "20px 24px", overflowY: "auto", fontSize: "0.85rem", color: t.modalText, lineHeight: 1.6 }}>
               <p style={{ marginTop: 0 }}>
                 Los Angeles Community (LACPD), personelinin ve terminal verilerinin mahremiyetine en üst düzeyde önem verir.
               </p>
-              <h4 style={{ color: "#f4f4f5", fontSize: "0.92rem", margin: "14px 0 6px" }}>Toplanan Veriler</h4>
+              <h4 style={{ color: t.textPrimary, fontSize: "0.92rem", margin: "14px 0 6px" }}>Toplanan Veriler</h4>
               <p>
                 Discord OAuth2 doğrulaması sırasında yalnızca Discord ID, global kullanıcı adı ve profil avatarı alınır.
                 Şifre veya özel mesajlarınız kesinlikle sisteme aktarılmaz.
               </p>
-              <h4 style={{ color: "#f4f4f5", fontSize: "0.92rem", margin: "14px 0 6px" }}>Kullanım Amacı</h4>
+              <h4 style={{ color: t.textPrimary, fontSize: "0.92rem", margin: "14px 0 6px" }}>Kullanım Amacı</h4>
               <p>
                 Toplanan sicil ve devriye kayıtları yalnızca rol içi asayiş yönetimi, raporlama ve rütbe terfi süreçlerinde
                 departman içi denetim için kullanılır. Reklam veya ticari amaçlarla asla paylaşılamaz.
@@ -1565,7 +1694,7 @@ function GirisPageContent() {
                 <Link
                   href="/gizlilik"
                   target="_blank"
-                  style={{ color: "#a3b18a", textDecoration: "underline", fontSize: "0.82rem" }}
+                  style={{ color: isDark ? "#a3b18a" : "#657e4e", textDecoration: "underline", fontSize: "0.82rem", fontWeight: 500 }}
                 >
                   Genel Departman Gizlilik Politikasını Görüntüle →
                 </Link>
@@ -1574,7 +1703,7 @@ function GirisPageContent() {
             <div
               style={{
                 padding: "14px 24px",
-                borderTop: "1px solid #27272a",
+                borderTop: `1px solid ${t.modalHeaderBorder}`,
                 display: "flex",
                 justifyContent: "flex-end",
               }}
@@ -1593,22 +1722,22 @@ function GirisPageContent() {
 
       {/* ═════════════════════════════════════════════════════
           MODAL: HELP & GUIDE (MDT KILAVUZU & YARDIM)
-         ═════════════════════════════════════════════════════ */}
+         ═════════════════════════════════════════════════ */}
       {activeModal === "help" && (
         <div className="modal-overlay" onClick={() => setActiveModal(null)}>
           <div className="modal-card" onClick={(e) => e.stopPropagation()}>
             <div
               style={{
                 padding: "20px 24px",
-                borderBottom: "1px solid #27272a",
+                borderBottom: `1px solid ${t.modalHeaderBorder}`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
               }}
             >
               <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <i className="fa-solid fa-circle-question" style={{ color: "#a3b18a", fontSize: "1.1rem" }} />
-                <h3 style={{ margin: 0, fontSize: "1.1rem", fontWeight: 600, color: "#ffffff" }}>
+                <i className="fa-solid fa-circle-question" style={{ color: isDark ? "#a3b18a" : "#657e4e", fontSize: "1.1rem" }} />
+                <h3 style={{ margin: 0, fontSize: "1.1rem", fontWeight: 600, color: t.modalTitle }}>
                   MDT Erişim & Kayıt Kılavuzu
                 </h3>
               </div>
@@ -1617,7 +1746,7 @@ function GirisPageContent() {
                 style={{
                   background: "none",
                   border: "none",
-                  color: "#71717a",
+                  color: t.textMuted,
                   cursor: "pointer",
                   fontSize: "1.1rem",
                   padding: "4px",
@@ -1626,7 +1755,7 @@ function GirisPageContent() {
                 ✕
               </button>
             </div>
-            <div style={{ padding: "20px 24px", overflowY: "auto", fontSize: "0.85rem", color: "#a1a1aa", lineHeight: 1.6 }}>
+            <div style={{ padding: "20px 24px", overflowY: "auto", fontSize: "0.85rem", color: t.modalText, lineHeight: 1.6 }}>
               <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
                 <div style={{ display: "flex", gap: "12px" }}>
                   <div
@@ -1634,8 +1763,8 @@ function GirisPageContent() {
                       width: 26,
                       height: 26,
                       borderRadius: "50%",
-                      backgroundColor: "rgba(163, 177, 138, 0.2)",
-                      color: "#a3b18a",
+                      backgroundColor: isDark ? "rgba(163, 177, 138, 0.2)" : "rgba(101, 126, 78, 0.15)",
+                      color: isDark ? "#a3b18a" : "#657e4e",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -1647,7 +1776,7 @@ function GirisPageContent() {
                     1
                   </div>
                   <div>
-                    <strong style={{ color: "#ffffff" }}>Discord Yetkilendirmesi</strong>
+                    <strong style={{ color: t.textPrimary }}>Discord Yetkilendirmesi</strong>
                     <div style={{ fontSize: "0.8rem", marginTop: "2px" }}>
                       &quot;Discord ile Giriş Yap&quot; butonuna basarak resmi topluluk sunucumuzdaki hesabınızı doğrulayın.
                     </div>
@@ -1660,8 +1789,8 @@ function GirisPageContent() {
                       width: 26,
                       height: 26,
                       borderRadius: "50%",
-                      backgroundColor: "rgba(163, 177, 138, 0.2)",
-                      color: "#a3b18a",
+                      backgroundColor: isDark ? "rgba(163, 177, 138, 0.2)" : "rgba(101, 126, 78, 0.15)",
+                      color: isDark ? "#a3b18a" : "#657e4e",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -1673,7 +1802,7 @@ function GirisPageContent() {
                     2
                   </div>
                   <div>
-                    <strong style={{ color: "#ffffff" }}>Personel Sicil Tanımlama</strong>
+                    <strong style={{ color: t.textPrimary }}>Personel Sicil Tanımlama</strong>
                     <div style={{ fontSize: "0.8rem", marginTop: "2px" }}>
                       İlk girişinizde IC İsim Soyisim, Rozet Numarası, Rütbe ve Departman bilgilerinizi sisteme kaydedin.
                     </div>
@@ -1686,8 +1815,8 @@ function GirisPageContent() {
                       width: 26,
                       height: 26,
                       borderRadius: "50%",
-                      backgroundColor: "rgba(163, 177, 138, 0.2)",
-                      color: "#a3b18a",
+                      backgroundColor: isDark ? "rgba(163, 177, 138, 0.2)" : "rgba(101, 126, 78, 0.15)",
+                      color: isDark ? "#a3b18a" : "#657e4e",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -1699,7 +1828,7 @@ function GirisPageContent() {
                     3
                   </div>
                   <div>
-                    <strong style={{ color: "#ffffff" }}>Yüksek Komuta Onayı</strong>
+                    <strong style={{ color: t.textPrimary }}>Yüksek Komuta Onayı</strong>
                     <div style={{ fontSize: "0.8rem", marginTop: "2px" }}>
                       Başvurunuz Yüksek Komuta paneline düşer. İnceleme onaylandığında terminale tam erişim sağlarsınız.
                     </div>
@@ -1712,14 +1841,14 @@ function GirisPageContent() {
                   marginTop: "1.5rem",
                   padding: "12px",
                   borderRadius: "8px",
-                  backgroundColor: "#18181b",
-                  border: "1px solid #27272a",
+                  backgroundColor: t.cardBg,
+                  border: `1px solid ${t.cardBorder}`,
                 }}
               >
-                <div style={{ color: "#d4d4d8", fontWeight: 600, marginBottom: "4px" }}>
+                <div style={{ color: t.textPrimary, fontWeight: 600, marginBottom: "4px" }}>
                   Acil Destek Gerekiyor mu?
                 </div>
-                <div style={{ fontSize: "0.78rem" }}>
+                <div style={{ fontSize: "0.78rem", color: t.textSecondary }}>
                   Discord sunucumuzdaki <code>#ticket-destek</code> kanalından Yüksek Komuta yetkililerine ulaşabilirsiniz.
                 </div>
               </div>
@@ -1727,7 +1856,7 @@ function GirisPageContent() {
             <div
               style={{
                 padding: "14px 24px",
-                borderTop: "1px solid #27272a",
+                borderTop: `1px solid ${t.modalHeaderBorder}`,
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
