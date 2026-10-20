@@ -2,6 +2,7 @@ export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { jwtVerify, getJwtSecret } from '@/lib/session-verify';
+import { invalidateCache } from '@/lib/api-cache';
 
 export async function DELETE(req: Request) {
   try {
@@ -18,6 +19,7 @@ export async function DELETE(req: Request) {
 
     // Mesai kayıtlarını sıfırla (Bütün TimeLog kayıtlarını sil)
     await prisma.timeLog.deleteMany({});
+    invalidateCache('shifts');
     
     return NextResponse.json({ success: true, message: 'Tüm mesai süreleri başarıyla sıfırlandı.' });
   } catch (error) {

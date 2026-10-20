@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { cookies } from 'next/headers';
 import { jwtVerify, getJwtSecret } from '@/lib/session-verify';
+import { invalidateCache } from '@/lib/api-cache';
 
 async function getUser() {
   const cookieStore = cookies();
@@ -11,7 +12,7 @@ async function getUser() {
   try {
     const secret = getJwtSecret();
     const { payload } = await jwtVerify(token, secret);
-    return payload as any;
+    return payload;
   } catch {
     return null;
   }
@@ -26,6 +27,7 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
     where: { id: parseInt(params.id) },
     data: { status }
   });
+  invalidateCache('leaves');
   return NextResponse.json(updated);
 }
 
@@ -34,5 +36,6 @@ export async function DELETE(_req: Request, { params }: { params: { id: string }
   if (!user || user.role !== 'admin') return NextResponse.json({ message: 'Yetkisiz' }, { status: 401 });
 
   await prisma.leaveRequest.delete({ where: { id: parseInt(params.id) } });
+  invalidateCache('leaves');
   return NextResponse.json({ message: 'Silindi' });
 }

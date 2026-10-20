@@ -2,6 +2,7 @@ export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { jwtVerify, getJwtSecret } from '@/lib/session-verify';
+import { invalidateCache } from '@/lib/api-cache';
 
 export async function DELETE(req: Request, { params }: { params: { id: string } }) {
   try {
@@ -18,6 +19,7 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
 
     const id = parseInt(params.id);
     await prisma.announcement.delete({ where: { id } });
+    invalidateCache('announcements');
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: 'Duyuru silinemedi.' }, { status: 500 });
@@ -49,6 +51,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
       }
     });
     
+    invalidateCache('announcements');
     return NextResponse.json({ success: true, announcement: updatedAnnouncement });
   } catch (error) {
     return NextResponse.json({ error: 'Duyuru güncellenemedi.' }, { status: 500 });

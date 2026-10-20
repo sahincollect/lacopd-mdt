@@ -2,6 +2,7 @@ export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { jwtVerify, getJwtSecret } from '@/lib/session-verify';
+import { getOrSetCache, invalidateCache } from '@/lib/api-cache';
 
 const getUser = async (req: Request) => {
   const cookie = req.headers.get('cookie') || '';
@@ -18,8 +19,10 @@ const getUser = async (req: Request) => {
 
 export async function GET() {
   try {
-    const regulations = await (prisma as any).regulation.findMany({
-      orderBy: { createdAt: 'desc' },
+    const regulations = await getOrSetCache('regulations:all', 60_000, async () => {
+      return (prisma as any).regulation.findMany({
+        orderBy: { createdAt: 'desc' },
+      });
     });
     return NextResponse.json({ regulations });
   } catch (err: any) {
@@ -40,6 +43,7 @@ export async function POST(req: Request) {
     const reg = await (prisma as any).regulation.create({
       data: { title, content, authorId: Number(user.id) },
     });
+    invalidateCache('regulations');
     return NextResponse.json({ success: true, regulation: reg }, { status: 201 });
   } catch (err: any) {
     console.error('Regulation POST error:', err);

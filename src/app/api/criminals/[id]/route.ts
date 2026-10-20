@@ -2,6 +2,7 @@ export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { jwtVerify, getJwtSecret } from '@/lib/session-verify';
+import { invalidateCache } from '@/lib/api-cache';
 
 export async function DELETE(req: Request, { params }: { params: { id: string } }) {
   try {
@@ -22,6 +23,7 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
     }
 
     await prisma.criminalRecord.delete({ where: { id } });
+    invalidateCache('criminals');
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: 'Kayıt silinemedi.' }, { status: 500 });
@@ -60,7 +62,8 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
       where: { id },
       data: updateData
     });
-    
+
+    invalidateCache('criminals');
     return NextResponse.json({ success: true, criminal: updatedCriminal });
   } catch (error) {
     return NextResponse.json({ error: 'Kayıt güncellenemedi.' }, { status: 500 });

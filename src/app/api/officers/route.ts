@@ -2,31 +2,34 @@ export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
-
 import { jwtVerify, getJwtSecret, getAuthedOfficer } from '@/lib/session-verify';
+import { getOrSetCache, invalidateCache } from '@/lib/api-cache';
 
 export async function GET(req: Request) {
   try {
-    // Acik alanlarda (hakkimizda vb.) kullanildigi icin giris zorunlu degil; ancak giris yapmamis
-    // ziyaretciler SADECE onayli (APPROVED) memurlari gorur. PENDING/REJECTED yalnizca adminlere.
     const viewer = await getAuthedOfficer(req);
     const isAdmin = viewer?.role === 'admin';
-    const officers = await prisma.officer.findMany({
-      where: isAdmin ? undefined : { status: 'APPROVED' },
-      orderBy: { createdAt: 'desc' },
-      select: {
-        id: true,
-        badge: true,
-        name: true,
-        rank: true,
-        department: true,
-        isOnDuty: true,
-        role: true,
-        status: true,
-        specialRoles: true,
-        profileImage: true
-      }
+    const cacheKey = isAdmin ? 'officers:admin' : 'officers:public';
+
+    const officers = await getOrSetCache(cacheKey, 15_000, async () => {
+      return prisma.officer.findMany({
+        where: isAdmin ? undefined : { status: 'APPROVED' },
+        orderBy: { createdAt: 'desc' },
+        select: {
+          id: true,
+          badge: true,
+          name: true,
+          rank: true,
+          department: true,
+          isOnDuty: true,
+          role: true,
+          status: true,
+          specialRoles: true,
+          profileImage: true
+        }
+      });
     });
+
     return NextResponse.json({ officers });
   } catch (error) {
     console.error('Officers fetch error:', error);
@@ -43,8 +46,7 @@ export async function POST(req: Request) {
     const secret = getJwtSecret();
     const { payload } = await jwtVerify(token, secret);
 
-    const requester = await prisma.officer.findUnique({ where: { id: payload.id as number } });
-    if (!requester || requester.role !== 'admin') {
+    if (payload.role !== 'admin') {
       return NextResponse.json({ error: 'Bu işlem için yönetici yetkisi gereklidir.' }, { status: 403 });
     }
     const body = await req.json();
@@ -75,6 +77,9 @@ export async function POST(req: Request) {
         specialRoles: body.specialRoles || ""
       }
     });
+
+    invalidateCache('officers');
+    invalidateCache('shifts');
 
     return NextResponse.json({ success: true, officer }, { status: 201 });
   } catch (error) {

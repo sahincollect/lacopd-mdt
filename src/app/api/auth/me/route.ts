@@ -1,44 +1,18 @@
 export const dynamic = 'force-dynamic';
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { jwtVerify } from '@/lib/session-verify';
-import { prisma } from "@/lib/prisma";
-import { getJwtSecret } from "@/lib/auth-config";
+import { getAuthedOfficerWithDetails } from '@/lib/session-verify';
 
 export async function GET(req: NextRequest) {
   try {
-    const token = req.cookies.get("auth_token")?.value;
-
-    if (!token) {
-      return NextResponse.json({ message: "Oturum açılmamış." }, { status: 401 });
-    }
-
-    const secret = getJwtSecret();
-    const { payload } = await jwtVerify(token, secret);
-
-    const officer = await prisma.officer.findUnique({
-      where: { id: payload.id as number },
-      select: {
-        id: true,
-        badge: true,
-        name: true,
-        rank: true,
-        department: true,
-        role: true,
-        isOnDuty: true,
-        specialRoles: true,
-        discordRoles: true,
-        profileImage: true,
-        createdAt: true,
-      },
-    });
+    const officer = await getAuthedOfficerWithDetails(req);
 
     if (!officer) {
-      return NextResponse.json({ message: "Kullanıcı bulunamadı." }, { status: 404 });
+      return NextResponse.json({ message: "Oturum açılmamış veya hesap onaylanmamış." }, { status: 401 });
     }
 
     return NextResponse.json({ user: officer }, { status: 200 });
   } catch {
-    return NextResponse.json({ message: "Geçersiz token." }, { status: 401 });
+    return NextResponse.json({ message: "Geçersiz oturum." }, { status: 401 });
   }
 }

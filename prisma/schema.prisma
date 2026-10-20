@@ -31,6 +31,9 @@ model Officer {
   SentMessages     Message[] @relation("SentMessages")
   ReceivedMessages Message[] @relation("ReceivedMessages")
   Tahsisler        Tahsis[]
+
+  @@index([status])
+  @@index([isOnDuty])
 }
 
 model TimeLog {
@@ -39,6 +42,9 @@ model TimeLog {
   officer   Officer   @relation(fields: [officerId], references: [id])
   startTime DateTime  @default(now())
   endTime   DateTime?
+
+  @@index([officerId, endTime])
+  @@index([startTime])
 }
 
 model Report {
@@ -53,6 +59,9 @@ model Report {
   formData    String?  @db.Text
   diagramData String?  @db.Text
   createdAt   DateTime @default(now())
+
+  @@index([officerId])
+  @@index([createdAt])
 }
 
 model LeaveRequest {
@@ -67,6 +76,10 @@ model LeaveRequest {
   dayCount  Int
   status    String   @default("Bekliyor") // "Bekliyor", "Onaylandı", "Reddedildi"
   createdAt DateTime @default(now())
+
+  @@index([officerId])
+  @@index([status])
+  @@index([createdAt])
 }
 
 model Announcement {
@@ -77,6 +90,9 @@ model Announcement {
   authorId  Int
   author    Officer  @relation(fields: [authorId], references: [id])
   createdAt DateTime @default(now())
+
+  @@index([authorId])
+  @@index([createdAt])
 }
 
 model CriminalRecord {
@@ -88,6 +104,9 @@ model CriminalRecord {
   officerId Int
   officer   Officer  @relation(fields: [officerId], references: [id])
   createdAt DateTime @default(now())
+
+  @@index([officerId])
+  @@index([createdAt])
 }
 
 model SiteImage {
@@ -103,6 +122,8 @@ model Regulation {
   content   String   @db.Text
   authorId  Int
   createdAt DateTime @default(now())
+
+  @@index([createdAt])
 }
 
 model Message {
@@ -114,6 +135,10 @@ model Message {
   content     String   @db.Text
   createdAt   DateTime @default(now())
   isRead      Boolean  @default(false)
+
+  @@index([receiverId, isRead])
+  @@index([senderId, receiverId])
+  @@index([createdAt])
 }
 
 model FileStorage {
@@ -135,6 +160,9 @@ model CivilApplication {
   content     String   @db.Text  // JSON with form-specific fields
   status      String   @default("Bekliyor") // "Bekliyor", "Inceleniyor", "Onaylandi", "Reddedildi"
   createdAt   DateTime @default(now())
+
+  @@index([type, status])
+  @@index([createdAt])
 }
 
 model Tahsis {
@@ -152,6 +180,8 @@ model Tahsis {
   vehiclePlate   String?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+
+  @@index([officerId])
 }
 
 model SystemSetting {
@@ -167,5 +197,7 @@ model LoginLog {
   ipAddress String
   success   Boolean
   createdAt DateTime @default(now())
-}
 
+  @@index([badge])
+  @@index([createdAt])
+}

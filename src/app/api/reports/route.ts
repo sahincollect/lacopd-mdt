@@ -2,6 +2,7 @@ export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { jwtVerify, getJwtSecret } from '@/lib/session-verify';
+import { getOrSetCache, invalidateCache } from '@/lib/api-cache';
 
 export async function GET(req: Request) {
   try {
@@ -12,21 +13,24 @@ export async function GET(req: Request) {
     const secret = getJwtSecret();
     await jwtVerify(token, secret);
 
-    const reports = await prisma.report.findMany({
-      where: {
-        NOT: {
-          title: {
-            startsWith: '[APP]'
+    const reports = await getOrSetCache('reports:all', 15_000, async () => {
+      return prisma.report.findMany({
+        where: {
+          NOT: {
+            title: {
+              startsWith: '[APP]'
+            }
+          }
+        },
+        orderBy: { createdAt: 'desc' },
+        include: {
+          officer: {
+            select: { id: true, badge: true, name: true, rank: true }
           }
         }
-      },
-      orderBy: { createdAt: 'desc' },
-      include: {
-        officer: {
-          select: { id: true, badge: true, name: true, rank: true }
-        }
-      }
+      });
     });
+
     return NextResponse.json({ reports });
   } catch (error) {
     return NextResponse.json({ error: 'Raporlar getirilemedi veya yetkisiz erişim.' }, { status: 401 });
@@ -58,8 +62,10 @@ export async function POST(req: Request) {
       }
     });
 
+    invalidateCache('reports');
+
     return NextResponse.json({ success: true, report }, { status: 201 });
   } catch (error) {
-    return NextResponse.json({ error: 'Rapor eklenirken hata oluştu.' }, { status: 500 });
+    return NextResponse.json({ error: 'Rapor kaydedilemedi.' }, { status: 500 });
   }
 }

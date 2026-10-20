@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAuthedOfficer } from "@/lib/session-verify";
+import { getOrSetCache, invalidateCache } from "@/lib/api-cache";
 
 const SETTING_KEY = "tactical_plans_v2";
 
@@ -26,24 +27,26 @@ const DEFAULT_PLANS = [
 ];
 
 async function getPlans() {
-  try {
-    const record = await prisma.systemSetting.findUnique({
-      where: { key: SETTING_KEY },
-    });
-    if (!record || !record.value) {
-      await prisma.systemSetting.upsert({
+  return getOrSetCache('tactical:plans', 15_000, async () => {
+    try {
+      const record = await prisma.systemSetting.findUnique({
         where: { key: SETTING_KEY },
-        update: { value: JSON.stringify(DEFAULT_PLANS) },
-        create: { key: SETTING_KEY, value: JSON.stringify(DEFAULT_PLANS) },
       });
+      if (!record || !record.value) {
+        await prisma.systemSetting.upsert({
+          where: { key: SETTING_KEY },
+          update: { value: JSON.stringify(DEFAULT_PLANS) },
+          create: { key: SETTING_KEY, value: JSON.stringify(DEFAULT_PLANS) },
+        });
+        return DEFAULT_PLANS;
+      }
+      const parsed = JSON.parse(record.value);
+      return Array.isArray(parsed) && parsed.length > 0 ? parsed : DEFAULT_PLANS;
+    } catch (err) {
+      console.error("getPlans error:", err);
       return DEFAULT_PLANS;
     }
-    const parsed = JSON.parse(record.value);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : DEFAULT_PLANS;
-  } catch (err) {
-    console.error("getPlans error:", err);
-    return DEFAULT_PLANS;
-  }
+  });
 }
 
 async function savePlans(plans: any[]) {
@@ -52,6 +55,7 @@ async function savePlans(plans: any[]) {
     update: { value: JSON.stringify(plans) },
     create: { key: SETTING_KEY, value: JSON.stringify(plans) },
   });
+  invalidateCache('tactical');
 }
 
 export async function GET(req: NextRequest) {

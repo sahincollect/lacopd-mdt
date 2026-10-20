@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { cookies } from 'next/headers';
 import { jwtVerify, getJwtSecret } from '@/lib/session-verify';
+import { getOrSetCache, invalidateCache } from '@/lib/api-cache';
 
 async function getUser() {
   const cookieStore = cookies();
@@ -11,7 +12,7 @@ async function getUser() {
   try {
     const secret = getJwtSecret();
     const { payload } = await jwtVerify(token, secret);
-    return payload as any;
+    return payload;
   } catch {
     return null;
   }
@@ -21,10 +22,13 @@ export async function GET() {
   const user = await getUser();
   if (!user) return NextResponse.json({ message: 'Yetkisiz' }, { status: 401 });
 
-  const requests = await prisma.leaveRequest.findMany({
-    orderBy: { createdAt: 'desc' },
-    include: { officer: { select: { name: true, badge: true, rank: true } } }
+  const requests = await getOrSetCache('leaves:all', 15_000, async () => {
+    return prisma.leaveRequest.findMany({
+      orderBy: { createdAt: 'desc' },
+      include: { officer: { select: { name: true, badge: true, rank: true } } }
+    });
   });
+
   return NextResponse.json(requests);
 }
 
@@ -38,12 +42,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: 'Tüm alanlar zorunludur.' }, { status: 400 });
   }
 
-  const officer = await prisma.officer.findUnique({ where: { id: user.id } });
-  if (!officer) return NextResponse.json({ message: 'Memur bulunamadı.' }, { status: 404 });
-
   const request = await prisma.leaveRequest.create({
     data: {
-      officerId: user.id,
+      officerId: Number(user.id),
       badge,
       fullName,
       reason,
@@ -53,6 +54,8 @@ export async function POST(req: Request) {
       status: 'Bekliyor'
     }
   });
+
+  invalidateCache('leaves');
 
   return NextResponse.json(request, { status: 201 });
 }

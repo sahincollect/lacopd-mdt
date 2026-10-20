@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getAuthedOfficer } from '@/lib/session-verify';
+import { getOrSetCache, invalidateCache } from '@/lib/api-cache';
 
 // Sistem ayarlari yalnizca giris yapmis Yuksek Komuta (admin) tarafindan okunup yazilabilir.
 async function requireAdmin(req: Request) {
@@ -19,10 +20,15 @@ export async function GET(req: NextRequest) {
   try {
     const key = req.nextUrl.searchParams.get('key');
     if (key) {
-      const setting = await prisma.systemSetting.findUnique({ where: { key } });
-      return NextResponse.json({ success: true, data: setting ? setting.value : null });
+      const data = await getOrSetCache(`settings:${key}`, 30_000, async () => {
+        const setting = await prisma.systemSetting.findUnique({ where: { key } });
+        return setting ? setting.value : null;
+      });
+      return NextResponse.json({ success: true, data });
     }
-    const settings = await prisma.systemSetting.findMany();
+    const settings = await getOrSetCache('settings:all', 30_000, async () => {
+      return prisma.systemSetting.findMany();
+    });
     return NextResponse.json({ success: true, data: settings });
   } catch (error) {
     console.error('GET /api/settings error:', error);
@@ -46,6 +52,7 @@ export async function POST(req: NextRequest) {
       update: { value },
       create: { key, value },
     });
+    invalidateCache('settings');
     return NextResponse.json({ success: true, data: setting });
   } catch (error) {
     console.error('POST /api/settings error:', error);

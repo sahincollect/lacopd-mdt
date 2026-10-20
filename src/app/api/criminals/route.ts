@@ -2,6 +2,7 @@ export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { jwtVerify, getJwtSecret } from '@/lib/session-verify';
+import { getOrSetCache, invalidateCache } from '@/lib/api-cache';
 
 export async function GET(req: Request) {
   try {
@@ -12,14 +13,17 @@ export async function GET(req: Request) {
     const secret = getJwtSecret();
     await jwtVerify(token, secret);
 
-    const criminals = await prisma.criminalRecord.findMany({
-      orderBy: { createdAt: 'desc' },
-      include: {
-        officer: {
-          select: { badge: true, name: true }
+    const criminals = await getOrSetCache('criminals:all', 15_000, async () => {
+      return prisma.criminalRecord.findMany({
+        orderBy: { createdAt: 'desc' },
+        include: {
+          officer: {
+            select: { badge: true, name: true }
+          }
         }
-      }
+      });
     });
+
     return NextResponse.json({ criminals });
   } catch (error) {
     return NextResponse.json({ error: 'Suçlu verileri getirilemedi veya yetkisiz erişim.' }, { status: 401 });
@@ -53,6 +57,8 @@ export async function POST(req: Request) {
         officerId: payload.id as number
       }
     });
+
+    invalidateCache('criminals');
 
     return NextResponse.json({ success: true, criminal }, { status: 201 });
   } catch (error) {

@@ -2,6 +2,7 @@ export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { jwtVerify, getJwtSecret } from '@/lib/session-verify';
+import { invalidateCache } from '@/lib/api-cache';
 
 const getUser = async (req: Request) => {
   const cookie = req.headers.get('cookie') || '';
@@ -23,6 +24,7 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
 
   try {
     await (prisma as any).regulation.delete({ where: { id: Number(params.id) } });
+    invalidateCache('regulations');
     return NextResponse.json({ success: true });
   } catch (err: any) {
     console.error('Regulation DELETE error:', err);
@@ -41,6 +43,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
       where: { id: Number(params.id) },
       data: { title, content },
     });
+    invalidateCache('regulations');
     return NextResponse.json({ success: true, regulation: reg });
   } catch (err: any) {
     console.error('Regulation PUT error:', err);

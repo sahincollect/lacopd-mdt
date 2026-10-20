@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { safeEqual } from '@/lib/auth-config';
+import { invalidateCache } from '@/lib/api-cache';
+import { invalidateOfficerSessionCache } from '@/lib/session-verify';
 
 export async function POST(req: Request) {
   try {
@@ -55,6 +57,9 @@ export async function POST(req: Request) {
         data: { endTime: new Date() }
       });
     }
+
+    invalidateCache('shifts');
+    invalidateOfficerSessionCache(officer.id);
 
     return NextResponse.json({ 
       success: true, 

@@ -2,17 +2,21 @@ export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { jwtVerify, getJwtSecret } from '@/lib/session-verify';
+import { getOrSetCache, invalidateCache } from '@/lib/api-cache';
 
 export async function GET() {
   try {
-    const announcements = await prisma.announcement.findMany({
-      orderBy: { createdAt: 'desc' },
-      include: {
-        author: {
-          select: { badge: true, name: true, rank: true }
+    const announcements = await getOrSetCache('announcements:all', 30_000, async () => {
+      return prisma.announcement.findMany({
+        orderBy: { createdAt: 'desc' },
+        include: {
+          author: {
+            select: { badge: true, name: true, rank: true }
+          }
         }
-      }
+      });
     });
+
     return NextResponse.json({ announcements });
   } catch (error) {
     return NextResponse.json({ error: 'Duyurular getirilemedi.' }, { status: 500 });
@@ -49,6 +53,8 @@ export async function POST(req: Request) {
         authorId: Number(payload.id)
       }
     });
+
+    invalidateCache('announcements');
 
     return NextResponse.json({ success: true, announcement }, { status: 201 });
   } catch (error: any) {

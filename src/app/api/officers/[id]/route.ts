@@ -2,8 +2,8 @@ export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
-
-import { jwtVerify, getJwtSecret } from '@/lib/session-verify';
+import { jwtVerify, getJwtSecret, invalidateOfficerSessionCache } from '@/lib/session-verify';
+import { invalidateCache } from '@/lib/api-cache';
 
 export async function GET(req: Request, { params }: { params: { id: string } }) {
   try {
@@ -38,8 +38,7 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
     const secret = getJwtSecret();
     const { payload } = await jwtVerify(token, secret);
 
-    const requester = await prisma.officer.findUnique({ where: { id: payload.id as number } });
-    if (!requester || requester.role !== 'admin') {
+    if (payload.role !== 'admin') {
       return NextResponse.json({ error: 'Bu işlem için yönetici yetkisi gereklidir.' }, { status: 403 });
     }
 
@@ -53,6 +52,8 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
     await prisma.criminalRecord.deleteMany({ where: { officerId: id } });
 
     await prisma.officer.delete({ where: { id } });
+    invalidateOfficerSessionCache(id);
+    invalidateCache('shifts');
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Officer delete error:', error);
@@ -69,13 +70,10 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
     const secret = getJwtSecret();
     const { payload } = await jwtVerify(token, secret);
     
-    const requesterId = payload.id as number;
-    const requester = await prisma.officer.findUnique({ where: { id: requesterId } });
-    if (!requester) return NextResponse.json({ error: 'Yetkisiz erişim.' }, { status: 401 });
-    const requesterRole = requester.role;
+    const requesterId = payload.id;
+    const requesterRole = payload.role;
 
     const targetId = parseInt(params.id);
-
     if (isNaN(targetId)) return NextResponse.json({ error: 'Geçersiz ID.' }, { status: 400 });
 
     const body = await req.json();
@@ -91,7 +89,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 
     // Mesai toggle mantığı
     if (typeof body.isOnDuty === 'boolean') {
-      const officer = await prisma.officer.findUnique({ where: { id: targetId } });
+      const officer = await prisma.officer.findUnique({ where: { id: targetId }, select: { isOnDuty: true } });
       if (officer) {
         if (body.isOnDuty && !officer.isOnDuty) {
           const existingLog = await prisma.timeLog.findFirst({ where: { officerId: targetId, endTime: null } });
@@ -100,6 +98,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
           await prisma.timeLog.updateMany({ where: { officerId: targetId, endTime: null }, data: { endTime: new Date() } });
         }
       }
+      invalidateCache('shifts');
     }
 
     // Güncellenecek alanları hazırla
@@ -120,6 +119,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
     }
 
     const updatedOfficer = await prisma.officer.update({ where: { id: targetId }, data: updateData });
+    invalidateOfficerSessionCache(targetId);
     return NextResponse.json({ success: true, officer: updatedOfficer });
   } catch (error: any) {
     console.error('Officer PUT error:', error);
